@@ -15,35 +15,13 @@ endif
 let g:airline_fugitive_prefix = exists('g:airline_powerline_fonts')?'   ':'  '
 let g:airline_readonly_symbol = exists('g:airline_powerline_fonts')?'':'RO'
 let g:airline_linecolumn_prefix = exists('g:airline_powerline_fonts')?' ':':'
+let g:airline_theme = 'default'
 
 set laststatus=2
 
-let g:airline_colors = {
-      \ 'mode':           [ 'User2'        , '#00005f' , '#dfff00' , 17  , 190 , 'bold' ] ,
-      \ 'mode_seperator': [ 'User3'        , '#dfff00' , '#444444' , 190 , 238 , 'bold' ] ,
-      \ 'info':           [ 'User4'        , '#ffffff' , '#444444' , 255 , 238 , ''     ] ,
-      \ 'info_seperator': [ 'User5'        , '#444444' , '#202020' , 238 , 234 , 'bold' ] ,
-      \ 'statusline':     [ 'StatusLine'   , '#9cffd3' , '#202020' , 85  , 234 , ''     ] ,
-      \ 'statusline_nc':  [ 'StatusLineNC' , '#000000' , '#202020' , 232 , 234 , ''     ] ,
-      \ 'file':           [ 'User6'        , '#ff0000' , '#1c1c1c' , 160 , 233 , ''     ] ,
-      \ 'inactive':       [ 'User9'        , '#4e4e4e' , '#1c1c1c' , 239 , 234 , ''     ] ,
-      \ }
-
-let g:airline_colors_insert = {
-      \ 'mode':           [ 'User2'        , '#00005f' , '#00dfff' , 17  , 45  , 'bold' ] ,
-      \ 'mode_seperator': [ 'User3'        , '#00dfff' , '#005fff' , 45  , 27  , 'bold' ] ,
-      \ 'info':           [ 'User4'        , '#ffffff' , '#005fff' , 255 , 27  , ''     ] ,
-      \ 'info_seperator': [ 'User5'        , '#005fff' , '#000087' , 27  , 18  , 'bold' ] ,
-      \ 'statusline':     [ 'StatusLine'   , '#ffffff' , '#000080' , 15  , 17  , ''     ] ,
-      \ }
-
-let g:airline_colors_visual = {
-      \ 'mode':           [ 'User2'        , '#000000' , '#ffaf00' , 232 , 214 , 'bold' ] ,
-      \ 'mode_seperator': [ 'User3'        , '#ffaf00' , '#ff5f00' , 214 , 202 , 'bold' ] ,
-      \ 'info':           [ 'User4'        , '#000000' , '#ff5f00' , 232 , 202 , ''     ] ,
-      \ 'info_seperator': [ 'User5'        , '#000000' , '#5f0000' , 202 , 52  , 'bold' ] ,
-      \ 'statusline':     [ 'StatusLine'   , '#ffffff' , '#5f0000' , 15  , 52  , ''     ] ,
-      \ }
+let g:airline_colors_normal = g:airline#themes#{g:airline_theme}#normal
+let g:airline_colors_insert = g:airline#themes#{g:airline_theme}#insert
+let g:airline_colors_normal = g:airline#themes#{g:airline_theme}#normal
 
 function! s:highlight(colors)
   let cmd = printf('hi %s %s %s %s %s %s %s',
@@ -60,14 +38,14 @@ endfunction
 function! AirlineModePrefix()
   let l:mode = mode()
 
-  call <sid>highlight(g:airline_colors.statusline)
-  call <sid>highlight(g:airline_colors.statusline_nc)
-  call <sid>highlight(g:airline_colors.inactive)
-  call <sid>highlight(g:airline_colors.mode)
-  call <sid>highlight(g:airline_colors.mode_seperator)
-  call <sid>highlight(g:airline_colors.info)
-  call <sid>highlight(g:airline_colors.info_seperator)
-  call <sid>highlight(g:airline_colors.file)
+  call <sid>highlight(g:airline_colors_normal.statusline)
+  call <sid>highlight(g:airline_colors_normal.statusline_nc)
+  call <sid>highlight(g:airline_colors_normal.inactive)
+  call <sid>highlight(g:airline_colors_normal.mode)
+  call <sid>highlight(g:airline_colors_normal.mode_seperator)
+  call <sid>highlight(g:airline_colors_normal.info)
+  call <sid>highlight(g:airline_colors_normal.info_seperator)
+  call <sid>highlight(g:airline_colors_normal.file)
 
   if l:mode ==# "i" || l:mode ==# "R"
     call <sid>highlight(g:airline_colors_insert.statusline)

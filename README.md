@@ -25,6 +25,7 @@ there are a couple configuration values available:
 * `g:airline_right_sep`  the seperator used on the right side
 * `g:airline_enable_fugitive`  enable/disable fugitive integration
 * `g:airline_enable_syntastic`  enable/disable syntastic integration
+* `g:airline_theme'  change the theme, currently only `default` is available
 * `g:airline_powerline_fonts`  enable/disable usage of patched powerline font symbols
 
 # contributions
