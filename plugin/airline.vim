@@ -6,32 +6,23 @@ if !exists('g:airline_right_sep')
   let g:airline_right_sep="«"
 endif
 if !exists('g:airline_enable_fugitive')
-  let g:airline_enable_fugitive = get(g:, 'loaded_fugitive')
+  let g:airline_enable_fugitive = 1
 endif
 if !exists('g:airline_enable_syntastic')
-  let g:airline_enable_syntastic = get(g:, 'loaded_syntastic_plugin')
+  let g:airline_enable_syntastic = 1
 endif
 
 set laststatus=2
 
 function! s:highlight(colors)
-  let cmd = printf('hi %s', a:colors[0])
-  if a:colors[1] != ""
-    let cmd .= ' guifg=' . a:colors[1]
-  endif
-  if a:colors[2] != ""
-    let cmd .= ' guibg=' . a:colors[2]
-  endif
-  if a:colors[3] != ""
-    let cmd .= ' ctermfg=' . a:colors[3]
-  endif
-  if a:colors[4] != ""
-    let cmd .= ' ctermbg=' . a:colors[4]
-  endif
-  if a:colors[5] != ""
-    let cmd .= ' gui=' . a:colors[5]
-    let cmd .= ' term=' . a:colors[5]
-  endif
+  let cmd = printf('hi %s %s %s %s %s %s %s',
+        \ a:colors[0],
+        \ a:colors[1] != '' ? 'guifg='.a:colors[1] : '',
+        \ a:colors[2] != '' ? 'guibg='.a:colors[2] : '',
+        \ a:colors[3] != '' ? 'ctermfg='.a:colors[3] : '',
+        \ a:colors[4] != '' ? 'ctermbg='.a:colors[4] : '',
+        \ a:colors[5] != '' ? 'gui='.a:colors[5] : '',
+        \ a:colors[5] != '' ? 'term='.a:colors[5] : '')
   exec cmd
 endfunction
 
@@ -42,7 +33,7 @@ let g:airline_colors = {
       \ 'info_seperator': [ 'User5'        , '#444444' , '#202020' , 238 , 234 , 'bold' ] ,
       \ 'statusline':     [ 'StatusLine'   , '#9cffd3' , '#202020' , 85  , 234 , ''     ] ,
       \ 'statusline_nc':  [ 'StatusLineNC' , '#000000' , '#202020' , 232 , 234 , ''     ] ,
-      \ 'file':           [ 'User9'        , '#ff0000' , '#1c1c1c' , 160 , 233 , ''     ] ,
+      \ 'file':           [ 'User6'        , '#ff0000' , '#1c1c1c' , 160 , 233 , ''     ] ,
       \ 'inactive':       [ 'User8'        , '#4e4e4e' , '#1c1c1c' , 239 , 234 , ''     ] ,
       \ }
 
@@ -116,13 +107,11 @@ function! s:update_statusline(active)
   let l:info_color = a:active ? "%4*" : "%8*"
   let l:info_sep_color = a:active ? "%5*" : "%8*"
   let l:status_color = a:active ? "%*" : "%8*"
-  let l:file_flag_color = a:active ? "%9*" : "%8*"
+  let l:file_flag_color = a:active ? "%6*" : "%8*"
 
   let sl = a:active ? l:mode_color."%{AirlineModePrefix()}".l:mode_sep_color : l:mode_color." NORMAL %8*"
-  let sl.="%{g:airline_left_sep}"
-  let sl.=l:info_color."%{exists('g:airline_enable_fugitive')&&strlen(fugitive#statusline())>0?'\ ':''}"
-  let sl.="%{exists('g:airline_enable_fugitive')?matchstr(fugitive#statusline(),'(\\zs.*\\ze)'):''}"
-  let sl.="%{exists('g:airline_enable_fugitive')&&strlen(fugitive#statusline())>0?'\ \ ':'\ '}"
+  let sl.="%{g:airline_left_sep}".l:info_color
+  let sl.="\ %{g:airline_enable_fugitive&&exists('g:loaded_fugitive')?fugitive#head():''}\ "
   let sl.=l:info_sep_color."%{g:airline_left_sep}"
   if a:active
     let sl.=l:status_color."\ %{exists('g:bufferline_loaded')?bufferline#generate_string():'%f'}\ "
@@ -130,7 +119,7 @@ function! s:update_statusline(active)
     let sl.=" ".bufname(winbufnr(winnr()))
   endif
   let sl.="%#warningmsg#"
-  let sl.="%{exists('g:airline_enable_syntastic')?SyntasticStatuslineFlag():''}"
+  let sl.="%{g:airline_enable_syntastic&&exists('g:loaded_syntastic_plugin')?SyntasticStatuslineFlag():''}"
   let sl.=l:status_color."%<%=".l:file_flag_color."%{&ro?'RO':''}"
   let sl.=l:status_color."\ %{strlen(&filetype)>0?&filetype:''}\ "
   let sl.=l:info_sep_color."%{g:airline_right_sep}"
