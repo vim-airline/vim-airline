@@ -34,7 +34,7 @@ let g:airline_colors = {
       \ 'statusline':     [ 'StatusLine'   , '#9cffd3' , '#202020' , 85  , 234 , ''     ] ,
       \ 'statusline_nc':  [ 'StatusLineNC' , '#000000' , '#202020' , 232 , 234 , ''     ] ,
       \ 'file':           [ 'User6'        , '#ff0000' , '#1c1c1c' , 160 , 233 , ''     ] ,
-      \ 'inactive':       [ 'User8'        , '#4e4e4e' , '#1c1c1c' , 239 , 234 , ''     ] ,
+      \ 'inactive':       [ 'User9'        , '#4e4e4e' , '#1c1c1c' , 239 , 234 , ''     ] ,
       \ }
 
 let g:airline_colors_insert = {
@@ -47,9 +47,9 @@ let g:airline_colors_insert = {
 
 let g:airline_colors_visual = {
       \ 'mode':           [ 'User2'        , '#000000' , '#ffaf00' , 232 , 214 , 'bold' ] ,
-      \ 'mode_seperator': [ 'User3'        , '#ffaf00' , '#ff5f00' , 214 , 202 , ''     ] ,
+      \ 'mode_seperator': [ 'User3'        , '#ffaf00' , '#ff5f00' , 214 , 202 , 'bold' ] ,
       \ 'info':           [ 'User4'        , '#000000' , '#ff5f00' , 232 , 202 , ''     ] ,
-      \ 'info_seperator': [ 'User5'        , '#000000' , '#5f0000' , 202 , 52  , ''     ] ,
+      \ 'info_seperator': [ 'User5'        , '#000000' , '#5f0000' , 202 , 52  , 'bold' ] ,
       \ 'statusline':     [ 'StatusLine'   , '#ffffff' , '#5f0000' , 15  , 52  , ''     ] ,
       \ }
 
@@ -102,14 +102,14 @@ endfunction
 call AirlineModePrefix()
 
 function! s:update_statusline(active)
-  let l:mode_color = a:active ? "%2*" : "%8*"
-  let l:mode_sep_color = a:active ? "%3*" : "%8*"
-  let l:info_color = a:active ? "%4*" : "%8*"
-  let l:info_sep_color = a:active ? "%5*" : "%8*"
-  let l:status_color = a:active ? "%*" : "%8*"
-  let l:file_flag_color = a:active ? "%6*" : "%8*"
+  let l:mode_color = a:active ? "%2*" : "%9*"
+  let l:mode_sep_color = a:active ? "%3*" : "%9*"
+  let l:info_color = a:active ? "%4*" : "%9*"
+  let l:info_sep_color = a:active ? "%5*" : "%9*"
+  let l:status_color = a:active ? "%*" : "%9*"
+  let l:file_flag_color = a:active ? "%6*" : "%9*"
 
-  let sl = a:active ? l:mode_color."%{AirlineModePrefix()}".l:mode_sep_color : l:mode_color." NORMAL %8*"
+  let sl = a:active ? l:mode_color."%{AirlineModePrefix()}".l:mode_sep_color : l:mode_color." NORMAL %9*"
   let sl.="%{g:airline_left_sep}".l:info_color
   let sl.="\ %{g:airline_enable_fugitive&&exists('g:loaded_fugitive')?fugitive#head():''}\ "
   let sl.=l:info_sep_color."%{g:airline_left_sep}"
