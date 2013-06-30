@@ -19,9 +19,9 @@ let g:airline_theme = 'default'
 
 set laststatus=2
 
-let g:airline_colors_normal = g:airline#themes#{g:airline_theme}#normal
-let g:airline_colors_insert = g:airline#themes#{g:airline_theme}#insert
-let g:airline_colors_normal = g:airline#themes#{g:airline_theme}#normal
+let s:airline_colors_normal = g:airline#themes#{g:airline_theme}#normal
+let s:airline_colors_insert = g:airline#themes#{g:airline_theme}#insert
+let s:airline_colors_normal = g:airline#themes#{g:airline_theme}#normal
 
 function! s:highlight(colors)
   let cmd = printf('hi %s %s %s %s %s %s %s',
@@ -38,27 +38,27 @@ endfunction
 function! AirlineModePrefix()
   let l:mode = mode()
 
-  call <sid>highlight(g:airline_colors_normal.statusline)
-  call <sid>highlight(g:airline_colors_normal.statusline_nc)
-  call <sid>highlight(g:airline_colors_normal.inactive)
-  call <sid>highlight(g:airline_colors_normal.mode)
-  call <sid>highlight(g:airline_colors_normal.mode_seperator)
-  call <sid>highlight(g:airline_colors_normal.info)
-  call <sid>highlight(g:airline_colors_normal.info_seperator)
-  call <sid>highlight(g:airline_colors_normal.file)
+  call <sid>highlight(s:airline_colors_normal.statusline)
+  call <sid>highlight(s:airline_colors_normal.statusline_nc)
+  call <sid>highlight(s:airline_colors_normal.inactive)
+  call <sid>highlight(s:airline_colors_normal.mode)
+  call <sid>highlight(s:airline_colors_normal.mode_seperator)
+  call <sid>highlight(s:airline_colors_normal.info)
+  call <sid>highlight(s:airline_colors_normal.info_seperator)
+  call <sid>highlight(s:airline_colors_normal.file)
 
   if l:mode ==# "i" || l:mode ==# "R"
-    call <sid>highlight(g:airline_colors_insert.statusline)
-    call <sid>highlight(g:airline_colors_insert.mode)
-    call <sid>highlight(g:airline_colors_insert.mode_seperator)
-    call <sid>highlight(g:airline_colors_insert.info)
-    call <sid>highlight(g:airline_colors_insert.info_seperator)
+    call <sid>highlight(s:airline_colors_insert.statusline)
+    call <sid>highlight(s:airline_colors_insert.mode)
+    call <sid>highlight(s:airline_colors_insert.mode_seperator)
+    call <sid>highlight(s:airline_colors_insert.info)
+    call <sid>highlight(s:airline_colors_insert.info_seperator)
   elseif l:mode ==? "v" || l:mode ==# ""
-    call <sid>highlight(g:airline_colors_visual.statusline)
-    call <sid>highlight(g:airline_colors_visual.mode)
-    call <sid>highlight(g:airline_colors_visual.mode_seperator)
-    call <sid>highlight(g:airline_colors_visual.info)
-    call <sid>highlight(g:airline_colors_visual.info_seperator)
+    call <sid>highlight(s:airline_colors_visual.statusline)
+    call <sid>highlight(s:airline_colors_visual.mode)
+    call <sid>highlight(s:airline_colors_visual.mode_seperator)
+    call <sid>highlight(s:airline_colors_visual.info)
+    call <sid>highlight(s:airline_colors_visual.info_seperator)
   endif
 
   if l:mode ==# "n"
