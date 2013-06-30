@@ -14,18 +14,6 @@ endif
 
 set laststatus=2
 
-function! s:highlight(colors)
-  let cmd = printf('hi %s %s %s %s %s %s %s',
-        \ a:colors[0],
-        \ a:colors[1] != '' ? 'guifg='.a:colors[1] : '',
-        \ a:colors[2] != '' ? 'guibg='.a:colors[2] : '',
-        \ a:colors[3] != '' ? 'ctermfg='.a:colors[3] : '',
-        \ a:colors[4] != '' ? 'ctermbg='.a:colors[4] : '',
-        \ a:colors[5] != '' ? 'gui='.a:colors[5] : '',
-        \ a:colors[5] != '' ? 'term='.a:colors[5] : '')
-  exec cmd
-endfunction
-
 let g:airline_colors = {
       \ 'mode':           [ 'User2'        , '#00005f' , '#dfff00' , 17  , 190 , 'bold' ] ,
       \ 'mode_seperator': [ 'User3'        , '#dfff00' , '#444444' , 190 , 238 , 'bold' ] ,
@@ -53,6 +41,18 @@ let g:airline_colors_visual = {
       \ 'statusline':     [ 'StatusLine'   , '#ffffff' , '#5f0000' , 15  , 52  , ''     ] ,
       \ }
 
+function! s:highlight(colors)
+  let cmd = printf('hi %s %s %s %s %s %s %s',
+        \ a:colors[0],
+        \ a:colors[1] != '' ? 'guifg='.a:colors[1] : '',
+        \ a:colors[2] != '' ? 'guibg='.a:colors[2] : '',
+        \ a:colors[3] != '' ? 'ctermfg='.a:colors[3] : '',
+        \ a:colors[4] != '' ? 'ctermbg='.a:colors[4] : '',
+        \ a:colors[5] != '' ? 'gui='.a:colors[5] : '',
+        \ a:colors[5] != '' ? 'term='.a:colors[5] : '')
+  exec cmd
+endfunction
+
 function! AirlineModePrefix()
   let l:mode = mode()
 
@@ -65,7 +65,7 @@ function! AirlineModePrefix()
   call <sid>highlight(g:airline_colors.info_seperator)
   call <sid>highlight(g:airline_colors.file)
 
-  if l:mode ==# "i" || l:mode ==# 'R'
+  if l:mode ==# "i" || l:mode ==# "R"
     call <sid>highlight(g:airline_colors_insert.statusline)
     call <sid>highlight(g:airline_colors_insert.mode)
     call <sid>highlight(g:airline_colors_insert.mode_seperator)
