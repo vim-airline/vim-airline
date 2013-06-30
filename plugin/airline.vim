@@ -21,44 +21,45 @@ set laststatus=2
 
 let s:airline_colors_normal = g:airline#themes#{g:airline_theme}#normal
 let s:airline_colors_insert = g:airline#themes#{g:airline_theme}#insert
-let s:airline_colors_normal = g:airline#themes#{g:airline_theme}#normal
+let s:airline_colors_visual = g:airline#themes#{g:airline_theme}#visual
 
-function! s:highlight(colors)
+function! s:highlight(mode, key)
+  let colors = s:airline_colors_{a:mode}[a:key]
   let cmd = printf('hi %s %s %s %s %s %s %s',
-        \ a:colors[0],
-        \ a:colors[1] != '' ? 'guifg='.a:colors[1] : '',
-        \ a:colors[2] != '' ? 'guibg='.a:colors[2] : '',
-        \ a:colors[3] != '' ? 'ctermfg='.a:colors[3] : '',
-        \ a:colors[4] != '' ? 'ctermbg='.a:colors[4] : '',
-        \ a:colors[5] != '' ? 'gui='.a:colors[5] : '',
-        \ a:colors[5] != '' ? 'term='.a:colors[5] : '')
+        \ colors[0],
+        \ colors[1] != '' ? 'guifg='.colors[1] : '',
+        \ colors[2] != '' ? 'guibg='.colors[2] : '',
+        \ colors[3] != '' ? 'ctermfg='.colors[3] : '',
+        \ colors[4] != '' ? 'ctermbg='.colors[4] : '',
+        \ colors[5] != '' ? 'gui='.colors[5] : '',
+        \ colors[5] != '' ? 'term='.colors[5] : '')
   exec cmd
 endfunction
 
 function! AirlineModePrefix()
   let l:mode = mode()
 
-  call <sid>highlight(s:airline_colors_normal.statusline)
-  call <sid>highlight(s:airline_colors_normal.statusline_nc)
-  call <sid>highlight(s:airline_colors_normal.inactive)
-  call <sid>highlight(s:airline_colors_normal.mode)
-  call <sid>highlight(s:airline_colors_normal.mode_seperator)
-  call <sid>highlight(s:airline_colors_normal.info)
-  call <sid>highlight(s:airline_colors_normal.info_seperator)
-  call <sid>highlight(s:airline_colors_normal.file)
+  call <sid>highlight('normal', 'statusline')
+  call <sid>highlight('normal', 'statusline_nc')
+  call <sid>highlight('normal', 'inactive')
+  call <sid>highlight('normal', 'mode')
+  call <sid>highlight('normal', 'mode_seperator')
+  call <sid>highlight('normal', 'info')
+  call <sid>highlight('normal', 'info_seperator')
+  call <sid>highlight('normal', 'file')
 
   if l:mode ==# "i" || l:mode ==# "R"
-    call <sid>highlight(s:airline_colors_insert.statusline)
-    call <sid>highlight(s:airline_colors_insert.mode)
-    call <sid>highlight(s:airline_colors_insert.mode_seperator)
-    call <sid>highlight(s:airline_colors_insert.info)
-    call <sid>highlight(s:airline_colors_insert.info_seperator)
+    call <sid>highlight('insert', 'statusline')
+    call <sid>highlight('insert', 'mode')
+    call <sid>highlight('insert', 'mode_seperator')
+    call <sid>highlight('insert', 'info')
+    call <sid>highlight('insert', 'info_seperator')
   elseif l:mode ==? "v" || l:mode ==# ""
-    call <sid>highlight(s:airline_colors_visual.statusline)
-    call <sid>highlight(s:airline_colors_visual.mode)
-    call <sid>highlight(s:airline_colors_visual.mode_seperator)
-    call <sid>highlight(s:airline_colors_visual.info)
-    call <sid>highlight(s:airline_colors_visual.info_seperator)
+    call <sid>highlight('visual', 'statusline')
+    call <sid>highlight('visual', 'mode')
+    call <sid>highlight('visual', 'mode_seperator')
+    call <sid>highlight('visual', 'info')
+    call <sid>highlight('visual', 'info_seperator')
   endif
 
   if l:mode ==# "n"
