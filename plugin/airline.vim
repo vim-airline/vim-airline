@@ -23,16 +23,27 @@ let s:airline_colors_normal = g:airline#themes#{g:airline_theme}#normal
 let s:airline_colors_insert = g:airline#themes#{g:airline_theme}#insert
 let s:airline_colors_visual = g:airline#themes#{g:airline_theme}#visual
 
+let s:airline_highlight_map = {
+      \ 'mode'           : 'User2',
+      \ 'mode_seperator' : 'User3',
+      \ 'info'           : 'User4',
+      \ 'info_seperator' : 'User5',
+      \ 'statusline'     : 'StatusLine',
+      \ 'statusline_nc'  : 'StatusLineNC',
+      \ 'file'           : 'User6',
+      \ 'inactive'       : 'User9',
+      \ }
+
 function! s:highlight(mode, key)
   let colors = s:airline_colors_{a:mode}[a:key]
   let cmd = printf('hi %s %s %s %s %s %s %s',
-        \ colors[0],
-        \ colors[1] != '' ? 'guifg='.colors[1] : '',
-        \ colors[2] != '' ? 'guibg='.colors[2] : '',
-        \ colors[3] != '' ? 'ctermfg='.colors[3] : '',
-        \ colors[4] != '' ? 'ctermbg='.colors[4] : '',
-        \ colors[5] != '' ? 'gui='.colors[5] : '',
-        \ colors[5] != '' ? 'term='.colors[5] : '')
+        \ s:airline_highlight_map[a:key],
+        \ colors[0] != '' ? 'guifg='.colors[0] : '',
+        \ colors[1] != '' ? 'guibg='.colors[1] : '',
+        \ colors[2] != '' ? 'ctermfg='.colors[2] : '',
+        \ colors[3] != '' ? 'ctermbg='.colors[3] : '',
+        \ colors[4] != '' ? 'gui='.colors[4] : '',
+        \ colors[4] != '' ? 'term='.colors[4] : '')
   exec cmd
 endfunction
 
