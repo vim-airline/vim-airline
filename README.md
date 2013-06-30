@@ -24,10 +24,11 @@ there are a couple configuration values available:
 * `g:airline_right_sep`  the seperator used on the right side
 * `g:airline_enable_fugitive`  enable/disable fugitive integration
 * `g:airline_enable_syntastic`  enable/disable syntastic integration
+* `g:airline_powerline_fonts`  enable/disable usage of patched powerline font symbols
 
 # contributions
 
-contributions and pull requests are welcome.  please make sure to keep it as light as possible.
+contributions and pull requests are welcome.
 
 # license
 

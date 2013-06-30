@@ -1,9 +1,10 @@
-" some symbols: ▶ » « ◀
+" powerline symbols:       
+" some unicode symbols: ▶ » « ◀
 if !exists('g:airline_left_sep')
-  let g:airline_left_sep="»"
+  let g:airline_left_sep=exists('g:airline_powerline_fonts')?"":"»"
 endif
 if !exists('g:airline_right_sep')
-  let g:airline_right_sep="«"
+  let g:airline_right_sep=exists('g:airline_powerline_fonts')?"":"«"
 endif
 if !exists('g:airline_enable_fugitive')
   let g:airline_enable_fugitive = 1
@@ -11,6 +12,9 @@ endif
 if !exists('g:airline_enable_syntastic')
   let g:airline_enable_syntastic = 1
 endif
+let g:airline_fugitive_prefix = exists('g:airline_powerline_fonts')?'   ':'  '
+let g:airline_readonly_symbol = exists('g:airline_powerline_fonts')?'':'RO'
+let g:airline_linecolumn_prefix = exists('g:airline_powerline_fonts')?' ':':'
 
 set laststatus=2
 
@@ -98,7 +102,7 @@ function! AirlineModePrefix()
   endif
 endfunction
 
-" init colors
+" init colors on startup
 call AirlineModePrefix()
 
 function! s:update_statusline(active)
@@ -111,7 +115,7 @@ function! s:update_statusline(active)
 
   let sl = a:active ? l:mode_color."%{AirlineModePrefix()}".l:mode_sep_color : l:mode_color." NORMAL %9*"
   let sl.="%{g:airline_left_sep}".l:info_color
-  let sl.="\ %{g:airline_enable_fugitive&&exists('g:loaded_fugitive')?fugitive#head():''}\ "
+  let sl.="%{g:airline_enable_fugitive&&exists('g:loaded_fugitive')? g:airline_fugitive_prefix.fugitive#head():''}\ "
   let sl.=l:info_sep_color."%{g:airline_left_sep}"
   if a:active
     let sl.=l:status_color."\ %{exists('g:bufferline_loaded')?bufferline#generate_string():'%f'}\ "
@@ -120,14 +124,13 @@ function! s:update_statusline(active)
   endif
   let sl.="%#warningmsg#"
   let sl.="%{g:airline_enable_syntastic&&exists('g:loaded_syntastic_plugin')?SyntasticStatuslineFlag():''}"
-  let sl.=l:status_color."%<%=".l:file_flag_color."%{&ro?'RO':''}"
+  let sl.=l:status_color."%<%=".l:file_flag_color."%{&ro? g:airline_readonly_symbol :''}"
   let sl.=l:status_color."\ %{strlen(&filetype)>0?&filetype:''}\ "
-  let sl.=l:info_sep_color."%{g:airline_right_sep}"
-  let sl.=l:info_color."\ "
+  let sl.=l:info_sep_color."%{g:airline_right_sep}".l:info_color."\ "
   let sl.="%{strlen(&fileencoding)>0?&fileencoding:''}"
   let sl.="%{strlen(&fileformat)>0?'['.&fileformat.']':''}"
   let sl.="\ ".l:mode_sep_color."%{g:airline_right_sep}"
-  let sl.=l:mode_color."\ %3p%%\ :\ %3l:%3c\ "
+  let sl.=l:mode_color."\ %3p%%\ ".g:airline_linecolumn_prefix."%3l:%3c\ "
   call setwinvar(winnr(), '&statusline', sl)
 endfunction
 
