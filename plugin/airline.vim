@@ -23,6 +23,15 @@ let s:airline_colors_normal = g:airline#themes#{g:airline_theme}#normal
 let s:airline_colors_insert = g:airline#themes#{g:airline_theme}#insert
 let s:airline_colors_visual = g:airline#themes#{g:airline_theme}#visual
 
+let s:airline_mode_map = {
+      \ 'n'  : '  NORMAL ',
+      \ 'i'  : '  INSERT ',
+      \ 'R'  : '  RPLACE ',
+      \ 'v'  : '  VISUAL ',
+      \ 'V'  : '  V-LINE ',
+      \ 'c'  : '  CMD    ',
+      \ '' : '  V-BLCK ',
+      \ }
 let s:airline_highlight_map = {
       \ 'mode'           : 'User2',
       \ 'mode_seperator' : 'User3',
@@ -46,54 +55,6 @@ function! s:highlight(mode, key)
         \ colors[4] != '' ? 'term='.colors[4] : '')
   exec cmd
 endfunction
-
-function! AirlineModePrefix()
-  let l:mode = mode()
-
-  call <sid>highlight('normal', 'statusline')
-  call <sid>highlight('normal', 'statusline_nc')
-  call <sid>highlight('normal', 'inactive')
-  call <sid>highlight('normal', 'mode')
-  call <sid>highlight('normal', 'mode_seperator')
-  call <sid>highlight('normal', 'info')
-  call <sid>highlight('normal', 'info_seperator')
-  call <sid>highlight('normal', 'file')
-
-  if l:mode ==# "i" || l:mode ==# "R"
-    call <sid>highlight('insert', 'statusline')
-    call <sid>highlight('insert', 'mode')
-    call <sid>highlight('insert', 'mode_seperator')
-    call <sid>highlight('insert', 'info')
-    call <sid>highlight('insert', 'info_seperator')
-  elseif l:mode ==? "v" || l:mode ==# ""
-    call <sid>highlight('visual', 'statusline')
-    call <sid>highlight('visual', 'mode')
-    call <sid>highlight('visual', 'mode_seperator')
-    call <sid>highlight('visual', 'info')
-    call <sid>highlight('visual', 'info_seperator')
-  endif
-
-  if l:mode ==# "n"
-    return "  NORMAL "
-  elseif l:mode ==# "i"
-    return "  INSERT "
-  elseif l:mode ==# "R"
-    return "  RPLACE "
-  elseif l:mode ==# "v"
-    return "  VISUAL "
-  elseif l:mode ==# "V"
-    return "  V·LINE "
-  elseif l:mode ==# "c"
-    return "  CMD    "
-  elseif l:mode ==# ""
-    return "  V·BLCK "
-  else
-    return l:mode
-  endif
-endfunction
-
-" init colors on startup
-call AirlineModePrefix()
 
 function! s:update_statusline(active)
   let l:mode_color = a:active ? "%2*" : "%9*"
@@ -123,6 +84,41 @@ function! s:update_statusline(active)
   let sl.=l:mode_color."\ %3p%%\ ".g:airline_linecolumn_prefix."%3l:%3c\ "
   call setwinvar(winnr(), '&statusline', sl)
 endfunction
+
+function! AirlineModePrefix()
+  let l:mode = mode()
+
+  call <sid>highlight('normal', 'statusline')
+  call <sid>highlight('normal', 'statusline_nc')
+  call <sid>highlight('normal', 'inactive')
+  call <sid>highlight('normal', 'mode')
+  call <sid>highlight('normal', 'mode_seperator')
+  call <sid>highlight('normal', 'info')
+  call <sid>highlight('normal', 'info_seperator')
+  call <sid>highlight('normal', 'file')
+
+  if l:mode ==# "i" || l:mode ==# "R"
+    call <sid>highlight('insert', 'statusline')
+    call <sid>highlight('insert', 'mode')
+    call <sid>highlight('insert', 'mode_seperator')
+    call <sid>highlight('insert', 'info')
+    call <sid>highlight('insert', 'info_seperator')
+  elseif l:mode ==? "v" || l:mode ==# ""
+    call <sid>highlight('visual', 'statusline')
+    call <sid>highlight('visual', 'mode')
+    call <sid>highlight('visual', 'mode_seperator')
+    call <sid>highlight('visual', 'info')
+    call <sid>highlight('visual', 'info_seperator')
+  endif
+
+  if has_key(s:airline_mode_map, l:mode)
+    return s:airline_mode_map[l:mode]
+  endif
+  return l:mode
+endfunction
+
+" init colors on startup
+call AirlineModePrefix()
 
 augroup airline
   au!
