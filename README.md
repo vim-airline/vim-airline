@@ -28,6 +28,16 @@ there are a couple configuration values available:
 * `g:airline_theme`  change the theme, currently only `default` is available
 * `g:airline_powerline_fonts`  enable/disable usage of patched powerline font symbols
 
+# demo
+
+## regular font
+
+![img](regular.png)
+
+## powerline font
+
+![img](powerline.png)
+
 # contributions
 
 contributions and pull requests are welcome.

@@ -21,6 +21,6 @@ let g:airline#themes#default#visual = {
       \ 'mode':           [ '#000000' , '#ffaf00' , 232 , 214 , 'bold' ] ,
       \ 'mode_seperator': [ '#ffaf00' , '#ff5f00' , 214 , 202 , 'bold' ] ,
       \ 'info':           [ '#000000' , '#ff5f00' , 232 , 202 , ''     ] ,
-      \ 'info_seperator': [ '#000000' , '#5f0000' , 202 , 52  , 'bold' ] ,
+      \ 'info_seperator': [ '#ff5f00' , '#5f0000' , 202 , 52  , 'bold' ] ,
       \ 'statusline':     [ '#ffffff' , '#5f0000' , 15  , 52  , ''     ] ,
       \ }
