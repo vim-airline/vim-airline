@@ -1,0 +1,75 @@
+*airline.txt*  Lean and mean statusline
+
+==============================================================================
+RATIONALE                                                          *airline*
+
+there's already powerline <https://github.com/Lokaltog/powerline>, why yet
+another statusline?
+
+*  it's standard vimscript, no python needed
+*  it's small. i want the entire plugin to be less than 200 lines as a rule
+*  gets you 90% of the way there: in addition to all the standard goodies,
+*  supports fugitve <https://github.com/tpope/vim-fugitive> and
+*  syntastic <https://github.com/scrooloose/syntastic>
+*  integration with vim-bufferline <https://github.com/bling/vim-bufferline>
+*  looks good with regular fonts, with support to use powerline font glyths
+*  it's fast to load.  since it's so small, it only takes 0.5ms to load.
+   by comparison, powerline needs 60ms on the same machine.
+
+==============================================================================
+NAME                                                          *airline-name*
+
+why's it called airline?
+
+i wrote this on an airplane, and since it's light as air it turned out to be a
+good name :-)
+
+==============================================================================
+CONFIGURATION                                         *airline-configuration*
+
+there are a couple configuration values available (shown with their default
+values):
+
+* the seperator used on the left side
+>
+  let g:airline_left_sep='>'
+<
+
+* the seperator used on the right side
+>
+  let g:airline_left_right='<'
+<
+
+* enable/disable fugitive integration
+>
+  let g:airline_enable_fugitive=1
+<
+
+* enable/disable syntastic integration
+>
+  let g:airline_enable_syntastic=1
+<
+
+* change the theme, currently only `default` is available
+>
+  let g:airline_theme='default'
+<
+
+* enable/disable usage of patched powerline font symbols
+>
+  let g:airline_powerline_fonts=0
+<
+
+==============================================================================
+CONTRIBUTIONS                                        *airline-contributions*
+
+contributions and pull requests are welcome.
+
+==============================================================================
+LICENSE                                                    *airline-license*
+
+>
+  :help license
+<
+
+ vim:tw=78:ts=8:ft=help:norl:
