@@ -69,13 +69,14 @@ function! s:update_statusline(active)
   let sl.="%{g:airline_enable_fugitive&&exists('g:loaded_fugitive')? g:airline_fugitive_prefix.fugitive#head():''}\ "
   let sl.=l:info_sep_color."%{g:airline_left_sep}"
   if a:active
-    let sl.=l:status_color."\ %{exists('g:bufferline_loaded')?bufferline#generate_string():'%f'}\ "
+    let sl.=l:status_color."\ %{exists('g:bufferline_loaded')?bufferline#generate_string():'%f%m'}\ "
   else
     let sl.=" ".bufname(winbufnr(winnr()))
   endif
   let sl.="%#warningmsg#"
   let sl.="%{g:airline_enable_syntastic&&exists('g:loaded_syntastic_plugin')?SyntasticStatuslineFlag():''}"
   let sl.=l:status_color."%<%=".l:file_flag_color."%{&ro? g:airline_readonly_symbol :''}"
+  let sl.="%q%{&previewwindow?'[preview]':''}"
   let sl.=l:status_color."\ %{strlen(&filetype)>0?&filetype:''}\ "
   let sl.=l:info_sep_color."%{g:airline_right_sep}".l:info_color."\ "
   let sl.="%{strlen(&fileencoding)>0?&fileencoding:''}"
