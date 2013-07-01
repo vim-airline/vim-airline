@@ -1,10 +1,8 @@
-" powerline symbols:       
-" some unicode symbols: ▶ » « ◀
 if !exists('g:airline_left_sep')
-  let g:airline_left_sep=exists('g:airline_powerline_fonts')?"":">"
+  let g:airline_left_sep = exists('g:airline_powerline_fonts')?"":">"
 endif
 if !exists('g:airline_right_sep')
-  let g:airline_right_sep=exists('g:airline_powerline_fonts')?"":"<"
+  let g:airline_right_sep = exists('g:airline_powerline_fonts')?"":"<"
 endif
 if !exists('g:airline_enable_fugitive')
   let g:airline_enable_fugitive = 1
@@ -12,10 +10,18 @@ endif
 if !exists('g:airline_enable_syntastic')
   let g:airline_enable_syntastic = 1
 endif
-let g:airline_fugitive_prefix = exists('g:airline_powerline_fonts')?'   ':'  '
-let g:airline_readonly_symbol = exists('g:airline_powerline_fonts')?'':'RO'
-let g:airline_linecolumn_prefix = exists('g:airline_powerline_fonts')?' ':':'
-let g:airline_theme = 'default'
+if !exists('g:airline_fugitive_prefix')
+  let g:airline_fugitive_prefix = exists('g:airline_powerline_fonts')?'   ':'  '
+endif
+if !exists('g:airline_readonly_symbol')
+  let g:airline_readonly_symbol = exists('g:airline_powerline_fonts')?'':'RO'
+endif
+if !exists('g:airline_linecolumn_prefix')
+  let g:airline_linecolumn_prefix = exists('g:airline_powerline_fonts')?' ':':'
+endif
+if !exists('g:airline_theme')
+  let g:airline_theme = 'default'
+endif
 
 set laststatus=2
 

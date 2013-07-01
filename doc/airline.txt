@@ -1,4 +1,4 @@
-*airline.txt*  Lean and mean statusline
+*airline.txt*  Lean and mean statusline that's light as air
 
 ==============================================================================
 RATIONALE                                                          *airline*
@@ -25,7 +25,7 @@ i wrote this on an airplane, and since it's light as air it turned out to be a
 good name :-)
 
 ==============================================================================
-CONFIGURATION                                         *airline-configuration*
+CONFIGURATION                                        *airline-configuration*
 
 there are a couple configuration values available (shown with their default
 values):
@@ -58,6 +58,32 @@ values):
 * enable/disable usage of patched powerline font symbols
 >
   let g:airline_powerline_fonts=0
+<
+
+==============================================================================
+CUSTOMIZATION                                        *airline-customization*
+
+here are some unicode symbols for customizing the left/right seperators, as
+well as the powerline font glyths
+
+>
+  " unicode symbols
+  let g:airline_left_sep = '»'
+  let g:airline_left_sep = '▶'
+  let g:airline_right_sep = '«'
+  let g:airline_right_sep = '◀'
+  let g:airline_linecolumn_prefix = '␊ '
+  let g:airline_linecolumn_prefix = '␤ '
+  let g:airline_fugitive_prefix = '⎇ '
+
+  " powerline symbols
+  let g:airline_left_sep = ''
+  let g:airline_left_sep = ''
+  let g:airline_right_sep = ''
+  let g:airline_right_sep = ''
+  let g:airline_fugitive_prefix = '   '
+  let g:airline_readonly_symbol = ''
+  let g:airline_linecolumn_prefix = ' '
 <
 
 ==============================================================================
