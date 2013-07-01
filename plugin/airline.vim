@@ -69,7 +69,7 @@ function! s:update_statusline(active)
   let sl.="%{g:airline_enable_fugitive&&exists('g:loaded_fugitive')? g:airline_fugitive_prefix.fugitive#head():''}\ "
   let sl.=l:info_sep_color."%{g:airline_left_sep}"
   if a:active
-    let sl.=l:status_color."\ %{exists('g:bufferline_loaded')?bufferline#generate_string():'%f%m'}\ "
+    let sl.=l:status_color.(exists('g:bufferline_loaded')?"\ %{bufferline#generate_string()}\ ":"\ %f%m\ ")
   else
     let sl.=" ".bufname(winbufnr(winnr()))
   endif
