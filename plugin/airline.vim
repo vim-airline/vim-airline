@@ -22,12 +22,16 @@ endif
 if !exists('g:airline_theme')
   let g:airline_theme = 'default'
 endif
+if !exists('g:airline_modified_detection')
+  let g:airline_modified_detection=1
+endif
 
 set laststatus=2
 
-let s:airline_colors_normal = g:airline#themes#{g:airline_theme}#normal
-let s:airline_colors_insert = g:airline#themes#{g:airline_theme}#insert
-let s:airline_colors_visual = g:airline#themes#{g:airline_theme}#visual
+for mode in ['normal','insert','visual']
+  let s:airline_colors_{mode} = g:airline#themes#{g:airline_theme}#{mode}
+  let s:airline_colors_{mode}_modified = g:airline#themes#{g:airline_theme}#{mode}_modified
+endfor
 
 let s:airline_mode_map = {
       \ 'n'  : '  NORMAL ',
@@ -50,9 +54,13 @@ let s:airline_highlight_map = {
       \ }
 
 function! s:highlight(mode, keys)
+  let l:mode = a:mode
+  if g:airline_modified_detection && &modified
+    let l:mode .= '_modified'
+  endif
   for key in a:keys
-    if exists('s:airline_colors_{a:mode}') && exists('s:airline_colors_{a:mode}[key]')
-      let colors = s:airline_colors_{a:mode}[key]
+    if exists('s:airline_colors_{l:mode}') && exists('s:airline_colors_{l:mode}[key]')
+      let colors = s:airline_colors_{l:mode}[key]
       let cmd = printf('hi %s %s %s %s %s %s %s',
             \ s:airline_highlight_map[key],
             \ colors[0] != '' ? 'guifg='.colors[0] : '',

@@ -8,6 +8,9 @@ let g:airline#themes#default#normal = {
       \ 'file':           [ '#ff0000' , '#1c1c1c' , 160 , 233 , ''     ] ,
       \ 'inactive':       [ '#4e4e4e' , '#1c1c1c' , 239 , 234 , ''     ] ,
       \ }
+let g:airline#themes#default#normal_modified = copy(g:airline#themes#default#normal)
+let g:airline#themes#default#normal_modified.info_seperator = [ '#ffffff' , '#5f005f' , 255 , 53 , '' ]
+let g:airline#themes#default#normal_modified.statusline     = [ '#ffffff' , '#5f005f' , 255 , 53 , '' ]
 
 let g:airline#themes#default#insert = {
       \ 'mode':           [ '#00005f' , '#00dfff' , 17  , 45  , 'bold' ] ,
@@ -16,6 +19,9 @@ let g:airline#themes#default#insert = {
       \ 'info_seperator': [ '#005fff' , '#000087' , 27  , 18  , 'bold' ] ,
       \ 'statusline':     [ '#ffffff' , '#000080' , 15  , 17  , ''     ] ,
       \ }
+let g:airline#themes#default#insert_modified = copy(g:airline#themes#default#insert)
+let g:airline#themes#default#insert_modified.info_seperator = [ '#ffffff' , '#5f005f' , 255 , 53 , '' ]
+let g:airline#themes#default#insert_modified.statusline     = [ '#ffffff' , '#5f005f' , 255 , 53 , '' ]
 
 let g:airline#themes#default#visual = {
       \ 'mode':           [ '#000000' , '#ffaf00' , 232 , 214 , 'bold' ] ,
@@ -24,3 +30,6 @@ let g:airline#themes#default#visual = {
       \ 'info_seperator': [ '#ff5f00' , '#5f0000' , 202 , 52  , 'bold' ] ,
       \ 'statusline':     [ '#ffffff' , '#5f0000' , 15  , 52  , ''     ] ,
       \ }
+let g:airline#themes#default#visual_modified = copy(g:airline#themes#default#visual)
+let g:airline#themes#default#visual_modified.info_seperator = [ '#ffffff' , '#5f005f' , 255 , 53 , '' ]
+let g:airline#themes#default#visual_modified.statusline     = [ '#ffffff' , '#5f005f' , 255 , 53 , '' ]
