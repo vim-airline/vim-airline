@@ -65,10 +65,10 @@ values):
   let g:airline_powerline_fonts=0
 <
 
-* define the set of match queries which excludes a window from having its
-  statusline modified
+* define the set of filename match queries which excludes a window from having
+  its statusline modified
 >
-  let g:airline_exclude_windows = [] " see source for current list
+  let g:airline_exclude_filenames = [] " see source for current list
 <
 
 * define the set of filetypes which are excluded from having its window

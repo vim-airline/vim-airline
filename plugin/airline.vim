@@ -30,8 +30,8 @@ endif
 if !exists('g:airline_modified_detection')
   let g:airline_modified_detection=1
 endif
-if !exists('g:airline_exclude_windows')
-  let g:airline_exclude_windows = ['DebuggerWatch','DebuggerStack','DebuggerStatus']
+if !exists('g:airline_exclude_filenames')
+  let g:airline_exclude_filenames = ['DebuggerWatch','DebuggerStack','DebuggerStatus']
 endif
 if !exists('g:airline_exclude_filetypes')
   let g:airline_exclude_filetypes = ['qf','netrw','diff','undotree','gundo','nerdtree','tagbar']
@@ -94,7 +94,7 @@ function! s:is_excluded_window()
       return 1
     endif
   endfor
-  for matchw in g:airline_exclude_windows
+  for matchw in g:airline_exclude_filenames
     if matchstr(expand('%'), matchw) ==# matchw
       return 1
     endif
