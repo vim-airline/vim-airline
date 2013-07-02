@@ -44,9 +44,9 @@ let s:airline_mode_map = {
       \ }
 let s:airline_highlight_map = {
       \ 'mode'           : 'User2',
-      \ 'mode_seperator' : 'User3',
+      \ 'mode_separator' : 'User3',
       \ 'info'           : 'User4',
-      \ 'info_seperator' : 'User5',
+      \ 'info_separator' : 'User5',
       \ 'statusline'     : 'StatusLine',
       \ 'statusline_nc'  : 'StatusLineNC',
       \ 'file'           : 'User6',
@@ -111,12 +111,12 @@ endfunction
 function! AirlineModePrefix()
   let l:mode = mode()
 
-  call <sid>highlight('normal', ['statusline','statusline_nc','inactive','mode','mode_seperator','info','info_seperator','file'])
+  call <sid>highlight('normal', ['statusline','statusline_nc','inactive','mode','mode_separator','info','info_separator','file'])
 
   if l:mode ==# "i" || l:mode ==# "R"
-    call <sid>highlight('insert', ['statusline','mode','mode_seperator','info','info_seperator'])
+    call <sid>highlight('insert', ['statusline','mode','mode_separator','info','info_separator'])
   elseif l:mode ==? "v" || l:mode ==# ""
-    call <sid>highlight('visual', ['statusline','mode','mode_seperator','info','info_seperator'])
+    call <sid>highlight('visual', ['statusline','mode','mode_separator','info','info_separator'])
   endif
 
   if has_key(s:airline_mode_map, l:mode)
