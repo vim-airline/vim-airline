@@ -30,12 +30,12 @@ CONFIGURATION                                        *airline-configuration*
 there are a couple configuration values available (shown with their default
 values):
 
-* the seperator used on the left side
+* the separator used on the left side
 >
   let g:airline_left_sep='>'
 <
 
-* the seperator used on the right side
+* the separator used on the right side
 >
   let g:airline_left_right='<'
 <
@@ -68,7 +68,7 @@ values):
 ==============================================================================
 CUSTOMIZATION                                        *airline-customization*
 
-here are some unicode symbols for customizing the left/right seperators, as
+here are some unicode symbols for customizing the left/right separators, as
 well as the powerline font glyths
 
 >
