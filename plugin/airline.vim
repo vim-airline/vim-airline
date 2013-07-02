@@ -49,17 +49,19 @@ let s:airline_highlight_map = {
       \ 'inactive'       : 'User9',
       \ }
 
-function! s:highlight(mode, key)
-  let colors = s:airline_colors_{a:mode}[a:key]
-  let cmd = printf('hi %s %s %s %s %s %s %s',
-        \ s:airline_highlight_map[a:key],
-        \ colors[0] != '' ? 'guifg='.colors[0] : '',
-        \ colors[1] != '' ? 'guibg='.colors[1] : '',
-        \ colors[2] != '' ? 'ctermfg='.colors[2] : '',
-        \ colors[3] != '' ? 'ctermbg='.colors[3] : '',
-        \ colors[4] != '' ? 'gui='.colors[4] : '',
-        \ colors[4] != '' ? 'term='.colors[4] : '')
-  exec cmd
+function! s:highlight(mode, keys)
+  for key in a:keys
+    let colors = s:airline_colors_{a:mode}[key]
+    let cmd = printf('hi %s %s %s %s %s %s %s',
+          \ s:airline_highlight_map[key],
+          \ colors[0] != '' ? 'guifg='.colors[0] : '',
+          \ colors[1] != '' ? 'guibg='.colors[1] : '',
+          \ colors[2] != '' ? 'ctermfg='.colors[2] : '',
+          \ colors[3] != '' ? 'ctermbg='.colors[3] : '',
+          \ colors[4] != '' ? 'gui='.colors[4] : '',
+          \ colors[4] != '' ? 'term='.colors[4] : '')
+    exec cmd
+  endfor
 endfunction
 
 function! s:update_statusline(active)
@@ -95,27 +97,12 @@ endfunction
 function! AirlineModePrefix()
   let l:mode = mode()
 
-  call <sid>highlight('normal', 'statusline')
-  call <sid>highlight('normal', 'statusline_nc')
-  call <sid>highlight('normal', 'inactive')
-  call <sid>highlight('normal', 'mode')
-  call <sid>highlight('normal', 'mode_seperator')
-  call <sid>highlight('normal', 'info')
-  call <sid>highlight('normal', 'info_seperator')
-  call <sid>highlight('normal', 'file')
+  call <sid>highlight('normal', ['statusline','statusline_nc','inactive','mode','mode_seperator','info','info_seperator','file'])
 
   if l:mode ==# "i" || l:mode ==# "R"
-    call <sid>highlight('insert', 'statusline')
-    call <sid>highlight('insert', 'mode')
-    call <sid>highlight('insert', 'mode_seperator')
-    call <sid>highlight('insert', 'info')
-    call <sid>highlight('insert', 'info_seperator')
+    call <sid>highlight('insert', ['statusline','mode','mode_seperator','info','info_seperator'])
   elseif l:mode ==? "v" || l:mode ==# ""
-    call <sid>highlight('visual', 'statusline')
-    call <sid>highlight('visual', 'mode')
-    call <sid>highlight('visual', 'mode_seperator')
-    call <sid>highlight('visual', 'info')
-    call <sid>highlight('visual', 'info_seperator')
+    call <sid>highlight('visual', ['statusline','mode','mode_seperator','info','info_seperator'])
   endif
 
   if has_key(s:airline_mode_map, l:mode)
