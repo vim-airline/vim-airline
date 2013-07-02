@@ -29,6 +29,8 @@ i wrote this on an airplane, and since it's light as air it turned out to be a g
   *  you need to set `ttimeoutlen` to a low number; 50 is recommended
 3.  the colors don't change
   *  ensure that `set t_Co=256` is set in your vimrc
+4.  you get the error `Unknown function: fugitive#head`
+  *  you are probably using version 1.2, which is very old...download v2 from the [project page][d].
 
 # screenshots
 
