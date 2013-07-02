@@ -117,11 +117,9 @@ function! AirlineModePrefix()
   return l:mode
 endfunction
 
-" init colors on startup
-call AirlineModePrefix()
-
 augroup airline
   au!
+  autocmd VimEnter * call AirlineModePrefix()
   autocmd WinLeave * call <sid>update_statusline(0)
   autocmd VimEnter,WinEnter,BufWinEnter * call <sid>update_statusline(1)
   autocmd ColorScheme * hi clear StatusLine | hi clear StatusLineNC
