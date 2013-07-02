@@ -1,3 +1,7 @@
+if &cp || v:version < 702 || (exists('g:loaded_airline') && g:loaded_airline)
+  finish
+endif
+let g:loaded_airline = 1
 if !exists('g:airline_left_sep')
   let g:airline_left_sep = exists('g:airline_powerline_fonts')?"":">"
 endif
@@ -61,6 +65,9 @@ function! s:highlight(mode, keys)
   for key in a:keys
     if exists('s:airline_colors_{l:mode}') && exists('s:airline_colors_{l:mode}[key]')
       let colors = s:airline_colors_{l:mode}[key]
+      if (has('win32') || has('win64')) && !has('gui_running')
+        let colors = map(colors, 'v:val != "" && v:val > 128 ? v:val - 128 : v:val')
+      endif
       let cmd = printf('hi %s %s %s %s %s %s %s',
             \ s:airline_highlight_map[key],
             \ colors[0] != '' ? 'guifg='.colors[0] : '',
