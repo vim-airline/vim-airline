@@ -1,3 +1,7 @@
+if &cp || v:version < 702 || (exists('g:loaded_airline') && g:loaded_airline)
+  finish
+endif
+let g:loaded_airline = 1
 if !exists('g:airline_left_sep')
   let g:airline_left_sep = exists('g:airline_powerline_fonts')?"":">"
 endif
