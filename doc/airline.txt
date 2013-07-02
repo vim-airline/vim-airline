@@ -65,6 +65,17 @@ values):
   let g:airline_powerline_fonts=0
 <
 
+* define the set of match queries which excludes a window from having its
+  statusline modified
+>
+  let g:airline_exclude_windows = [] " see source for current list
+<
+
+* define the set of filetypes which are excluded from having its window
+  statusline modified
+>
+  let g:airline_exclude_filetypes = [] " see source for current list
+<
 ==============================================================================
 CUSTOMIZATION                                        *airline-customization*
 
@@ -79,6 +90,7 @@ well as the powerline font glyths
   let g:airline_right_sep = '◀'
   let g:airline_linecolumn_prefix = '␊ '
   let g:airline_linecolumn_prefix = '␤ '
+  let g:airline_linecolumn_prefix = '¶ '
   let g:airline_fugitive_prefix = '⎇ '
 
   " powerline symbols

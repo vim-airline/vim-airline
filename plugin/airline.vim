@@ -30,6 +30,12 @@ endif
 if !exists('g:airline_modified_detection')
   let g:airline_modified_detection=1
 endif
+if !exists('g:airline_exclude_windows')
+  let g:airline_exclude_windows = ['DebuggerWatch','DebuggerStack','DebuggerStatus']
+endif
+if !exists('g:airline_exclude_filetypes')
+  let g:airline_exclude_filetypes = ['qf','netrw','diff','undotree','gundo','nerdtree','tagbar']
+endif
 
 set laststatus=2
 
@@ -82,8 +88,22 @@ function! s:highlight(mode, keys)
   endfor
 endfunction
 
+function! s:is_excluded_window()
+  for matchft in g:airline_exclude_filetypes
+    if matchft ==# &ft
+      return 1
+    endif
+  endfor
+  for matchw in g:airline_exclude_windows
+    if matchstr(expand('%'), matchw) ==# matchw
+      return 1
+    endif
+  endfor
+  return 0
+endfunction
+
 function! s:update_statusline(active)
-  if &ft == 'qf' || matchstr(expand('%'), 'NERD') ==# 'NERD' || matchstr(expand('%'), 'Tagbar') ==# 'Tagbar'
+  if s:is_excluded_window()
     return
   endif
 
