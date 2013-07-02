@@ -37,7 +37,7 @@ values):
 
 * the separator used on the right side
 >
-  let g:airline_left_right='<'
+  let g:airline_right_sep='<'
 <
 
 * enable/disable color change when buffer is modified
