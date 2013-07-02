@@ -138,10 +138,10 @@ endfunction
 
 augroup airline
   au!
-  autocmd VimEnter * call AirlineModePrefix()
+  hi clear StatusLine | hi clear StatusLineNC
+  autocmd ColorScheme * hi clear StatusLine | hi clear StatusLineNC
   autocmd WinLeave * call <sid>update_statusline(0)
   autocmd VimEnter,WinEnter,BufWinEnter * call <sid>update_statusline(1)
-  autocmd ColorScheme * hi clear StatusLine | hi clear StatusLineNC
 
   " if you know why lazyredraw affects statusline rendering i'd love to know!
   if !&lazyredraw
