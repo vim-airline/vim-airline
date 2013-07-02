@@ -1,3 +1,4 @@
+" vim: ts=2 sts=2 sw=2
 if &cp || v:version < 702 || (exists('g:loaded_airline') && g:loaded_airline)
   finish
 endif
