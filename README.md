@@ -27,7 +27,10 @@ i wrote this on an airplane, and since it's light as air it turned out to be a g
   *  the older deprecated [vim-powerline][a] uses different codes compared to the newer [powerline][b].
   *  you can grab prepatched fonts at [powerline-fonts][c], or you can manually set the relevant `g:` variables
 2.  leaving insert mode does not update the statusline
-  *  this has been reproducible on older versions of vim, please use a newer version of vim
+  *  you need to set `ttimeoutlen` to a low number; 50 is recommended
+3.  the colors don't change
+  *  you need `set lazyredraw` and `set t_Co=256` in your vimrc
+  *  if you know why these settings affect colors, i'd love to know the reason!
 
 # screenshots
 
