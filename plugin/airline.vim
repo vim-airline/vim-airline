@@ -51,20 +51,26 @@ let s:airline_highlight_map = {
 
 function! s:highlight(mode, keys)
   for key in a:keys
-    let colors = s:airline_colors_{a:mode}[key]
-    let cmd = printf('hi %s %s %s %s %s %s %s',
-          \ s:airline_highlight_map[key],
-          \ colors[0] != '' ? 'guifg='.colors[0] : '',
-          \ colors[1] != '' ? 'guibg='.colors[1] : '',
-          \ colors[2] != '' ? 'ctermfg='.colors[2] : '',
-          \ colors[3] != '' ? 'ctermbg='.colors[3] : '',
-          \ colors[4] != '' ? 'gui='.colors[4] : '',
-          \ colors[4] != '' ? 'term='.colors[4] : '')
-    exec cmd
+    if exists('s:airline_colors_{a:mode}') && exists('s:airline_colors_{a:mode}[key]')
+      let colors = s:airline_colors_{a:mode}[key]
+      let cmd = printf('hi %s %s %s %s %s %s %s',
+            \ s:airline_highlight_map[key],
+            \ colors[0] != '' ? 'guifg='.colors[0] : '',
+            \ colors[1] != '' ? 'guibg='.colors[1] : '',
+            \ colors[2] != '' ? 'ctermfg='.colors[2] : '',
+            \ colors[3] != '' ? 'ctermbg='.colors[3] : '',
+            \ colors[4] != '' ? 'gui='.colors[4] : '',
+            \ colors[4] != '' ? 'term='.colors[4] : '')
+      exec cmd
+    endif
   endfor
 endfunction
 
 function! s:update_statusline(active)
+  if &ft == 'qf' || matchstr(expand('%'), 'NERD') ==# 'NERD' || matchstr(expand('%'), 'Tagbar') ==# 'Tagbar'
+    return
+  endif
+
   let l:mode_color = a:active ? "%2*" : "%9*"
   let l:mode_sep_color = a:active ? "%3*" : "%9*"
   let l:info_color = a:active ? "%4*" : "%9*"
