@@ -61,6 +61,9 @@ function! s:highlight(mode, keys)
   for key in a:keys
     if exists('s:airline_colors_{l:mode}') && exists('s:airline_colors_{l:mode}[key]')
       let colors = s:airline_colors_{l:mode}[key]
+      if (has('win32') || has('win64')) && !has('gui_running')
+        let colors = map(colors, 'v:val != "" && v:val > 128 ? v:val - 128 : v:val')
+      endif
       let cmd = printf('hi %s %s %s %s %s %s %s',
             \ s:airline_highlight_map[key],
             \ colors[0] != '' ? 'guifg='.colors[0] : '',
