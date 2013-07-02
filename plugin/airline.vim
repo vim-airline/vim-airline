@@ -3,39 +3,22 @@ if &cp || v:version < 702 || (exists('g:loaded_airline') && g:loaded_airline)
   finish
 endif
 let g:loaded_airline = 1
-if !exists('g:airline_left_sep')
-  let g:airline_left_sep = exists('g:airline_powerline_fonts')?"":">"
-endif
-if !exists('g:airline_right_sep')
-  let g:airline_right_sep = exists('g:airline_powerline_fonts')?"":"<"
-endif
-if !exists('g:airline_enable_fugitive')
-  let g:airline_enable_fugitive = 1
-endif
-if !exists('g:airline_enable_syntastic')
-  let g:airline_enable_syntastic = 1
-endif
-if !exists('g:airline_fugitive_prefix')
-  let g:airline_fugitive_prefix = exists('g:airline_powerline_fonts')?'   ':'  '
-endif
-if !exists('g:airline_readonly_symbol')
-  let g:airline_readonly_symbol = exists('g:airline_powerline_fonts')?'':'RO'
-endif
-if !exists('g:airline_linecolumn_prefix')
-  let g:airline_linecolumn_prefix = exists('g:airline_powerline_fonts')?' ':':'
-endif
-if !exists('g:airline_theme')
-  let g:airline_theme = 'default'
-endif
-if !exists('g:airline_modified_detection')
-  let g:airline_modified_detection=1
-endif
-if !exists('g:airline_exclude_filenames')
-  let g:airline_exclude_filenames = ['DebuggerWatch','DebuggerStack','DebuggerStatus']
-endif
-if !exists('g:airline_exclude_filetypes')
-  let g:airline_exclude_filetypes = ['qf','netrw','diff','undotree','gundo','nerdtree','tagbar']
-endif
+function! s:check_defined(variable, default)
+  if !exists(a:variable)
+    let {a:variable} = a:default
+  endif
+endfunction
+call s:check_defined('g:airline_left_sep', exists('g:airline_powerline_fonts')?"":">")
+call s:check_defined('g:airline_right_sep', exists('g:airline_powerline_fonts')?"":"<")
+call s:check_defined('g:airline_enable_fugitive', 1)
+call s:check_defined('g:airline_enable_syntastic', 1)
+call s:check_defined('g:airline_fugitive_prefix', exists('g:airline_powerline_fonts')?'   ':'  ')
+call s:check_defined('g:airline_readonly_symbol', exists('g:airline_powerline_fonts')?'':'RO')
+call s:check_defined('g:airline_linecolumn_prefix', exists('g:airline_powerline_fonts')?' ':':')
+call s:check_defined('g:airline_theme', 'default')
+call s:check_defined('g:airline_modified_detection', 1)
+call s:check_defined('g:airline_exclude_filenames', ['DebuggerWatch','DebuggerStack','DebuggerStatus'])
+call s:check_defined('g:airline_exclude_filetypes', ['qf','netrw','diff','undotree','gundo','nerdtree','tagbar'])
 
 set laststatus=2
 
