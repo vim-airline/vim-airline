@@ -20,8 +20,6 @@ call s:check_defined('g:airline_modified_detection', 1)
 call s:check_defined('g:airline_exclude_filenames', ['DebuggerWatch','DebuggerStack','DebuggerStatus'])
 call s:check_defined('g:airline_exclude_filetypes', ['qf','netrw','diff','undotree','gundo','nerdtree','tagbar'])
 
-set laststatus=2
-
 let s:is_win32term = (has('win32') || has('win64')) && !has('gui_running')
 
 for mode in ['normal','insert','visual']
