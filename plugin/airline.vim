@@ -3,6 +3,9 @@ if &cp || v:version < 702 || (exists('g:loaded_airline') && g:loaded_airline)
   finish
 endif
 let g:loaded_airline = 1
+if !&lazyredraw
+  echom 'for the time being, vim-airline needs lazyredraw enabled to work properly.'
+endif
 function! s:check_defined(variable, default)
   if !exists(a:variable)
     let {a:variable} = a:default
@@ -48,15 +51,12 @@ let s:airline_highlight_map = {
       \ 'file'           : 'User6',
       \ 'inactive'       : 'User9',
       \ }
+let s:airline_highlight_groups = keys(s:airline_highlight_map)
 
-function! s:highlight(mode, keys)
-  let l:mode = a:mode
-  if g:airline_modified_detection && &modified
-    let l:mode .= '_modified'
-  endif
-  for key in a:keys
-    if exists('s:airline_colors_{l:mode}[key]')
-      let colors = s:airline_colors_{l:mode}[key]
+function! s:highlight(mode)
+  for key in s:airline_highlight_groups
+    if exists('s:airline_colors_{a:mode}[key]')
+      let colors = s:airline_colors_{a:mode}[key]
       if s:is_win32term
         let colors = map(colors, 'v:val != "" && v:val > 128 ? v:val - 128 : v:val')
       endif
@@ -122,26 +122,26 @@ function! s:update_statusline(active)
 endfunction
 
 let s:lastmode = ''
-
 function! AirlineModePrefix()
-  if !&lazyredraw
-    redrawstatus
+  let l:m = mode()
+  let l:mode = 'normal'
+  if l:m ==# "i" || l:m ==# "R"
+    let l:mode = 'insert'
+  elseif l:m ==? "v" || l:m ==# ""
+    let l:mode = 'visual'
   endif
 
-  let l:mode = mode()
-  if s:lastmode != l:mode
-    call <sid>highlight('normal', ['statusline','statusline_nc','inactive','mode','mode_separator','info','info_separator','file'])
+  if g:airline_modified_detection && &modified
+    let l:mode .= '_modified'
+  endif
 
-    if l:mode ==# "i" || l:mode ==# "R"
-      call <sid>highlight('insert', ['statusline','mode','mode_separator','info','info_separator'])
-    elseif l:mode ==? "v" || l:mode ==# ""
-      call <sid>highlight('visual', ['statusline','mode','mode_separator','info','info_separator'])
-    endif
+  if s:lastmode != l:mode
+    call <sid>highlight(l:mode)
     let s:lastmode = l:mode
   endif
 
-  if has_key(s:airline_mode_map, l:mode)
-    return s:airline_mode_map[l:mode]
+  if has_key(s:airline_mode_map, l:m)
+    return s:airline_mode_map[l:m]
   endif
   return l:mode
 endfunction
@@ -152,9 +152,4 @@ augroup airline
   autocmd ColorScheme * hi clear StatusLine | hi clear StatusLineNC | redrawstatus
   autocmd WinLeave * call <sid>update_statusline(0)
   autocmd VimEnter,WinEnter,BufWinEnter * call <sid>update_statusline(1)
-
-  " if you know why lazyredraw affects statusline rendering i'd love to know!
-  if !&lazyredraw
-    autocmd VimEnter,InsertLeave * :redrawstatus
-  endif
 augroup END
