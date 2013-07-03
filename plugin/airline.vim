@@ -13,6 +13,7 @@ function! s:check_defined(variable, default)
 endfunction
 call s:check_defined('g:airline_left_sep', exists('g:airline_powerline_fonts')?"":">")
 call s:check_defined('g:airline_right_sep', exists('g:airline_powerline_fonts')?"":"<")
+call s:check_defined('g:airline_enable_bufferline', 1)
 call s:check_defined('g:airline_enable_fugitive', 1)
 call s:check_defined('g:airline_enable_syntastic', 1)
 call s:check_defined('g:airline_fugitive_prefix', exists('g:airline_powerline_fonts')?'   ':' ')
@@ -84,6 +85,7 @@ function! s:is_excluded_window()
 endfunction
 
 function! s:update_externals()
+  let g:airline_externals_bufferline = g:airline_enable_bufferline && exists('g:bufferline_loaded') ? bufferline#generate_string() : "%f%m"
   let g:airline_externals_fugitive = g:airline_enable_fugitive && exists('g:loaded_fugitive') ? g:airline_fugitive_prefix.fugitive#head() : ''
   let g:airline_externals_syntastic = g:airline_enable_syntastic && exists('g:loaded_syntastic_plugin') ? '%{SyntasticStatuslineFlag()}' : ''
 endfunction
@@ -106,7 +108,7 @@ function! s:update_statusline(active)
   let sl.=g:airline_externals_fugitive
   let sl.=' '.l:info_sep_color."%{g:airline_left_sep}"
   if a:active
-    let sl.=l:status_color.(exists('g:bufferline_loaded')?"\ %{bufferline#generate_string()}\ ":"\ %f%m\ ")
+    let sl.=l:status_color.' '.g:airline_externals_bufferline.' '
   else
     let sl.=" ".bufname(winbufnr(winnr()))
   endif
