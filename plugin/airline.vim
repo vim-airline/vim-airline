@@ -15,7 +15,7 @@ call s:check_defined('g:airline_left_sep', exists('g:airline_powerline_fonts')?"
 call s:check_defined('g:airline_right_sep', exists('g:airline_powerline_fonts')?"":"<")
 call s:check_defined('g:airline_enable_fugitive', 1)
 call s:check_defined('g:airline_enable_syntastic', 1)
-call s:check_defined('g:airline_fugitive_prefix', exists('g:airline_powerline_fonts')?'   ':'  ')
+call s:check_defined('g:airline_fugitive_prefix', exists('g:airline_powerline_fonts')?'   ':' ')
 call s:check_defined('g:airline_readonly_symbol', exists('g:airline_powerline_fonts')?'':'RO')
 call s:check_defined('g:airline_linecolumn_prefix', exists('g:airline_powerline_fonts')?' ':':')
 call s:check_defined('g:airline_theme', 'default')
@@ -87,11 +87,17 @@ function! s:is_excluded_window()
   return 0
 endfunction
 
+function! s:update_externals()
+  let g:airline_externals_fugitive = g:airline_enable_fugitive && exists('g:loaded_fugitive') ? g:airline_fugitive_prefix.fugitive#head() : ''
+  let g:airline_externals_syntastic = g:airline_enable_syntastic && exists('g:loaded_syntastic_plugin') ? '%{SyntasticStatuslineFlag()}' : ''
+endfunction
+
 function! s:update_statusline(active)
   if s:is_excluded_window()
     return
   endif
 
+  call s:update_externals()
   let l:mode_color = a:active ? "%2*" : "%9*"
   let l:mode_sep_color = a:active ? "%3*" : "%9*"
   let l:info_color = a:active ? "%4*" : "%9*"
@@ -101,15 +107,15 @@ function! s:update_statusline(active)
 
   let sl = a:active ? l:mode_color."%{AirlineModePrefix()}".l:mode_sep_color : l:mode_color." NORMAL %9*"
   let sl.="%{g:airline_left_sep}".l:info_color
-  let sl.="%{g:airline_enable_fugitive&&exists('g:loaded_fugitive')? g:airline_fugitive_prefix.fugitive#head():''}\ "
-  let sl.=l:info_sep_color."%{g:airline_left_sep}"
+  let sl.=g:airline_externals_fugitive
+  let sl.=' '.l:info_sep_color."%{g:airline_left_sep}"
   if a:active
     let sl.=l:status_color.(exists('g:bufferline_loaded')?"\ %{bufferline#generate_string()}\ ":"\ %f%m\ ")
   else
     let sl.=" ".bufname(winbufnr(winnr()))
   endif
   let sl.="%#warningmsg#"
-  let sl.="%{g:airline_enable_syntastic&&exists('g:loaded_syntastic_plugin')?SyntasticStatuslineFlag():''}"
+  let sl.=g:airline_externals_syntastic
   let sl.=l:status_color."%<%=".l:file_flag_color."%{&ro? g:airline_readonly_symbol :''}"
   let sl.="%q%{&previewwindow?'[preview]':''}"
   let sl.=l:status_color."\ %{strlen(&filetype)>0?&filetype:''}\ "
