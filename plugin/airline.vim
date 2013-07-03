@@ -121,18 +121,23 @@ function! s:update_statusline(active)
   call setwinvar(winnr(), '&statusline', sl)
 endfunction
 
+let s:lastmode = ''
+
 function! AirlineModePrefix()
   if !&lazyredraw
     redrawstatus
   endif
 
   let l:mode = mode()
-  call <sid>highlight('normal', ['statusline','statusline_nc','inactive','mode','mode_separator','info','info_separator','file'])
+  if s:lastmode != l:mode
+    call <sid>highlight('normal', ['statusline','statusline_nc','inactive','mode','mode_separator','info','info_separator','file'])
 
-  if l:mode ==# "i" || l:mode ==# "R"
-    call <sid>highlight('insert', ['statusline','mode','mode_separator','info','info_separator'])
-  elseif l:mode ==? "v" || l:mode ==# ""
-    call <sid>highlight('visual', ['statusline','mode','mode_separator','info','info_separator'])
+    if l:mode ==# "i" || l:mode ==# "R"
+      call <sid>highlight('insert', ['statusline','mode','mode_separator','info','info_separator'])
+    elseif l:mode ==? "v" || l:mode ==# ""
+      call <sid>highlight('visual', ['statusline','mode','mode_separator','info','info_separator'])
+    endif
+    let s:lastmode = l:mode
   endif
 
   if has_key(s:airline_mode_map, l:mode)
