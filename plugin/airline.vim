@@ -43,9 +43,9 @@ let s:airline_highlight_map = {
       \ 'mode_separator' : 'User3',
       \ 'info'           : 'User4',
       \ 'info_separator' : 'User5',
-      \ 'statusline'     : 'StatusLine',
-      \ 'statusline_nc'  : 'StatusLineNC',
-      \ 'file'           : 'User6',
+      \ 'statusline'     : 'User6',
+      \ 'statusline_nc'  : 'User7',
+      \ 'file'           : 'User8',
       \ 'inactive'       : 'User9',
       \ }
 let s:airline_highlight_groups = keys(s:airline_highlight_map)
@@ -100,8 +100,8 @@ function! s:update_statusline(active)
   let l:mode_sep_color = a:active ? "%3*" : "%9*"
   let l:info_color = a:active ? "%4*" : "%9*"
   let l:info_sep_color = a:active ? "%5*" : "%9*"
-  let l:status_color = a:active ? "%*" : "%9*"
-  let l:file_flag_color = a:active ? "%6*" : "%9*"
+  let l:status_color = a:active ? "%6*" : "%9*"
+  let l:file_flag_color = a:active ? "%8*" : "%9*"
 
   let sl = a:active ? l:mode_color."%{AirlineModePrefix()}".l:mode_sep_color : l:mode_color." NORMAL %9*"
   let sl.="%{g:airline_left_sep}".l:info_color
@@ -152,8 +152,7 @@ endfunction
 
 augroup airline
   au!
-  hi clear StatusLine | hi clear StatusLineNC
-  autocmd ColorScheme * hi clear StatusLine | hi clear StatusLineNC | redrawstatus
+  autocmd ColorScheme * call <sid>highlight('normal')
   autocmd WinLeave * call <sid>update_statusline(0)
   autocmd VimEnter,WinEnter,BufWinEnter * call <sid>update_statusline(1)
 augroup END
