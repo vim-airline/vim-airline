@@ -24,16 +24,18 @@ i wrote the initial version on an airplane, and since it's light as air it turne
 
 `:help airline`
 
-# faq
+# prerequisites
+
+for this plugin to work properly `lazyredraw` needs to be set.  during development i had this on the entire time, and it turns out that this has a major impact in colors being able to change prompty (ironic that lazy == eager here).  i'm still tracking down the cause and hopefully in the future this requirement can be removed.
+
+# faq/troubleshooting
 
 1.  the powerline font symbols are not showing up
   *  the older deprecated [vim-powerline][a] uses different codes compared to the newer [powerline][b].
   *  you can grab prepatched fonts at [powerline-fonts][c], or you can manually set the relevant `g:` variables
 2.  there is a pause when leaving insert mode
   *  you need to set `ttimeoutlen` to a low number; 50 is recommended
-3.  the colors don't change properly
-  *  the plugin was developed with `lazyredraw` on, and it appears that this setting has a big impact.  please turn it on to see if that fixes it, and file a bug so it can be tracked.
-4.  you get the error `Unknown function: fugitive#head`
+3.  you get the error `Unknown function: fugitive#head`
   *  you are probably using version 1.2, which is very old...download v2 from the [project page][d].
 
 # screenshots
