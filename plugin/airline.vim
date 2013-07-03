@@ -26,11 +26,7 @@ call s:check_defined('g:airline_exclude_filetypes', ['qf','netrw','diff','undotr
 set laststatus=2
 
 let s:is_win32term = (has('win32') || has('win64')) && !has('gui_running')
-
-for mode in ['normal','insert','visual']
-  let s:airline_colors_{mode} = g:airline#themes#{g:airline_theme}#{mode}
-  let s:airline_colors_{mode}_modified = g:airline#themes#{g:airline_theme}#{mode}_modified
-endfor
+let s:load_the_theme = g:airline#themes#{g:airline_theme}#normal
 
 let s:airline_mode_map = {
       \ 'n'  : '  NORMAL ',
@@ -55,8 +51,8 @@ let s:airline_highlight_groups = keys(s:airline_highlight_map)
 
 function! s:highlight(mode)
   for key in s:airline_highlight_groups
-    if exists('s:airline_colors_{a:mode}[key]')
-      let colors = s:airline_colors_{a:mode}[key]
+    if exists('g:airline#themes#{g:airline_theme}#{a:mode}[key]')
+      let colors = g:airline#themes#{g:airline_theme}#{a:mode}[key]
       if s:is_win32term
         let colors = map(colors, 'v:val != "" && v:val > 128 ? v:val - 128 : v:val')
       endif
