@@ -24,8 +24,6 @@ call s:check_defined('g:airline_modified_detection', 1)
 call s:check_defined('g:airline_exclude_filenames', ['DebuggerWatch','DebuggerStack','DebuggerStatus'])
 call s:check_defined('g:airline_exclude_filetypes', ['qf','netrw','diff','undotree','gundo','nerdtree','tagbar'])
 
-set laststatus=2
-
 let s:is_win32term = (has('win32') || has('win64')) && !has('gui_running')
 let s:load_the_theme = g:airline#themes#{g:airline_theme}#normal
 
