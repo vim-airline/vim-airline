@@ -10,11 +10,11 @@ there's already [powerline][b], why yet another statusline?
 *  it's small.  i want the entire plugin to be less than 200 lines as a rule
 *  it gets you 90% of the way there; in addition to all the standard goodies, it integrates with [vim-bufferline][f], [fugitive][d], and [syntastic][e]
 *  it looks good with regular fonts, and provides configuration points so you can use unicode or powerline symbols
-*  it's fast to load, taking only 0.5ms.  by comparison, powerline needs 60ms on the same machine.
+*  it's fast to load, taking roughly 1ms.  by comparison, powerline needs 60ms on the same machine.
 
 # why's it called airline?
 
-i wrote this on an airplane, and since it's light as air it turned out to be a good name.  thanks for flying vim!
+i wrote the initial version on an airplane, and since it's light as air it turned out to be a good name.  thanks for flying vim!
 
 # configuration
 
@@ -27,8 +27,8 @@ i wrote this on an airplane, and since it's light as air it turned out to be a g
   *  you can grab prepatched fonts at [powerline-fonts][c], or you can manually set the relevant `g:` variables
 2.  there is a pause when leaving insert mode
   *  you need to set `ttimeoutlen` to a low number; 50 is recommended
-3.  the colors don't change
-  *  ensure that `set t_Co=256` is set in your vimrc
+3.  the colors don't change properly
+  *  ensure you have 256 color mode enabed for terminal vim (`set t_Co=256`)
 4.  you get the error `Unknown function: fugitive#head`
   *  you are probably using version 1.2, which is very old...download v2 from the [project page][d].
 

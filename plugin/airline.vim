@@ -120,8 +120,11 @@ function! s:update_statusline(active)
 endfunction
 
 function! AirlineModePrefix()
-  let l:mode = mode()
+  if !&lazyredraw
+    redrawstatus
+  endif
 
+  let l:mode = mode()
   call <sid>highlight('normal', ['statusline','statusline_nc','inactive','mode','mode_separator','info','info_separator','file'])
 
   if l:mode ==# "i" || l:mode ==# "R"
@@ -139,12 +142,12 @@ endfunction
 augroup airline
   au!
   hi clear StatusLine | hi clear StatusLineNC
-  autocmd ColorScheme * hi clear StatusLine | hi clear StatusLineNC
+  autocmd ColorScheme * hi clear StatusLine | hi clear StatusLineNC | redrawstatus
   autocmd WinLeave * call <sid>update_statusline(0)
   autocmd VimEnter,WinEnter,BufWinEnter * call <sid>update_statusline(1)
 
   " if you know why lazyredraw affects statusline rendering i'd love to know!
   if !&lazyredraw
-    autocmd InsertLeave * :redrawstatus
+    autocmd VimEnter,InsertLeave * :redrawstatus
   endif
 augroup END
