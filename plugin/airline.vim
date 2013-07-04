@@ -3,9 +3,6 @@ if &cp || v:version < 702 || (exists('g:loaded_airline') && g:loaded_airline)
   finish
 endif
 let g:loaded_airline = 1
-if !&lazyredraw
-  echom 'for the time being, vim-airline needs lazyredraw enabled to work properly.'
-endif
 function! s:check_defined(variable, default)
   if !exists(a:variable)
     let {a:variable} = a:default
@@ -37,13 +34,13 @@ call s:check_defined('g:airline_mode_map', {
       \ '' : 'V-BLCK',
       \ })
 let s:airline_highlight_map = {
-      \ 'mode'           : 'User2',
-      \ 'mode_separator' : 'User3',
-      \ 'info'           : 'User4',
-      \ 'info_separator' : 'User5',
-      \ 'statusline'     : 'User6',
-      \ 'file'           : 'User8',
-      \ 'inactive'       : 'User9',
+      \ 'mode'           : 'Al2',
+      \ 'mode_separator' : 'Al3',
+      \ 'info'           : 'Al4',
+      \ 'info_separator' : 'Al5',
+      \ 'statusline'     : 'Al6',
+      \ 'file'           : 'Al8',
+      \ 'inactive'       : 'Al9',
       \ }
 let s:airline_highlight_groups = keys(s:airline_highlight_map)
 
@@ -102,12 +99,12 @@ function! s:update_statusline(active)
   endif
 
   call s:update_externals()
-  let l:mode_color = a:active ? "%2*" : "%9*"
-  let l:mode_sep_color = a:active ? "%3*" : "%9*"
-  let l:info_color = a:active ? "%4*" : "%9*"
-  let l:info_sep_color = a:active ? "%5*" : "%9*"
-  let l:status_color = a:active ? "%6*" : "%9*"
-  let l:file_flag_color = a:active ? "%8*" : "%9*"
+  let l:mode_color      = a:active ? "%#Al2#" : "%#Al9#"
+  let l:mode_sep_color  = a:active ? "%#Al3#" : "%#Al9#"
+  let l:info_color      = a:active ? "%#Al4#" : "%#Al9#"
+  let l:info_sep_color  = a:active ? "%#Al5#" : "%#Al9#"
+  let l:status_color    = a:active ? "%#Al6#" : "%#Al9#"
+  let l:file_flag_color = a:active ? "%#Al7#" : "%#Al9#"
 
   let sl = l:mode_color
   let sl.= a:active

@@ -24,10 +24,6 @@ i wrote the initial version on an airplane, and since it's light as air it turne
 
 `:help airline`
 
-# prerequisites
-
-for this plugin to work properly `lazyredraw` needs to be set.  during development i had this on the entire time, and it turns out that this has a major impact in colors being able to change prompty (ironic that lazy == eager here).  i'm still tracking down the cause and hopefully in the future this requirement can be removed.
-
 # faq/troubleshooting
 
 1.  the powerline font symbols are not showing up
