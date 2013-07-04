@@ -150,7 +150,7 @@ endfunction
 
 augroup airline
   au!
-  autocmd ColorScheme * call <sid>highlight('normal')
+  autocmd VimEnter,ColorScheme * call <sid>highlight('normal')
   autocmd WinLeave * call <sid>update_statusline(0)
   autocmd VimEnter,WinEnter,BufWinEnter * call <sid>update_statusline(1)
 augroup END
