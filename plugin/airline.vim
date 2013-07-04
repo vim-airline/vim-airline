@@ -42,7 +42,6 @@ let s:airline_highlight_map = {
       \ 'info'           : 'User4',
       \ 'info_separator' : 'User5',
       \ 'statusline'     : 'User6',
-      \ 'statusline_nc'  : 'User7',
       \ 'file'           : 'User8',
       \ 'inactive'       : 'User9',
       \ }
