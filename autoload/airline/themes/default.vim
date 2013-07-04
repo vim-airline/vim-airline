@@ -11,7 +11,7 @@ let g:airline#themes#default#normal = {
       \ 'inactive':       [ '#4e4e4e' , '#1c1c1c' , 239     , 234     , ''     ] ,
       \ }
 let g:airline#themes#default#normal_modified = copy(g:airline#themes#default#normal)
-let g:airline#themes#default#normal_modified.info_separator = [ '#444444' , '#5f005f' , s:N2[3] , 53 , '' ]
+let g:airline#themes#default#normal_modified.info_separator = [ '#444444' , '#5f005f' , 238 , 53 , '' ]
 let g:airline#themes#default#normal_modified.statusline     = [ '#ffffff' , '#5f005f' , 255 , 53 , '' ]
 
 let s:I1 = [ '#00005f' , '#00dfff' , 17  , 45  ]

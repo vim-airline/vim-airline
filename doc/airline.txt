@@ -65,6 +65,11 @@ values):
   let g:airline_powerline_fonts=0
 <
 
+* define the set of text to display for each mode.
+>
+  let g:airline_mode_map = {} " see source for current list
+<
+
 * define the set of filename match queries which excludes a window from having
   its statusline modified
 >
@@ -98,9 +103,21 @@ well as the powerline font glyths
   let g:airline_left_sep = ''
   let g:airline_right_sep = ''
   let g:airline_right_sep = ''
-  let g:airline_fugitive_prefix = '   '
+  let g:airline_fugitive_prefix = ' '
   let g:airline_readonly_symbol = ''
   let g:airline_linecolumn_prefix = ' '
+<
+
+for more intricate customizations, you can replace the predefined sections
+with the usual *statusline* syntax.
+
+>
+  let g:airline_section_a (the mode indicator)
+  let g:airline_section_b (the fugitive branch indicator)
+  let g:airline_section_c (bufferline or filename)
+  let g:airline_section_x (filetype)
+  let g:airline_section_y (fileencoding, fileformat)
+  let g:airline_section_z (percentage, line number, column number)
 <
 
 ==============================================================================
