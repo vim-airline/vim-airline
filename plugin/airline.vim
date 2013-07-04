@@ -109,7 +109,7 @@ function! s:update_statusline(active)
   let sl = l:mode_color
   let sl.= a:active
         \ ? '%{AirlineUpdateHighlight()} '.g:airline_section_a.' '.l:mode_sep_color
-        \ : '        %9*'
+        \ : '        %#Al9#'
   let sl.='%{g:airline_left_sep}'.l:info_color
   let sl.=' '.g:airline_section_b.' '
   let sl.=l:info_sep_color.g:airline_left_sep
