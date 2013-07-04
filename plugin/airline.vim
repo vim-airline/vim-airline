@@ -39,7 +39,7 @@ let s:airline_highlight_map = {
       \ 'info'           : 'Al4',
       \ 'info_separator' : 'Al5',
       \ 'statusline'     : 'Al6',
-      \ 'file'           : 'Al8',
+      \ 'file'           : 'Al7',
       \ 'inactive'       : 'Al9',
       \ }
 let s:airline_highlight_groups = keys(s:airline_highlight_map)
