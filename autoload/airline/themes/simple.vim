@@ -1,3 +1,8 @@
+if g:airline_powerline_fonts
+  let g:airline_left_sep = ''
+  let g:airline_right_sep = ''
+endif
+
 let s:bg = 233
 let s:sepc = 236
 let s:sepg = '#303030'

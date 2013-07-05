@@ -36,13 +36,21 @@ i wrote the initial version on an airplane, and since it's light as air it turne
 
 # screenshots
 
-## regular font
+## dark theme with a regular font
 
-![img](regular.png)
+![img](screenshots/dark.png)
 
-## powerline font
+## dark theme with the powerline font
 
-![img](powerline.png)
+![img](screenshots/dark-powerline.png)
+
+## simple theme
+
+![img](screenshots/simple.png)
+
+## light theme
+
+![img](screenshots/light.png)
 
 # contributions
 
