@@ -28,7 +28,7 @@ let g:airline#themes#light#insert_modified = copy(g:airline#themes#light#insert)
 let g:airline#themes#light#insert_modified.info_separator = [ '#00df87' , '#ffdfdf' , 42  , 224 , '' ]
 let g:airline#themes#light#insert_modified.statusline     = [ '#df0000' , '#ffdfdf' , 160 , 224 , '' ]
 
-let s:V1 = [ '#5f0000' , '#ff5f00' , 52  , 202 ]
+let s:V1 = [ '#ffffff' , '#ff5f00' , 255 , 202 ]
 let s:V2 = [ '#5f0000' , '#ffaf00' , 52  , 214 ]
 let s:V3 = [ '#df5f00' , '#ffff87' , 166 , 228 ]
 let g:airline#themes#light#visual = {
