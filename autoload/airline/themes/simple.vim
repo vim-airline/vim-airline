@@ -1,9 +1,9 @@
-if g:airline_powerline_fonts
+if exists('g:airline_powerline_fonts') && g:airline_powerline_fonts
   let g:airline_left_sep = ''
   let g:airline_right_sep = ''
 endif
 
-let s:bg = 233
+let s:bg = 232
 let s:sepc = 236
 let s:sepg = '#303030'
 
