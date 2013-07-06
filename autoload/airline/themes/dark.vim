@@ -10,9 +10,10 @@ let g:airline#themes#dark#normal = {
       \ 'file':           [ '#ff0000' , '#1c1c1c' , 160     , 233     , ''     ] ,
       \ 'inactive':       [ '#4e4e4e' , '#1c1c1c' , 239     , 234     , ''     ] ,
       \ }
-let g:airline#themes#dark#normal_modified = copy(g:airline#themes#dark#normal)
-let g:airline#themes#dark#normal_modified.info_separator = [ '#444444' , '#5f005f' , 238 , 53 , '' ]
-let g:airline#themes#dark#normal_modified.statusline     = [ '#ffffff' , '#5f005f' , 255 , 53 , '' ]
+let g:airline#themes#dark#normal_modified = {
+      \ 'info_separator': [ '#444444' , '#5f005f' , 238     , 53      , ''     ] ,
+      \ 'statusline':     [ '#ffffff' , '#5f005f' , 255     , 53      , ''     ] ,
+      \ }
 
 let s:I1 = [ '#00005f' , '#00dfff' , 17  , 45  ]
 let s:I2 = [ '#ffffff' , '#005fff' , 255 , 27  ]
@@ -24,9 +25,10 @@ let g:airline#themes#dark#insert = {
       \ 'info_separator': [ s:I2[1]   , s:I3[1]   , s:I2[3] , s:I3[3] , 'bold' ] ,
       \ 'statusline':     [ s:I3[0]   , s:I3[1]   , s:I3[2] , s:I3[3] , ''     ] ,
       \ }
-let g:airline#themes#dark#insert_modified = copy(g:airline#themes#dark#insert)
-let g:airline#themes#dark#insert_modified.info_separator = [ '#005fff' , '#5f005f' , 27  , 53 , '' ]
-let g:airline#themes#dark#insert_modified.statusline     = [ '#ffffff' , '#5f005f' , 255 , 53 , '' ]
+let g:airline#themes#dark#insert_modified = {
+      \ 'info_separator': [ '#005fff' , '#5f005f' , 27      , 53      , ''     ] ,
+      \ 'statusline':     [ '#ffffff' , '#5f005f' , 255     , 53      , ''     ] ,
+      \ }
 
 let s:V1 = [ '#000000' , '#ffaf00' , 232 , 214 ]
 let s:V2 = [ '#000000' , '#ff5f00' , 232 , 202 ]
@@ -38,6 +40,7 @@ let g:airline#themes#dark#visual = {
       \ 'info_separator': [ s:V2[1]   , s:V3[1]   , s:V2[3] , s:V3[3] , 'bold' ] ,
       \ 'statusline':     [ s:V3[0]   , s:V3[1]   , s:V3[2] , s:V3[3] , ''     ] ,
       \ }
-let g:airline#themes#dark#visual_modified = copy(g:airline#themes#dark#visual)
-let g:airline#themes#dark#visual_modified.info_separator = [ '#ff5f00' , '#5f005f' , 202 , 53 , '' ]
-let g:airline#themes#dark#visual_modified.statusline     = [ '#ffffff' , '#5f005f' , 255 , 53 , '' ]
+let g:airline#themes#dark#visual_modified = {
+      \ 'info_separator': [ '#ff5f00' , '#5f005f' , 202     , 53      , ''     ] ,
+      \ 'statusline':     [ '#ffffff' , '#5f005f' , 255     , 53      , ''     ] ,
+      \ }
