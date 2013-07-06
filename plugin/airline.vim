@@ -21,6 +21,10 @@ call s:check_defined('g:airline_modified_detection', 1)
 call s:check_defined('g:airline_exclude_filenames', ['DebuggerWatch','DebuggerStack','DebuggerStatus'])
 call s:check_defined('g:airline_exclude_filetypes', ['qf','netrw','diff','undotree','gundo','nerdtree','tagbar'])
 
+if g:airline_enable_bufferline
+  let g:bufferline_echo = 0
+endif
+
 let s:is_win32term = (has('win32') || has('win64')) && !has('gui_running')
 let s:load_the_theme = g:airline#themes#{g:airline_theme}#normal
 
@@ -82,20 +86,23 @@ function! s:is_excluded_window()
   return 0
 endfunction
 
+let s:airline_sections_defined = 0
 function! s:update_externals()
   let g:airline_externals_bufferline = g:airline_enable_bufferline && exists('g:bufferline_loaded') ? '%{bufferline#generate_string()}' : "%f%m"
   let g:airline_externals_syntastic = g:airline_enable_syntastic && exists('g:loaded_syntastic_plugin') ? '%{SyntasticStatuslineFlag()}' : ''
   let g:airline_externals_fugitive = g:airline_enable_fugitive && exists('g:loaded_fugitive') && strlen(fugitive#head()) > 0
         \ ? g:airline_fugitive_prefix.fugitive#head() : ''
-endfunction
-call s:update_externals()
 
-call s:check_defined('g:airline_section_a', '%{g:airline_current_mode_text}')
-call s:check_defined('g:airline_section_b', '%{g:airline_externals_fugitive}')
-call s:check_defined('g:airline_section_c', g:airline_externals_bufferline)
-call s:check_defined('g:airline_section_x', "%{strlen(&filetype)>0?&filetype:''}")
-call s:check_defined('g:airline_section_y', "%{strlen(&fenc)>0?&fenc:''}%{strlen(&ff)>0?'['.&ff.']':''}")
-call s:check_defined('g:airline_section_z', '%3p%% '.g:airline_linecolumn_prefix.'%3l:%3c')
+  if !s:airline_sections_defined
+    call s:check_defined('g:airline_section_a', '%{g:airline_current_mode_text}')
+    call s:check_defined('g:airline_section_b', '%{g:airline_externals_fugitive}')
+    call s:check_defined('g:airline_section_c', g:airline_externals_bufferline)
+    call s:check_defined('g:airline_section_x', "%{strlen(&filetype)>0?&filetype:''}")
+    call s:check_defined('g:airline_section_y', "%{strlen(&fenc)>0?&fenc:''}%{strlen(&ff)>0?'['.&ff.']':''}")
+    call s:check_defined('g:airline_section_z', '%3p%% '.g:airline_linecolumn_prefix.'%3l:%3c')
+    let s:airline_sections_defined = 1
+  endif
+endfunction
 
 function! s:update_statusline(active)
   if s:is_excluded_window()
