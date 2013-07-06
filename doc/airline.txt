@@ -109,7 +109,7 @@ well as the powerline font glyths
 <
 
 for more intricate customizations, you can replace the predefined sections
-with the usual *statusline* syntax.
+with the usual statusline syntax.
 
 >
   let g:airline_section_a (the mode indicator)
