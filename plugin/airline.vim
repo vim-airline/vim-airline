@@ -21,10 +21,6 @@ call s:check_defined('g:airline_modified_detection', 1)
 call s:check_defined('g:airline_exclude_filenames', ['DebuggerWatch','DebuggerStack','DebuggerStatus'])
 call s:check_defined('g:airline_exclude_filetypes', ['qf','netrw','diff','undotree','gundo','nerdtree','tagbar'])
 
-if g:airline_enable_bufferline
-  let g:bufferline_echo = 0
-endif
-
 let s:is_win32term = (has('win32') || has('win64')) && !has('gui_running')
 let s:load_the_theme = g:airline#themes#{g:airline_theme}#normal
 
@@ -58,7 +54,7 @@ function! s:highlight(modes)
         if s:is_win32term
           let colors = map(colors, 'v:val != "" && v:val > 128 ? v:val - 128 : v:val')
         endif
-        let cmd = printf('hi %s %s %s %s %s %s %s',
+        exec printf('hi %s %s %s %s %s %s %s',
               \ s:airline_highlight_map[key],
               \ colors[0] != '' ? 'guifg='.colors[0] : '',
               \ colors[1] != '' ? 'guibg='.colors[1] : '',
@@ -66,7 +62,6 @@ function! s:highlight(modes)
               \ colors[3] != '' ? 'ctermbg='.colors[3] : '',
               \ colors[4] != '' ? 'gui='.colors[4] : '',
               \ colors[4] != '' ? 'term='.colors[4] : '')
-        exec cmd
       endif
     endfor
   endfor

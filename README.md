@@ -28,15 +28,17 @@ i wrote the initial version on an airplane, and since it's light as air it turne
 
 # faq/troubleshooting
 
-1.  the powerline font symbols are not showing up
+*  the powerline font symbols are not showing up
   *  the older deprecated [vim-powerline][a] uses different codes compared to the newer [powerline][b].
   *  you can grab prepatched fonts at [powerline-fonts][c], or you can manually set the relevant `g:` variables
-2.  there is a pause when leaving insert mode
+*  there is a pause when leaving insert mode
   *  you need to set `ttimeoutlen` to a low number; 50 is recommended
-3.  you get the error `Unknown function: fugitive#head`
+*  you get the error `Unknown function: fugitive#head`
   *  you are probably using version 1.2, which is very old...download v2 from the [project page][d].
-4.  airline doesn't appear until i create a new split
+*  airline doesn't appear until i create a new split
   *  add `set laststatus=2` to your vimrc
+*  bufferline is printing to the statusline as well as the command bar
+  *  you can disable automatic echoing by adding `let g:bufferline_echo = 0` to your vimrc
 
 # bugs
 
