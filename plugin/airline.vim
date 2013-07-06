@@ -116,16 +116,14 @@ function! s:update_statusline(active)
 
   let sl = l:mode_color
   let sl.= a:active
-        \ ? '%{AirlineUpdateHighlight()} '.g:airline_section_a.' %{g:airline_paste_detection && &paste ? g:airline_paste_symbol." " : ""}'.l:mode_sep_color
+        \ ? '%{airline#update_highlight()} '.g:airline_section_a.' %{g:airline_paste_detection && &paste ? g:airline_paste_symbol." " : ""}'
         \ : '        %#Al9#'
-  let sl.='%{g:airline_left_sep}'.l:info_color
+  let sl.=l:mode_sep_color.'%{g:airline_left_sep}'.l:info_color
   let sl.=' '.g:airline_section_b.' '
   let sl.=l:info_sep_color.g:airline_left_sep
   let sl.=a:active ? l:status_color.' '.g:airline_section_c.' ' : ' '.bufname(winbufnr(winnr()))
   let sl.='%#warningmsg#'.g:airline_externals_syntastic
-  let sl.=l:status_color."%<%=".l:file_flag_color."%{&ro ? g:airline_readonly_symbol : ''}"
-  let sl.="%q%{&previewwindow?'[preview]':''}"
-  let sl.=l:status_color
+  let sl.=l:status_color."%<%=".l:file_flag_color."%{&ro ? g:airline_readonly_symbol : ''}%q%{&previewwindow ? '[preview]' : ''}".l:status_color
   let sl.=' '.g:airline_section_x.' '
   let sl.=l:info_sep_color.g:airline_right_sep.l:info_color
   let sl.=' '.g:airline_section_y.' '
@@ -136,7 +134,7 @@ endfunction
 
 let s:lastmode = []
 let g:airline_current_mode_text = ''
-function! AirlineUpdateHighlight()
+function! airline#update_highlight()
   let l:m = mode()
   if l:m ==# "i" || l:m ==# "R"
     let l:mode = ['insert']
