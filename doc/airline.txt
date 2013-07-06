@@ -55,9 +55,9 @@ values):
   let g:airline_enable_syntastic=1
 <
 
-* change the theme, currently only `default` is available
+* change the theme (available options: dark, light, simple, badwolf)
 >
-  let g:airline_theme='default'
+  let g:airline_theme='dark'
 <
 
 * enable/disable usage of patched powerline font symbols

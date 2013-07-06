@@ -6,15 +6,17 @@ lean &amp; mean statusline for vim that's light as air
 
 there's already [powerline][b], why yet another statusline?
 
-*  it's standard vimscript, no python needed
-*  it's small.  i want the entire plugin to be less than 200 lines as a rule
-*  it gets you 90% of the way there; in addition to all the standard goodies, it integrates with [vim-bufferline][f], [fugitive][d], and [syntastic][e]
-*  it looks good with regular fonts, and provides configuration points so you can use unicode or powerline symbols
+*  it's 100% vimscript; no python needed.
+*  it's small.  i want the entire plugin to be *less than 200 lines* as a rule.
+*  it gets you 90% of the way there; in addition to all the standard goodies, it integrates with [vim-bufferline][f], [fugitive][d], and [syntastic][e].
+*  it looks good with regular fonts, and provides configuration points so you can use unicode or powerline symbols.
 *  it's fast to load, taking roughly 1ms.  by comparison, powerline needs 60ms on the same machine.
+*  it's fully customizable; if you know a little `statusline` syntax you can tweak it to your needs.
+*  it is trivial to write colorschemes; for a minimal theme you need to edit 9 lines of colors.
 
 what about [old powerline][a]?
 
-*  the old version still works well, but since its deprecated new features won't get added
+*  the old version still works well, but since it's deprecated new features won't get added
 
 # why's it called airline?
 
@@ -33,6 +35,12 @@ i wrote the initial version on an airplane, and since it's light as air it turne
   *  you need to set `ttimeoutlen` to a low number; 50 is recommended
 3.  you get the error `Unknown function: fugitive#head`
   *  you are probably using version 1.2, which is very old...download v2 from the [project page][d].
+4.  airline doesn't appear until i create a new split
+  *  add `set laststatus=2` to your vimrc
+
+# bugs
+
+if you encounter a bug, please reproduce it with this [minivimrc][g] repository i created and file an issue.
 
 # screenshots
 
@@ -66,3 +74,4 @@ contributions and pull requests are welcome.
 [d]: https://github.com/tpope/vim-fugitive
 [e]: https://github.com/scrooloose/syntastic
 [f]: https://github.com/bling/vim-bufferline
+[g]: https://github.com/bling/minivimrc
