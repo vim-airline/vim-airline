@@ -44,23 +44,27 @@ let s:airline_highlight_map = {
       \ }
 let s:airline_highlight_groups = keys(s:airline_highlight_map)
 
-function! s:highlight(mode)
-  for key in s:airline_highlight_groups
-    if exists('g:airline#themes#{g:airline_theme}#{a:mode}[key]')
-      let colors = g:airline#themes#{g:airline_theme}#{a:mode}[key]
-      if s:is_win32term
-        let colors = map(colors, 'v:val != "" && v:val > 128 ? v:val - 128 : v:val')
+function! s:highlight(modes)
+  " always draw the base mode, and then override any/all of the colors with _override
+  let mapped = map(a:modes, 'v:val == a:modes[0] ? v:val : a:modes[0]."_".v:val')
+  for mode in mapped
+    for key in s:airline_highlight_groups
+      if exists('g:airline#themes#{g:airline_theme}#{mode}[key]')
+        let colors = g:airline#themes#{g:airline_theme}#{mode}[key]
+        if s:is_win32term
+          let colors = map(colors, 'v:val != "" && v:val > 128 ? v:val - 128 : v:val')
+        endif
+        let cmd = printf('hi %s %s %s %s %s %s %s',
+              \ s:airline_highlight_map[key],
+              \ colors[0] != '' ? 'guifg='.colors[0] : '',
+              \ colors[1] != '' ? 'guibg='.colors[1] : '',
+              \ colors[2] != '' ? 'ctermfg='.colors[2] : '',
+              \ colors[3] != '' ? 'ctermbg='.colors[3] : '',
+              \ colors[4] != '' ? 'gui='.colors[4] : '',
+              \ colors[4] != '' ? 'term='.colors[4] : '')
+        exec cmd
       endif
-      let cmd = printf('hi %s %s %s %s %s %s %s',
-            \ s:airline_highlight_map[key],
-            \ colors[0] != '' ? 'guifg='.colors[0] : '',
-            \ colors[1] != '' ? 'guibg='.colors[1] : '',
-            \ colors[2] != '' ? 'ctermfg='.colors[2] : '',
-            \ colors[3] != '' ? 'ctermbg='.colors[3] : '',
-            \ colors[4] != '' ? 'gui='.colors[4] : '',
-            \ colors[4] != '' ? 'term='.colors[4] : '')
-      exec cmd
-    endif
+    endfor
   endfor
 endfunction
 
@@ -131,19 +135,20 @@ function! s:update_statusline(active)
   call setwinvar(winnr(), '&statusline', sl)
 endfunction
 
-let s:lastmode = ''
+let s:lastmode = []
 let g:airline_current_mode_text = ''
 function! AirlineUpdateHighlight()
   let l:m = mode()
-  let l:mode = 'normal'
   if l:m ==# "i" || l:m ==# "R"
-    let l:mode = 'insert'
+    let l:mode = ['insert']
   elseif l:m ==? "v" || l:m ==# ""
-    let l:mode = 'visual'
+    let l:mode = ['visual']
+  else
+    let l:mode = ['normal']
   endif
 
   if g:airline_modified_detection && &modified
-    let l:mode .= '_modified'
+    call add(l:mode, 'modified')
   endif
 
   if s:lastmode != l:mode
@@ -157,7 +162,7 @@ endfunction
 
 augroup airline
   au!
-  autocmd VimEnter,ColorScheme * call <sid>highlight('normal')
+  autocmd VimEnter,ColorScheme * call <sid>highlight(['normal'])
   autocmd WinLeave * call <sid>update_statusline(0)
   autocmd VimEnter,WinEnter,BufWinEnter * call <sid>update_statusline(1)
 augroup END

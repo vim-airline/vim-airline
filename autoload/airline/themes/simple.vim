@@ -19,9 +19,9 @@ let g:airline#themes#simple#normal = {
       \ 'file':           [ '#ff0000' , '#080808' , 160     , s:bg    , ''     ] ,
       \ 'inactive':       [ '#4e4e4e' , '#080808' , 239     , s:bg    , ''     ] ,
       \ }
-let g:airline#themes#simple#normal_modified = copy(g:airline#themes#simple#normal)
-let g:airline#themes#simple#normal_modified.info_separator = [ '#080808' , '#080808' , s:bg , s:bg , '' ]
-let g:airline#themes#simple#normal_modified.statusline     = [ '#df0000' , '#080808' , 160 , s:bg , '' ]
+let g:airline#themes#simple#normal_modified = {
+      \ 'statusline':     [ '#df0000' , '#080808' , 160     , s:bg    , ''     ] ,
+      \ }
 
 let s:I1 = [ '#5fff00' , '#080808' , 82  , s:bg ]
 let s:I2 = [ '#ff5f00' , '#080808' , 202 , s:bg ]
