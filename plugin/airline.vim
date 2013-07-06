@@ -16,8 +16,10 @@ call s:check_defined('g:airline_enable_syntastic', 1)
 call s:check_defined('g:airline_fugitive_prefix', exists('g:airline_powerline_fonts')?' ':'')
 call s:check_defined('g:airline_readonly_symbol', exists('g:airline_powerline_fonts')?'':'RO')
 call s:check_defined('g:airline_linecolumn_prefix', exists('g:airline_powerline_fonts')?' ':':')
+call s:check_defined('g:airline_paste_symbol', 'PASTE')
 call s:check_defined('g:airline_theme', 'dark')
 call s:check_defined('g:airline_modified_detection', 1)
+call s:check_defined('g:airline_paste_detection', 1)
 call s:check_defined('g:airline_exclude_filenames', ['DebuggerWatch','DebuggerStack','DebuggerStatus'])
 call s:check_defined('g:airline_exclude_filetypes', ['qf','netrw','diff','undotree','gundo','nerdtree','tagbar'])
 
@@ -114,7 +116,7 @@ function! s:update_statusline(active)
 
   let sl = l:mode_color
   let sl.= a:active
-        \ ? '%{AirlineUpdateHighlight()} '.g:airline_section_a.' '.l:mode_sep_color
+        \ ? '%{AirlineUpdateHighlight()} '.g:airline_section_a.' %{&paste ? g:airline_paste_symbol." " : ""}'.l:mode_sep_color
         \ : '        %#Al9#'
   let sl.='%{g:airline_left_sep}'.l:info_color
   let sl.=' '.g:airline_section_b.' '
@@ -146,6 +148,9 @@ function! AirlineUpdateHighlight()
 
   if g:airline_modified_detection && &modified
     call add(l:mode, 'modified')
+  endif
+  if g:airline_paste_detection && &paste
+    call add(l:mode, 'paste')
   endif
 
   if s:lastmode != l:mode

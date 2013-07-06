@@ -97,6 +97,7 @@ well as the powerline font glyths
   let g:airline_linecolumn_prefix = '␤ '
   let g:airline_linecolumn_prefix = '¶ '
   let g:airline_fugitive_prefix = '⎇ '
+  let g:airline_paste_symbol = 'ρ'
 
   " powerline symbols
   let g:airline_left_sep = ''
