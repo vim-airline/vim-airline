@@ -119,13 +119,8 @@ function! s:update_statusline(active)
   let sl.='%{g:airline_left_sep}'.l:info_color
   let sl.=' '.g:airline_section_b.' '
   let sl.=l:info_sep_color.g:airline_left_sep
-  if a:active
-    let sl.=l:status_color.' '.g:airline_section_c.' '
-  else
-    let sl.=" ".bufname(winbufnr(winnr()))
-  endif
-  let sl.="%#warningmsg#"
-  let sl.=g:airline_externals_syntastic
+  let sl.=a:active ? l:status_color.' '.g:airline_section_c.' ' : ' '.bufname(winbufnr(winnr()))
+  let sl.='%#warningmsg#'.g:airline_externals_syntastic
   let sl.=l:status_color."%<%=".l:file_flag_color."%{&ro ? g:airline_readonly_symbol : ''}"
   let sl.="%q%{&previewwindow?'[preview]':''}"
   let sl.=l:status_color
