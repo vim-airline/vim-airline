@@ -28,7 +28,7 @@ if exists('g:airline_powerline_fonts') && g:airline_powerline_fonts
 endif
 
 let s:guibg = '#080808'
-let s:termbg = 15
+let s:termbg = 232
 let s:termsep = 236
 let s:guisep = '#303030'
 
