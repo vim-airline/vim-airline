@@ -75,7 +75,7 @@ if you encounter a bug, please reproduce it with this [minivimrc][g] repository 
 
 ![img](screenshots/light.png)
 
-## badwolf theme
+## badwolf theme with [bufferline][f] integration
 
 ![img](screenshots/badwolf.png)
 
