@@ -132,7 +132,7 @@ function! s:update_statusline(active)
   call setwinvar(winnr(), '&statusline', sl)
 endfunction
 
-let s:lastmode = []
+let s:lastmode = ''
 let g:airline_current_mode_text = ''
 function! airline#update_highlight()
   let l:m = mode()
@@ -151,9 +151,10 @@ function! airline#update_highlight()
     call add(l:mode, 'paste')
   endif
 
-  if s:lastmode != l:mode
+  let mode_string = join(l:mode)
+  if s:lastmode != mode_string
     call <sid>highlight(l:mode)
-    let s:lastmode = l:mode
+    let s:lastmode = mode_string
   endif
 
   let g:airline_current_mode_text = get(g:airline_mode_map, l:m, l:m)
