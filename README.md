@@ -50,7 +50,7 @@ if you encounter a bug, please reproduce it with this [minivimrc][g] repository 
 
 ![img](screenshots/dark.png)
 
-## dark theme with the powerline font
+## dark theme with powerline symbols
 
 ![img](screenshots/dark-powerline.png)
 
@@ -61,6 +61,10 @@ if you encounter a bug, please reproduce it with this [minivimrc][g] repository 
 ## light theme
 
 ![img](screenshots/light.png)
+
+## badwolf theme
+
+![img](screenshots/badwolf.png)
 
 # contributions
 
