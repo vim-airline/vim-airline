@@ -26,6 +26,15 @@ call s:check_defined('g:airline_exclude_filetypes', ['qf','netrw','diff','undotr
 let s:is_win32term = (has('win32') || has('win64')) && !has('gui_running')
 let s:load_the_theme = g:airline#themes#{g:airline_theme}#normal
 
+if exists('g:loaded_ctrlp') && g:loaded_ctrlp
+  call airline#themes#ctrlp#load_ctrlp_hi()
+  " ctrlp only looks for this
+  let g:ctrlp_status_func = {
+  \ 'main': 'airline#themes#ctrlp#ctrlp_airline',
+  \ 'prog': 'airline#themes#ctrlp#ctrlp_airline_status',
+  \ }
+endif
+
 call s:check_defined('g:airline_mode_map', {
       \ 'n'  : 'NORMAL',
       \ 'i'  : 'INSERT',
