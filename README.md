@@ -7,8 +7,8 @@ lean &amp; mean statusline for vim that's light as air
 there's already [powerline][b], why yet another statusline?
 
 *  it's 100% vimscript; no python needed.
-*  it's small.  i want the entire plugin to be *less than 200 lines* as a rule.
-*  it gets you 90% of the way there; in addition to all the standard goodies, it integrates with [vim-bufferline][f], [fugitive][d], and [syntastic][e].
+*  it's small.  i want the core plugin to be *less than 200 lines* as a rule (specifically adhering to the [open/closed principle][h]).
+*  it gets you 90% of the way there; in addition to all the standard goodies, it integrates with [vim-bufferline][f], [fugitive][d], [unite][i], [ctrlp][j] and [syntastic][e].
 *  it looks good with regular fonts, and provides configuration points so you can use unicode or powerline symbols.
 *  it's fast to load, taking roughly 1ms.  by comparison, powerline needs 60ms on the same machine.
 *  it's fully customizable; if you know a little `statusline` syntax you can tweak it to your needs.
@@ -64,7 +64,7 @@ if you encounter a bug, please reproduce it with this [minivimrc][g] repository 
 
 # contributions
 
-contributions and pull requests are welcome.
+contributions and pull requests are welcome.  please follow the existing coding style as much as possible.
 
 # license
 
@@ -77,3 +77,6 @@ contributions and pull requests are welcome.
 [e]: https://github.com/scrooloose/syntastic
 [f]: https://github.com/bling/vim-bufferline
 [g]: https://github.com/bling/minivimrc
+[h]: http://en.wikipedia.org/wiki/Open/closed_principle
+[i]: https://github.com/Shougo/unite.vim
+[j]: https://github.com/kien/ctrlp.vim
