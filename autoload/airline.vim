@@ -57,6 +57,12 @@ function! s:apply_window_overrides()
     let w:airline_section_c = ''
     let w:airline_section_x = ''
   endif
+
+  if &previewwindow
+    let w:airline_section_a = 'Preview'
+    let w:airline_section_b = ''
+    let w:airline_section_c = bufname(winbufnr(winnr()))
+  endif
 endfunction
 
 function! airline#update_externals()
@@ -88,13 +94,13 @@ function! airline#update_statusline(active)
   let sl = l:mode_color
   let sl.= a:active
         \ ? '%{airline#update_highlight()} '.s:get_section('a').' %{&paste ? g:airline_paste_symbol." " : ""}'
-        \ : '        %#Al9#'
+        \ : ' '.s:get_section('a').' %#Al9#'
   let sl.=l:mode_sep_color.g:airline_left_sep.l:info_color
   let sl.=' '.s:get_section('b').' '
   let sl.=l:info_sep_color.g:airline_left_sep
   let sl.=a:active ? l:status_color.' '.s:get_section('c').' ' : ' '.bufname(winbufnr(winnr()))
   let sl.='%#warningmsg#'.g:airline_externals_syntastic
-  let sl.=l:status_color."%<%=".l:file_flag_color."%{&ro ? g:airline_readonly_symbol : ''}%{&previewwindow ? '[preview]' : ''}".l:status_color
+  let sl.=l:status_color."%<%=".l:file_flag_color."%{&ro ? g:airline_readonly_symbol : ''}".l:status_color
   let sl.=' '.s:get_section('x').' '
   let sl.=l:info_sep_color.g:airline_right_sep.l:info_color
   let sl.=' '.s:get_section('y').' '
@@ -120,6 +126,9 @@ function! airline#update_highlight()
   endif
   if &paste
     call add(l:mode, 'paste')
+  endif
+  if &previewwindow
+    call add(l:mode, 'preview')
   endif
 
   let mode_string = join(l:mode)
