@@ -26,15 +26,6 @@ call s:check_defined('g:airline_exclude_filetypes', ['qf','netrw','diff','undotr
 let s:is_win32term = (has('win32') || has('win64')) && !has('gui_running')
 let s:load_the_theme = g:airline#themes#{g:airline_theme}#normal
 
-if exists('g:loaded_ctrlp') && g:loaded_ctrlp
-  call airline#themes#ctrlp#load_ctrlp_hi()
-  " ctrlp only looks for this
-  let g:ctrlp_status_func = {
-  \ 'main': 'airline#themes#ctrlp#ctrlp_airline',
-  \ 'prog': 'airline#themes#ctrlp#ctrlp_airline_status',
-  \ }
-endif
-
 call s:check_defined('g:airline_mode_map', {
       \ 'n'  : 'NORMAL',
       \ 'i'  : 'INSERT',
@@ -100,6 +91,7 @@ function! s:update_externals()
         \ ? g:airline_fugitive_prefix.fugitive#head() : ''
 
   if !s:airline_sections_defined
+    call airline#extensions#load()
     call s:check_defined('g:airline_section_a', '%{g:airline_current_mode_text}')
     call s:check_defined('g:airline_section_b', '%{g:airline_externals_fugitive}')
     call s:check_defined('g:airline_section_c', g:airline_externals_bufferline)
