@@ -9,7 +9,9 @@ function! s:check_defined(variable, default)
   endif
 endfunction
 call s:check_defined('g:airline_left_sep', exists('g:airline_powerline_fonts')?"":">")
+call s:check_defined('g:airline_left_alt_sep', exists('g:airline_powerline_fonts')?"":">")
 call s:check_defined('g:airline_right_sep', exists('g:airline_powerline_fonts')?"":"<")
+call s:check_defined('g:airline_right_alt_sep', exists('g:airline_powerline_fonts')?"":"<")
 call s:check_defined('g:airline_enable_bufferline', 1)
 call s:check_defined('g:airline_enable_fugitive', 1)
 call s:check_defined('g:airline_enable_syntastic', 1)
