@@ -79,7 +79,7 @@ function! airline#update_statusline(active)
   let sl.= a:active
         \ ? '%{airline#update_highlight()} '.s:get_section('a').' %{g:airline_paste_detection && &paste ? g:airline_paste_symbol." " : ""}'
         \ : '        %#Al9#'
-  let sl.=l:mode_sep_color.'%{g:airline_left_sep}'.l:info_color
+  let sl.=l:mode_sep_color.g:airline_left_sep.l:info_color
   let sl.=' '.s:get_section('b').' '
   let sl.=l:info_sep_color.g:airline_left_sep
   let sl.=a:active ? l:status_color.' '.s:get_section('c').' ' : ' '.bufname(winbufnr(winnr()))
