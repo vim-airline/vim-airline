@@ -40,10 +40,6 @@ values):
   let g:airline_right_sep='<'
 <
 
-* enable/disable color change when buffer is modified
->
-  let g:airline_modified_detection=1
-<
 
 * enable/disable fugitive integration
 >
