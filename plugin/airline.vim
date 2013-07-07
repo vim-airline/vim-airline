@@ -110,12 +110,17 @@ function! s:update_externals()
   endif
 endfunction
 
+function! s:get_section(key)
+  return exists('w:airline_section_{a:key}') ? w:airline_section_{a:key} : g:airline_section_{a:key}
+endfunction
+
 function! s:update_statusline(active)
   if s:is_excluded_window()
     return
   endif
 
   call s:update_externals()
+
   let l:mode_color      = a:active ? "%#Al2#" : "%#Al9#"
   let l:mode_sep_color  = a:active ? "%#Al3#" : "%#Al9#"
   let l:info_color      = a:active ? "%#Al4#" : "%#Al9#"
@@ -125,19 +130,19 @@ function! s:update_statusline(active)
 
   let sl = l:mode_color
   let sl.= a:active
-        \ ? '%{airline#update_highlight()} '.g:airline_section_a.' %{g:airline_paste_detection && &paste ? g:airline_paste_symbol." " : ""}'
+        \ ? '%{airline#update_highlight()} '.s:get_section('a').' %{g:airline_paste_detection && &paste ? g:airline_paste_symbol." " : ""}'
         \ : '        %#Al9#'
   let sl.=l:mode_sep_color.'%{g:airline_left_sep}'.l:info_color
-  let sl.=' '.g:airline_section_b.' '
+  let sl.=' '.s:get_section('b').' '
   let sl.=l:info_sep_color.g:airline_left_sep
-  let sl.=a:active ? l:status_color.' '.g:airline_section_c.' ' : ' '.bufname(winbufnr(winnr()))
+  let sl.=a:active ? l:status_color.' '.s:get_section('c').' ' : ' '.bufname(winbufnr(winnr()))
   let sl.='%#warningmsg#'.g:airline_externals_syntastic
   let sl.=l:status_color."%<%=".l:file_flag_color."%{&ro ? g:airline_readonly_symbol : ''}%q%{&previewwindow ? '[preview]' : ''}".l:status_color
-  let sl.=' '.g:airline_section_x.' '
+  let sl.=' '.s:get_section('x').' '
   let sl.=l:info_sep_color.g:airline_right_sep.l:info_color
-  let sl.=' '.g:airline_section_y.' '
+  let sl.=' '.s:get_section('y').' '
   let sl.=l:mode_sep_color.g:airline_right_sep.l:mode_color
-  let sl.=' '.g:airline_section_z.' '
+  let sl.=' '.s:get_section('z').' '
   call setwinvar(winnr(), '&statusline', sl)
 endfunction
 
