@@ -4,6 +4,7 @@ function! airline#extensions#load()
         \ let w:airline_section_a = 'Unite'
         \ | let w:airline_section_b = unite#get_status_string()
         \ | call airline#update_statusline(1)
+        \ | unlet w:airline_section_a | unlet w:airline_section_b
 
   if exists('g:loaded_ctrlp') && g:loaded_ctrlp
     call airline#extensions#ctrlp#load_ctrlp_hi()

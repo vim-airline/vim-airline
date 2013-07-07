@@ -50,5 +50,5 @@ augroup airline
   au!
   autocmd ColorScheme * call airline#highlight(['normal'])
   autocmd WinLeave * call airline#update_statusline(0)
-  autocmd WinEnter,BufWinEnter * call <sid>init() | call airline#update_statusline(1)
+  autocmd WinEnter,BufWinEnter,FileType * call <sid>init() | call airline#update_statusline(1)
 augroup END

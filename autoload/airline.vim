@@ -78,6 +78,7 @@ endfunction
 
 function! airline#update_statusline(active)
   if s:is_excluded_window()
+    call setwinvar(winnr(), '&statusline', '')
     return
   endif
 
