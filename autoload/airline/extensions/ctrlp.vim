@@ -22,7 +22,7 @@ function! airline#extensions#ctrlp#ctrlp_airline(...)
   let nxt = '%#CtrlPlight# '.a:6.' %#CtrlParrow3#'.g:airline_left_sep
   let marked = '%#CtrlPdark# '.a:7.' '
   let focus = '%=%<%#CtrlPdark# '.a:1.' %*'
-  let byfname = '%#CtrlParrow4#'.g:airline_right_sep.'%#CtrlPdark# '.a:2.' %*'
+  let byfname = '%#CtrlParrow4#'.g:airline_right_alt_sep.'%#CtrlPdark# '.a:2.' %*'
   let dir = '%#CtrlParrow3#'.g:airline_right_sep.'%#CtrlPlight# '.getcwd().' %*'
   " Return the full statusline
   return regex.prv.item.nxt.marked.focus.byfname.dir

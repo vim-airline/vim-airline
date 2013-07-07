@@ -96,16 +96,23 @@ function! airline#update_statusline(active)
   let sl.= a:active
         \ ? '%{airline#update_highlight()} '.s:get_section('a').' %{&paste ? g:airline_paste_symbol." " : ""}'
         \ : ' '.s:get_section('a').' %#Al9#'
-  let sl.=l:mode_sep_color.g:airline_left_sep.l:info_color
+  let sl.=l:mode_sep_color
+  let sl.=a:active ? g:airline_left_sep : g:airline_left_alt_sep
+  let sl.=l:info_color
   let sl.=' '.s:get_section('b').' '
-  let sl.=l:info_sep_color.g:airline_left_sep
+  let sl.=l:info_sep_color
+  let sl.=a:active ? g:airline_left_sep : g:airline_left_alt_sep
   let sl.=a:active ? l:status_color.' '.s:get_section('c').' ' : ' '.bufname(winbufnr(winnr()))
   let sl.='%#warningmsg#'.g:airline_externals_syntastic
   let sl.=l:status_color."%<%=".l:file_flag_color."%{&ro ? g:airline_readonly_symbol : ''}".l:status_color
   let sl.=' '.s:get_section('x').' '
-  let sl.=l:info_sep_color.g:airline_right_sep.l:info_color
+  let sl.=l:info_sep_color
+  let sl.=a:active ? g:airline_right_sep : g:airline_right_alt_sep
+  let sl.=l:info_color
   let sl.=' '.s:get_section('y').' '
-  let sl.=l:mode_sep_color.g:airline_right_sep.l:mode_color
+  let sl.=l:mode_sep_color
+  let sl.=a:active ? g:airline_right_sep : g:airline_right_alt_sep
+  let sl.=l:mode_color
   let sl.=' '.s:get_section('z').' '
   call setwinvar(winnr(), '&statusline', sl)
 endfunction
