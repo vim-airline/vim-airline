@@ -69,7 +69,7 @@ let s:V3 = [ '#767676' , '#080808' , 243 , s:bg ]
 let g:airline#themes#simple#visual = {
       \ 'mode':           [ s:V1[0]   , s:V1[1] , s:V1[2] , s:V1[3] , 'bold' ] ,
       \ 'mode_separator': s:powerline
-                      \ ? [ 'dfdf00'  , s:V2[1] , 184     , s:V2[3] , 'bold' ]
+                      \ ? [ '#dfdf00' , s:V2[1] , 184     , s:V2[3] , 'bold' ]
                       \ : [ s:sepg    , s:V2[1] , s:sepc  , s:V2[3] , 'bold' ] ,
       \ 'info':           [ s:V2[0]   , s:V2[1] , s:V2[2] , s:V2[3] , ''     ] ,
       \ 'info_separator': [ s:sepg    , s:V3[1] , s:sepc  , s:V3[3] , 'bold' ] ,
