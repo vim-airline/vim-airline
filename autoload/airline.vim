@@ -50,6 +50,15 @@ function! s:is_excluded_window()
   return 0
 endfunction
 
+function! s:apply_window_overrides()
+  if &buftype == 'quickfix'
+    let w:airline_section_a = 'Quickfix'
+    let w:airline_section_b = ''
+    let w:airline_section_c = ''
+    let w:airline_section_x = ''
+  endif
+endfunction
+
 function! airline#update_externals()
   let g:airline_externals_bufferline = g:airline_enable_bufferline && exists('g:bufferline_loaded') ? '%{bufferline#generate_string()}' : "%f%m"
   let g:airline_externals_syntastic = g:airline_enable_syntastic && exists('g:loaded_syntastic_plugin') ? '%{SyntasticStatuslineFlag()}' : ''
@@ -67,6 +76,7 @@ function! airline#update_statusline(active)
   endif
 
   call airline#update_externals()
+  call s:apply_window_overrides()
 
   let l:mode_color      = a:active ? "%#Al2#" : "%#Al9#"
   let l:mode_sep_color  = a:active ? "%#Al3#" : "%#Al9#"
@@ -84,7 +94,7 @@ function! airline#update_statusline(active)
   let sl.=l:info_sep_color.g:airline_left_sep
   let sl.=a:active ? l:status_color.' '.s:get_section('c').' ' : ' '.bufname(winbufnr(winnr()))
   let sl.='%#warningmsg#'.g:airline_externals_syntastic
-  let sl.=l:status_color."%<%=".l:file_flag_color."%{&ro ? g:airline_readonly_symbol : ''}%q%{&previewwindow ? '[preview]' : ''}".l:status_color
+  let sl.=l:status_color."%<%=".l:file_flag_color."%{&ro ? g:airline_readonly_symbol : ''}%{&previewwindow ? '[preview]' : ''}".l:status_color
   let sl.=' '.s:get_section('x').' '
   let sl.=l:info_sep_color.g:airline_right_sep.l:info_color
   let sl.=' '.s:get_section('y').' '

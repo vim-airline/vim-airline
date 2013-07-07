@@ -21,7 +21,7 @@ call s:check_defined('g:airline_theme', 'dark')
 call s:check_defined('g:airline_modified_detection', 1)
 call s:check_defined('g:airline_paste_detection', 1)
 call s:check_defined('g:airline_exclude_filenames', ['DebuggerWatch','DebuggerStack','DebuggerStatus'])
-call s:check_defined('g:airline_exclude_filetypes', ['qf','netrw','diff','undotree','gundo','nerdtree','tagbar'])
+call s:check_defined('g:airline_exclude_filetypes', ['netrw','diff','undotree','gundo','nerdtree','tagbar'])
 
 call s:check_defined('g:airline_mode_map', {
       \ 'n'  : 'NORMAL',
