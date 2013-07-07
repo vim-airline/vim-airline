@@ -22,6 +22,19 @@ what about [old powerline][a]?
 
 i wrote the initial version on an airplane, and since it's light as air it turned out to be a good name.  thanks for flying vim!
 
+# installation
+
+this plugin follows the standard runtime path structure, and as such it can be installed with a variety of plugin managers:
+
+*  [pathogen][k]
+  *  `git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline`
+*  [neobundle][l]
+  *  `NeoBundle 'bling/vim-airline'`
+*  [vundle][m]
+  *  `Bundle 'bling/vim-airline'`
+*  manual
+  *  copy all of the files into your `~/.vim` directory
+
 # configuration
 
 `:help airline`
@@ -84,3 +97,6 @@ contributions and pull requests are welcome.  please follow the existing coding 
 [h]: http://en.wikipedia.org/wiki/Open/closed_principle
 [i]: https://github.com/Shougo/unite.vim
 [j]: https://github.com/kien/ctrlp.vim
+[k]: https://github.com/tpope/vim-pathogen
+[l]: https://github.com/Shougo/neobundle.vim
+[m]: https://github.com/gmarik/vundle
