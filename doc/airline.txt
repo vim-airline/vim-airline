@@ -40,7 +40,6 @@ values):
   let g:airline_right_sep='<'
 <
 
-
 * enable/disable fugitive integration
 >
   let g:airline_enable_fugitive=1
@@ -77,6 +76,7 @@ values):
 >
   let g:airline_exclude_filetypes = [] " see source for current list
 <
+
 ==============================================================================
 CUSTOMIZATION                                        *airline-customization*
 
@@ -99,9 +99,9 @@ well as the powerline font glyths
 
   " powerline symbols
   let g:airline_left_sep = ''
-  let g:airline_left_sep = ''
+  let g:airline_left_alt_sep = ''
   let g:airline_right_sep = ''
-  let g:airline_right_sep = ''
+  let g:airline_right_alt_sep = ''
   let g:airline_fugitive_prefix = ' '
   let g:airline_readonly_symbol = ''
   let g:airline_linecolumn_prefix = ' '
@@ -111,6 +111,7 @@ for more intricate customizations, you can replace the predefined sections
 with the usual statusline syntax.
 
 >
+  " here are the the default values
   let g:airline_section_a (the mode indicator)
   let g:airline_section_b (the fugitive branch indicator)
   let g:airline_section_c (bufferline or filename)

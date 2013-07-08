@@ -12,7 +12,7 @@ there's already [powerline][b], why yet another statusline?
 *  it looks good with regular fonts, and provides configuration points so you can use unicode or powerline symbols.
 *  it's fast to load, taking roughly 1ms.  by comparison, powerline needs 60ms on the same machine.
 *  it's fully customizable; if you know a little `statusline` syntax you can tweak it to your needs.
-*  it is trivial to write colorschemes; for a minimal theme you need to edit 9 lines of colors.
+*  it is trivial to write colorschemes; for a minimal theme you need to edit 9 lines of colors. (please send pull requests if you create new themes!)
 
 what about [old powerline][a]?
 
@@ -46,6 +46,8 @@ this plugin follows the standard runtime path structure, and as such it can be i
   *  you can grab prepatched fonts at [powerline-fonts][c], or you can manually set the relevant `g:` variables
 *  there is a pause when leaving insert mode
   *  you need to set `ttimeoutlen` to a low number; 50 is recommended
+*  you don't see any colors
+  *  the value of `t_Co` is likely misconfigured.  please see this [article][n].
 *  you get the error `Unknown function: fugitive#head`
   *  you are probably using version 1.2, which is very old...download v2 from the [project page][d].
 *  airline doesn't appear until i create a new split
@@ -100,3 +102,4 @@ contributions and pull requests are welcome.  please follow the existing coding 
 [k]: https://github.com/tpope/vim-pathogen
 [l]: https://github.com/Shougo/neobundle.vim
 [m]: https://github.com/gmarik/vundle
+[n]: http://vim.wikia.com/wiki/256_colors_in_vim
