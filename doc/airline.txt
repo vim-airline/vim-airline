@@ -112,12 +112,13 @@ with the usual statusline syntax.
 
 >
   " here are the the default values
-  let g:airline_section_a (the mode indicator)
-  let g:airline_section_b (the fugitive branch indicator)
-  let g:airline_section_c (bufferline or filename)
-  let g:airline_section_x (filetype)
-  let g:airline_section_y (fileencoding, fileformat)
-  let g:airline_section_z (percentage, line number, column number)
+  let g:airline_section_a      (the mode indicator)
+  let g:airline_section_b      (the fugitive branch indicator)
+  let g:airline_section_c      (bufferline or filename)
+  let g:airline_section_gutter (syntastic and readonly flag)
+  let g:airline_section_x      (filetype)
+  let g:airline_section_y      (fileencoding, fileformat)
+  let g:airline_section_z      (percentage, line number, column number)
 <
 
 ==============================================================================

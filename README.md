@@ -47,7 +47,7 @@ this plugin follows the standard runtime path structure, and as such it can be i
 *  there is a pause when leaving insert mode
   *  you need to set `ttimeoutlen` to a low number; 50 is recommended
 *  you don't see any colors
-  *  the value of `t_Co` is likely misconfigured.  please see this [article][n].
+  *  all of the themes use a 256 terminal color palette.  it's likely that the value of `t_Co` is misconfigured.  please see this [article][n] on how to configure your terminal.  pull requests for 8 and 16 color terminals are welcome.
 *  you get the error `Unknown function: fugitive#head`
   *  you are probably using version 1.2, which is very old...download v2 from the [project page][d].
 *  airline doesn't appear until i create a new split
@@ -57,7 +57,7 @@ this plugin follows the standard runtime path structure, and as such it can be i
 
 # bugs
 
-if you encounter a bug, please reproduce it with this [minivimrc][g] repository i created and file an issue.
+if you encounter a bug, please reproduce it with this [minivimrc][g] repository i created and file an issue.  please provide your operating system and vim version/patch level (can be found with `:version`).  a reproducible gist would be hugely helpful.
 
 # screenshots
 
