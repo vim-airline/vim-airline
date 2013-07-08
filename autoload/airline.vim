@@ -136,6 +136,9 @@ function! airline#update_highlight()
   if &paste
     call add(l:mode, 'paste')
   endif
+  if l:m ==# "R"
+    call add(l:mode, 'replace')
+  endif
   if &previewwindow
     call add(l:mode, 'preview')
   endif
