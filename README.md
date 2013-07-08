@@ -22,6 +22,10 @@ what about [old powerline][a]?
 
 i wrote the initial version on an airplane, and since it's light as air it turned out to be a good name.  thanks for flying vim!
 
+# screenshots
+
+check out screenshots [here][o]!
+
 # installation
 
 this plugin follows the standard runtime path structure, and as such it can be installed with a variety of plugin managers:
@@ -58,8 +62,6 @@ this plugin follows the standard runtime path structure, and as such it can be i
 # bugs
 
 if you encounter a bug, please reproduce it with this [minivimrc][g] repository i created and file an issue.  please provide your operating system and vim version/patch level (can be found with `:version`).  a reproducible gist would be hugely helpful.
-
-# screenshots
 
 ## dark theme with a regular font
 
@@ -103,3 +105,4 @@ contributions and pull requests are welcome.  please follow the existing coding 
 [l]: https://github.com/Shougo/neobundle.vim
 [m]: https://github.com/gmarik/vundle
 [n]: http://vim.wikia.com/wiki/256_colors_in_vim
+[o]: https://github.com/bling/vim-airline/wiki/Screenshots
