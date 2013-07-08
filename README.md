@@ -42,6 +42,7 @@ this plugin follows the standard runtime path structure, and as such it can be i
 # faq/troubleshooting
 
 *  the powerline font symbols are not showing up
+  *  enable them by adding `let g:airline_powerline_fonts=1` to your `~/.vimrc`
   *  the older deprecated [vim-powerline][a] uses different codes compared to the newer [powerline][b].
   *  you can grab prepatched fonts at [powerline-fonts][c], or you can manually set the relevant `g:` variables
 *  there is a pause when leaving insert mode
