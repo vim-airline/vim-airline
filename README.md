@@ -1,30 +1,30 @@
-# vim-airline
+# Vim-Airline
 
-lean &amp; mean statusline for vim that's light as air
+Lean &amp; mean statusline for vim that's light as air
 
-# rationale
+# Rationale
 
-there's already [powerline][b], why yet another statusline?
+There's already [powerline][b], why yet another statusline?
 
-*  it's 100% vimscript; no python needed.
-*  it's small.  i want the core plugin to be *less than 200 lines* as a rule (specifically adhering to the [open/closed principle][h]).
-*  it gets you 90% of the way there; in addition to all the standard goodies, it integrates with [vim-bufferline][f], [fugitive][d], [unite][i], [ctrlp][j] and [syntastic][e].
-*  it looks good with regular fonts, and provides configuration points so you can use unicode or powerline symbols.
-*  it's fast to load, taking roughly 1ms.  by comparison, powerline needs 60ms on the same machine.
-*  it's fully customizable; if you know a little `statusline` syntax you can tweak it to your needs.
-*  it is trivial to write colorschemes; for a minimal theme you need to edit 9 lines of colors. (please send pull requests if you create new themes!)
+*  It's 100% vimscript; no python needed.
+*  It's small.  I want the core plugin to be *less than 200 lines* as a rule (specifically adhering to the [open/closed principle][h]).
+*  It gets you 90% of the way there; in addition to all the standard goodies, it integrates with [vim-bufferline][f], [fugitive][d], [unite][i], [ctrlp][j] and [syntastic][e].
+*  It looks good with regular fonts, and provides configuration points so you can use unicode or powerline symbols.
+*  It's fast to load, taking roughly 1ms.  by comparison, powerline needs 60ms on the same machine.
+*  It's fully customizable; if you know a little `statusline` syntax you can tweak it to your needs.
+*  It is trivial to write colorschemes; for a minimal theme you need to edit 9 lines of colors. (please send pull requests if you create new themes!)
 
-what about [old powerline][a]?
+What about [old powerline][a]?
 
-*  the old version still works well, but since it's deprecated new features won't get added
+*  The old version still works well, but since it's deprecated new features won't get added
 
-# why's it called airline?
+# Why is it called airline?
 
-i wrote the initial version on an airplane, and since it's light as air it turned out to be a good name.  thanks for flying vim!
+I wrote the initial version on an airplane, and since it's light as air it turned out to be a good name.  Thanks for flying vim!
 
-# installation
+# Installation
 
-this plugin follows the standard runtime path structure, and as such it can be installed with a variety of plugin managers:
+This plugin follows the standard runtime path structure, and as such it can be installed with a variety of plugin managers:
 
 *  [pathogen][k]
   *  `git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline`
@@ -32,60 +32,60 @@ this plugin follows the standard runtime path structure, and as such it can be i
   *  `NeoBundle 'bling/vim-airline'`
 *  [vundle][m]
   *  `Bundle 'bling/vim-airline'`
-*  manual
-  *  copy all of the files into your `~/.vim` directory
+*  Manual
+  *  Copy all of the files into your `~/.vim` directory
 
-# configuration
+# Configuration
 
 `:help airline`
 
-# faq/troubleshooting
+# FAQ/Troubleshooting
 
-*  the powerline font symbols are not showing up
-  *  the older deprecated [vim-powerline][a] uses different codes compared to the newer [powerline][b].
-  *  you can grab prepatched fonts at [powerline-fonts][c], or you can manually set the relevant `g:` variables
-*  there is a pause when leaving insert mode
-  *  you need to set `ttimeoutlen` to a low number; 50 is recommended
-*  you don't see any colors
-  *  all of the themes use a 256 terminal color palette.  it's likely that the value of `t_Co` is misconfigured.  please see this [article][n] on how to configure your terminal.  pull requests for 8 and 16 color terminals are welcome.
-*  you get the error `Unknown function: fugitive#head`
-  *  you are probably using version 1.2, which is very old...download v2 from the [project page][d].
-*  airline doesn't appear until i create a new split
-  *  add `set laststatus=2` to your vimrc
-*  bufferline is printing to the statusline as well as the command bar
-  *  you can disable automatic echoing by adding `let g:bufferline_echo = 0` to your vimrc
+*  The powerline font symbols are not showing up
+  *  The older deprecated [vim-powerline][a] uses different codes compared to the newer [powerline][b].
+  *  You can grab prepatched fonts at [powerline-fonts][c], or you can manually set the relevant `g:` variables
+*  There is a pause when leaving insert mode
+  *  You need to set `ttimeoutlen` to a low number; 50 is recommended
+*  You don't see any colors
+  *  All of the themes use a 256 terminal color palette.  It's likely that the value of `t_Co` is misconfigured.  Please see this [article][n] on how to configure your terminal.  Pull requests for 8 and 16 color terminals are welcome.
+*  You get the error `Unknown function: fugitive#head`
+  *  You are probably using version 1.2, which is very old... Download v2 from the [project page][d].
+*  Airline doesn't appear until I create a new split
+  *  Add `set laststatus=2` to your vimrc
+*  Bufferline is printing to the statusline as well as the command bar
+  *  You can disable automatic echoing by adding `let g:bufferline_echo = 0` to your vimrc
 
-# bugs
+# Bugs
 
-if you encounter a bug, please reproduce it with this [minivimrc][g] repository i created and file an issue.  please provide your operating system and vim version/patch level (can be found with `:version`).  a reproducible gist would be hugely helpful.
+If you encounter a bug, please reproduce it with this [minivimrc][g] repository I created and file an issue.  Please provide your operating system and vim version/patch level (can be found with `:version`).  A reproducible gist would be hugely helpful.
 
-# screenshots
+# Screenshots
 
-### dark theme with a regular font
+### Dark theme with a regular font
 
 ![img](https://github.com/bling/vim-airline/wiki/screenshots/dark.png)
 
-### dark theme with powerline symbols
+### Dark theme with powerline symbols
 
 ![img](https://github.com/bling/vim-airline/wiki/screenshots/dark-powerline.png)
 
-### simple theme
+### Simple theme
 
 ![img](https://github.com/bling/vim-airline/wiki/screenshots/simple.png)
 
-### light theme
+### Light theme
 
 ![img](https://github.com/bling/vim-airline/wiki/screenshots/light.png)
 
-### badwolf theme with [bufferline][f] integration
+### Badwolf theme with [bufferline][f] integration
 
 ![img](https://github.com/bling/vim-airline/wiki/screenshots/badwolf.png)
 
-# contributions
+# Contributions
 
-contributions and pull requests are welcome.  please follow the existing coding style as much as possible.
+Contributions and pull requests are welcome.  Please follow the existing coding style as much as possible.
 
-# license
+# License
 
 `:h license`
 
