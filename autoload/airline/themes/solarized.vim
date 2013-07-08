@@ -1,3 +1,5 @@
+let g:airline#themes#solarized#inactive = { 'mode': [ '#4e4e4e' , '#1c1c1c' , 239 , 234 , '' ] }
+
 let s:N1 = [ '#fdf6e3' , '#657b83' , 230 , 241 ]
 let s:N2 = [ '#fdf6e3' , '#93a1a1' , 230 , 245 ]
 let s:N3 = [ '#657b83' , '#fdf6e3' , 241 , 230 ]
@@ -8,7 +10,6 @@ let g:airline#themes#solarized#normal = {
       \ 'info_separator': [ s:N2[1]   , s:N3[1]   , s:N2[3] , s:N3[3] , 'bold' ] ,
       \ 'statusline':     [ s:N3[0]   , s:N3[1]   , s:N3[2] , s:N3[3] , ''     ] ,
       \ 'file':           [ '#ff0000' , '#1c1c1c' , 160     , 233     , ''     ] ,
-      \ 'inactive':       [ '#4e4e4e' , '#1c1c1c' , 239     , 234     , ''     ] ,
       \ }
 let g:airline#themes#solarized#normal_modified = {
       \ 'info_separator': [ '#444444' , '#5f005f' , 238     , 53      , ''     ] ,

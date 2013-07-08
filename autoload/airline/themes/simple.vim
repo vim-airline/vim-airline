@@ -36,6 +36,8 @@ let s:termbg = 232
 let s:termsep = 236
 let s:guisep = '#303030'
 
+let g:airline#themes#simple#inactive = {'mode': [ '#4e4e4e' , s:guibg , 239 , s:termbg , '' ] }
+
 let s:N1 = s:swap ? [ s:guibg , '#00dfff' , s:termbg , 45 ] : [ '#00dfff' , s:guibg , 45 , s:termbg ]
 let s:N2 = [ '#ff5f00' , s:guibg, 202 , s:termbg ]
 let s:N3 = [ '#767676' , s:guibg, 243 , s:termbg ]
@@ -48,7 +50,6 @@ let g:airline#themes#simple#normal = {
       \ 'info_separator': [ s:guisep  , s:N3[1] , s:termsep , s:N3[3]  , 'bold' ] ,
       \ 'statusline':     [ s:N3[0]   , s:N3[1] , s:N3[2]   , s:N3[3]  , ''     ] ,
       \ 'file':           [ '#ff0000' , s:guibg , 160       , s:termbg , ''     ] ,
-      \ 'inactive':       [ '#4e4e4e' , s:guibg , 239       , s:termbg , ''     ] ,
       \ }
 let g:airline#themes#simple#normal_modified = {
       \ 'statusline':     [ '#df0000' , s:guibg, 160     , s:termbg    , ''     ] ,

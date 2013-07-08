@@ -1,6 +1,6 @@
 " vim: ts=2 sts=2 sw=2 fdm=indent
 let s:is_win32term = (has('win32') || has('win64')) && !has('gui_running')
-let s:load_the_theme = g:airline#themes#{g:airline_theme}#normal
+let s:inactive_colors = g:airline#themes#{g:airline_theme}#inactive "also lazy loads the theme
 
 let s:airline_highlight_map = {
       \ 'mode'           : 'Al2',
@@ -9,9 +9,20 @@ let s:airline_highlight_map = {
       \ 'info_separator' : 'Al5',
       \ 'statusline'     : 'Al6',
       \ 'file'           : 'Al7',
-      \ 'inactive'       : 'Al9',
       \ }
 let s:airline_highlight_groups = keys(s:airline_highlight_map)
+
+function! airline#exec_highlight(group, colors)
+  exec printf('hi %s %s %s %s %s %s %s',
+        \ a:group,
+        \ a:colors[0] != '' ? 'guifg='.a:colors[0] : '',
+        \ a:colors[1] != '' ? 'guibg='.a:colors[1] : '',
+        \ a:colors[2] != '' ? 'ctermfg='.a:colors[2] : '',
+        \ a:colors[3] != '' ? 'ctermbg='.a:colors[3] : '',
+        \ a:colors[4] != '' ? 'gui='.a:colors[4] : '',
+        \ a:colors[4] != '' ? 'term='.a:colors[4] : '')
+endfunction
+call airline#exec_highlight('airline_inactive', s:inactive_colors.mode)
 
 function! airline#highlight(modes)
   " always draw the base mode, and then override any/all of the colors with _override
@@ -23,14 +34,7 @@ function! airline#highlight(modes)
         if s:is_win32term
           let colors = map(colors, 'v:val != "" && v:val > 128 ? v:val - 128 : v:val')
         endif
-        exec printf('hi %s %s %s %s %s %s %s',
-              \ s:airline_highlight_map[key],
-              \ colors[0] != '' ? 'guifg='.colors[0] : '',
-              \ colors[1] != '' ? 'guibg='.colors[1] : '',
-              \ colors[2] != '' ? 'ctermfg='.colors[2] : '',
-              \ colors[3] != '' ? 'ctermbg='.colors[3] : '',
-              \ colors[4] != '' ? 'gui='.colors[4] : '',
-              \ colors[4] != '' ? 'term='.colors[4] : '')
+        call airline#exec_highlight(s:airline_highlight_map[key], colors)
       endif
     endfor
   endfor
@@ -85,27 +89,29 @@ function! airline#update_statusline(active)
   call airline#update_externals()
   call s:apply_window_overrides()
 
-  let l:mode_color      = a:active ? "%#Al2#" : "%#Al9#"
-  let l:mode_sep_color  = a:active ? "%#Al3#" : "%#Al9#"
-  let l:info_color      = a:active ? "%#Al4#" : "%#Al9#"
-  let l:info_sep_color  = a:active ? "%#Al5#" : "%#Al9#"
-  let l:status_color    = a:active ? "%#Al6#" : "%#Al9#"
-  let l:file_flag_color = a:active ? "%#Al7#" : "%#Al9#"
+  let l:mode_color      = a:active ? "%#Al2#" : "%#airline_inactive#"
+  let l:mode_sep_color  = a:active ? "%#Al3#" : "%#airline_inactive#"
+  let l:info_color      = a:active ? "%#Al4#" : "%#airline_inactive#"
+  let l:info_sep_color  = a:active ? "%#Al5#" : "%#airline_inactive#"
+  let l:status_color    = a:active ? "%#Al6#" : "%#airline_inactive#"
+  let l:file_flag_color = a:active ? "%#Al7#" : "%#airline_inactive#"
 
   let sl = l:mode_color
-  let sl.= a:active
-        \ ? '%{airline#update_highlight()} '.s:get_section('a').' %{&paste ? g:airline_paste_symbol." " : ""}'
-        \ : ' '.s:get_section('a').' %#Al9#'
-  let sl.=l:mode_sep_color
-  let sl.=a:active ? g:airline_left_sep : g:airline_left_alt_sep
-  let sl.=l:info_color
-  let sl.=' '.s:get_section('b').' '
-  let sl.=l:info_sep_color
-  let sl.=a:active ? g:airline_left_sep : g:airline_left_alt_sep
-  let sl.=a:active ? l:status_color.' '.s:get_section('c').' ' : ' '.bufname(winbufnr(winnr()))
-  let sl.=g:airline_section_gutter != ''
-        \ ? g:airline_section_gutter
-        \ : '%#warningmsg#'.g:airline_externals_syntastic.l:status_color."%<%=".l:file_flag_color."%{&ro ? g:airline_readonly_symbol : ''}".l:status_color
+  if a:active
+    let sl.='%{airline#update_highlight()} '.s:get_section('a').' %{&paste ? g:airline_paste_symbol." " : ""}'
+    let sl.=l:mode_sep_color
+    let sl.=a:active ? g:airline_left_sep : g:airline_left_alt_sep
+    let sl.=l:info_color
+    let sl.=' '.s:get_section('b').' '
+    let sl.=l:info_sep_color
+    let sl.=g:airline_left_sep
+    let sl.=l:status_color.' '.s:get_section('c').' '
+    let sl.=s:get_section('gutter') != ''
+          \ ? s:get_section('gutter')
+          \ : '%#warningmsg#'.g:airline_externals_syntastic.l:status_color."%<%=".l:file_flag_color."%{&ro ? g:airline_readonly_symbol : ''}".l:status_color
+  else
+    let sl.=' %f%<%='
+  endif
   let sl.=' '.s:get_section('x').' '
   let sl.=l:info_sep_color
   let sl.=a:active ? g:airline_right_sep : g:airline_right_alt_sep

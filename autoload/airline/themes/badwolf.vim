@@ -1,3 +1,5 @@
+let g:airline#themes#badwolf#inactive = { 'mode': [ '#45413b' , '#242321' , 238 , 235 , '' ] }
+
 let s:N1 = [ '#141413' , '#aeee00' , 232 , 154 ]
 let s:N2 = [ '#f4cf86' , '#45413b' , 222 , 238 ]
 let s:N3 = [ '#8cffba' , '#242321' , 121 , 235 ]
@@ -8,14 +10,12 @@ let g:airline#themes#badwolf#normal = {
       \ 'info_separator': [ s:N2[1]    , s:N3[1]   , s:N2[3] , s:N3[3] , 'bold' ] ,
       \ 'statusline':     [ s:N3[0]    , s:N3[1]   , s:N3[2] , s:N3[3] , ''     ] ,
       \ 'file':           [ '#ff2c4b'  , '#242321' , 196     , 235     , ''     ] ,
-      \ 'inactive':       [ '#45413b'  , '#242321' , 238     , 235     , ''     ] ,
       \ }
 let g:airline#themes#badwolf#normal_modified = {
       \ 'mode_separator' : [ '#aeee00' , '#666462' , 154     , 241     , 'bold' ] ,
       \ 'info'           : [ '#f4cf86' , '#666462' , 222     , 241     , ''     ] ,
       \ 'info_separator' : [ '#666462' , '#45413b' , 241     , 238     , 'bold' ] ,
       \ 'statusline'     : [ '#ffa724' , '#45413b' , 214     , 238     , ''     ] ,
-      \ 'inactive'       : [ '#88633f' , '#45413b' , 95      , 238     , ''     ] ,
       \ }
 
 let s:I1 = [ '#141413' , '#0a9dff' , 232 , 39  ]
