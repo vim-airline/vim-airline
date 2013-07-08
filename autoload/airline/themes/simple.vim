@@ -67,6 +67,14 @@ let g:airline#themes#simple#insert = {
       \ 'statusline':     [ s:I3[0]   , s:I3[1] , s:I3[2]   , s:I3[3] , ''     ] ,
       \ }
 let g:airline#themes#simple#insert_modified = copy(g:airline#themes#simple#normal_modified)
+let g:airline#themes#simple#insert_paste = {
+      \ 'mode':           [ s:I1[0]   , '#d78700' , s:I1[2] , 172     , ''     ] ,
+      \ 'mode_separator': [ '#d78700' , s:I2[1]   , 172     , s:I2[3] , ''     ] ,
+      \ }
+let g:airline#themes#simple#insert_replace = {
+      \ 'mode':           [ s:I1[0]   , '#af0000' , s:I1[2] , 124     , ''     ] ,
+      \ 'mode_separator': [ '#af0000' , s:I2[1]   , 124     , s:I2[3] , ''     ] ,
+      \ }
 
 let s:V1 = s:swap ? [ s:guibg, '#dfdf00' , s:termbg , 184 ] : [ '#dfdf00' , s:guibg, 184 , s:termbg ]
 let s:V2 = [ '#ff5f00' , s:guibg, 202 , s:termbg ]

@@ -32,6 +32,14 @@ let g:airline#themes#badwolf#insert_modified = {
       \ 'info_separator' : [ '#005fff' , '#45413b' , 27      , 238     , 'bold' ] ,
       \ 'statusline'     : [ '#ffa724' , '#45413b' , 214     , 238     , ''     ] ,
       \ }
+let g:airline#themes#badwolf#insert_paste = {
+      \ 'mode':           [ s:I1[0]   , '#d78700' , s:I1[2] , 172     , ''     ] ,
+      \ 'mode_separator': [ '#d78700' , s:I2[1]   , 172     , s:I2[3] , ''     ] ,
+      \ }
+let g:airline#themes#badwolf#insert_replace = {
+      \ 'mode':           [ s:I2[0]   , '#ff0000' , s:I2[2] , 196     , ''     ] ,
+      \ 'mode_separator': [ '#ff0000' , s:I2[1]   , 196     , s:I2[3] , ''     ] ,
+      \ }
 
 let s:V1 = [ '#141413' , '#ffa724' , 232 , 214 ]
 let s:V2 = [ '#000000' , '#fade3e' , 16  , 221 ]

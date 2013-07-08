@@ -29,6 +29,14 @@ let g:airline#themes#dark#insert_modified = {
       \ 'info_separator': [ '#005fff' , '#5f005f' , 27      , 53      , ''     ] ,
       \ 'statusline':     [ '#ffffff' , '#5f005f' , 255     , 53      , ''     ] ,
       \ }
+let g:airline#themes#dark#insert_paste = {
+      \ 'mode':           [ s:I1[0]   , '#d78700' , s:I1[2] , 172     , ''     ] ,
+      \ 'mode_separator': [ '#d78700' , s:I2[1]   , 172     , s:I2[3] , ''     ] ,
+      \ }
+let g:airline#themes#dark#insert_replace = {
+      \ 'mode':           [ s:I2[0]   , '#af0000' , s:I2[2] , 124     , ''     ] ,
+      \ 'mode_separator': [ '#af0000' , s:I2[1]   , 124     , s:I2[3] , ''     ] ,
+      \ }
 
 let s:V1 = [ '#000000' , '#ffaf00' , 232 , 214 ]
 let s:V2 = [ '#000000' , '#ff5f00' , 232 , 202 ]
