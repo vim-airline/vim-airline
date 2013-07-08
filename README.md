@@ -77,7 +77,7 @@ if you encounter a bug, please reproduce it with this [minivimrc][g] repository 
 
 ![img](https://github.com/bling/vim-airline/wiki/screenshots/light.png)
 
-### badwolf theme with [bufferline][a] integration
+### badwolf theme with [bufferline][f] integration
 
 ![img](https://github.com/bling/vim-airline/wiki/screenshots/badwolf.png)
 
