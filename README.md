@@ -63,26 +63,6 @@ this plugin follows the standard runtime path structure, and as such it can be i
 
 if you encounter a bug, please reproduce it with this [minivimrc][g] repository i created and file an issue.  please provide your operating system and vim version/patch level (can be found with `:version`).  a reproducible gist would be hugely helpful.
 
-## dark theme with a regular font
-
-![img](screenshots/dark.png)
-
-## dark theme with powerline symbols
-
-![img](screenshots/dark-powerline.png)
-
-## simple theme
-
-![img](screenshots/simple.png)
-
-## light theme
-
-![img](screenshots/light.png)
-
-## badwolf theme with [bufferline][f] integration
-
-![img](screenshots/badwolf.png)
-
 # contributions
 
 contributions and pull requests are welcome.  please follow the existing coding style as much as possible.
