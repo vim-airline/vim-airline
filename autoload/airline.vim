@@ -67,6 +67,8 @@ function! s:apply_window_overrides()
     let w:airline_section_b = ''
     let w:airline_section_c = bufname(winbufnr(winnr()))
   endif
+
+  call airline#extensions#apply_window_overrides()
 endfunction
 
 function! airline#update_externals()
@@ -106,13 +108,13 @@ function! airline#update_statusline(active)
     let sl.=l:info_sep_color
     let sl.=g:airline_left_sep
     let sl.=l:status_color.' '.s:get_section('c').' '
-    let sl.=s:get_section('gutter') != ''
+    let sl.=exists('w:airline_section_gutter')
           \ ? s:get_section('gutter')
-          \ : '%#warningmsg#'.g:airline_externals_syntastic.l:status_color."%<%=".l:file_flag_color."%{&ro ? g:airline_readonly_symbol : ''}".l:status_color
+          \ : '%#warningmsg#'.g:airline_externals_syntastic.l:file_flag_color."%{&ro ? g:airline_readonly_symbol : ''}".l:status_color
   else
-    let sl.=' %f%<%='
+    let sl.=' %f'
   endif
-  let sl.=' '.s:get_section('x').' '
+  let sl.='%<%= '.s:get_section('x').' '
   let sl.=l:info_sep_color
   let sl.=a:active ? g:airline_right_sep : g:airline_right_alt_sep
   let sl.=l:info_color
