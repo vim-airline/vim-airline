@@ -114,15 +114,17 @@ function! airline#update_statusline(active)
   else
     let sl.=' %f'
   endif
-  let sl.='%<%= '.s:get_section('x').' '
-  let sl.=l:info_sep_color
-  let sl.=a:active ? g:airline_right_sep : g:airline_right_alt_sep
-  let sl.=l:info_color
-  let sl.=' '.s:get_section('y').' '
-  let sl.=l:mode_sep_color
-  let sl.=a:active ? g:airline_right_sep : g:airline_right_alt_sep
-  let sl.=l:mode_color
-  let sl.=' '.s:get_section('z').' '
+  if !exists('w:airline_left_only')
+    let sl.='%<%= '.s:get_section('x').' '
+    let sl.=l:info_sep_color
+    let sl.=a:active ? g:airline_right_sep : g:airline_right_alt_sep
+    let sl.=l:info_color
+    let sl.=' '.s:get_section('y').' '
+    let sl.=l:mode_sep_color
+    let sl.=a:active ? g:airline_right_sep : g:airline_right_alt_sep
+    let sl.=l:mode_color
+    let sl.=' '.s:get_section('z').' '
+  endif
   call setwinvar(winnr(), '&statusline', sl)
 endfunction
 

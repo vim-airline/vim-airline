@@ -21,7 +21,7 @@ call s:check_defined('g:airline_linecolumn_prefix', exists('g:airline_powerline_
 call s:check_defined('g:airline_paste_symbol', (exists('g:airline_powerline_fonts') ? ' ' : '').'PASTE')
 call s:check_defined('g:airline_theme', 'dark')
 call s:check_defined('g:airline_exclude_filenames', ['DebuggerWatch','DebuggerStack','DebuggerStatus'])
-call s:check_defined('g:airline_exclude_filetypes', ['diff','undotree','gundo','nerdtree','tagbar'])
+call s:check_defined('g:airline_exclude_filetypes', [])
 
 call s:check_defined('g:airline_mode_map', {
       \ 'n'  : 'NORMAL',
