@@ -68,7 +68,9 @@ function! s:apply_window_overrides()
     let w:airline_section_c = bufname(winbufnr(winnr()))
   endif
 
-  call airline#extensions#apply_window_overrides()
+  for FuncRef in g:airline_window_override_funcrefs
+    call FuncRef()
+  endfor
 endfunction
 
 function! airline#update_externals()

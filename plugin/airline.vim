@@ -50,6 +50,8 @@ function! s:init()
   endif
 endfunction
 
+let g:airline_window_override_funcrefs = []
+
 augroup airline
   au!
   autocmd ColorScheme * call airline#highlight(['normal'])
