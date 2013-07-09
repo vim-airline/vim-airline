@@ -18,20 +18,32 @@ function! s:empty_sections()
   endfor
 endfunction
 
+function! s:override_left_only(section1, section2)
+  let w:airline_section_a = a:section1
+  let w:airline_section_b = a:section2
+  let w:airline_section_c = ''
+  let w:airline_left_only = 1
+endfunction
+
 function! airline#extensions#apply_window_overrides()
+  silent! unlet w:airline_left_only
   for section in s:sections
     silent! unlet w:airline_section_{section}
   endfor
 
   if &ft == 'netrw'
-    let w:airline_section_a = 'netrw'
-    let w:airline_section_b = '%f'
-    let w:airline_section_c = ''
-    let w:airline_section_gutter = ''
-    let w:airline_section_x = ''
+    call s:override_left_only('netrw', '%f')
   elseif &ft == 'unite'
-    call s:empty_sections()
-    let w:airline_section_a = 'Unite'
-    let w:airline_section_b = unite#get_status_string()
+    call s:override_left_only('Unite', unite#get_status_string())
+  elseif &ft == 'nerdtree'
+    call s:override_left_only('NERD', '')
+  elseif &ft == 'undotree'
+    call s:override_left_only('undotree', '')
+  elseif &ft == 'gundo'
+    call s:override_left_only('Gundo', '')
+  elseif &ft == 'diff'
+    call s:override_left_only('diff', '')
+  elseif &ft == 'tagbar'
+    call s:override_left_only('tagbar', '')
   endif
 endfunction
