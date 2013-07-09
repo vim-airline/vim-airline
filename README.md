@@ -55,6 +55,8 @@ this plugin follows the standard runtime path structure, and as such it can be i
   *  add `set laststatus=2` to your vimrc
 *  bufferline is printing to the statusline as well as the command bar
   *  you can disable automatic echoing by adding `let g:bufferline_echo = 0` to your vimrc
+*  the statusline wraps
+  *  you are probably using iTerm with double-width characters enabled. either disable this, or `set ambiwidth=double` in your vimrc.
 
 # bugs
 
