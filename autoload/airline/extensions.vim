@@ -10,12 +10,8 @@ function! airline#extensions#load()
           \ 'prog': 'airline#extensions#ctrlp#ctrlp_airline_status',
           \ }
   endif
-endfunction
 
-function! s:empty_sections()
-  for section in s:sections
-    let w:airline_section_{section} = ''
-  endfor
+  call add(g:airline_window_override_funcrefs, function('s:apply_window_overrides'))
 endfunction
 
 function! s:override_left_only(section1, section2)
@@ -25,7 +21,7 @@ function! s:override_left_only(section1, section2)
   let w:airline_left_only = 1
 endfunction
 
-function! airline#extensions#apply_window_overrides()
+function! s:apply_window_overrides()
   silent! unlet w:airline_left_only
   for section in s:sections
     silent! unlet w:airline_section_{section}
