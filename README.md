@@ -1,10 +1,12 @@
 # vim-airline
 
-lean &amp; mean statusline for vim that's light as air
+Lean &amp; mean statusline for vim that's light as air.
 
-# rationale
+![img](https://github.com/bling/vim-airline/wiki/screenshots/light.png)
 
-there's already [powerline][b], why yet another statusline?
+# Rationale
+
+There's already [powerline][b], why yet another statusline?
 
 *  it's 100% vimscript; no python needed.
 *  it's small.  i want the core plugin to be *less than 200 lines* as a rule (specifically adhering to the [open/closed principle][h]).
@@ -14,17 +16,18 @@ there's already [powerline][b], why yet another statusline?
 *  it's fully customizable; if you know a little `statusline` syntax you can tweak it to your needs.
 *  it is trivial to write colorschemes; for a minimal theme you need to edit 9 lines of colors. (please send pull requests if you create new themes!)
 
-what about [old powerline][a]?
+What about [old powerline][a]?
 
 *  the old version still works well, but since it's deprecated new features won't get added
+*  because it uses different font codes, it is incompatible with new powerline features (e.g. zsh, tmux, etc.)
 
-# why's it called airline?
+# Why's it called airline?
 
-i wrote the initial version on an airplane, and since it's light as air it turned out to be a good name.  thanks for flying vim!
+I wrote the initial version on an airplane, and since it's light as air it turned out to be a good name.  Thanks for flying vim!
 
-# installation
+# Installation
 
-this plugin follows the standard runtime path structure, and as such it can be installed with a variety of plugin managers:
+This plugin follows the standard runtime path structure, and as such it can be installed with a variety of plugin managers:
 
 *  [pathogen][k]
   *  `git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline`
@@ -35,11 +38,11 @@ this plugin follows the standard runtime path structure, and as such it can be i
 *  manual
   *  copy all of the files into your `~/.vim` directory
 
-# configuration
+# Configuration
 
 `:help airline`
 
-# faq/troubleshooting
+# FAQ/Troubleshooting
 
 *  the powerline font symbols are not showing up
   *  enable them by adding `let g:airline_powerline_fonts=1` to your `~/.vimrc`
@@ -58,11 +61,15 @@ this plugin follows the standard runtime path structure, and as such it can be i
 *  the statusline wraps
   *  you are probably using iTerm with double-width characters enabled. either disable this, or `set ambiwidth=double` in your vimrc.
 
-# bugs
+# Bugs
 
-if you encounter a bug, please reproduce it with this [minivimrc][g] repository i created and file an issue.  please provide your operating system and vim version/patch level (can be found with `:version`).  a reproducible gist would be hugely helpful.
+If you encounter a bug, please do the following:
 
-# screenshots
+*  reproduce it with this [minivimrc][g] repository to rule out any configuration conflicts.
+*  specify your version and patch level, as well as operating system (found with `:version`).
+*  a link to a gist or your vimrc where it can be reproduced.
+
+# Screenshots
 
 ### dark theme with a regular font
 
@@ -84,17 +91,17 @@ if you encounter a bug, please reproduce it with this [minivimrc][g] repository 
 
 ![img](https://github.com/bling/vim-airline/wiki/screenshots/badwolf.png)
 
-# contributions
+# Contributions
 
-contributions and pull requests are welcome.  please take note of the following guidelines:
+Contributions and pull requests are welcome.  Please take note of the following guidelines:
 
 *  adhere to the existing style as much as possible; notably, 2 space indents and long-form keywords.
 *  keep the history clean! squash your branches before you submit a pull request. `pull --rebase` is your friend.
 *  this plugin got a lot more popular than i initially expected, if you make changes to the core, please test on as many versions of vim as possible.
 
-# license
+# License
 
-`:h license`
+`:help license`
 
 [a]: https://github.com/Lokaltog/vim-powerline
 [b]: https://github.com/Lokaltog/powerline
