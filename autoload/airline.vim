@@ -107,7 +107,7 @@ function! airline#update_statusline(active)
     let sl.=' '.s:get_section('b').' '
     let sl.=l:info_sep_color
     let sl.=g:airline_left_sep
-    let sl.=l:status_color.' '.s:get_section('c').' '
+    let sl.=l:status_color.' %<'.s:get_section('c').' '
     let sl.=exists('w:airline_section_gutter')
           \ ? s:get_section('gutter')
           \ : '%#warningmsg#'.g:airline_externals_syntastic.l:file_flag_color."%{&ro ? g:airline_readonly_symbol : ''}".l:status_color
@@ -115,7 +115,7 @@ function! airline#update_statusline(active)
     let sl.=' %f'
   endif
   if !exists('w:airline_left_only')
-    let sl.='%<%= '.s:get_section('x').' '
+    let sl.='%= '.s:get_section('x').' '
     let sl.=l:info_sep_color
     let sl.=a:active ? g:airline_right_sep : g:airline_right_alt_sep
     let sl.=l:info_color
