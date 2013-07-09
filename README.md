@@ -86,7 +86,11 @@ if you encounter a bug, please reproduce it with this [minivimrc][g] repository 
 
 # contributions
 
-contributions and pull requests are welcome.  please follow the existing coding style as much as possible.
+contributions and pull requests are welcome.  please take note of the following guidelines:
+
+*  adhere to the existing style as much as possible; notably, 2 space indents and long-form keywords.
+*  keep the history clean! squash your branches before you submit a pull request. `pull --rebase` is your friend.
+*  this plugin got a lot more popular than i initially expected, if you make changes to the core, please test on as many versions of vim as possible.
 
 # license
 
