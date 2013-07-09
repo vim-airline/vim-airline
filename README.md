@@ -10,16 +10,16 @@ There's already [powerline][b], why yet another statusline?
 
 *  it's 100% vimscript; no python needed.
 *  it's small.  i want the core plugin to be *less than 200 lines* as a rule (specifically adhering to the [open/closed principle][h]).
-*  it gets you 90% of the way there; in addition to all the standard goodies, it integrates with [vim-bufferline][f], [fugitive][d], [unite][i], [ctrlp][j] and [syntastic][e].
+*  despite the small size, it is fully featured and already integrates with: [vim-bufferline][f], [fugitive][d], [unite][i], [ctrlp][j], [minibufexpl][o], [gundo][p], [undotree][q], [nerdtree][r], [tagbar][s] and [syntastic][e].
 *  it looks good with regular fonts, and provides configuration points so you can use unicode or powerline symbols.
 *  it's fast to load, taking roughly 1ms.  by comparison, powerline needs 60ms on the same machine.
 *  it's fully customizable; if you know a little `statusline` syntax you can tweak it to your needs.
-*  it is trivial to write colorschemes; for a minimal theme you need to edit 9 lines of colors. (please send pull requests if you create new themes!)
+*  it's trivial to write colorschemes; for a minimal theme you need to edit 9 lines of colors. (please send pull requests if you create new themes!)
 
 What about [old powerline][a]?
 
 *  the old version still works well, but since it's deprecated new features won't get added
-*  because it uses different font codes, it is incompatible with new powerline features (e.g. zsh, tmux, etc.)
+*  since it uses different font codes, it is incompatible with new powerline features (e.g. bash, zsh, tmux, etc.)
 
 # Why's it called airline?
 
@@ -60,6 +60,8 @@ This plugin follows the standard runtime path structure, and as such it can be i
   *  you can disable automatic echoing by adding `let g:bufferline_echo = 0` to your vimrc
 *  the statusline wraps
   *  you are probably using iTerm with double-width characters enabled. either disable this, or `set ambiwidth=double` in your vimrc.
+*  how do i get rid of the default mode indicator?
+  *  add `set noshowmode` to your vimrc
 
 # Bugs
 
@@ -117,3 +119,8 @@ Contributions and pull requests are welcome.  Please take note of the following 
 [l]: https://github.com/Shougo/neobundle.vim
 [m]: https://github.com/gmarik/vundle
 [n]: http://vim.wikia.com/wiki/256_colors_in_vim
+[o]: https://github.com/techlivezheng/vim-plugin-minibufexpl
+[p]: https://github.com/sjl/gundo.vim
+[q]: https://github.com/mbbill/undotree
+[r]: https://github.com/scrooloose/nerdtree
+[s]: https://github.com/majutsushi/tagbar
