@@ -13,13 +13,14 @@ let s:airline_highlight_map = {
 let s:airline_highlight_groups = keys(s:airline_highlight_map)
 
 function! airline#exec_highlight(group, colors)
-  exec printf('hi %s %s %s %s %s %s %s',
+  exec printf('hi %s %s %s %s %s %s %s %s',
         \ a:group,
         \ a:colors[0] != '' ? 'guifg='.a:colors[0] : '',
         \ a:colors[1] != '' ? 'guibg='.a:colors[1] : '',
         \ a:colors[2] != '' ? 'ctermfg='.a:colors[2] : '',
         \ a:colors[3] != '' ? 'ctermbg='.a:colors[3] : '',
         \ a:colors[4] != '' ? 'gui='.a:colors[4] : '',
+        \ a:colors[4] != '' ? 'cterm='.a:colors[4] : '',
         \ a:colors[4] != '' ? 'term='.a:colors[4] : '')
 endfunction
 call airline#exec_highlight('airline_inactive', s:inactive_colors.mode)
