@@ -55,6 +55,8 @@ function! s:is_excluded_window()
 endfunction
 
 function! s:apply_window_overrides()
+  call airline#extensions#clear_window_overrides()
+
   if &buftype == 'quickfix'
     let w:airline_section_a = 'Quickfix'
     let w:airline_section_b = ''

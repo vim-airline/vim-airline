@@ -7,12 +7,14 @@ function! s:override_left_only(section1, section2)
   let w:airline_left_only = 1
 endfunction
 
-function! airline#extensions#apply_window_overrides()
+function! airline#extensions#clear_window_overrides()
   silent! unlet w:airline_left_only
   for section in s:sections
     silent! unlet w:airline_section_{section}
   endfor
+endfunction
 
+function! airline#extensions#apply_window_overrides()
   if &ft == 'netrw'
     call s:override_left_only('netrw', '%f')
   elseif &ft == 'unite'
