@@ -3,13 +3,13 @@
 ==============================================================================
 RATIONALE                                                          *airline*
 
-there's already powerline <https://github.com/Lokaltog/powerline>, why yet
+There's already powerline <https://github.com/Lokaltog/powerline>, why yet
 another statusline?
 
 *  it's 100% vimscript; no python needed.
 *  it's small.  i want the core plugin to be less than 200 lines as a rule.
 *  it gets you 90% of the way there; in addition to all the standard goodies,
-   it integrates with:
+   it integrates with a variety of popular plugins, including:
   *  fugitve <https://github.com/tpope/vim-fugitive>
   *  syntastic <https://github.com/scrooloose/syntastic>
   *  vim-bufferline <https://github.com/bling/vim-bufferline>
@@ -27,15 +27,15 @@ another statusline?
 ==============================================================================
 NAME                                                          *airline-name*
 
-why's it called airline?
+Why's it called airline?
 
-i wrote this on an airplane, and since it's light as air it turned out to be a
+I wrote this on an airplane, and since it's light as air it turned out to be a
 good name :-)
 
 ==============================================================================
 CONFIGURATION                                        *airline-configuration*
 
-there are a couple configuration values available (shown with their default
+There are a couple configuration values available (shown with their default
 values):
 
 * the separator used on the left side
@@ -88,8 +88,8 @@ values):
 ==============================================================================
 CUSTOMIZATION                                        *airline-customization*
 
-here are some unicode symbols for customizing the left/right separators, as
-well as the powerline font glyths
+The following are some unicode symbols for customizing the left/right
+separators, as well as the powerline font glyths.
 
 >
   " unicode symbols
@@ -115,7 +115,7 @@ well as the powerline font glyths
   let g:airline_linecolumn_prefix = ' '
 <
 
-for more intricate customizations, you can replace the predefined sections
+For more intricate customizations, you can replace the predefined sections
 with the usual statusline syntax.
 
 >
@@ -134,6 +134,20 @@ with the usual statusline syntax.
   let g:airline_section_c = '%t'
 <
 
+If there is a particular plugin or filetype that is not supported, you can
+extend it by adding a function reference to the global array.  Here is an
+example that you could add to your vimrc:
+
+>
+  function! MyPlugin()
+    if &filetype == 'MyPluginFileType'
+      let w:airline_section_a = 'MyPlugin'
+      let w:airline_section_b = '%f'
+      let w:airline_section_c = '%{MyPlugin#function()}'
+    endif
+  endfunction
+  call add(g:airline_window_override_funcrefs, function('MyPlugin'))
+<
 ==============================================================================
 CONTRIBUTIONS                                        *airline-contributions*
 
