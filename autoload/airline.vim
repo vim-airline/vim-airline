@@ -117,7 +117,7 @@ function! airline#update_statusline(active)
           \ ? s:get_section('gutter')
           \ : '%#warningmsg#'.g:airline_externals_syntastic.l:file_flag_color."%{&ro ? g:airline_readonly_symbol : ''}".l:status_color
   else
-    let sl.=' %f'
+    let sl.=' %f%m'
   endif
   if !exists('w:airline_left_only')
     let sl.='%= '.s:get_section('x').' '
