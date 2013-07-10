@@ -1,6 +1,5 @@
 " vim: ts=2 sts=2 sw=2 fdm=indent
 let s:is_win32term = (has('win32') || has('win64')) && !has('gui_running')
-let s:inactive_colors = g:airline#themes#{g:airline_theme}#inactive "also lazy loads the theme
 
 let s:airline_highlight_map = {
       \ 'mode'           : 'Al2',
@@ -13,17 +12,27 @@ let s:airline_highlight_map = {
 let s:airline_highlight_groups = keys(s:airline_highlight_map)
 
 function! airline#exec_highlight(group, colors)
+  let colors = a:colors
+  if s:is_win32term
+    let colors = map(a:colors, 'v:val != "" && v:val > 128 ? v:val - 128 : v:val')
+  endif
   exec printf('hi %s %s %s %s %s %s %s %s',
         \ a:group,
-        \ a:colors[0] != '' ? 'guifg='.a:colors[0] : '',
-        \ a:colors[1] != '' ? 'guibg='.a:colors[1] : '',
-        \ a:colors[2] != '' ? 'ctermfg='.a:colors[2] : '',
-        \ a:colors[3] != '' ? 'ctermbg='.a:colors[3] : '',
-        \ a:colors[4] != '' ? 'gui='.a:colors[4] : '',
-        \ a:colors[4] != '' ? 'cterm='.a:colors[4] : '',
-        \ a:colors[4] != '' ? 'term='.a:colors[4] : '')
+        \ colors[0] != '' ? 'guifg='.colors[0] : '',
+        \ colors[1] != '' ? 'guibg='.colors[1] : '',
+        \ colors[2] != '' ? 'ctermfg='.colors[2] : '',
+        \ colors[3] != '' ? 'ctermbg='.colors[3] : '',
+        \ colors[4] != '' ? 'gui='.colors[4] : '',
+        \ colors[4] != '' ? 'cterm='.colors[4] : '',
+        \ colors[4] != '' ? 'term='.colors[4] : '')
 endfunction
-call airline#exec_highlight('airline_inactive', s:inactive_colors.mode)
+
+function! airline#load_theme(name)
+  let g:airline_theme = a:name
+  let inactive_colors = g:airline#themes#{g:airline_theme}#inactive "also lazy loads the theme
+  call airline#exec_highlight('airline_inactive', inactive_colors.mode)
+  call airline#highlight(['normal'])
+endfunction
 
 function! airline#highlight(modes)
   " always draw the base mode, and then override any/all of the colors with _override
@@ -32,9 +41,6 @@ function! airline#highlight(modes)
     for key in s:airline_highlight_groups
       if exists('g:airline#themes#{g:airline_theme}#{mode}[key]')
         let colors = g:airline#themes#{g:airline_theme}#{mode}[key]
-        if s:is_win32term
-          let colors = map(colors, 'v:val != "" && v:val > 128 ? v:val - 128 : v:val')
-        endif
         call airline#exec_highlight(s:airline_highlight_map[key], colors)
       endif
     endfor

@@ -39,7 +39,7 @@ function! s:init()
   if !s:airline_initialized
     call airline#extensions#load()
     call airline#update_externals()
-    call airline#highlight(['normal'])
+    call airline#load_theme(g:airline_theme)
     call s:check_defined('g:airline_section_a', '%{g:airline_current_mode_text}')
     call s:check_defined('g:airline_section_b', '%{g:airline_externals_fugitive}')
     call s:check_defined('g:airline_section_c', g:airline_externals_bufferline)
@@ -51,16 +51,11 @@ function! s:init()
   endif
 endfunction
 
-function! s:change_theme(name)
-  let g:airline_theme = a:name
-  let load = g:airline#themes#{a:name}#normal
-  call airline#highlight(['normal'])
-endfunction
 function! s:get_airline_themes(a, l, p)
-  let files = split(globpath(&rtp, "autoload/airline/themes/*"), "\n")
+  let files = split(globpath(&rtp, 'autoload/airline/themes/'.a:a.'*'), "\n")
   return map(files, 'fnamemodify(v:val, ":t:r")')
 endfunction
-command! -nargs=1 -complete=customlist,<sid>get_airline_themes AirlineTheme call <sid>change_theme(<f-args>)
+command! -nargs=1 -complete=customlist,<sid>get_airline_themes AirlineTheme call airline#load_theme(<f-args>)
 
 augroup airline
   au!

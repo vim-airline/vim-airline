@@ -36,3 +36,7 @@ let g:airline#themes#dark#visual_modified = {
       \ 'info_separator': [ '#ff5f00' , '#5f005f' , 202     , 53      , ''     ] ,
       \ 'statusline':     [ '#ffffff' , '#5f005f' , 255     , 53      , ''     ] ,
       \ }
+
+function! airline#themes#dark#get(key, modes)
+  return g:airline#themes#dark#normal[key]
+endfunction
