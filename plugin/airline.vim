@@ -51,6 +51,17 @@ function! s:init()
   endif
 endfunction
 
+function! s:change_theme(name)
+  let g:airline_theme = a:name
+  let load = g:airline#themes#{a:name}#normal
+  call airline#highlight(['normal'])
+endfunction
+function! s:get_airline_themes(a, l, p)
+  let files = split(globpath(&rtp, "autoload/airline/themes/*"), "\n")
+  return map(files, 'fnamemodify(v:val, ":t:r")')
+endfunction
+command! -nargs=1 -complete=customlist,<sid>get_airline_themes AirlineTheme call <sid>change_theme(<f-args>)
+
 augroup airline
   au!
   autocmd ColorScheme * call airline#highlight(['normal'])

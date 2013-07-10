@@ -149,6 +149,13 @@ example that you could add to your vimrc:
   endfunction
   call add(g:airline_window_override_funcrefs, function('MyPlugin'))
 <
+
+==============================================================================
+COMMANDS                                             *airline-commands*
+>
+:AirlineTheme {theme-name}                           *:AirlineTheme*
+  Changes the current airline theme.
+
 ==============================================================================
 CONTRIBUTIONS                                        *airline-contributions*
 
