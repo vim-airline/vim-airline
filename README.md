@@ -19,7 +19,7 @@ There's already [powerline][b], why yet another statusline?
 What about [old powerline][a]?
 
 *  the old version still works well, but since it's deprecated new features won't get added
-*  since it uses different font codes, it is incompatible with new powerline features (e.g. bash, zsh, tmux, etc.)
+*  it uses different font codes, which makes it incompatible with other powerline bindings in the same terminal (e.g. bash, zsh, tmux, etc.)
 
 # Why's it called airline?
 
@@ -45,9 +45,8 @@ This plugin follows the standard runtime path structure, and as such it can be i
 # FAQ/Troubleshooting
 
 *  the powerline font symbols are not showing up
-  *  enable them by adding `let g:airline_powerline_fonts=1` to your `~/.vimrc`
-  *  the older deprecated [vim-powerline][a] uses different codes compared to the newer [powerline][b].
-  *  you can grab prepatched fonts at [powerline-fonts][c], or you can manually set the relevant `g:` variables
+  *  enable them by adding `let g:airline_powerline_fonts=1` to your vimrc.
+  *  the older deprecated [vim-powerline][a] uses different font codes compared to the newer [powerline][b]. you can grab prepatched fonts at [powerline-fonts][c].
 *  there is a pause when leaving insert mode
   *  you need to set `ttimeoutlen` to a low number; 50 is recommended
 *  you don't see any colors

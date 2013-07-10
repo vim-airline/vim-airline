@@ -34,7 +34,7 @@ let s:N1 = [s:base2.g, s:blue.g, s:base2.t, s:blue.t, 'bold']
 let s:N2 = [s:base2.g, s:base01.g, s:base2.t, s:base01.t]
 if s:background == 'dark'
     let s:N3 = [s:base1.g, s:base2.g, s:base1.t, s:base02.t]
-    let s:NF = [s:pinky.g, s:base02.t, s:pinky.t, s:base02.t, '']
+    let s:NF = [s:pinky.g, s:base02.g, s:pinky.t, s:base02.t, '']
 else
     let s:N3 = [s:base1.g, s:base2.g, s:base1.t, s:base2.t]
     let s:NF = [s:red.g, s:base2.g, s:red.t, s:base2.t, '']

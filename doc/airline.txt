@@ -58,7 +58,8 @@ values):
   let g:airline_enable_syntastic=1
 <
 
-* change the theme (available options: dark, light, simple, badwolf)
+* change the theme (available options: dark, light, simple, badwolf,
+  solarized, solarized2)
 >
   let g:airline_theme='dark'
 <
