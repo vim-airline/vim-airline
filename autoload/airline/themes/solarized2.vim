@@ -41,26 +41,26 @@ else
 endif
 if s:background == 'dark'
     let s:NM = {
-        \ 'info_separator': [s:N2[1], s:N3[1], s:N2[3], s:darkred.t, ''], 
+        \ 'info_separator': [s:N2[1], s:darkred.g, s:N2[3], s:darkred.t, ''], 
         \ 'statusline': [s:pinky.g, s:darkred.g, s:pinky.t, s:darkred.t, ''], 
         \ }
 else
     let s:NM = {
-        \ 'info_separator': [s:N2[1], s:N3[1], s:N2[3], s:pinky.t, ''], 
+        \ 'info_separator': [s:N2[1], s:pinky.g, s:N2[3], s:pinky.t, ''], 
         \ 'statusline': [s:red.g, s:pinky.g, s:red.t, s:pinky.t, ''], 
         \ }
 endif
 
 " insert mode
 if s:background == 'dark'
-    let s:I1 = [s:base2.g, s:blue.g, s:base03.t, s:base3.t, 'bold']
+    let s:I1 = [s:base03.g, s:base3.g, s:base03.t, s:base3.t, 'bold']
 else
     let s:I1 = [s:base3.g, s:orange.g, s:base3.t, s:orange.t, 'bold']
 endif
 let s:I2 = [s:base3.g, s:base1.g, s:base3.t, s:base1.t]
 let s:I3 = s:N3
 let s:IM = {
-    \ 'info_separator': [s:I2[1], s:I3[1], s:I2[3], s:NM.statusline[3], ''], 
+    \ 'info_separator': [s:I2[1], s:NM.statusline[1], s:I2[3], s:NM.statusline[3], ''], 
     \ 'statusline': s:NM.statusline
     \ }
 
@@ -69,7 +69,7 @@ let s:V1 = [s:base3.g, s:magenta.g, s:base3.t, s:magenta.t, 'bold']
 let s:V2 = s:I2
 let s:V3 = s:I3
 let s:VM = {
-    \ 'info_separator': [s:V2[1], s:V3[1], s:V2[3], s:NM.statusline[3], ''], 
+    \ 'info_separator': [s:V2[1], s:NM.statusline[1], s:V2[3], s:NM.statusline[3], ''], 
     \ 'statusline': s:NM.statusline
     \ }
 
