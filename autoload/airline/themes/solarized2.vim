@@ -12,7 +12,7 @@ let s:orange  = {'t': 166, 'g': '#cb4b16'}
 let s:red     = {'t': 160, 'g': '#dc322f'}
 let s:magenta = {'t': 125, 'g': '#d33682'}
 let s:violet  = {'t': 61,  'g': '#6c71c4'}
-let s:blue    = {'t': 33,  'g': '#267bd2'}
+let s:blue    = {'t': 33,  'g': '#268bd2'}
 let s:cyan    = {'t': 37,  'g': '#2aa198'}
 let s:green   = {'t': 64,  'g': '#859900'}
 
