@@ -143,8 +143,10 @@ let s:lastmode = ''
 let g:airline_current_mode_text = ''
 function! airline#update_highlight()
   let l:m = mode()
-  if l:m ==# "i" || l:m ==# "R"
+  if l:m ==# "i"
     let l:mode = ['insert']
+  elseif l:m ==# "R"
+    let l:mode = ['replace']
   elseif l:m ==? "v" || l:m ==# ""
     let l:mode = ['visual']
   else
@@ -156,12 +158,6 @@ function! airline#update_highlight()
   endif
   if &paste
     call add(l:mode, 'paste')
-  endif
-  if l:m ==# "R"
-    call add(l:mode, 'replace')
-  endif
-  if &previewwindow
-    call add(l:mode, 'preview')
   endif
 
   let mode_string = join(l:mode)

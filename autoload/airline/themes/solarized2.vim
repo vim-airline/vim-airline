@@ -78,29 +78,30 @@ let g:airline#themes#solarized2#inactive = {
     \ 'mode': [s:N3[0], s:N3[1], s:N3[2], s:N3[3], ''], 
     \ }
 
+
 let g:airline#themes#solarized2#normal =
-    \ airline#themes#generate_color_map(s:N1, s:N2, s:N3)
+    \ airline#themes#generate_color_map(s:N1, s:N2, s:N3, s:NF)
 
 let g:airline#themes#solarized2#normal_modified =
     \ s:NM
 
-let g:airline#themes#solarized2#normal.file =
-    \ s:NF
 
 let g:airline#themes#solarized2#insert =
-    \ airline#themes#generate_color_map(s:I1, s:I2, s:I3)
+    \ airline#themes#generate_color_map(s:I1, s:I2, s:I3, s:NF)
 
 let g:airline#themes#solarized2#insert_modified =
     \ s:IM
 
-let g:airline#themes#solarized2#insert.file =
-    \ s:NF
+
+let g:airline#themes#solarized2#replace =
+    \ airline#themes#generate_color_map(s:I1, s:I2, s:I3, s:NF)
+
+let g:airline#themes#solarized2#replace_modified =
+    \ s:IM
+
 
 let g:airline#themes#solarized2#visual =
-    \ airline#themes#generate_color_map(s:V1, s:V2, s:V3)
+    \ airline#themes#generate_color_map(s:V1, s:V2, s:V3, s:NF)
 
 let g:airline#themes#solarized2#visual_modified =
     \ s:VM
-
-let g:airline#themes#solarized2#visual.file =
-    \ s:NF

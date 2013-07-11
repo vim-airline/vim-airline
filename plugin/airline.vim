@@ -58,8 +58,9 @@ endfunction
 function! s:airline_theme(...)
   if a:0
     call airline#load_theme(a:1)
+  else
+    echo g:airline_theme
   endif
-  echo g:airline_theme
 endfunction
 command! -nargs=? -complete=customlist,<sid>get_airline_themes AirlineTheme call <sid>airline_theme(<f-args>)
 

@@ -55,6 +55,7 @@ let g:airline#themes#simple#normal_modified = {
       \ 'statusline':     [ '#df0000' , s:guibg, 160     , s:termbg    , ''     ] ,
       \ }
 
+
 let s:I1 = s:swap ? [ s:guibg, '#5fff00' , s:termbg , 82 ] : [ '#5fff00' , s:guibg, 82 , s:termbg ]
 let s:I2 = [ '#ff5f00' , s:guibg, 202 , s:termbg ]
 let s:I3 = [ '#767676' , s:guibg, 243 , s:termbg ]
@@ -72,10 +73,14 @@ let g:airline#themes#simple#insert_paste = {
       \ 'mode':           [ s:I1[0]   , '#d78700' , s:I1[2] , 172     , ''     ] ,
       \ 'mode_separator': [ '#d78700' , s:I2[1]   , 172     , s:I2[3] , ''     ] ,
       \ }
-let g:airline#themes#simple#insert_replace = {
+
+
+let g:airline#themes#simple#replace = {
       \ 'mode':           [ s:I1[0]   , '#af0000' , s:I1[2] , 124     , ''     ] ,
       \ 'mode_separator': [ '#af0000' , s:I2[1]   , 124     , s:I2[3] , ''     ] ,
       \ }
+let g:airline#themes#simple#replace_modified = copy(g:airline#themes#simple#normal_modified)
+
 
 let s:V1 = s:swap ? [ s:guibg, '#dfdf00' , s:termbg , 184 ] : [ '#dfdf00' , s:guibg, 184 , s:termbg ]
 let s:V2 = [ '#ff5f00' , s:guibg, 202 , s:termbg ]
