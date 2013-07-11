@@ -154,7 +154,7 @@ example that you could add to your vimrc:
 COMMANDS                                             *airline-commands*
 >
 :AirlineTheme {theme-name}                           *:AirlineTheme*
-  Changes the current airline theme.
+  Displayes or changes the current theme.
 
 ==============================================================================
 CONTRIBUTIONS                                        *airline-contributions*

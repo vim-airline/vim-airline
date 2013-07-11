@@ -55,7 +55,13 @@ function! s:get_airline_themes(a, l, p)
   let files = split(globpath(&rtp, 'autoload/airline/themes/'.a:a.'*'), "\n")
   return map(files, 'fnamemodify(v:val, ":t:r")')
 endfunction
-command! -nargs=1 -complete=customlist,<sid>get_airline_themes AirlineTheme call airline#load_theme(<f-args>)
+function! s:airline_theme(...)
+  if a:0
+    call airline#load_theme(a:1)
+  endif
+  echo g:airline_theme
+endfunction
+command! -nargs=? -complete=customlist,<sid>get_airline_themes AirlineTheme call <sid>airline_theme(<f-args>)
 
 augroup airline
   au!
