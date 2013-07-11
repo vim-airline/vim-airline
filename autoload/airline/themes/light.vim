@@ -29,7 +29,6 @@ let g:airline#themes#light#replace = copy(g:airline#themes#light#insert)
 let g:airline#themes#light#replace.mode           = [ s:I2[0]   , '#ff0000' , s:I1[2] , 196     , ''     ]
 let g:airline#themes#light#replace.mode_separator = [ '#ff0000' , s:I2[1]   , 196     , s:I2[3] , ''     ]
 let g:airline#themes#light#replace_modified = g:airline#themes#light#insert_modified
-let g:airline#themes#light#replace_paste = g:airline#themes#light#insert_paste
 
 
 let s:V1 = [ '#ffffff' , '#ff5f00' , 255 , 202 ]
