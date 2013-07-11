@@ -13,7 +13,7 @@ let s:V3 = [ '#000000' , '#b88853' , 16  , 137 ] " coal           & toffee
 let s:V4 = [ '#c7915b' , 173 ]                   " coffee
 
 let s:PA = [ '#f4cf86' , 222 ]                   " dirtyblonde
-let s:RE = [ 'ff9eb8'  , 211 ]                   " dress
+let s:RE = [ '#ff9eb8' , 211 ]                   " dress
 
 let s:file = [ '#ff2c4b' , s:N3[1] , 196 , s:N3[3] , '' ]
 
