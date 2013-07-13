@@ -1,54 +1,124 @@
-" SOLARIZED HEX     16/8 TERMCOL  XTERM/HEX   L*A*B      sRGB        HSB
-" --------- ------- ---- -------  ----------- ---------- ----------- -----------
-" base03    #002b36  8/4 brblack  234 #1c1c1c 15 -12 -12   0  43  54 193 100  21
-" base02    #073642  0/4 black    235 #262626 20 -12 -12   7  54  66 192  90  26
-" base01    #586e75 10/7 brgreen  240 #4e4e4e 45 -07 -07  88 110 117 194  25  46
-" base00    #657b83 11/7 bryellow 241 #585858 50 -07 -07 101 123 131 195  23  51
-" base0     #839496 12/6 brblue   244 #808080 60 -06 -03 131 148 150 186  13  59
-" base1     #93a1a1 14/4 brcyan   245 #8a8a8a 65 -05 -02 147 161 161 180   9  63
-" base2     #eee8d5  7/7 white    254 #d7d7af 92 -00  10 238 232 213  44  11  93
-" base3     #fdf6e3 15/7 brwhite  230 #ffffd7 97  00  10 253 246 227  44  10  99
-" yellow    #b58900  3/3 yellow   136 #af8700 60  10  65 181 137   0  45 100  71
-" orange    #cb4b16  9/3 brred    166 #d75f00 50  50  55 203  75  22  18  89  80
-" red       #dc322f  1/1 red      160 #d70000 50  65  45 220  50  47   1  79  86
-" magenta   #d33682  5/5 magenta  125 #af005f 50  65 -05 211  54 130 331  74  83
-" violet    #6c71c4 13/5 brmagenta 61 #5f5faf 50  15 -45 108 113 196 237  45  77
-" blue      #268bd2  4/4 blue      33 #0087ff 55 -10 -45  38 139 210 205  82  82
-" cyan      #2aa198  6/6 cyan      37 #00afaf 60 -35 -05  42 161 152 175  74  63
-" green     #859900  2/2 green     64 #5f8700 60 -20  65 133 153   0  68 100  60
+""""""""""""""""""""""""""""""""""""""""""""""""
+" Colors
+""""""""""""""""""""""""""""""""""""""""""""""""
+" Base colors
+let s:base03  = {'t': 234, 'g': '#002b36'}
+let s:base02  = {'t': 235, 'g': '#073642'}
+let s:base01  = {'t': 240, 'g': '#586e75'}
+let s:base00  = {'t': 241, 'g': '#657b83'}
+let s:base0   = {'t': 244, 'g': '#839496'}
+let s:base1   = {'t': 245, 'g': '#93a1a1'}
+let s:base2   = {'t': 254, 'g': '#eee8d5'}
+let s:base3   = {'t': 230, 'g': '#fdf6e3'}
+let s:yellow  = {'t': 136, 'g': '#b58900'}
+let s:orange  = {'t': 166, 'g': '#cb4b16'}
+let s:red     = {'t': 160, 'g': '#dc322f'}
+let s:magenta = {'t': 125, 'g': '#d33682'}
+let s:violet  = {'t': 61,  'g': '#6c71c4'}
+let s:blue    = {'t': 33,  'g': '#267bd2'}
+let s:cyan    = {'t': 37,  'g': '#2aa198'}
+let s:green   = {'t': 64,  'g': '#859900'}
 
-let s:N1 = [ '#fdf6e3' , '#657b83' , 230 , 241 ]
-let s:N2 = [ '#fdf6e3' , '#93a1a1' , 230 , 245 ]
-let s:N3 = [ '#657b83' , '#fdf6e3' , 241 , 230 ]
-let s:NM = {
-      \ 'info_separator': [ '#d33682' , '#fdf6e3' , 125     , 230     , ''     ] ,
-      \ 'statusline':     [ '#d33682' , '#fdf6e3' , 125     , 230     , ''     ] ,
-      \ }
-let s:file = [ '#cb4b16' , s:N3[1] , 166 , s:N3[3] ]
+" Get background color
+if index([string(s:base03.t), s:base03.g], synIDattr(synIDtrans(hlID('Normal')), 'bg')) > -1
+    let s:background = 'dark'
+else
+    let s:background = 'light'
+end
 
+""""""""""""""""""""""""""""""""""""""""""""""""
+" Simple mappings
+" NOTE: These are easily tweakable mappings. The actual mappings get
+" the specific gui and terminal colors from the base color dicts.
+""""""""""""""""""""""""""""""""""""""""""""""""
+" Normal mode
+let s:N1 = [s:base2, s:blue, 'bold']
+let s:N2 = [s:base2, s:base01, '']
+if s:background == 'dark'
+    let s:N3 = [s:base1, s:base02, '']
+else
+    let s:N3 = [s:base00, s:base2, '']
+endif
+let s:NF = [s:orange, s:N3[1], '']
+if s:background == 'dark'
+    let s:NM = {
+                \ 'info_separator': [s:N2[1], s:N3[1], ''], 
+                \ 'statusline': [s:magenta, s:N3[1], ''], 
+                \ }
+else
+    let s:NM = {
+                \ 'info_separator': [s:N2[1], s:N3[1], ''], 
+                \ 'statusline': [s:magenta, s:N3[1], ''], 
+                \ }
+endif
 
-let g:airline#themes#solarized#normal = airline#themes#generate_color_map(s:N1, s:N2, s:N3, s:file)
-let g:airline#themes#solarized#normal_modified = s:NM
+" Insert mode
+let s:I1 = [s:N1[0], s:green, 'bold']
+let s:I2 = s:N2
+let s:I3 = s:N3
+let s:IF = s:NF
+let s:IM = s:NM
 
+" Visual mode
+let s:V1 = [s:N1[0], s:orange, 'bold']
+let s:V2 = s:N2
+let s:V3 = s:N3
+let s:VF = s:NF
+let s:VM = s:NM
 
-let s:I1 = [ '#fdf6e3' , '#2aa198' , 230 , 37  ]
-let g:airline#themes#solarized#insert = airline#themes#generate_color_map(s:I1, s:N2, s:N3, s:file)
-let g:airline#themes#solarized#insert_modified = s:NM
+" Inactive
+if s:background == 'dark'
+    let s:IA = [s:base00, s:base02, '']
+else
+    let s:IA = [s:base1, s:base2, '']
+endif
 
+""""""""""""""""""""""""""""""""""""""""""""""""
+" Actual mappings
+" WARNING: Don't modify this section unless necessary.
+""""""""""""""""""""""""""""""""""""""""""""""""
+let s:NFa = [s:NF[0].g, s:NF[1].g, s:NF[0].t, s:NF[1].t, s:NF[2]]
+let s:IFa = [s:IF[0].g, s:IF[1].g, s:IF[0].t, s:IF[1].t, s:IF[2]]
+let s:VFa = [s:VF[0].g, s:VF[1].g, s:VF[0].t, s:VF[1].t, s:VF[2]]
 
-let s:IP1 = [ s:I1[0] , '#268bd2' , s:I1[2] , 33 ]
-let g:airline#themes#solarized#insert_paste = airline#themes#generate_color_map(s:IP1, s:N2, s:N3, s:file)
+let g:airline#themes#solarized#inactive = airline#themes#generate_color_map(
+            \ [s:IA[0].g, s:IA[1].g, s:IA[0].t, s:IA[1].t, s:IA[2]],
+            \ [s:IA[0].g, s:IA[1].g, s:IA[0].t, s:IA[1].t, s:IA[2]],
+            \ [s:IA[0].g, s:IA[1].g, s:IA[0].t, s:IA[1].t, s:IA[2]],
+            \ s:NFa)
 
+let g:airline#themes#solarized#normal = airline#themes#generate_color_map(
+            \ [s:N1[0].g, s:N1[1].g, s:N1[0].t, s:N1[1].t, s:N1[2]],
+            \ [s:N2[0].g, s:N2[1].g, s:N2[0].t, s:N2[1].t, s:N2[2]],
+            \ [s:N3[0].g, s:N3[1].g, s:N3[0].t, s:N3[1].t, s:N3[2]],
+            \ s:NFa)
 
-let s:IR1 = [ s:I1[0] , '#859900' , s:I1[2] , 64 ]
-let g:airline#themes#solarized#replace = airline#themes#generate_color_map(s:IR1, s:N2, s:N3, s:file)
-let g:airline#themes#solarized#replace_modified = s:NM
+let g:airline#themes#solarized#normal_modified = {
+            \ 'info_separator': [s:NM.info_separator[0].g, s:NM.info_separator[1].g,
+            \ s:NM.info_separator[0].t, s:NM.info_separator[1].t, s:NM.info_separator[2]],
+            \ 'statusline': [s:NM.statusline[0].g, s:NM.statusline[1].g,
+            \ s:NM.statusline[0].t, s:NM.statusline[1].t, s:NM.statusline[2]]}
 
+let g:airline#themes#solarized#insert = airline#themes#generate_color_map(
+            \ [s:I1[0].g, s:I1[1].g, s:I1[0].t, s:I1[1].t, s:I1[2]],
+            \ [s:I2[0].g, s:I2[1].g, s:I2[0].t, s:I2[1].t, s:I2[2]],
+            \ [s:I3[0].g, s:I3[1].g, s:I3[0].t, s:I3[1].t, s:I3[2]],
+            \ s:IFa)
 
-let s:V1 = [ '#fdf6e3' , '#6c71c4' , 230 , 61  ]
-let g:airline#themes#solarized#visual = airline#themes#generate_color_map(s:V1, s:N2, s:N3, s:file)
-let g:airline#themes#solarized#visual_modified = s:NM
+let g:airline#themes#solarized#insert_modified = {
+            \ 'info_separator': [s:IM.info_separator[0].g, s:IM.info_separator[1].g,
+            \ s:IM.info_separator[0].t, s:IM.info_separator[1].t, s:IM.info_separator[2]],
+            \ 'statusline': [s:IM.statusline[0].g, s:IM.statusline[1].g,
+            \ s:IM.statusline[0].t, s:IM.statusline[1].t, s:IM.statusline[2]]}
 
+let g:airline#themes#solarized#visual = airline#themes#generate_color_map(
+            \ [s:V1[0].g, s:V1[1].g, s:V1[0].t, s:V1[1].t, s:V1[2]],
+            \ [s:V2[0].g, s:V2[1].g, s:V2[0].t, s:V2[1].t, s:V2[2]],
+            \ [s:V3[0].g, s:V3[1].g, s:V3[0].t, s:V3[1].t, s:V3[2]],
+            \ s:VFa)
 
-let s:IA = [ '#073642' , '#586e75' , 235 , 240 , '' ]
-let g:airline#themes#solarized#inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
+let g:airline#themes#solarized#visual_modified = {
+            \ 'info_separator': [s:VM.info_separator[0].g, s:VM.info_separator[1].g,
+            \ s:VM.info_separator[0].t, s:VM.info_separator[1].t, s:VM.info_separator[2]],
+            \ 'statusline': [s:VM.statusline[0].g, s:VM.statusline[1].g,
+            \ s:VM.statusline[0].t, s:VM.statusline[1].t, s:VM.statusline[2]]}
