@@ -15,7 +15,8 @@ let s:V4 = [ '#c7915b' , 173 ]                   " coffee
 let s:PA = [ '#f4cf86' , 222 ]                   " dirtyblonde
 let s:RE = [ '#ff9eb8' , 211 ]                   " dress
 
-let s:file = [ '#ff2c4b' , s:N3[1] , 196 , s:N3[3] , '' ]
+let s:file = [ '#ff2c4b' , s:N3[1] , 196     , s:N3[3] , '' ]
+let s:IA   = [ s:N2[1]   , s:N3[1] , s:N2[3] , s:N3[3] , '' ]
 
 
 let g:airline#themes#badwolf#normal = airline#themes#generate_color_map(s:N1, s:N2, s:N3, s:file)
@@ -24,8 +25,6 @@ let g:airline#themes#badwolf#normal_modified = {
       \ 'info'           : [ s:N2[0]   , s:N4[0]   , s:N2[2]   , s:N4[1]   , ''     ] ,
       \ 'info_separator' : [ s:N4[0]   , s:N2[1]   , s:N4[1]   , s:N2[3]   , 'bold' ] ,
       \ 'statusline'     : [ s:V1[1]   , s:N2[1]   , s:V1[3]   , s:N2[3]   , ''     ] }
-let g:airline#themes#badwolf#inactive = {
-      \ 'mode'           : [ s:N2[1]   , s:N3[1]   , s:N2[3]   , s:N3[3]   , ''     ] }
 
 
 let g:airline#themes#badwolf#insert = airline#themes#generate_color_map(s:I1, s:I2, s:I3, s:file)
@@ -47,3 +46,6 @@ let g:airline#themes#badwolf#visual = airline#themes#generate_color_map(s:V1, s:
 let g:airline#themes#badwolf#visual_modified = {
       \ 'info_separator' : [ s:V2[1]   , s:V4[0]   , s:V2[3]   , s:V4[1]   , 'bold' ] ,
       \ 'statusline'     : [ s:V3[0]   , s:V4[0]   , s:V3[2]   , s:V4[1]   , ''     ] }
+
+
+let g:airline#themes#badwolf#inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)

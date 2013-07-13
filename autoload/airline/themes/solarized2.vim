@@ -92,10 +92,11 @@ let s:VM = {
     \ 'statusline': s:NM.statusline
     \ }
 
+" inactive
+let s:IA = [s:N3[0], s:N3[1], s:N3[2], s:N3[3], '']
+
 " actual mapping goes next
-let g:airline#themes#solarized2#inactive = {
-    \ 'mode': [s:N3[0], s:N3[1], s:N3[2], s:N3[3], ''], 
-    \ }
+let g:airline#themes#solarized2#inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:IA)
 
 
 let g:airline#themes#solarized2#normal =

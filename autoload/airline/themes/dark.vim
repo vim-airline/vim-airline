@@ -1,5 +1,3 @@
-let g:airline#themes#dark#inactive = { 'mode': [ '#4e4e4e' , '#1c1c1c' , 239 , 234 , '' ] }
-
 let s:file = [ '#ff0000' , '#1c1c1c' , 160 , 233 , '' ]
 let s:N1 = [ '#00005f' , '#dfff00' , 17  , 190 ]
 let s:N2 = [ '#ffffff' , '#444444' , 255 , 238 ]
@@ -39,3 +37,8 @@ let g:airline#themes#dark#visual_modified = {
       \ 'info_separator': [ '#ff5f00' , '#5f005f' , 202     , 53      , ''     ] ,
       \ 'statusline':     [ '#ffffff' , '#5f005f' , 255     , 53      , ''     ] ,
       \ }
+
+
+let s:IA = [ '#4e4e4e' , '#1c1c1c' , 239 , 234 , '' ]
+let g:airline#themes#dark#inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
+

@@ -30,18 +30,19 @@ endfunction
 function! airline#load_theme(name)
   let g:airline_theme = a:name
   let inactive_colors = g:airline#themes#{g:airline_theme}#inactive "also lazy loads the theme
-  call airline#exec_highlight('airline_inactive', inactive_colors.mode)
+  call airline#highlight(['inactive'], '_inactive')
   call airline#highlight(['normal'])
 endfunction
 
-function! airline#highlight(modes)
-  " always draw the base mode, and then override any/all of the colors with _override
+function! airline#highlight(modes, ...)
+  " draw the base mode, followed by any overrides
   let mapped = map(a:modes, 'v:val == a:modes[0] ? v:val : a:modes[0]."_".v:val')
   for mode in mapped
     for key in s:airline_highlight_groups
       if exists('g:airline#themes#{g:airline_theme}#{mode}[key]')
         let colors = g:airline#themes#{g:airline_theme}#{mode}[key]
-        call airline#exec_highlight(s:airline_highlight_map[key], colors)
+        let group_suffix = a:0 ? a:1 : ''
+        call airline#exec_highlight(s:airline_highlight_map[key].group_suffix, colors)
       endif
     endfor
   endfor
@@ -102,12 +103,12 @@ function! airline#update_statusline(active)
   call airline#update_externals()
   call s:apply_window_overrides()
 
-  let l:mode_color      = a:active ? "%#Al2#" : "%#airline_inactive#"
-  let l:mode_sep_color  = a:active ? "%#Al3#" : "%#airline_inactive#"
-  let l:info_color      = a:active ? "%#Al4#" : "%#airline_inactive#"
-  let l:info_sep_color  = a:active ? "%#Al5#" : "%#airline_inactive#"
-  let l:status_color    = a:active ? "%#Al6#" : "%#airline_inactive#"
-  let l:file_flag_color = a:active ? "%#Al7#" : "%#airline_inactive#"
+  let l:mode_color      = a:active ? "%#Al2#" : "%#Al2_inactive#"
+  let l:mode_sep_color  = a:active ? "%#Al3#" : "%#Al3_inactive#"
+  let l:info_color      = a:active ? "%#Al4#" : "%#Al4_inactive#"
+  let l:info_sep_color  = a:active ? "%#Al5#" : "%#Al5_inactive#"
+  let l:status_color    = a:active ? "%#Al6#" : "%#Al6_inactive#"
+  let l:file_flag_color = a:active ? "%#Al7#" : "%#Al7_inactive#"
 
   let sl = l:mode_color
   if a:active
@@ -123,7 +124,7 @@ function! airline#update_statusline(active)
           \ ? s:get_section('gutter')
           \ : '%#warningmsg#'.g:airline_externals_syntastic.l:file_flag_color."%{&ro ? g:airline_readonly_symbol : ''}".l:status_color
   else
-    let sl.=' %f%m'
+    let sl.=l:status_color.' %f%m'
   endif
   if !exists('w:airline_left_only')
     let sl.='%= '.s:get_section('x').' '
@@ -153,12 +154,8 @@ function! airline#update_highlight()
     let l:mode = ['normal']
   endif
 
-  if &modified
-    call add(l:mode, 'modified')
-  endif
-  if &paste
-    call add(l:mode, 'paste')
-  endif
+  if &modified | call add(l:mode, 'modified') | endif
+  if &paste    | call add(l:mode, 'paste')    | endif
 
   let mode_string = join(l:mode)
   if s:lastmode != mode_string

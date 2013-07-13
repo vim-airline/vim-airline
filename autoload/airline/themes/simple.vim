@@ -36,8 +36,7 @@ let s:termbg = 232
 let s:termsep = 236
 let s:guisep = '#303030'
 
-let g:airline#themes#simple#inactive = {'mode': [ '#4e4e4e' , s:guibg , 239 , s:termbg , '' ] }
-
+let s:file = [ '#ff0000' , s:guibg , 160       , s:termbg , ''     ]
 let s:N1 = s:swap ? [ s:guibg , '#00dfff' , s:termbg , 45 ] : [ '#00dfff' , s:guibg , 45 , s:termbg ]
 let s:N2 = [ '#ff5f00' , s:guibg, 202 , s:termbg ]
 let s:N3 = [ '#767676' , s:guibg, 243 , s:termbg ]
@@ -49,7 +48,7 @@ let g:airline#themes#simple#normal = {
       \ 'info':           [ s:N2[0]   , s:N2[1] , s:N2[2]   , s:N2[3]  , ''     ] ,
       \ 'info_separator': [ s:guisep  , s:N3[1] , s:termsep , s:N3[3]  , 'bold' ] ,
       \ 'statusline':     [ s:N3[0]   , s:N3[1] , s:N3[2]   , s:N3[3]  , ''     ] ,
-      \ 'file':           [ '#ff0000' , s:guibg , 160       , s:termbg , ''     ] ,
+      \ 'file':           s:file,
       \ }
 let g:airline#themes#simple#normal_modified = {
       \ 'statusline':     [ '#df0000' , s:guibg, 160     , s:termbg    , ''     ] ,
@@ -95,3 +94,8 @@ let g:airline#themes#simple#visual = {
       \ 'statusline':     [ s:V3[0]   , s:V3[1] , s:V3[2]   , s:V3[3] , ''     ] ,
       \ }
 let g:airline#themes#simple#visual_modified = copy(g:airline#themes#simple#normal_modified)
+
+
+let s:IA = [ '#4e4e4e' , s:guibg , 239 , s:termbg , '' ]
+let g:airline#themes#simple#inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
+
