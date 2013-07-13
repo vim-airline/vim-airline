@@ -42,11 +42,16 @@ This plugin follows the standard runtime path structure, and as such it can be i
 
 `:help airline`
 
+# Integrating with powerline fonts
+
+For the nice looking powerline symbols to appear, you will need to install a patched font.  Instructions can be found in the official powerline [documentation][t].  Prepatched fonts can be found in the [powerine-fonts][c] repository.
+
+Finally, enable them in vim-airline by adding `let g:airline_powerline_fonts = 1` to your vimrc.
+
 # FAQ/Troubleshooting
 
 *  the powerline font symbols are not showing up
-  *  enable them by adding `let g:airline_powerline_fonts=1` to your vimrc.
-  *  the older deprecated [vim-powerline][a] uses different font codes compared to the newer [powerline][b]. you can grab prepatched fonts at [powerline-fonts][c].
+  *  the older deprecated [vim-powerline][a] uses different font codes; ensure you are using v2 fonts.
 *  there is a pause when leaving insert mode
   *  you need to set `ttimeoutlen` to a low number; 50 is recommended
 *  you don't see any colors
@@ -123,3 +128,4 @@ Contributions and pull requests are welcome.  Please take note of the following 
 [q]: https://github.com/mbbill/undotree
 [r]: https://github.com/scrooloose/nerdtree
 [s]: https://github.com/majutsushi/tagbar
+[t]: https://powerline.readthedocs.org/en/latest/fontpatching.html
