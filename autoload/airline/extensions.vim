@@ -28,7 +28,7 @@ function! airline#extensions#apply_window_overrides()
   elseif &ft == 'diff'
     call s:override_left_only('diff', '')
   elseif &ft == 'tagbar'
-    call s:override_left_only('tagbar', '')
+    call s:override_left_only('Tagbar', '')
   elseif &ft == 'minibufexpl'
     call s:override_left_only('MiniBufExplorer', '')
   endif
