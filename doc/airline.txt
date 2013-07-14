@@ -86,6 +86,13 @@ values):
   let g:airline_exclude_filetypes = [] " see source for current list
 <
 
+* defines whether the preview window should be excluded from have its window
+  statusline modified (may help with plugins which use the preview window
+  heavily)
+>
+  let g:airline_exclude_preview = 0
+<
+
 ==============================================================================
 CUSTOMIZATION                                        *airline-customization*
 

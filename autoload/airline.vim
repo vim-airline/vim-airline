@@ -59,6 +59,9 @@ function! s:is_excluded_window()
       return 1
     endif
   endfor
+  if g:airline_exclude_preview && &previewwindow
+    return 1
+  endif
   return 0
 endfunction
 
