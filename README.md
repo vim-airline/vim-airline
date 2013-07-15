@@ -77,25 +77,7 @@ If you encounter a bug, please do the following:
 
 # Screenshots
 
-### dark theme with a regular font
-
-![img](https://github.com/bling/vim-airline/wiki/screenshots/dark.png)
-
-### dark theme with powerline symbols
-
-![img](https://github.com/bling/vim-airline/wiki/screenshots/dark-powerline.png)
-
-### simple theme
-
-![img](https://github.com/bling/vim-airline/wiki/screenshots/simple.png)
-
-### light theme
-
-![img](https://github.com/bling/vim-airline/wiki/screenshots/light.png)
-
-### badwolf theme with [bufferline][f] integration
-
-![img](https://github.com/bling/vim-airline/wiki/screenshots/badwolf.png)
+A full list of screenshots can be found in the [Wiki](https://github.com/bling/vim-airline/wiki/Screenshots).
 
 # Contributions
 
@@ -107,7 +89,8 @@ Contributions and pull requests are welcome.  Please take note of the following 
 
 # License
 
-`:help license`
+Distributed under the same terms as the Vim license.  See `:help license`.
+
 
 [a]: https://github.com/Lokaltog/vim-powerline
 [b]: https://github.com/Lokaltog/powerline
