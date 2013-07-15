@@ -48,25 +48,6 @@ For the nice looking powerline symbols to appear, you will need to install a pat
 
 Finally, enable them in vim-airline by adding `let g:airline_powerline_fonts = 1` to your vimrc.
 
-# FAQ/Troubleshooting
-
-*  the powerline font symbols are not showing up
-  *  the older deprecated [vim-powerline][a] uses different font codes; ensure you are using v2 fonts.
-*  there is a pause when leaving insert mode
-  *  you need to set `ttimeoutlen` to a low number; 50 is recommended
-*  you don't see any colors
-  *  all of the themes use a 256 terminal color palette.  it's likely that the value of `t_Co` is misconfigured.  please see this [article][n] on how to configure your terminal.  pull requests for 8 and 16 color terminals are welcome.
-*  you get the error `Unknown function: fugitive#head`
-  *  you are probably using version 1.2, which is very old...download v2 from the [project page][d].
-*  airline doesn't appear until i create a new split
-  *  add `set laststatus=2` to your vimrc
-*  bufferline is printing to the statusline as well as the command bar
-  *  you can disable automatic echoing by adding `let g:bufferline_echo = 0` to your vimrc
-*  the statusline wraps
-  *  you are probably using iTerm with double-width characters enabled. either disable this, or `set ambiwidth=double` in your vimrc.
-*  how do i get rid of the default mode indicator?
-  *  add `set noshowmode` to your vimrc
-
 # Bugs
 
 If you encounter a bug, please do the following:
@@ -74,6 +55,10 @@ If you encounter a bug, please do the following:
 *  reproduce it with this [minivimrc][g] repository to rule out any configuration conflicts.
 *  specify your version and patch level, as well as operating system (found with `:version`).
 *  a link to a gist or your vimrc where it can be reproduced.
+
+# FAQ/Troubleshooting
+
+Solutions to common problems can be found in the [Wiki](https://github.com/bling/vim-airline/wiki/FAQ-Troubleshooting).
 
 # Screenshots
 
@@ -105,7 +90,6 @@ Distributed under the same terms as the Vim license.  See `:help license`.
 [k]: https://github.com/tpope/vim-pathogen
 [l]: https://github.com/Shougo/neobundle.vim
 [m]: https://github.com/gmarik/vundle
-[n]: http://vim.wikia.com/wiki/256_colors_in_vim
 [o]: https://github.com/techlivezheng/vim-plugin-minibufexpl
 [p]: https://github.com/sjl/gundo.vim
 [q]: https://github.com/mbbill/undotree
