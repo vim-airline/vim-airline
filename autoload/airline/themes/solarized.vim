@@ -7,6 +7,12 @@ else
     let s:reduced = 1
 end
 
+if exists('g:airline_solarized_bg')
+    let s:background = g:airline_solarized_bg
+else
+    let s:background = 'dark'
+end
+
 """"""""""""""""""""""""""""""""""""""""""""""""
 " Colors
 """"""""""""""""""""""""""""""""""""""""""""""""
@@ -29,13 +35,6 @@ let s:cyan    = {'t': 37,  'g': '#2aa198'}
 let s:green   = {'t': 64,  'g': '#859900'}
 let s:c218    = {'t': 218, 'g': '#ffafd7'}
 let s:c52     = {'t': 52,  'g': '#5f0000'}
-
-" Get background color
-if index([string(s:base1.t), s:base1.g], synIDattr(synIDtrans(hlID('Normal')), 'fg')) > -1
-    let s:background = 'dark'
-else
-    let s:background = 'light'
-end
 
 """"""""""""""""""""""""""""""""""""""""""""""""
 " Simple mappings
