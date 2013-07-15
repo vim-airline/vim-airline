@@ -1,7 +1,7 @@
 *airline.txt*  Lean and mean statusline that's light as air
 
 ==============================================================================
-RATIONALE                                                          *airline*
+INTRODUCTION                                                       *airline*
 
 There's already powerline <https://github.com/Lokaltog/powerline>, why yet
 another statusline?
@@ -19,7 +19,7 @@ another statusline?
    can use unicode or powerline symbols.
 *  it's fast to load, taking roughly 1ms.  by comparison, powerline needs
    60ms on the same machine.
-*  it's fully customizable; if you know a little statusline syntax you can
+*  it's fully customizable; if you know a little |statusline| syntax you can
    tweak it to your needs.
 *  it's trivial to write colorschemes; for a minimal theme you need to edit
    9 lines of colors. (please send pull requests if you create new themes!)
@@ -158,21 +158,23 @@ example that you could add to your vimrc:
 <
 
 ==============================================================================
-COMMANDS                                             *airline-commands*
+COMMANDS                                                  *airline-commands*
 >
-:AirlineTheme {theme-name}                           *:AirlineTheme*
+:AirlineTheme {theme-name}                                   *:AirlineTheme*
   Displayes or changes the current theme.
 
 ==============================================================================
 CONTRIBUTIONS                                        *airline-contributions*
 
-contributions and pull requests are welcome.
+Contributions and pull requests are welcome.
 
 ==============================================================================
 LICENSE                                                    *airline-license*
 
->
-  :help license
-<
+Copyright © Bailey Ling.
+
+Distributed under the same terms as the vim |license|.
+
+
 
  vim:tw=78:ts=8:ft=help:norl:
