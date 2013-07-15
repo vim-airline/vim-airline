@@ -27,7 +27,7 @@ another statusline?
 ==============================================================================
 NAME                                                          *airline-name*
 
-Why's it called airline?
+Why is it named airline?
 
 I wrote this on an airplane, and since it's light as air it turned out to be a
 good name :-)
@@ -58,8 +58,7 @@ values):
   let g:airline_enable_syntastic=1
 <
 
-* change the theme (available options: dark, light, simple, badwolf,
-  solarized, solarized2)
+* change the default theme
 >
   let g:airline_theme='dark'
 <
@@ -92,6 +91,12 @@ values):
 >
   let g:airline_exclude_preview = 0
 <
+
+==============================================================================
+COMMANDS                                                  *airline-commands*
+
+:AirlineTheme {theme-name}                                   *:AirlineTheme*
+  Displays or changes the current theme.
 
 ==============================================================================
 CUSTOMIZATION                                        *airline-customization*
@@ -128,7 +133,7 @@ with the usual statusline syntax.
 
 >
   " here are the the default values
-  let g:airline_section_a      (the mode indicator)
+  let g:airline_section_a      (the mode/paste indicator)
   let g:airline_section_b      (the fugitive branch indicator)
   let g:airline_section_c      (bufferline or filename)
   let g:airline_section_gutter (syntastic and readonly flag)
@@ -156,12 +161,6 @@ example that you could add to your vimrc:
   endfunction
   call add(g:airline_window_override_funcrefs, function('MyPlugin'))
 <
-
-==============================================================================
-COMMANDS                                                  *airline-commands*
->
-:AirlineTheme {theme-name}                                   *:AirlineTheme*
-  Displayes or changes the current theme.
 
 ==============================================================================
 CONTRIBUTIONS                                        *airline-contributions*

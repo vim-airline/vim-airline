@@ -56,13 +56,13 @@ If you encounter a bug, please do the following:
 *  specify your version and patch level, as well as operating system (found with `:version`).
 *  a link to a gist or your vimrc where it can be reproduced.
 
-# FAQ/Troubleshooting
+# FAQ
 
-Solutions to common problems can be found in the [Wiki](https://github.com/bling/vim-airline/wiki/FAQ-Troubleshooting).
+Solutions to common problems can be found in the [Wiki](https://github.com/bling/vim-airline/wiki/FAQ).
 
 # Screenshots
 
-A full list of screenshots can be found in the [Wiki](https://github.com/bling/vim-airline/wiki/Screenshots).
+A full list of screenshots can be found in the [Wiki][n].
 
 # Contributions
 
@@ -71,6 +71,7 @@ Contributions and pull requests are welcome.  Please take note of the following 
 *  adhere to the existing style as much as possible; notably, 2 space indents and long-form keywords.
 *  keep the history clean! squash your branches before you submit a pull request. `pull --rebase` is your friend.
 *  this plugin got a lot more popular than i initially expected, if you make changes to the core, please test on as many versions of vim as possible.
+*  if you submit a theme, please create a screenshot so it can be added to the [Wiki][n].
 
 # License
 
@@ -90,6 +91,7 @@ Distributed under the same terms as the Vim license.  See `:help license`.
 [k]: https://github.com/tpope/vim-pathogen
 [l]: https://github.com/Shougo/neobundle.vim
 [m]: https://github.com/gmarik/vundle
+[n]: https://github.com/bling/vim-airline/wiki/Screenshots
 [o]: https://github.com/techlivezheng/vim-plugin-minibufexpl
 [p]: https://github.com/sjl/gundo.vim
 [q]: https://github.com/mbbill/undotree
