@@ -1,4 +1,19 @@
 """"""""""""""""""""""""""""""""""""""""""""""""
+" Options
+""""""""""""""""""""""""""""""""""""""""""""""""
+if exists('g:airline_solarized_reduced')
+    let s:reduced = g:airline_solarized_reduced
+else
+    let s:reduced = 1
+end
+
+if exists('g:airline_solarized_bg')
+    let s:background = g:airline_solarized_bg
+else
+    let s:background = 'dark'
+end
+
+""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors
 """"""""""""""""""""""""""""""""""""""""""""""""
 " Base colors
@@ -18,13 +33,8 @@ let s:violet  = {'t': 61,  'g': '#6c71c4'}
 let s:blue    = {'t': 33,  'g': '#267bd2'}
 let s:cyan    = {'t': 37,  'g': '#2aa198'}
 let s:green   = {'t': 64,  'g': '#859900'}
-
-" Get background color
-if index([string(s:base03.t), s:base03.g], synIDattr(synIDtrans(hlID('Normal')), 'bg')) > -1
-    let s:background = 'dark'
-else
-    let s:background = 'light'
-end
+let s:c218    = {'t': 218, 'g': '#ffafd7'}
+let s:c52     = {'t': 52,  'g': '#5f0000'}
 
 """"""""""""""""""""""""""""""""""""""""""""""""
 " Simple mappings
@@ -40,31 +50,66 @@ else
     let s:N3 = [s:base00, s:base2, '']
 endif
 let s:NF = [s:orange, s:N3[1], '']
-if s:background == 'dark'
-    let s:NM = {
-                \ 'info_separator': [s:N2[1], s:N3[1], ''], 
-                \ 'statusline': [s:magenta, s:N3[1], ''], 
-                \ }
+if s:reduced
+    if s:background == 'dark'
+        let s:NM = {
+                    \ 'info_separator': [s:N2[1], s:N3[1], ''],
+                    \ 'statusline': [s:magenta, s:N3[1], ''],
+                    \ }
+    else
+        let s:NM = {
+                    \ 'info_separator': [s:N2[1], s:N3[1], ''],
+                    \ 'statusline': [s:magenta, s:N3[1], ''],
+                    \ }
+    endif
 else
-    let s:NM = {
-                \ 'info_separator': [s:N2[1], s:N3[1], ''], 
-                \ 'statusline': [s:magenta, s:N3[1], ''], 
-                \ }
+    if s:background == 'dark'
+        let s:NM = {
+                    \ 'info_separator':  [s:N2[1], s:c52, ''],
+                    \ 'statusline': [s:c218, s:c52, '']
+                    \ }
+    else
+        let s:NM = {
+                    \ 'info_separator': [s:N2[1], s:c218, ''],
+                    \ 'statusline': [s:red, s:c218, '']
+                    \ }
+    endif
 endif
+
 
 " Insert mode
 let s:I1 = [s:N1[0], s:green, 'bold']
-let s:I2 = s:N2
+if s:reduced
+    let s:I2 = s:N2
+else
+    let s:I2 = [s:base3, s:base1, '']
+endif
 let s:I3 = s:N3
 let s:IF = s:NF
-let s:IM = s:NM
+if s:reduced
+    let s:IM = s:NM
+else
+    let s:IM = {
+                \ 'info_separator': [s:I2[1], s:NM.statusline[1], ''],
+                \ 'statusline': s:NM.statusline
+                \ }
+endif
 
 " Visual mode
 let s:V1 = [s:N1[0], s:orange, 'bold']
-let s:V2 = s:N2
-let s:V3 = s:N3
+if s:reduced
+    let s:V2 = s:N2
+    let s:V3 = s:N3
+else
+    let s:V2 = s:I2
+    let s:V3 = s:I3
+endif
 let s:VF = s:NF
-let s:VM = s:NM
+if s:reduced
+    let s:VM = s:NM
+else
+    let s:VM = s:IM
+endif
 
 " Inactive
 if s:background == 'dark'
