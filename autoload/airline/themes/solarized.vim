@@ -123,6 +123,9 @@ let g:airline#themes#solarized#inactive = airline#themes#generate_color_map(
             \ [s:IA[0].g, s:IA[1].g, s:IA[0].t, s:IA[1].t, s:IA[2]],
             \ s:NFa)
 
+let g:airline#themes#solarized#inactive_modified = {
+            \ 'statusline': [s:NM.statusline[0].g, '', s:NM.statusline[0].t, '', ''] }
+
 let g:airline#themes#solarized#normal = airline#themes#generate_color_map(
             \ [s:N1[0].g, s:N1[1].g, s:N1[0].t, s:N1[1].t, s:N1[2]],
             \ [s:N2[0].g, s:N2[1].g, s:N2[0].t, s:N2[1].t, s:N2[2]],
