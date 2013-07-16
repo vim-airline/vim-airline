@@ -44,7 +44,7 @@ This plugin follows the standard runtime path structure, and as such it can be i
 
 # Integrating with powerline fonts
 
-For the nice looking powerline symbols to appear, you will need to install a patched font.  Instructions can be found in the official powerline [documentation][t].  Prepatched fonts can be found in the [powerine-fonts][c] repository.
+For the nice looking powerline symbols to appear, you will need to install a patched font.  Instructions can be found in the official powerline [documentation][t].  Prepatched fonts can be found in the [powerline-fonts][c] repository.
 
 Finally, enable them in vim-airline by adding `let g:airline_powerline_fonts = 1` to your vimrc.
 
