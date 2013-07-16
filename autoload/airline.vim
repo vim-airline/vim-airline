@@ -1,6 +1,5 @@
 " vim: ts=2 sts=2 sw=2 fdm=indent
 let s:is_win32term = (has('win32') || has('win64')) && !has('gui_running')
-let s:lastmode = ''
 
 let s:airline_highlight_map = {
       \ 'mode'           : 'Al2',
@@ -31,20 +30,21 @@ endfunction
 function! airline#load_theme(name)
   let g:airline_theme = a:name
   let inactive_colors = g:airline#themes#{g:airline_theme}#inactive "also lazy loads the theme
-  call airline#highlight(['inactive'], '_inactive')
-  let s:lastmode = ''
+  let w:airline_lastmode = ''
+  let w:airline_active = 1
+  call airline#highlight(['inactive'])
   call airline#update_highlight()
 endfunction
 
-function! airline#highlight(modes, ...)
+function! airline#highlight(modes)
   " draw the base mode, followed by any overrides
   let mapped = map(a:modes, 'v:val == a:modes[0] ? v:val : a:modes[0]."_".v:val')
   for mode in mapped
     for key in s:airline_highlight_groups
       if exists('g:airline#themes#{g:airline_theme}#{mode}[key]')
         let colors = g:airline#themes#{g:airline_theme}#{mode}[key]
-        let group_suffix = a:0 ? a:1 : ''
-        call airline#exec_highlight(s:airline_highlight_map[key].group_suffix, colors)
+        let suffix = a:modes[0] == 'inactive' ? '_inactive' : ''
+        call airline#exec_highlight(s:airline_highlight_map[key].suffix, colors)
       endif
     endfor
   endfor
@@ -100,6 +100,7 @@ function! s:get_section(key)
 endfunction
 
 function! airline#update_statusline(active)
+  let w:airline_active = a:active
   if s:is_excluded_window()
     call setwinvar(winnr(), '&statusline', '')
     return
@@ -115,9 +116,9 @@ function! airline#update_statusline(active)
   let l:status_color    = a:active ? "%#Al6#" : "%#Al6_inactive#"
   let l:file_flag_color = a:active ? "%#Al7#" : "%#Al7_inactive#"
 
-  let sl = l:mode_color
+  let sl = '%{airline#update_highlight()}'
   if a:active
-    let sl.='%{airline#update_highlight()} '.s:get_section('a').' '
+    let sl.=l:mode_color.' '.s:get_section('a').' '
     let sl.=l:mode_sep_color
     let sl.=a:active ? g:airline_left_sep : g:airline_left_alt_sep
     let sl.=l:info_color
@@ -147,26 +148,29 @@ endfunction
 
 let g:airline_current_mode_text = ''
 function! airline#update_highlight()
-  let l:m = mode()
-  if l:m ==# "i"
-    let l:mode = ['insert']
-  elseif l:m ==# "R"
-    let l:mode = ['replace']
-  elseif l:m ==? "v" || l:m ==# ""
-    let l:mode = ['visual']
+  if w:airline_active
+    let l:m = mode()
+    if l:m ==# "i"
+      let l:mode = ['insert']
+    elseif l:m ==# "R"
+      let l:mode = ['replace']
+    elseif l:m ==? "v" || l:m ==# ""
+      let l:mode = ['visual']
+    else
+      let l:mode = ['normal']
+    endif
+    let g:airline_current_mode_text = get(g:airline_mode_map, l:m, l:m)
   else
-    let l:mode = ['normal']
+    let l:mode = ['inactive']
   endif
 
   if &modified | call add(l:mode, 'modified') | endif
   if &paste    | call add(l:mode, 'paste')    | endif
 
   let mode_string = join(l:mode)
-  if s:lastmode != mode_string
+  if !exists('w:airline_lastmode') || w:airline_lastmode != mode_string
     call airline#highlight(l:mode)
-    let s:lastmode = mode_string
+    let w:airline_lastmode = mode_string
   endif
-
-  let g:airline_current_mode_text = get(g:airline_mode_map, l:m, l:m)
   return ''
 endfunction
