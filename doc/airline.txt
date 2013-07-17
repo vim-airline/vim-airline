@@ -126,6 +126,15 @@ separators, as well as the powerline font glyths.
   let g:airline_fugitive_prefix = ' '
   let g:airline_readonly_symbol = ''
   let g:airline_linecolumn_prefix = ' '
+
+  " old vim-powerline symbols
+  let g:airline_left_sep = '⮀'
+  let g:airline_left_alt_sep = '⮁'
+  let g:airline_right_sep = '⮂'
+  let g:airline_right_alt_sep = '⮃'
+  let g:airline_fugitive_prefix = '⭠'
+  let g:airline_readonly_symbol = '⭤'
+  let g:airline_linecolumn_prefix = '⭡'
 <
 
 For more intricate customizations, you can replace the predefined sections
