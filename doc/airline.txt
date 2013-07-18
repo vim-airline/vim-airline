@@ -15,6 +15,7 @@ another statusline?
   *  vim-bufferline <https://github.com/bling/vim-bufferline>
   *  unite <https://github.com/Shougo/unite.vim>
   *  ctrlp <https://github.com/kien/ctrlp.vim>
+  *  lawrencium <https://bitbucket.org/ludovicchabant/vim-lawrencium>
 *  it looks good with regular fonts, and provides configuration points so you
    can use unicode or powerline symbols.
 *  it's fast to load, taking roughly 1ms.  by comparison, powerline needs
@@ -48,7 +49,7 @@ values):
   let g:airline_right_sep='<'
 <
 
-* enable/disable fugitive integration
+* enable/disable fugitive/lawrencium integration
 >
   let g:airline_enable_fugitive=1
 <
@@ -143,7 +144,7 @@ with the usual statusline syntax.
 >
   " here are the the default values
   let g:airline_section_a      (the mode/paste indicator)
-  let g:airline_section_b      (the fugitive branch indicator)
+  let g:airline_section_b      (the fugitive/lawrencium branch indicator)
   let g:airline_section_c      (bufferline or filename)
   let g:airline_section_gutter (syntastic and readonly flag)
   let g:airline_section_x      (filetype)

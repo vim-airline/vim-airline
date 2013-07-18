@@ -90,8 +90,9 @@ endfunction
 function! airline#update_externals()
   let g:airline_externals_bufferline = g:airline_enable_bufferline && exists('g:bufferline_loaded') ? '%{bufferline#generate_string()}' : "%f%m"
   let g:airline_externals_syntastic = g:airline_enable_syntastic && exists('g:loaded_syntastic_plugin') ? '%{SyntasticStatuslineFlag()}' : ''
-  let g:airline_externals_fugitive = g:airline_enable_fugitive && exists('g:loaded_fugitive') && strlen(fugitive#head()) > 0
-        \ ? g:airline_fugitive_prefix.fugitive#head() : ''
+  let g:airline_externals_fugitive = g:airline_enable_fugitive ? (exists('g:loaded_fugitive') && strlen(fugitive#head()) > 0
+        \ ? g:airline_fugitive_prefix.fugitive#head() : exists('g:loaded_lawrencium') && strlen(lawrencium#statusline()) > 0
+        \ ? g:airline_fugitive_prefix.lawrencium#statusline() : '') : ''
 endfunction
 
 function! s:get_section(key)
