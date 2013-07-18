@@ -8,9 +8,9 @@ function! s:override_left_only(section1, section2)
 endfunction
 
 function! airline#extensions#clear_window_overrides()
-  silent! unlet w:airline_left_only
+  unlet! w:airline_left_only
   for section in s:sections
-    silent! unlet w:airline_section_{section}
+    unlet! w:airline_section_{section}
   endfor
 endfunction
 
@@ -29,6 +29,8 @@ function! airline#extensions#apply_window_overrides()
     call s:override_left_only('diff', '')
   elseif &ft == 'tagbar'
     call s:override_left_only('Tagbar', '')
+  elseif &ft == 'vimshell'
+    call s:override_left_only('vimshell', vimshell#get_status_string())
   elseif &ft == 'minibufexpl'
     call s:override_left_only('MiniBufExplorer', '')
   endif

@@ -31,7 +31,6 @@ function! airline#load_theme(name)
   let g:airline_theme = a:name
   let inactive_colors = g:airline#themes#{g:airline_theme}#inactive "also lazy loads the theme
   let w:airline_lastmode = ''
-  let w:airline_active = 1
   call airline#highlight(['inactive'])
   call airline#update_highlight()
 endfunction
@@ -126,8 +125,9 @@ function! airline#update_statusline(active)
     let sl.=l:info_sep_color
     let sl.=g:airline_left_sep
     let sl.=l:status_color.' %<'.s:get_section('c').' '
-    let sl.=exists('w:airline_section_gutter')
-          \ ? s:get_section('gutter')
+    let gutter = get(w:, 'airline_section_gutter', get(g:, 'airline_section_gutter', ''))
+    let sl.=gutter != ''
+          \ ? gutter
           \ : '%#warningmsg#'.g:airline_externals_syntastic.l:file_flag_color."%{&ro ? g:airline_readonly_symbol : ''}".l:status_color
   else
     let sl.=l:status_color.' %f%m'
@@ -148,7 +148,7 @@ endfunction
 
 let g:airline_current_mode_text = ''
 function! airline#update_highlight()
-  if w:airline_active
+  if get(w:, 'airline_active', 1)
     let l:m = mode()
     if l:m ==# "i"
       let l:mode = ['insert']
@@ -168,7 +168,7 @@ function! airline#update_highlight()
   if &paste    | call add(l:mode, 'paste')    | endif
 
   let mode_string = join(l:mode)
-  if !exists('w:airline_lastmode') || w:airline_lastmode != mode_string
+  if get(w:, 'airline_lastmode', '') != mode_string
     call airline#highlight(l:mode)
     let w:airline_lastmode = mode_string
   endif
