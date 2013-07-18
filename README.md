@@ -10,7 +10,7 @@ There's already [powerline][b], why yet another statusline?
 
 *  it's 100% vimscript; no python needed.
 *  it's small.  i want the core plugin to be *less than 200 lines* as a rule (specifically adhering to the [open/closed principle][h]).
-*  despite the small size, it is fully featured and already integrates with: [vim-bufferline][f], [fugitive][d], [unite][i], [ctrlp][j], [minibufexpl][o], [gundo][p], [undotree][q], [nerdtree][r], [tagbar][s] and [syntastic][e].
+*  despite the small size, it is fully featured and already integrates with: [vim-bufferline][f], [fugitive][d], [unite][i], [ctrlp][j], [minibufexpl][o], [gundo][p], [undotree][q], [nerdtree][r], [tagbar][s], [syntastic][e] and [lawrencium][u].
 *  it looks good with regular fonts, and provides configuration points so you can use unicode or powerline symbols.
 *  it's fast to load, taking roughly 1ms.  by comparison, powerline needs 60ms on the same machine.
 *  it's fully customizable; if you know a little `statusline` syntax you can tweak it to your needs.
@@ -98,3 +98,4 @@ Distributed under the same terms as the Vim license.  See `:help license`.
 [r]: https://github.com/scrooloose/nerdtree
 [s]: https://github.com/majutsushi/tagbar
 [t]: https://powerline.readthedocs.org/en/latest/fontpatching.html
+[u]: https://bitbucket.org/ludovicchabant/vim-lawrencium
