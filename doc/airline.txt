@@ -173,6 +173,12 @@ example that you could add to your vimrc:
 <
 
 ==============================================================================
+TROUBLESHOOTING                                    *airline-troubleshooting*
+
+Solutions to common problems can be found FAQ section in the Wiki:
+<https://github.com/bling/vim-airline/wiki/FAQ>
+
+==============================================================================
 CONTRIBUTIONS                                        *airline-contributions*
 
 Contributions and pull requests are welcome.
