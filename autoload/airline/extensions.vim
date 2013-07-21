@@ -47,6 +47,14 @@ function! airline#extensions#load()
           \ }
   endif
 
+  if g:airline_enable_bufferline
+    let g:bufferline_inactive_highlight = 'Al6'
+    let g:bufferline_active_highlight = 'Al2'
+    let g:bufferline_active_buffer_left = ''
+    let g:bufferline_active_buffer_right = ''
+    let g:bufferline_separator = ' '
+  endif
+
   call add(g:airline_window_override_funcrefs, function('airline#extensions#apply_window_overrides'))
 endfunction
 
