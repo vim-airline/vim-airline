@@ -15,6 +15,8 @@ call s:check_defined('g:airline_right_alt_sep', exists('g:airline_powerline_font
 call s:check_defined('g:airline_enable_bufferline', 1)
 call s:check_defined('g:airline_enable_fugitive', 1)
 call s:check_defined('g:airline_enable_syntastic', 1)
+call s:check_defined('g:airline_detect_modified', 1)
+call s:check_defined('g:airline_detect_paste', 1)
 call s:check_defined('g:airline_fugitive_prefix', exists('g:airline_powerline_fonts')?' ':'')
 call s:check_defined('g:airline_readonly_symbol', exists('g:airline_powerline_fonts')?'':'RO')
 call s:check_defined('g:airline_linecolumn_prefix', exists('g:airline_powerline_fonts')?' ':':')

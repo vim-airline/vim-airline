@@ -28,7 +28,7 @@ another statusline?
 ==============================================================================
 NAME                                                          *airline-name*
 
-Why is it named airline?
+Where did the name come from?
 
 I wrote this on an airplane, and since it's light as air it turned out to be a
 good name :-)
@@ -57,6 +57,16 @@ values):
 * enable/disable syntastic integration
 >
   let g:airline_enable_syntastic=1
+<
+
+* enable modified detection
+>
+  let g:airline_detect_modified=1
+<
+
+* enable paste detection
+>
+  let g:airline_detect_paste=1
 <
 
 * change the default theme

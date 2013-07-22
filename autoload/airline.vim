@@ -167,8 +167,8 @@ function! airline#update_highlight()
     let l:mode = ['inactive']
   endif
 
-  if &modified | call add(l:mode, 'modified') | endif
-  if &paste    | call add(l:mode, 'paste')    | endif
+  if g:airline_detect_modified && &modified | call add(l:mode, 'modified') | endif
+  if g:airline_detect_paste    && &paste    | call add(l:mode, 'paste')    | endif
 
   let mode_string = join(l:mode)
   if get(w:, 'airline_lastmode', '') != mode_string

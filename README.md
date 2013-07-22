@@ -21,7 +21,7 @@ What about [old powerline][a]?
 *  the old version still works well, but since it's deprecated new features won't get added
 *  it uses different font codes, which makes it incompatible with other powerline bindings in the same terminal (e.g. bash, zsh, tmux, etc.)
 
-# Why's it called airline?
+# Where did the name come from?
 
 I wrote the initial version on an airplane, and since it's light as air it turned out to be a good name.  Thanks for flying vim!
 
