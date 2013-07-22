@@ -39,7 +39,7 @@ endfunction
 function! airline#extensions#load()
   let g:unite_force_overwrite_statusline = 0
 
-  if exists('g:loaded_ctrlp') && g:loaded_ctrlp
+  if get(g:, 'loaded_ctrlp', 0)
     call airline#extensions#ctrlp#load_ctrlp_hi()
     let g:ctrlp_status_func = {
           \ 'main': 'airline#extensions#ctrlp#ctrlp_airline',
@@ -47,9 +47,11 @@ function! airline#extensions#load()
           \ }
   endif
 
-  if g:airline_enable_bufferline
-    let g:bufferline_inactive_highlight = 'Al6'
-    let g:bufferline_active_highlight = 'Al2'
+  if g:airline_enable_bufferline && get(g:, 'loaded_bufferline', 0)
+    highlight AlBl_active gui=bold cterm=bold term=bold
+    highlight link AlBl_inactive Al6
+    let g:bufferline_inactive_highlight = 'AlBl_inactive'
+    let g:bufferline_active_highlight = 'AlBl_active'
     let g:bufferline_active_buffer_left = ''
     let g:bufferline_active_buffer_right = ''
     let g:bufferline_separator = ' '
