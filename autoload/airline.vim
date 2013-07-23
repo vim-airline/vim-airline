@@ -9,7 +9,6 @@ let s:airline_highlight_map = {
       \ 'statusline'     : 'Al6',
       \ 'file'           : 'Al7',
       \ }
-let s:airline_highlight_groups = keys(s:airline_highlight_map)
 
 function! airline#exec_highlight(group, colors)
   let colors = a:colors
@@ -39,13 +38,13 @@ function! airline#highlight(modes)
   " draw the base mode, followed by any overrides
   let mapped = map(a:modes, 'v:val == a:modes[0] ? v:val : a:modes[0]."_".v:val')
   for mode in mapped
-    for key in s:airline_highlight_groups
-      if exists('g:airline#themes#{g:airline_theme}#{mode}[key]')
+    if exists('g:airline#themes#{g:airline_theme}#{mode}')
+      for key in keys(g:airline#themes#{g:airline_theme}#{mode})
         let colors = g:airline#themes#{g:airline_theme}#{mode}[key]
         let suffix = a:modes[0] == 'inactive' ? '_inactive' : ''
         call airline#exec_highlight(s:airline_highlight_map[key].suffix, colors)
-      endif
-    endfor
+      endfor
+    endif
   endfor
 endfunction
 
