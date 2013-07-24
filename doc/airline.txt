@@ -183,6 +183,14 @@ example that you could add to your vimrc:
 <
 
 ==============================================================================
+WRITING THEMES                                              *airline-themes*
+
+Themes are written "close to the metal" -- you will need to know some basic
+VimL syntax to write a theme, but if you're written in any programming
+language it will be easy to pick up.  Have a look at the dark.vim theme
+where it is fully documented.
+
+==============================================================================
 TROUBLESHOOTING                                    *airline-troubleshooting*
 
 Solutions to common problems can be found FAQ section in the Wiki:

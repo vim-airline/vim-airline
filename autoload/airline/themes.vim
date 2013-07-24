@@ -1,4 +1,4 @@
-" generates a hashtable which defines the colors for each highlight group
+" generates a dictionary which defines the colors for each highlight group
 function! airline#themes#generate_color_map(section1, section2, section3, file)
   "                         guifg           guibg           ctermfg         ctermbg         gui/term
   return {

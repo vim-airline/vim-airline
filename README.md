@@ -48,14 +48,6 @@ For the nice looking powerline symbols to appear, you will need to install a pat
 
 Finally, enable them in vim-airline by adding `let g:airline_powerline_fonts = 1` to your vimrc.
 
-# Bugs
-
-If you encounter a bug, please do the following:
-
-*  reproduce it with this [minivimrc][g] repository to rule out any configuration conflicts.
-*  specify your version and patch level, as well as operating system (found with `:version`).
-*  a link to a gist or your vimrc where it can be reproduced.
-
 # FAQ
 
 Solutions to common problems can be found in the [Wiki](https://github.com/bling/vim-airline/wiki/FAQ).
@@ -63,6 +55,14 @@ Solutions to common problems can be found in the [Wiki](https://github.com/bling
 # Screenshots
 
 A full list of screenshots can be found in the [Wiki][n].
+
+# Bugs
+
+Tracking down bugs can take a very long time due to different configurations, versions, and operating systems.  To ensure a timely response, please help me out by doing the following:
+
+*  reproduce it with this [minivimrc][g] repository to rule out any configuration conflicts.
+*  include your version of vim, including patches, and operating system (`:version` will contain this information).
+*  a link to your vimrc or a gist which shows how you configured the plugin(s)
 
 # Contributions
 
