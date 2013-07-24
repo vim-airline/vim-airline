@@ -71,7 +71,7 @@ command! -nargs=? -complete=customlist,<sid>get_airline_themes AirlineTheme call
 augroup airline
   au!
   autocmd ColorScheme * call airline#highlight(['normal'])
-  autocmd WinLeave * call airline#update_statusline(0)
-  autocmd WinEnter,BufWinEnter,FileType * call <sid>init() | call airline#update_statusline(1)
+  autocmd WinLeave,BufLeave,CmdwinLeave * call airline#update_statusline(0)
+  autocmd WinEnter,BufEnter,FileType,BufUnload,CmdwinEnter * call <sid>init() | call airline#update_statusline(1)
   autocmd ShellCmdPost * call airline#update_externals()
 augroup END
