@@ -2,7 +2,7 @@
 
 Lean &amp; mean statusline for vim that's light as air.
 
-![img](https://github.com/bling/vim-airline/wiki/screenshots/light.png)
+![img](https://github.com/bling/vim-airline/wiki/screenshots/demo.gif)
 
 # Rationale
 
