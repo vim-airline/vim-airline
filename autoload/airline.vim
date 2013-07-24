@@ -163,6 +163,13 @@ function! airline#update_highlight()
       let l:mode = ['normal']
     endif
     let g:airline_current_mode_text = get(g:airline_mode_map, l:m, l:m)
+    if g:airline_detect_iminsert && &iminsert
+      if exists('b:keymap_name')
+        let g:airline_current_mode_text .= ' ' . toupper(b:keymap_name)
+      else
+        let g:airline_current_mode_text .= ' LANG'
+      endif
+    endif
   else
     let l:mode = ['inactive']
   endif
