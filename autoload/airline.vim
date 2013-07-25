@@ -66,27 +66,6 @@ function! s:is_excluded_window()
   return 0
 endfunction
 
-function! s:apply_window_overrides()
-  call airline#extensions#clear_window_overrides()
-
-  if &buftype == 'quickfix'
-    let w:airline_section_a = 'Quickfix'
-    let w:airline_section_b = ''
-    let w:airline_section_c = ''
-    let w:airline_section_x = ''
-  endif
-
-  if &previewwindow
-    let w:airline_section_a = 'Preview'
-    let w:airline_section_b = ''
-    let w:airline_section_c = bufname(winbufnr(winnr()))
-  endif
-
-  for FuncRef in g:airline_window_override_funcrefs
-    call FuncRef()
-  endfor
-endfunction
-
 function! airline#update_externals()
   let g:airline_externals_bufferline = g:airline_enable_bufferline && exists('*bufferline#get_status_string')
         \ ? '%{bufferline#refresh_status()}'.bufferline#get_status_string()
@@ -109,7 +88,7 @@ function! airline#update_statusline(active)
   endif
 
   call airline#update_externals()
-  call s:apply_window_overrides()
+  call airline#extensions#apply_window_overrides()
 
   let l:mode_color      = a:active ? "%#Al2#" : "%#Al2_inactive#"
   let l:mode_sep_color  = a:active ? "%#Al3#" : "%#Al3_inactive#"

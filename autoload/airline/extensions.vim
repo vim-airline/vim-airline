@@ -7,14 +7,25 @@ function! s:override_left_only(section1, section2)
   let w:airline_left_only = 1
 endfunction
 
-function! airline#extensions#clear_window_overrides()
+function! airline#extensions#apply_window_overrides()
   unlet! w:airline_left_only
   for section in s:sections
     unlet! w:airline_section_{section}
   endfor
-endfunction
 
-function! airline#extensions#apply_window_overrides()
+  if &buftype == 'quickfix'
+    let w:airline_section_a = 'Quickfix'
+    let w:airline_section_b = ''
+    let w:airline_section_c = ''
+    let w:airline_section_x = ''
+  endif
+
+  if &previewwindow
+    let w:airline_section_a = 'Preview'
+    let w:airline_section_b = ''
+    let w:airline_section_c = bufname(winbufnr(winnr()))
+  endif
+
   if &ft == 'netrw'
     call s:override_left_only('netrw', '%f')
   elseif &ft == 'unite'
@@ -36,6 +47,10 @@ function! airline#extensions#apply_window_overrides()
   elseif &ft == 'minibufexpl'
     call s:override_left_only('MiniBufExplorer', '')
   endif
+
+  for Fn in g:airline_window_override_funcrefs
+    call Fn()
+  endfor
 endfunction
 
 function! airline#extensions#load()
@@ -59,7 +74,5 @@ function! airline#extensions#load()
     let g:bufferline_active_buffer_right = ''
     let g:bufferline_separator = ' '
   endif
-
-  call add(g:airline_window_override_funcrefs, function('airline#extensions#apply_window_overrides'))
 endfunction
 
