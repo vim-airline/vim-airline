@@ -29,7 +29,7 @@ function! airline#extensions#apply_window_overrides()
   if &ft == 'netrw'
     call s:override_left_only('netrw', '%f')
   elseif &ft == 'unite'
-    call s:override_left_only('Unite', unite#get_status_string())
+    call s:override_left_only('Unite', '%{unite#get_status_string()}')
   elseif &ft == 'nerdtree'
     call s:override_left_only('NERD', '')
   elseif &ft == 'undotree'
@@ -41,9 +41,9 @@ function! airline#extensions#apply_window_overrides()
   elseif &ft == 'tagbar'
     call s:override_left_only('Tagbar', '')
   elseif &ft == 'vimshell'
-    call s:override_left_only('vimshell', vimshell#get_status_string())
+    call s:override_left_only('vimshell', '%{vimshell#get_status_string()}')
   elseif &ft == 'vimfiler'
-    call s:override_left_only('vimfiler', vimfiler#get_status_string())
+    call s:override_left_only('vimfiler', '%{vimfiler#get_status_string()}')
   elseif &ft == 'minibufexpl'
     call s:override_left_only('MiniBufExplorer', '')
   endif
