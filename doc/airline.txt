@@ -173,7 +173,6 @@ with the usual statusline syntax.
 If there is a particular plugin or filetype that is not supported, you can
 extend it by adding a function reference to the global array.  Here is an
 example that you could add to your vimrc:
-
 >
   function! MyPlugin()
     if &filetype == 'MyPluginFileType'
@@ -183,6 +182,15 @@ example that you could add to your vimrc:
     endif
   endfunction
   call add(g:airline_window_override_funcrefs, function('MyPlugin'))
+<
+
+In a similar fashion, you can define a function to exclude a window from
+having its statusline modified.
+>
+  function! ExcludeFoo()
+    return &filetype == 'FooType'
+  endfunction
+  call add(g:airline_exclude_funcrefs, function('ExcludeFoo'))
 <
 
 ==============================================================================
