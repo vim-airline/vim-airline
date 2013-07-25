@@ -27,6 +27,7 @@ call s:check_defined('g:airline_exclude_filenames', ['DebuggerWatch','DebuggerSt
 call s:check_defined('g:airline_exclude_filetypes', [])
 call s:check_defined('g:airline_exclude_preview', 0)
 call s:check_defined('g:airline_window_override_funcrefs', [])
+call s:check_defined('g:airline_exclude_funcrefs', [])
 
 call s:check_defined('g:airline_mode_map', {
       \ 'n'  : 'NORMAL',

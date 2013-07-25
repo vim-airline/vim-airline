@@ -1,5 +1,3 @@
-let s:sections = ['a','b','c','gutter','x','y','z']
-
 function! airline#extensions#apply_left_override(section1, section2)
   let w:airline_section_a = a:section1
   let w:airline_section_b = a:section2
@@ -8,11 +6,6 @@ function! airline#extensions#apply_left_override(section1, section2)
 endfunction
 
 function! airline#extensions#apply_window_overrides()
-  unlet! w:airline_left_only
-  for section in s:sections
-    unlet! w:airline_section_{section}
-  endfor
-
   if &buftype == 'quickfix'
     let w:airline_section_a = 'Quickfix'
     let w:airline_section_b = ''
@@ -50,10 +43,26 @@ function! airline#extensions#apply_window_overrides()
   elseif &ft == 'minibufexpl'
     call airline#extensions#apply_left_override('MiniBufExplorer', '')
   endif
+endfunction
 
-  for Fn in g:airline_window_override_funcrefs
-    call Fn()
+function! airline#extensions#is_excluded_window()
+  for matchft in g:airline_exclude_filetypes
+    if matchft ==# &ft
+      return 1
+    endif
   endfor
+
+  for matchw in g:airline_exclude_filenames
+    if matchstr(expand('%'), matchw) ==# matchw
+      return 1
+    endif
+  endfor
+
+  if g:airline_exclude_preview && &previewwindow
+    return 1
+  endif
+
+  return 0
 endfunction
 
 function! airline#extensions#load()
@@ -81,5 +90,8 @@ function! airline#extensions#load()
     let g:bufferline_active_buffer_right = ''
     let g:bufferline_separator = ' '
   endif
+
+  call add(g:airline_window_override_funcrefs, function('airline#extensions#apply_window_overrides'))
+  call add(g:airline_exclude_funcrefs, function('airline#extensions#is_excluded_window'))
 endfunction
 

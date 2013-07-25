@@ -1,5 +1,6 @@
 " vim: ts=2 sts=2 sw=2 fdm=indent
 let s:is_win32term = (has('win32') || has('win64')) && !has('gui_running')
+let s:sections = ['a','b','c','gutter','x','y','z']
 
 let s:airline_highlight_map = {
       \ 'mode'           : 'Al2',
@@ -49,20 +50,22 @@ function! airline#highlight(modes)
 endfunction
 
 function! s:is_excluded_window()
-  for matchft in g:airline_exclude_filetypes
-    if matchft ==# &ft
+  for Fn in g:airline_exclude_funcrefs
+    if Fn()
       return 1
     endif
   endfor
-  for matchw in g:airline_exclude_filenames
-    if matchstr(expand('%'), matchw) ==# matchw
-      return 1
-    endif
-  endfor
-  if g:airline_exclude_preview && &previewwindow
-    return 1
-  endif
   return 0
+endfunction
+
+function! s:apply_window_overrides()
+  unlet! w:airline_left_only
+  for section in s:sections
+    unlet! w:airline_section_{section}
+  endfor
+  for Fn in g:airline_window_override_funcrefs
+    call Fn()
+  endfor
 endfunction
 
 function! airline#update_externals()
@@ -87,7 +90,7 @@ function! airline#update_statusline(active)
   endif
 
   call airline#update_externals()
-  call airline#extensions#apply_window_overrides()
+  call s:apply_window_overrides()
 
   let l:mode_color      = a:active ? "%#Al2#" : "%#Al2_inactive#"
   let l:mode_sep_color  = a:active ? "%#Al3#" : "%#Al3_inactive#"
