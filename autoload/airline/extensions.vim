@@ -1,6 +1,6 @@
 let s:sections = ['a','b','c','gutter','x','y','z']
 
-function! s:override_left_only(section1, section2)
+function! airline#extensions#apply_left_override(section1, section2)
   let w:airline_section_a = a:section1
   let w:airline_section_b = a:section2
   let w:airline_section_c = ''
@@ -19,7 +19,7 @@ function! airline#extensions#apply_window_overrides()
     let w:airline_section_c = ''
     let w:airline_section_x = ''
   elseif &buftype == 'help'
-    call s:override_left_only('Help', '%f')
+    call airline#extensions#apply_left_override('Help', '%f')
     let w:airline_section_gutter = ' '
   endif
 
@@ -30,25 +30,25 @@ function! airline#extensions#apply_window_overrides()
   endif
 
   if &ft == 'netrw'
-    call s:override_left_only('netrw', '%f')
+    call airline#extensions#apply_left_override('netrw', '%f')
   elseif &ft == 'unite'
-    call s:override_left_only('Unite', '%{unite#get_status_string()}')
+    call airline#extensions#apply_left_override('Unite', '%{unite#get_status_string()}')
   elseif &ft == 'nerdtree'
-    call s:override_left_only('NERD', '')
+    call airline#extensions#apply_left_override('NERD', '')
   elseif &ft == 'undotree'
-    call s:override_left_only('undotree', '')
+    call airline#extensions#apply_left_override('undotree', '')
   elseif &ft == 'gundo'
-    call s:override_left_only('Gundo', '')
+    call airline#extensions#apply_left_override('Gundo', '')
   elseif &ft == 'diff'
-    call s:override_left_only('diff', '')
+    call airline#extensions#apply_left_override('diff', '')
   elseif &ft == 'tagbar'
-    call s:override_left_only('Tagbar', '')
+    call airline#extensions#apply_left_override('Tagbar', '')
   elseif &ft == 'vimshell'
-    call s:override_left_only('vimshell', '%{vimshell#get_status_string()}')
+    call airline#extensions#apply_left_override('vimshell', '%{vimshell#get_status_string()}')
   elseif &ft == 'vimfiler'
-    call s:override_left_only('vimfiler', '%{vimfiler#get_status_string()}')
+    call airline#extensions#apply_left_override('vimfiler', '%{vimfiler#get_status_string()}')
   elseif &ft == 'minibufexpl'
-    call s:override_left_only('MiniBufExplorer', '')
+    call airline#extensions#apply_left_override('MiniBufExplorer', '')
   endif
 
   for Fn in g:airline_window_override_funcrefs
@@ -66,6 +66,10 @@ function! airline#extensions#load()
           \ 'main': 'airline#extensions#ctrlp#ctrlp_airline',
           \ 'prog': 'airline#extensions#ctrlp#ctrlp_airline_status',
           \ }
+  endif
+
+  if get(g:, 'command_t_loaded', 0)
+    call add(g:airline_window_override_funcrefs, function('airline#extensions#commandt#apply_window_override'))
   endif
 
   if g:airline_enable_bufferline && get(g:, 'loaded_bufferline', 0)
