@@ -99,6 +99,7 @@ function! airline#update_statusline(active)
   let sl = '%{airline#update_highlight()}'
   if a:active
     let sl.=l:mode_color.' '.s:get_section('a').' '
+    let sl.='%{g:airline_detect_paste && &paste ? g:airline_paste_symbol." " : ""}'
     let sl.=l:mode_sep_color
     let sl.=a:active ? g:airline_left_sep : g:airline_left_alt_sep
     let sl.=l:info_color
