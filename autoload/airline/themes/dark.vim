@@ -13,7 +13,8 @@
 " The theming algorithm is a 2-pass system where the mode will draw over all parts of
 " the statusline, and then the override is applied after.  This means it is possible
 " to specify a subset of the theme in overrides, as it will simply overwrite the
-" previous colors.
+" previous colors.  If you want simultaneous overrides, then they will need to
+" change different parts of the statusline so they do not conflict with each other.
 
 " First let's define some arrays.  The s: is just a VimL thing for scoping the
 " variables to the current script.  Without this, these variables would be declared
@@ -30,6 +31,10 @@ let s:N3 = [ '#9cffd3' , '#202020' , 85  , 234 ]
 " generates a dictionary which declares the full colorscheme for the statusline.
 " See the source code of "autoload/airline/themes.vim" for the full set of keys
 " available for theming.
+
+" Now let's define the global g: variable that declares the colors used for
+" normal mode.  The # is a separator that maps with the directory structure
+" If you get this wrong, Vim will complain loudly.
 let g:airline#themes#dark#normal = airline#themes#generate_color_map(s:N1, s:N2, s:N3, s:file)
 
 " Here we define overrides for when the buffer is modified.  This will be applied

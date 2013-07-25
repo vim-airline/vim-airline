@@ -29,12 +29,14 @@ I wrote the initial version on an airplane, and since it's light as air it turne
 
 This plugin follows the standard runtime path structure, and as such it can be installed with a variety of plugin managers:
 
-*  [pathogen][k]
+*  [Pathogen][k]
   *  `git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline`
-*  [neobundle][l]
+*  [NeoBundle][l]
   *  `NeoBundle 'bling/vim-airline'`
-*  [vundle][m]
+*  [Vundle][m]
   *  `Bundle 'bling/vim-airline'`
+*  [VAM][v]
+  *  `call vam#ActivateAddons([ 'vim-airline' ])`
 *  manual
   *  copy all of the files into your `~/.vim` directory
 
@@ -99,3 +101,4 @@ Distributed under the same terms as the Vim license.  See `:help license`.
 [s]: https://github.com/majutsushi/tagbar
 [t]: https://powerline.readthedocs.org/en/latest/fontpatching.html
 [u]: https://bitbucket.org/ludovicchabant/vim-lawrencium
+[v]: https://github.com/MarcWeber/vim-addon-manager
