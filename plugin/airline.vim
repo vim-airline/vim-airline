@@ -32,11 +32,11 @@ call s:check_defined('g:airline_exclude_funcrefs', [])
 call s:check_defined('g:airline_mode_map', {
       \ 'n'  : 'NORMAL',
       \ 'i'  : 'INSERT',
-      \ 'R'  : 'RPLACE',
+      \ 'R'  : 'REPLACE',
       \ 'v'  : 'VISUAL',
       \ 'V'  : 'V-LINE',
       \ 'c'  : 'CMD   ',
-      \ '' : 'V-BLCK',
+      \ '' : 'V-BLOCK',
       \ })
 
 let s:airline_initialized = 0

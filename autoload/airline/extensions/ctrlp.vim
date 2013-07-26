@@ -1,14 +1,22 @@
-" TODO: support loading color palette from g:airline_theme
-
 function! airline#extensions#ctrlp#load_ctrlp_hi()
-  hi! CtrlPdark ctermfg=189 ctermbg=55 guifg=#d7d7ff guibg=#5f00af
-  hi! CtrlPlight ctermfg=231 ctermbg=98 guifg=#ffffff guibg=#875fd7
-  hi! CtrlPwhite ctermfg=55 ctermbg=231 term=bold guifg=#5f00af guibg=#ffffff gui=bold
-  hi! CtrlParrow1 ctermfg=98 ctermbg=231 guifg=#875fd7 guibg=#ffffff
-  hi! CtrlParrow2 ctermfg=231 ctermbg=98 guifg=#ffffff guibg=#875fd7
-  hi! CtrlParrow3 ctermfg=98 ctermbg=55 guifg=#875fd7 guibg=#5f00af
-  hi! CtrlParrow4 ctermfg=231 ctermbg=55 guifg=#ffffff guibg=#5f00af
-  hi! CtrlParrow5 ctermfg=98 ctermbg=231 guifg=#875fd7 guibg=#ffffff
+  let load_theme = g:airline#themes#{g:airline_theme}#normal
+  if exists('g:airline#themes#{g:airline_theme}#ctrlp')
+    let theme = g:airline#themes#{g:airline_theme}#ctrlp
+  else
+    let theme = {
+          \ 'CtrlPdark'   : [ '#d7d7ff' , '#5f00af' , 189 , 55  , ''     ] ,
+          \ 'CtrlPlight'  : [ '#ffffff' , '#875fd7' , 231 , 98  , ''     ] ,
+          \ 'CtrlPwhite'  : [ '#5f00af' , '#ffffff' , 55  , 231 , 'bold' ] ,
+          \ 'CtrlParrow1' : [ '#875fd7' , '#ffffff' , 98  , 231 , ''     ] ,
+          \ 'CtrlParrow2' : [ '#ffffff' , '#875fd7' , 231 , 98  , ''     ] ,
+          \ 'CtrlParrow3' : [ '#875fd7' , '#5f00af' , 98  , 55  , ''     ] ,
+          \ 'CtrlParrow4' : [ '#ffffff' , '#5f00af' , 231 , 55  , ''     ] ,
+          \ 'CtrlParrow5' : [ '#875fd7' , '#ffffff' , 98  , 231 , ''     ] ,
+          \ }
+  endif
+  for key in keys(theme)
+    call airline#exec_highlight(key, theme[key])
+  endfor
 endfunction
 
 " Recreate Ctrl-P status line with some slight modifications
