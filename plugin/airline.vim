@@ -73,6 +73,6 @@ augroup airline
   au!
   autocmd ColorScheme * call airline#highlight(['normal'])
   autocmd WinLeave * call airline#update_statusline(0)
-  autocmd WinEnter,BufWinEnter,FileType * call <sid>init() | call airline#update_statusline(1)
+  autocmd WinEnter,BufWinEnter,FileType,BufUnload * call <sid>init() | call airline#update_statusline(1)
   autocmd ShellCmdPost * call airline#update_externals()
 augroup END
