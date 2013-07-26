@@ -12,8 +12,12 @@ function! airline#extensions#apply_window_overrides()
     let w:airline_section_c = ''
     let w:airline_section_x = ''
   elseif &buftype == 'help'
-    call airline#extensions#apply_left_override('Help', '%f')
+    let w:airline_section_a = 'Help'
+    let w:airline_section_b = '%f'
+    let w:airline_section_c = ''
     let w:airline_section_gutter = ' '
+    let w:airline_section_x = ''
+    let w:airline_section_y = ''
   endif
 
   if &previewwindow
