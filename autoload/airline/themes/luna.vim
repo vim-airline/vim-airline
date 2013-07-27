@@ -1,5 +1,5 @@
 " vim-airline companion theme of Luna
-" (https://github.com/Pychimp/vim-luna<<)
+" (https://github.com/Pychimp/vim-luna)
 
 let s:file = [ '#ffffff' , '#002b2b' , 231 , 23 , '' ]
 let s:N1 = [ '#ffffff' , '#005252' , 231  , 36 ] 
@@ -19,8 +19,8 @@ let s:I2 = [ '#ffffff' , '#003f3f' , 231 , 29  ]
 let s:I3 = [ '#ffffff' , '#002b2b' , 231  , 23  ] 
 let g:airline#themes#luna#insert = airline#themes#generate_color_map(s:I1, s:I2, s:I3, s:file)
 let g:airline#themes#luna#insert_modified = {
-      \ 'info_separator': [ '#003f3f' , '#005e5e' , 29      , 53      , ''     ] ,
-      \ 'statusline':     [ '#ffffff' , '#005e5e' , 255     , 53      , ''     ] ,
+      \ 'info_separator': [ '#003f3f' , '#005e5e' , 29      , 52      , ''     ] ,
+      \ 'statusline':     [ '#ffffff' , '#005e5e' , 255     , 52      , ''     ] ,
       \ }
 let g:airline#themes#luna#insert_paste = {
       \ 'mode':           [ s:I1[0]   , '#789f00' , s:I1[2] , 106     , ''     ] ,
@@ -47,3 +47,13 @@ let g:airline#themes#luna#inactive = airline#themes#generate_color_map(s:IA, s:I
 let g:airline#themes#luna#inactive_modified = {
       \ 'statusline': [ '#f88379' , '' , '210' , '' , '' ] ,
       \ }
+
+let g:airline#themes#luna#ctrlp = {
+    \ 'CtrlPdark'   : [ '#ffffff' , '#002b2b' , 231 , 23 , ''     ] ,
+    \ 'CtrlPlight'  : [ '#ffffff' , '#005252' , 231 , 36 , ''     ] ,
+    \ 'CtrlPwhite'  : [ '#ffffff' , '#973d45' , 231 , 95 , ''     ] ,
+    \ 'CtrlParrow1' : [ '#005252' , '#973d45' , 36  , 95 , ''     ] ,
+    \ 'CtrlParrow2' : [ '#973d45' , '#005252' , 95  , 36 , ''     ] ,
+    \ 'CtrlParrow3' : [ '#005252' , '#002b2b' , 36  , 23 , ''     ] ,
+    \ 'CtrlParrow4' : [ '#ffffff' , '#002b2b' , 231 , 23 , ''     ] ,
+    \ 'CtrlParrow5' : [ '#005252' , '#003f3f' , 36  , 29 , ''     ] }
