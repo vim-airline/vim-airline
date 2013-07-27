@@ -6,8 +6,6 @@ function! airline#extensions#ctrlp#generate_color_map(dark, light, white)
         \ 'CtrlParrow1' : [ a:light[1] , a:white[1] , a:light[3] , a:white[3] , ''     ] ,
         \ 'CtrlParrow2' : [ a:white[1] , a:light[1] , a:white[3] , a:light[3] , ''     ] ,
         \ 'CtrlParrow3' : [ a:light[1] , a:dark[1]  , a:light[3] , a:dark[3]  , ''     ] ,
-        \ 'CtrlParrow4' : [ a:white[1] , a:dark[1]  , a:white[3] , a:dark[3]  , ''     ] ,
-        \ 'CtrlParrow5' : [ a:light[1] , a:light[0] , a:light[3] , a:light[2] , ''     ] ,
         \ }
 endfunction
 
@@ -36,7 +34,7 @@ function! airline#extensions#ctrlp#ctrlp_airline(...)
   let nxt = '%#CtrlPlight# '.a:6.' %#CtrlParrow3#'.g:airline_left_sep
   let marked = '%#CtrlPdark# '.a:7.' '
   let focus = '%=%<%#CtrlPdark# '.a:1.' %*'
-  let byfname = '%#CtrlParrow4#'.g:airline_right_alt_sep.'%#CtrlPdark# '.a:2.' %*'
+  let byfname = '%#CtrlParrow3#'.g:airline_right_alt_sep.'%#CtrlPdark# '.a:2.' %*'
   let dir = '%#CtrlParrow3#'.g:airline_right_sep.'%#CtrlPlight# '.getcwd().' %*'
   " Return the full statusline
   return regex.prv.item.nxt.marked.focus.byfname.dir
@@ -45,8 +43,8 @@ endfunction
 " Argument: len
 " a:1
 function! airline#extensions#ctrlp#ctrlp_airline_status(...)
-  let len = '%#CtrlPwhite# '.a:1
-  let dir = '%=%<%#CtrlParrow5#'.g:airline_right_sep.'%#CtrlPlight# '.getcwd().' %*'
+  let len = '%#CtrlPdark# '.a:1
+  let dir = '%=%<%#CtrlParrow3#'.g:airline_right_sep.'%#CtrlPlight# '.getcwd().' %*'
   " Return the full statusline
   return len.dir
 endfunction
