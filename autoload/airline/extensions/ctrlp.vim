@@ -1,17 +1,24 @@
+function! airline#extensions#ctrlp#generate_color_map(dark, light, white)
+  return {
+        \ 'CtrlPdark'   : a:dark,
+        \ 'CtrlPlight'  : a:light,
+        \ 'CtrlPwhite'  : a:white,
+        \ 'CtrlParrow1' : [ a:light[1] , a:white[1] , a:light[3] , a:white[3] , ''     ] ,
+        \ 'CtrlParrow2' : [ a:white[1] , a:light[1] , a:white[3] , a:light[3] , ''     ] ,
+        \ 'CtrlParrow3' : [ a:light[1] , a:dark[1]  , a:light[3] , a:dark[3]  , ''     ] ,
+        \ 'CtrlParrow4' : [ a:white[1] , a:dark[1]  , a:white[3] , a:dark[3]  , ''     ] ,
+        \ 'CtrlParrow5' : [ a:light[1] , a:light[0] , a:light[3] , a:light[2] , ''     ] ,
+        \ }
+endfunction
+
 function! airline#extensions#ctrlp#load_theme()
   if exists('g:airline#themes#{g:airline_theme}#ctrlp')
     let theme = g:airline#themes#{g:airline_theme}#ctrlp
   else
-    let theme = {
-          \ 'CtrlPdark'   : [ '#d7d7ff' , '#5f00af' , 189 , 55  , ''     ] ,
-          \ 'CtrlPlight'  : [ '#ffffff' , '#875fd7' , 231 , 98  , ''     ] ,
-          \ 'CtrlPwhite'  : [ '#5f00af' , '#ffffff' , 55  , 231 , 'bold' ] ,
-          \ 'CtrlParrow1' : [ '#875fd7' , '#ffffff' , 98  , 231 , ''     ] ,
-          \ 'CtrlParrow2' : [ '#ffffff' , '#875fd7' , 231 , 98  , ''     ] ,
-          \ 'CtrlParrow3' : [ '#875fd7' , '#5f00af' , 98  , 55  , ''     ] ,
-          \ 'CtrlParrow4' : [ '#ffffff' , '#5f00af' , 231 , 55  , ''     ] ,
-          \ 'CtrlParrow5' : [ '#875fd7' , '#ffffff' , 98  , 231 , ''     ] ,
-          \ }
+    let theme = airline#extensions#ctrlp#generate_color_map(
+          \ [ '#d7d7ff' , '#5f00af' , 189 , 55  , ''     ],
+          \ [ '#ffffff' , '#875fd7' , 231 , 98  , ''     ],
+          \ [ '#5f00af' , '#ffffff' , 55  , 231 , 'bold' ])
   endif
   for key in keys(theme)
     call airline#exec_highlight(key, theme[key])

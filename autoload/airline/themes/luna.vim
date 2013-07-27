@@ -48,12 +48,9 @@ let g:airline#themes#luna#inactive_modified = {
       \ 'statusline': [ '#f88379' , '' , '210' , '' , '' ] ,
       \ }
 
-let g:airline#themes#luna#ctrlp = {
-    \ 'CtrlPdark'   : [ '#ffffff' , '#002b2b' , 231 , 23 , ''     ] ,
-    \ 'CtrlPlight'  : [ '#ffffff' , '#005252' , 231 , 36 , ''     ] ,
-    \ 'CtrlPwhite'  : [ '#ffffff' , '#973d45' , 231 , 95 , ''     ] ,
-    \ 'CtrlParrow1' : [ '#005252' , '#973d45' , 36  , 95 , ''     ] ,
-    \ 'CtrlParrow2' : [ '#973d45' , '#005252' , 95  , 36 , ''     ] ,
-    \ 'CtrlParrow3' : [ '#005252' , '#002b2b' , 36  , 23 , ''     ] ,
-    \ 'CtrlParrow4' : [ '#ffffff' , '#002b2b' , 231 , 23 , ''     ] ,
-    \ 'CtrlParrow5' : [ '#005252' , '#003f3f' , 36  , 29 , ''     ] }
+if get(g:, 'loaded_ctrlp', 0)
+  let g:airline#themes#luna#ctrlp = airline#extensions#ctrlp#generate_color_map(
+    \ [ '#ffffff' , '#002b2b' , 231 , 23 , ''     ] ,
+    \ [ '#ffffff' , '#005252' , 231 , 36 , ''     ] ,
+    \ [ '#ffffff' , '#973d45' , 231 , 95 , ''     ] )
+endif
