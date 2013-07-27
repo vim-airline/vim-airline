@@ -51,7 +51,7 @@ values):
 
 * enable/disable fugitive/lawrencium integration
 >
-  let g:airline_enable_fugitive=1
+  let g:airline_enable_branch=1
 <
 
 * enable/disable syntastic integration
@@ -127,7 +127,7 @@ separators, as well as the powerline font glyths.
   let g:airline_linecolumn_prefix = '␊ '
   let g:airline_linecolumn_prefix = '␤ '
   let g:airline_linecolumn_prefix = '¶ '
-  let g:airline_fugitive_prefix = '⎇ '
+  let g:airline_branch_prefix = '⎇ '
   let g:airline_paste_symbol = 'ρ'
   let g:airline_paste_symbol = 'Þ'
   let g:airline_paste_symbol = '∥'
@@ -137,7 +137,7 @@ separators, as well as the powerline font glyths.
   let g:airline_left_alt_sep = ''
   let g:airline_right_sep = ''
   let g:airline_right_alt_sep = ''
-  let g:airline_fugitive_prefix = ' '
+  let g:airline_branch_prefix = ' '
   let g:airline_readonly_symbol = ''
   let g:airline_linecolumn_prefix = ' '
 
@@ -146,7 +146,7 @@ separators, as well as the powerline font glyths.
   let g:airline_left_alt_sep = '⮁'
   let g:airline_right_sep = '⮂'
   let g:airline_right_alt_sep = '⮃'
-  let g:airline_fugitive_prefix = '⭠'
+  let g:airline_branch_prefix = '⭠'
   let g:airline_readonly_symbol = '⭤'
   let g:airline_linecolumn_prefix = '⭡'
 <
@@ -164,7 +164,7 @@ with the usual statusline syntax.
   let g:airline_section_y      (fileencoding, fileformat)
   let g:airline_section_z      (percentage, line number, column number)
 
-  " here is an example of how you could replace the fugitive indicator with
+  " here is an example of how you could replace the branch indicator with
   " the current working directory, followed by the filename.
   let g:airline_section_b = '%{getcwd()}'
   let g:airline_section_c = '%t'

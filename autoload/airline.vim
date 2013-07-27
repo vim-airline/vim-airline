@@ -74,9 +74,13 @@ function! airline#update_externals()
         \ ? '%{bufferline#refresh_status()}'.bufferline#get_status_string()
         \ : "%f%m"
   let g:airline_externals_syntastic = g:airline_enable_syntastic && exists('*SyntasticStatuslineFlag') ? '%{SyntasticStatuslineFlag()}' : ''
-  let g:airline_externals_fugitive = g:airline_enable_fugitive ? (exists('*fugitive#head') && strlen(fugitive#head()) > 0
-        \ ? g:airline_fugitive_prefix.fugitive#head() : exists('*lawrencium#statusline') && strlen(lawrencium#statusline()) > 0
-        \ ? g:airline_fugitive_prefix.lawrencium#statusline() : '') : ''
+  let g:airline_externals_branch = g:airline_enable_branch
+        \ ? (exists('*fugitive#head') && strlen(fugitive#head()) > 0
+          \ ? g:airline_branch_prefix.fugitive#head()
+          \ : exists('*lawrencium#statusline') && strlen(lawrencium#statusline()) > 0
+            \ ? g:airline_branch_prefix.lawrencium#statusline()
+            \ : '')
+        \ : ''
 endfunction
 
 function! s:get_section(key)
