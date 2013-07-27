@@ -33,6 +33,7 @@ function! airline#load_theme(name)
   let w:airline_lastmode = ''
   call airline#highlight(['inactive'])
   call airline#update_highlight()
+  call airline#extensions#load_theme()
 endfunction
 
 function! airline#highlight(modes)

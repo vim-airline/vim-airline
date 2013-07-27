@@ -69,12 +69,21 @@ function! airline#extensions#is_excluded_window()
   return 0
 endfunction
 
+function! airline#extensions#load_theme()
+  if get(g:, 'loaded_ctrlp', 0)
+    call airline#extensions#ctrlp#load_theme()
+  endif
+endfunction
+
 function! airline#extensions#load()
-  let g:unite_force_overwrite_statusline = 0
-  let g:vimfiler_force_overwrite_statusline = 0
+  if get(g:, 'loaded_unite', 0)
+    let g:unite_force_overwrite_statusline = 0
+  endif
+  if get(g:, 'loaded_vimfiler', 0)
+    let g:vimfiler_force_overwrite_statusline = 0
+  endif
 
   if get(g:, 'loaded_ctrlp', 0)
-    call airline#extensions#ctrlp#load_ctrlp_hi()
     let g:ctrlp_status_func = {
           \ 'main': 'airline#extensions#ctrlp#ctrlp_airline',
           \ 'prog': 'airline#extensions#ctrlp#ctrlp_airline_status',

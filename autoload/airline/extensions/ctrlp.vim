@@ -1,5 +1,4 @@
-function! airline#extensions#ctrlp#load_ctrlp_hi()
-  let load_theme = g:airline#themes#{g:airline_theme}#normal
+function! airline#extensions#ctrlp#load_theme()
   if exists('g:airline#themes#{g:airline_theme}#ctrlp')
     let theme = g:airline#themes#{g:airline_theme}#ctrlp
   else
