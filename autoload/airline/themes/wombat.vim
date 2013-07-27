@@ -86,3 +86,14 @@ let g:airline#themes#wombat#insert_paste = {
 let g:airline#themes#wombat#inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
 let g:airline#themes#wombat#inactive_modified = {
     \ 'statusline' : [ '#BCBCBC' , '' , 250 , '' , '' ] }
+
+
+let g:airline#themes#wombat#ctrlp = {
+    \ 'CtrlPdark'   : [ '#DADADA' , '#242424' , 253 , 234 , ''     ] ,
+    \ 'CtrlPlight'  : [ '#DADADA' , '#40403C' , 253 , 238 , ''     ] ,
+    \ 'CtrlPwhite'  : [ '#141413' , '#DADADA' , 232 , 253 , 'bold' ] ,
+    \ 'CtrlParrow1' : [ '#40403C' , '#DADADA' , 238 , 253 , ''     ] ,
+    \ 'CtrlParrow2' : [ '#DADADA' , '#40403C' , 253 , 238 , ''     ] ,
+    \ 'CtrlParrow3' : [ '#40403C' , '#242424' , 238 , 234 , ''     ] ,
+    \ 'CtrlParrow4' : [ '#DADADA' , '#242424' , 253 , 234 , ''     ] ,
+    \ 'CtrlParrow5' : [ '#40403C' , '#DADADA' , 238 , 253 , ''     ] }
