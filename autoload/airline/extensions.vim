@@ -2,6 +2,7 @@ function! airline#extensions#apply_left_override(section1, section2)
   let w:airline_section_a = a:section1
   let w:airline_section_b = a:section2
   let w:airline_section_c = ''
+  let w:airline_section_gutter = ' '
   let w:airline_left_only = 1
 endfunction
 

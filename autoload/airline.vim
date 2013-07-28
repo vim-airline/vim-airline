@@ -105,7 +105,7 @@ function! airline#update_statusline(active)
   let l:file_flag_color = a:active ? "%#Al7#" : "%#Al7_inactive#"
 
   let sl = '%{airline#update_highlight()}'
-  if a:active
+  if a:active || exists('w:airline_left_only')
     let sl.=l:mode_color.' '.s:get_section('a').' '
     let sl.='%{g:airline_detect_paste && &paste ? g:airline_paste_symbol." " : ""}'
     let sl.=l:mode_sep_color
@@ -151,11 +151,10 @@ function! airline#update_highlight()
     endif
     let g:airline_current_mode_text = get(g:airline_mode_map, l:m, l:m)
     if g:airline_detect_iminsert && &iminsert
-      if exists('b:keymap_name')
-        let g:airline_current_mode_text .= ' ' . toupper(b:keymap_name)
-      else
-        let g:airline_current_mode_text .= ' LANG'
+      if get(g:, 'airline_powerline_fonts', 0)
+        let g:airline_current_mode_text .= ' '.g:airline_left_alt_sep
       endif
+      let g:airline_current_mode_text .= ' '.toupper(get(b:, 'keymap_name', 'lang'))
     endif
   else
     let l:mode = ['inactive']
