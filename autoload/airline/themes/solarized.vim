@@ -34,10 +34,11 @@ let s:c52     = {'t': 52,  'g': '#5f0000'}
 """"""""""""""""""""""""""""""""""""""""""""""""
 " Normal mode
 let s:N1 = [s:base2, s:blue, 'bold']
-let s:N2 = [s:base2, s:base01, '']
 if s:background == 'dark'
+    let s:N2 = [s:base2, s:base01, '']
     let s:N3 = [s:base1, s:base02, '']
 else
+    let s:N2 = [s:base2, s:base1, '']
     let s:N3 = [s:base00, s:base2, '']
 endif
 let s:NF = [s:orange, s:N3[1], '']
