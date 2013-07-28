@@ -21,7 +21,7 @@ let s:orange  = {'t': 166, 'g': '#cb4b16'}
 let s:red     = {'t': 160, 'g': '#dc322f'}
 let s:magenta = {'t': 125, 'g': '#d33682'}
 let s:violet  = {'t': 61,  'g': '#6c71c4'}
-let s:blue    = {'t': 33,  'g': '#267bd2'}
+let s:blue    = {'t': 33,  'g': '#268bd2'}
 let s:cyan    = {'t': 37,  'g': '#2aa198'}
 let s:green   = {'t': 64,  'g': '#859900'}
 let s:c218    = {'t': 218, 'g': '#ffafd7'}
@@ -34,10 +34,11 @@ let s:c52     = {'t': 52,  'g': '#5f0000'}
 """"""""""""""""""""""""""""""""""""""""""""""""
 " Normal mode
 let s:N1 = [s:base2, s:blue, 'bold']
-let s:N2 = [s:base2, s:base01, '']
 if s:background == 'dark'
+    let s:N2 = [s:base2, s:base01, '']
     let s:N3 = [s:base1, s:base02, '']
 else
+    let s:N2 = [s:base2, s:base1, '']
     let s:N3 = [s:base00, s:base2, '']
 endif
 let s:NF = [s:orange, s:N3[1], '']
