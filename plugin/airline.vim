@@ -65,7 +65,7 @@ endfunction
 " non-trivial number of external plugins use eventignore=all, so we need to account for that
 function! s:sync_active_winnr()
   if winnr() != s:active_winnr
-    call airline#update_statusline()
+    call s:on_window_changed()
   endif
 endfunction
 

@@ -63,8 +63,8 @@ A full list of screenshots can be found in the [Wiki][n].
 Tracking down bugs can take a very long time due to different configurations, versions, and operating systems.  To ensure a timely response, please help me out by doing the following:
 
 *  reproduce it with this [minivimrc][g] repository to rule out any configuration conflicts.
-*  include your version of vim, including patches, and operating system (`:version` will contain this information).
 *  a link to your vimrc or a gist which shows how you configured the plugin(s).
+*  and so I can reproduce; your `:version` of vim, and the commit of vim-airline you're using.
 
 # Contributions
 
