@@ -6,24 +6,23 @@ INTRODUCTION                                                       *airline*
 There's already powerline <https://github.com/Lokaltog/powerline>, why yet
 another statusline?
 
-*  it's 100% vimscript; no python needed.
-*  it's small.  i want the core plugin to be less than 200 lines as a rule.
-*  it gets you 90% of the way there; in addition to all the standard goodies,
-   it integrates with a variety of popular plugins, including:
+*  100% vimscript; no python needed.
+*  small.  i want the core plugin to be less than 200 lines as a rule.
+*  integrates with a variety of popular plugins, including:
   *  fugitve <https://github.com/tpope/vim-fugitive>
   *  syntastic <https://github.com/scrooloose/syntastic>
   *  vim-bufferline <https://github.com/bling/vim-bufferline>
   *  unite <https://github.com/Shougo/unite.vim>
   *  ctrlp <https://github.com/kien/ctrlp.vim>
   *  lawrencium <https://bitbucket.org/ludovicchabant/vim-lawrencium>
-*  it looks good with regular fonts, and provides configuration points so you
+*  looks good with regular fonts, and provides configuration points so you
    can use unicode or powerline symbols.
-*  it's fast to load, taking roughly 1ms.  by comparison, powerline needs
-   60ms on the same machine.
-*  it's fully customizable; if you know a little |statusline| syntax you can
+*  fast to load, taking roughly 1ms.  by comparison, powerline needs 60ms
+   on the same machine.
+*  fully customizable; if you know a little |statusline| syntax you can
    tweak it to your needs.
-*  it's trivial to write colorschemes; for a minimal theme you need to edit
-   9 lines of colors. (please send pull requests if you create new themes!)
+*  trivial to write colorschemes; for a minimal theme you need to edit
+   9 lines of colors. (please send pull requests)
 
 ==============================================================================
 NAME                                                          *airline-name*
@@ -57,6 +56,11 @@ values):
 * enable/disable syntastic integration
 >
   let g:airline_enable_syntastic=1
+<
+
+* enable/disable tagbar integration
+>
+  let g:airline_enable_tagbar=1
 <
 
 * enable modified detection

@@ -71,9 +71,9 @@ endfunction
 
 function! airline#update_externals()
   let g:airline_externals_bufferline = g:airline_enable_bufferline && exists('*bufferline#get_status_string')
-        \ ? '%{bufferline#refresh_status()}'.bufferline#get_status_string()
-        \ : "%f%m"
-  let g:airline_externals_syntastic = g:airline_enable_syntastic && exists('*SyntasticStatuslineFlag') ? '%{SyntasticStatuslineFlag()}' : ''
+        \ ? '%{bufferline#refresh_status()}'.bufferline#get_status_string() : "%f%m"
+  let g:airline_externals_syntastic = g:airline_enable_syntastic && exists('*SyntasticStatuslineFlag')
+        \ ? '%{SyntasticStatuslineFlag()}' : ''
   let g:airline_externals_branch = g:airline_enable_branch
         \ ? (exists('*fugitive#head') && strlen(fugitive#head()) > 0
           \ ? g:airline_branch_prefix.fugitive#head()
@@ -81,6 +81,8 @@ function! airline#update_externals()
             \ ? g:airline_branch_prefix.lawrencium#statusline()
             \ : '')
         \ : ''
+  let g:airline_externals_tagbar = g:airline_enable_tagbar && exists(':Tagbar')
+        \ ? '%(%{tagbar#currenttag("%s","")} '.g:airline_right_alt_sep.'%)' : ''
 endfunction
 
 function! s:getwinvar(winnr, key, ...)
@@ -120,7 +122,8 @@ function! s:get_statusline(winnr, active)
     let sl.=l:status_color.' %f%m'
   endif
   if !s:getwinvar(a:winnr, 'airline_left_only', 0)
-    let sl.='%= '.s:get_section(a:winnr, 'x').' '
+    let sl.='%='.g:airline_externals_tagbar
+    let sl.=' '.s:get_section(a:winnr, 'x').' '
     let sl.=l:info_sep_color
     let sl.=a:active ? g:airline_right_sep : g:airline_right_alt_sep
     let sl.=l:info_color
