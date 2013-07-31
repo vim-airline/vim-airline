@@ -43,7 +43,9 @@ call s:check_defined('g:airline_mode_map', {
       \ })
 
 let s:airline_initialized = 0
-function! s:init()
+let s:active_winnr = -1
+function! s:on_window_changed()
+  let s:active_winnr = winnr()
   if !s:airline_initialized
     call airline#extensions#load()
     call airline#update_externals()
@@ -56,6 +58,14 @@ function! s:init()
     call s:check_defined('g:airline_section_y', "%{strlen(&fenc)>0?&fenc:''}%{strlen(&ff)>0?'['.&ff.']':''}")
     call s:check_defined('g:airline_section_z', '%3p%% '.g:airline_linecolumn_prefix.'%3l:%3c')
     let s:airline_initialized = 1
+  endif
+  call airline#update_statusline()
+endfunction
+
+" non-trivial number of external plugins use eventignore=all, so we need to account for that
+function! s:sync_active_winnr()
+  if winnr() != s:active_winnr
+    call airline#update_statusline()
   endif
 endfunction
 
@@ -75,6 +85,7 @@ command! -nargs=? -complete=customlist,<sid>get_airline_themes AirlineTheme call
 augroup airline
   au!
   autocmd ColorScheme * call airline#highlight(['normal'])
-  autocmd WinEnter,BufWinEnter,FileType,BufUnload * call <sid>init() | call airline#update_statusline()
+  autocmd WinEnter,BufWinEnter,FileType,BufUnload * call <sid>on_window_changed()
   autocmd ShellCmdPost * call airline#update_externals()
+  autocmd CursorMoved * call <sid>sync_active_winnr()
 augroup END
