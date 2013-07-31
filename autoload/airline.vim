@@ -83,20 +83,17 @@ function! airline#update_externals()
         \ : ''
 endfunction
 
-function! s:get_section(key)
-  return exists('w:airline_section_{a:key}') ? w:airline_section_{a:key} : g:airline_section_{a:key}
+function! s:getwinvar(winnr, key, ...)
+  " for 7.2 compatibility
+  let winvals = getwinvar(a:winnr, '')
+  return get(winvals, a:key, (a:0 ? a:1 : ''))
 endfunction
 
-function! airline#update_statusline(active)
-  let w:airline_active = a:active
-  if s:is_excluded_window()
-    call setwinvar(winnr(), '&statusline', '')
-    return
-  endif
+function! s:get_section(winnr, key)
+  return s:getwinvar(a:winnr, 'airline_section_'.a:key, g:airline_section_{a:key})
+endfunction
 
-  call airline#update_externals()
-  call s:apply_window_overrides()
-
+function! s:get_statusline(winnr, active)
   let l:mode_color      = a:active ? "%#Al2#" : "%#Al2_inactive#"
   let l:mode_sep_color  = a:active ? "%#Al3#" : "%#Al3_inactive#"
   let l:info_color      = a:active ? "%#Al4#" : "%#Al4_inactive#"
@@ -105,35 +102,54 @@ function! airline#update_statusline(active)
   let l:file_flag_color = a:active ? "%#Al7#" : "%#Al7_inactive#"
 
   let sl = '%{airline#update_highlight()}'
-  if a:active || exists('w:airline_left_only')
-    let sl.=l:mode_color.' '.s:get_section('a').' '
+  if a:active || s:getwinvar(a:winnr, 'airline_left_only', 0)
+    let sl.=l:mode_color.' '.s:get_section(a:winnr, 'a').' '
     let sl.='%{g:airline_detect_paste && &paste ? g:airline_paste_symbol." " : ""}'
     let sl.=l:mode_sep_color
     let sl.=a:active ? g:airline_left_sep : g:airline_left_alt_sep
     let sl.=l:info_color
-    let sl.=' '.s:get_section('b').' '
+    let sl.=' '.s:get_section(a:winnr, 'b').' '
     let sl.=l:info_sep_color
     let sl.=g:airline_left_sep
-    let sl.=l:status_color.' %<'.s:get_section('c').' '
-    let gutter = get(w:, 'airline_section_gutter', get(g:, 'airline_section_gutter', ''))
+    let sl.=l:status_color.' %<'.s:get_section(a:winnr, 'c').' '
+    let gutter = s:getwinvar(a:winnr, 'airline_section_gutter', get(g:, 'airline_section_gutter', ''))
     let sl.=gutter != ''
           \ ? gutter
           \ : '%#warningmsg#'.g:airline_externals_syntastic.l:file_flag_color."%{&ro ? g:airline_readonly_symbol : ''}".l:status_color
   else
     let sl.=l:status_color.' %f%m'
   endif
-  if !exists('w:airline_left_only')
-    let sl.='%= '.s:get_section('x').' '
+  if !s:getwinvar(a:winnr, 'airline_left_only', 0)
+    let sl.='%= '.s:get_section(a:winnr, 'x').' '
     let sl.=l:info_sep_color
     let sl.=a:active ? g:airline_right_sep : g:airline_right_alt_sep
     let sl.=l:info_color
-    let sl.=' '.s:get_section('y').' '
+    let sl.=' '.s:get_section(a:winnr, 'y').' '
     let sl.=l:mode_sep_color
     let sl.=a:active ? g:airline_right_sep : g:airline_right_alt_sep
     let sl.=l:mode_color
-    let sl.=' '.s:get_section('z').' '
+    let sl.=' '.s:get_section(a:winnr, 'z').' '
   endif
-  call setwinvar(winnr(), '&statusline', sl)
+  return sl
+endfunction
+
+function! airline#update_statusline()
+  let w:airline_active = 1
+  if s:is_excluded_window()
+    call setwinvar(winnr(), '&statusline', '')
+    return
+  endif
+
+  call airline#update_externals()
+  call s:apply_window_overrides()
+  call setwinvar(winnr(), '&statusline', s:get_statusline(winnr(), 1))
+
+  for nr in range(1, winnr('$'))
+    if nr != winnr() && getwinvar(nr, 'airline_active')
+      call setwinvar(nr, '&statusline', s:get_statusline(nr, 0))
+      call setwinvar(nr, 'airline_active', 0)
+    endif
+  endfor
 endfunction
 
 let g:airline_current_mode_text = ''
