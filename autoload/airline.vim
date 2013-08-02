@@ -95,6 +95,19 @@ function! s:get_section(winnr, key)
   return s:getwinvar(a:winnr, 'airline_section_'.a:key, g:airline_section_{a:key})
 endfunction
 
+function! s:pad(text, ...)
+  let paddings = a:0 ? a:000[0:1] : []
+  if empty(a:text)
+    return ''
+  else
+    return join([
+          \   repeat(' ', get(paddings, 0)),
+          \   a:text,
+          \   repeat(' ', get(paddings, 1))
+          \ ], '')
+  endif
+endfunction
+
 function! s:get_statusline(winnr, active)
   let l:mode_color      = a:active ? "%#Al2#" : "%#Al2_inactive#"
   let l:mode_sep_color  = a:active ? "%#Al3#" : "%#Al3_inactive#"
@@ -105,15 +118,15 @@ function! s:get_statusline(winnr, active)
 
   let sl = '%{airline#update_highlight()}'
   if a:active || s:getwinvar(a:winnr, 'airline_left_only', 0)
-    let sl.=l:mode_color.' '.s:get_section(a:winnr, 'a').' '
+    let sl.=l:mode_color.s:pad(s:get_section(a:winnr, 'a'), 1, 1)
     let sl.='%{g:airline_detect_paste && &paste ? g:airline_paste_symbol." " : ""}'
     let sl.=l:mode_sep_color
     let sl.=a:active ? g:airline_left_sep : g:airline_left_alt_sep
     let sl.=l:info_color
-    let sl.=' '.s:get_section(a:winnr, 'b').' '
+    let sl.=s:pad(s:get_section(a:winnr, 'b'), 1, 1)
     let sl.=l:info_sep_color
     let sl.=g:airline_left_sep
-    let sl.=l:status_color.' %<'.s:get_section(a:winnr, 'c').' '
+    let sl.=l:status_color.s:pad('%<' . s:get_section(a:winnr, 'c'), 1, 1)
     let gutter = s:getwinvar(a:winnr, 'airline_section_gutter', get(g:, 'airline_section_gutter', ''))
     let sl.=gutter != ''
           \ ? gutter
@@ -123,15 +136,15 @@ function! s:get_statusline(winnr, active)
   endif
   if !s:getwinvar(a:winnr, 'airline_left_only', 0)
     let sl.='%='.g:airline_externals_tagbar
-    let sl.=' '.s:get_section(a:winnr, 'x').' '
+    let sl.=s:pad(s:get_section(a:winnr, 'x'), 1, 1)
     let sl.=l:info_sep_color
     let sl.=a:active ? g:airline_right_sep : g:airline_right_alt_sep
     let sl.=l:info_color
-    let sl.=' '.s:get_section(a:winnr, 'y').' '
+    let sl.=s:pad(s:get_section(a:winnr, 'y'), 1, 1)
     let sl.=l:mode_sep_color
     let sl.=a:active ? g:airline_right_sep : g:airline_right_alt_sep
     let sl.=l:mode_color
-    let sl.=' '.s:get_section(a:winnr, 'z').' '
+    let sl.=s:pad(s:get_section(a:winnr, 'z'), 1, 1)
   endif
   return sl
 endfunction
