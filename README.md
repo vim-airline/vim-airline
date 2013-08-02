@@ -81,7 +81,7 @@ Contributions and pull requests are welcome.  Please take note of the following 
 
 # License
 
-Distributed under the same terms as the Vim license.  See `:help license`.
+MIT license. Copyright (c) 2013 Bailey Ling.
 
 
 [a]: https://github.com/Lokaltog/vim-powerline

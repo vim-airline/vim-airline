@@ -1,3 +1,6 @@
+" MIT license. Copyright (c) 2013 Bailey Ling.
+" vim: ts=2 sts=2 sw=2 fdm=indent
+
 " generates a dictionary which defines the colors for each highlight group
 function! airline#themes#generate_color_map(section1, section2, section3, file)
   "                         guifg           guibg           ctermfg         ctermbg         gui/term

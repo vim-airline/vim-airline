@@ -1,3 +1,6 @@
+" MIT license. Copyright (c) 2013 Bailey Ling.
+" vim: ts=2 sts=2 sw=2 fdm=indent
+
 function! airline#extensions#apply_left_override(section1, section2)
   let w:airline_section_a = a:section1
   let w:airline_section_b = a:section2

@@ -1,4 +1,6 @@
+" MIT license. Copyright (c) 2013 Bailey Ling.
 " vim: ts=2 sts=2 sw=2 fdm=indent
+
 let s:is_win32term = (has('win32') || has('win64')) && !has('gui_running')
 let s:sections = ['a','b','c','gutter','x','y','z']
 
