@@ -9,17 +9,21 @@ Lean &amp; mean statusline for vim that's light as air.
 There's already [powerline][b], why yet another statusline?
 
 *  100% vimscript; no python needed.
-*  small.  i want the core plugin to be *less than 200 lines* as a rule (specifically adhering to the [open/closed principle][h]).
+
+What about [vim-powerline][a]?
+
+*  the author has been active developing [powerline][b], which was rewritten in python and expands its capabilities to tools outside of Vim, such as bash, zsh, and tmux.
+*  [vim-powerline][a] has been deprecated as a result, and no features will be added to it.
+*  [vim-powerline][a] uses different font codes, so if you want to use it with a [powerline][b] themed tmux (for example), it will not work.
+
+# Features
+
+*  tiny core (under 200 lines) and written with extensibility in mind (specifically adhering to the [open/closed principle][h]).
 *  integrates with a variety of plugins: [vim-bufferline][f], [fugitive][d], [unite][i], [ctrlp][j], [minibufexpl][o], [gundo][p], [undotree][q], [nerdtree][r], [tagbar][s], [syntastic][e] and [lawrencium][u].
 *  looks good with regular fonts and provides configuration points so you can use unicode or powerline symbols.
-*  fast to load, taking roughly 1ms.  by comparison, powerline needs 60ms on the same machine.
+*  optimized for speed; it loads 1ms.
 *  fully customizable; if you know a little `statusline` syntax you can tweak it to your needs.
 *  trivial to write colorschemes; for a minimal theme you need to edit 9 lines of colors (please send pull requests).
-
-What about [old powerline][a]?
-
-*  the old version still works well, but since it's deprecated new features won't get added.
-*  it uses different font codes, which makes it incompatible with other powerline bindings in the same terminal (e.g. bash, zsh, tmux, etc.).
 
 # Where did the name come from?
 
