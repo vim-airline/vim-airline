@@ -110,7 +110,7 @@ function! s:get_statusline(winnr, active)
     let sl.=l:mode_sep_color
     let sl.=a:active ? g:airline_left_sep : g:airline_left_alt_sep
     let sl.=l:info_color
-    let sl.=' '.s:get_section(a:winnr, 'b').' '
+    let sl.=s:get_section(a:winnr, 'b')
     let sl.=l:info_sep_color
     let sl.=g:airline_left_sep
     let sl.=l:status_color.' %<'.s:get_section(a:winnr, 'c').' '
