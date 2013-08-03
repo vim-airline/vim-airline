@@ -52,25 +52,6 @@ function! airline#highlight(modes)
   endfor
 endfunction
 
-function! s:is_excluded_window()
-  for Fn in g:airline_exclude_funcrefs
-    if Fn()
-      return 1
-    endif
-  endfor
-  return 0
-endfunction
-
-function! s:apply_window_overrides()
-  unlet! w:airline_left_only
-  for section in s:sections
-    unlet! w:airline_section_{section}
-  endfor
-  for Fn in g:airline_window_override_funcrefs
-    call Fn()
-  endfor
-endfunction
-
 function! airline#update_externals()
   let g:airline_externals_bufferline = g:airline_enable_bufferline && exists('*bufferline#get_status_string')
         \ ? '%{bufferline#refresh_status()}'.bufferline#get_status_string() : "%f%m"
@@ -87,8 +68,8 @@ function! airline#update_externals()
         \ ? '%(%{tagbar#currenttag("%s","")} '.g:airline_right_alt_sep.' %)' : ''
 endfunction
 
+" for 7.2 compatibility
 function! s:getwinvar(winnr, key, ...)
-  " for 7.2 compatibility
   let winvals = getwinvar(a:winnr, '')
   return get(winvals, a:key, (a:0 ? a:1 : ''))
 endfunction
@@ -141,14 +122,22 @@ function! s:get_statusline(winnr, active)
 endfunction
 
 function! airline#update_statusline()
-  let w:airline_active = 1
-  if s:is_excluded_window()
-    call setwinvar(winnr(), '&statusline', '')
-    return
-  endif
+  for Fn in g:airline_exclude_funcrefs
+    if Fn()
+      call setwinvar(winnr(), '&statusline', '')
+      return
+    endif
+  endfor
 
-  call airline#update_externals()
-  call s:apply_window_overrides()
+  unlet! w:airline_left_only
+  for section in s:sections
+    unlet! w:airline_section_{section}
+  endfor
+  for Fn in g:airline_window_override_funcrefs
+    call Fn()
+  endfor
+
+  let w:airline_active = 1
   call setwinvar(winnr(), '&statusline', s:get_statusline(winnr(), 1))
 
   for nr in range(1, winnr('$'))
