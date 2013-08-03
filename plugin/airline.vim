@@ -51,7 +51,6 @@ function! s:on_window_changed()
   let s:active_winnr = winnr()
   if !s:airline_initialized
     call airline#extensions#load()
-    call airline#update_externals()
     call airline#load_theme(g:airline_theme)
     call s:check_defined('g:airline_section_a', '%{g:airline_current_mode_text}')
     call s:check_defined('g:airline_section_b', '%{g:airline_externals_branch}')
@@ -86,9 +85,9 @@ endfunction
 command! -nargs=? -complete=customlist,<sid>get_airline_themes AirlineTheme call <sid>airline_theme(<f-args>)
 
 augroup airline
-  au!
+  autocmd!
   autocmd ColorScheme * call airline#highlight(['normal'])
-  autocmd WinEnter,BufWinEnter,FileType,BufUnload * call <sid>on_window_changed()
-  autocmd ShellCmdPost * call airline#update_externals()
+  autocmd WinEnter,BufWinEnter,FileType,BufUnload,ShellCmdPost *
+        \ call <sid>on_window_changed()
   autocmd CursorMoved * call <sid>sync_active_winnr()
 augroup END

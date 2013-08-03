@@ -9,6 +9,22 @@ function! airline#extensions#apply_left_override(section1, section2)
   let w:airline_left_only = 1
 endfunction
 
+function! airline#extensions#update_external_values()
+  let g:airline_externals_bufferline = g:airline_enable_bufferline && exists('*bufferline#get_status_string')
+        \ ? '%{bufferline#refresh_status()}'.bufferline#get_status_string() : "%f%m"
+  let g:airline_externals_syntastic = g:airline_enable_syntastic && exists('*SyntasticStatuslineFlag')
+        \ ? '%#warningmsg#%{SyntasticStatuslineFlag()}' : ''
+  let g:airline_externals_branch = g:airline_enable_branch
+        \ ? (exists('*fugitive#head') && strlen(fugitive#head()) > 0
+          \ ? g:airline_branch_prefix.fugitive#head()
+          \ : exists('*lawrencium#statusline') && strlen(lawrencium#statusline()) > 0
+            \ ? g:airline_branch_prefix.lawrencium#statusline()
+            \ : '')
+        \ : ''
+  let g:airline_externals_tagbar = g:airline_enable_tagbar && exists(':Tagbar')
+        \ ? '%(%{tagbar#currenttag("%s","")} '.g:airline_right_alt_sep.' %)' : ''
+endfunction
+
 function! airline#extensions#apply_window_overrides()
   if &buftype == 'quickfix'
     let w:airline_section_a = 'Quickfix'
@@ -108,7 +124,10 @@ function! airline#extensions#load()
     let g:bufferline_separator = ' '
   endif
 
+  call add(g:airline_window_override_funcrefs, function('airline#extensions#update_external_values'))
   call add(g:airline_window_override_funcrefs, function('airline#extensions#apply_window_overrides'))
   call add(g:airline_exclude_funcrefs, function('airline#extensions#is_excluded_window'))
+
+  call airline#extensions#update_external_values()
 endfunction
 

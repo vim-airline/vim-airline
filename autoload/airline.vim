@@ -52,22 +52,6 @@ function! airline#highlight(modes)
   endfor
 endfunction
 
-function! airline#update_externals()
-  let g:airline_externals_bufferline = g:airline_enable_bufferline && exists('*bufferline#get_status_string')
-        \ ? '%{bufferline#refresh_status()}'.bufferline#get_status_string() : "%f%m"
-  let g:airline_externals_syntastic = g:airline_enable_syntastic && exists('*SyntasticStatuslineFlag')
-        \ ? '%{SyntasticStatuslineFlag()}' : ''
-  let g:airline_externals_branch = g:airline_enable_branch
-        \ ? (exists('*fugitive#head') && strlen(fugitive#head()) > 0
-          \ ? g:airline_branch_prefix.fugitive#head()
-          \ : exists('*lawrencium#statusline') && strlen(lawrencium#statusline()) > 0
-            \ ? g:airline_branch_prefix.lawrencium#statusline()
-            \ : '')
-        \ : ''
-  let g:airline_externals_tagbar = g:airline_enable_tagbar && exists(':Tagbar')
-        \ ? '%(%{tagbar#currenttag("%s","")} '.g:airline_right_alt_sep.' %)' : ''
-endfunction
-
 " for 7.2 compatibility
 function! s:getwinvar(winnr, key, ...)
   let winvals = getwinvar(a:winnr, '')
@@ -102,7 +86,7 @@ function! s:get_statusline(winnr, active)
     let gutter = s:getwinvar(a:winnr, 'airline_section_gutter', get(g:, 'airline_section_gutter', ''))
     let sl.=gutter != ''
           \ ? gutter
-          \ : '%#warningmsg#'.g:airline_externals_syntastic.l:file_flag_color."%{&ro ? g:airline_readonly_symbol : ''}".l:status_color
+          \ : g:airline_externals_syntastic.l:file_flag_color."%{&ro ? g:airline_readonly_symbol : ''}".l:status_color
   else
     let sl.=l:status_color.' %f%m'
   endif
