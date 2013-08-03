@@ -84,7 +84,7 @@ function! airline#update_externals()
             \ : '')
         \ : ''
   let g:airline_externals_tagbar = g:airline_enable_tagbar && exists(':Tagbar')
-        \ ? '%(%{tagbar#currenttag("%s","")} '.g:airline_right_alt_sep.'%)' : ''
+        \ ? '%(%{tagbar#currenttag("%s","")} '.g:airline_right_alt_sep.' %)' : ''
 endfunction
 
 function! s:getwinvar(winnr, key, ...)
@@ -124,7 +124,7 @@ function! s:get_statusline(winnr, active)
     let sl.=l:status_color.' %f%m'
   endif
   if !s:getwinvar(a:winnr, 'airline_left_only', 0)
-    let sl.='%='.g:airline_externals_tagbar
+    let sl.='%='
     let sl.=' '.s:get_section(a:winnr, 'x').' '
     let sl.=l:info_sep_color
     let sl.=a:active ? g:airline_right_sep : g:airline_right_alt_sep

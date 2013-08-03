@@ -158,8 +158,8 @@ with the usual statusline syntax.
   let g:airline_section_a      (the mode/paste indicator)
   let g:airline_section_b      (the fugitive/lawrencium branch indicator)
   let g:airline_section_c      (bufferline or filename)
-  let g:airline_section_gutter (syntastic, readonly flag, tagbar)
-  let g:airline_section_x      (filetype)
+  let g:airline_section_gutter (syntastic, readonly flag)
+  let g:airline_section_x      (tagbar, filetype)
   let g:airline_section_y      (fileencoding, fileformat)
   let g:airline_section_z      (percentage, line number, column number)
 
