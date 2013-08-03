@@ -93,9 +93,10 @@ function! s:getwinvar(winnr, key, ...)
   return get(winvals, a:key, (a:0 ? a:1 : ''))
 endfunction
 
-function! s:get_section(winnr, key)
+function! s:get_section(winnr, key, ...)
   let text = s:getwinvar(a:winnr, 'airline_section_'.a:key, g:airline_section_{a:key})
-  return empty(text) ? '' : ' '.text.' '
+  let [prefix, suffix] = [get(a:000, 0, ' '), get(a:000, 1, ' ')]
+  return empty(text) ? '' : prefix.text.suffix
 endfunction
 
 function! s:get_statusline(winnr, active)
