@@ -70,6 +70,10 @@ endfunction
 " non-trivial number of external plugins use eventignore=all, so we need to account for that
 function! s:sync_active_winnr()
   if winnr() != s:active_winnr
+    " prevent ctrlp statusline from getting overwritten
+    if match(&statusline, 'CtrlPlight') >= 0
+      return
+    endif
     call s:on_window_changed()
   endif
 endfunction
