@@ -83,10 +83,9 @@ function! s:get_statusline(winnr, active)
     let sl.=l:info_sep_color
     let sl.=g:airline_left_sep
     let sl.=l:status_color.s:get_section(a:winnr, 'c', ' %<')
-    let gutter = s:getwinvar(a:winnr, 'airline_section_gutter', get(g:, 'airline_section_gutter', ''))
-    let sl.=gutter != ''
-          \ ? gutter
-          \ : g:airline_externals_syntastic.l:file_flag_color."%{&ro ? g:airline_readonly_symbol : ''}".l:status_color
+    let sl.=l:file_flag_color." %{&ro ? g:airline_readonly_symbol : ''}".l:status_color
+    let sl.=s:get_section(a:winnr, 'gutter', '', '')
+    let sl.=l:status_color
   else
     let sl.=l:status_color.' %f%m'
   endif
