@@ -93,8 +93,10 @@ function! s:getwinvar(winnr, key, ...)
   return get(winvals, a:key, (a:0 ? a:1 : ''))
 endfunction
 
-function! s:get_section(winnr, key)
-  return s:getwinvar(a:winnr, 'airline_section_'.a:key, g:airline_section_{a:key})
+function! s:get_section(winnr, key, ...)
+  let text = s:getwinvar(a:winnr, 'airline_section_'.a:key, g:airline_section_{a:key})
+  let [prefix, suffix] = [get(a:000, 0, ' '), get(a:000, 1, ' ')]
+  return empty(text) ? '' : prefix.text.suffix
 endfunction
 
 function! s:get_statusline(winnr, active)
@@ -107,15 +109,15 @@ function! s:get_statusline(winnr, active)
 
   let sl = '%{airline#update_highlight()}'
   if a:active || s:getwinvar(a:winnr, 'airline_left_only', 0)
-    let sl.=l:mode_color.' '.s:get_section(a:winnr, 'a').' '
+    let sl.=l:mode_color.s:get_section(a:winnr, 'a')
     let sl.='%{g:airline_detect_paste && &paste ? g:airline_paste_symbol." " : ""}'
     let sl.=l:mode_sep_color
     let sl.=a:active ? g:airline_left_sep : g:airline_left_alt_sep
     let sl.=l:info_color
-    let sl.=' '.s:get_section(a:winnr, 'b').' '
+    let sl.=s:get_section(a:winnr, 'b')
     let sl.=l:info_sep_color
     let sl.=g:airline_left_sep
-    let sl.=l:status_color.' %<'.s:get_section(a:winnr, 'c').' '
+    let sl.=l:status_color.s:get_section(a:winnr, 'c', ' %<')
     let gutter = s:getwinvar(a:winnr, 'airline_section_gutter', get(g:, 'airline_section_gutter', ''))
     let sl.=gutter != ''
           \ ? gutter
@@ -125,15 +127,15 @@ function! s:get_statusline(winnr, active)
   endif
   if !s:getwinvar(a:winnr, 'airline_left_only', 0)
     let sl.='%='
-    let sl.=' '.s:get_section(a:winnr, 'x').' '
+    let sl.=s:get_section(a:winnr, 'x')
     let sl.=l:info_sep_color
     let sl.=a:active ? g:airline_right_sep : g:airline_right_alt_sep
     let sl.=l:info_color
-    let sl.=' '.s:get_section(a:winnr, 'y').' '
+    let sl.=s:get_section(a:winnr, 'y')
     let sl.=l:mode_sep_color
     let sl.=a:active ? g:airline_right_sep : g:airline_right_alt_sep
     let sl.=l:mode_color
-    let sl.=' '.s:get_section(a:winnr, 'z').' '
+    let sl.=s:get_section(a:winnr, 'z')
   endif
   return sl
 endfunction
