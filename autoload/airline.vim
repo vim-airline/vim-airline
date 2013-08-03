@@ -117,7 +117,7 @@ function! airline#update_statusline()
   for section in s:sections
     unlet! w:airline_section_{section}
   endfor
-  for Fn in g:airline_window_override_funcrefs
+  for Fn in g:airline_statusline_funcrefs
     call Fn()
   endfor
 

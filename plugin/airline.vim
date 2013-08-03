@@ -13,6 +13,9 @@ endfunction
 if exists('g:airline_enable_fugitive') || exists('g:airline_fugitive_prefix')
   echom 'The g:airline_enable_fugitive and g:airline_fugitive_prefix variables have been deprecated and renamed to g:airline_enable_branch and g:airline_branch_prefix respectively. Please update your vimrc.'
 endif
+if exists('g:airline_window_override_funcrefs')
+  echom 'The g:airline_window_override_funcrefs variable has been deprecated.  Please use g:airline_statusline_funcrefs instead.'
+endif
 call s:check_defined('g:airline_left_sep', exists('g:airline_powerline_fonts')?"":">")
 call s:check_defined('g:airline_left_alt_sep', exists('g:airline_powerline_fonts')?"":">")
 call s:check_defined('g:airline_right_sep', exists('g:airline_powerline_fonts')?"":"<")
@@ -32,7 +35,7 @@ call s:check_defined('g:airline_theme', 'dark')
 call s:check_defined('g:airline_exclude_filenames', ['DebuggerWatch','DebuggerStack','DebuggerStatus'])
 call s:check_defined('g:airline_exclude_filetypes', [])
 call s:check_defined('g:airline_exclude_preview', 0)
-call s:check_defined('g:airline_window_override_funcrefs', [])
+call s:check_defined('g:airline_statusline_funcrefs', [])
 call s:check_defined('g:airline_exclude_funcrefs', [])
 
 call s:check_defined('g:airline_mode_map', {

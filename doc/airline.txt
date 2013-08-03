@@ -169,22 +169,31 @@ with the usual statusline syntax.
   let g:airline_section_c = '%t'
 <
 
-If there is a particular plugin or filetype that is not supported, you can
-extend it by adding a function reference to the global array.  Here is an
-example that you could add to your vimrc:
+==============================================================================
+FUNCREFS                                                  *airline-funcrefs*
+
+vim-airline internally uses funcrefs to integrate with third party plugins,
+and you can tap into this functionality to extend it for you needs.
+
+                                             *g:airline_statusline_funcrefs*
+The g:airline_statusline_funcrefs variable is an array of funcrefs that get
+invoked before the statusline gets overwritten for each window.  The following
+is an example of how you can extend vim-airline to support a new plugin.
 >
   function! MyPlugin()
     if &filetype == 'MyPluginFileType'
       let w:airline_section_a = 'MyPlugin'
       let w:airline_section_b = '%f'
       let w:airline_section_c = '%{MyPlugin#function()}'
+      let g:airline_variable_referenced_in_statusline = 'foo'
     endif
   endfunction
-  call add(g:airline_window_override_funcrefs, function('MyPlugin'))
+  call add(g:airline_statusline_funcrefs, function('MyPlugin'))
 <
-
-In a similar fashion, you can define a function to exclude a window from
-having its statusline modified.
+                                                *g:airline_exclude_funcrefs*
+The g:airline_exclude_funcrefs variable is an array that's returns 1 or 0 to
+determine whether that particular window should be excluded from having its
+statusline modified.  Here is an example:
 >
   function! ExcludeFoo()
     return &filetype == 'FooType'

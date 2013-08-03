@@ -111,7 +111,7 @@ function! airline#extensions#load()
   endif
 
   if get(g:, 'command_t_loaded', 0)
-    call add(g:airline_window_override_funcrefs, function('airline#extensions#commandt#apply_window_override'))
+    call add(g:airline_statusline_funcrefs, function('airline#extensions#commandt#apply_window_override'))
   endif
 
   if g:airline_enable_bufferline && get(g:, 'loaded_bufferline', 0)
@@ -124,8 +124,8 @@ function! airline#extensions#load()
     let g:bufferline_separator = ' '
   endif
 
-  call add(g:airline_window_override_funcrefs, function('airline#extensions#update_external_values'))
-  call add(g:airline_window_override_funcrefs, function('airline#extensions#apply_window_overrides'))
+  call add(g:airline_statusline_funcrefs, function('airline#extensions#update_external_values'))
+  call add(g:airline_statusline_funcrefs, function('airline#extensions#apply_window_overrides'))
   call add(g:airline_exclude_funcrefs, function('airline#extensions#is_excluded_window'))
 
   call airline#extensions#update_external_values()
