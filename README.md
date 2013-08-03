@@ -4,6 +4,16 @@ Lean &amp; mean statusline for vim that's light as air.
 
 ![img](https://github.com/bling/vim-airline/wiki/screenshots/demo.gif)
 
+# Features
+
+*  tiny core (under 200 lines), written with extensibility in mind (specifically adhering to the [open/closed principle][h]).
+*  integrates with a variety of plugins: [vim-bufferline][f], [fugitive][d], [unite][i], [ctrlp][j], [minibufexpl][o], [gundo][p], [undotree][q], [nerdtree][r], [tagbar][s], [syntastic][e] and [lawrencium][u].
+*  looks good with regular fonts and provides configuration points so you can use unicode or powerline symbols.
+*  optimized for speed; it loads in 1ms.
+*  fully customizable; if you know a little `statusline` syntax you can tweak it to your needs.
+*  trivial to write colorschemes; for a minimal theme you need to edit 9 lines of colors (please send pull requests).
+*  supports 7.2 as the minimum Vim version
+
 # Rationale
 
 There's already [powerline][b], why yet another statusline?
@@ -15,15 +25,6 @@ What about [vim-powerline][a]?
 *  the author has been active developing powerline, which was rewritten in python and expands its capabilities to tools outside of Vim, such as bash, zsh, and tmux.
 *  vim-powerline has been deprecated as a result, and no features will be added to it.
 *  vim-powerline uses different font codes, so if you want to use it with a powerline themed tmux (for example), it will not work.
-
-# Features
-
-*  tiny core (under 200 lines), written with extensibility in mind (specifically adhering to the [open/closed principle][h]).
-*  integrates with a variety of plugins: [vim-bufferline][f], [fugitive][d], [unite][i], [ctrlp][j], [minibufexpl][o], [gundo][p], [undotree][q], [nerdtree][r], [tagbar][s], [syntastic][e] and [lawrencium][u].
-*  looks good with regular fonts and provides configuration points so you can use unicode or powerline symbols.
-*  optimized for speed; it loads in 1ms.
-*  fully customizable; if you know a little `statusline` syntax you can tweak it to your needs.
-*  trivial to write colorschemes; for a minimal theme you need to edit 9 lines of colors (please send pull requests).
 
 # Where did the name come from?
 
