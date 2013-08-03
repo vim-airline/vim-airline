@@ -105,8 +105,8 @@ function! s:get_statusline(winnr, active)
 endfunction
 
 function! airline#update_statusline()
-  for Fn in g:airline_exclude_funcrefs
-    if Fn()
+  for i in range(0, len(g:airline_exclude_funcrefs) - 1)
+    if g:airline_exclude_funcrefs[i]()
       call setwinvar(winnr(), '&statusline', '')
       return
     endif
@@ -116,8 +116,8 @@ function! airline#update_statusline()
   for section in s:sections
     unlet! w:airline_section_{section}
   endfor
-  for Fn in g:airline_statusline_funcrefs
-    call Fn()
+  for i in range(0, len(g:airline_statusline_funcrefs) - 1)
+    call g:airline_statusline_funcrefs[i]()
   endfor
 
   let w:airline_active = 1
