@@ -66,6 +66,8 @@ function! airline#extensions#apply_window_overrides()
     call airline#extensions#apply_left_override('vimfiler', '%{vimfiler#get_status_string()}')
   elseif &ft == 'minibufexpl'
     call airline#extensions#apply_left_override('MiniBufExplorer', '')
+  elseif &ft == 'startify'
+    call airline#extensions#apply_left_override('startify', '')
   endif
 endfunction
 
