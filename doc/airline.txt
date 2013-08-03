@@ -105,6 +105,13 @@ values):
   let g:airline_exclude_preview = 0
 <
 
+* vim-airline set update t_Co to 256 forcely because background color won't
+ set correctly. If you have a problem for this update, please set below in
+ your vimrc.
+>
+  let g:airline_force_256color = 0
+<
+
 ==============================================================================
 COMMANDS                                                  *airline-commands*
 

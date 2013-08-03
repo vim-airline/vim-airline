@@ -92,3 +92,11 @@ augroup airline
   autocmd ShellCmdPost * call airline#update_externals()
   autocmd CursorMoved * call <sid>sync_active_winnr()
 augroup END
+
+" NOTE: airline set update t_Co to 256 forcely because background color won't
+" set correctly. If you have a problem for this update, please set below in
+" your vimrc.
+"   let g:airline_force_256color = 0
+if get(g:, 'airline_force_256color', 1)
+  set t_Co=256
+endif
