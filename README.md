@@ -7,9 +7,9 @@ Lean &amp; mean statusline for vim that's light as air.
 # Features
 
 *  tiny core (under 200 lines), written with extensibility in mind (specifically adhering to the [open/closed principle][h]).
-*  integrates with a variety of plugins: [vim-bufferline][f], [fugitive][d], [unite][i], [ctrlp][j], [minibufexpl][o], [gundo][p], [undotree][q], [nerdtree][r], [tagbar][s], [syntastic][e] and [lawrencium][u].
+*  integrates with a variety of plugins, including: [vim-bufferline][f], [fugitive][d], [unite][i], [ctrlp][j], [minibufexpl][o], [gundo][p], [undotree][q], [nerdtree][r], [tagbar][s], [syntastic][e] and [lawrencium][u].
 *  looks good with regular fonts and provides configuration points so you can use unicode or powerline symbols.
-*  optimized for speed; it loads in 1ms.
+*  optimized for speed; it loads in under a millisecond.
 *  fully customizable; if you know a little `statusline` syntax you can tweak it to your needs.
 *  trivial to write colorschemes; for a minimal theme you need to edit 9 lines of colors (please send pull requests).
 *  supports 7.2 as the minimum Vim version
@@ -77,7 +77,7 @@ Contributions and pull requests are welcome.  Please take note of the following 
 
 *  adhere to the existing style as much as possible; notably, 2 space indents and long-form keywords.
 *  keep the history clean! squash your branches before you submit a pull request. `pull --rebase` is your friend.
-*  this plugin got a lot more popular than i initially expected, if you make changes to the core, please test on as many versions of vim as possible.
+*  any changes to the core should be tested against Vim 7.2.
 *  if you submit a theme, please create a screenshot so it can be added to the [Wiki][n].
 
 # License

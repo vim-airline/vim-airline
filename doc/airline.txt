@@ -205,9 +205,13 @@ statusline modified.  Here is an example:
 WRITING THEMES                                              *airline-themes*
 
 Themes are written "close to the metal" -- you will need to know some basic
-VimL syntax to write a theme, but if you're written in any programming
-language it will be easy to pick up.  Have a look at the dark.vim theme
-where it is fully documented.
+VimL syntax to write a theme, but if you've written in any programming
+language before it will be easy to pick up.
+
+The |dark.vim| theme fully documents this procedure and will guide you through
+the process.  The |jellybeans.vim| theme is another example of how to write a
+theme, but instead of manually declaring colors, it extracts the values from
+highlight groups.
 
 ==============================================================================
 TROUBLESHOOTING                                    *airline-troubleshooting*

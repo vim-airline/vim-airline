@@ -13,3 +13,25 @@ function! airline#themes#generate_color_map(section1, section2, section3, file)
       \ 'file':           [ a:file[0]     , a:file[1]     , a:file[2]     , a:file[3]     , get(a:file    , 4, ''    ) ] ,
       \ }
 endfunction
+
+function! s:get_syn(group, what)
+  return synIDattr(synIDtrans(hlID(a:group)), a:what)
+endfunction
+
+function! s:get_array(fg, bg, opts)
+  return has('gui_running')
+        \ ? [ a:fg, a:bg, '', '', join(a:opts, ',') ]
+        \ : [ '', '', a:fg >= 0 ? a:fg : '', a:bg >= 0 ? a:bg : '', join(a:opts, ',') ]
+endfunction
+
+function! airline#themes#get_highlight(group, ...)
+  let fg = s:get_syn(a:group, 'fg')
+  let bg = s:get_syn(a:group, 'bg')
+  return s:get_array(fg, bg, a:000)
+endfunction
+
+function! airline#themes#get_highlight2(fg, bg, ...)
+  let fg = s:get_syn(a:fg[0], a:fg[1])
+  let bg = s:get_syn(a:bg[0], a:bg[1])
+  return s:get_array(fg, bg, a:000)
+endfunction
