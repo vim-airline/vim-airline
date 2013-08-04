@@ -71,7 +71,7 @@ endfunction
 function! s:sync_active_winnr()
   if winnr() != s:active_winnr
     " prevent ctrlp statusline from getting overwritten
-    if match(&statusline, 'CtrlPlight') >= 0
+    if get(g:, 'loaded_ctrlp', 0) && match(&statusline, 'CtrlPlight') >= 0
       return
     endif
     call s:on_window_changed()
