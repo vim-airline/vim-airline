@@ -2,7 +2,7 @@ function! s:generate()
   let s:file = airline#themes#get_highlight('Constant')
   let s:N1 = airline#themes#get_highlight('DiffDelete', 'bold')
   let s:N2 = airline#themes#get_highlight('Pmenu')
-  let s:N3 = airline#themes#get_highlight('NonText')
+  let s:N3 = airline#themes#get_highlight('CursorLine')
   let g:airline#themes#tomorrow#normal = airline#themes#generate_color_map(s:N1, s:N2, s:N3, s:file)
   let g:airline#themes#tomorrow#normal_modified = {
         \ 'statusline': airline#themes#get_highlight('vimCommand')
@@ -26,7 +26,7 @@ function! s:generate()
   let g:airline#themes#tomorrow#visual = airline#themes#generate_color_map(s:V1, s:V2, s:V3, s:file)
   let g:airline#themes#tomorrow#visual_modified = g:airline#themes#tomorrow#normal_modified
 
-  let s:IA = airline#themes#get_highlight2(['NonText', 'fg'], ['Normal', 'bg'])
+  let s:IA = airline#themes#get_highlight2(['NonText', 'fg'], ['CursorLine', 'bg'])
   let g:airline#themes#tomorrow#inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
 endfunction
 

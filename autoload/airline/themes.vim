@@ -19,9 +19,17 @@ function! s:get_syn(group, what)
 endfunction
 
 function! s:get_array(fg, bg, opts)
+  let fg = a:fg
+  let bg = a:bg
+  if fg == '' || fg < 0
+    let fg = s:get_syn('Normal', 'fg')
+  endif
+  if bg == '' || bg < 0
+    let bg = s:get_syn('Normal', 'bg')
+  endif
   return has('gui_running')
-        \ ? [ a:fg, a:bg, '', '', join(a:opts, ',') ]
-        \ : [ '', '', a:fg >= 0 ? a:fg : '', a:bg >= 0 ? a:bg : '', join(a:opts, ',') ]
+        \ ? [ fg, bg, '', '', join(a:opts, ',') ]
+        \ : [ '', '', fg, bg, join(a:opts, ',') ]
 endfunction
 
 function! airline#themes#get_highlight(group, ...)
