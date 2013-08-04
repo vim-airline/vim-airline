@@ -60,7 +60,7 @@ endfunction
 
 function! s:get_section(winnr, key, ...)
   let text = s:getwinvar(a:winnr, 'airline_section_'.a:key, g:airline_section_{a:key})
-  let [prefix, suffix] = [get(a:000, 0, ' '), get(a:000, 1, ' ')]
+  let [prefix, suffix] = [get(a:000, 0, '%( '), get(a:000, 1, ' %)')]
   return empty(text) ? '' : prefix.text.suffix
 endfunction
 
