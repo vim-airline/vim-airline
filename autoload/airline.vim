@@ -104,21 +104,29 @@ function! s:get_statusline(winnr, active)
   return sl
 endfunction
 
-function! airline#update_statusline()
-  for i in range(0, len(g:airline_exclude_funcrefs) - 1)
-    if g:airline_exclude_funcrefs[i]()
-      call setwinvar(winnr(), '&statusline', '')
-      return
+function! s:exec_funcrefs(list, break_early)
+  " for 7.2; we cannot iterate list, hence why we use range()
+  " for 7.3-[97, 328]; we cannot reuse the variable, hence the {}
+  for i in range(0, len(a:list) - 1)
+    let Fn{i} = a:list[i]
+    if Fn{i}() && a:break_early
+      return 1
     endif
   endfor
+  return 0
+endfunction
+
+function! airline#update_statusline()
+  if s:exec_funcrefs(g:airline_exclude_funcrefs, 1)
+    call setwinvar(winnr(), '&statusline', '')
+    return
+  endif
 
   unlet! w:airline_left_only
   for section in s:sections
     unlet! w:airline_section_{section}
   endfor
-  for i in range(0, len(g:airline_statusline_funcrefs) - 1)
-    call g:airline_statusline_funcrefs[i]()
-  endfor
+  call s:exec_funcrefs(g:airline_statusline_funcrefs, 0)
 
   let w:airline_active = 1
   call setwinvar(winnr(), '&statusline', s:get_statusline(winnr(), 1))
