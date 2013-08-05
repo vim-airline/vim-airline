@@ -15,18 +15,19 @@ function! airline#themes#generate_color_map(section1, section2, section3, file)
 endfunction
 
 function! s:get_syn(group, what)
-  return synIDattr(synIDtrans(hlID(a:group)), a:what)
+  let color = synIDattr(synIDtrans(hlID(a:group)), a:what)
+  if empty(color) || color == -1
+    let color = synIDattr(synIDtrans(hlID('Normal')), a:what)
+  endif
+  if empty(color) || color == -1
+    let color = a:what ==# 'fg' ? 0 : 1
+  endif
+  return color
 endfunction
 
 function! s:get_array(fg, bg, opts)
   let fg = a:fg
   let bg = a:bg
-  if fg == '' || fg < 0
-    let fg = s:get_syn('Normal', 'fg')
-  endif
-  if bg == '' || bg < 0
-    let bg = s:get_syn('Normal', 'bg')
-  endif
   return has('gui_running')
         \ ? [ fg, bg, '', '', join(a:opts, ',') ]
         \ : [ '', '', fg, bg, join(a:opts, ',') ]
