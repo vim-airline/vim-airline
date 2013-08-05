@@ -109,8 +109,12 @@ function! s:exec_funcrefs(list, break_early)
   " for 7.3-[97, 328]; we cannot reuse the variable, hence the {}
   for i in range(0, len(a:list) - 1)
     let Fn{i} = a:list[i]
-    if Fn{i}() && a:break_early
-      return 1
+    if a:break_early
+      if Fn{i}()
+        return 1
+      endif
+    else
+      call Fn{i}()
     endif
   endfor
   return 0
