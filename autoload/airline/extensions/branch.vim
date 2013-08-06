@@ -2,6 +2,9 @@
 " vim: ts=2 sts=2 sw=2 fdm=indent
 
 function! airline#extensions#branch#apply()
+  if exists('w:airline_left_only')
+    return
+  endif
   let w:airline_section_b =
         \ exists('*fugitive#head') && strlen(fugitive#head()) > 0
           \ ? g:airline_branch_prefix.fugitive#head()

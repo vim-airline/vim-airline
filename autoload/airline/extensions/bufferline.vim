@@ -2,6 +2,9 @@
 " vim: ts=2 sts=2 sw=2 fdm=indent
 
 function! airline#extensions#bufferline#apply()
+  if exists('w:airline_left_only')
+    return
+  endif
   let w:airline_section_c = '%{bufferline#refresh_status()}'.bufferline#get_status_string()
 endfunction
 
