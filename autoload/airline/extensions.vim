@@ -117,13 +117,7 @@ function! airline#extensions#load()
   endif
 
   if g:airline_enable_bufferline && get(g:, 'loaded_bufferline', 0)
-    highlight AlBl_active gui=bold cterm=bold term=bold
-    highlight link AlBl_inactive Al6
-    let g:bufferline_inactive_highlight = 'AlBl_inactive'
-    let g:bufferline_active_highlight = 'AlBl_active'
-    let g:bufferline_active_buffer_left = ''
-    let g:bufferline_active_buffer_right = ''
-    let g:bufferline_separator = ' '
+    call airline#extensions#bufferline#init()
   endif
 
   call add(g:airline_statusline_funcrefs, function('airline#extensions#update_external_values'))
