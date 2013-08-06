@@ -163,6 +163,13 @@ function! s:generate()
         \ s:VM.info_separator[0].t, s:VM.info_separator[1].t, s:VM.info_separator[2]],
         \ 'statusline': [s:VM.statusline[0].g, s:VM.statusline[1].g,
         \ s:VM.statusline[0].t, s:VM.statusline[1].t, s:VM.statusline[2]]}
+
+  if get(g:, 'loaded_ctrlp', 0)
+    let g:airline#themes#solarized#ctrlp = airline#extensions#ctrlp#generate_color_map(
+          \ [s:I3[0].g, s:I3[1].g, s:I3[0].t, s:I3[1].t, s:I3[2]],
+          \ [s:I2[0].g, s:I2[1].g, s:I2[0].t, s:I2[1].t, s:I2[2]],
+          \ [s:I1[0].g, s:I1[1].g, s:I1[0].t, s:I1[1].t, s:I1[2]])
+  endif
 endfunction
 
 call s:generate()
