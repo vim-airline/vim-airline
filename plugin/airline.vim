@@ -57,26 +57,13 @@ call s:check_defined('g:airline_section_y', "%{strlen(&fenc)>0?&fenc:''}%{strlen
 call s:check_defined('g:airline_section_z', '%3p%% '.g:airline_linecolumn_prefix.'%3l:%3c')
 
 let s:airline_initialized = 0
-let s:active_winnr = -1
 function! s:on_window_changed()
-  let s:active_winnr = winnr()
   if !s:airline_initialized
     call airline#extensions#load()
     call airline#load_theme(g:airline_theme)
     let s:airline_initialized = 1
   endif
   call airline#update_statusline()
-endfunction
-
-" non-trivial number of external plugins use eventignore=all, so we need to account for that
-function! s:sync_active_winnr()
-  if winnr() != s:active_winnr
-    " prevent ctrlp statusline from getting overwritten
-    if get(g:, 'loaded_ctrlp', 0) && match(&statusline, 'CtrlPlight') >= 0
-      return
-    endif
-    call s:on_window_changed()
-  endif
 endfunction
 
 function! s:get_airline_themes(a, l, p)
@@ -97,5 +84,4 @@ augroup airline
   autocmd ColorScheme * call airline#highlight(['normal'])
   autocmd WinEnter,BufWinEnter,FileType,BufUnload,ShellCmdPost *
         \ call <sid>on_window_changed()
-  autocmd CursorMoved * call <sid>sync_active_winnr()
 augroup END

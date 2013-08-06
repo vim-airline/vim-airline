@@ -18,7 +18,10 @@ function! airline#extensions#apply_left_override(section1, section2)
   let w:airline_left_only = 1
 endfunction
 
-function! airline#extensions#apply_window_overrides()
+let s:active_winnr = -1
+function! airline#extensions#update_statusline()
+  let s:active_winnr = winnr()
+
   if &buftype == 'quickfix'
     let w:airline_section_a = 'Quickfix'
     let w:airline_section_b = ''
@@ -90,19 +93,33 @@ function! airline#extensions#load_theme()
   endif
 endfunction
 
+function! s:sync_active_winnr()
+  if winnr() != s:active_winnr
+    if airline#exec_funcrefs(s:ext._cursormove_funcrefs, 1)
+      return
+    endif
+    call airline#update_statusline()
+  endif
+endfunction
+
 function! airline#extensions#load()
+  " non-trivial number of external plugins use eventignore=all, so we need to account for that
+  autocmd CursorMoved * call <sid>sync_active_winnr()
+
+  " load core funcrefs
+  call add(g:airline_exclude_funcrefs, function('airline#extensions#is_excluded_window'))
+  call add(g:airline_statusline_funcrefs, function('airline#extensions#update_statusline'))
+
   if get(g:, 'loaded_unite', 0)
     let g:unite_force_overwrite_statusline = 0
   endif
+
   if get(g:, 'loaded_vimfiler', 0)
     let g:vimfiler_force_overwrite_statusline = 0
   endif
 
   if get(g:, 'loaded_ctrlp', 0)
-    let g:ctrlp_status_func = {
-          \ 'main': 'airline#extensions#ctrlp#ctrlp_airline',
-          \ 'prog': 'airline#extensions#ctrlp#ctrlp_airline_status',
-          \ }
+    call airline#extensions#ctrlp#init(s:ext)
   endif
 
   if get(g:, 'command_t_loaded', 0)
@@ -125,9 +142,6 @@ function! airline#extensions#load()
     call airline#extensions#bufferline#init(s:ext)
   endif
 
-  call add(g:airline_statusline_funcrefs, function('airline#extensions#apply_window_overrides'))
-  call add(g:airline_exclude_funcrefs, function('airline#extensions#is_excluded_window'))
-
-  call airline#extensions#update_external_values()
+  call airline#exec_funcrefs(g:airline_statusline_funcrefs, 0)
 endfunction
 
