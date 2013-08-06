@@ -48,8 +48,8 @@ call s:check_defined('g:airline_mode_map', {
       \ '' : 'V-BLOCK',
       \ })
 
-call s:check_defined('g:airline_section_a', '%{g:airline_current_mode_text}')
-call s:check_defined('g:airline_section_b', '')
+call s:check_defined('g:airline_section_a', '%{get(g:, "airline_current_mode_text", "")}')
+call s:check_defined('g:airline_section_b', '%{get(g:, "airline_current_branch", "")}')
 call s:check_defined('g:airline_section_c', '%f%m')
 call s:check_defined('g:airline_section_gutter', '')
 call s:check_defined('g:airline_section_x', "%{strlen(&filetype)>0?&filetype:''}")

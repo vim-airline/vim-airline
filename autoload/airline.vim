@@ -143,7 +143,6 @@ function! airline#update_statusline()
   endfor
 endfunction
 
-let g:airline_current_mode_text = ''
 function! airline#update_highlight()
   if get(w:, 'airline_active', 1)
     let l:m = mode()
