@@ -10,6 +10,19 @@ function! s:ext.add_cursormove_funcref(funcref) dict
   call add(self._cursormove_funcrefs, a:funcref)
 endfunction
 
+let s:filetype_overrides = {
+      \ 'netrw': [ 'netrw', '%f' ],
+      \ 'unite': [ 'Unite', '%{unite#get_status_string()}' ],
+      \ 'nerdtree': [ 'NERD', '' ],
+      \ 'undotree': [ 'undotree', '' ],
+      \ 'gundo': [ 'Gundo', '' ],
+      \ 'diff': [ 'diff', '' ],
+      \ 'vimshell': [ 'vimshell', '%{vimshell#get_status_string()}' ],
+      \ 'vimfiler': [ 'vimfiler', '%{vimfiler#get_status_string()}' ],
+      \ 'minibufexpl': [ 'MiniBufExplorer', '' ],
+      \ 'startify': [ 'startify', '' ],
+      \ }
+
 function! airline#extensions#apply_left_override(section1, section2)
   let w:airline_section_a = a:section1
   let w:airline_section_b = a:section2
@@ -42,28 +55,9 @@ function! airline#extensions#update_statusline()
     let w:airline_section_c = bufname(winbufnr(winnr()))
   endif
 
-  if &ft == 'netrw'
-    call airline#extensions#apply_left_override('netrw', '%f')
-  elseif &ft == 'unite'
-    call airline#extensions#apply_left_override('Unite', '%{unite#get_status_string()}')
-  elseif &ft == 'nerdtree'
-    call airline#extensions#apply_left_override('NERD', '')
-  elseif &ft == 'undotree'
-    call airline#extensions#apply_left_override('undotree', '')
-  elseif &ft == 'gundo'
-    call airline#extensions#apply_left_override('Gundo', '')
-  elseif &ft == 'diff'
-    call airline#extensions#apply_left_override('diff', '')
-  elseif &ft == 'tagbar'
-    call airline#extensions#apply_left_override('Tagbar', '')
-  elseif &ft == 'vimshell'
-    call airline#extensions#apply_left_override('vimshell', '%{vimshell#get_status_string()}')
-  elseif &ft == 'vimfiler'
-    call airline#extensions#apply_left_override('vimfiler', '%{vimfiler#get_status_string()}')
-  elseif &ft == 'minibufexpl'
-    call airline#extensions#apply_left_override('MiniBufExplorer', '')
-  elseif &ft == 'startify'
-    call airline#extensions#apply_left_override('startify', '')
+  if has_key(s:filetype_overrides, &ft)
+    let args = s:filetype_overrides[&ft]
+    call airline#extensions#apply_left_override(args[0], args[1])
   endif
 endfunction
 

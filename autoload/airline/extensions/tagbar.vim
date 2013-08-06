@@ -3,6 +3,9 @@
 
 function! airline#extensions#tagbar#apply()
   let w:airline_section_x = '%(%{tagbar#currenttag("%s","")} '.g:airline_right_alt_sep.' %)'.g:airline_section_x
+  if &ft == 'tagbar'
+    call airline#extensions#apply_left_override('Tagbar', '')
+  endif
 endfunction
 
 function! airline#extensions#tagbar#init(ext)
