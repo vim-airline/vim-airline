@@ -19,8 +19,6 @@ function! airline#extensions#apply_left_override(section1, section2)
 endfunction
 
 function! airline#extensions#update_external_values()
-  let g:airline_externals_syntastic = g:airline_enable_syntastic && exists('*SyntasticStatuslineFlag')
-        \ ? '%#warningmsg#%{SyntasticStatuslineFlag()}' : ''
   let g:airline_externals_branch = g:airline_enable_branch
         \ ? (exists('*fugitive#head') && strlen(fugitive#head()) > 0
           \ ? g:airline_branch_prefix.fugitive#head()
@@ -120,10 +118,14 @@ function! airline#extensions#load()
   endif
 
   if get(g:, 'command_t_loaded', 0)
-    call add(g:airline_statusline_funcrefs, function('airline#extensions#commandt#apply_window_override'))
+    call airline#extensions#commandt#init(s:ext)
   endif
 
-  if g:airline_enable_bufferline && get(g:, 'loaded_bufferline', 0)
+  if g:airline_enable_syntastic && get(g:, 'loaded_syntastic_plugin')
+    call airline#extensions#syntastic#init(s:ext)
+  endif
+
+  if g:airline_enable_bufferline && exists('*bufferline#get_status_string')
     call airline#extensions#bufferline#init(s:ext)
   endif
 

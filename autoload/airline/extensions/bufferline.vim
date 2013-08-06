@@ -14,7 +14,5 @@ function! airline#extensions#bufferline#init(ext)
   let g:bufferline_active_buffer_right = ''
   let g:bufferline_separator = ' '
 
-  if g:airline_enable_bufferline && exists('*bufferline#get_status_string')
-    call a:ext.add_statusline_funcref(function('airline#extensions#bufferline#apply'))
-  endif
+  call a:ext.add_statusline_funcref(function('airline#extensions#bufferline#apply'))
 endfunction
