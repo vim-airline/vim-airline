@@ -18,11 +18,6 @@ function! airline#extensions#apply_left_override(section1, section2)
   let w:airline_left_only = 1
 endfunction
 
-function! airline#extensions#update_external_values()
-  let g:airline_externals_tagbar = g:airline_enable_tagbar && exists(':Tagbar')
-        \ ? '%(%{tagbar#currenttag("%s","")} '.g:airline_right_alt_sep.' %)' : ''
-endfunction
-
 function! airline#extensions#apply_window_overrides()
   if &buftype == 'quickfix'
     let w:airline_section_a = 'Quickfix'
@@ -114,6 +109,10 @@ function! airline#extensions#load()
     call airline#extensions#commandt#init(s:ext)
   endif
 
+  if get(g:, 'loaded_tagbar', 0)
+    call airline#extensions#tagbar#init(s:ext)
+  endif
+
   if g:airline_enable_branch && (get(g:, 'loaded_fugitive', 0) || get(g:, 'loaded_lawrencium', 0))
     call airline#extensions#branch#init(s:ext)
   endif
@@ -126,7 +125,6 @@ function! airline#extensions#load()
     call airline#extensions#bufferline#init(s:ext)
   endif
 
-  call add(g:airline_statusline_funcrefs, function('airline#extensions#update_external_values'))
   call add(g:airline_statusline_funcrefs, function('airline#extensions#apply_window_overrides'))
   call add(g:airline_exclude_funcrefs, function('airline#extensions#is_excluded_window'))
 

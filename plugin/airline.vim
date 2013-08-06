@@ -48,6 +48,14 @@ call s:check_defined('g:airline_mode_map', {
       \ '' : 'V-BLOCK',
       \ })
 
+call s:check_defined('g:airline_section_a', '%{g:airline_current_mode_text}')
+call s:check_defined('g:airline_section_b', '')
+call s:check_defined('g:airline_section_c', '%f%m')
+call s:check_defined('g:airline_section_gutter', '')
+call s:check_defined('g:airline_section_x', "%{strlen(&filetype)>0?&filetype:''}")
+call s:check_defined('g:airline_section_y', "%{strlen(&fenc)>0?&fenc:''}%{strlen(&ff)>0?'['.&ff.']':''}")
+call s:check_defined('g:airline_section_z', '%3p%% '.g:airline_linecolumn_prefix.'%3l:%3c')
+
 let s:airline_initialized = 0
 let s:active_winnr = -1
 function! s:on_window_changed()
@@ -55,13 +63,6 @@ function! s:on_window_changed()
   if !s:airline_initialized
     call airline#extensions#load()
     call airline#load_theme(g:airline_theme)
-    call s:check_defined('g:airline_section_a', '%{g:airline_current_mode_text}')
-    call s:check_defined('g:airline_section_b', '')
-    call s:check_defined('g:airline_section_c', '%f%m')
-    call s:check_defined('g:airline_section_gutter', '')
-    call s:check_defined('g:airline_section_x', g:airline_externals_tagbar."%{strlen(&filetype)>0?&filetype:''}")
-    call s:check_defined('g:airline_section_y', "%{strlen(&fenc)>0?&fenc:''}%{strlen(&ff)>0?'['.&ff.']':''}")
-    call s:check_defined('g:airline_section_z', '%3p%% '.g:airline_linecolumn_prefix.'%3l:%3c')
     let s:airline_initialized = 1
   endif
   call airline#update_statusline()
