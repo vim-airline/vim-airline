@@ -1,3 +1,4 @@
+function! s:generate()
 """"""""""""""""""""""""""""""""""""""""""""""""
 " Options
 """"""""""""""""""""""""""""""""""""""""""""""""
@@ -162,3 +163,10 @@ let g:airline#themes#solarized#visual_modified = {
             \ s:VM.info_separator[0].t, s:VM.info_separator[1].t, s:VM.info_separator[2]],
             \ 'statusline': [s:VM.statusline[0].g, s:VM.statusline[1].g,
             \ s:VM.statusline[0].t, s:VM.statusline[1].t, s:VM.statusline[2]]}
+endfunction
+
+call s:generate()
+augroup airline_solarized
+  autocmd!
+  autocmd ColorScheme * call <sid>generate() | call airline#reload_highlight()
+augroup END
