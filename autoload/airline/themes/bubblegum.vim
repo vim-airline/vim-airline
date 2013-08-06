@@ -62,3 +62,6 @@ let g:airline#themes#bubblegum#inactive_modified = {
       \ 'statusline': [s:gui_orange, '', s:cterm_orange, '', ''],
       \ }
 
+if get(g:, 'loaded_ctrlp', 0)
+  let g:airline#themes#bubblegum#ctrlp = airline#extensions#ctrlp#generate_color_map(s:N3, s:N2, s:I1)
+endif

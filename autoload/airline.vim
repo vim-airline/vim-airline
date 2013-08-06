@@ -24,9 +24,9 @@ function! airline#exec_highlight(group, colors)
         \ colors[1] != '' ? 'guibg='.colors[1] : '',
         \ colors[2] != '' ? 'ctermfg='.colors[2] : '',
         \ colors[3] != '' ? 'ctermbg='.colors[3] : '',
-        \ colors[4] != '' ? 'gui='.colors[4] : '',
-        \ colors[4] != '' ? 'cterm='.colors[4] : '',
-        \ colors[4] != '' ? 'term='.colors[4] : '')
+        \ len(colors) > 4 && colors[4] != '' ? 'gui='.colors[4] : '',
+        \ len(colors) > 4 && colors[4] != '' ? 'cterm='.colors[4] : '',
+        \ len(colors) > 4 && colors[4] != '' ? 'term='.colors[4] : '')
 endfunction
 
 function! airline#reload_highlight()

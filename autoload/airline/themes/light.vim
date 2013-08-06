@@ -44,3 +44,7 @@ let g:airline#themes#light#inactive = airline#themes#generate_color_map(s:IA, s:
 let g:airline#themes#light#inactive_modified = {
       \ 'statusline': [ '#df0000' , '' , '160' , '', '' ]
       \ }
+
+if get(g:, 'loaded_ctrlp', 0)
+  let g:airline#themes#light#ctrlp = airline#extensions#ctrlp#generate_color_map(s:N3, s:I2, s:I1)
+endif
