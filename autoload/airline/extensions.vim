@@ -19,13 +19,6 @@ function! airline#extensions#apply_left_override(section1, section2)
 endfunction
 
 function! airline#extensions#update_external_values()
-  let g:airline_externals_branch = g:airline_enable_branch
-        \ ? (exists('*fugitive#head') && strlen(fugitive#head()) > 0
-          \ ? g:airline_branch_prefix.fugitive#head()
-          \ : exists('*lawrencium#statusline') && strlen(lawrencium#statusline()) > 0
-            \ ? g:airline_branch_prefix.lawrencium#statusline()
-            \ : '')
-        \ : ''
   let g:airline_externals_tagbar = g:airline_enable_tagbar && exists(':Tagbar')
         \ ? '%(%{tagbar#currenttag("%s","")} '.g:airline_right_alt_sep.' %)' : ''
 endfunction
@@ -119,6 +112,10 @@ function! airline#extensions#load()
 
   if get(g:, 'command_t_loaded', 0)
     call airline#extensions#commandt#init(s:ext)
+  endif
+
+  if g:airline_enable_branch && (get(g:, 'loaded_fugitive', 0) || get(g:, 'loaded_lawrencium', 0))
+    call airline#extensions#branch#init(s:ext)
   endif
 
   if g:airline_enable_syntastic && get(g:, 'loaded_syntastic_plugin')
