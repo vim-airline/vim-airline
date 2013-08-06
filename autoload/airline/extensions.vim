@@ -1,6 +1,15 @@
 " MIT license. Copyright (c) 2013 Bailey Ling.
 " vim: ts=2 sts=2 sw=2 fdm=indent
 
+let s:ext = {}
+let s:ext._cursormove_funcrefs = []
+function! s:ext.add_statusline_funcref(funcref) dict
+  call add(g:airline_statusline_funcrefs, a:funcref)
+endfunction
+function! s:ext.add_cursormove_funcref(funcref) dict
+  call add(self._cursormove_funcrefs, a:funcref)
+endfunction
+
 function! airline#extensions#apply_left_override(section1, section2)
   let w:airline_section_a = a:section1
   let w:airline_section_b = a:section2
@@ -10,8 +19,6 @@ function! airline#extensions#apply_left_override(section1, section2)
 endfunction
 
 function! airline#extensions#update_external_values()
-  let g:airline_externals_bufferline = g:airline_enable_bufferline && exists('*bufferline#get_status_string')
-        \ ? '%{bufferline#refresh_status()}'.bufferline#get_status_string() : "%f%m"
   let g:airline_externals_syntastic = g:airline_enable_syntastic && exists('*SyntasticStatuslineFlag')
         \ ? '%#warningmsg#%{SyntasticStatuslineFlag()}' : ''
   let g:airline_externals_branch = g:airline_enable_branch
@@ -117,7 +124,7 @@ function! airline#extensions#load()
   endif
 
   if g:airline_enable_bufferline && get(g:, 'loaded_bufferline', 0)
-    call airline#extensions#bufferline#init()
+    call airline#extensions#bufferline#init(s:ext)
   endif
 
   call add(g:airline_statusline_funcrefs, function('airline#extensions#update_external_values'))
