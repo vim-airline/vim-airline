@@ -105,6 +105,8 @@ function! s:get_statusline(winnr, active)
     let sl.=a:active ? g:airline_right_sep : g:airline_right_alt_sep
     let sl.=l:mode_color
     let sl.=s:get_section(a:winnr, 'z')
+    let sl.="%#Al3#"
+    let sl.='%{g:airline_detect_white_space && search(" $","nw") ? " ✹ " : ""}'
   endif
   return sl
 endfunction
