@@ -31,10 +31,6 @@ function! s:generate()
 
   let s:IA = airline#themes#get_highlight2(['NonText', 'fg'], ['CursorLine', 'bg'])
   let g:airline#themes#tomorrow#inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
-
-  if get(g:, 'loaded_ctrlp', 0)
-    let g:airline#themes#tomorrow#ctrlp = airline#extensions#ctrlp#generate_color_map(s:N3, s:N2, s:V1)
-  endif
 endfunction
 
 call s:generate()

@@ -100,6 +100,3 @@ let s:IA = [ '#4e4e4e' , s:guibg , 239 , s:termbg , '' ]
 let g:airline#themes#simple#inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
 let g:airline#themes#simple#inactive_modified = copy(g:airline#themes#simple#normal_modified)
 
-if get(g:, 'loaded_ctrlp', 0)
-  let g:airline#themes#simple#ctrlp = airline#extensions#ctrlp#generate_color_map(s:N3, s:N2, s:I1)
-endif

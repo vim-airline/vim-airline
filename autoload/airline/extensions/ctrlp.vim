@@ -17,9 +17,9 @@ function! airline#extensions#ctrlp#load_theme()
     let theme = g:airline#themes#{g:airline_theme}#ctrlp
   else
     let theme = airline#extensions#ctrlp#generate_color_map(
-          \ [ '#d7d7ff' , '#5f00af' , 189 , 55  , ''     ],
-          \ [ '#ffffff' , '#875fd7' , 231 , 98  , ''     ],
-          \ [ '#5f00af' , '#ffffff' , 55  , 231 , 'bold' ])
+          \ g:airline#themes#{g:airline_theme}#insert['statusline'],
+          \ g:airline#themes#{g:airline_theme}#insert['info'],
+          \ g:airline#themes#{g:airline_theme}#insert['mode'])
   endif
   for key in keys(theme)
     call airline#exec_highlight(key, theme[key])

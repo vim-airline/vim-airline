@@ -38,10 +38,6 @@ function! s:generate()
   " And of course, you can always do it manually as well.
   let s:IA = [ '#444444', '#1c1c1c', 237, 234 ]
   let g:airline#themes#jellybeans#inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
-
-  if get(g:, 'loaded_ctrlp', 0)
-    let g:airline#themes#jellybeans#ctrlp = airline#extensions#ctrlp#generate_color_map(s:N3, s:N2, s:I1)
-  endif
 endfunction
 
 call s:generate()

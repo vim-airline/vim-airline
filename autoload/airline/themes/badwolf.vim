@@ -52,6 +52,3 @@ let g:airline#themes#badwolf#inactive = airline#themes#generate_color_map(s:IA, 
 let g:airline#themes#badwolf#inactive_modified = {
       \ 'statusline'     : [ s:V1[1]   , ''        , s:V1[3]   , ''        , ''     ] }
 
-if get(g:, 'loaded_ctrlp', 0)
-  let g:airline#themes#badwolf#ctrlp = airline#extensions#ctrlp#generate_color_map(s:N3, s:I2, s:I1)
-endif
