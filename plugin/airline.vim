@@ -93,7 +93,7 @@ command! -nargs=? -complete=customlist,<sid>get_airline_themes AirlineTheme call
 
 augroup airline
   autocmd!
-  autocmd ColorScheme * call airline#highlight(['normal'])
+  autocmd ColorScheme * call airline#reload_highlight()
   autocmd WinEnter,BufWinEnter,FileType,BufUnload,ShellCmdPost *
         \ call <sid>on_window_changed()
   autocmd CursorMoved * call <sid>sync_active_winnr()
