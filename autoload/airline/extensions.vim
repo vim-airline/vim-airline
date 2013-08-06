@@ -59,7 +59,7 @@ function! airline#extensions#apply_window_overrides()
   elseif &ft == 'diff'
     call airline#extensions#apply_left_override('diff', '')
   elseif &ft == 'tagbar'
-    call airline#extensions#apply_left_override('Tagbar', '')
+    call airline#extensions#apply_left_override('Tagbar', '%{TagbarGenerateStatusline()}')
   elseif &ft == 'vimshell'
     call airline#extensions#apply_left_override('vimshell', '%{vimshell#get_status_string()}')
   elseif &ft == 'vimfiler'
