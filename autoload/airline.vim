@@ -109,7 +109,7 @@ function! s:get_statusline(winnr, active)
   return sl
 endfunction
 
-function! s:exec_funcrefs(list, break_early)
+function! airline#exec_funcrefs(list, break_early)
   " for 7.2; we cannot iterate list, hence why we use range()
   " for 7.3-[97, 328]; we cannot reuse the variable, hence the {}
   for i in range(0, len(a:list) - 1)
@@ -126,7 +126,7 @@ function! s:exec_funcrefs(list, break_early)
 endfunction
 
 function! airline#update_statusline()
-  if s:exec_funcrefs(g:airline_exclude_funcrefs, 1)
+  if airline#exec_funcrefs(g:airline_exclude_funcrefs, 1)
     call setwinvar(winnr(), '&statusline', '')
     return
   endif
@@ -135,7 +135,7 @@ function! airline#update_statusline()
   for section in s:sections
     unlet! w:airline_section_{section}
   endfor
-  call s:exec_funcrefs(g:airline_statusline_funcrefs, 0)
+  call airline#exec_funcrefs(g:airline_statusline_funcrefs, 0)
 
   let w:airline_active = 1
   call setwinvar(winnr(), '&statusline', s:get_statusline(winnr(), 1))
@@ -148,7 +148,6 @@ function! airline#update_statusline()
   endfor
 endfunction
 
-let g:airline_current_mode_text = ''
 function! airline#update_highlight()
   if get(w:, 'airline_active', 1)
     let l:m = mode()

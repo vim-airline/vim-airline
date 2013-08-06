@@ -48,34 +48,22 @@ call s:check_defined('g:airline_mode_map', {
       \ '' : 'V-BLOCK',
       \ })
 
+call s:check_defined('g:airline_section_a', '%{get(g:, "airline_current_mode_text", "")}')
+call s:check_defined('g:airline_section_b', '%{get(g:, "airline_current_branch", "")}')
+call s:check_defined('g:airline_section_c', '%f%m')
+call s:check_defined('g:airline_section_gutter', '')
+call s:check_defined('g:airline_section_x', "%{strlen(&filetype)>0?&filetype:''}")
+call s:check_defined('g:airline_section_y', "%{strlen(&fenc)>0?&fenc:''}%{strlen(&ff)>0?'['.&ff.']':''}")
+call s:check_defined('g:airline_section_z', '%3p%% '.g:airline_linecolumn_prefix.'%3l:%3c')
+
 let s:airline_initialized = 0
-let s:active_winnr = -1
 function! s:on_window_changed()
-  let s:active_winnr = winnr()
   if !s:airline_initialized
     call airline#extensions#load()
     call airline#load_theme(g:airline_theme)
-    call s:check_defined('g:airline_section_a', '%{g:airline_current_mode_text}')
-    call s:check_defined('g:airline_section_b', '%{g:airline_externals_branch}')
-    call s:check_defined('g:airline_section_c', g:airline_externals_bufferline)
-    call s:check_defined('g:airline_section_gutter', g:airline_externals_syntastic)
-    call s:check_defined('g:airline_section_x', g:airline_externals_tagbar."%{strlen(&filetype)>0?&filetype:''}")
-    call s:check_defined('g:airline_section_y', "%{strlen(&fenc)>0?&fenc:''}%{strlen(&ff)>0?'['.&ff.']':''}")
-    call s:check_defined('g:airline_section_z', '%3p%% '.g:airline_linecolumn_prefix.'%3l:%3c')
     let s:airline_initialized = 1
   endif
   call airline#update_statusline()
-endfunction
-
-" non-trivial number of external plugins use eventignore=all, so we need to account for that
-function! s:sync_active_winnr()
-  if winnr() != s:active_winnr
-    " prevent ctrlp statusline from getting overwritten
-    if get(g:, 'loaded_ctrlp', 0) && match(&statusline, 'CtrlPlight') >= 0
-      return
-    endif
-    call s:on_window_changed()
-  endif
 endfunction
 
 function! s:get_airline_themes(a, l, p)
@@ -96,5 +84,4 @@ augroup airline
   autocmd ColorScheme * call airline#reload_highlight()
   autocmd WinEnter,BufWinEnter,FileType,BufUnload,ShellCmdPost *
         \ call <sid>on_window_changed()
-  autocmd CursorMoved * call <sid>sync_active_winnr()
 augroup END

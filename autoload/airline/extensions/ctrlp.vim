@@ -26,10 +26,7 @@ function! airline#extensions#ctrlp#load_theme()
   endfor
 endfunction
 
-" Recreate Ctrl-P status line with some slight modifications
-
 " Arguments: focus, byfname, s:regexp, prv, item, nxt, marked
-" a:1 a:2 a:3 a:4 a:5 a:6 a:7
 function! airline#extensions#ctrlp#ctrlp_airline(...)
   let regex = a:3 ? '%#CtrlPlight#  regex %*' : ''
   let prv = '%#CtrlPlight# '.a:4.' %#Ctrlparrow1#'.g:airline_left_sep
@@ -39,15 +36,24 @@ function! airline#extensions#ctrlp#ctrlp_airline(...)
   let focus = '%=%<%#CtrlPdark# '.a:1.' %*'
   let byfname = '%#CtrlParrow3#'.g:airline_right_alt_sep.'%#CtrlPdark# '.a:2.' %*'
   let dir = '%#CtrlParrow3#'.g:airline_right_sep.'%#CtrlPlight# '.getcwd().' %*'
-  " Return the full statusline
   return regex.prv.item.nxt.marked.focus.byfname.dir
 endfunction
 
 " Argument: len
-" a:1
 function! airline#extensions#ctrlp#ctrlp_airline_status(...)
   let len = '%#CtrlPdark# '.a:1
   let dir = '%=%<%#CtrlParrow3#'.g:airline_right_sep.'%#CtrlPlight# '.getcwd().' %*'
-  " Return the full statusline
   return len.dir
+endfunction
+
+function! airline#extensions#ctrlp#is_statusline_overwritten()
+  return match(&statusline, 'CtrlPlight') >= 0
+endfunction
+
+function! airline#extensions#ctrlp#init(ext)
+  let g:ctrlp_status_func = {
+        \ 'main': 'airline#extensions#ctrlp#ctrlp_airline',
+        \ 'prog': 'airline#extensions#ctrlp#ctrlp_airline_status',
+        \ }
+  call a:ext.add_cursormove_funcref(function('airline#extensions#ctrlp#is_statusline_overwritten'))
 endfunction

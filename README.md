@@ -11,7 +11,7 @@ Lean &amp; mean statusline for vim that's light as air.
 *  looks good with regular fonts and provides configuration points so you can use unicode or powerline symbols.
 *  optimized for speed; it loads in under a millisecond.
 *  fully customizable; if you know a little `statusline` syntax you can tweak it to your needs.
-*  extensive suite of themes for popular colorschemes including [solarized][23] (dark and light), [tomorrow][24] (all variants), [molokai][25], [jellybeans][26] and others.
+*  extensive suite of themes for popular colorschemes including [solarized][23] (dark and light), [tomorrow][24] (all variants), [molokai][25], [jellybeans][26] and others; have a look at the [screenshots][14] in the wiki.
 *  supports 7.2 as the minimum Vim version
 
 # Rationale
