@@ -2,7 +2,7 @@
 " vim: ts=2 sts=2 sw=2 fdm=indent
 
 let s:is_win32term = (has('win32') || has('win64')) && !has('gui_running')
-let s:sections = ['a','b','c','gutter','x','y','z']
+let s:sections = ['a','b','c','gutter','x','y','z','warning']
 
 let s:airline_highlight_map = {
       \ 'mode'           : 'Al2',
@@ -105,7 +105,7 @@ function! s:get_statusline(winnr, active)
     let sl.=a:active ? g:airline_right_sep : g:airline_right_alt_sep
     let sl.=l:mode_color
     let sl.=s:get_section(a:winnr, 'z')
-    let sl.='%#Al3#'.s:getwinvar(a:winnr, 'airline_section_warning', '')
+    let sl.='%(%#warningmsg#'.s:getwinvar(a:winnr, 'airline_section_warning', '').'%)'
   endif
   return sl
 endfunction

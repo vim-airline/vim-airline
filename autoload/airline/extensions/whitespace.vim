@@ -10,7 +10,7 @@ function! airline#extensions#whitespace#check()
   let mixed = search('^ ', 'nw') != 0 && search('^\t', 'nw') != 0
 
   if trailing || mixed
-    let text = " ".g:airline_whitespace_symbol." "
+    let text = g:airline_whitespace_symbol." "
     if g:airline_detect_whitespace == 1
       if trailing
         let text .= 'trailing '
