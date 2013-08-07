@@ -136,6 +136,10 @@ function! airline#extensions#load()
     call airline#extensions#bufferline#init(s:ext)
   endif
 
+  if g:airline_detect_whitespace
+    call airline#extensions#whitespace#init(s:ext)
+  endif
+
   call airline#exec_funcrefs(g:airline_statusline_funcrefs, 0)
 endfunction
 
