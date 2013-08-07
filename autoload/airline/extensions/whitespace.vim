@@ -6,14 +6,14 @@
 function! airline#extensions#whitespace#check()
   if !exists('b:airline_whitespace_check')
     let b:airline_whitespace_check = ''
-    let trailing = search(' $', 'nw') != 0
+    let trailing = search(' $', 'nw')
     let mixed = search('^ ', 'nw') != 0 && search('^\t', 'nw') != 0
 
-    if trailing || mixed
+    if trailing != 0 || mixed
       let b:airline_whitespace_check = g:airline_whitespace_symbol." "
       if g:airline_detect_whitespace == 1
-        if trailing
-          let b:airline_whitespace_check .= 'trailing '
+        if trailing != 0
+          let b:airline_whitespace_check .= 'trailing['.trailing.']'
         endif
         if mixed
           let b:airline_whitespace_check .= 'mixed-indent '
