@@ -73,6 +73,13 @@ values):
   let g:airline_detect_iminsert=1
 <
 
+* enable whitespace detection
+>
+  let g:airline_detect_whitespace=0 "disabled
+  let g:airline_detect_whitespace=1 "icon and message (default)
+  let g:airline_detect_whitespace=2 "icon only
+<
+
 * change the default theme
 >
   let g:airline_theme='dark'
@@ -132,6 +139,7 @@ separators, as well as the powerline font glyths.
   let g:airline_paste_symbol = 'ρ'
   let g:airline_paste_symbol = 'Þ'
   let g:airline_paste_symbol = '∥'
+  let g:airline_whitespace_symbol = 'Ξ'
 
   " powerline symbols
   let g:airline_left_sep = ''
@@ -157,13 +165,14 @@ with the usual statusline syntax.
 
 >
   " here are the the default values
-  let g:airline_section_a      (the mode/paste indicator)
-  let g:airline_section_b      (the fugitive/lawrencium branch indicator)
-  let g:airline_section_c      (bufferline or filename)
-  let g:airline_section_gutter (syntastic, readonly flag)
-  let g:airline_section_x      (tagbar, filetype)
-  let g:airline_section_y      (fileencoding, fileformat)
-  let g:airline_section_z      (percentage, line number, column number)
+  let g:airline_section_a       (the mode/paste indicator)
+  let g:airline_section_b       (the fugitive/lawrencium branch indicator)
+  let g:airline_section_c       (bufferline or filename)
+  let g:airline_section_gutter  (syntastic, readonly flag)
+  let g:airline_section_x       (tagbar, filetype)
+  let g:airline_section_y       (fileencoding, fileformat)
+  let g:airline_section_z       (percentage, line number, column number)
+  let g:airline_section_warning (special section that only appears sometimes)
 
   " here is an example of how you could replace the branch indicator with
   " the current working directory, followed by the filename.
