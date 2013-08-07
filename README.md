@@ -85,6 +85,8 @@ Contributions and pull requests are welcome.  Please take note of the following 
 MIT license. Copyright (c) 2013 Bailey Ling.
 
 
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/bling/vim-airline/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
 [1]: https://github.com/Lokaltog/vim-powerline
 [2]: https://github.com/Lokaltog/powerline
 [3]: https://github.com/Lokaltog/powerline-fonts
