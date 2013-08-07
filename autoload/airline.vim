@@ -132,21 +132,22 @@ function! airline#update_statusline()
     return
   endif
 
-  unlet! w:airline_left_only
-  for section in s:sections
-    unlet! w:airline_section_{section}
-  endfor
-  call airline#exec_funcrefs(g:airline_statusline_funcrefs, 0)
-
-  let w:airline_active = 1
-  call setwinvar(winnr(), '&statusline', s:get_statusline(winnr(), 1))
-
   for nr in range(1, winnr('$'))
     if nr != winnr() && getwinvar(nr, 'airline_active')
       call setwinvar(nr, '&statusline', s:get_statusline(nr, 0))
       call setwinvar(nr, 'airline_active', 0)
     endif
   endfor
+
+  let w:airline_active = 1
+
+  unlet! w:airline_left_only
+  for section in s:sections
+    unlet! w:airline_section_{section}
+  endfor
+  call airline#exec_funcrefs(g:airline_statusline_funcrefs, 0)
+
+  call setwinvar(winnr(), '&statusline', s:get_statusline(winnr(), 1))
 endfunction
 
 function! airline#update_highlight()
