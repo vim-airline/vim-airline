@@ -4,6 +4,10 @@
 " http://got-ravings.blogspot.com/2008/10/vim-pr0n-statusline-whitespace-flags.html
 
 function! airline#extensions#whitespace#check()
+  if &readonly
+    return ''
+  endif
+
   if !exists('b:airline_whitespace_check')
     let b:airline_whitespace_check = ''
     let trailing = search(' $', 'nw')
@@ -13,7 +17,7 @@ function! airline#extensions#whitespace#check()
       let b:airline_whitespace_check = g:airline_whitespace_symbol." "
       if g:airline_detect_whitespace == 1
         if trailing != 0
-          let b:airline_whitespace_check .= 'trailing['.trailing.']'
+          let b:airline_whitespace_check .= 'trailing['.trailing.'] '
         endif
         if mixed
           let b:airline_whitespace_check .= 'mixed-indent '
