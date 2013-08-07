@@ -6,7 +6,7 @@ function! airline#extensions#branch#apply()
         \ ? g:airline_branch_prefix.fugitive#head()
         \ : exists('*lawrencium#statusline') && strlen(lawrencium#statusline()) > 0
           \ ? g:airline_branch_prefix.lawrencium#statusline()
-          \ : ''
+          \ : 'No branch'
 endfunction
 
 function! airline#extensions#branch#init(ext)
