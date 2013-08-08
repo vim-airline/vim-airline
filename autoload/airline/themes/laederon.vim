@@ -1,4 +1,4 @@
-" vim-airline companion theme of Laederon 
+" vim-airline companion theme of Laederon
 " (https://github.com/Donearm/Laederon)
 
 " Normal mode
@@ -8,7 +8,7 @@ let s:N3 = [ '#90a680' , '#2e2d2a' , 64, 235 ] " dilutedpaint & darkgravel
 let s:N4 = [ '#777470' , 240 ] " gravel
 
 " Insert mode
-let s:I1 = [ '#1a1a18' , '#1693a5' , 232 , 62 ] " blackestgravel & crystallake 
+let s:I1 = [ '#1a1a18' , '#1693a5' , 232 , 62 ] " blackestgravel & crystallake
 let s:I2 = [ '#515744' , '#44403a' , 101 , 238 ] " lichen & deepgravel
 let s:I3 = [ '#1693a5' , '#2e2d2a' , 39 , 235 ] " crystallake & darkgravel
 
@@ -46,8 +46,8 @@ let g:airline#themes#laederon#insert_paste = {
 
 
 let g:airline#themes#laederon#replace = copy(airline#themes#laederon#insert)
-let g:airline#themes#laederon#replace.mode = [ s:I1[0] , s:RE[0] , s:I1[2] , s:RE[1] , '' ]
-let g:airline#themes#laederon#replace.mode_separator = [ s:RE[0] , s:I2[1] , s:RE[1] , s:V4[1] , '' ]
+let g:airline#themes#laederon#replace.mode           = [ s:I1[0] , s:RE[0] , s:I1[2] , s:RE[1] , '' ]
+let g:airline#themes#laederon#replace.mode_separator = [ s:RE[0] , s:I2[1] , s:RE[1] , s:I2[3] , '' ]
 let g:airline#themes#laederon#replace_modified = g:airline#themes#laederon#insert_modified
 
 
