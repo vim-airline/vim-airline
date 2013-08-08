@@ -227,7 +227,40 @@ highlight groups.
 ==============================================================================
 TROUBLESHOOTING                                    *airline-troubleshooting*
 
-Solutions to common problems can be found FAQ section in the Wiki:
+Q. There are no colors.
+
+A. You need to set up your terminal correctly.  For more details, see
+<http://vim.wikia.com/wiki/256_colors_in_vim>.  Alternatively, if you want to
+bypass the automatic detection of terminal colors, you can force Vim into 256
+colors with this:
+>
+  set t_Co=256
+<
+
+Q. The statusline does not appear until I create a split.
+
+A. This is the default setting of |laststatus|.  If you want it to appear all
+the time, add the following to your vimrc:
+>
+  set laststatus=2
+<
+
+Q. Powerline symbols are not showing up.
+
+A. First, you must install patched powerline fonts. Second, you must enable
+unicode in vim.
+>
+  set encoding=utf-8
+<
+
+Q. There is a pause when leaving insert mode.
+
+A. Add the following to your vimrc.
+>
+  set ttimeoutlen=50
+<
+
+Solutions to other common problems can be found in the Wiki:
 <https://github.com/bling/vim-airline/wiki/FAQ>
 
 ==============================================================================
