@@ -4,7 +4,7 @@
 " http://got-ravings.blogspot.com/2008/10/vim-pr0n-statusline-whitespace-flags.html
 
 function! airline#extensions#whitespace#check()
-  if &readonly
+  if &readonly || !g:airline_detect_whitespace
     return ''
   endif
 
@@ -37,8 +37,21 @@ function! airline#extensions#whitespace#apply()
   endif
 endfunction
 
-function! airline#extensions#whitespace#init(ext)
-  call a:ext.add_statusline_funcref(function('airline#extensions#whitespace#apply'))
+function! airline#extensions#whitespace#toggle()
+  let g:airline_detect_whitespace = !g:airline_detect_whitespace
+  if g:airline_detect_whitespace
+    call airline#extensions#whitespace#init()
+  else
+    autocmd! airline_whitespace CursorHold,BufWritePost
+  endif
+endfunction
+
+let s:initialized = 0
+function! airline#extensions#whitespace#init()
+  if !s:initialized
+    let s:initialized = 1
+    call add(g:airline_statusline_funcrefs, function('airline#extensions#whitespace#apply'))
+  endif
 
   augroup airline_whitespace
     autocmd!

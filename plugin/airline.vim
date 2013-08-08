@@ -80,6 +80,7 @@ function! s:airline_theme(...)
   endif
 endfunction
 command! -nargs=? -complete=customlist,<sid>get_airline_themes AirlineTheme call <sid>airline_theme(<f-args>)
+command! AirlineToggleWhitespace call airline#extensions#whitespace#toggle()
 
 augroup airline
   autocmd!

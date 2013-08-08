@@ -120,6 +120,9 @@ COMMANDS                                                  *airline-commands*
 :AirlineTheme {theme-name}                                   *:AirlineTheme*
   Displays or changes the current theme.
 
+:AirlineToggleWhitespace                          *:AirlineToggleWhitespace*
+  Toggles whitespace detection.
+
 ==============================================================================
 CUSTOMIZATION                                        *airline-customization*
 
