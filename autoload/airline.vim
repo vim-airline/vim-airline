@@ -105,7 +105,11 @@ function! s:get_statusline(winnr, active)
     let sl.=a:active ? g:airline_right_sep : g:airline_right_alt_sep
     let sl.=l:mode_color
     let sl.=s:get_section(a:winnr, 'z')
-    let sl.='%(%#warningmsg#'.s:getwinvar(a:winnr, 'airline_section_warning', '').'%)'
+
+    if a:active
+      let warngroup = airline#themes#exec_highlight_separator('Al2', 'warningmsg')
+      let sl.='%(%#'.warngroup.'#'.g:airline_right_sep.'%#warningmsg#'.s:getwinvar(a:winnr, 'airline_section_warning', '').'%)'
+    endif
   endif
   return sl
 endfunction
