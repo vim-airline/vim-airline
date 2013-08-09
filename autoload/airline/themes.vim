@@ -49,9 +49,6 @@ function! airline#themes#exec_highlight_separator(from, to)
   let l:from = airline#themes#get_highlight(a:from)
   let l:to = airline#themes#get_highlight(a:to)
   let group = a:from.'_to_'.a:to
-  exec printf('highlight %s guifg=%s guibg=%s ctermfg=%s ctermbg=%s',
-        \ group,
-        \ l:to[1], l:from[1],
-        \ l:to[3], l:from[3])
+  call airline#exec_highlight(group, [ l:to[1], l:from[1], l:to[3], l:from[3] ])
   return group
 endfunction
