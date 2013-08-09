@@ -157,7 +157,9 @@ function! airline#update_highlight()
       let l:mode = ['insert']
     elseif l:m ==# "R"
       let l:mode = ['replace']
-    elseif l:m ==? "v" || l:m ==# ""
+    elseif l:m =~# '\v(v|V|)'
+      let l:mode = ['visual']
+    elseif l:m =~# '\v(s|S|)'
       let l:mode = ['visual']
     else
       let l:mode = ['normal']

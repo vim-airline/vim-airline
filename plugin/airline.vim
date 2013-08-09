@@ -48,6 +48,9 @@ call s:check_defined('g:airline_mode_map', {
       \ 'V'  : 'V-LINE',
       \ 'c'  : 'CMD   ',
       \ '' : 'V-BLOCK',
+      \ 's'  : 'SELECT',
+      \ 'S'  : 'S-LINE',
+      \ '' : 'S-BLOCK',
       \ })
 
 call s:check_defined('g:airline_section_a', '%{get(g:, "airline_current_mode_text", "")}')
