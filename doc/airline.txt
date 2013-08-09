@@ -46,6 +46,7 @@ values):
 * enable/disable fugitive/lawrencium integration
 >
   let g:airline_enable_branch=1
+  let g:airline_branch_empty_message=''
 <
 
 * enable/disable syntastic integration
