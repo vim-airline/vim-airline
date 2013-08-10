@@ -32,13 +32,14 @@ endfunction
 function! airline#reload_highlight()
   call airline#highlight(['inactive'])
   call airline#highlight(['normal'])
+  call airline#themes#exec_highlight_separator('Al2', 'warningmsg')
 endfunction
 
 function! airline#load_theme(name)
   let g:airline_theme = a:name
   let inactive_colors = g:airline#themes#{g:airline_theme}#inactive "also lazy loads the theme
   let w:airline_lastmode = ''
-  call airline#highlight(['inactive'])
+  call airline#reload_highlight()
   call airline#update_highlight()
   call airline#extensions#load_theme()
 endfunction
@@ -107,8 +108,8 @@ function! s:get_statusline(winnr, active)
     let sl.=s:get_section(a:winnr, 'z')
 
     if a:active
-      let warngroup = airline#themes#exec_highlight_separator('Al2', 'warningmsg')
-      let sl.='%(%#'.warngroup.'#'.g:airline_right_sep.'%#warningmsg#'.s:getwinvar(a:winnr, 'airline_section_warning', '').'%)'
+      let sl.='%(%#Al2_to_warningmsg#'.g:airline_right_sep
+      let sl.='%#warningmsg#'.s:getwinvar(a:winnr, 'airline_section_warning', '').'%)'
     endif
   endif
   return sl
