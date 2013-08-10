@@ -7,10 +7,25 @@ function! airline#extensions#tagbar#apply()
   endif
 endfunction
 
+function! s:check_statusline()
+  " this is a hack!! unlike most plugins that set eventignore=all, tagbar only
+  " sets it to BufEnter, so the ordering is off: airline sets the statusline
+  " first, and then tagbar overwrites it, so this detects that and changes it
+  " back to the airline statusline.
+  if match(&statusline, '^%!Tagbar') >= 0
+    call airline#update_statusline()
+  endif
+endfunction
+
 function! airline#extensions#tagbar#init(ext)
   call a:ext.add_statusline_funcref(function('airline#extensions#tagbar#apply'))
 
   let g:airline_section_x = '%(%{w:airline_active ? tagbar#currenttag("%s","") : ""} '
         \ .g:airline_right_alt_sep.' %)'.g:airline_section_x
+
+  augroup airline_tagbar
+    autocmd!
+    autocmd CursorMoved * call <sid>check_statusline()
+  augroup END
 endfunction
 
