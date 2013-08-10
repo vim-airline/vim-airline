@@ -79,7 +79,7 @@ function! s:get_statusline(winnr, active)
   let l:file_flag_color = a:active ? "%#Al7#" : "%#Al7_inactive#"
 
   let sl = '%{airline#update_highlight()}'
-  if a:active || s:getwinvar(a:winnr, 'airline_left_only', 0)
+  if s:getwinvar(a:winnr, 'airline_render_left', a:active)
     let sl.=l:mode_color.s:get_section(a:winnr, 'a')
     let sl.='%{g:airline_detect_paste && &paste ? g:airline_paste_symbol." " : ""}'
     let sl.=l:mode_sep_color
@@ -95,7 +95,7 @@ function! s:get_statusline(winnr, active)
   else
     let sl.=l:status_color.' %f%m'
   endif
-  if !s:getwinvar(a:winnr, 'airline_left_only', 0)
+  if s:getwinvar(a:winnr, 'airline_render_right', 1)
     let sl.='%='
     let sl.=s:get_section(a:winnr, 'x')
     let sl.=l:info_sep_color
@@ -146,7 +146,8 @@ function! airline#update_statusline()
 
   let w:airline_active = 1
 
-  unlet! w:airline_left_only
+  unlet! w:airline_render_left
+  unlet! w:airline_render_right
   for section in s:sections
     unlet! w:airline_section_{section}
   endfor

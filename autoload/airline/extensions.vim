@@ -28,7 +28,8 @@ function! airline#extensions#apply_left_override(section1, section2)
   let w:airline_section_b = a:section2
   let w:airline_section_c = ''
   let w:airline_section_gutter = ' '
-  let w:airline_left_only = 1
+  let w:airline_render_left = 1
+  let w:airline_render_right = 0
 endfunction
 
 let s:active_winnr = -1
@@ -41,12 +42,10 @@ function! airline#extensions#update_statusline()
     let w:airline_section_c = ''
     let w:airline_section_x = ''
   elseif &buftype == 'help'
-    let w:airline_section_a = 'Help'
-    let w:airline_section_b = '%f'
-    let w:airline_section_c = ''
-    let w:airline_section_gutter = ' '
+    call airline#extensions#apply_left_override('Help', '%f')
     let w:airline_section_x = ''
     let w:airline_section_y = ''
+    let w:airline_render_right = 1
   endif
 
   if &previewwindow
