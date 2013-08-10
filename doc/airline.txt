@@ -1,5 +1,10 @@
 *airline.txt*  Lean and mean statusline that's light as air
-
+                   _                       _      _ _                        ~
+            __   _(_)_ __ ___         __ _(_)_ __| (_)_ __   ___             ~
+            \ \ / / | '_ ` _ \ _____ / _` | | '__| | | '_ \ / _ \            ~
+             \ V /| | | | | | |_____| (_| | | |  | | | | | |  __/            ~
+              \_/ |_|_| |_| |_|      \__,_|_|_|  |_|_|_| |_|\___|            ~
+                                                                             ~
 ==============================================================================
 INTRODUCTION                                                       *airline*
 
@@ -16,8 +21,7 @@ FEATURES                                                  *airline-features*
 *  optimized for speed; it loads in under a millisecond.
 *  fully customizable; if you know a little |statusline| syntax you can
    tweak it to your needs.
-*  trivial to write colorschemes; for a minimal theme you need to edit
-   9 lines of colors. (please send pull requests)
+*  extremely easy to write themes.
 
 ==============================================================================
 NAME                                                          *airline-name*
@@ -232,37 +236,40 @@ highlight groups.
 TROUBLESHOOTING                                    *airline-troubleshooting*
 
 Q. There are no colors.
-
 A. You need to set up your terminal correctly.  For more details, see
-<http://vim.wikia.com/wiki/256_colors_in_vim>.  Alternatively, if you want to
-bypass the automatic detection of terminal colors, you can force Vim into 256
-colors with this:
+   <http://vim.wikia.com/wiki/256_colors_in_vim>.  Alternatively, if you want
+   to bypass the automatic detection of terminal colors, you can force Vim
+   into 256 color mode with this:
 >
   set t_Co=256
 <
 
 Q. The statusline does not appear until I create a split.
-
 A. This is the default setting of |laststatus|.  If you want it to appear all
-the time, add the following to your vimrc:
+   the time, add the following to your vimrc:
 >
   set laststatus=2
 <
 
 Q. Powerline symbols are not showing up.
-
 A. First, you must install patched powerline fonts. Second, you must enable
-unicode in vim.
+   unicode in vim.
 >
   set encoding=utf-8
 <
 
 Q. There is a pause when leaving insert mode.
-
 A. Add the following to your vimrc.
 >
   set ttimeoutlen=50
 <
+
+Q. The colors look a little off for some themes.
+A. Certain themes are derived from the active colorscheme by extracting colors
+   from predefined highlight groups.  These airline themes will look good for
+   their intended matching colorschemes, but will be hit or miss when loaded
+   with other colorschemes.
+
 
 Solutions to other common problems can be found in the Wiki:
 <https://github.com/bling/vim-airline/wiki/FAQ>

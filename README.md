@@ -6,7 +6,7 @@ Lean &amp; mean statusline for vim that's light as air.
 
 # Features
 
-*  tiny core (under 200 lines), written with extensibility in mind (specifically adhering to the [open/closed principle][8]).
+*  tiny core (under 200 lines), written with extensibility in mind ([open/closed principle][8]).
 *  integrates with a variety of plugins, including: [vim-bufferline][6], [fugitive][4], [unite][9], [ctrlp][10], [minibufexpl][15], [gundo][16], [undotree][17], [nerdtree][18], [tagbar][19], [syntastic][5] and [lawrencium][21].
 *  looks good with regular fonts and provides configuration points so you can use unicode or powerline symbols.
 *  optimized for speed; it loads in under a millisecond.
