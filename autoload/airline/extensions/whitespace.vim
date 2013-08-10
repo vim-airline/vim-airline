@@ -3,8 +3,11 @@
 
 " http://got-ravings.blogspot.com/2008/10/vim-pr0n-statusline-whitespace-flags.html
 
+let s:initialized = 0
+let s:vimrc_detect_whitespace = g:airline_detect_whitespace
+
 function! airline#extensions#whitespace#check()
-  if &readonly || !g:airline_detect_whitespace
+  if &readonly || g:airline_detect_whitespace <= 0
     return ''
   endif
 
@@ -40,15 +43,15 @@ function! airline#extensions#whitespace#apply()
 endfunction
 
 function! airline#extensions#whitespace#toggle()
-  let g:airline_detect_whitespace = !g:airline_detect_whitespace
-  if g:airline_detect_whitespace
-    call airline#extensions#whitespace#init()
-  else
+  if g:airline_detect_whitespace > 0
     autocmd! airline_whitespace CursorHold,BufWritePost
+    let g:airline_detect_whitespace = 0
+  else
+    call airline#extensions#whitespace#init()
+    let g:airline_detect_whitespace = s:vimrc_detect_whitespace
   endif
 endfunction
 
-let s:initialized = 0
 function! airline#extensions#whitespace#init()
   if !s:initialized
     let s:initialized = 1
