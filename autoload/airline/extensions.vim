@@ -139,6 +139,10 @@ function! airline#extensions#load()
     call airline#extensions#whitespace#init()
   endif
 
+  if g:airline_detect_iminsert
+    call airline#extensions#iminsert#init()
+  endif
+
   call airline#exec_funcrefs(g:airline_statusline_funcrefs, 0)
 endfunction
 

@@ -163,20 +163,12 @@ function! airline#update_highlight()
       let l:mode = ['insert']
     elseif l:m ==# "R"
       let l:mode = ['replace']
-    elseif l:m =~# '\v(v|V|)'
-      let l:mode = ['visual']
-    elseif l:m =~# '\v(s|S|)'
+    elseif l:m =~# '\v(v|V||s|S|)'
       let l:mode = ['visual']
     else
       let l:mode = ['normal']
     endif
     let g:airline_current_mode_text = get(g:airline_mode_map, l:m, l:m)
-    if g:airline_detect_iminsert && &iminsert
-      if get(g:, 'airline_powerline_fonts', 0)
-        let g:airline_current_mode_text .= ' '.g:airline_left_alt_sep
-      endif
-      let g:airline_current_mode_text .= ' '.toupper(get(b:, 'keymap_name', 'lang'))
-    endif
   else
     let l:mode = ['inactive']
   endif
