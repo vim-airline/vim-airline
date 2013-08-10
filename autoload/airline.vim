@@ -33,6 +33,7 @@ function! airline#reload_highlight()
   call airline#highlight(['inactive'])
   call airline#highlight(['normal'])
   call airline#themes#exec_highlight_separator('Al2', 'warningmsg')
+  call airline#extensions#load_theme()
 endfunction
 
 function! airline#load_theme(name)
@@ -41,7 +42,6 @@ function! airline#load_theme(name)
   let w:airline_lastmode = ''
   call airline#reload_highlight()
   call airline#update_highlight()
-  call airline#extensions#load_theme()
 endfunction
 
 function! airline#highlight(modes)
