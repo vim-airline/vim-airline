@@ -20,7 +20,11 @@ function! s:get_syn(group, what)
     let color = synIDattr(synIDtrans(hlID('Normal')), a:what)
   endif
   if empty(color) || color == -1
-    let color = a:what ==# 'fg' ? 0 : 1
+    if has('gui_running')
+      let color = a:what ==# 'fg' ? '#000000' : '#FFFFFF'
+    else
+      let color = a:what ==# 'fg' ? 0 : 1
+    endif
   endif
   return color
 endfunction
