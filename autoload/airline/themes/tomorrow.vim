@@ -1,5 +1,8 @@
 function! s:generate()
   let s:file = airline#themes#get_highlight('Constant')
+  " clear out backgrounds so generate_color_map will fill them in
+  let s:file[1] = ''
+  let s:file[3] = ''
 
   let s:N1 = airline#themes#get_highlight2(['Normal', 'bg'], ['Directory', 'fg'], 'bold')
   let s:N2 = airline#themes#get_highlight('Pmenu')

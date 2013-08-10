@@ -24,7 +24,7 @@ let s:RE = [ '#c7915b' , 173 ] " nut
 " Paste mode
 let s:PA = [ '#f9ef6d' , 154 ] " bleaklemon
 
-let s:file = [ '#ff7400' , s:N3[1] , 196 , s:N3[3] , '' ]
+let s:file = [ '#ff7400' , '' , 196 , '' , '' ]
 let s:IA = [ s:N2[1]	, s:N3[1]	, s:N2[3],	s:N3[3]	, '' ]	
 
 
