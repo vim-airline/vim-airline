@@ -32,7 +32,6 @@ endfunction
 function! airline#reload_highlight()
   call airline#highlight(['inactive'])
   call airline#highlight(['normal'])
-  call airline#themes#exec_highlight_separator('Al2', 'warningmsg')
 endfunction
 
 function! airline#load_theme(name)
@@ -56,6 +55,7 @@ function! airline#highlight(modes)
       endfor
     endif
   endfor
+  call airline#themes#exec_highlight_separator('Al2', 'warningmsg')
 endfunction
 
 " for 7.2 compatibility
