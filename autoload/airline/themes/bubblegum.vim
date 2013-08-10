@@ -20,7 +20,7 @@ let s:cterm_red = 174
 let s:gui_pink = '#d7afd7'
 let s:cterm_pink = 182
 
-let s:file  = ['#ff0000', '#1c1c1c', 160, 233, '']
+let s:file  = ['#ff0000', '', 160, '', '']
 
 " Normal mode
 let s:N1    = [s:gui_dark_gray, s:gui_green, s:cterm_dark_gray, s:cterm_green]

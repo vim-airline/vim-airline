@@ -36,7 +36,7 @@ let s:termbg = 232
 let s:termsep = 236
 let s:guisep = '#303030'
 
-let s:file = [ '#ff0000' , s:guibg , 160       , s:termbg , ''     ]
+let s:file = [ '#ff0000' , '' , 160 , '' , '' ]
 let s:N1 = s:swap ? [ s:guibg , '#00dfff' , s:termbg , 45 ] : [ '#00dfff' , s:guibg , 45 , s:termbg ]
 let s:N2 = [ '#ff5f00' , s:guibg, 202 , s:termbg ]
 let s:N3 = [ '#767676' , s:guibg, 243 , s:termbg ]

@@ -24,7 +24,7 @@ let s:RE = [ '#233e09' , 22 ] " oakleaf
 " Paste mode
 let s:PA = [ '#ab3e5d' , 161 ] " raspberry
 
-let s:file = [ '#ef393d' , s:N3[1] , 196 , s:N3[3] , '' ]
+let s:file = [ '#ef393d' , '' , 196 , '' , '' ]
 let s:IA = [ s:N2[1]	, s:N3[1]	, s:N2[3],	s:N3[3]	, '' ]	
 
 

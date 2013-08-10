@@ -6,10 +6,16 @@ function! s:generate()
 
   " Here are examples where the entire highlight group is copied and an airline
   " compatible color array is generated.
-  let s:file = airline#themes#get_highlight('Constant')
   let s:N1 = airline#themes#get_highlight('DbgCurrent', 'bold')
   let s:N2 = airline#themes#get_highlight('Folded')
   let s:N3 = airline#themes#get_highlight('NonText')
+
+  " The file indicator is a special case where if the background values are
+  " empty the generate_color_map function will extract a matching color.
+  let s:file = airline#themes#get_highlight('Constant')
+  let s:file[1] = ''
+  let s:file[3] = ''
+
   let g:airline#themes#jellybeans#normal = airline#themes#generate_color_map(s:N1, s:N2, s:N3, s:file)
   let g:airline#themes#jellybeans#normal_modified = {
         \ 'statusline': [ '#ffb964', '', 215, '', '' ]

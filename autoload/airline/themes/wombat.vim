@@ -33,7 +33,7 @@ let s:PA = [ '#94E42C' , 47 ]
 let s:IM = [ '#40403C' , 238 ]
 
 " File permissions (RO, etc)
-let s:file = [ '#E5786D' , s:N3[1] , 203 , s:N3[3] , '' ]
+let s:file = [ '#E5786D' , '' , 203 , '' , '' ]
 
 " Inactive mode
 let s:IA = [ '#767676' , s:N3[1] , 243 , s:N3[3] , '' ]

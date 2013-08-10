@@ -23,10 +23,10 @@
 "
 " The array is in the format [ guifg, guibg, ctermfg, ctermbg, opts ].
 " The opts takes in values from ":help attr-list".
-let s:file = [ '#ff0000' , '#1c1c1c' , 160 , 233 , '' ]
-let s:N1 = [ '#00005f' , '#dfff00' , 17  , 190 ]
-let s:N2 = [ '#ffffff' , '#444444' , 255 , 238 ]
-let s:N3 = [ '#9cffd3' , '#202020' , 85  , 234 ]
+let s:file = [ '#ff0000' , ''        , 160 , ''    , '' ]
+let s:N1   = [ '#00005f' , '#dfff00' , 17  , 190 ]
+let s:N2   = [ '#ffffff' , '#444444' , 255 , 238 ]
+let s:N3   = [ '#9cffd3' , '#202020' , 85  , 234 ]
 
 " vim-airline is made up of multiple sections, but for theming purposes there
 " is only 3 sections: the mode, the branch indicator, and the gutter (which

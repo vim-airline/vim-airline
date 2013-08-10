@@ -1,4 +1,4 @@
-let s:file = [ '#df0000' , '#ffffff' , 160 , 255 ]
+let s:file = [ '#df0000' , '' , 160 , '' ]
 let s:N1 = [ '#ffffff' , '#005fff' , 255 , 27  ]
 let s:N2 = [ '#000087' , '#00dfff' , 18  , 45  ]
 let s:N3 = [ '#005fff' , '#afffff' , 27  , 159 ]
