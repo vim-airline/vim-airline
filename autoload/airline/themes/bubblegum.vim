@@ -58,7 +58,4 @@ let g:airline#themes#bubblegum#visual_modified = copy(g:airline#themes#bubblegum
 " Inactive window
 let s:IA = [s:gui_dark_gray, s:gui_med_gray_hi, s:cterm_dark_gray, s:cterm_med_gray_hi, '']
 let g:airline#themes#bubblegum#inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
-let g:airline#themes#bubblegum#inactive_modified = {
-      \ 'statusline': [s:gui_orange, '', s:cterm_orange, '', ''],
-      \ }
 

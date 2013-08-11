@@ -81,9 +81,6 @@ let g:airline#themes#dark#visual_modified = {
 
 let s:IA = [ '#4e4e4e' , '#1c1c1c' , 239 , 234 , '' ]
 let g:airline#themes#dark#inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
-let g:airline#themes#dark#inactive_modified = {
-      \ 'statusline': [ '#5f005f' , '' , '53' , '' , '' ] ,
-      \ }
 
 
 " Here we define the color map for ctrlp.  We check for the g:loaded_ctrlp

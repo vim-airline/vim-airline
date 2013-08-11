@@ -49,6 +49,4 @@ let g:airline#themes#badwolf#visual_modified = {
 
 
 let g:airline#themes#badwolf#inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
-let g:airline#themes#badwolf#inactive_modified = {
-      \ 'statusline'     : [ s:V1[1]   , ''        , s:V1[3]   , ''        , ''     ] }
 

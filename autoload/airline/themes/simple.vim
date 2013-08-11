@@ -98,5 +98,4 @@ let g:airline#themes#simple#visual_modified = copy(g:airline#themes#simple#norma
 
 let s:IA = [ '#4e4e4e' , s:guibg , 239 , s:termbg , '' ]
 let g:airline#themes#simple#inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
-let g:airline#themes#simple#inactive_modified = copy(g:airline#themes#simple#normal_modified)
 

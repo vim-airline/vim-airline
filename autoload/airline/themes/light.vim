@@ -41,7 +41,4 @@ let g:airline#themes#light#visual_modified = {
 
 let s:IA = [ '#9e9e9e' , '#ffffff' , 247 , 255 , '' ]
 let g:airline#themes#light#inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
-let g:airline#themes#light#inactive_modified = {
-      \ 'statusline': [ '#df0000' , '' , '160' , '', '' ]
-      \ }
 

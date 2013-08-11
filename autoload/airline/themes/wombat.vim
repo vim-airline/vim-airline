@@ -84,8 +84,6 @@ let g:airline#themes#wombat#insert_paste = {
 
 
 let g:airline#themes#wombat#inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
-let g:airline#themes#wombat#inactive_modified = {
-    \ 'statusline' : [ '#BCBCBC' , '' , 250 , '' , '' ] }
 
 
 if get(g:, 'loaded_ctrlp', 0)

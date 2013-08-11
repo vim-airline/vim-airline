@@ -44,9 +44,7 @@ let g:airline#themes#luna#visual_modified = {
 
 let s:IA = [ '#4e4e4e' , '#002b2b' , 59 , 23 , '' ]
 let g:airline#themes#luna#inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
-let g:airline#themes#luna#inactive_modified = {
-      \ 'statusline': [ '#f88379' , '' , '210' , '' , '' ] ,
-      \ }
+
 
 if get(g:, 'loaded_ctrlp', 0)
   let g:airline#themes#luna#ctrlp = airline#extensions#ctrlp#generate_color_map(

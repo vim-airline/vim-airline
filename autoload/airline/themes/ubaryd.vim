@@ -59,6 +59,4 @@ let g:airline#themes#ubaryd#visual_modified = {
       \ 'statusline' : [ s:V3[0] , s:V4[0] , s:V3[2] , s:V4[1] , '' ] }
 
 let g:airline#themes#ubaryd#inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
-let g:airline#themes#ubaryd#inactive_modified = {
-      \ 'statusline' : [ s:V1[1] , '', s:V1[3], '', '']
-      \ }
+

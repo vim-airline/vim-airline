@@ -58,5 +58,4 @@ let g:airline#themes#laederon#visual_modified = {
 
 
 let g:airline#themes#laederon#inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
-let g:airline#themes#laederon#inactive_modified = {
-      \ 'statusline' : [ s:V1[1] , '', s:V1[3] , '', '' ] }
+
