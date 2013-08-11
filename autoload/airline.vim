@@ -70,7 +70,7 @@ function! s:get_section(winnr, key, ...)
   return empty(text) ? '' : prefix.text.suffix
 endfunction
 
-function! s:get_statusline(winnr, active)
+function! airline#get_statusline(winnr, active)
   let l:mode_color      = a:active ? "%#Al2#" : "%#Al2_inactive#"
   let l:mode_sep_color  = a:active ? "%#Al3#" : "%#Al3_inactive#"
   let l:info_color      = a:active ? "%#Al4#" : "%#Al4_inactive#"
@@ -137,11 +137,9 @@ function! airline#update_statusline()
     return
   endif
 
-  for nr in range(1, winnr('$'))
-    if nr != winnr() && getwinvar(nr, 'airline_active')
-      call setwinvar(nr, '&statusline', s:get_statusline(nr, 0))
-      call setwinvar(nr, 'airline_active', 0)
-    endif
+  for nr in filter(range(1, winnr('$')), 'v:val != winnr()')
+    call setwinvar(nr, 'airline_active', 0)
+    call setwinvar(nr, '&statusline', airline#get_statusline(nr, 0))
   endfor
 
   let w:airline_active = 1
@@ -153,7 +151,7 @@ function! airline#update_statusline()
   endfor
   call airline#exec_funcrefs(g:airline_statusline_funcrefs, 0)
 
-  call setwinvar(winnr(), '&statusline', s:get_statusline(winnr(), 1))
+  call setwinvar(winnr(), '&statusline', airline#get_statusline(winnr(), 1))
 endfunction
 
 function! airline#update_highlight()
