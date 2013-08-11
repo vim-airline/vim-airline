@@ -85,6 +85,12 @@ values):
   let g:airline_detect_whitespace=2 "icon only
 <
 
+* determine whether inactive windows should have the left section collapsed to
+  only the filename of that buffer.
+>
+  let g:airline_inactive_collapse=1
+<
+
 * change the default theme
 >
   let g:airline_theme='dark'

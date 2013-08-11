@@ -35,6 +35,7 @@ call s:check_defined('g:airline_readonly_symbol', exists('g:airline_powerline_fo
 call s:check_defined('g:airline_linecolumn_prefix', exists('g:airline_powerline_fonts')?' ':':')
 call s:check_defined('g:airline_paste_symbol', (exists('g:airline_powerline_fonts') ? ' ' : '').'PASTE')
 call s:check_defined('g:airline_theme', 'dark')
+call s:check_defined('g:airline_inactive_collapse', 1)
 call s:check_defined('g:airline_exclude_filenames', ['DebuggerWatch','DebuggerStack','DebuggerStatus'])
 call s:check_defined('g:airline_exclude_filetypes', [])
 call s:check_defined('g:airline_exclude_preview', 0)
@@ -42,7 +43,7 @@ call s:check_defined('g:airline_statusline_funcrefs', [])
 call s:check_defined('g:airline_exclude_funcrefs', [])
 
 call s:check_defined('g:airline_mode_map', {
-      \ '__' : ' ---- ',
+      \ '__' : '------',
       \ 'n'  : 'NORMAL',
       \ 'i'  : 'INSERT',
       \ 'R'  : 'REPLACE',
