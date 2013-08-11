@@ -2,7 +2,7 @@
 " vim: ts=2 sts=2 sw=2 fdm=indent
 
 function! airline#extensions#branch#apply()
-  let g:airline_current_branch = exists('*fugitive#head') && strlen(fugitive#head()) > 0
+  let w:airline_current_branch = exists('*fugitive#head') && strlen(fugitive#head()) > 0
         \ ? g:airline_branch_prefix.fugitive#head()
         \ : exists('*lawrencium#statusline') && strlen(lawrencium#statusline()) > 0
           \ ? g:airline_branch_prefix.lawrencium#statusline()

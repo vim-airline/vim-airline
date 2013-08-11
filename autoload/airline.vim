@@ -168,9 +168,10 @@ function! airline#update_highlight()
     else
       let l:mode = ['normal']
     endif
-    let g:airline_current_mode_text = get(g:airline_mode_map, l:m, l:m)
+    let w:airline_current_mode = get(g:airline_mode_map, l:m, l:m)
   else
     let l:mode = ['inactive']
+    let w:airline_current_mode = get(g:airline_mode_map, '__')
   endif
 
   if g:airline_detect_modified && &modified | call add(l:mode, 'modified') | endif

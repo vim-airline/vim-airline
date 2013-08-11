@@ -42,6 +42,7 @@ call s:check_defined('g:airline_statusline_funcrefs', [])
 call s:check_defined('g:airline_exclude_funcrefs', [])
 
 call s:check_defined('g:airline_mode_map', {
+      \ '__' : ' ---- ',
       \ 'n'  : 'NORMAL',
       \ 'i'  : 'INSERT',
       \ 'R'  : 'REPLACE',
@@ -54,8 +55,8 @@ call s:check_defined('g:airline_mode_map', {
       \ '' : 'S-BLOCK',
       \ })
 
-call s:check_defined('g:airline_section_a', '%{get(g:, "airline_current_mode_text", "")}')
-call s:check_defined('g:airline_section_b', '%{get(g:, "airline_current_branch", "")}')
+call s:check_defined('g:airline_section_a', '%{get(w:, "airline_current_mode", "")}')
+call s:check_defined('g:airline_section_b', '%{get(w:, "airline_current_branch", "")}')
 call s:check_defined('g:airline_section_c', '%f%m')
 call s:check_defined('g:airline_section_gutter', '')
 call s:check_defined('g:airline_section_x', "%{strlen(&filetype)>0?&filetype:''}")
