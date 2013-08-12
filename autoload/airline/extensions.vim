@@ -17,11 +17,12 @@ let s:filetype_overrides = {
       \ 'undotree': [ 'undotree', '' ],
       \ 'gundo': [ 'Gundo', '' ],
       \ 'diff': [ 'diff', '' ],
-      \ 'vimshell': [ 'vimshell', '%{vimshell#get_status_string()}' ],
       \ 'vimfiler': [ 'vimfiler', '%{vimfiler#get_status_string()}' ],
       \ 'minibufexpl': [ 'MiniBufExplorer', '' ],
       \ 'startify': [ 'startify', '' ],
       \ }
+
+let s:filetype_regex_overrides = {}
 
 function! airline#extensions#apply_left_override(section1, section2)
   let w:airline_section_a = a:section1
@@ -58,6 +59,12 @@ function! airline#extensions#update_statusline()
     let args = s:filetype_overrides[&ft]
     call airline#extensions#apply_left_override(args[0], args[1])
   endif
+
+  for item in items(s:filetype_regex_overrides)
+    if match(&ft, item[0]) >= 0
+      call airline#extensions#apply_left_override(item[1][0], item[1][1])
+    endif
+  endfor
 endfunction
 
 function! airline#extensions#is_excluded_window()
@@ -121,6 +128,11 @@ function! airline#extensions#load()
 
   if exists(':TagbarToggle')
     call airline#extensions#tagbar#init(s:ext)
+  endif
+
+  if exists(':VimShell')
+    let s:filetype_overrides['vimshell'] = ['vimshell','%{vimshell#get_status_string()}']
+    let s:filetype_regex_overrides['^int-'] = ['vimshell','%{substitute(&ft, "int-", "", "")}']
   endif
 
   if g:airline_enable_branch && (get(g:, 'loaded_fugitive', 0) || get(g:, 'loaded_lawrencium', 0))
