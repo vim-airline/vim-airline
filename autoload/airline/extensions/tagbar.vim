@@ -20,7 +20,7 @@ endfunction
 function! airline#extensions#tagbar#init(ext)
   call a:ext.add_statusline_funcref(function('airline#extensions#tagbar#apply'))
 
-  let g:airline_section_x = '%(%{w:airline_active ? tagbar#currenttag("%s","") : ""} '
+  let g:airline_section_x = '%(%{get(w:,"airline_active",0) ? tagbar#currenttag("%s","") : ""} '
         \ .g:airline_right_alt_sep.' %)'.g:airline_section_x
 
   augroup airline_tagbar
