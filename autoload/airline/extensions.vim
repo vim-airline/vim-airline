@@ -126,7 +126,7 @@ function! airline#extensions#load()
     call airline#extensions#commandt#init(s:ext)
   endif
 
-  if exists(':TagbarToggle')
+  if g:airline_enable_tagbar && exists(':TagbarToggle')
     call airline#extensions#tagbar#init(s:ext)
   endif
 
