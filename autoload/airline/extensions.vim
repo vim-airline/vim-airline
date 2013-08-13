@@ -130,7 +130,7 @@ function! airline#extensions#load()
     call airline#extensions#tagbar#init(s:ext)
   endif
 
-  if g:airline_enable_csv && &ft =~# "csv" && exists("*CSV_WCol")
+  if g:airline_enable_csv
       call airline#extensions#csv#init(s:ext)
   endif
 

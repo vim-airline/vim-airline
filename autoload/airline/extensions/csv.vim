@@ -2,10 +2,15 @@
 " vim: ts=2 sts=2 sw=2 fdm=indent
 
 function! airline#extensions#csv#get_statusline()
-  if exists("g:airline_filetype_csv") && g:airline_filetype_csv ==# 'Name'
-    return '['.CSV_WCol('Name').']'
-  else
-    return '['.CSV_WCol().']'
+    if &ft ==# "csv" && exists("*CSV_WCol")
+	if exists("g:airline_filetype_csv") && g:airline_filetype_csv ==# 'Name'
+	    return '['.CSV_WCol('Name').CSV_WCol().']'
+	else
+	    return '['.CSV_WCol().']'
+	endif
+    else
+	return ''
+    endif
 endfunction
 
 function! airline#extensions#csv#init(ext)
