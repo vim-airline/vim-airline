@@ -61,6 +61,16 @@ values):
 * enable/disable tagbar integration
 >
   let g:airline_enable_tagbar=1
+
+* enable/disable csv integration
+>
+  let g:airline_enable_csv=1
+
+  (this displays the column number in the csv file)
+
+  let g:airline_filetype_csv = 'Name'
+
+  (this displays the column name)
 <
 
 * enable modified detection
