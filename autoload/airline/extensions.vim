@@ -130,6 +130,11 @@ function! airline#extensions#load()
     call airline#extensions#tagbar#init(s:ext)
   endif
 
+  if g:airline_enable_csv && &ft =~# "csv" && exists("*CSV_WCol")
+      call airline#extensions#csv#init(s:ext)
+  endif
+
+
   if exists(':VimShell')
     let s:filetype_overrides['vimshell'] = ['vimshell','%{vimshell#get_status_string()}']
     let s:filetype_regex_overrides['^int-'] = ['vimshell','%{substitute(&ft, "int-", "", "")}']
