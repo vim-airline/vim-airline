@@ -3,13 +3,13 @@
 
 function! airline#extensions#csv#get_statusline()
     if &ft ==# "csv" && exists("*CSV_WCol")
-	if exists("g:airline_filetype_csv") && g:airline_filetype_csv ==# 'Name'
-	    return '['.CSV_WCol('Name').CSV_WCol().']'
-	else
-	    return '['.CSV_WCol().']'
-	endif
+        if exists("g:airline_filetype_csv") && g:airline_filetype_csv ==# 'Name'
+            return '['.CSV_WCol('Name').CSV_WCol().']'
+        else
+            return '['.CSV_WCol().']'
+        endif
     else
-	return ''
+        return ''
     endif
 endfunction
 
