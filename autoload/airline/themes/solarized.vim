@@ -2,29 +2,30 @@ function! s:generate()
   """"""""""""""""""""""""""""""""""""""""""""""""
   " Options
   """"""""""""""""""""""""""""""""""""""""""""""""
-  let s:reduced = get(g:, 'airline_solarized_reduced', 1)
-  let s:background = get(g:, 'airline_solarized_bg', &background)
+  let s:reduced     = get(g:, 'airline_solarized_reduced', 1)
+  let s:background  = get(g:, 'airline_solarized_bg', &background)
+  let s:ansi_colors = get(g:, 'solarized_termcolors', 16) != 256 && &t_Co >= 16 ? 1 : 0
 
   """"""""""""""""""""""""""""""""""""""""""""""""
   " Colors
   """"""""""""""""""""""""""""""""""""""""""""""""
   " Base colors
-  let s:base03  = {'t': 234, 'g': '#002b36'}
-  let s:base02  = {'t': 235, 'g': '#073642'}
-  let s:base01  = {'t': 240, 'g': '#586e75'}
-  let s:base00  = {'t': 241, 'g': '#657b83'}
-  let s:base0   = {'t': 244, 'g': '#839496'}
-  let s:base1   = {'t': 245, 'g': '#93a1a1'}
-  let s:base2   = {'t': 254, 'g': '#eee8d5'}
-  let s:base3   = {'t': 230, 'g': '#fdf6e3'}
-  let s:yellow  = {'t': 136, 'g': '#b58900'}
-  let s:orange  = {'t': 166, 'g': '#cb4b16'}
-  let s:red     = {'t': 160, 'g': '#dc322f'}
-  let s:magenta = {'t': 125, 'g': '#d33682'}
-  let s:violet  = {'t': 61,  'g': '#6c71c4'}
-  let s:blue    = {'t': 33,  'g': '#268bd2'}
-  let s:cyan    = {'t': 37,  'g': '#2aa198'}
-  let s:green   = {'t': 64,  'g': '#859900'}
+  let s:base03  = {'t': s:ansi_colors ?   8 : 234, 'g': '#002b36'}
+  let s:base02  = {'t': s:ansi_colors ? '0' : 235, 'g': '#073642'}
+  let s:base01  = {'t': s:ansi_colors ?  10 : 240, 'g': '#586e75'}
+  let s:base00  = {'t': s:ansi_colors ?  11 : 241, 'g': '#657b83'}
+  let s:base0   = {'t': s:ansi_colors ?  12 : 244, 'g': '#839496'}
+  let s:base1   = {'t': s:ansi_colors ?  14 : 245, 'g': '#93a1a1'}
+  let s:base2   = {'t': s:ansi_colors ?   7 : 254, 'g': '#eee8d5'}
+  let s:base3   = {'t': s:ansi_colors ?  15 : 230, 'g': '#fdf6e3'}
+  let s:yellow  = {'t': s:ansi_colors ?   3 : 136, 'g': '#b58900'}
+  let s:orange  = {'t': s:ansi_colors ?   9 : 166, 'g': '#cb4b16'}
+  let s:red     = {'t': s:ansi_colors ?   1 : 160, 'g': '#dc322f'}
+  let s:magenta = {'t': s:ansi_colors ?   5 : 125, 'g': '#d33682'}
+  let s:violet  = {'t': s:ansi_colors ?  13 : 61 , 'g': '#6c71c4'}
+  let s:blue    = {'t': s:ansi_colors ?   4 : 33 , 'g': '#268bd2'}
+  let s:cyan    = {'t': s:ansi_colors ?   6 : 37 , 'g': '#2aa198'}
+  let s:green   = {'t': s:ansi_colors ?   2 : 64 , 'g': '#859900'}
   let s:c218    = {'t': 218, 'g': '#ffafd7'}
   let s:c52     = {'t': 52,  'g': '#5f0000'}
 
