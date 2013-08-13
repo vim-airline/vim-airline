@@ -63,6 +63,7 @@ call s:check_defined('g:airline_section_gutter', '')
 call s:check_defined('g:airline_section_x', "%{strlen(&filetype)>0?&filetype:''}")
 call s:check_defined('g:airline_section_y', "%{strlen(&fenc)>0?&fenc:''}%{strlen(&ff)>0?'['.&ff.']':''}")
 call s:check_defined('g:airline_section_z', '%3p%% '.g:airline_linecolumn_prefix.'%3l:%3c')
+call s:check_defined('g:airline_section_warning', '')
 
 let s:airline_initialized = 0
 function! s:on_window_changed()

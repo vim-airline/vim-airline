@@ -109,7 +109,7 @@ function! airline#get_statusline(winnr, active)
 
     if a:active
       let sl.='%(%#Al2_to_warningmsg#'.g:airline_right_sep
-      let sl.='%#warningmsg#'.s:getwinvar(a:winnr, 'airline_section_warning', '').'%)'
+      let sl.='%#warningmsg#'.s:get_section(a:winnr, 'warning', '', '').'%)'
     endif
   endif
   return sl

@@ -139,7 +139,6 @@ CUSTOMIZATION                                        *airline-customization*
 
 The following are some unicode symbols for customizing the left/right
 separators, as well as the powerline font glyths.
-
 >
   " unicode symbols
   let g:airline_left_sep = '»'
@@ -175,10 +174,12 @@ separators, as well as the powerline font glyths.
 <
 
 For more intricate customizations, you can replace the predefined sections
-with the usual statusline syntax.
-
+with the usual statusline syntax. Note that many of these settings can also be
+controlled with |airline-configuration| variables, which is useful for
+sections which by default host more than one extension.
 >
-  " here are the the default values
+  variable names                default contents
+  ----------------------------------------------------------------------------
   let g:airline_section_a       (the mode/paste indicator)
   let g:airline_section_b       (the fugitive/lawrencium branch indicator)
   let g:airline_section_c       (bufferline or filename)
