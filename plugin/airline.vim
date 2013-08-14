@@ -57,6 +57,7 @@ call s:check_defined('g:airline_mode_map', {
       \ '' : 'S-BLOCK',
       \ })
 
+
 call s:check_defined('g:airline_section_a', '%{get(w:, "airline_current_mode", "")}')
 call s:check_defined('g:airline_section_b', '%{get(w:, "airline_current_branch", "")}')
 call s:check_defined('g:airline_section_c', '%f%m')
@@ -76,6 +77,28 @@ function! s:on_window_changed()
   call airline#update_statusline()
 endfunction
 
+function! s:airline_toggle()
+  if exists("#airline")
+    augroup airline
+      au!
+    augroup END
+    augroup! airline
+    if exists("s:stl")
+      let &stl = s:stl
+    endif
+  else
+    let s:stl = &stl
+    augroup airline
+    autocmd!
+    autocmd ColorScheme * call airline#reload_highlight()
+    autocmd WinEnter,BufWinEnter,FileType,BufUnload,ShellCmdPost *
+        \ call <sid>on_window_changed()
+    augroup END
+    " update statusline now
+    call <sid>on_window_changed()
+  endif
+endfunction
+
 function! s:get_airline_themes(a, l, p)
   let files = split(globpath(&rtp, 'autoload/airline/themes/'.a:a.'*'), "\n")
   return map(files, 'fnamemodify(v:val, ":t:r")')
@@ -89,10 +112,6 @@ function! s:airline_theme(...)
 endfunction
 command! -nargs=? -complete=customlist,<sid>get_airline_themes AirlineTheme call <sid>airline_theme(<f-args>)
 command! AirlineToggleWhitespace call airline#extensions#whitespace#toggle()
+command! AirlineToggle call <sid>airline_toggle()
 
-augroup airline
-  autocmd!
-  autocmd ColorScheme * call airline#reload_highlight()
-  autocmd WinEnter,BufWinEnter,FileType,BufUnload,ShellCmdPost *
-        \ call <sid>on_window_changed()
-augroup END
+call <sid>airline_toggle()
