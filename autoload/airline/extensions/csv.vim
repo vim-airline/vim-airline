@@ -5,18 +5,26 @@ if !exists('g:airline#extensions#csv#column_display')
   let g:airline#extensions#csv#column_display = 'Number'
 endif
 
-function! airline#extensions#csv#apply()
-  if &ft ==# "csv" && exists("*CSV_WCol")
-    if get(g:, 'airline#extensions#csv#column_display', '') ==# 'Name'
-      let column = '['.CSV_WCol('Name').CSV_WCol().']'
+function! airline#extensions#csv#get_statusline()
+  if exists('*CSV_WCol')
+    if g:airline#extensions#csv#column_display ==# 'Name'
+      return '['.CSV_WCol('Name').CSV_WCol().']'
     else
-      let column = '['.CSV_WCol().']'
+      return '['.CSV_WCol().']'
     endif
+  endif
+  return ''
+endfunction
 
+function! airline#extensions#csv#apply()
+  if &ft ==# "csv"
     if !exists('w:airline_section_gutter')
-      let w:airline_section_gutter = ''
+      let w:airline_section_gutter = '%='
     endif
-    let w:airline_section_gutter .= g:airline_left_alt_sep.' '.column
+    let w:airline_section_gutter =
+          \ g:airline_left_alt_sep
+          \ .' %{airline#extensions#csv#get_statusline()}'
+          \ .w:airline_section_gutter
   endif
 endfunction
 

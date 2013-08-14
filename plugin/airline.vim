@@ -54,7 +54,7 @@ call s:check_defined('g:airline_mode_map', {
 call s:check_defined('g:airline_section_a', '%{get(w:, "airline_current_mode", "")}')
 call s:check_defined('g:airline_section_b', '%{get(w:, "airline_current_branch", "")}')
 call s:check_defined('g:airline_section_c', '%f%m')
-call s:check_defined('g:airline_section_gutter', '')
+call s:check_defined('g:airline_section_gutter', '%=')
 call s:check_defined('g:airline_section_x', "%{strlen(&filetype)>0?&filetype:''}")
 call s:check_defined('g:airline_section_y', "%{strlen(&fenc)>0?&fenc:''}%{strlen(&ff)>0?'['.&ff.']':''}")
 call s:check_defined('g:airline_section_z', '%3p%% '.g:airline_linecolumn_prefix.'%3l:%3c')

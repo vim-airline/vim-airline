@@ -89,14 +89,12 @@ function! airline#get_statusline(winnr, active)
     let sl.=l:info_sep_color
     let sl.=g:airline_left_sep
     let sl.=l:status_color.'%<'.s:get_section(a:winnr, 'c')
-    let sl.=' '.l:file_flag_color."%(%{&ro ? g:airline_readonly_symbol : ''}%)".l:status_color
-    let sl.=s:get_section(a:winnr, 'gutter', '', '')
-    let sl.=l:status_color
+    let sl.=' '.l:file_flag_color."%(%{&ro ? g:airline_readonly_symbol : ''}%)"
   else
     let sl.=l:status_color.' %f%m'
   endif
+  let sl.=l:status_color.s:get_section(a:winnr, 'gutter', '', '').l:status_color
   if s:getwinvar(a:winnr, 'airline_render_right', 1)
-    let sl.='%='
     let sl.=s:get_section(a:winnr, 'x')
     let sl.=l:info_sep_color
     let sl.=a:active ? g:airline_right_sep : g:airline_right_alt_sep
