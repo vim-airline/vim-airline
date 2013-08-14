@@ -20,9 +20,11 @@ function! airline#themes#generate_color_map(section1, section2, section3, file)
 endfunction
 
 function! s:get_syn(group, what)
-  let color = synIDattr(synIDtrans(hlID(a:group)), a:what)
+  " need to pass in mode, known to break on 7.3.547
+  let mode = has('gui_running') ? 'gui' : 'cterm'
+  let color = synIDattr(synIDtrans(hlID(a:group)), a:what, mode)
   if empty(color) || color == -1
-    let color = synIDattr(synIDtrans(hlID('Normal')), a:what)
+    let color = synIDattr(synIDtrans(hlID('Normal')), a:what, mode)
   endif
   if empty(color) || color == -1
     if has('gui_running')
