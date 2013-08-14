@@ -183,7 +183,7 @@ sections which by default host more than one extension.
   let g:airline_section_a       (the mode/paste indicator)
   let g:airline_section_b       (the fugitive/lawrencium branch indicator)
   let g:airline_section_c       (bufferline or filename)
-  let g:airline_section_gutter
+  let g:airline_section_gutter  (csv)
   let g:airline_section_x       (tagbar, filetype)
   let g:airline_section_y       (fileencoding, fileformat)
   let g:airline_section_z       (percentage, line number, column number)
