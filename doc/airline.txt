@@ -221,6 +221,35 @@ statusline modified.  Here is an example:
 <
 
 ==============================================================================
+WRITING EXTENSIONS                              *airline-writing-extensions*
+
+The basic idea is that the statusline is rendered with a series of overrides.
+For each section that the algorithm encounters, it will first check to see if
+there is a window-local variable of the section.  If it exists, the value will
+be used, otherwise, the global variable of the section will be used.  This
+means it is possible to override only one or two sections of the statusline.
+See |g:airline_statusline_funcrefs| for an example of a simple extension.
+
+For contributions into the plugin, here are the following guidelines:
+
+1.  For simple |&filetype| checks, they can be added directly into the
+`extensions.vim` file.
+
+2.  Pretty much everything else should live as a separate file under the
+`extensions/` directory.
+
+  a.  Inside `extensions.vim`, add a check for some variable or command that
+      is always available (these must be defined in `plugin`, and _not_
+      `autoload` of the other plugin).  If it exists, then initialize the
+      extension. This ensures that the extension is loaded if and only if the
+      user has the other plugin installed.
+
+  b.  Extension specific variables should be defined in the extension, e.g.
+      `g:airline#extensions#foo_plugin#bar_variable`.  Unfortunately, the
+      branch extension does not follow this convention, but for legacy reasons
+      those variables are kept as is.
+
+==============================================================================
 WRITING THEMES                                              *airline-themes*
 
 Themes are written "close to the metal" -- you will need to know some basic
