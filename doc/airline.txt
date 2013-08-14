@@ -37,94 +37,52 @@ CONFIGURATION                                        *airline-configuration*
 There are a couple configuration values available (shown with their default
 values):
 
-* the separator used on the left side
->
+* the separator used on the left side >
   let g:airline_left_sep='>'
 <
-
-* the separator used on the right side
->
+* the separator used on the right side >
   let g:airline_right_sep='<'
 <
-
-* enable/disable fugitive/lawrencium integration
->
-  let g:airline_enable_branch=1
-  let g:airline_branch_empty_message=''
-<
-
-* enable/disable syntastic integration
->
-  let g:airline_enable_syntastic=1
-<
-
-* enable/disable tagbar integration
->
-  let g:airline_enable_tagbar=1
-<
-
-* enable modified detection
->
+* enable modified detection >
   let g:airline_detect_modified=1
-<
 
-* enable paste detection
->
+* enable paste detection >
   let g:airline_detect_paste=1
 <
-
-* enable iminsert detection
->
+* enable iminsert detection >
   let g:airline_detect_iminsert=1
 <
-
-* enable whitespace detection
->
+* enable whitespace detection >
   let g:airline_detect_whitespace=0 "disabled
   let g:airline_detect_whitespace=1 "icon and message (default)
   let g:airline_detect_whitespace=2 "icon only
 <
-
 * determine whether inactive windows should have the left section collapsed to
-  only the filename of that buffer.
->
+  only the filename of that buffer.  >
   let g:airline_inactive_collapse=1
 <
-
-* change the default theme
->
+* change the default theme >
   let g:airline_theme='dark'
 <
-
-* enable/disable usage of patched powerline font symbols
->
+* enable/disable usage of patched powerline font symbols >
   let g:airline_powerline_fonts=0
 <
-
-* define the set of text to display for each mode.
->
+* define the set of text to display for each mode.  >
   let g:airline_mode_map = {} " see source for current list
 <
-
 * define the set of filename match queries which excludes a window from having
-  its statusline modified
->
+  its statusline modified >
   let g:airline_exclude_filenames = [] " see source for current list
 <
-
 * define the set of filetypes which are excluded from having its window
-  statusline modified
->
+  statusline modified >
   let g:airline_exclude_filetypes = [] " see source for current list
 <
-
 * defines whether the preview window should be excluded from have its window
   statusline modified (may help with plugins which use the preview window
-  heavily)
->
+  heavily) >
   let g:airline_exclude_preview = 0
 <
-
 ==============================================================================
 COMMANDS                                                  *airline-commands*
 
@@ -194,19 +152,38 @@ sections which by default host more than one extension.
   let g:airline_section_b = '%{getcwd()}'
   let g:airline_section_c = '%t'
 <
-
 ==============================================================================
 EXTENSIONS                                              *airline-extensions*
 
+                                                            *airline-branch*
+fugitive.vim <https://github.com/tpope/vim-fugitive>
+lawrencium   <https://bitbucket.org/ludovicchabant/vim-lawrencium>
+
+* enable/disable fugitive/lawrencium integration >
+  let g:airline_enable_branch = 1
+<
+* change the text for when no branch is detected >
+  let g:airline_branch_empty_message = ''
+<
+                                                         *airline-syntastic*
+syntastic <https://github.com/scrooloose/syntastic>
+
+* enable/disable syntastic integration >
+  let g:airline_enable_syntastic = 1
+<
+                                                            *airline-tagbar*
+tagbar <https://github.com/majutsushi/>
+
+* enable/disable tagbar integration >
+  let g:airline_enable_tagbar = 1
+<
                                                                *airline-csv*
 csv.vim <https://github.com/chrisbra/csv.vim>
 
-* enable/disable csv integration for displaying the current column number.
->
+* enable/disable csv integration for displaying the current column number.  >
   let g:airline_enable_csv = 1
 >
-* change how columns are identified.
->
+* change how columns are identified.  >
   let g:airline#extensions#csv#column_identify = '' (default)
   let g:airline#extensions#csv#column_identify = 'Name' (extracts column name)
 >
@@ -262,31 +239,23 @@ Q. There are no colors.
 A. You need to set up your terminal correctly.  For more details, see
    <http://vim.wikia.com/wiki/256_colors_in_vim>.  Alternatively, if you want
    to bypass the automatic detection of terminal colors, you can force Vim
-   into 256 color mode with this:
->
+   into 256 color mode with this: >
   set t_Co=256
 <
-
 Q. The statusline does not appear until I create a split.
 A. This is the default setting of |laststatus|.  If you want it to appear all
-   the time, add the following to your vimrc:
->
+   the time, add the following to your vimrc: >
   set laststatus=2
 <
-
 Q. Powerline symbols are not showing up.
 A. First, you must install patched powerline fonts. Second, you must enable
-   unicode in vim.
->
+   unicode in vim.  >
   set encoding=utf-8
 <
-
 Q. There is a pause when leaving insert mode.
-A. Add the following to your vimrc.
->
+A. Add the following to your vimrc.  >
   set ttimeoutlen=50
 <
-
 Q. The colors look a little off for some themes.
 A. Certain themes are derived from the active colorscheme by extracting colors
    from predefined highlight groups.  These airline themes will look good for
@@ -305,7 +274,7 @@ Contributions and pull requests are welcome.
 ==============================================================================
 LICENSE                                                    *airline-license*
 
-MIT license.  Copyright © 2013 Bailey Ling.
+MIT License.  Copyright © 2013 Bailey Ling.
 
 
  vim:tw=78:ts=8:ft=help:norl:
