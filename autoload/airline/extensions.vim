@@ -130,10 +130,9 @@ function! airline#extensions#load()
     call airline#extensions#tagbar#init(s:ext)
   endif
 
-  if g:airline_enable_csv
-      call airline#extensions#csv#init(s:ext)
+  if g:airline_enable_csv && exists(':Table')
+    call airline#extensions#csv#init(s:ext)
   endif
-
 
   if exists(':VimShell')
     let s:filetype_overrides['vimshell'] = ['vimshell','%{vimshell#get_status_string()}']

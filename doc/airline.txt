@@ -61,16 +61,6 @@ values):
 * enable/disable tagbar integration
 >
   let g:airline_enable_tagbar=1
-
-* enable/disable csv integration
->
-  let g:airline_enable_csv=1
-
-  (this displays the column number in the csv file)
-
-  let g:airline_filetype_csv = 'Name'
-
-  (this displays the column name)
 <
 
 * enable modified detection
@@ -204,6 +194,22 @@ sections which by default host more than one extension.
   let g:airline_section_b = '%{getcwd()}'
   let g:airline_section_c = '%t'
 <
+
+==============================================================================
+EXTENSIONS                                              *airline-extensions*
+
+                                                               *airline-csv*
+csv.vim <https://github.com/chrisbra/csv.vim>
+
+* enable/disable csv integration for displaying the current column number.
+>
+  let g:airline_enable_csv = 1
+>
+* change how columns are identified.
+>
+  let g:airline#extensions#csv#column_identify = '' (default)
+  let g:airline#extensions#csv#column_identify = 'Name' (extracts column name)
+>
 
 ==============================================================================
 FUNCREFS                                                  *airline-funcrefs*
