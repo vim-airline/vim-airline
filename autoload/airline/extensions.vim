@@ -129,7 +129,7 @@ function! airline#extensions#load()
     call airline#extensions#tagbar#init(s:ext)
   endif
 
-  if g:airline_enable_csv && exists(':Table')
+  if g:airline_enable_csv && (get(g:, 'loaded_csv', 0) || exists(':Table'))
     call airline#extensions#csv#init(s:ext)
   endif
 

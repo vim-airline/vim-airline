@@ -83,13 +83,14 @@ function! s:airline_toggle()
   else
     let s:stl = &stl
     augroup airline
-    autocmd!
-    autocmd ColorScheme * call airline#reload_highlight()
-    autocmd WinEnter,BufWinEnter,FileType,BufUnload,ShellCmdPost *
-        \ call <sid>on_window_changed()
+      autocmd!
+      autocmd ColorScheme * call airline#reload_highlight()
+      autocmd WinEnter,BufWinEnter,FileType,BufUnload,ShellCmdPost *
+            \ call <sid>on_window_changed()
     augroup END
-    " update statusline now
-    call <sid>on_window_changed()
+    if s:airline_initialized
+      call <sid>on_window_changed()
+    endif
   endif
 endfunction
 
