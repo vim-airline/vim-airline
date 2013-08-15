@@ -1,15 +1,17 @@
-" MIT license. Copyright (c) 2013 Bailey Ling.
+" MIT License. Copyright (c) 2013 Bailey Ling.
 " vim: ts=2 sts=2 sw=2 fdm=indent
 
 if &cp || v:version < 702 || (exists('g:loaded_airline') && g:loaded_airline)
   finish
 endif
 let g:loaded_airline = 1
+
 function! s:check_defined(variable, default)
   if !exists(a:variable)
     let {a:variable} = a:default
   endif
 endfunction
+
 call s:check_defined('g:airline_left_sep', exists('g:airline_powerline_fonts')?"":">")
 call s:check_defined('g:airline_left_alt_sep', exists('g:airline_powerline_fonts')?"":">")
 call s:check_defined('g:airline_right_sep', exists('g:airline_powerline_fonts')?"":"<")
@@ -51,7 +53,6 @@ call s:check_defined('g:airline_mode_map', {
       \ '' : 'S-BLOCK',
       \ })
 
-
 call s:check_defined('g:airline_section_a', '%{get(w:, "airline_current_mode", "")}')
 call s:check_defined('g:airline_section_b', '%{get(w:, "airline_current_branch", "")}')
 call s:check_defined('g:airline_section_c', '%f%m')
@@ -71,6 +72,10 @@ function! s:on_window_changed()
   call airline#update_statusline()
 endfunction
 
+function airline#cmdwinenter()
+  call airline#extensions#apply_left_override('Command Line', '')
+endfunction
+
 function! s:airline_toggle()
   if exists("#airline")
     augroup airline
@@ -84,6 +89,12 @@ function! s:airline_toggle()
     let s:stl = &stl
     augroup airline
       autocmd!
+
+      autocmd CmdwinEnter *
+            \ call add(g:airline_statusline_funcrefs, function('airline#cmdwinenter'))
+            \ | call <sid>on_window_changed()
+      autocmd CmdwinLeave * call remove(g:airline_statusline_funcrefs, -1)
+
       autocmd ColorScheme * call airline#reload_highlight()
       autocmd WinEnter,BufWinEnter,FileType,BufUnload,ShellCmdPost *
             \ call <sid>on_window_changed()
