@@ -93,7 +93,7 @@ function! airline#extensions#load_theme()
 endfunction
 
 function! s:sync_active_winnr()
-  if winnr() != s:active_winnr
+  if exists('#airline') && winnr() != s:active_winnr
     if airline#exec_funcrefs(s:ext._cursormove_funcrefs, 1)
       return
     endif

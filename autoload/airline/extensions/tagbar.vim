@@ -12,7 +12,7 @@ function! s:check_statusline()
   " sets it to BufEnter, so the ordering is off: airline sets the statusline
   " first, and then tagbar overwrites it, so this detects that and changes it
   " back to the airline statusline.
-  if match(&statusline, '^%!Tagbar') >= 0
+  if exists('#airline') && match(&statusline, '^%!Tagbar') >= 0
     call airline#update_statusline()
   endif
 endfunction
