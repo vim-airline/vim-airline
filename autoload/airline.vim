@@ -1,4 +1,4 @@
-" MIT license. Copyright (c) 2013 Bailey Ling.
+" MIT License. Copyright (c) 2013 Bailey Ling.
 " vim: ts=2 sts=2 sw=2 fdm=indent
 
 let s:is_win32term = (has('win32') || has('win64')) && !has('gui_running')
@@ -12,6 +12,53 @@ let s:airline_highlight_map = {
       \ 'statusline'     : 'Al6',
       \ 'file'           : 'Al7',
       \ }
+
+function! s:create_builder(active)
+  let builder = {}
+  let builder._sections = []
+  let builder._active = a:active
+
+  function! builder.split(gutter)
+    call add(self._sections, ['|', a:gutter])
+  endfunction
+
+  function! builder.add_section(group, contents)
+    call add(self._sections, [a:group, a:contents])
+  endfunction
+
+  function! builder._group(group)
+    return self._active ? a:group : a:group.'_inactive'
+  endfunction
+
+  function! builder.build()
+    let line = '%{airline#update_highlight()}'
+    let side = 0
+    let prev_group = ''
+    for section in self._sections
+      if section[0] == '|'
+        let side = 1
+        let line .= section[1]
+        continue
+      endif
+
+      if prev_group != ''
+        let sep_group = side == 0
+              \ ? airline#themes#exec_highlight_separator(section[0], prev_group)
+              \ : airline#themes#exec_highlight_separator(prev_group, section[0])
+        let line .= '%#'.self._group(sep_group).'#'
+        let line .= side == 0
+              \ ? self._active ? g:airline_left_sep : g:airline_left_alt_sep
+              \ : self._active ? g:airline_right_sep : g:airline_right_alt_sep
+      endif
+
+      let line .= '%#'.self._group(section[0]).'#'.section[1]
+      let prev_group = section[0]
+    endfor
+    return line
+  endfunction
+
+  return builder
+endfunction
 
 function! airline#exec_highlight(group, colors)
   let colors = a:colors
@@ -71,46 +118,26 @@ function! s:get_section(winnr, key, ...)
 endfunction
 
 function! airline#get_statusline(winnr, active)
-  let l:mode_color      = a:active ? "%#Al2#" : "%#Al2_inactive#"
-  let l:mode_sep_color  = a:active ? "%#Al3#" : "%#Al3_inactive#"
-  let l:info_color      = a:active ? "%#Al4#" : "%#Al4_inactive#"
-  let l:info_sep_color  = a:active ? "%#Al5#" : "%#Al5_inactive#"
-  let l:status_color    = a:active ? "%#Al6#" : "%#Al6_inactive#"
-  let l:file_flag_color = a:active ? "%#Al7#" : "%#Al7_inactive#"
+  let builder = s:create_builder(a:active)
 
-  let sl = '%{airline#update_highlight()}'
   if s:getwinvar(a:winnr, 'airline_render_left', a:active || (!a:active && !g:airline_inactive_collapse))
-    let sl.=l:mode_color.s:get_section(a:winnr, 'a')
-    let sl.='%{g:airline_detect_paste && &paste ? g:airline_paste_symbol." " : ""}'
-    let sl.=l:mode_sep_color
-    let sl.=a:active ? g:airline_left_sep : g:airline_left_alt_sep
-    let sl.=l:info_color
-    let sl.=s:get_section(a:winnr, 'b')
-    let sl.=l:info_sep_color
-    let sl.=g:airline_left_sep
-    let sl.=l:status_color.'%<'.s:get_section(a:winnr, 'c')
-    let sl.=' '.l:file_flag_color."%(%{&ro ? g:airline_readonly_symbol : ''}%)"
+    call builder.add_section('Al2', s:get_section(a:winnr, 'a'))
+    call builder.add_section('Al7', '%{g:airline_detect_paste && &paste ? g:airline_paste_symbol." " : ""}')
+    call builder.add_section('Al4', s:get_section(a:winnr, 'b'))
+    call builder.add_section('Al6', s:get_section(a:winnr, 'c').' %#Al7#%{&ro ? g:airline_readonly_symbol : ""}')
   else
-    let sl.=l:status_color.' %f%m'
+    call builder.add_section('Al6', '%f%m')
   endif
-  let sl.=l:status_color.s:get_section(a:winnr, 'gutter', '', '').l:status_color
+  call builder.split(s:get_section(a:winnr, 'gutter', '', ''))
   if s:getwinvar(a:winnr, 'airline_render_right', 1)
-    let sl.=s:get_section(a:winnr, 'x')
-    let sl.=l:info_sep_color
-    let sl.=a:active ? g:airline_right_sep : g:airline_right_alt_sep
-    let sl.=l:info_color
-    let sl.=s:get_section(a:winnr, 'y')
-    let sl.=l:mode_sep_color
-    let sl.=a:active ? g:airline_right_sep : g:airline_right_alt_sep
-    let sl.=l:mode_color
-    let sl.=s:get_section(a:winnr, 'z')
-
+    call builder.add_section('Al6', s:get_section(a:winnr, 'x'))
+    call builder.add_section('Al4', s:get_section(a:winnr, 'y'))
+    call builder.add_section('Al2', s:get_section(a:winnr, 'z'))
     if a:active
-      let sl.='%(%#Al2_to_warningmsg#'.g:airline_right_sep
-      let sl.='%#warningmsg#'.s:get_section(a:winnr, 'warning', '', '').'%)'
+      call builder.add_section('warningmsg', s:get_section(a:winnr, 'warning', '', ''))
     endif
   endif
-  return sl
+  return builder.build()
 endfunction
 
 function! airline#exec_funcrefs(list, break_early)
