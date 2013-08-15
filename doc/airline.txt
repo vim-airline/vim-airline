@@ -92,6 +92,9 @@ COMMANDS                                                  *airline-commands*
 :AirlineToggleWhitespace                          *:AirlineToggleWhitespace*
   Toggles whitespace detection.
 
+:AirlineToggle                                              *:AirlineToggle*
+  Toggle this plugin (e.g. the nice statusline)
+
 ==============================================================================
 CUSTOMIZATION                                        *airline-customization*
 
