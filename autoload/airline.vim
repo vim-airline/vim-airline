@@ -61,14 +61,8 @@ function! airline#highlight(modes)
   endfor
 endfunction
 
-" for 7.2 compatibility
-function! s:getwinvar(winnr, key, ...)
-  let winvals = getwinvar(a:winnr, '')
-  return get(winvals, a:key, (a:0 ? a:1 : ''))
-endfunction
-
 function! s:get_section(winnr, key, ...)
-  let text = s:getwinvar(a:winnr, 'airline_section_'.a:key, g:airline_section_{a:key})
+  let text = airline#util#getwinvar(a:winnr, 'airline_section_'.a:key, g:airline_section_{a:key})
   let [prefix, suffix] = [get(a:000, 0, '%( '), get(a:000, 1, ' %)')]
   return empty(text) ? '' : prefix.text.suffix
 endfunction
@@ -76,7 +70,7 @@ endfunction
 function! airline#get_statusline(winnr, active)
   let builder = airline#builder#new(a:active)
 
-  if s:getwinvar(a:winnr, 'airline_render_left', a:active || (!a:active && !g:airline_inactive_collapse))
+  if airline#util#getwinvar(a:winnr, 'airline_render_left', a:active || (!a:active && !g:airline_inactive_collapse))
     call builder.add_section('Al2', s:get_section(a:winnr, 'a').'%{g:airline_detect_paste && &paste ? g:airline_paste_symbol." " : ""}')
     call builder.add_section('Al4', s:get_section(a:winnr, 'b'))
     call builder.add_section('Al6', s:get_section(a:winnr, 'c').' %#Al7#%{&ro ? g:airline_readonly_symbol : ""}')
@@ -84,7 +78,7 @@ function! airline#get_statusline(winnr, active)
     call builder.add_section('Al6', '%f%m')
   endif
   call builder.split(s:get_section(a:winnr, 'gutter', '', ''))
-  if s:getwinvar(a:winnr, 'airline_render_right', 1)
+  if airline#util#getwinvar(a:winnr, 'airline_render_right', 1)
     call builder.add_section('Al6', s:get_section(a:winnr, 'x'))
     call builder.add_section('Al4', s:get_section(a:winnr, 'y'))
     call builder.add_section('Al2', s:get_section(a:winnr, 'z'))
