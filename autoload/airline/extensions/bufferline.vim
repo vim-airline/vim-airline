@@ -18,7 +18,7 @@ endfunction
 
 function! airline#extensions#bufferline#init(ext)
   highlight AlBl_active gui=bold cterm=bold term=bold
-  highlight link AlBl_inactive Al6
+  highlight link AlBl_inactive airline_c
   let g:bufferline_inactive_highlight = 'AlBl_inactive'
   let g:bufferline_active_highlight = 'AlBl_active'
   let g:bufferline_active_buffer_left = ''

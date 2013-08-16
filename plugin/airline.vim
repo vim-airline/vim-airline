@@ -46,7 +46,7 @@ call s:check_defined('g:airline_mode_map', {
       \ 'R'  : 'REPLACE',
       \ 'v'  : 'VISUAL',
       \ 'V'  : 'V-LINE',
-      \ 'c'  : 'CMD   ',
+      \ 'c'  : 'COMMAND',
       \ '' : 'V-BLOCK',
       \ 's'  : 'SELECT',
       \ 'S'  : 'S-LINE',

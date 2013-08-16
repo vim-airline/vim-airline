@@ -29,7 +29,7 @@ function! airline#builder#new(active)
   endfunction
 
   function! builder.build()
-    let line = '%{airline#update_highlight()}'
+    let line = '%{airline#check_mode()}'
     let side = 0
     let prev_group = ''
     let separator_groups = []

@@ -21,8 +21,8 @@ function! airline#exec_highlight(group, colors)
 endfunction
 
 function! airline#reload_highlight()
-  call airline#highlight(['inactive'])
-  call airline#highlight(['normal'])
+  call s:highlight(['inactive'])
+  call s:highlight(['normal'])
   call airline#extensions#load_theme()
 endfunction
 
@@ -32,10 +32,10 @@ function! airline#load_theme(name)
   let w:airline_lastmode = ''
   call airline#update_statusline()
   call airline#reload_highlight()
-  call airline#update_highlight()
+  call airline#check_mode()
 endfunction
 
-function! airline#highlight(modes)
+function! s:highlight(modes)
   " draw the base mode, followed by any overrides
   let mapped = map(a:modes, 'v:val == a:modes[0] ? v:val : a:modes[0]."_".v:val')
   for mode in mapped
@@ -108,7 +108,7 @@ function! airline#update_statusline()
   call setwinvar(winnr(), '&statusline', airline#get_statusline(winnr(), 1))
 endfunction
 
-function! airline#update_highlight()
+function! airline#check_mode()
   if get(w:, 'airline_active', 1)
     let l:m = mode()
     if l:m ==# "i"
@@ -131,7 +131,7 @@ function! airline#update_highlight()
 
   let mode_string = join(l:mode)
   if get(w:, 'airline_lastmode', '') != mode_string
-    call airline#highlight(l:mode)
+    call s:highlight(l:mode)
     let w:airline_lastmode = mode_string
   endif
   return ''
