@@ -39,6 +39,7 @@ function! airline#load_theme(name)
   let g:airline_theme = a:name
   let inactive_colors = g:airline#themes#{g:airline_theme}#inactive "also lazy loads the theme
   let w:airline_lastmode = ''
+  call airline#update_statusline()
   call airline#reload_highlight()
   call airline#update_highlight()
 endfunction
@@ -55,9 +56,9 @@ function! airline#highlight(modes)
       endfor
     endif
   endfor
-  if exists('w:airline_current_builder')
-    call w:airline_current_builder.refresh_separator_highlights()
-  endif
+  for sep in w:airline_current_info.separator_groups
+    call airline#themes#exec_highlight_separator(sep[0], sep[1])
+  endfor
 endfunction
 
 " for 7.2 compatibility
@@ -74,7 +75,6 @@ endfunction
 
 function! airline#get_statusline(winnr, active)
   let builder = airline#builder#new(a:active)
-  call setwinvar(a:winnr, 'airline_current_builder', builder)
 
   if s:getwinvar(a:winnr, 'airline_render_left', a:active || (!a:active && !g:airline_inactive_collapse))
     call builder.add_section('Al2', s:get_section(a:winnr, 'a').'%{g:airline_detect_paste && &paste ? g:airline_paste_symbol." " : ""}')
@@ -94,7 +94,10 @@ function! airline#get_statusline(winnr, active)
       call builder.add_raw('%)')
     endif
   endif
-  return builder.build()
+
+  let info = builder.build()
+  call setwinvar(a:winnr, 'airline_current_info', info)
+  return info.statusline
 endfunction
 
 function! airline#exec_funcrefs(list, break_early)

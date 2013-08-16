@@ -4,7 +4,6 @@
 function! airline#builder#new(active)
   let builder = {}
   let builder._sections = []
-  let builder._separator_groups = []
   let builder._active = a:active
 
   function! builder.split(gutter)
@@ -33,6 +32,7 @@ function! airline#builder#new(active)
     let line = '%{airline#update_highlight()}'
     let side = 0
     let prev_group = ''
+    let separator_groups = []
     for section in self._sections
       if section[0] == '|'
         let side = 1
@@ -47,7 +47,7 @@ function! airline#builder#new(active)
 
       if prev_group != ''
         let sep = side == 0 ? [section[0], prev_group] : [prev_group, section[0]]
-        call add(self._separator_groups, sep)
+        call add(separator_groups, sep)
         let line .= side == 0
               \ ? self._group(section[0].'_to_'.prev_group)
               \ : self._group(prev_group.'_to_'.section[0])
@@ -59,8 +59,11 @@ function! airline#builder#new(active)
       let line .= self._group(section[0]).section[1]
       let prev_group = section[0]
     endfor
-    call self.refresh_separator_highlights()
-    return line
+
+    return {
+          \ 'statusline': line,
+          \ 'separator_groups': separator_groups,
+          \ }
   endfunction
 
   return builder
