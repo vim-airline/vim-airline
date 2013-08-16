@@ -68,7 +68,22 @@ values):
   let g:airline_powerline_fonts=0
 <
 * define the set of text to display for each mode.  >
-  let g:airline_mode_map = {} " see source for current list
+  let g:airline_mode_map = {} " see source for the defaults
+
+  " or copy paste the following into your vimrc for shortform text
+  let g:airline_mode_map = {
+      \ '__' : '-',
+      \ 'n'  : 'N',
+      \ 'i'  : 'I',
+      \ 'R'  : 'R',
+      \ 'c'  : 'C',
+      \ 'v'  : 'V',
+      \ 'V'  : 'V',
+      \ '' : 'V',
+      \ 's'  : 'S',
+      \ 'S'  : 'S',
+      \ '' : 'S',
+      \ }
 <
 * define the set of filename match queries which excludes a window from having
   its statusline modified >
