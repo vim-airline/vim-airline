@@ -267,6 +267,8 @@ For contributions into the plugin, here are the following guidelines:
       branch extension does not follow this convention, but for legacy reasons
       those variables are kept as is.
 
+See the source of |example.vim| for a working extension.
+
 ==============================================================================
 WRITING THEMES                                              *airline-themes*
 
