@@ -57,6 +57,9 @@ function! airline#themes#get_highlight2(fg, bg, ...)
 endfunction
 
 function! airline#themes#exec_highlight_separator(from, to)
+  if a:from == a:to
+    return a:from
+  endif
   let l:from = airline#themes#get_highlight(a:from)
   let l:to = airline#themes#get_highlight(a:to)
   let group = a:from.'_to_'.a:to
