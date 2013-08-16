@@ -4,6 +4,7 @@
 function! airline#builder#new(active)
   let builder = {}
   let builder._sections = []
+  let builder._separator_groups = []
   let builder._active = a:active
 
   function! builder.split(gutter)
@@ -16,6 +17,12 @@ function! airline#builder#new(active)
 
   function! builder.add_raw(text)
     call add(self._sections, ['_', a:text])
+  endfunction
+
+  function! builder.refresh_separator_highlights()
+    for sep in self._separator_groups
+      call airline#themes#exec_highlight_separator(sep[0], sep[1])
+    endfor
   endfunction
 
   function! builder._group(group)
@@ -39,9 +46,11 @@ function! airline#builder#new(active)
       endif
 
       if prev_group != ''
+        let sep = side == 0 ? [section[0], prev_group] : [prev_group, section[0]]
+        call add(self._separator_groups, sep)
         let line .= side == 0
-              \ ? self._group(airline#themes#exec_highlight_separator(section[0], prev_group))
-              \ : self._group(airline#themes#exec_highlight_separator(prev_group, section[0]))
+              \ ? self._group(section[0].'_to_'.prev_group)
+              \ : self._group(prev_group.'_to_'.section[0])
         let line .= side == 0
               \ ? self._active ? g:airline_left_sep : g:airline_left_alt_sep
               \ : self._active ? g:airline_right_sep : g:airline_right_alt_sep
@@ -50,6 +59,7 @@ function! airline#builder#new(active)
       let line .= self._group(section[0]).section[1]
       let prev_group = section[0]
     endfor
+    call self.refresh_separator_highlights()
     return line
   endfunction
 

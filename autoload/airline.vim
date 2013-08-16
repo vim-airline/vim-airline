@@ -55,7 +55,9 @@ function! airline#highlight(modes)
       endfor
     endif
   endfor
-  call airline#themes#exec_highlight_separator('Al2', 'warningmsg')
+  if exists('w:airline_current_builder')
+    call w:airline_current_builder.refresh_separator_highlights()
+  endif
 endfunction
 
 " for 7.2 compatibility
@@ -72,6 +74,7 @@ endfunction
 
 function! airline#get_statusline(winnr, active)
   let builder = airline#builder#new(a:active)
+  call setwinvar(a:winnr, 'airline_current_builder', builder)
 
   if s:getwinvar(a:winnr, 'airline_render_left', a:active || (!a:active && !g:airline_inactive_collapse))
     call builder.add_section('Al2', s:get_section(a:winnr, 'a').'%{g:airline_detect_paste && &paste ? g:airline_paste_symbol." " : ""}')
