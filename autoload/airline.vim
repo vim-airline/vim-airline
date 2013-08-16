@@ -4,15 +4,6 @@
 let s:is_win32term = (has('win32') || has('win64')) && !has('gui_running')
 let s:sections = ['a','b','c','gutter','x','y','z','warning']
 
-let s:airline_highlight_map = {
-      \ 'mode'           : 'Al2',
-      \ 'mode_separator' : 'Al3',
-      \ 'info'           : 'Al4',
-      \ 'info_separator' : 'Al5',
-      \ 'statusline'     : 'Al6',
-      \ 'file'           : 'Al7',
-      \ }
-
 function! airline#exec_highlight(group, colors)
   let colors = a:colors
   if s:is_win32term
@@ -52,7 +43,7 @@ function! airline#highlight(modes)
       for key in keys(g:airline#themes#{g:airline_theme}#{mode})
         let colors = g:airline#themes#{g:airline_theme}#{mode}[key]
         let suffix = a:modes[0] == 'inactive' ? '_inactive' : ''
-        call airline#exec_highlight(s:airline_highlight_map[key].suffix, colors)
+        call airline#exec_highlight(key.suffix, colors)
       endfor
     endif
   endfor
@@ -71,17 +62,17 @@ function! airline#get_statusline(winnr, active)
   let builder = airline#builder#new(a:active)
 
   if airline#util#getwinvar(a:winnr, 'airline_render_left', a:active || (!a:active && !g:airline_inactive_collapse))
-    call builder.add_section('Al2', s:get_section(a:winnr, 'a').'%{g:airline_detect_paste && &paste ? g:airline_paste_symbol." " : ""}')
-    call builder.add_section('Al4', s:get_section(a:winnr, 'b'))
-    call builder.add_section('Al6', s:get_section(a:winnr, 'c').' %#Al7#%{&ro ? g:airline_readonly_symbol : ""}')
+    call builder.add_section('a', s:get_section(a:winnr, 'a').'%{g:airline_detect_paste && &paste ? g:airline_paste_symbol." " : ""}')
+    call builder.add_section('b', s:get_section(a:winnr, 'b'))
+    call builder.add_section('c', s:get_section(a:winnr, 'c').' %#airline_file#%{&ro ? g:airline_readonly_symbol : ""}')
   else
-    call builder.add_section('Al6', '%f%m')
+    call builder.add_section('c', '%f%m')
   endif
   call builder.split(s:get_section(a:winnr, 'gutter', '', ''))
   if airline#util#getwinvar(a:winnr, 'airline_render_right', 1)
-    call builder.add_section('Al6', s:get_section(a:winnr, 'x'))
-    call builder.add_section('Al4', s:get_section(a:winnr, 'y'))
-    call builder.add_section('Al2', s:get_section(a:winnr, 'z'))
+    call builder.add_section('c', s:get_section(a:winnr, 'x'))
+    call builder.add_section('b', s:get_section(a:winnr, 'y'))
+    call builder.add_section('a', s:get_section(a:winnr, 'z'))
     if a:active
       call builder.add_raw('%(')
       call builder.add_section('warningmsg', s:get_section(a:winnr, 'warning', '', ''))

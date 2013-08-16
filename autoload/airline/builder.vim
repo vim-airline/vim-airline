@@ -11,7 +11,7 @@ function! airline#builder#new(active)
   endfunction
 
   function! builder.add_section(group, contents)
-    call add(self._sections, [a:group, a:contents])
+    call add(self._sections, ['airline_'.a:group, a:contents])
   endfunction
 
   function! builder.add_raw(text)
