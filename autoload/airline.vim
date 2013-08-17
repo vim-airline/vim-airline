@@ -32,7 +32,7 @@ function! airline#get_statusline(winnr, active)
           \ .'%{g:airline_detect_paste && &paste ? g:airline_paste_symbol." " : ""}')
     call builder.add_section('airline_b', s:get_section(a:winnr, 'b'))
     call builder.add_section('airline_c', '%<'.s:get_section(a:winnr, 'c')
-          \ .'%#airline_file#%{&ro ? g:airline_readonly_symbol : ""}')
+          \ .' %#airline_file#%{&ro ? g:airline_readonly_symbol : ""}')
   else
     call builder.add_section('airline_c', '%f%m')
   endif
