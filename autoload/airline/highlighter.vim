@@ -19,7 +19,7 @@ function! airline#highlighter#exec(group, colors)
         \ get(colors, 4, '') != '' ? 'term='.colors[4] : '')
 endfunction
 
-function! airline#highlighter#exec_separator(dict, from, to)
+function! s:exec_separator(dict, from, to)
   let l:from = airline#themes#get_highlight(a:from)
   let l:to = airline#themes#get_highlight(a:to)
   let group = a:from.'_to_'.a:to
@@ -30,17 +30,17 @@ endfunction
 
 function! airline#highlighter#new()
   let highlighter = {}
-  let highlighter._separators = []
-  let highlighter._init_separators = {}
+  let highlighter._separators = {}
+  let highlighter._mode_init = {}
 
   function! highlighter.load_theme()
-    let self._init_separators = {}
+    let self._mode_init = {}
     call self.highlight(['inactive'])
     call self.highlight(['normal'])
   endfunction
 
   function! highlighter.add_separator(from, to)
-    call add(self._separators, [a:from, a:to])
+    let self._separators[a:from.a:to] = [a:from, a:to]
   endfunction
 
   function! highlighter.highlight(modes)
@@ -55,10 +55,10 @@ function! airline#highlighter#new()
         endfor
 
         " initialize separator colors for this mode if necessary
-        if !has_key(self._init_separators, mode)
-          let self._init_separators[mode] = 1
-          for sep in self._separators
-            call airline#highlighter#exec_separator(dict, sep[0].suffix, sep[1].suffix)
+        if !has_key(self._mode_init, mode)
+          let self._mode_init[mode] = 1
+          for sep in items(self._separators)
+            call <sid>exec_separator(dict, sep[1][0].suffix, sep[1][1].suffix)
           endfor
         endif
       endif

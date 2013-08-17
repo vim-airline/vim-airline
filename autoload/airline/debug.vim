@@ -6,7 +6,7 @@ function! airline#debug#profile()
   profile func *
   profile file *
   split
-  for i in range(1, 50)
+  for i in range(1, 1000)
     wincmd w
     redrawstatus
   endfor
