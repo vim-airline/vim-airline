@@ -8,7 +8,7 @@ function! s:prototype.split(gutter)
 endfunction
 
 function! s:prototype.add_section(group, contents)
-  call add(self._sections, ['airline_'.a:group, a:contents])
+  call add(self._sections, [a:group, a:contents])
 endfunction
 
 function! s:prototype.add_raw(text)

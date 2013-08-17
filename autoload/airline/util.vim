@@ -1,11 +1,16 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
-" for 7.2 compatibility
-function! airline#util#getwinvar(winnr, key, ...)
-  let winvals = getwinvar(a:winnr, '')
-  return get(winvals, a:key, (a:0 ? a:1 : ''))
-endfunction
+if v:version >= 703
+  function! airline#util#getwinvar(winnr, key, def)
+    return getwinvar(a:winnr, a:key, a:def)
+  endfunction
+else
+  function! airline#util#getwinvar(winnr, key, def)
+    let winvals = getwinvar(a:winnr, '')
+    return get(winvals, a:key, def)
+  endfunction
+endif
 
 function! airline#util#exec_funcrefs(list, break_early)
   " for 7.2; we cannot iterate list, hence why we use range()

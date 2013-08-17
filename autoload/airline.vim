@@ -28,19 +28,21 @@ function! airline#get_statusline(winnr, active)
   let builder = airline#builder#new(a:active, s:highlighter)
 
   if airline#util#getwinvar(a:winnr, 'airline_render_left', a:active || (!a:active && !g:airline_inactive_collapse))
-    call builder.add_section('a', s:get_section(a:winnr, 'a').'%{g:airline_detect_paste && &paste ? g:airline_paste_symbol." " : ""}')
-    call builder.add_section('b', s:get_section(a:winnr, 'b'))
-    call builder.add_section('c', s:get_section(a:winnr, 'c').' %#airline_file#%{&ro ? g:airline_readonly_symbol : ""}')
+    call builder.add_section('airline_a', s:get_section(a:winnr, 'a')
+          \ .'%{g:airline_detect_paste && &paste ? g:airline_paste_symbol." " : ""}')
+    call builder.add_section('airline_b', s:get_section(a:winnr, 'b'))
+    call builder.add_section('airline_c', s:get_section(a:winnr, 'c')
+          \ .'%#airline_file#%{&ro ? g:airline_readonly_symbol : ""}')
   else
-    call builder.add_section('c', '%f%m')
+    call builder.add_section('airline_c', '%f%m')
   endif
 
   call builder.split(s:get_section(a:winnr, 'gutter', '', ''))
 
   if airline#util#getwinvar(a:winnr, 'airline_render_right', 1)
-    call builder.add_section('c', s:get_section(a:winnr, 'x'))
-    call builder.add_section('b', s:get_section(a:winnr, 'y'))
-    call builder.add_section('a', s:get_section(a:winnr, 'z'))
+    call builder.add_section('airline_c', s:get_section(a:winnr, 'x'))
+    call builder.add_section('airline_b', s:get_section(a:winnr, 'y'))
+    call builder.add_section('airline_a', s:get_section(a:winnr, 'z'))
     if a:active
       call builder.add_raw('%(')
       call builder.add_section('warningmsg', s:get_section(a:winnr, 'warning', '', ''))
