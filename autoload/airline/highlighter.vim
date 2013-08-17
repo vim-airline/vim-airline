@@ -19,11 +19,11 @@ function! airline#highlighter#exec(group, colors)
         \ get(colors, 4, '') != '' ? 'term='.colors[4] : '')
 endfunction
 
-function! s:exec_separator(dict, from, to)
+function! s:exec_separator(dict, from, to, invert)
   let l:from = airline#themes#get_highlight(a:from)
   let l:to = airline#themes#get_highlight(a:to)
   let group = a:from.'_to_'.a:to
-  let colors = [ l:to[1], l:from[1], l:to[3], l:from[3] ]
+  let colors = [ l:to[1], l:from[1], l:to[3], l:from[3], a:invert ? 'inverse' : '' ]
   let a:dict[group] = colors
   call airline#highlighter#exec(group, colors)
 endfunction
@@ -39,8 +39,8 @@ function! airline#highlighter#new()
     call self.highlight(['normal'])
   endfunction
 
-  function! highlighter.add_separator(from, to)
-    let self._separators[a:from.a:to] = [a:from, a:to]
+  function! highlighter.add_separator(from, to, invert)
+    let self._separators[a:from.a:to] = [a:from, a:to, a:invert]
   endfunction
 
   function! highlighter.highlight(modes)
@@ -58,7 +58,7 @@ function! airline#highlighter#new()
         if !has_key(self._mode_init, mode)
           let self._mode_init[mode] = 1
           for sep in items(self._separators)
-            call <sid>exec_separator(dict, sep[1][0].suffix, sep[1][1].suffix)
+            call <sid>exec_separator(dict, sep[1][0].suffix, sep[1][1].suffix, sep[1][2])
           endfor
         endif
       endif
