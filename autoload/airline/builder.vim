@@ -26,7 +26,7 @@ function! s:prototype.build()
   for section in self._sections
     if section[0] == '|'
       let side = 1
-      let line .= '%#'.prev_group.'#'.section[1]
+      let line .= '%#'.self._group(prev_group).'#'.section[1]
       let prev_group = ''
       continue
     endif
