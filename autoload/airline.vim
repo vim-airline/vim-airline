@@ -48,9 +48,7 @@ function! airline#get_statusline(winnr, active)
     endif
   endif
 
-  let info = builder.build()
-  call setwinvar(a:winnr, 'airline_current_info', info)
-  return info.statusline
+  return builder.build()
 endfunction
 
 function! airline#update_statusline()
