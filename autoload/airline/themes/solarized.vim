@@ -166,5 +166,5 @@ endfunction
 call s:generate()
 augroup airline_solarized
   autocmd!
-  autocmd ColorScheme * call <sid>generate() | call airline#reload_highlight()
+  autocmd ColorScheme * call <sid>generate() | call airline#load_theme()
 augroup END

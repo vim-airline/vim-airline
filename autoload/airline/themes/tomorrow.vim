@@ -39,5 +39,5 @@ endfunction
 call s:generate()
 augroup airline_tomorrow
   autocmd!
-  autocmd ColorScheme * call <sid>generate() | call airline#reload_highlight()
+  autocmd ColorScheme * call <sid>generate() | call airline#load_theme()
 augroup END

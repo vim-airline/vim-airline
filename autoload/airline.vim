@@ -1,21 +1,20 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
-" vim: et ts=2 sts=2 sw=2 fdm=indent
+" vim: et ts=2 sts=2 sw=2
 
 let s:sections = ['a','b','c','gutter','x','y','z','warning']
 let s:highlighter = airline#highlighter#new()
 
-function! airline#reload_highlight()
-  call s:highlighter.highlight(['inactive'])
-  call s:highlighter.highlight(['normal'])
+function! airline#load_theme()
+  call s:highlighter.load_theme()
   call airline#extensions#load_theme()
 endfunction
 
-function! airline#load_theme(name)
+function! airline#switch_theme(name)
   let g:airline_theme = a:name
   let inactive_colors = g:airline#themes#{g:airline_theme}#inactive "also lazy loads the theme
   let w:airline_lastmode = ''
   call airline#update_statusline()
-  call airline#reload_highlight()
+  call airline#load_theme()
   call airline#check_mode()
 endfunction
 
@@ -109,3 +108,4 @@ function! airline#check_mode()
   endif
   return ''
 endfunction
+

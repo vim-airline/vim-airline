@@ -1,5 +1,5 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
-" vim: et ts=2 sts=2 sw=2 fdm=indent
+" vim: et ts=2 sts=2 sw=2
 
 if &cp || v:version < 702 || (exists('g:loaded_airline') && g:loaded_airline)
   finish
@@ -66,7 +66,7 @@ let s:airline_initialized = 0
 function! s:on_window_changed()
   if !s:airline_initialized
     call airline#extensions#load()
-    call airline#load_theme(g:airline_theme)
+    call airline#switch_theme(g:airline_theme)
     let s:airline_initialized = 1
   endif
   call airline#update_statusline()
@@ -95,7 +95,7 @@ function! s:airline_toggle()
             \ | call <sid>on_window_changed()
       autocmd CmdwinLeave * call remove(g:airline_statusline_funcrefs, -1)
 
-      autocmd ColorScheme * call airline#reload_highlight()
+      autocmd ColorScheme * call airline#load_theme()
       autocmd WinEnter,BufWinEnter,FileType,BufUnload,ShellCmdPost *
             \ call <sid>on_window_changed()
     augroup END
@@ -111,7 +111,7 @@ function! s:get_airline_themes(a, l, p)
 endfunction
 function! s:airline_theme(...)
   if a:0
-    call airline#load_theme(a:1)
+    call airline#switch_theme(a:1)
   else
     echo g:airline_theme
   endif
@@ -121,3 +121,4 @@ command! AirlineToggleWhitespace call airline#extensions#whitespace#toggle()
 command! AirlineToggle call <sid>airline_toggle()
 
 call <sid>airline_toggle()
+
