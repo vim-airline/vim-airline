@@ -22,7 +22,7 @@ function! airline#extensions#ctrlp#load_theme()
           \ g:airline#themes#{g:airline_theme}#insert['airline_a'])
   endif
   for key in keys(theme)
-    call airline#exec_highlight(key, theme[key])
+    call airline#highlighter#exec(key, theme[key])
   endfor
 endfunction
 

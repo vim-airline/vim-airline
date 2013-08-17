@@ -1,28 +1,16 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
-" vim: ts=2 sts=2 sw=2 fdm=indent
+" vim: et ts=2 sts=2 sw=2 fdm=indent
 
-let s:is_win32term = (has('win32') || has('win64')) && !has('gui_running')
 let s:sections = ['a','b','c','gutter','x','y','z','warning']
+let s:highlighter = airline#highlighter#new()
 
-function! airline#exec_highlight(group, colors)
-  let colors = a:colors
-  if s:is_win32term
-    let colors = map(a:colors, 'v:val != "" && v:val > 128 ? v:val - 128 : v:val')
-  endif
-  exec printf('hi %s %s %s %s %s %s %s %s',
-        \ a:group,
-        \ colors[0] != '' ? 'guifg='.colors[0] : '',
-        \ colors[1] != '' ? 'guibg='.colors[1] : '',
-        \ colors[2] != '' ? 'ctermfg='.colors[2] : '',
-        \ colors[3] != '' ? 'ctermbg='.colors[3] : '',
-        \ len(colors) > 4 && colors[4] != '' ? 'gui='.colors[4] : '',
-        \ len(colors) > 4 && colors[4] != '' ? 'cterm='.colors[4] : '',
-        \ len(colors) > 4 && colors[4] != '' ? 'term='.colors[4] : '')
+function! airline#get_highlighter()
+  return s:highlighter
 endfunction
 
 function! airline#reload_highlight()
-  call s:highlight(['inactive'])
-  call s:highlight(['normal'])
+  call s:highlighter.highlight(['inactive'])
+  call s:highlighter.highlight(['normal'])
   call airline#extensions#load_theme()
 endfunction
 
@@ -35,22 +23,6 @@ function! airline#load_theme(name)
   call airline#check_mode()
 endfunction
 
-function! s:highlight(modes)
-  " draw the base mode, followed by any overrides
-  let mapped = map(a:modes, 'v:val == a:modes[0] ? v:val : a:modes[0]."_".v:val')
-  for mode in mapped
-    if exists('g:airline#themes#{g:airline_theme}#{mode}')
-      for key in keys(g:airline#themes#{g:airline_theme}#{mode})
-        let colors = g:airline#themes#{g:airline_theme}#{mode}[key]
-        let suffix = a:modes[0] == 'inactive' ? '_inactive' : ''
-        call airline#exec_highlight(key.suffix, colors)
-      endfor
-    endif
-  endfor
-  for sep in w:airline_current_info.separator_groups
-    call airline#themes#exec_highlight_separator(sep[0], sep[1])
-  endfor
-endfunction
 
 function! s:get_section(winnr, key, ...)
   let text = airline#util#getwinvar(a:winnr, 'airline_section_'.a:key, g:airline_section_{a:key})
@@ -59,7 +31,7 @@ function! s:get_section(winnr, key, ...)
 endfunction
 
 function! airline#get_statusline(winnr, active)
-  let builder = airline#builder#new(a:active)
+  let builder = airline#builder#new(a:active, s:highlighter)
 
   if airline#util#getwinvar(a:winnr, 'airline_render_left', a:active || (!a:active && !g:airline_inactive_collapse))
     call builder.add_section('a', s:get_section(a:winnr, 'a').'%{g:airline_detect_paste && &paste ? g:airline_paste_symbol." " : ""}')
@@ -68,7 +40,9 @@ function! airline#get_statusline(winnr, active)
   else
     call builder.add_section('c', '%f%m')
   endif
+
   call builder.split(s:get_section(a:winnr, 'gutter', '', ''))
+
   if airline#util#getwinvar(a:winnr, 'airline_render_right', 1)
     call builder.add_section('c', s:get_section(a:winnr, 'x'))
     call builder.add_section('b', s:get_section(a:winnr, 'y'))
@@ -126,12 +100,16 @@ function! airline#check_mode()
     let w:airline_current_mode = get(g:airline_mode_map, '__')
   endif
 
-  if g:airline_detect_modified && &modified | call add(l:mode, 'modified') | endif
-  if g:airline_detect_paste    && &paste    | call add(l:mode, 'paste')    | endif
+  if g:airline_detect_modified && &modified
+    call add(l:mode, 'modified')
+  endif
+  if g:airline_detect_paste && &paste
+    call add(l:mode, 'paste')
+  endif
 
   let mode_string = join(l:mode)
   if get(w:, 'airline_lastmode', '') != mode_string
-    call s:highlight(l:mode)
+    call s:highlighter.highlight(l:mode)
     let w:airline_lastmode = mode_string
   endif
   return ''

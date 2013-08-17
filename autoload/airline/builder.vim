@@ -1,10 +1,11 @@
 " MIT license. Copyright (c) 2013 Bailey Ling.
-" vim: ts=2 sts=2 sw=2 fdm=indent
+" vim: et ts=2 sts=2 sw=2 fdm=indent
 
-function! airline#builder#new(active)
+function! airline#builder#new(active, highlighter)
   let builder = {}
   let builder._sections = []
   let builder._active = a:active
+  let builder._highlighter = a:highlighter
 
   function! builder.split(gutter)
     call add(self._sections, ['|', a:gutter])
@@ -18,14 +19,8 @@ function! airline#builder#new(active)
     call add(self._sections, ['_', a:text])
   endfunction
 
-  function! builder.refresh_separator_highlights()
-    for sep in self._separator_groups
-      call airline#themes#exec_highlight_separator(sep[0], sep[1])
-    endfor
-  endfunction
-
   function! builder._group(group)
-    return '%#' . (self._active ? a:group : a:group.'_inactive') . '#'
+    return self._active ? a:group : a:group.'_inactive'
   endfunction
 
   function! builder.build()
@@ -46,17 +41,19 @@ function! airline#builder#new(active)
       endif
 
       if prev_group != ''
-        let sep = side == 0 ? [section[0], prev_group] : [prev_group, section[0]]
+        let sep = side == 0
+              \ ? [self._group(section[0]), self._group(prev_group)]
+              \ : [self._group(prev_group), self._group(section[0])]
         call add(separator_groups, sep)
         let line .= side == 0
-              \ ? self._group(section[0].'_to_'.prev_group)
-              \ : self._group(prev_group.'_to_'.section[0])
+              \ ? '%#'.self._group(section[0].'_to_'.prev_group).'#'
+              \ : '%#'.self._group(prev_group.'_to_'.section[0]).'#'
         let line .= side == 0
               \ ? self._active ? g:airline_left_sep : g:airline_left_alt_sep
               \ : self._active ? g:airline_right_sep : g:airline_right_alt_sep
       endif
 
-      let line .= self._group(section[0]).section[1]
+      let line .= '%#'.self._group(section[0]).'#'.section[1]
       let prev_group = section[0]
     endfor
 

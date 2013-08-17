@@ -1,5 +1,5 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
-" vim: ts=2 sts=2 sw=2 fdm=indent
+" vim: et ts=2 sts=2 sw=2 fdm=indent
 
 if &cp || v:version < 702 || (exists('g:loaded_airline') && g:loaded_airline)
   finish
