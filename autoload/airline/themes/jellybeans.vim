@@ -18,7 +18,7 @@ function! s:generate()
 
   let g:airline#themes#jellybeans#normal = airline#themes#generate_color_map(s:N1, s:N2, s:N3, s:file)
   let g:airline#themes#jellybeans#normal_modified = {
-        \ 'statusline': [ '#ffb964', '', 215, '', '' ]
+        \ 'airline_c': [ '#ffb964', '', 215, '', '' ]
         \ }
 
   let s:I1 = airline#themes#get_highlight('DiffAdd', 'bold')

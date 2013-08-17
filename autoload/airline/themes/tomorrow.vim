@@ -11,7 +11,7 @@ function! s:generate()
 
   let group = airline#themes#get_highlight('vimCommand')
   let g:airline#themes#tomorrow#normal_modified = {
-        \ 'statusline': [ group[0], '', group[2], '', '' ]
+        \ 'airline_c': [ group[0], '', group[2], '', '' ]
         \ }
 
   let s:I1 = airline#themes#get_highlight2(['Normal', 'bg'], ['MoreMsg', 'fg'], 'bold')
