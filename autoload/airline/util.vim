@@ -12,19 +12,33 @@ else
   endfunction
 endif
 
-function! airline#util#exec_funcrefs(list, break_early)
-  " for 7.2; we cannot iterate list, hence why we use range()
-  " for 7.3-[97, 328]; we cannot reuse the variable, hence the {}
-  for i in range(0, len(a:list) - 1)
-    let Fn{i} = a:list[i]
-    if a:break_early
-      if Fn{i}()
-        return 1
+if v:version >= 704
+  function! airline#util#exec_funcrefs(list, break_early)
+    for Fn in a:list
+      if a:break_early
+        if Fn()
+          return 1
+        endif
+      else
+        call Fn()
       endif
-    else
-      call Fn{i}()
-    endif
-  endfor
-  return 0
-endfunction
+    endfor
+  endfunction
+else
+  function! airline#util#exec_funcrefs(list, break_early)
+    " for 7.2; we cannot iterate the list, hence why we use range()
+    " for 7.3-[97, 328]; we cannot reuse the variable, hence the {}
+    for i in range(0, len(a:list) - 1)
+      let Fn{i} = a:list[i]
+      if a:break_early
+        if Fn{i}()
+          return 1
+        endif
+      else
+        call Fn{i}()
+      endif
+    endfor
+    return 0
+  endfunction
+endif
 
