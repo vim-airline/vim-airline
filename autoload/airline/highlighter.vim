@@ -10,13 +10,13 @@ function! airline#highlighter#exec(group, colors)
   endif
   exec printf('hi %s %s %s %s %s %s %s %s',
         \ a:group,
-        \ colors[0] != '' ? 'guifg='.colors[0] : '',
-        \ colors[1] != '' ? 'guibg='.colors[1] : '',
-        \ colors[2] != '' ? 'ctermfg='.colors[2] : '',
-        \ colors[3] != '' ? 'ctermbg='.colors[3] : '',
-        \ len(colors) > 4 && colors[4] != '' ? 'gui='.colors[4] : '',
-        \ len(colors) > 4 && colors[4] != '' ? 'cterm='.colors[4] : '',
-        \ len(colors) > 4 && colors[4] != '' ? 'term='.colors[4] : '')
+        \ get(colors, 0, '') != '' ? 'guifg='.colors[0] : '',
+        \ get(colors, 1, '') != '' ? 'guibg='.colors[1] : '',
+        \ get(colors, 2, '') != '' ? 'ctermfg='.colors[2] : '',
+        \ get(colors, 3, '') != '' ? 'ctermbg='.colors[3] : '',
+        \ get(colors, 4, '') != '' ? 'gui='.colors[4] : '',
+        \ get(colors, 4, '') != '' ? 'cterm='.colors[4] : '',
+        \ get(colors, 4, '') != '' ? 'term='.colors[4] : '')
 endfunction
 
 function! airline#highlighter#exec_separator(from, to)
@@ -30,9 +30,13 @@ function! airline#highlighter#exec_separator(from, to)
   return group
 endfunction
 
-
 function! airline#highlighter#new()
   let highlighter = {}
+  let highlighter._separators = []
+
+  function! highlighter.add_separator(from, to)
+    call add(self._separators, [a:from, a:to])
+  endfunction
 
   function! highlighter.highlight(modes)
     " draw the base mode, followed by any overrides
@@ -46,7 +50,9 @@ function! airline#highlighter#new()
         endfor
       endif
     endfor
-    for sep in w:airline_current_info.separator_groups
+
+    " synchronize separator colors
+    for sep in self._separators
       call airline#highlighter#exec_separator(sep[0].suffix, sep[1].suffix)
     endfor
   endfunction

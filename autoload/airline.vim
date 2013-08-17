@@ -4,10 +4,6 @@
 let s:sections = ['a','b','c','gutter','x','y','z','warning']
 let s:highlighter = airline#highlighter#new()
 
-function! airline#get_highlighter()
-  return s:highlighter
-endfunction
-
 function! airline#reload_highlight()
   call s:highlighter.highlight(['inactive'])
   call s:highlighter.highlight(['normal'])
@@ -22,7 +18,6 @@ function! airline#load_theme(name)
   call airline#reload_highlight()
   call airline#check_mode()
 endfunction
-
 
 function! s:get_section(winnr, key, ...)
   let text = airline#util#getwinvar(a:winnr, 'airline_section_'.a:key, g:airline_section_{a:key})

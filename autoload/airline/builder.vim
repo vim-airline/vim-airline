@@ -27,7 +27,6 @@ function! airline#builder#new(active, highlighter)
     let line = '%{airline#check_mode()}'
     let side = 0
     let prev_group = ''
-    let separator_groups = []
     for section in self._sections
       if section[0] == '|'
         let side = 1
@@ -41,13 +40,10 @@ function! airline#builder#new(active, highlighter)
       endif
 
       if prev_group != ''
-        let sep = side == 0
-              \ ? [self._group(section[0]), self._group(prev_group)]
-              \ : [self._group(prev_group), self._group(section[0])]
-        call add(separator_groups, sep)
+        call self._highlighter.add_separator(self._group(prev_group), self._group(section[0]))
         let line .= side == 0
-              \ ? '%#'.self._group(section[0].'_to_'.prev_group).'#'
-              \ : '%#'.self._group(prev_group.'_to_'.section[0]).'#'
+              \ ? '%#'.self._group(section[0]).'_to_'.self._group(prev_group).'#'
+              \ : '%#'.self._group(prev_group).'_to_'.self._group(section[0]).'#'
         let line .= side == 0
               \ ? self._active ? g:airline_left_sep : g:airline_left_alt_sep
               \ : self._active ? g:airline_right_sep : g:airline_right_alt_sep
@@ -59,7 +55,6 @@ function! airline#builder#new(active, highlighter)
 
     return {
           \ 'statusline': line,
-          \ 'separator_groups': separator_groups,
           \ }
   endfunction
 
