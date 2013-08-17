@@ -17,12 +17,12 @@ function! airline#extensions#ctrlp#load_theme()
     let theme = g:airline#themes#{g:airline_theme}#ctrlp
   else
     let theme = airline#extensions#ctrlp#generate_color_map(
-          \ g:airline#themes#{g:airline_theme}#insert['statusline'],
-          \ g:airline#themes#{g:airline_theme}#insert['info'],
-          \ g:airline#themes#{g:airline_theme}#insert['mode'])
+          \ g:airline#themes#{g:airline_theme}#insert['airline_c'],
+          \ g:airline#themes#{g:airline_theme}#insert['airline_b'],
+          \ g:airline#themes#{g:airline_theme}#insert['airline_a'])
   endif
   for key in keys(theme)
-    call airline#exec_highlight(key, theme[key])
+    call airline#highlighter#exec(key, theme[key])
   endfor
 endfunction
 

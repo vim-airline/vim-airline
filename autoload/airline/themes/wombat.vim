@@ -41,46 +41,36 @@ let s:IA = [ '#767676' , s:N3[1] , 243 , s:N3[3] , '' ]
 
 let g:airline#themes#wombat#normal = airline#themes#generate_color_map(s:N1, s:N2, s:N3, s:file)
 let g:airline#themes#wombat#normal_modified = {
-    \ 'mode'           : [ s:N1[0] , s:N4[0] , s:N1[2] , s:N4[1] , ''     ] ,
-    \ 'mode_separator' : [ s:N4[0] , s:IM[0] , s:N4[1] , s:IM[1] , 'bold' ] ,
-    \ 'info'           : [ s:N4[0] , s:IM[0] , s:N4[1] , s:IM[1] , ''     ] ,
-    \ 'info_separator' : [ s:IM[0] , s:N3[1] , s:IM[1] , s:N3[3] , 'bold' ] ,
-    \ 'statusline'     : [ s:N4[0] , s:N3[1] , s:N4[1] , s:N3[3] , ''     ] }
+    \ 'airline_a': [ s:N1[0] , s:N4[0] , s:N1[2] , s:N4[1] , ''     ] ,
+    \ 'airline_b': [ s:N4[0] , s:IM[0] , s:N4[1] , s:IM[1] , ''     ] ,
+    \ 'airline_c': [ s:N4[0] , s:N3[1] , s:N4[1] , s:N3[3] , ''     ] }
 
 
 let g:airline#themes#wombat#insert = airline#themes#generate_color_map(s:I1, s:I2, s:I3, s:file)
 let g:airline#themes#wombat#insert_modified = {
-    \ 'mode'           : [ s:I1[0] , s:I4[0] , s:I1[2] , s:I4[1] , ''     ] ,
-    \ 'mode_separator' : [ s:I4[0] , s:IM[0] , s:I4[1] , s:IM[1] , 'bold' ] ,
-    \ 'info'           : [ s:I4[0] , s:IM[0] , s:I4[1] , s:IM[1] , ''     ] ,
-    \ 'info_separator' : [ s:IM[0] , s:N3[1] , s:IM[1] , s:N3[3] , 'bold' ] ,
-    \ 'statusline'     : [ s:I4[0] , s:N3[1] , s:I4[1] , s:N3[3] , ''     ] }
+    \ 'airline_a': [ s:I1[0] , s:I4[0] , s:I1[2] , s:I4[1] , ''     ] ,
+    \ 'airline_b': [ s:I4[0] , s:IM[0] , s:I4[1] , s:IM[1] , ''     ] ,
+    \ 'airline_c': [ s:I4[0] , s:N3[1] , s:I4[1] , s:N3[3] , ''     ] }
 
 
 let g:airline#themes#wombat#visual = airline#themes#generate_color_map(s:V1, s:V2, s:V3, s:file)
 let g:airline#themes#wombat#visual_modified = {
-    \ 'mode'           : [ s:V1[0] , s:V4[0] , s:V1[2] , s:V4[1] , ''     ] ,
-    \ 'mode_separator' : [ s:V4[0] , s:IM[0] , s:V4[1] , s:IM[1] , 'bold' ] ,
-    \ 'info'           : [ s:V4[0] , s:IM[0] , s:V4[1] , s:IM[1] , ''     ] ,
-    \ 'info_separator' : [ s:IM[0] , s:N3[1] , s:IM[1] , s:N3[3] , 'bold' ] ,
-    \ 'statusline'     : [ s:V4[0] , s:N3[1] , s:V4[1] , s:N3[3] , ''     ] }
+    \ 'airline_a': [ s:V1[0] , s:V4[0] , s:V1[2] , s:V4[1] , ''     ] ,
+    \ 'airline_b': [ s:V4[0] , s:IM[0] , s:V4[1] , s:IM[1] , ''     ] ,
+    \ 'airline_c': [ s:V4[0] , s:N3[1] , s:V4[1] , s:N3[3] , ''     ] }
 
 
 let g:airline#themes#wombat#replace = airline#themes#generate_color_map(s:R1, s:R2, s:R3, s:file)
 let g:airline#themes#wombat#replace_modified = {
-    \ 'mode'           : [ s:R1[0] , s:R4[0] , s:R1[2] , s:R4[1] , ''     ] ,
-    \ 'mode_separator' : [ s:R4[0] , s:IM[0] , s:R4[1] , s:IM[1] , 'bold' ] ,
-    \ 'info'           : [ s:R4[0] , s:IM[0] , s:R4[1] , s:IM[1] , ''     ] ,
-    \ 'info_separator' : [ s:IM[0] , s:N3[1] , s:IM[1] , s:N3[3] , 'bold' ] ,
-    \ 'statusline'     : [ s:R4[0] , s:N3[1] , s:R4[1] , s:N3[3] , ''     ] }
+    \ 'airline_a': [ s:R1[0] , s:R4[0] , s:R1[2] , s:R4[1] , ''     ] ,
+    \ 'airline_b': [ s:R4[0] , s:IM[0] , s:R4[1] , s:IM[1] , ''     ] ,
+    \ 'airline_c': [ s:R4[0] , s:N3[1] , s:R4[1] , s:N3[3] , ''     ] }
 
 
 let g:airline#themes#wombat#insert_paste = {
-    \ 'mode'           : [ s:I1[0] , s:PA[0] , s:I1[2] , s:PA[1] , ''     ] ,
-    \ 'mode_separator' : [ s:PA[0] , s:IM[0] , s:PA[1] , s:IM[1] , 'bold' ] ,
-    \ 'info'           : [ s:PA[0] , s:IM[0] , s:PA[1] , s:IM[1] , ''     ] ,
-    \ 'info_separator' : [ s:IM[0] , s:N3[1] , s:IM[1] , s:N3[3] , 'bold' ] ,
-    \ 'statusline'     : [ s:PA[0] , s:N3[1] , s:PA[1] , s:N3[3] , ''     ] }
+    \ 'airline_a': [ s:I1[0] , s:PA[0] , s:I1[2] , s:PA[1] , ''     ] ,
+    \ 'airline_b': [ s:PA[0] , s:IM[0] , s:PA[1] , s:IM[1] , ''     ] ,
+    \ 'airline_c': [ s:PA[0] , s:N3[1] , s:PA[1] , s:N3[3] , ''     ] }
 
 
 let g:airline#themes#wombat#inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)

@@ -46,27 +46,15 @@ function! s:generate()
   let s:NF = [s:orange, s:N3[1], '']
   if s:reduced
     if s:background == 'dark'
-      let s:NM = {
-            \ 'info_separator': [s:N2[1], s:N3[1], ''],
-            \ 'statusline': [s:magenta, s:N3[1], ''],
-            \ }
+      let s:NM = [s:magenta, s:N3[1], '']
     else
-      let s:NM = {
-            \ 'info_separator': [s:N2[1], s:N3[1], ''],
-            \ 'statusline': [s:magenta, s:N3[1], ''],
-            \ }
+      let s:NM = [s:magenta, s:N3[1], '']
     endif
   else
     if s:background == 'dark'
-      let s:NM = {
-            \ 'info_separator':  [s:N2[1], s:c52, ''],
-            \ 'statusline': [s:c218, s:c52, '']
-            \ }
+      let s:NM = [s:c218, s:c52, '']
     else
-      let s:NM = {
-            \ 'info_separator': [s:N2[1], s:c218, ''],
-            \ 'statusline': [s:red, s:c218, '']
-            \ }
+      let s:NM = [s:red, s:c218, '']
     endif
   endif
 
@@ -80,14 +68,7 @@ function! s:generate()
   endif
   let s:I3 = s:N3
   let s:IF = s:NF
-  if s:reduced
-    let s:IM = s:NM
-  else
-    let s:IM = {
-          \ 'info_separator': [s:I2[1], s:NM.statusline[1], ''],
-          \ 'statusline': s:NM.statusline
-          \ }
-  endif
+  let s:IM = s:NM
 
   " Visual mode
   let s:V1 = [s:N1[0], s:orange, 'bold']
@@ -133,10 +114,8 @@ function! s:generate()
         \ s:NFa)
 
   let g:airline#themes#solarized#normal_modified = {
-        \ 'info_separator': [s:NM.info_separator[0].g, s:NM.info_separator[1].g,
-        \ s:NM.info_separator[0].t, s:NM.info_separator[1].t, s:NM.info_separator[2]],
-        \ 'statusline': [s:NM.statusline[0].g, s:NM.statusline[1].g,
-        \ s:NM.statusline[0].t, s:NM.statusline[1].t, s:NM.statusline[2]]}
+        \ 'airline_c': [s:NM[0].g, s:NM[1].g,
+        \ s:NM[0].t, s:NM[1].t, s:NM[2]]}
 
   let g:airline#themes#solarized#insert = airline#themes#generate_color_map(
         \ [s:I1[0].g, s:I1[1].g, s:I1[0].t, s:I1[1].t, s:I1[2]],
@@ -145,10 +124,8 @@ function! s:generate()
         \ s:IFa)
 
   let g:airline#themes#solarized#insert_modified = {
-        \ 'info_separator': [s:IM.info_separator[0].g, s:IM.info_separator[1].g,
-        \ s:IM.info_separator[0].t, s:IM.info_separator[1].t, s:IM.info_separator[2]],
-        \ 'statusline': [s:IM.statusline[0].g, s:IM.statusline[1].g,
-        \ s:IM.statusline[0].t, s:IM.statusline[1].t, s:IM.statusline[2]]}
+        \ 'airline_c': [s:IM[0].g, s:IM[1].g,
+        \ s:IM[0].t, s:IM[1].t, s:IM[2]]}
 
   let g:airline#themes#solarized#visual = airline#themes#generate_color_map(
         \ [s:V1[0].g, s:V1[1].g, s:V1[0].t, s:V1[1].t, s:V1[2]],
@@ -157,14 +134,12 @@ function! s:generate()
         \ s:VFa)
 
   let g:airline#themes#solarized#visual_modified = {
-        \ 'info_separator': [s:VM.info_separator[0].g, s:VM.info_separator[1].g,
-        \ s:VM.info_separator[0].t, s:VM.info_separator[1].t, s:VM.info_separator[2]],
-        \ 'statusline': [s:VM.statusline[0].g, s:VM.statusline[1].g,
-        \ s:VM.statusline[0].t, s:VM.statusline[1].t, s:VM.statusline[2]]}
+        \ 'airline_c': [s:VM[0].g, s:VM[1].g,
+        \ s:VM[0].t, s:VM[1].t, s:VM[2]]}
 endfunction
 
 call s:generate()
 augroup airline_solarized
   autocmd!
-  autocmd ColorScheme * call <sid>generate() | call airline#reload_highlight()
+  autocmd ColorScheme * call <sid>generate() | call airline#load_theme()
 augroup END
