@@ -70,20 +70,25 @@ call s:check_defined('g:airline_section_warning', '')
 
 let s:airline_initialized = 0
 let s:airline_theme_defined = 0
-function! s:on_window_changed()
+function! s:init()
   if !s:airline_initialized
+    let s:airline_initialized = 1
+
     call airline#extensions#load()
 
     let s:airline_theme_defined = exists('g:airline_theme')
     let g:airline_theme = get(g:, 'airline_theme', 'dark')
     call <sid>on_colorscheme_changed()
-
-    let s:airline_initialized = 1
   endif
+endfunction
+
+function! s:on_window_changed()
+  call <sid>init()
   call airline#update_statusline()
 endfunction
 
 function! s:on_colorscheme_changed()
+  call <sid>init()
   if !s:airline_theme_defined
     if airline#switch_matching_theme()
       return
