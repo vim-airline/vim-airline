@@ -1,14 +1,14 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
-if v:version >= 703
+if v:version >= 704
   function! airline#util#getwinvar(winnr, key, def)
     return getwinvar(a:winnr, a:key, a:def)
   endfunction
 else
   function! airline#util#getwinvar(winnr, key, def)
     let winvals = getwinvar(a:winnr, '')
-    return get(winvals, a:key, def)
+    return get(winvals, a:key, a:def)
   endfunction
 endif
 
