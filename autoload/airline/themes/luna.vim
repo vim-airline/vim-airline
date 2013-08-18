@@ -2,21 +2,21 @@
 " (https://github.com/Pychimp/vim-luna)
 
 let g:airline#themes#luna#palette = {}
-let s:file = [ '#ffffff' , '#002b2b' , 231 , 23 , '' ]
+let s:file = [ '#ffffff' , '' , 231 , '' , '' ]
 
 
-let s:N1 = [ '#ffffff' , '#005252' , 231  , 36 ] 
-let s:N2 = [ '#ffffff' , '#003f3f' , 231 , 29 ] 
-let s:N3 = [ '#ffffff' , '#002b2b' , 231  , 23 ] 
+let s:N1 = [ '#ffffff' , '#005252' , 231  , 36 ]
+let s:N2 = [ '#ffffff' , '#003f3f' , 231 , 29 ]
+let s:N3 = [ '#ffffff' , '#002b2b' , 231  , 23 ]
 let g:airline#themes#luna#palette.normal = airline#themes#generate_color_map(s:N1, s:N2, s:N3, s:file)
 let g:airline#themes#luna#palette.normal_modified = {
       \ 'airline_c': [ '#ffffff' , '#450000' , 231     , 52      , ''     ] ,
       \ }
 
 
-let s:I1 = [ '#ffffff' , '#789f00' , 231  , 106  ] 
-let s:I2 = [ '#ffffff' , '#003f3f' , 231 , 29  ] 
-let s:I3 = [ '#ffffff' , '#002b2b' , 231  , 23  ] 
+let s:I1 = [ '#ffffff' , '#789f00' , 231 , 106 ]
+let s:I2 = [ '#ffffff' , '#003f3f' , 231 , 29  ]
+let s:I3 = [ '#ffffff' , '#002b2b' , 231 , 23  ]
 let g:airline#themes#luna#palette.insert = airline#themes#generate_color_map(s:I1, s:I2, s:I3, s:file)
 let g:airline#themes#luna#palette.insert_modified = {
       \ 'airline_c': [ '#ffffff' , '#005e5e' , 255     , 52      , ''     ] ,

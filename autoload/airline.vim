@@ -12,6 +12,7 @@ endfunction
 function! airline#switch_theme(name)
   let g:airline_theme = a:name
   let palette = g:airline#themes#{g:airline_theme}#palette "also lazy loads the theme
+  call airline#themes#patch(palette)
 
   let w:airline_lastmode = ''
   call airline#update_statusline()

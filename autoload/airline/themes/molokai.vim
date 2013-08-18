@@ -1,7 +1,7 @@
 let g:airline#themes#molokai#palette = {}
 
 
-let s:file = [ '#66d9ef' , '#465457' , 81 , 67 , 'bold' ]
+let s:file = [ '#66d9ef' , '' , 81 , '' , '' ]
 
 " Normal mode
 let s:N1 = [ '#080808' , '#e6db74' , 232 , 144 ] " mode
