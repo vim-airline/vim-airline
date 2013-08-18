@@ -31,10 +31,8 @@ endfunction
 function! airline#highlighter#new()
   let highlighter = {}
   let highlighter._separators = {}
-  let highlighter._mode_init = {}
 
   function! highlighter.load_theme()
-    let self._mode_init = {}
     call self.highlight(['inactive'])
     call self.highlight(['normal'])
   endfunction
@@ -54,13 +52,10 @@ function! airline#highlighter#new()
           call airline#highlighter#exec(kvp[0].suffix, kvp[1])
         endfor
 
-        " initialize separator colors for this mode if necessary
-        if !has_key(self._mode_init, mode)
-          let self._mode_init[mode] = 1
-          for sep in items(self._separators)
-            call <sid>exec_separator(dict, sep[1][0].suffix, sep[1][1].suffix, sep[1][2])
-          endfor
-        endif
+        " TODO: optimize this
+        for sep in items(self._separators)
+          call <sid>exec_separator(dict, sep[1][0].suffix, sep[1][1].suffix, sep[1][2])
+        endfor
       endif
     endfor
   endfunction
