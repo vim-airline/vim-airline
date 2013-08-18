@@ -56,6 +56,7 @@ call s:check_defined('g:airline_theme_map', {
       \ 'Tomorrow.*': 'tomorrow',
       \ 'mo[l|n]okai': 'molokai',
       \ 'wombat.*': 'wombat',
+      \ '.*solarized.*': 'solarized',
       \ })
 
 call s:check_defined('g:airline_section_a', '%{get(w:, "airline_current_mode", "")}')
