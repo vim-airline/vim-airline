@@ -28,28 +28,30 @@ let s:file = [ '#ef393d' , '' , 196 , '' , '' ]
 let s:IA = [ s:N2[1] , s:N3[1] , s:N2[3], s:N3[3] , '' ]
 
 
-let g:airline#themes#laederon#normal = airline#themes#generate_color_map(s:N1, s:N2, s:N3, s:file)
-let g:airline#themes#laederon#normal_modified = {
+let g:airline#themes#laederon#palette = {}
+
+let g:airline#themes#laederon#palette.normal = airline#themes#generate_color_map(s:N1, s:N2, s:N3, s:file)
+let g:airline#themes#laederon#palette.normal_modified = {
       \ 'airline_a' : [ s:N2[0] , s:N4[0] , s:N2[2] , s:N4[1] , '' ] ,
       \ 'airline_c' : [ s:V1[1] , s:N2[1] , s:V1[3] , s:N2[3] , '' ] }
 
 
-let g:airline#themes#laederon#insert = airline#themes#generate_color_map(s:I1, s:I2, s:I3, s:file)
-let g:airline#themes#laederon#insert_modified = {
+let g:airline#themes#laederon#palette.insert = airline#themes#generate_color_map(s:I1, s:I2, s:I3, s:file)
+let g:airline#themes#laederon#palette.insert_modified = {
       \ 'airline_c' : [ s:V2[1] , s:N2[1] , s:V2[3] , s:N2[3] , '' ] }
-let g:airline#themes#laederon#insert_paste = {
+let g:airline#themes#laederon#palette.insert_paste = {
       \ 'airline_a' : [ s:I1[0] , s:PA[0] , s:I1[2] , s:PA[1] , '' ] }
 
 
-let g:airline#themes#laederon#replace = copy(airline#themes#laederon#insert)
-let g:airline#themes#laederon#replace.airline_a = [ s:I1[0] , s:RE[0] , s:I1[2] , s:RE[1] , '' ]
-let g:airline#themes#laederon#replace_modified = g:airline#themes#laederon#insert_modified
+let g:airline#themes#laederon#palette.replace = copy(airline#themes#laederon#palette.insert)
+let g:airline#themes#laederon#palette.replace.airline_a = [ s:I1[0] , s:RE[0] , s:I1[2] , s:RE[1] , '' ]
+let g:airline#themes#laederon#palette.replace_modified = g:airline#themes#laederon#palette.insert_modified
 
 
-let g:airline#themes#laederon#visual = airline#themes#generate_color_map(s:V1, s:V2, s:V3, s:file)
-let g:airline#themes#laederon#visual_modified = {
+let g:airline#themes#laederon#palette.visual = airline#themes#generate_color_map(s:V1, s:V2, s:V3, s:file)
+let g:airline#themes#laederon#palette.visual_modified = {
       \ 'airline_c' : [ s:V3[0] , s:V4[0] , s:V3[2] , s:V4[1] , '' ] }
 
 
-let g:airline#themes#laederon#inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
+let g:airline#themes#laederon#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
 

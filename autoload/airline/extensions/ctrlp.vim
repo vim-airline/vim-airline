@@ -13,13 +13,13 @@ function! airline#extensions#ctrlp#generate_color_map(dark, light, white)
 endfunction
 
 function! airline#extensions#ctrlp#load_theme()
-  if exists('g:airline#themes#{g:airline_theme}#ctrlp')
-    let theme = g:airline#themes#{g:airline_theme}#ctrlp
+  if exists('g:airline#themes#{g:airline_theme}#palette.ctrlp')
+    let theme = g:airline#themes#{g:airline_theme}#palette.ctrlp
   else
     let theme = airline#extensions#ctrlp#generate_color_map(
-          \ g:airline#themes#{g:airline_theme}#insert['airline_c'],
-          \ g:airline#themes#{g:airline_theme}#insert['airline_b'],
-          \ g:airline#themes#{g:airline_theme}#insert['airline_a'])
+          \ g:airline#themes#{g:airline_theme}#palette.insert['airline_c'],
+          \ g:airline#themes#{g:airline_theme}#palette.insert['airline_b'],
+          \ g:airline#themes#{g:airline_theme}#palette.insert['airline_a'])
   endif
   for key in keys(theme)
     call airline#highlighter#exec(key, theme[key])

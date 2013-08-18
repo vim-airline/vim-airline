@@ -1,3 +1,5 @@
+let g:airline#themes#solarized#palette = {}
+
 function! s:generate()
   """"""""""""""""""""""""""""""""""""""""""""""""
   " Options
@@ -101,39 +103,39 @@ function! s:generate()
   let s:IFa = [s:IF[0].g, s:IF[1].g, s:IF[0].t, s:IF[1].t, s:IF[2]]
   let s:VFa = [s:VF[0].g, s:VF[1].g, s:VF[0].t, s:VF[1].t, s:VF[2]]
 
-  let g:airline#themes#solarized#inactive = airline#themes#generate_color_map(
+  let g:airline#themes#solarized#palette.inactive = airline#themes#generate_color_map(
         \ [s:IA[0].g, s:IA[1].g, s:IA[0].t, s:IA[1].t, s:IA[2]],
         \ [s:IA[0].g, s:IA[1].g, s:IA[0].t, s:IA[1].t, s:IA[2]],
         \ [s:IA[0].g, s:IA[1].g, s:IA[0].t, s:IA[1].t, s:IA[2]],
         \ s:NFa)
 
-  let g:airline#themes#solarized#normal = airline#themes#generate_color_map(
+  let g:airline#themes#solarized#palette.normal = airline#themes#generate_color_map(
         \ [s:N1[0].g, s:N1[1].g, s:N1[0].t, s:N1[1].t, s:N1[2]],
         \ [s:N2[0].g, s:N2[1].g, s:N2[0].t, s:N2[1].t, s:N2[2]],
         \ [s:N3[0].g, s:N3[1].g, s:N3[0].t, s:N3[1].t, s:N3[2]],
         \ s:NFa)
 
-  let g:airline#themes#solarized#normal_modified = {
+  let g:airline#themes#solarized#palette.normal_modified = {
         \ 'airline_c': [s:NM[0].g, s:NM[1].g,
         \ s:NM[0].t, s:NM[1].t, s:NM[2]]}
 
-  let g:airline#themes#solarized#insert = airline#themes#generate_color_map(
+  let g:airline#themes#solarized#palette.insert = airline#themes#generate_color_map(
         \ [s:I1[0].g, s:I1[1].g, s:I1[0].t, s:I1[1].t, s:I1[2]],
         \ [s:I2[0].g, s:I2[1].g, s:I2[0].t, s:I2[1].t, s:I2[2]],
         \ [s:I3[0].g, s:I3[1].g, s:I3[0].t, s:I3[1].t, s:I3[2]],
         \ s:IFa)
 
-  let g:airline#themes#solarized#insert_modified = {
+  let g:airline#themes#solarized#palette.insert_modified = {
         \ 'airline_c': [s:IM[0].g, s:IM[1].g,
         \ s:IM[0].t, s:IM[1].t, s:IM[2]]}
 
-  let g:airline#themes#solarized#visual = airline#themes#generate_color_map(
+  let g:airline#themes#solarized#palette.visual = airline#themes#generate_color_map(
         \ [s:V1[0].g, s:V1[1].g, s:V1[0].t, s:V1[1].t, s:V1[2]],
         \ [s:V2[0].g, s:V2[1].g, s:V2[0].t, s:V2[1].t, s:V2[2]],
         \ [s:V3[0].g, s:V3[1].g, s:V3[0].t, s:V3[1].t, s:V3[2]],
         \ s:VFa)
 
-  let g:airline#themes#solarized#visual_modified = {
+  let g:airline#themes#solarized#palette.visual_modified = {
         \ 'airline_c': [s:VM[0].g, s:VM[1].g,
         \ s:VM[0].t, s:VM[1].t, s:VM[2]]}
 endfunction
