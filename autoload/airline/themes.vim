@@ -57,15 +57,17 @@ function! airline#themes#patch(palette)
     let overrides = split(mode, '_')
     if len(overrides) > 1
       let mode_colors = a:palette[overrides[0]]
-      let file_colors = mode_colors.airline_file
-      let file_colors[1] = mode_colors.airline_c[1]
-      let file_colors[3] = mode_colors.airline_c[3]
+      if exists('mode_colors.airline_file')
+        let file_colors = mode_colors.airline_file
+        let file_colors[1] = mode_colors.airline_c[1]
+        let file_colors[3] = mode_colors.airline_c[3]
 
-      let override_colors = a:palette[overrides[0].'_'.overrides[1]]
-      let override_colors.airline_file = copy(file_colors)
-      let override_status_colors = get(override_colors, 'airline_c', mode_colors.airline_c)
-      let override_colors.airline_file[1] = override_status_colors[1]
-      let override_colors.airline_file[3] = override_status_colors[3]
+        let override_colors = a:palette[overrides[0].'_'.overrides[1]]
+        let override_colors.airline_file = copy(file_colors)
+        let override_status_colors = get(override_colors, 'airline_c', mode_colors.airline_c)
+        let override_colors.airline_file[1] = override_status_colors[1]
+        let override_colors.airline_file[3] = override_status_colors[3]
+      endif
     endif
   endfor
 endfunction
