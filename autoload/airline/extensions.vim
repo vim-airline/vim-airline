@@ -14,7 +14,6 @@ let s:filetype_overrides = {
       \ 'netrw': [ 'netrw', '%f' ],
       \ 'unite': [ 'Unite', '%{unite#get_status_string()}' ],
       \ 'nerdtree': [ 'NERD', '' ],
-      \ 'undotree': [ 'undotree', '' ],
       \ 'gundo': [ 'Gundo', '' ],
       \ 'diff': [ 'diff', '' ],
       \ 'vimfiler': [ 'vimfiler', '%{vimfiler#get_status_string()}' ],
@@ -123,6 +122,10 @@ function! airline#extensions#load()
 
   if get(g:, 'command_t_loaded', 0)
     call airline#extensions#commandt#init(s:ext)
+  endif
+
+  if exists(':UndotreeToggle')
+    call airline#extensions#undotree#init(s:ext)
   endif
 
   if g:airline_enable_tagbar && exists(':TagbarToggle')
