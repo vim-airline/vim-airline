@@ -60,7 +60,7 @@ call s:check_defined('g:airline_theme_map', {
       \ })
 
 call s:check_defined('g:airline_section_a', '%{get(w:, "airline_current_mode", "")}')
-call s:check_defined('g:airline_section_b', '%{get(w:, "airline_current_branch", "")}')
+call s:check_defined('g:airline_section_b', '')
 call s:check_defined('g:airline_section_c', '%f%m')
 call s:check_defined('g:airline_section_gutter', '%=')
 call s:check_defined('g:airline_section_x', "%{strlen(&filetype)>0?&filetype:''}")
