@@ -78,7 +78,7 @@ function! s:init()
 
     let s:airline_theme_defined = exists('g:airline_theme')
     let g:airline_theme = get(g:, 'airline_theme', 'dark')
-    call <sid>on_colorscheme_changed()
+    call airline#switch_theme(g:airline_theme)
   endif
 endfunction
 
