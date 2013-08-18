@@ -1,15 +1,24 @@
-" MIT license. Copyright (c) 2013 Bailey Ling.
-" vim: ts=2 sts=2 sw=2 fdm=indent
+" MIT License. Copyright (c) 2013 Bailey Ling.
+" vim: et ts=2 sts=2 sw=2
+
+let s:has_fugitive = exists('*fugitive#head')
+let s:has_fugitive_detect = exists('*fugitive#detect')
+let s:has_lawrencium = exists('*lawrencium#statusline')
 
 function! airline#extensions#branch#get_head()
   let head = ''
 
-  if exists('*fugitive#head')
+  if s:has_fugitive && !exists('b:mercurial_dir')
     let head = fugitive#head()
+
+    if empty(head) && s:has_fugitive_detect && !exists('b:git_dir')
+      call fugitive#detect(getcwd())
+      let head = fugitive#head()
+    endif
   endif
 
   if empty(head)
-    if exists('*lawrencium#statusline')
+    if s:has_lawrencium
       let head = lawrencium#statusline()
     endif
   endif
