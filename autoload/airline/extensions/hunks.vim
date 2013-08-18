@@ -2,30 +2,34 @@
 " vim: et ts=2 sts=2 sw=2
 
 function! airline#extensions#hunks#get_hunks()
-  try
-    " throws an error when first entering a buffer, so we gotta swallow it
-    silent! let hunks = GitGutterGetHunks()
+  if get(g:, 'gitgutter_initialised', 0) && get(g:, 'gitgutter_enabled', 0)
     let added = 0
     let removed = 0
     let changed = 0
+    let hunks = GitGutterGetHunks()
     for hunk in hunks
-      let diff = hunk[3] - hunk[1]
-      if diff > 0
-        let added += diff
-      elseif diff < 0
-        let removed -= diff
-      else
-        let changed += 1
+      if hunk[1] == 0 && hunk[3] > 0
+        let added += hunk[3]
+      elseif hunk[1] > 0 && hunk[3] == 0
+        let removed += hunk[1]
+      elseif hunk[1] > 0 && hunk[3] > 0
+        if hunk[1] == hunk[3]
+          let changed += hunk[3]
+        elseif hunk[1] < hunk[3]
+          let changed += hunk[1]
+          let added += (hunk[3] - hunk[1])
+        elseif hunk[1] > hunk[3]
+          let changed += hunk[3]
+          let removed += (hunk[1] - hunk[3])
+        endif
       endif
     endfor
-    return printf('+%s ~%s -%s', added, changed, removed)
-  catch
-    return ''
-  endtry
+    return printf('+%s ~%s -%s ', added, changed, removed)
+  endif
   return ''
 endfunction
 
 function! airline#extensions#hunks#init(ext)
-  let g:airline_section_b .= '%{airline#extensions#hunks#get_hunks()} '
+  let g:airline_section_b .= '%{airline#extensions#hunks#get_hunks()}'
 endfunction
 
