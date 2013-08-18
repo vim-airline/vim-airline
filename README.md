@@ -7,7 +7,7 @@ Lean &amp; mean statusline for vim that's light as air.
 # Features
 
 *  tiny core written with extensibility in mind ([open/closed principle][8]).
-*  integrates with a variety of plugins, including: [vim-bufferline][6], [fugitive][4], [unite][9], [ctrlp][10], [minibufexpl][15], [gundo][16], [undotree][17], [nerdtree][18], [tagbar][19], [syntastic][5] and [lawrencium][21].
+*  integrates with a variety of plugins, including: [vim-bufferline][6], [fugitive][4], [unite][9], [ctrlp][10], [minibufexpl][15], [gundo][16], [undotree][17], [nerdtree][18], [tagbar][19], [vim-gitgutter][29], [syntastic][5] and [lawrencium][21].
 *  looks good with regular fonts and provides configuration points so you can use unicode or powerline symbols.
 *  optimized for speed; it loads in under a millisecond.
 *  fully customizable; if you know a little `statusline` syntax you can tweak it to your needs.
@@ -135,3 +135,4 @@ MIT license. Copyright (c) 2013 Bailey Ling.
 [26]: https://github.com/nanotech/jellybeans.vim
 [27]: https://github.com/bling/vim-airline/wiki/FAQ
 [28]: https://github.com/chrisbra/csv.vim
+[29]: https://github.com/airblade/vim-gitgutter

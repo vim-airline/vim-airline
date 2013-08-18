@@ -199,13 +199,19 @@ tagbar <https://github.com/majutsushi/>
                                                                *airline-csv*
 csv.vim <https://github.com/chrisbra/csv.vim>
 
-* enable/disable csv integration for displaying the current column.
+* enable/disable csv integration for displaying the current column. >
   let g:airline_enable_csv = 1
->
+<
 * change how columns are displayed. >
   let g:airline#extensions#csv#column_display = 'Number' (default)
   let g:airline#extensions#csv#column_display = 'Name'
->
+<
+                                                             *airline-hunks*
+vim-gitgutter <https://github.com/airblade/vim-gitgutter>
+
+* enable/disable detecting changed hunks under source control. >
+  let g:airline_enable_hunks = 1
+<
 
 ==============================================================================
 FUNCREFS                                                  *airline-funcrefs*

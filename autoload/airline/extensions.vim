@@ -128,6 +128,10 @@ function! airline#extensions#load()
     call airline#extensions#undotree#init(s:ext)
   endif
 
+  if g:airline_enable_hunks && exists('*GitGutterGetHunks')
+    call airline#extensions#hunks#init(s:ext)
+  endif
+
   if g:airline_enable_tagbar && exists(':TagbarToggle')
     call airline#extensions#tagbar#init(s:ext)
   endif
