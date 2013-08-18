@@ -31,7 +31,6 @@ call s:check_defined('g:airline_branch_prefix', exists('g:airline_powerline_font
 call s:check_defined('g:airline_readonly_symbol', exists('g:airline_powerline_fonts')?'':'RO')
 call s:check_defined('g:airline_linecolumn_prefix', exists('g:airline_powerline_fonts')?' ':':')
 call s:check_defined('g:airline_paste_symbol', (exists('g:airline_powerline_fonts') ? ' ' : '').'PASTE')
-call s:check_defined('g:airline_theme', 'dark')
 call s:check_defined('g:airline_inactive_collapse', 1)
 call s:check_defined('g:airline_exclude_filenames', ['DebuggerWatch','DebuggerStack','DebuggerStatus'])
 call s:check_defined('g:airline_exclude_filetypes', [])
@@ -53,6 +52,12 @@ call s:check_defined('g:airline_mode_map', {
       \ '' : 'S-BLOCK',
       \ })
 
+call s:check_defined('g:airline_theme_map', {
+      \ 'Tomorrow.*': 'tomorrow',
+      \ 'mo[l|n]okai': 'molokai',
+      \ 'wombat.*': 'wombat',
+      \ })
+
 call s:check_defined('g:airline_section_a', '%{get(w:, "airline_current_mode", "")}')
 call s:check_defined('g:airline_section_b', '%{get(w:, "airline_current_branch", "")}')
 call s:check_defined('g:airline_section_c', '%f%m')
@@ -63,13 +68,29 @@ call s:check_defined('g:airline_section_z', '%3p%% '.g:airline_linecolumn_prefix
 call s:check_defined('g:airline_section_warning', '')
 
 let s:airline_initialized = 0
+let s:airline_theme_defined = 0
 function! s:on_window_changed()
   if !s:airline_initialized
     call airline#extensions#load()
-    call airline#switch_theme(g:airline_theme)
+
+    let s:airline_theme_defined = exists('g:airline_theme')
+    let g:airline_theme = get(g:, 'airline_theme', 'dark')
+    call <sid>on_colorscheme_changed()
+
     let s:airline_initialized = 1
   endif
   call airline#update_statusline()
+endfunction
+
+function! s:on_colorscheme_changed()
+  if !s:airline_theme_defined
+    if airline#switch_matching_theme()
+      return
+    endif
+  endif
+
+  " couldn't find a match, or theme was defined, just refresh
+  call airline#load_theme()
 endfunction
 
 function airline#cmdwinenter()
@@ -95,7 +116,7 @@ function! s:airline_toggle()
             \ | call <sid>on_window_changed()
       autocmd CmdwinLeave * call remove(g:airline_statusline_funcrefs, -1)
 
-      autocmd ColorScheme * call airline#load_theme()
+      autocmd ColorScheme * call <sid>on_colorscheme_changed()
       autocmd WinEnter,BufWinEnter,FileType,BufUnload,ShellCmdPost *
             \ call <sid>on_window_changed()
     augroup END

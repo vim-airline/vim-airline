@@ -61,8 +61,9 @@ values):
   only the filename of that buffer.  >
   let g:airline_inactive_collapse=1
 <
-* change the default theme >
-  let g:airline_theme='dark'
+* themes are automatically selected based on the matching colorscheme. this
+  can be overridden by defining a value. >
+  let g:airline_theme=
 <
 * enable/disable usage of patched powerline font symbols >
   let g:airline_powerline_fonts=0

@@ -20,6 +20,23 @@ function! airline#switch_theme(name)
   call airline#check_mode()
 endfunction
 
+function! airline#switch_matching_theme()
+  let v:errmsg = ''
+  silent! let palette = g:airline#themes#{g:colors_name}#palette
+  if empty(v:errmsg)
+    call airline#switch_theme(g:colors_name)
+    return 1
+  else
+    for map in items(g:airline_theme_map)
+      if match(g:colors_name, map[0]) > -1
+        call airline#switch_theme(map[1])
+        return 1
+      endif
+    endfor
+  endif
+  return 0
+endfunction
+
 function! s:get_section(winnr, key, ...)
   let text = airline#util#getwinvar(a:winnr, 'airline_section_'.a:key, g:airline_section_{a:key})
   let [prefix, suffix] = [get(a:000, 0, '%( '), get(a:000, 1, ' %)')]
