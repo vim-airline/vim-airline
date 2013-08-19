@@ -128,7 +128,7 @@ function! airline#extensions#load()
     call airline#extensions#undotree#init(s:ext)
   endif
 
-  if g:airline_enable_hunks && exists('*GitGutterGetHunks')
+  if get(g:, 'airline_enable_hunks', 1) && exists('*GitGutterGetHunkSummary')
     call airline#extensions#hunks#init(s:ext)
   endif
 
