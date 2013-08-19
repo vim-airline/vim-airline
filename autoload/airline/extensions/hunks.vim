@@ -3,7 +3,14 @@
 
 function! airline#extensions#hunks#get_hunks()
   let hunks = GitGutterGetHunkSummary()
-  return printf('+%s ~%s -%s ', hunks[0], hunks[1], hunks[2])
+  let hunk_symbol = ['+', '~', '-']
+  let string = ''
+  for i in [0, 1, 2]
+    if g:airline_hunk_non_zero_only == 0 || hunks[i] > 0
+      let string .= printf('%s%s ', hunk_symbol[i], hunks[i])
+    endif
+  endfor
+  return string
 endfunction
 
 function! airline#extensions#hunks#init(ext)
