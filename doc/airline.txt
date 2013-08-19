@@ -125,7 +125,7 @@ separators, as well as the powerline font glyths.
   let g:airline_linecolumn_prefix = '␊ '
   let g:airline_linecolumn_prefix = '␤ '
   let g:airline_linecolumn_prefix = '¶ '
-  let g:airline_branch_prefix = '⎇ '
+  let g:airline#extensions#branch#symbol = '⎇ '
   let g:airline_paste_symbol = 'ρ'
   let g:airline_paste_symbol = 'Þ'
   let g:airline_paste_symbol = '∥'
@@ -136,7 +136,7 @@ separators, as well as the powerline font glyths.
   let g:airline_left_alt_sep = ''
   let g:airline_right_sep = ''
   let g:airline_right_alt_sep = ''
-  let g:airline_branch_prefix = ' '
+  let g:airline#extensions#branch#symbol = ' '
   let g:airline_readonly_symbol = ''
   let g:airline_linecolumn_prefix = ' '
 
@@ -145,7 +145,7 @@ separators, as well as the powerline font glyths.
   let g:airline_left_alt_sep = '⮁'
   let g:airline_right_sep = '⮂'
   let g:airline_right_alt_sep = '⮃'
-  let g:airline_branch_prefix = '⭠'
+  let g:airline#extensions#branch#symbol = '⭠'
   let g:airline_readonly_symbol = '⭤'
   let g:airline_linecolumn_prefix = '⭡'
 <
@@ -182,7 +182,7 @@ lawrencium   <https://bitbucket.org/ludovicchabant/vim-lawrencium>
   let g:airline_enable_branch = 1
 <
 * change the text for when no branch is detected >
-  let g:airline_branch_empty_message = ''
+  let g:airline#extensions#branch#empty_message = ''
 <
                                                          *airline-syntastic*
 syntastic <https://github.com/scrooloose/syntastic>

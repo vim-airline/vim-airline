@@ -1,6 +1,11 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
+let s:empty_message = get(g:, 'airline#extensions#branch#empty_message',
+      \ get(g:, 'airline_branch_empty_message', ''))
+let s:symbol = get(g:, 'airline#extensions#branch#symbol',
+      \ get(g:, 'airline_branch_prefix', exists('g:airline_powerline_fonts') ? ' ' : ''))
+
 let s:has_fugitive = exists('*fugitive#head')
 let s:has_fugitive_detect = exists('*fugitive#detect')
 let s:has_lawrencium = exists('*lawrencium#statusline')
@@ -23,7 +28,7 @@ function! airline#extensions#branch#get_head()
     endif
   endif
 
-  return empty(head) ? g:airline_branch_empty_message : g:airline_branch_prefix.head
+  return empty(head) ? s:empty_message : s:symbol.head
 endfunction
 
 function! airline#extensions#branch#init(ext)
