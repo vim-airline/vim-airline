@@ -6,6 +6,8 @@
 let s:symbol = get(g:, 'airline#extensions#whitespace#symbol',
       \ get(g:, 'airline_whitespace_symbol', exists('g:airline_powerline_fonts') ? '✹' : '!'))
 
+let s:checks = get(g:, 'airline#extensions#whitespace#checks', ['indent', 'trailing'])
+
 let s:initialized = 0
 let s:vimrc_detect_whitespace = g:airline_detect_whitespace
 
@@ -16,9 +18,17 @@ function! airline#extensions#whitespace#check()
 
   if !exists('b:airline_whitespace_check')
     let b:airline_whitespace_check = ''
-    let trailing = search(' $', 'nw')
-    let indents = [search('^ ', 'nb'), search('^ ', 'n'), search('^\t', 'nb'), search('^\t', 'n')]
-    let mixed = indents[0] != 0 && indents[1] != 0 && indents[2] != 0 && indents[3] != 0
+
+    let trailing = 0
+    if index(s:checks, 'trailing') > -1
+      let trailing = search(' $', 'nw')
+    endif
+
+    let mixed = 0
+    if index(s:checks, 'indent') > -1
+      let indents = [search('^ ', 'nb'), search('^ ', 'n'), search('^\t', 'nb'), search('^\t', 'n')]
+      let mixed = indents[0] != 0 && indents[1] != 0 && indents[2] != 0 && indents[3] != 0
+    endif
 
     if trailing != 0 || mixed
       let b:airline_whitespace_check = s:symbol." "
