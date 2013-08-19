@@ -5,6 +5,9 @@ let s:non_zero_only = get(g:, 'airline#extensions#hunks#non_zero_only', 0)
 let s:hunk_symbols = get(g:, 'airline#extensions#hunks#hunk_symbols', ['+', '~', '-'])
 
 function! airline#extensions#hunks#get_hunks()
+  if get(g:, 'gitgutter_enabled', 0) == 0
+    return ''
+  endif
   let hunks = GitGutterGetHunkSummary()
   let string = ''
   for i in [0, 1, 2]
