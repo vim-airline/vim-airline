@@ -3,6 +3,9 @@
 
 " http://got-ravings.blogspot.com/2008/10/vim-pr0n-statusline-whitespace-flags.html
 
+let s:symbol = get(g:, 'airline#extensions#whitespace#symbol',
+      \ get(g:, 'airline_whitespace_symbol', exists('g:airline_powerline_fonts') ? '✹' : '!'))
+
 let s:initialized = 0
 let s:vimrc_detect_whitespace = g:airline_detect_whitespace
 
@@ -18,7 +21,7 @@ function! airline#extensions#whitespace#check()
     let mixed = indents[0] != 0 && indents[1] != 0 && indents[2] != 0 && indents[3] != 0
 
     if trailing != 0 || mixed
-      let b:airline_whitespace_check = g:airline_whitespace_symbol." "
+      let b:airline_whitespace_check = s:symbol." "
       if g:airline_detect_whitespace == 1
         if trailing != 0
           let b:airline_whitespace_check .= 'trailing['.trailing.'] '
