@@ -2,6 +2,10 @@
 " vim: et ts=2 sts=2 sw=2
 
 function! airline#extensions#hunks#get_hunks()
+  if &ft == 'gitcommit'
+    return ''
+  endif
+
   if get(g:, 'gitgutter_initialised', 0) && get(g:, 'gitgutter_enabled', 0)
     let added = 0
     let removed = 0
