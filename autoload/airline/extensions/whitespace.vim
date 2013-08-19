@@ -27,7 +27,7 @@ function! airline#extensions#whitespace#check()
           let b:airline_whitespace_check .= 'trailing['.trailing.'] '
         endif
         if mixed
-          let mixnr = indents[0] == indents[1] ? indents[0] : indents[2]
+          let mixnr = indents[0] == indents[1] || !&et ? indents[0] : indents[2]
           let b:airline_whitespace_check .= 'mixed-indent['.mixnr.'] '
         endif
       endif
