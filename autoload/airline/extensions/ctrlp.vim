@@ -1,6 +1,8 @@
 " MIT license. Copyright (c) 2013 Bailey Ling.
 " vim: ts=2 sts=2 sw=2 fdm=indent
 
+let s:color_template = get(g:, 'airline#extensions#ctrlp#color_template', 'insert')
+
 function! airline#extensions#ctrlp#generate_color_map(dark, light, white)
   return {
         \ 'CtrlPdark'   : a:dark,
@@ -16,10 +18,11 @@ function! airline#extensions#ctrlp#load_theme()
   if exists('g:airline#themes#{g:airline_theme}#palette.ctrlp')
     let theme = g:airline#themes#{g:airline_theme}#palette.ctrlp
   else
+    let s:color_template = has_key(g:airline#themes#{g:airline_theme}#palette, s:color_template) ? s:color_template : 'insert'
     let theme = airline#extensions#ctrlp#generate_color_map(
-          \ g:airline#themes#{g:airline_theme}#palette.insert['airline_c'],
-          \ g:airline#themes#{g:airline_theme}#palette.insert['airline_b'],
-          \ g:airline#themes#{g:airline_theme}#palette.insert['airline_a'])
+          \ g:airline#themes#{g:airline_theme}#palette[s:color_template]['airline_c'],
+          \ g:airline#themes#{g:airline_theme}#palette[s:color_template]['airline_b'],
+          \ g:airline#themes#{g:airline_theme}#palette[s:color_template]['airline_a'])
   endif
   for key in keys(theme)
     call airline#highlighter#exec(key, theme[key])
