@@ -23,7 +23,11 @@ function! s:exec_separator(dict, from, to, inverse)
   let l:from = airline#themes#get_highlight(a:from)
   let l:to = airline#themes#get_highlight(a:to)
   let group = a:from.'_to_'.a:to
-  let colors = [ l:to[1], l:from[1], l:to[3], l:from[3], a:inverse ? 'inverse' : '' ]
+  if a:inverse
+    let colors = [ l:from[1], l:to[1], l:from[3], l:to[3] ]
+  else
+    let colors = [ l:to[1], l:from[1], l:to[3], l:from[3] ]
+  endif
   let a:dict[group] = colors
   call airline#highlighter#exec(group, colors)
 endfunction
