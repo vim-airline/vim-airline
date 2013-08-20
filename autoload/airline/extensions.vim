@@ -1,5 +1,5 @@
-" MIT license. Copyright (c) 2013 Bailey Ling.
-" vim: ts=2 sts=2 sw=2 fdm=indent
+" MIT License. Copyright (c) 2013 Bailey Ling.
+" vim: et ts=2 sts=2 sw=2
 
 let s:ext = {}
 let s:ext._cursormove_funcrefs = []
@@ -128,15 +128,18 @@ function! airline#extensions#load()
     call airline#extensions#undotree#init(s:ext)
   endif
 
-  if get(g:, 'airline_enable_hunks', 1) && exists('*GitGutterGetHunkSummary')
+  if (get(g:, 'airline#extensions#hunks#enabled', 1) && get(g:, 'airline_enable_hunks', 1))
+        \ && exists('*GitGutterGetHunkSummary')
     call airline#extensions#hunks#init(s:ext)
   endif
 
-  if g:airline_enable_tagbar && exists(':TagbarToggle')
+  if (get(g:, 'airline#extensions#tagbar#enabled', 1) && get(g:, 'airline_enable_tagbar', 1))
+        \ && exists(':TagbarToggle')
     call airline#extensions#tagbar#init(s:ext)
   endif
 
-  if g:airline_enable_csv && (get(g:, 'loaded_csv', 0) || exists(':Table'))
+  if (get(g:, 'airline#extensions#csv#enabled', 1) && get(g:, 'airline_enable_csv', 1))
+        \ && (get(g:, 'loaded_csv', 0) || exists(':Table'))
     call airline#extensions#csv#init(s:ext)
   endif
 
@@ -145,15 +148,18 @@ function! airline#extensions#load()
     let s:filetype_regex_overrides['^int-'] = ['vimshell','%{substitute(&ft, "int-", "", "")}']
   endif
 
-  if g:airline_enable_branch && (get(g:, 'loaded_fugitive', 0) || get(g:, 'loaded_lawrencium', 0))
+  if (get(g:, 'airline#extensions#branch#enabled', 1) && get(g:, 'airline_enable_branch', 1))
+        \ && (get(g:, 'loaded_fugitive', 0) || get(g:, 'loaded_lawrencium', 0))
     call airline#extensions#branch#init(s:ext)
   endif
 
-  if g:airline_enable_syntastic && get(g:, 'loaded_syntastic_plugin')
+  if (get(g:, 'airline#extensions#syntastic#enabled', 1) && get(g:, 'airline_enable_syntastic', 1))
+        \ && exists(':SyntasticCheck')
     call airline#extensions#syntastic#init(s:ext)
   endif
 
-  if g:airline_enable_bufferline && exists('*bufferline#get_status_string')
+  if (get(g:, 'airline#extensions#bufferline#enabled', 1) && get(g:, 'airline_enable_bufferline', 1))
+        \ && exists('*bufferline#get_status_string')
     call airline#extensions#bufferline#init(s:ext)
   endif
 

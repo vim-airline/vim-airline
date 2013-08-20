@@ -179,7 +179,7 @@ fugitive.vim <https://github.com/tpope/vim-fugitive>
 lawrencium   <https://bitbucket.org/ludovicchabant/vim-lawrencium>
 
 * enable/disable fugitive/lawrencium integration >
-  let g:airline_enable_branch = 1
+  let g:airline#extensions#branch#enabled = 1
 <
 * change the text for when no branch is detected >
   let g:airline#extensions#branch#empty_message = ''
@@ -188,19 +188,19 @@ lawrencium   <https://bitbucket.org/ludovicchabant/vim-lawrencium>
 syntastic <https://github.com/scrooloose/syntastic>
 
 * enable/disable syntastic integration >
-  let g:airline_enable_syntastic = 1
+  let g:airline#extensions#syntastic#enabled = 1
 <
                                                             *airline-tagbar*
 tagbar <https://github.com/majutsushi/>
 
 * enable/disable tagbar integration >
-  let g:airline_enable_tagbar = 1
+  let g:airline#extensions#tagbar#enabled = 1
 <
                                                                *airline-csv*
 csv.vim <https://github.com/chrisbra/csv.vim>
 
 * enable/disable csv integration for displaying the current column. >
-  let g:airline_enable_csv = 1
+  let g:airline#extensions#csv#enabled = 1
 <
 * change how columns are displayed. >
   let g:airline#extensions#csv#column_display = 'Number' (default)
@@ -210,7 +210,7 @@ csv.vim <https://github.com/chrisbra/csv.vim>
 vim-gitgutter <https://github.com/airblade/vim-gitgutter>
 
 * enable/disable detecting changed hunks under source control. >
-  let g:airline_enable_hunks = 1
+  let g:airline#extensions#hunks#enabled = 1
 <
 * enable/disable showing only non-zero hunks. >
   let g:airline#extensions#hunks#non_zero_only = 0
