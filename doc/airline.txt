@@ -132,7 +132,7 @@ separators, as well as the powerline font glyths.
   let g:airline_right_sep = ''
   let g:airline_right_alt_sep = ''
   let g:airline#extensions#branch#symbol = ' '
-  let g:airline_readonly_symbol = ''
+  let g:airline#extensions#readonly#symbol = ''
   let g:airline_linecolumn_prefix = ' '
 
   " old vim-powerline symbols
@@ -141,7 +141,7 @@ separators, as well as the powerline font glyths.
   let g:airline_right_sep = '⮂'
   let g:airline_right_alt_sep = '⮃'
   let g:airline#extensions#branch#symbol = '⭠'
-  let g:airline_readonly_symbol = '⭤'
+  let g:airline#extensions#readonly#symbol = '⭤'
   let g:airline_linecolumn_prefix = '⭡'
 <
 
