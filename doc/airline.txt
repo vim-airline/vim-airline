@@ -52,11 +52,6 @@ values):
 * enable iminsert detection >
   let g:airline_detect_iminsert=1
 <
-* enable whitespace detection >
-  let g:airline_detect_whitespace=0 "disabled
-  let g:airline_detect_whitespace=1 "icon and message (default)
-  let g:airline_detect_whitespace=2 "icon only
-<
 * determine whether inactive windows should have the left section collapsed to
   only the filename of that buffer.  >
   let g:airline_inactive_collapse=1
@@ -217,6 +212,19 @@ vim-gitgutter <https://github.com/airblade/vim-gitgutter>
 <
 * set hunk count symbols. >
   let g:airline#extensions#hunks#hunk_symbols = ['+', '~', '-']
+<
+                                                        *airline-whitespace*
+* enable/disable detection of whitespace errors. >
+  let g:airline#extensions#whitespace#enabled = 1
+<
+* customize the whitespace symbol. >
+  let g:airline#extensions#whitespace#symbol = '!'
+<
+* configure which whitespace checks to enable. >
+  let g:airline#extensions#whitespace#checks = [ 'indent', 'trailing' ]
+<
+* configure whether a message should be displayed. >
+  let g:airline#extensions#whitespace#show_message = 1
 <
 
 ==============================================================================

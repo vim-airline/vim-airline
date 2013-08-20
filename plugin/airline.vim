@@ -19,7 +19,6 @@ call s:check_defined('g:airline_right_alt_sep', exists('g:airline_powerline_font
 call s:check_defined('g:airline_detect_iminsert', 0)
 call s:check_defined('g:airline_detect_modified', 1)
 call s:check_defined('g:airline_detect_paste', 1)
-call s:check_defined('g:airline_detect_whitespace', 1)
 call s:check_defined('g:airline_readonly_symbol', exists('g:airline_powerline_fonts')?'':'RO')
 call s:check_defined('g:airline_linecolumn_prefix', exists('g:airline_powerline_fonts')?' ':':')
 call s:check_defined('g:airline_paste_symbol', (exists('g:airline_powerline_fonts') ? ' ' : '').'PASTE')

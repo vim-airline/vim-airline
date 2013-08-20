@@ -163,7 +163,7 @@ function! airline#extensions#load()
     call airline#extensions#bufferline#init(s:ext)
   endif
 
-  if g:airline_detect_whitespace
+  if (get(g:, 'airline#extensions#whitespace#enabled', 1) && get(g:, 'airline_detect_whitespace', 1))
     call airline#extensions#whitespace#init()
   endif
 

@@ -3,16 +3,23 @@
 
 " http://got-ravings.blogspot.com/2008/10/vim-pr0n-statusline-whitespace-flags.html
 
+" for backwards compatibility
+if exists('g:airline_detect_whitespace')
+  let s:show_message = g:airline_detect_whitespace == 1
+else
+  let s:show_message = get(g:, 'airline#extensions#whitespace#show_message', 1)
+endif
+
 let s:symbol = get(g:, 'airline#extensions#whitespace#symbol',
       \ get(g:, 'airline_whitespace_symbol', exists('g:airline_powerline_fonts') ? '✹' : '!'))
 
 let s:checks = get(g:, 'airline#extensions#whitespace#checks', ['indent', 'trailing'])
 
 let s:initialized = 0
-let s:vimrc_detect_whitespace = g:airline_detect_whitespace
+let s:enabled = 1
 
 function! airline#extensions#whitespace#check()
-  if &readonly || g:airline_detect_whitespace <= 0
+  if &readonly || !s:enabled
     return ''
   endif
 
@@ -32,7 +39,7 @@ function! airline#extensions#whitespace#check()
 
     if trailing != 0 || mixed
       let b:airline_whitespace_check = s:symbol." "
-      if g:airline_detect_whitespace == 1
+      if s:show_message
         if trailing != 0
           let b:airline_whitespace_check .= 'trailing['.trailing.'] '
         endif
@@ -54,12 +61,12 @@ function! airline#extensions#whitespace#apply()
 endfunction
 
 function! airline#extensions#whitespace#toggle()
-  if g:airline_detect_whitespace > 0
+  if s:enabled
     autocmd! airline_whitespace CursorHold,BufWritePost
-    let g:airline_detect_whitespace = 0
+    let s:enabled = 0
   else
     call airline#extensions#whitespace#init()
-    let g:airline_detect_whitespace = s:vimrc_detect_whitespace
+    let s:enabled = 1
   endif
 endfunction
 
@@ -69,6 +76,7 @@ function! airline#extensions#whitespace#init()
     call add(g:airline_statusline_funcrefs, function('airline#extensions#whitespace#apply'))
   endif
 
+  unlet! b:airline_whitespace_check
   augroup airline_whitespace
     autocmd!
     autocmd CursorHold,BufWritePost * unlet! b:airline_whitespace_check
