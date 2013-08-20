@@ -121,9 +121,9 @@ separators, as well as the powerline font glyths.
   let g:airline_linecolumn_prefix = '␤ '
   let g:airline_linecolumn_prefix = '¶ '
   let g:airline#extensions#branch#symbol = '⎇ '
-  let g:airline_paste_symbol = 'ρ'
-  let g:airline_paste_symbol = 'Þ'
-  let g:airline_paste_symbol = '∥'
+  let g:airline#extensions#paste#symbol = 'ρ'
+  let g:airline#extensions#paste#symbol = 'Þ'
+  let g:airline#extensions#paste#symbol = '∥'
   let g:airline#extensions#whitespace#symbol = 'Ξ'
 
   " powerline symbols
