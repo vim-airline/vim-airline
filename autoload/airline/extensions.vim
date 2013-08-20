@@ -153,18 +153,20 @@ function! airline#extensions#load()
     call airline#extensions#branch#init(s:ext)
   endif
 
-  if (get(g:, 'airline#extensions#syntastic#enabled', 1) && get(g:, 'airline_enable_syntastic', 1))
-        \ && exists(':SyntasticCheck')
-    call airline#extensions#syntastic#init(s:ext)
-  endif
-
   if (get(g:, 'airline#extensions#bufferline#enabled', 1) && get(g:, 'airline_enable_bufferline', 1))
         \ && exists('*bufferline#get_status_string')
     call airline#extensions#bufferline#init(s:ext)
   endif
 
-  if (get(g:, 'airline#extensions#whitespace#enabled', 1) && get(g:, 'airline_detect_whitespace', 1))
-    call airline#extensions#whitespace#init()
+  if g:airline_section_warning == '__'
+    if (get(g:, 'airline#extensions#syntastic#enabled', 1) && get(g:, 'airline_enable_syntastic', 1))
+          \ && exists(':SyntasticCheck')
+      call airline#extensions#syntastic#init(s:ext)
+    endif
+
+    if (get(g:, 'airline#extensions#whitespace#enabled', 1) && get(g:, 'airline_detect_whitespace', 1))
+      call airline#extensions#whitespace#init()
+    endif
   endif
 
   if get(g:, 'airline#extensions#readonly#enabled', 1)
