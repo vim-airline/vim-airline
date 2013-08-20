@@ -49,8 +49,7 @@ function! airline#get_statusline(winnr, active)
   let builder = airline#builder#new(a:active, s:highlighter)
 
   if airline#util#getwinvar(a:winnr, 'airline_render_left', a:active || (!a:active && !g:airline_inactive_collapse))
-    call builder.add_section('airline_a', s:get_section(a:winnr, 'a')
-          \ .'%{g:airline_detect_paste && &paste ? g:airline_paste_symbol." " : ""}')
+    call builder.add_section('airline_a', s:get_section(a:winnr, 'a'))
     call builder.add_section('airline_b', s:get_section(a:winnr, 'b'))
     call builder.add_section('airline_c', '%<'.s:get_section(a:winnr, 'c'))
   else
