@@ -61,9 +61,9 @@ function! airline#get_statusline(winnr, active)
   call builder.split(s:get_section(a:winnr, 'gutter', '', ''))
 
   if airline#util#getwinvar(a:winnr, 'airline_render_right', 1)
-    call builder.add_section('airline_c', s:get_section(a:winnr, 'x'))
-    call builder.add_section('airline_b', s:get_section(a:winnr, 'y'))
-    call builder.add_section('airline_a', s:get_section(a:winnr, 'z'))
+    call builder.add_section('airline_x', s:get_section(a:winnr, 'x'))
+    call builder.add_section('airline_y', s:get_section(a:winnr, 'y'))
+    call builder.add_section('airline_z', s:get_section(a:winnr, 'z'))
     if a:active
       call builder.add_raw('%(')
       call builder.add_section('warningmsg', s:get_section(a:winnr, 'warning', '', ''))

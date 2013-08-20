@@ -9,6 +9,9 @@ function! airline#themes#generate_color_map(section1, section2, section3, file)
       \ 'airline_b':    [ a:section2[0] , a:section2[1] , a:section2[2] , a:section2[3] , get(a:section2 , 4 , ''    ) ] ,
       \ 'airline_c':    [ a:section3[0] , a:section3[1] , a:section3[2] , a:section3[3] , get(a:section3 , 4 , ''    ) ] ,
       \ 'airline_file': [ a:file[0]     , a:file[1]     , a:file[2]     , a:file[3]     , get(a:file     , 4 , ''    ) ] ,
+      \ 'airline_x':    [ a:section3[0] , a:section3[1] , a:section3[2] , a:section3[3] , get(a:section3 , 4 , ''    ) ] ,
+      \ 'airline_y':    [ a:section2[0] , a:section2[1] , a:section2[2] , a:section2[3] , get(a:section2 , 4 , ''    ) ] ,
+      \ 'airline_z':    [ a:section1[0] , a:section1[1] , a:section1[2] , a:section1[3] , get(a:section1 , 4 , ''    ) ] ,
       \ }
 endfunction
 
