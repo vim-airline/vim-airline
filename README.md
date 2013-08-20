@@ -34,6 +34,9 @@ Lean &amp; mean statusline for vim that's light as air.
 ### whitespace
 ![image](https://f.cloud.github.com/assets/306502/962401/2a75385e-04ef-11e3-935c-e3b9f0e954cc.png)
 
+### hunks ([vim-gitgutter][29]/[vim-signify][30])
+![image](https://f.cloud.github.com/assets/306502/995185/73fc7054-09b9-11e3-9d45-618406c6ed98.png)
+
 # Rationale
 
 There's already [powerline][2], why yet another statusline?
