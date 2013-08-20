@@ -76,10 +76,10 @@ function! s:init()
     call airline#extensions#load()
 
     let s:airline_theme_defined = exists('g:airline_theme')
-    if !s:airline_theme_defined && !airline#switch_matching_theme()
+    if s:airline_theme_defined || !airline#switch_matching_theme()
       let g:airline_theme = get(g:, 'airline_theme', 'dark')
+      call airline#switch_theme(g:airline_theme)
     endif
-    call airline#switch_theme(g:airline_theme)
   endif
 endfunction
 
