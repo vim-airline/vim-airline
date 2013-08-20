@@ -211,9 +211,13 @@ vim-gitgutter <https://github.com/airblade/vim-gitgutter>
 
 * enable/disable detecting changed hunks under source control. >
   let g:airline_enable_hunks = 1
-
-* enable/disable showing only non-zero hunks.
-  let g:airline_hunk_non_zero_only = 0
+<
+* enable/disable showing only non-zero hunks. >
+  let g:airline#extensions#hunks#non_zero_only = 0
+<
+* set hunk count symbols. >
+  let g:airline#extensions#hunks#hunk_symbols = ['+', '~', '-']
+<
 
 ==============================================================================
 FUNCREFS                                                  *airline-funcrefs*
