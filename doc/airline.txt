@@ -227,6 +227,16 @@ vim-signify <https://github.com/mhinz/vim-signify>
 * configure whether a message should be displayed. >
   let g:airline#extensions#whitespace#show_message = 1
 <
+                                                            *airline-ctrlp*
+ctrlp <https://github.com/kien/ctrlp.vim>
+
+* configure which mode colors should ctrlp window use (takes effect
+  only if the active airline theme doesn't define ctrlp colors) >
+  let g:airline#extensions#ctrlp#color_template = 'insert' (default)
+  let g:airline#extensions#ctrlp#color_template = 'normal'
+  let g:airline#extensions#ctrlp#color_template = 'visual'
+  let g:airline#extensions#ctrlp#color_template = 'replace'
+<
 
 ==============================================================================
 FUNCREFS                                                  *airline-funcrefs*
