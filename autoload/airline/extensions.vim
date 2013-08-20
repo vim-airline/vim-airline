@@ -167,7 +167,7 @@ function! airline#extensions#load()
     call airline#extensions#whitespace#init()
   endif
 
-  if (get(g:, 'airline#extensions#readonly#enabled', 1) && get(g:, 'airline_detect_readonly', 1))
+  if get(g:, 'airline#extensions#readonly#enabled', 1)
     call airline#extensions#readonly#init()
   endif
 
