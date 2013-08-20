@@ -104,7 +104,7 @@ COMMANDS                                                  *airline-commands*
   Toggles whitespace detection.
 
 :AirlineToggle                                              *:AirlineToggle*
-  Toggle this plugin (e.g. the nice statusline)
+  Toggles between the standard `statusline` or airline.
 
 ==============================================================================
 CUSTOMIZATION                                        *airline-customization*
@@ -155,7 +155,7 @@ sections which by default host more than one extension.
   let g:airline_section_a       (the mode/paste indicator)
   let g:airline_section_b       (the fugitive/lawrencium branch indicator)
   let g:airline_section_c       (bufferline or filename)
-  let g:airline_section_gutter  (csv)
+  let g:airline_section_gutter  (readonly, csv)
   let g:airline_section_x       (tagbar, filetype)
   let g:airline_section_y       (fileencoding, fileformat)
   let g:airline_section_z       (percentage, line number, column number)
@@ -227,7 +227,7 @@ vim-signify <https://github.com/mhinz/vim-signify>
 * configure whether a message should be displayed. >
   let g:airline#extensions#whitespace#show_message = 1
 <
-                                                            *airline-ctrlp*
+                                                             *airline-ctrlp*
 ctrlp <https://github.com/kien/ctrlp.vim>
 
 * configure which mode colors should ctrlp window use (takes effect
@@ -292,12 +292,12 @@ For contributions into the plugin, here are the following guidelines:
       is always available (these must be defined in `plugin`, and _not_
       `autoload` of the other plugin).  If it exists, then initialize the
       extension. This ensures that the extension is loaded if and only if the
-      user has the other plugin installed.
+      user has the other plugin installed.  Also, a check to
+      `airline#extensions#foo_plugin#enabled` should be performed to allow the
+      user to disable it.
 
-  b.  Extension specific variables should be defined in the extension, e.g.
-      `g:airline#extensions#foo_plugin#bar_variable`.  Unfortunately, the
-      branch extension does not follow this convention, but for legacy reasons
-      those variables are kept as is.
+  b.  Configuration variables for the extension should reside in the
+      extension, e.g. `g:airline#extensions#foo_plugin#bar_variable`.
 
 See the source of |example.vim| for a working extension.
 
