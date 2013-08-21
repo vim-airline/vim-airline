@@ -1,5 +1,5 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
-" vim: ts=2 sts=2 sw=2 fdm=indent
+" vim: et ts=2 sts=2 sw=2
 
 " Extension specific variables can be defined the usual fashion.
 if !exists('g:airline#extensions#example#number_of_cats')
@@ -23,7 +23,7 @@ function! airline#extensions#example#init(ext)
   let g:airline_section_y .= '%{airline#extensions#example#nyancat()}'
 endfunction
 
-function! airline#extensions#example#apply()
+function! airline#extensions#example#apply(...)
   " Here we are checking for the filetype, allowing for the extension to
   " be loaded only in certain cases.
   if &filetype == "nyancat"

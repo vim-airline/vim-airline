@@ -1,7 +1,7 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
-function! airline#extensions#undotree#apply()
+function! airline#extensions#undotree#apply(...)
   if exists('t:undotree')
     if &ft == 'undotree' && exists('*t:undotree.GetStatusLine')
       call airline#extensions#apply_left_override('undo', '%{t:undotree.GetStatusLine()}')

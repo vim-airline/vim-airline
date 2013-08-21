@@ -14,7 +14,7 @@ function! airline#extensions#csv#get_column()
   return ''
 endfunction
 
-function! airline#extensions#csv#apply()
+function! airline#extensions#csv#apply(...)
   if &ft ==# "csv"
     if !exists('w:airline_section_gutter')
       let w:airline_section_gutter = '%='

@@ -1,5 +1,5 @@
-" MIT license. Copyright (c) 2013 Bailey Ling.
-" vim: ts=2 sts=2 sw=2 fdm=indent
+" MIT License. Copyright (c) 2013 Bailey Ling.
+" vim: et ts=2 sts=2 sw=2
 
 let s:color_template = get(g:, 'airline#extensions#ctrlp#color_template', 'insert')
 
@@ -49,7 +49,7 @@ function! airline#extensions#ctrlp#ctrlp_airline_status(...)
   return len.dir
 endfunction
 
-function! airline#extensions#ctrlp#is_statusline_overwritten()
+function! airline#extensions#ctrlp#is_statusline_overwritten(...)
   return match(&statusline, 'CtrlPlight') >= 0
 endfunction
 
@@ -60,3 +60,4 @@ function! airline#extensions#ctrlp#init(ext)
         \ }
   call a:ext.add_cursormove_funcref(function('airline#extensions#ctrlp#is_statusline_overwritten'))
 endfunction
+

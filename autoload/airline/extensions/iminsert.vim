@@ -1,5 +1,5 @@
-" MIT license. Copyright (c) 2013 Bailey Ling.
-" vim: ts=2 sts=2 sw=2 fdm=indent
+" MIT License. Copyright (c) 2013 Bailey Ling.
+" vim: et ts=2 sts=2 sw=2
 
 function! airline#extensions#iminsert#get_text()
   if &iminsert

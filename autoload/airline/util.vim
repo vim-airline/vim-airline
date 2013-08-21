@@ -13,7 +13,7 @@ else
 endif
 
 if v:version >= 704
-  function! airline#util#exec_funcrefs(list, break_early)
+  function! airline#util#exec_funcrefs(list, break_early, ...)
     for Fn in a:list
       if a:break_early
         if Fn()
@@ -25,7 +25,7 @@ if v:version >= 704
     endfor
   endfunction
 else
-  function! airline#util#exec_funcrefs(list, break_early)
+  function! airline#util#exec_funcrefs(list, break_early, ...)
     " for 7.2; we cannot iterate the list, hence why we use range()
     " for 7.3-[97, 328]; we cannot reuse the variable, hence the {}
     for i in range(0, len(a:list) - 1)

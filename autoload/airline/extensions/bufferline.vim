@@ -1,7 +1,7 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
-" vim: ts=2 sts=2 sw=2 fdm=indent
+" vim: et ts=2 sts=2 sw=2
 
-function! airline#extensions#bufferline#apply()
+function! airline#extensions#bufferline#apply(...)
   " revert to default in non-active splits
   for nr in filter(range(1, winnr('$')), 'v:val != winnr()')
     if matchstr(getwinvar(nr, '&statusline'), '%{bufferline') != ''

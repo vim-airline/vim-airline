@@ -32,7 +32,7 @@ function! airline#extensions#apply_left_override(section1, section2)
 endfunction
 
 let s:active_winnr = -1
-function! airline#extensions#update_statusline()
+function! airline#extensions#update_statusline(...)
   let s:active_winnr = winnr()
 
   if &buftype == 'quickfix'
@@ -65,7 +65,7 @@ function! airline#extensions#update_statusline()
   endfor
 endfunction
 
-function! airline#extensions#is_excluded_window()
+function! airline#extensions#is_excluded_window(...)
   for matchft in g:airline_exclude_filetypes
     if matchft ==# &ft
       return 1
@@ -165,7 +165,7 @@ function! airline#extensions#load()
     endif
 
     if (get(g:, 'airline#extensions#whitespace#enabled', 1) && get(g:, 'airline_detect_whitespace', 1))
-      call airline#extensions#whitespace#init()
+      call airline#extensions#whitespace#init(s:ext)
     endif
   endif
 

@@ -1,5 +1,5 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
-" vim: ts=2 sts=2 sw=2 fdm=indent
+" vim: et ts=2 sts=2 sw=2
 
 " http://got-ravings.blogspot.com/2008/10/vim-pr0n-statusline-whitespace-flags.html
 
@@ -53,7 +53,7 @@ function! airline#extensions#whitespace#check()
   return b:airline_whitespace_check
 endfunction!
 
-function! airline#extensions#whitespace#apply()
+function! airline#extensions#whitespace#apply(...)
   if !exists('w:airline_section_warning')
     let w:airline_section_warning = ' '
   endif
@@ -70,10 +70,10 @@ function! airline#extensions#whitespace#toggle()
   endif
 endfunction
 
-function! airline#extensions#whitespace#init()
+function! airline#extensions#whitespace#init(ext)
   if !s:initialized
     let s:initialized = 1
-    call add(g:airline_statusline_funcrefs, function('airline#extensions#whitespace#apply'))
+    call a:ext.add_statusline_funcref(function('airline#extensions#whitespace#apply'))
   endif
 
   unlet! b:airline_whitespace_check

@@ -104,7 +104,7 @@ COMMANDS                                                  *airline-commands*
   Toggles whitespace detection.
 
 :AirlineToggle                                              *:AirlineToggle*
-  Toggles between the standard `statusline` or airline.
+  Toggles between the standard `statusline`
 
 ==============================================================================
 CUSTOMIZATION                                        *airline-customization*
@@ -249,7 +249,7 @@ The g:airline_statusline_funcrefs variable is an array of funcrefs that get
 invoked before the statusline gets overwritten for each window.  The following
 is an example of how you can extend vim-airline to support a new plugin.
 >
-  function! MyPlugin()
+  function! MyPlugin(...)
     if &filetype == 'MyPluginFileType'
       let w:airline_section_a = 'MyPlugin'
       let w:airline_section_b = '%f'
