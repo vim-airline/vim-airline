@@ -181,6 +181,25 @@ function! airline#extensions#load()
     call airline#extensions#iminsert#init()
   endif
 
+
+  " Load autoload/airline/autoload_extensions/*.vim files
+  for file in split(globpath(&rtp, "autoload/airline/autoload_extensions/*.vim"), "\n")
+    source`=file`
+    let name = fnamemodify(file, ':t:r')
+
+    if !get(g:, 'airline#autoload_extensions#' . name . '#enabled', 1)
+      continue
+    endif
+
+    if exists('*airline#autoload_extensions#' . name . '#init')
+      call airline#autoload_extensions#{name}#init()
+    endif
+
+    if exists('*airline#autoload_extensions#' . name . '#apply')
+      call add(g:airline_statusline_funcrefs, function('airline#autoload_extensions#' . name . '#apply'))
+    endif
+  endfor
+
   call airline#util#exec_funcrefs(g:airline_statusline_funcrefs, 0)
 endfunction
 
