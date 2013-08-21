@@ -3,10 +3,20 @@
 
 let s:is_win32term = (has('win32') || has('win64')) && !has('gui_running')
 
+function! s:gui2cui(rgb, fallback)
+  if a:rgb == ''
+    return a:fallback
+  endif
+  let rgb = map(matchlist(a:rgb, '#\(..\)\(..\)\(..\)')[1:3], '0 + ("0x".v:val)')
+  let rgb = [rgb[0] > 127 ? 4 : 0, rgb[1] > 127 ? 2 : 0, rgb[2] > 127 ? 1 : 0]
+  return rgb[0]+rgb[1]+rgb[2]
+endfunction
+
 function! airline#highlighter#exec(group, colors)
   let colors = a:colors
   if s:is_win32term
-    let colors = map(a:colors, 'v:val != "" && v:val > 128 ? v:val - 128 : v:val')
+    let colors[2] = s:gui2cui(get(colors, 0, ''), get(colors, 2, ''))
+    let colors[3] = s:gui2cui(get(colors, 1, ''), get(colors, 3, ''))
   endif
   exec printf('hi %s %s %s %s %s %s %s %s',
         \ a:group,
