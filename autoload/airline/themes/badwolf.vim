@@ -16,7 +16,11 @@ let s:PA = [ '#f4cf86' , 222 ]                   " dirtyblonde
 let s:RE = [ '#ff9eb8' , 211 ]                   " dress
 
 let s:file = [ '#ff2c4b' , ''      , 196     , ''      , '' ]
-let s:IA   = [ s:N2[1]   , s:N3[1] , s:N2[3] , s:N3[3] , '' ]
+if &background == "dark"
+    let s:IA   = [ s:N2[1]   , s:N3[1] , s:N2[3] , 245     , '' ]
+else
+    let s:IA   = [ s:N2[1]   , s:N3[1] , s:N2[3] , s:N3[3] , '' ]
+endif
 
 let g:airline#themes#badwolf#palette = {}
 
