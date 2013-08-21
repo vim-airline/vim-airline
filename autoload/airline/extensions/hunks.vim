@@ -8,10 +8,13 @@ let s:initialized = 0
 function! s:init()
   if !s:initialized
     let s:initialized = 1
-    if exists('*sy#repo#get_stats')
+    if get(g:, 'loaded_signify', 0)
       function! s:get_hunks()
         let hunks = sy#repo#get_stats()
-        return hunks
+        if hunks[0] >= 0
+          return hunks
+        endif
+        return []
       endfunction
     elseif exists('*GitGutterGetHunkSummary')
       function! s:get_hunks()
@@ -21,9 +24,8 @@ function! s:init()
         return GitGutterGetHunkSummary()
       endfunction
     else
-      let s:non_zero_only = 1
       function! s:get_hunks()
-        return [0, 0, 0]
+        return []
       endfunction
     endif
   endif
@@ -33,11 +35,13 @@ function! airline#extensions#hunks#get_hunks()
   call <sid>init()
   let hunks = s:get_hunks()
   let string = ''
-  for i in [0, 1, 2]
-    if s:non_zero_only == 0 || hunks[i] > 0
-      let string .= printf('%s%s ', s:hunk_symbols[i], hunks[i])
-    endif
-  endfor
+  if !empty(hunks)
+    for i in [0, 1, 2]
+      if s:non_zero_only == 0 || hunks[i] > 0
+        let string .= printf('%s%s ', s:hunk_symbols[i], hunks[i])
+      endif
+    endfor
+  endif
   return string
 endfunction
 
