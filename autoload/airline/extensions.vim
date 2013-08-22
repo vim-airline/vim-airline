@@ -181,6 +181,17 @@ function! airline#extensions#load()
     call airline#extensions#iminsert#init()
   endif
 
+  " load all other extensions not part of the default distribution
+  for file in split(globpath(&rtp, "autoload/airline/extensions/*.vim"), '\n')
+    if match(file, '\vvim-airline(/|\\)autoload') < 0
+      let name = fnamemodify(file, ':t:r')
+      if !get(g:, 'airline#extensions#'.name.'#enabled', 1)
+        continue
+      endif
+      call airline#extensions#{name}#init(s:ext)
+    endif
+  endfor
+
   call airline#util#exec_funcrefs(g:airline_statusline_funcrefs, 0)
 endfunction
 
