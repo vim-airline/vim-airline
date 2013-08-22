@@ -15,7 +15,7 @@ endif
 if v:version >= 704
   function! airline#util#exec_funcrefs(list, ...)
     for Fn in a:list
-      let code = Fn(a:000)
+      let code = call(Fn, a:000)
       if code != 0
         return code
       endif
@@ -28,7 +28,7 @@ else
     " for 7.3-[97, 328]; we cannot reuse the variable, hence the {}
     for i in range(0, len(a:list) - 1)
       let Fn{i} = a:list[i]
-      let code = Fn{i}(a:000)
+      let code = call(Fn{i}, a:000)
       if code != 0
         return code
       endif
