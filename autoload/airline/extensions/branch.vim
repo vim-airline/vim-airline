@@ -4,7 +4,7 @@
 let s:empty_message = get(g:, 'airline#extensions#branch#empty_message',
       \ get(g:, 'airline_branch_empty_message', ''))
 let s:symbol = get(g:, 'airline#extensions#branch#symbol',
-      \ get(g:, 'airline_branch_prefix', exists('g:airline_powerline_fonts') ? ' ' : ''))
+      \ get(g:, 'airline_branch_prefix', get(g:, 'airline_powerline_fonts', 0) ? ' ' : ''))
 
 let s:has_fugitive = exists('*fugitive#head')
 let s:has_fugitive_detect = exists('*fugitive#detect')
