@@ -13,13 +13,17 @@ Lean &amp; mean statusline for vim that's light as air.
 *  extensive suite of themes for popular colorschemes including [solarized][23] (dark and light), [tomorrow][24] (all variants), [molokai][25], [jellybeans][26] and others; have a look at the [screenshots][14] in the wiki.
 *  supports 7.2 as the minimum Vim version
 
-# Straightforward Customization
+# Straightforward customization
 
 If you don't like the defaults, you can replace all sections with standard `statusline` syntax.
 
 ![image](https://f.cloud.github.com/assets/306502/1009429/d69306da-0b38-11e3-94bf-7c6e3eef41e9.png)
 
-# Extensions and Integration
+# Extensible pipeline
+
+![image](https://f.cloud.github.com/assets/306502/1012157/8d3fc108-0b6a-11e3-95e3-88c892a70e08.png)
+
+# Integration with external plugins
 
 vim-airline provides seamless integration with a variety of plugins.  These extensions will be lazily loaded if and only if you have the other plugins installed (and of course you can turn them off if you don't like it).
 
@@ -89,9 +93,9 @@ Finally, enable them in vim-airline by adding `let g:airline_powerline_fonts = 1
 
 Solutions to common problems can be found in the [Wiki][27].
 
-# Themes/Screenshots
+# Screenshots
 
-A full list of screenshots can be found in the [Wiki][14].
+A full list of screenshots for various themes can be found in the [Wiki][14].
 
 # Bugs
 
