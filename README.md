@@ -10,11 +10,18 @@ Lean &amp; mean statusline for vim that's light as air.
 *  integrates with a variety of plugins, including: [vim-bufferline][6], [fugitive][4], [unite][9], [ctrlp][10], [minibufexpl][15], [gundo][16], [undotree][17], [nerdtree][18], [tagbar][19], [vim-gitgutter][29], [vim-signify][30], [syntastic][5] and [lawrencium][21].
 *  looks good with regular fonts and provides configuration points so you can use unicode or powerline symbols.
 *  optimized for speed; it loads in under a millisecond.
-*  fully customizable; if you know a little `statusline` syntax you can tweak it to your needs.
 *  extensive suite of themes for popular colorschemes including [solarized][23] (dark and light), [tomorrow][24] (all variants), [molokai][25], [jellybeans][26] and others; have a look at the [screenshots][14] in the wiki.
 *  supports 7.2 as the minimum Vim version
 
-# Extensions/Integration
+# Straightforward Customization
+
+If you don't like the defaults, you can replace all sections with standard `statusline` syntax.
+
+![image](https://f.cloud.github.com/assets/306502/1009429/d69306da-0b38-11e3-94bf-7c6e3eef41e9.png)
+
+# Extensions and Integration
+
+vim-airline provides seamless integration with a variety of plugins.  These extensions will be lazily loaded if and only if you have the other plugins installed (and of course you can turn them off if you don't like it).
 
 ### [ctrlp.vim][10]
 ![image](https://f.cloud.github.com/assets/306502/962258/7345a224-04ec-11e3-8b5a-f11724a47437.png)
@@ -34,7 +41,7 @@ Lean &amp; mean statusline for vim that's light as air.
 ### whitespace
 ![image](https://f.cloud.github.com/assets/306502/962401/2a75385e-04ef-11e3-935c-e3b9f0e954cc.png)
 
-### hunks ([vim-gitgutter][29]/[vim-signify][30])
+### hunks ([vim-gitgutter][29] & [vim-signify][30])
 ![image](https://f.cloud.github.com/assets/306502/995185/73fc7054-09b9-11e3-9d45-618406c6ed98.png)
 
 # Rationale
