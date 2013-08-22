@@ -73,7 +73,7 @@ function! airline#get_statusline(winnr, active)
 endfunction
 
 function! airline#update_statusline()
-  if airline#util#exec_funcrefs(g:airline_exclude_funcrefs, 1)
+  if airline#util#exec_funcrefs(g:airline_exclude_funcrefs)
     call setwinvar(winnr(), '&statusline', '')
     return
   endif
@@ -90,7 +90,7 @@ function! airline#update_statusline()
   for section in s:sections
     unlet! w:airline_section_{section}
   endfor
-  call airline#util#exec_funcrefs(g:airline_statusline_funcrefs, 0)
+  call airline#util#exec_funcrefs(g:airline_statusline_funcrefs)
 
   call setwinvar(winnr(), '&statusline', airline#get_statusline(winnr(), 1))
 endfunction

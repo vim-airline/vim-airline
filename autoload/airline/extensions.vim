@@ -95,7 +95,7 @@ endfunction
 
 function! s:sync_active_winnr()
   if exists('#airline') && winnr() != s:active_winnr
-    if airline#util#exec_funcrefs(s:ext._cursormove_funcrefs, 1)
+    if airline#util#exec_funcrefs(s:ext._cursormove_funcrefs)
       return
     endif
     call airline#update_statusline()
@@ -194,6 +194,6 @@ function! airline#extensions#load()
     endif
   endfor
 
-  call airline#util#exec_funcrefs(g:airline_statusline_funcrefs, 0)
+  call airline#util#exec_funcrefs(g:airline_statusline_funcrefs)
 endfunction
 
