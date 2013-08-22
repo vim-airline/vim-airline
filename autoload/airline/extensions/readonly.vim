@@ -2,7 +2,7 @@
 " vim: et ts=2 sts=2 sw=2
 
 let s:symbol = get(g:, 'airline#extensions#readonly#symbol',
-      \ get(g:, 'airline_readonly_symbol', exists('g:airline_powerline_fonts') ? '' : 'RO'))
+      \ get(g:, 'airline_readonly_symbol', get(g:, 'airline_powerline_fonts', 0) ? '' : 'RO'))
 
 function! airline#extensions#readonly#get_mark()
   return &ro ? s:symbol : ''

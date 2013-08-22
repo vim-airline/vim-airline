@@ -11,7 +11,7 @@ else
 endif
 
 let s:symbol = get(g:, 'airline#extensions#whitespace#symbol',
-      \ get(g:, 'airline_whitespace_symbol', exists('g:airline_powerline_fonts') ? '✹' : '!'))
+      \ get(g:, 'airline_whitespace_symbol', get(g:, 'airline_powerline_fonts', 0) ? '✹' : '!'))
 
 let s:checks = get(g:, 'airline#extensions#whitespace#checks', ['indent', 'trailing'])
 
