@@ -185,7 +185,7 @@ function! airline#extensions#load()
 
   " load all other extensions not part of the default distribution
   for file in split(globpath(&rtp, "autoload/airline/extensions/*.vim"), '\n')
-    if stridx(fnamemodify(file, ':p'), s:script_path) < 0
+    if stridx(resolve(fnamemodify(file, ':p')), s:script_path) < 0
       let name = fnamemodify(file, ':t:r')
       if !get(g:, 'airline#extensions#'.name.'#enabled', 1)
         continue
