@@ -45,37 +45,36 @@ function! s:get_section(winnr, key, ...)
   return empty(text) ? '' : prefix.text.suffix
 endfunction
 
-function! airline#get_statusline(winnr, active)
-  let builder = airline#builder#new(a:active, s:highlighter)
-
+function! airline#get_statusline(builder, winnr, active)
   if airline#util#getwinvar(a:winnr, 'airline_render_left', a:active || (!a:active && !g:airline_inactive_collapse))
-    call builder.add_section('airline_a', s:get_section(a:winnr, 'a'))
-    call builder.add_section('airline_b', s:get_section(a:winnr, 'b'))
-    call builder.add_section('airline_c', '%<'.s:get_section(a:winnr, 'c'))
+    call a:builder.add_section('airline_a', s:get_section(a:winnr, 'a'))
+    call a:builder.add_section('airline_b', s:get_section(a:winnr, 'b'))
+    call a:builder.add_section('airline_c', '%<'.s:get_section(a:winnr, 'c'))
   else
-    call builder.add_section('airline_c', '%f%m')
+    call a:builder.add_section('airline_c', '%f%m')
   endif
 
-  call builder.split(s:get_section(a:winnr, 'gutter', '', ''))
+  call a:builder.split(s:get_section(a:winnr, 'gutter', '', ''))
 
   if airline#util#getwinvar(a:winnr, 'airline_render_right', 1)
-    call builder.add_section('airline_x', s:get_section(a:winnr, 'x'))
-    call builder.add_section('airline_y', s:get_section(a:winnr, 'y'))
-    call builder.add_section('airline_z', s:get_section(a:winnr, 'z'))
+    call a:builder.add_section('airline_x', s:get_section(a:winnr, 'x'))
+    call a:builder.add_section('airline_y', s:get_section(a:winnr, 'y'))
+    call a:builder.add_section('airline_z', s:get_section(a:winnr, 'z'))
     if a:active
-      call builder.add_raw('%(')
-      call builder.add_section('warningmsg', s:get_section(a:winnr, 'warning', '', ''))
-      call builder.add_raw('%)')
+      call a:builder.add_raw('%(')
+      call a:builder.add_section('warningmsg', s:get_section(a:winnr, 'warning', '', ''))
+      call a:builder.add_raw('%)')
     endif
   endif
 
-  return builder.build()
+  return a:builder.build()
 endfunction
 
 function! airline#update_statusline()
   for nr in filter(range(1, winnr('$')), 'v:val != winnr()')
     call setwinvar(nr, 'airline_active', 0)
-    call setwinvar(nr, '&statusline', airline#get_statusline(nr, 0))
+    let builder = airline#builder#new(0, s:highlighter)
+    call setwinvar(nr, '&statusline', airline#get_statusline(builder, nr, 0))
   endfor
 
   let w:airline_active = 1
@@ -86,9 +85,10 @@ function! airline#update_statusline()
     unlet! w:airline_section_{section}
   endfor
 
-  let err = airline#util#exec_funcrefs(g:airline_statusline_funcrefs)
+  let builder = airline#builder#new(1, s:highlighter)
+  let err = airline#util#exec_funcrefs(g:airline_statusline_funcrefs, builder)
   if err == 0
-    call setwinvar(winnr(), '&statusline', airline#get_statusline(winnr(), 1))
+    call setwinvar(winnr(), '&statusline', airline#get_statusline(builder, winnr(), 1))
   endif
 endfunction
 
