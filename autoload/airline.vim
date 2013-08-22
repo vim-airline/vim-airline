@@ -14,6 +14,11 @@ function! airline#switch_theme(name)
   let palette = g:airline#themes#{g:airline_theme}#palette "also lazy loads the theme
   call airline#themes#patch(palette)
 
+  if exists('g:airline_theme_patch_func')
+    let Fn = function(g:airline_theme_patch_func)
+    call Fn(palette)
+  endif
+
   let w:airline_lastmode = ''
   call airline#update_statusline()
   call airline#load_theme()

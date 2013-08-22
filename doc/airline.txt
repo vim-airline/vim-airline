@@ -60,6 +60,17 @@ values):
   can be overridden by defining a value. >
   let g:airline_theme=
 <
+* if you want to patch the airline theme before it gets applied, you can
+  supply the name of a function where you can modify the palette. >
+  let g:airline_theme_patch_func = 'AirlineThemePatch'
+  function! AirlineThemePatch(palette)
+    if g:airline_theme == 'badwolf'
+      for colors in values(a:palette.inactive)
+        let colors[3] = 245
+      endfor
+    endif
+  endfunction
+<
 * enable/disable usage of patched powerline font symbols >
   let g:airline_powerline_fonts=0
 <
