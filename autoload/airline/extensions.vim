@@ -2,12 +2,8 @@
 " vim: et ts=2 sts=2 sw=2
 
 let s:ext = {}
-let s:ext._cursormove_funcrefs = []
 function! s:ext.add_statusline_funcref(funcref) dict
   call add(g:airline_statusline_funcrefs, a:funcref)
-endfunction
-function! s:ext.add_cursormove_funcref(funcref) dict
-  call add(self._cursormove_funcrefs, a:funcref)
 endfunction
 
 let s:script_path = expand('<sfile>:p:h')
@@ -35,6 +31,10 @@ endfunction
 
 let s:active_winnr = -1
 function! airline#extensions#update_statusline(...)
+  if s:is_excluded_window(a:000)
+    return -1
+  endif
+
   let s:active_winnr = winnr()
 
   if &buftype == 'quickfix'
@@ -67,7 +67,7 @@ function! airline#extensions#update_statusline(...)
   endfor
 endfunction
 
-function! airline#extensions#is_excluded_window(...)
+function! s:is_excluded_window(...)
   for matchft in g:airline_exclude_filetypes
     if matchft ==# &ft
       return 1
@@ -95,9 +95,6 @@ endfunction
 
 function! s:sync_active_winnr()
   if exists('#airline') && winnr() != s:active_winnr
-    if airline#util#exec_funcrefs(s:ext._cursormove_funcrefs)
-      return
-    endif
     call airline#update_statusline()
   endif
 endfunction
@@ -107,7 +104,6 @@ function! airline#extensions#load()
   autocmd CursorMoved * call <sid>sync_active_winnr()
 
   " load core funcrefs
-  call add(g:airline_exclude_funcrefs, function('airline#extensions#is_excluded_window'))
   call add(g:airline_statusline_funcrefs, function('airline#extensions#update_statusline'))
 
   if get(g:, 'loaded_unite', 0)

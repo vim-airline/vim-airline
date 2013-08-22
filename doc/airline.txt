@@ -259,15 +259,15 @@ is an example of how you can extend vim-airline to support a new plugin.
   endfunction
   call add(g:airline_statusline_funcrefs, function('MyPlugin'))
 <
-                                                *g:airline_exclude_funcrefs*
-The g:airline_exclude_funcrefs variable is an array that's returns 1 or 0 to
-determine whether that particular window should be excluded from having its
-statusline modified.  Here is an example:
+
+You can also control what happens by returning an error code. Note that
+returning a value other than 0 will prevent any remaining extensions from
+having their funcrefs invoked.
 >
-  function! ExcludeFoo()
-    return &filetype == 'FooType'
+  function! MyPlugin(...)
+    return  0 " the default action, modify the statusline
+    return -1 " do not update the statusline
   endfunction
-  call add(g:airline_exclude_funcrefs, function('ExcludeFoo'))
 <
 
 ==============================================================================

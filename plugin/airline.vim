@@ -25,7 +25,6 @@ call s:check_defined('g:airline_exclude_filenames', ['DebuggerWatch','DebuggerSt
 call s:check_defined('g:airline_exclude_filetypes', [])
 call s:check_defined('g:airline_exclude_preview', 0)
 call s:check_defined('g:airline_statusline_funcrefs', [])
-call s:check_defined('g:airline_exclude_funcrefs', [])
 
 call s:check_defined('g:airline_mode_map', {
       \ '__' : '------',
@@ -90,7 +89,7 @@ function! s:on_colorscheme_changed()
   call airline#load_theme()
 endfunction
 
-function airline#cmdwinenter()
+function airline#cmdwinenter(...)
   call airline#extensions#apply_left_override('Command Line', '')
 endfunction
 

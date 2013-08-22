@@ -73,11 +73,6 @@ function! airline#get_statusline(winnr, active)
 endfunction
 
 function! airline#update_statusline()
-  if airline#util#exec_funcrefs(g:airline_exclude_funcrefs)
-    call setwinvar(winnr(), '&statusline', '')
-    return
-  endif
-
   for nr in filter(range(1, winnr('$')), 'v:val != winnr()')
     call setwinvar(nr, 'airline_active', 0)
     call setwinvar(nr, '&statusline', airline#get_statusline(nr, 0))
@@ -90,9 +85,11 @@ function! airline#update_statusline()
   for section in s:sections
     unlet! w:airline_section_{section}
   endfor
-  call airline#util#exec_funcrefs(g:airline_statusline_funcrefs)
 
-  call setwinvar(winnr(), '&statusline', airline#get_statusline(winnr(), 1))
+  let err = airline#util#exec_funcrefs(g:airline_statusline_funcrefs)
+  if err == 0
+    call setwinvar(winnr(), '&statusline', airline#get_statusline(winnr(), 1))
+  endif
 endfunction
 
 function! airline#check_mode()

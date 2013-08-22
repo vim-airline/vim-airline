@@ -49,8 +49,9 @@ function! airline#extensions#ctrlp#ctrlp_airline_status(...)
   return len.dir
 endfunction
 
-function! airline#extensions#ctrlp#is_statusline_overwritten(...)
-  return match(&statusline, 'CtrlPlight') >= 0
+function! airline#extensions#ctrlp#apply(...)
+  " disable statusline overwrite if ctrlp already did it
+  return match(&statusline, 'CtrlPlight') >= 0 ? -1 : 0
 endfunction
 
 function! airline#extensions#ctrlp#init(ext)
@@ -58,6 +59,6 @@ function! airline#extensions#ctrlp#init(ext)
         \ 'main': 'airline#extensions#ctrlp#ctrlp_airline',
         \ 'prog': 'airline#extensions#ctrlp#ctrlp_airline_status',
         \ }
-  call a:ext.add_cursormove_funcref(function('airline#extensions#ctrlp#is_statusline_overwritten'))
+  call a:ext.add_statusline_funcref(function('airline#extensions#ctrlp#apply'))
 endfunction
 
