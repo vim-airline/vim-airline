@@ -189,7 +189,5 @@ function! airline#extensions#load()
       call airline#extensions#{name}#init(s:ext)
     endif
   endfor
-
-  call airline#util#exec_funcrefs(g:airline_statusline_funcrefs)
 endfunction
 
