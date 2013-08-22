@@ -259,14 +259,32 @@ is an example of how you can extend vim-airline to support a new plugin.
   endfunction
   call add(g:airline_statusline_funcrefs, function('MyPlugin'))
 <
+==============================================================================
+PIPELINE                                                  *airline-pipeline*
 
-You can also control what happens by returning an error code. Note that
-returning a value other than 0 will prevent any remaining extensions from
-having their funcrefs invoked.
+Sometimes you want to do more than just use overrides.  The statusline funcref
+is invoked and passed a bunch of arguments.  The first of these arguments is
+the statusline builder.  You can use this to build completely custom
+statuslines to your liking.  Additionally, the return value of this function
+controls determines what airline will do next.  Here is an example:
 >
   function! MyPlugin(...)
-    return  0 " the default action, modify the statusline
-    return -1 " do not update the statusline
+    " first variable is the statusline builder
+    let builder = a:1
+
+    " build and set the statusline
+    " WARNING: the API for the builder is not finalized and may change
+    call builder.add_section('Normal', '%f')
+    call builder.add_section('WarningMsg', '%{getcwd()}')
+    call setwinvar(winnr(), '&statusline', builder.build())
+
+    " the default action: modify the statusline with the default rules
+    " (this would render the above code redundant)
+    return  0
+
+    " do not modify the statusline, useful for excluding filetypes or when you
+    " have overridden the statusline yourself.
+    return -1
   endfunction
 <
 
