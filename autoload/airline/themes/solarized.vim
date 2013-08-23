@@ -28,8 +28,8 @@ function! s:generate()
   let s:blue    = {'t': s:ansi_colors ?   4 : 33 , 'g': '#268bd2'}
   let s:cyan    = {'t': s:ansi_colors ?   6 : 37 , 'g': '#2aa198'}
   let s:green   = {'t': s:ansi_colors ?   2 : 64 , 'g': '#859900'}
-  let s:c218    = {'t': 218, 'g': '#ffafd7'}
-  let s:c52     = {'t': 52,  'g': '#5f0000'}
+  let s:color236= {'t': s:ansi_colors ? '0' : 236, 'g': '#303030'}
+  let s:color251= {'t': s:ansi_colors ?  14 : 251, 'g': '#c6c6c6'}
 
   """"""""""""""""""""""""""""""""""""""""""""""""
   " Simple mappings
@@ -42,31 +42,28 @@ function! s:generate()
     let s:N2 = [s:base2, s:base01, '']
     let s:N3 = [s:base1, s:base02, '']
   else
-    let s:N2 = [s:base2, s:base1, '']
+    let s:N2 = [s:base2, s:base00, '']
     let s:N3 = [s:base00, s:base2, '']
   endif
   let s:NF = [s:orange, s:N3[1], '']
-  if s:reduced
-    if s:background == 'dark'
-      let s:NM = [s:magenta, s:N3[1], '']
-    else
-      let s:NM = [s:magenta, s:N3[1], '']
-    endif
+  let s:NM = [s:orange, s:N3[1], '']
+  let s:NW = [s:base3, s:orange, '']
+  if s:background == 'dark'
+    let s:NM = [s:orange, s:N3[1], '']
   else
-    if s:background == 'dark'
-      let s:NM = [s:c218, s:c52, '']
-    else
-      let s:NM = [s:red, s:c218, '']
-    endif
+    let s:NM = [s:red, s:N3[1], '']
   endif
-
 
   " Insert mode
   let s:I1 = [s:N1[0], s:green, 'bold']
   if s:reduced
     let s:I2 = s:N2
   else
-    let s:I2 = [s:base3, s:base1, '']
+    if s:background == 'dark'
+      let s:I2 = [s:base00, s:color236, '']
+    else
+      let s:I2 = [s:base00, s:color251, '']
+    endif
   endif
   let s:I3 = s:N3
   let s:IF = s:NF
@@ -114,6 +111,9 @@ function! s:generate()
         \ [s:N2[0].g, s:N2[1].g, s:N2[0].t, s:N2[1].t, s:N2[2]],
         \ [s:N3[0].g, s:N3[1].g, s:N3[0].t, s:N3[1].t, s:N3[2]],
         \ s:NFa)
+
+  let g:airline#themes#solarized#palette.normal.warningmsg = [
+        \ s:NW[0].g, s:NW[1].g, s:NW[0].t, s:NW[1].t, s:NW[2]]
 
   let g:airline#themes#solarized#palette.normal_modified = {
         \ 'airline_c': [s:NM[0].g, s:NM[1].g,
