@@ -9,13 +9,13 @@ endif
 " First you should follow the convention and define an 'init' function.
 " It takes a single argument, which is the 'ext'ension manager of sorts,
 " which you can invoke certain functions.  The most important one is
-" 'add_statusline_funcref', which as the name implies, adds a funcref to
+" 'add_statusline_func', which as the name implies, adds a function to
 " the collection such that it will be invoked prior to changes being made
 " to the statusline. Finally, invoke this init function in the
 " 'extensions.vim' file after a check to a non-autoloaded variable,
 " command, or function.
 function! airline#extensions#example#init(ext)
-  call a:ext.add_statusline_funcref(function('airline#extensions#example#apply'))
+  call a:ext.add_statusline_func('airline#extensions#example#apply')
 
   " Alternatively, you can also modify the default global section by
   " appending or prepending to it.  But read on to see why using the funcref

@@ -73,7 +73,7 @@ endfunction
 function! airline#extensions#whitespace#init(...)
   if !s:initialized
     let s:initialized = 1
-    call add(g:airline_statusline_funcrefs, function('airline#extensions#whitespace#apply'))
+    call airline#add_statusline_func('airline#extensions#whitespace#apply')
   endif
 
   unlet! b:airline_whitespace_check

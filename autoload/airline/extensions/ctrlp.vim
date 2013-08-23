@@ -59,6 +59,6 @@ function! airline#extensions#ctrlp#init(ext)
         \ 'main': 'airline#extensions#ctrlp#ctrlp_airline',
         \ 'prog': 'airline#extensions#ctrlp#ctrlp_airline_status',
         \ }
-  call a:ext.add_statusline_funcref(function('airline#extensions#ctrlp#apply'))
+  call a:ext.add_statusline_func('airline#extensions#ctrlp#apply')
 endfunction
 

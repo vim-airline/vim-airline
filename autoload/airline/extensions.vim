@@ -2,8 +2,11 @@
 " vim: et ts=2 sts=2 sw=2
 
 let s:ext = {}
-function! s:ext.add_statusline_funcref(funcref) dict
-  call add(g:airline_statusline_funcrefs, a:funcref)
+function! s:ext.add_statusline_func(name) dict
+  call airline#add_statusline_func(a:name)
+endfunction
+function! s:ext.add_statusline_funcref(function) dict
+  call airline#add_statusline_funcref(a:function)
 endfunction
 
 let s:script_path = expand('<sfile>:p:h')
@@ -104,7 +107,7 @@ function! airline#extensions#load()
   autocmd CursorMoved * call <sid>sync_active_winnr()
 
   " load core funcrefs
-  call add(g:airline_statusline_funcrefs, function('airline#extensions#update_statusline'))
+  call airline#add_statusline_func('airline#extensions#update_statusline')
 
   if get(g:, 'loaded_unite', 0)
     let g:unite_force_overwrite_statusline = 0

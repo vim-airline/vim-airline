@@ -7,6 +7,6 @@ function! airline#extensions#syntastic#apply(...)
 endfunction
 
 function! airline#extensions#syntastic#init(ext)
-  call a:ext.add_statusline_funcref(function('airline#extensions#syntastic#apply'))
+  call a:ext.add_statusline_func('airline#extensions#syntastic#apply')
 endfunction
 

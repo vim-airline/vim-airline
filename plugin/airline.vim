@@ -24,7 +24,6 @@ call s:check_defined('g:airline_inactive_collapse', 1)
 call s:check_defined('g:airline_exclude_filenames', ['DebuggerWatch','DebuggerStack','DebuggerStatus'])
 call s:check_defined('g:airline_exclude_filetypes', [])
 call s:check_defined('g:airline_exclude_preview', 0)
-call s:check_defined('g:airline_statusline_funcrefs', [])
 
 call s:check_defined('g:airline_mode_map', {
       \ '__' : '------',
@@ -108,9 +107,9 @@ function! s:airline_toggle()
       autocmd!
 
       autocmd CmdwinEnter *
-            \ call add(g:airline_statusline_funcrefs, function('airline#cmdwinenter'))
+            \ call airline#add_statusline_func('airline#cmdwinenter')
             \ | call <sid>on_window_changed()
-      autocmd CmdwinLeave * call remove(g:airline_statusline_funcrefs, -1)
+      autocmd CmdwinLeave * call airline#remove_statusline_func('airline#cmdwinenter')
 
       autocmd ColorScheme * call <sid>on_colorscheme_changed()
       autocmd WinEnter,BufWinEnter,FileType,BufUnload,ShellCmdPost *

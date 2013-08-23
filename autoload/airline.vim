@@ -1,8 +1,25 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
+let g:airline_statusline_funcrefs = get(g:, 'airline_statusline_funcrefs', [])
+
 let s:sections = ['a','b','c','gutter','x','y','z','warning']
 let s:highlighter = airline#highlighter#new()
+
+function! airline#add_statusline_func(name)
+  call airline#add_statusline_funcref(function(a:name))
+endfunction
+
+function! airline#add_statusline_funcref(function)
+  call add(g:airline_statusline_funcrefs, a:function)
+endfunction
+
+function! airline#remove_statusline_func(name)
+  let i = index(g:airline_statusline_funcrefs, function(a:name))
+  if i > -1
+    call remove(g:airline_statusline_funcrefs, i)
+  endif
+endfunction
 
 function! airline#load_theme()
   call s:highlighter.load_theme()

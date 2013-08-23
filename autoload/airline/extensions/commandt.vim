@@ -8,5 +8,5 @@ function! airline#extensions#commandt#apply(...)
 endfunction
 
 function! airline#extensions#commandt#init(ext)
-  call a:ext.add_statusline_funcref(function('airline#extensions#commandt#apply'))
+  call a:ext.add_statusline_func('airline#extensions#commandt#apply')
 endfunction

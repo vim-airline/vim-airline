@@ -26,6 +26,6 @@ function! airline#extensions#bufferline#init(ext)
   let g:bufferline_separator = ' '
 
   if g:airline_section_c == '%f%m'
-    call a:ext.add_statusline_funcref(function('airline#extensions#bufferline#apply'))
+    call a:ext.add_statusline_func('airline#extensions#bufferline#apply')
   endif
 endfunction

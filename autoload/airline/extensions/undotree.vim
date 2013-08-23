@@ -16,6 +16,6 @@ function! airline#extensions#undotree#apply(...)
 endfunction
 
 function! airline#extensions#undotree#init(ext)
-  call a:ext.add_statusline_funcref(function('airline#extensions#undotree#apply'))
+  call a:ext.add_statusline_func('airline#extensions#undotree#apply')
 endfunction
 

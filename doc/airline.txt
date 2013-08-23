@@ -255,11 +255,9 @@ FUNCREFS                                                  *airline-funcrefs*
 vim-airline internally uses funcrefs to integrate with third party plugins,
 and you can tap into this functionality to extend it for you needs.
 
-                                             *g:airline_statusline_funcrefs*
-The g:airline_statusline_funcrefs variable is an array of funcrefs that get
-invoked before the statusline gets overwritten for each window.  The following
-is an example of how you can extend vim-airline to support a new plugin.
->
+                                                       *add_statusline_func*
+The following is an example of how you can extend vim-airline to support a
+new plugin. >
   function! MyPlugin(...)
     if &filetype == 'MyPluginFileType'
       let w:airline_section_a = 'MyPlugin'
@@ -268,8 +266,14 @@ is an example of how you can extend vim-airline to support a new plugin.
       let g:airline_variable_referenced_in_statusline = 'foo'
     endif
   endfunction
-  call add(g:airline_statusline_funcrefs, function('MyPlugin'))
+  call airline#add_statusline_func('MyPlugin')
 <
+                                                    *remove_statusline_func*
+You can also remove a function as well, if you only need to have something
+activated temporarily. >
+  call airline#remove_statusline_func('MyPlugin')
+<
+
 ==============================================================================
 PIPELINE                                                  *airline-pipeline*
 
@@ -307,7 +311,7 @@ For each section that the algorithm encounters, it will first check to see if
 there is a window-local variable of the section.  If it exists, the value will
 be used, otherwise, the global variable of the section will be used.  This
 means it is possible to override only one or two sections of the statusline.
-See |g:airline_statusline_funcrefs| for an example of a simple extension.
+See |add_statusline_func| for an example of a simple extension.
 
 For contributions into the plugin, here are the following guidelines:
 
