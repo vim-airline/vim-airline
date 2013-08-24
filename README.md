@@ -7,7 +7,7 @@ Lean &amp; mean statusline for vim that's light as air.
 # Features
 
 *  tiny core written with extensibility in mind ([open/closed principle][8]).
-*  integrates with a variety of plugins, including: [vim-bufferline][6], [fugitive][4], [unite][9], [ctrlp][10], [minibufexpl][15], [gundo][16], [undotree][17], [nerdtree][18], [tagbar][19], [vim-gitgutter][29], [vim-signify][30], [syntastic][5] and [lawrencium][21].
+*  integrates with a variety of plugins, including: [vim-bufferline][6], [fugitive][4], [unite][9], [ctrlp][10], [minibufexpl][15], [gundo][16], [undotree][17], [nerdtree][18], [tagbar][19], [vim-gitgutter][29], [vim-signify][30], [syntastic][5], [lawrencium][21] and [virtualenv][31]
 *  looks good with regular fonts and provides configuration points so you can use unicode or powerline symbols.
 *  optimized for speed; it loads in under a millisecond.
 *  extensive suite of themes for popular colorschemes including [solarized][23] (dark and light), [tomorrow][24] (all variants), [molokai][25], [jellybeans][26] and others; have a look at the [screenshots][14] in the wiki.
@@ -47,6 +47,9 @@ vim-airline provides seamless integration with a variety of plugins.  These exte
 
 ### hunks ([vim-gitgutter][29] & [vim-signify][30])
 ![image](https://f.cloud.github.com/assets/306502/995185/73fc7054-09b9-11e3-9d45-618406c6ed98.png)
+
+### [virtualenv][31]
+![image](https://f.cloud.github.com/assets/390964/1021386/73ed49e4-0cfc-11e3-96df-8d5084cde7da.png)
 
 # Rationale
 
@@ -151,3 +154,4 @@ MIT license. Copyright (c) 2013 Bailey Ling.
 [28]: https://github.com/chrisbra/csv.vim
 [29]: https://github.com/airblade/vim-gitgutter
 [30]: https://github.com/mhinz/vim-signify
+[31]: https://github.com/jmcantrell/vim-virtualenv
