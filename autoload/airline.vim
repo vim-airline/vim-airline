@@ -95,7 +95,8 @@ endfunction
 function! airline#update_statusline()
   for nr in filter(range(1, winnr('$')), 'v:val != winnr()')
     call setwinvar(nr, 'airline_active', 0)
-    let builder = airline#builder#new(0, s:highlighter)
+    let context = { 'winnr': nr, 'active': 0 }
+    let builder = airline#builder#new(context, s:highlighter)
     call setwinvar(nr, '&statusline', airline#get_statusline(builder, nr, 0))
   endfor
 
@@ -107,7 +108,8 @@ function! airline#update_statusline()
     unlet! w:airline_section_{section}
   endfor
 
-  let builder = airline#builder#new(1, s:highlighter)
+  let context = { 'winnr': winnr(), 'active': 1 }
+  let builder = airline#builder#new(context, s:highlighter)
   let err = airline#util#exec_funcrefs(g:airline_statusline_funcrefs, builder)
   if err == 0
     call setwinvar(winnr(), '&statusline', airline#get_statusline(builder, winnr(), 1))
