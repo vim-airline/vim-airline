@@ -5,6 +5,7 @@ let g:airline_statusline_funcrefs = get(g:, 'airline_statusline_funcrefs', [])
 
 let s:sections = ['a','b','c','gutter','x','y','z','warning']
 let s:highlighter = airline#highlighter#new()
+let s:inactive_funcrefs = []
 
 function! airline#add_statusline_func(name)
   call airline#add_statusline_funcref(function(a:name))
@@ -19,6 +20,10 @@ function! airline#remove_statusline_func(name)
   if i > -1
     call remove(g:airline_statusline_funcrefs, i)
   endif
+endfunction
+
+function! airline#add_inactive_statusline_func(name)
+  call add(s:inactive_funcrefs, function(a:name))
 endfunction
 
 function! airline#load_theme()
@@ -96,11 +101,8 @@ function! airline#update_statusline()
   for nr in filter(range(1, winnr('$')), 'v:val != winnr()')
     call setwinvar(nr, 'airline_active', 0)
     let context = { 'winnr': nr, 'active': 0 }
-    let builder = airline#builder#new(context, s:highlighter)
-    call setwinvar(nr, '&statusline', airline#get_statusline(builder, nr, 0))
+    call s:invoke_funcrefs(context, s:inactive_funcrefs)
   endfor
-
-  let w:airline_active = 1
 
   unlet! w:airline_render_left
   unlet! w:airline_render_right
@@ -108,13 +110,18 @@ function! airline#update_statusline()
     unlet! w:airline_section_{section}
   endfor
 
+  let w:airline_active = 1
   let context = { 'winnr': winnr(), 'active': 1 }
-  let builder = airline#builder#new(context, s:highlighter)
-  let err = airline#util#exec_funcrefs(g:airline_statusline_funcrefs, builder)
+  call s:invoke_funcrefs(context, g:airline_statusline_funcrefs)
+endfunction
+
+function! s:invoke_funcrefs(context, funcrefs)
+  let builder = airline#builder#new(a:context, s:highlighter)
+  let err = airline#util#exec_funcrefs(a:funcrefs, builder, a:context)
   if err == 0
-    call setwinvar(winnr(), '&statusline', airline#get_statusline(builder, winnr(), 1))
+    call setwinvar(a:context.winnr, '&statusline', airline#get_statusline(builder, a:context.winnr, a:context.active))
   elseif err == 1
-    call setwinvar(winnr(), '&statusline', builder.build())
+    call setwinvar(a:context.winnr, '&statusline', builder.build())
   endif
 endfunction
 

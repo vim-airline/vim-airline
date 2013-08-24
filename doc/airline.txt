@@ -302,6 +302,12 @@ statuslines to your liking.  Here is an example: >
 <
 The second variable is the context, which is a dictionary containing various
 values such as whether the statusline is active or not, and the window number.
+>
+  context = {
+    'winnr': 'the window number for the statusline',
+    'active': 'whether the window is active or not',
+  }
+<
 
                                              *airline-pipeline-return-codes*
 The pipeline accepts various return codes and can be used to determine the
