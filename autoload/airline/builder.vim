@@ -10,7 +10,7 @@ endfunction
 
 function! s:prototype.add_section(group, contents)
   if self._curgroup != ''
-    call self._highlighter.add_separator(self._curgroup, a:group, self._side)
+    call airline#highlighter#add_separator(self._curgroup, a:group, self._side)
     let self._line .= '%#'.self._curgroup.'_to_'.a:group.'#'
     let self._line .= self._side ? g:airline_left_sep : g:airline_right_sep
   endif
@@ -30,10 +30,9 @@ function! s:prototype.build()
   return self._line
 endfunction
 
-function! airline#builder#new(context, highlighter)
+function! airline#builder#new(context)
   let builder = copy(s:prototype)
   let builder._context = a:context
-  let builder._highlighter = a:highlighter
   let builder._side = 1
   let builder._curgroup = ''
   let builder._line = '%{airline#check_mode()}'

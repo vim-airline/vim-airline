@@ -4,7 +4,6 @@
 let g:airline_statusline_funcrefs = get(g:, 'airline_statusline_funcrefs', [])
 
 let s:sections = ['a','b','c','gutter','x','y','z','warning']
-let s:highlighter = airline#highlighter#new()
 let s:inactive_funcrefs = []
 
 function! airline#add_statusline_func(name)
@@ -27,7 +26,7 @@ function! airline#add_inactive_statusline_func(name)
 endfunction
 
 function! airline#load_theme()
-  call s:highlighter.load_theme()
+  call airline#highlighter#load_theme()
   call airline#extensions#load_theme()
 endfunction
 
@@ -116,7 +115,7 @@ function! airline#update_statusline()
 endfunction
 
 function! s:invoke_funcrefs(context, funcrefs)
-  let builder = airline#builder#new(a:context, s:highlighter)
+  let builder = airline#builder#new(a:context)
   let err = airline#util#exec_funcrefs(a:funcrefs, builder, a:context)
   if err == 0
     call setwinvar(a:context.winnr, '&statusline', airline#get_statusline(builder, a:context.winnr, a:context.active))
@@ -152,7 +151,7 @@ function! airline#check_mode()
 
   let mode_string = join(l:mode)
   if get(w:, 'airline_lastmode', '') != mode_string
-    call s:highlighter.highlight(l:mode)
+    call airline#highlighter#highlight(l:mode)
     let w:airline_lastmode = mode_string
   endif
   return ''
