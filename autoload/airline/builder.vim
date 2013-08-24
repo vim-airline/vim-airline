@@ -3,9 +3,9 @@
 
 let s:prototype = {}
 
-function! s:prototype.split(gutter)
+function! s:prototype.split(...)
   let self._side = 0
-  let self._line .= '%#'.self._curgroup.'#'.a:gutter
+  let self._line .= '%#'.self._curgroup.'#'.(a:0 ? a:1 : '%=')
 endfunction
 
 function! s:prototype.add_section(group, contents)

@@ -13,7 +13,6 @@ let s:script_path = expand('<sfile>:p:h')
 
 let s:filetype_overrides = {
       \ 'netrw': [ 'netrw', '%f' ],
-      \ 'unite': [ 'Unite', '%{unite#get_status_string()}' ],
       \ 'nerdtree': [ 'NERD', '' ],
       \ 'gundo': [ 'Gundo', '' ],
       \ 'diff': [ 'diff', '' ],
@@ -110,7 +109,7 @@ function! airline#extensions#load()
   call airline#add_statusline_func('airline#extensions#update_statusline')
 
   if get(g:, 'loaded_unite', 0)
-    let g:unite_force_overwrite_statusline = 0
+    call airline#extensions#unite#init(s:ext)
   endif
 
   if get(g:, 'loaded_vimfiler', 0)
