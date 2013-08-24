@@ -157,9 +157,11 @@ separators, as well as the powerline font glyths.
 <
 
 For more intricate customizations, you can replace the predefined sections
-with the usual statusline syntax. Note that many of these settings can also be
-controlled with |airline-configuration| variables, which is useful for
-sections which by default host more than one extension.
+with the usual statusline syntax.
+
+Note: Many of these settings can also be controlled with |airline-configuration|
+variables, which is useful for sections which by default host more than one
+extension.
 >
   variable names                default contents
   ----------------------------------------------------------------------------
@@ -179,6 +181,9 @@ sections which by default host more than one extension.
 <
 ==============================================================================
 EXTENSIONS                                              *airline-extensions*
+
+Most extensions are enabled by default and lazily loaded when the
+corresponding plugin (if any) is detected.
 
                                                             *airline-branch*
 fugitive.vim <https://github.com/tpope/vim-fugitive>
@@ -269,8 +274,8 @@ new plugin. >
   call airline#add_statusline_func('MyPlugin')
 <
                                                     *remove_statusline_func*
-You can also remove a function as well, if you only need to have something
-activated temporarily. >
+You can also remove a function as well, which is useful for when you want a
+temporary override. >
   call airline#remove_statusline_func('MyPlugin')
 <
 
@@ -280,8 +285,7 @@ PIPELINE                                                  *airline-pipeline*
 Sometimes you want to do more than just use overrides.  The statusline funcref
 is invoked and passed a bunch of arguments.  The first of these arguments is
 the statusline builder.  You can use this to build completely custom
-statuslines to your liking.  Additionally, the return value of this function
-controls determines what airline will do next.  Here is an example:
+statuslines to your liking.  Here is an example: >
 >
   function! MyPlugin(...)
     " first variable is the statusline builder
@@ -293,15 +297,18 @@ controls determines what airline will do next.  Here is an example:
     call builder.add_section('WarningMsg', '%{getcwd()}')
     call setwinvar(winnr(), '&statusline', builder.build())
 
-    " the default action: modify the statusline with the default rules
-    " (this would render the above code redundant)
-    return  0
-
-    " do not modify the statusline, useful for excluding filetypes or when you
-    " have overridden the statusline yourself.
     return -1
   endfunction
 <
+                                             *airline-pipeline-return-codes*
+The pipeline accepts various return codes and can be used to determine the
+next action.  The following are the supported codes: >
+   0   the default, continue on with the next funcref
+  -1   do not modify the statusline
+   1   modify the statusline with the current contents of the builder
+<
+Note: Any value other than 0 will halt the pipeline and prevent the next
+funcref from executing.
 
 ==============================================================================
 WRITING EXTENSIONS                              *airline-writing-extensions*

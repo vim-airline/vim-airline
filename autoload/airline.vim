@@ -111,6 +111,8 @@ function! airline#update_statusline()
   let err = airline#util#exec_funcrefs(g:airline_statusline_funcrefs, builder)
   if err == 0
     call setwinvar(winnr(), '&statusline', airline#get_statusline(builder, winnr(), 1))
+  elseif err == 1
+    call setwinvar(winnr(), '&statusline', builder.build())
   endif
 endfunction
 
