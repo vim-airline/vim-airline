@@ -9,7 +9,7 @@ function! airline#extensions#readonly#get_mark()
 endfunction
 
 function! airline#extensions#readonly#init()
-  let g:airline_section_gutter = ' %#airline_file#%{airline#extensions#readonly#get_mark()}%#airline_c# '
+  let g:airline_section_gutter = ' %#airline_file#%{airline#extensions#readonly#get_mark()} '
         \ .g:airline_section_gutter
 endfunction
 

@@ -29,10 +29,10 @@ function! airline#highlighter#exec(group, colors)
         \ get(colors, 4, '') != '' ? 'term='.colors[4] : '')
 endfunction
 
-function! s:exec_separator(dict, from, to, inverse)
-  let l:from = airline#themes#get_highlight(a:from)
-  let l:to = airline#themes#get_highlight(a:to)
-  let group = a:from.'_to_'.a:to
+function! s:exec_separator(dict, from, to, inverse, suffix)
+  let l:from = airline#themes#get_highlight(a:from.a:suffix)
+  let l:to = airline#themes#get_highlight(a:to.a:suffix)
+  let group = a:from.'_to_'.a:to.a:suffix
   if a:inverse
     let colors = [ l:from[1], l:to[1], l:from[3], l:to[3] ]
   else
@@ -68,7 +68,7 @@ function! airline#highlighter#new()
 
         " TODO: optimize this
         for sep in items(self._separators)
-          call <sid>exec_separator(dict, sep[1][0].suffix, sep[1][1].suffix, sep[1][2])
+          call <sid>exec_separator(dict, sep[1][0], sep[1][1], sep[1][2], suffix)
         endfor
       endif
     endfor
