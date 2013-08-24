@@ -94,12 +94,10 @@ endfunction
 
 function! airline#update_statusline()
   for nr in filter(range(1, winnr('$')), 'v:val != winnr()')
-    if airline#util#getwinvar(nr, 'airline_active', 0)
-      call setwinvar(nr, 'airline_active', 0)
-      let stl = getwinvar(nr, '&statusline')
-      let line = substitute(stl, '%#.\{-}\ze#', '\0_inactive', 'g')
-      call setwinvar(nr, '&statusline', line)
-    endif
+    call setwinvar(nr, 'airline_active', 0)
+    let context = { 'winnr': nr, 'active': 0 }
+    let builder = airline#builder#new(context, s:highlighter)
+    call setwinvar(nr, '&statusline', airline#get_statusline(builder, nr, 0))
   endfor
 
   let w:airline_active = 1
@@ -111,8 +109,8 @@ function! airline#update_statusline()
   endfor
 
   let context = { 'winnr': winnr(), 'active': 1 }
-  let builder = airline#builder#new(s:highlighter)
-  let err = airline#util#exec_funcrefs(g:airline_statusline_funcrefs, builder, context)
+  let builder = airline#builder#new(context, s:highlighter)
+  let err = airline#util#exec_funcrefs(g:airline_statusline_funcrefs, builder)
   if err == 0
     call setwinvar(winnr(), '&statusline', airline#get_statusline(builder, winnr(), 1))
   elseif err == 1
