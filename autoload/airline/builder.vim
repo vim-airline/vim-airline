@@ -24,15 +24,11 @@ function! s:prototype.add_raw(text)
 endfunction
 
 function! s:prototype.build()
-  if !self._context.active
-    let self._line = substitute(self._line, '%#.\{-}\ze#', '\0_inactive', 'g')
-  endif
   return self._line
 endfunction
 
-function! airline#builder#new(context, highlighter)
+function! airline#builder#new(highlighter)
   let builder = copy(s:prototype)
-  let builder._context = a:context
   let builder._highlighter = a:highlighter
   let builder._side = 1
   let builder._curgroup = ''
