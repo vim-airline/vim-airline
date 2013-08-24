@@ -12,24 +12,35 @@ endfunction
 let s:script_path = expand('<sfile>:p:h')
 
 let s:filetype_overrides = {
-      \ 'netrw': [ 'netrw', '%f' ],
-      \ 'unite': [ 'Unite', '%{unite#get_status_string()}' ],
-      \ 'nerdtree': [ 'NERD', '' ],
-      \ 'gundo': [ 'Gundo', '' ],
-      \ 'diff': [ 'diff', '' ],
-      \ 'vimfiler': [ 'vimfiler', '%{vimfiler#get_status_string()}' ],
-      \ 'minibufexpl': [ 'MiniBufExplorer', '' ],
-      \ 'startify': [ 'startify', '' ],
+      \ 'netrw': [ 'netrw', '%f', '', '' ],
+      \ 'unite': [ 'Unite', '%{unite#get_context().buffer_name}', '%{unite#get_status_string()}', '' ],
+      \ 'nerdtree': [ 'NERD', '', '', '' ],
+      \ 'undotree': [ 'undotree', '', '', '' ],
+      \ 'gundo': [ 'Gundo', '', '', '' ],
+      \ 'diff': [ 'diff', '', '', '' ],
+      \ 'vimfiler': [ 'vimfiler', '%{vimfiler#get_status_string()}', '', '' ],
+      \ 'minibufexpl': [ 'MiniBufExplorer', '', '', '' ],
+      \ 'startify': [ 'startify', '', '', '' ],
       \ }
 
 let s:filetype_regex_overrides = {}
 
-function! airline#extensions#apply_left_override(section1, section2)
-  let w:airline_section_a = a:section1
-  let w:airline_section_b = a:section2
+function! airline#extensions#apply_override(overrides)
+  let l:arg_size = len(a:overrides)
+  let l:arg_pos = 0
+
+  let w:airline_section_a = a:overrides[0]
+  let w:airline_section_b = a:overrides[1]
   let w:airline_section_c = ''
+  let w:airline_section_x = ''
+  let w:airline_section_y = a:overrides[2]
+  let w:airline_section_z = a:overrides[3]
   let w:airline_render_left = 1
-  let w:airline_render_right = 0
+  if empty(a:overrides[2]) && empty(a:overrides[3])
+    let w:airline_render_right = 0
+  else
+    let w:airline_render_right = 1
+  endif
 endfunction
 
 let s:active_winnr = -1
@@ -46,9 +57,8 @@ function! airline#extensions#update_statusline(...)
     let w:airline_section_c = ''
     let w:airline_section_x = ''
   elseif &buftype == 'help'
-    call airline#extensions#apply_left_override('Help', '%f')
-    let w:airline_section_x = ''
-    let w:airline_section_y = ''
+    call airline#extensions#apply_override([ 'Help', '%f', '', '' ])
+    unlet w:airline_section_z
     let w:airline_render_right = 1
   endif
 
@@ -60,14 +70,21 @@ function! airline#extensions#update_statusline(...)
 
   if has_key(s:filetype_overrides, &ft)
     let args = s:filetype_overrides[&ft]
-    call airline#extensions#apply_left_override(args[0], args[1])
+    call airline#extensions#apply_override(args)
   endif
 
   for item in items(s:filetype_regex_overrides)
     if match(&ft, item[0]) >= 0
-      call airline#extensions#apply_left_override(item[1][0], item[1][1])
+      call airline#extensions#apply_override(item[1])
     endif
   endfor
+
+  if &ft == 'unite'
+    let w:airline_section_x = ''
+    let w:airline_section_y = '%{unite#get_status_string()}'
+    let w:airline_section_z = ''
+    let w:airline_render_right = 1
+  endif
 endfunction
 
 function! s:is_excluded_window(...)
@@ -146,7 +163,7 @@ function! airline#extensions#load()
 
   if exists(':VimShell')
     let s:filetype_overrides['vimshell'] = ['vimshell','%{vimshell#get_status_string()}']
-    let s:filetype_regex_overrides['^int-'] = ['vimshell','%{substitute(&ft, "int-", "", "")}']
+    let s:filetype_regex_overrides['^int-'] = ['vimshell','%{substitute(&ft, "int-", "", "")}', '', '']
   endif
 
   if (get(g:, 'airline#extensions#branch#enabled', 1) && get(g:, 'airline_enable_branch', 1))
