@@ -72,6 +72,9 @@ function! s:init()
 endfunction
 
 function! s:on_window_changed()
+  if pumvisible()
+    return
+  endif
   call <sid>init()
   call airline#update_statusline()
 endfunction
