@@ -7,9 +7,7 @@ endfunction
 
 function! airline#extensions#virtualenv#apply(...)
   if &filetype == "python"
-    if !exists('w:airline_section_x')
-      let w:airline_section_x = g:airline_section_x
-    endif
-    let w:airline_section_x = '%{virtualenv#statusline()} '.g:airline_right_alt_sep.' '.w:airline_section_x
+    call airline#extensions#append_to_section('x', ' '.g:airline_right_alt_sep.' %{virtualenv#statusline()}')
   endif
 endfunction
+
