@@ -10,7 +10,7 @@ Lean &amp; mean statusline for vim that's light as air.
 *  integrates with a variety of plugins, including: [vim-bufferline][6], [fugitive][4], [unite][9], [ctrlp][10], [minibufexpl][15], [gundo][16], [undotree][17], [nerdtree][18], [tagbar][19], [vim-gitgutter][29], [vim-signify][30], [syntastic][5], [lawrencium][21] and [virtualenv][31]
 *  looks good with regular fonts and provides configuration points so you can use unicode or powerline symbols.
 *  optimized for speed; it loads in under a millisecond.
-*  extensive suite of themes for popular colorschemes including [solarized][23] (dark and light), [tomorrow][24] (all variants), [molokai][25], [jellybeans][26] and others; have a look at the [screenshots][14] in the wiki.
+*  extensive suite of themes for popular colorschemes including [solarized][23] (dark and light), [tomorrow][24] (all variants), [base16][32] (all variants) ,[molokai][25], [jellybeans][26] and others; have a look at the [screenshots][14] in the wiki.
 *  supports 7.2 as the minimum Vim version
 
 # Straightforward customization
@@ -21,7 +21,9 @@ If you don't like the defaults, you can replace all sections with standard `stat
 
 # Extensible pipeline
 
-![image](https://f.cloud.github.com/assets/306502/1012157/8d3fc108-0b6a-11e3-95e3-88c892a70e08.png)
+Completely transform the statusline to your liking.
+
+![allyourbase](https://f.cloud.github.com/assets/306502/1022714/e150034a-0da7-11e3-94a5-ca9d58a297e8.png)
 
 # Integration with external plugins
 
@@ -155,3 +157,4 @@ MIT license. Copyright (c) 2013 Bailey Ling.
 [29]: https://github.com/airblade/vim-gitgutter
 [30]: https://github.com/mhinz/vim-signify
 [31]: https://github.com/jmcantrell/vim-virtualenv
+[32]: https://github.com/chriskempson/base16-vim
