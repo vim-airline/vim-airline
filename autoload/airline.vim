@@ -26,6 +26,7 @@ function! airline#add_inactive_statusline_func(name)
 endfunction
 
 function! airline#load_theme()
+  highlight! default link airline_warningmsg WarningMsg
   call airline#highlighter#load_theme()
   call airline#extensions#load_theme()
 endfunction
@@ -88,7 +89,7 @@ function! airline#get_statusline(builder, winnr, active)
     call a:builder.add_section('airline_z', s:get_section(a:winnr, 'z'))
     if a:active
       call a:builder.add_raw('%(')
-      call a:builder.add_section('warningmsg', s:get_section(a:winnr, 'warning', '', ''))
+      call a:builder.add_section('airline_warningmsg', s:get_section(a:winnr, 'warning', '', ''))
       call a:builder.add_raw('%)')
     endif
   endif
