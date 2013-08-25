@@ -10,9 +10,13 @@ endfunction
 
 function! s:prototype.add_section(group, contents)
   if self._curgroup != ''
-    call airline#highlighter#add_separator(self._curgroup, a:group, self._side)
-    let self._line .= '%#'.self._curgroup.'_to_'.a:group.'#'
-    let self._line .= self._side ? g:airline_left_sep : g:airline_right_sep
+    if self._curgroup == a:group
+      let self._line .= self._side ? g:airline_left_alt_sep : g:airline_right_alt_sep
+    else
+      call airline#highlighter#add_separator(self._curgroup, a:group, self._side)
+      let self._line .= '%#'.self._curgroup.'_to_'.a:group.'#'
+      let self._line .= self._side ? g:airline_left_sep : g:airline_right_sep
+    endif
   endif
 
   let self._line .= '%#'.a:group.'#'.a:contents
