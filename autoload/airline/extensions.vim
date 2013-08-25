@@ -180,7 +180,7 @@ function! airline#extensions#load()
     call airline#extensions#paste#init()
   endif
 
-  if g:airline_detect_iminsert
+  if get(g:, 'airline#extensions#iminsert#enabled', 0) || get(g:, 'airline_detect_iminsert', 0)
     call airline#extensions#iminsert#init()
   endif
 
