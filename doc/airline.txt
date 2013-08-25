@@ -169,7 +169,7 @@ extension.
   let g:airline_section_b       (the fugitive/lawrencium branch indicator)
   let g:airline_section_c       (bufferline or filename)
   let g:airline_section_gutter  (readonly, csv)
-  let g:airline_section_x       (tagbar, filetype)
+  let g:airline_section_x       (tagbar, virtualenv, filetype)
   let g:airline_section_y       (fileencoding, fileformat)
   let g:airline_section_z       (percentage, line number, column number)
   let g:airline_section_warning (syntastic, whitespace)
@@ -253,6 +253,12 @@ ctrlp <https://github.com/kien/ctrlp.vim>
   let g:airline#extensions#ctrlp#color_template = 'visual'
   let g:airline#extensions#ctrlp#color_template = 'replace'
 <
+                                                        *airline-virtualenv*
+
+virtualenv <https://github.com/jmcantrell/vim-virtualenv>
+
+* enable/disable virtualenv integration >
+  let g:airline#extensions#virtualenv#enabled = 1
 
 ==============================================================================
 FUNCREFS                                                  *airline-funcrefs*
