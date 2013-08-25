@@ -56,7 +56,7 @@ endfunction
 
 let s:active_winnr = -1
 function! airline#extensions#update_statusline(...)
-  if s:is_excluded_window(a:000)
+  if s:is_excluded_window()
     return -1
   endif
 
@@ -92,7 +92,7 @@ function! airline#extensions#update_statusline(...)
   endfor
 endfunction
 
-function! s:is_excluded_window(...)
+function! s:is_excluded_window()
   for matchft in g:airline_exclude_filetypes
     if matchft ==# &ft
       return 1
