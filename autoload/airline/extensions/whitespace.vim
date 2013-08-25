@@ -54,10 +54,7 @@ function! airline#extensions#whitespace#check()
 endfunction!
 
 function! airline#extensions#whitespace#apply(...)
-  if !exists('w:airline_section_warning')
-    let w:airline_section_warning = ' '
-  endif
-  let w:airline_section_warning .= '%{airline#extensions#whitespace#check()}'
+  call airline#extensions#append_to_section('warning', ' %{airline#extensions#whitespace#check()}')
 endfunction
 
 function! airline#extensions#whitespace#toggle()

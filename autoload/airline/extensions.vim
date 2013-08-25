@@ -26,6 +26,26 @@ let s:filetype_overrides = {
 
 let s:filetype_regex_overrides = {}
 
+function! s:check_defined_section(name)
+  if !exists('w:airline_section_{a:name}')
+    if g:airline_section_{a:name} == '__'
+      let w:airline_section_{a:name} = ''
+    else
+      let w:airline_section_{a:name} = g:airline_section_{a:name}
+    endif
+  endif
+endfunction
+
+function! airline#extensions#append_to_section(name, value)
+  call <sid>check_defined_section(a:name)
+  let w:airline_section_{a:name} .= a:value
+endfunction
+
+function! airline#extensions#prepend_to_section(name, value)
+  call <sid>check_defined_section(a:name)
+  let w:airline_section_{a:name} = a:value . w:airline_section_{a:name}
+endfunction
+
 function! airline#extensions#apply_left_override(section1, section2)
   let w:airline_section_a = a:section1
   let w:airline_section_b = a:section2
@@ -166,13 +186,12 @@ function! airline#extensions#load()
   endif
 
   if g:airline_section_warning == '__'
+    if (get(g:, 'airline#extensions#whitespace#enabled', 1) && get(g:, 'airline_detect_whitespace', 1))
+      call airline#extensions#whitespace#init(s:ext)
+    endif
     if (get(g:, 'airline#extensions#syntastic#enabled', 1) && get(g:, 'airline_enable_syntastic', 1))
           \ && exists(':SyntasticCheck')
       call airline#extensions#syntastic#init(s:ext)
-    endif
-
-    if (get(g:, 'airline#extensions#whitespace#enabled', 1) && get(g:, 'airline_detect_whitespace', 1))
-      call airline#extensions#whitespace#init(s:ext)
     endif
   endif
 
