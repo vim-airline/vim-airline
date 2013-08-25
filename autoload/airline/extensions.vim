@@ -161,7 +161,7 @@ function! airline#extensions#load()
     call airline#extensions#bufferline#init(s:ext)
   endif
 
-  if (get(g:, 'virtualenv_loaded', 1) && get(g:, 'airline_enable_virtualenv', 1))
+  if (get(g:, 'virtualenv_loaded', 1) && get(g:, 'airline#extensions#virtualenv#enabled', 1))
     call airline#extensions#virtualenv#init(s:ext)
   endif
 
