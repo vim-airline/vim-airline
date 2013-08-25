@@ -49,7 +49,7 @@ vim-airline provides seamless integration with a variety of plugins.  These exte
 ![image](https://f.cloud.github.com/assets/306502/995185/73fc7054-09b9-11e3-9d45-618406c6ed98.png)
 
 ### [virtualenv][31]
-![image](https://f.cloud.github.com/assets/390964/1021386/73ed49e4-0cfc-11e3-96df-8d5084cde7da.png)
+![image](https://f.cloud.github.com/assets/390964/1022566/cf81f830-0d98-11e3-904f-cf4fe3ce201e.png)
 
 # Rationale
 
