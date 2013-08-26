@@ -12,7 +12,7 @@ function! s:ext.add_inactive_statusline_func(name) dict
   call airline#add_inactive_statusline_func(a:name)
 endfunction
 
-let s:script_path = expand('<sfile>:p:h')
+let s:script_path = resolve(expand('<sfile>:p:h'))
 
 let s:filetype_overrides = {
       \ 'netrw': [ 'netrw', '%f' ],
