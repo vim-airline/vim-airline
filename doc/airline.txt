@@ -243,6 +243,10 @@ vim-signify <https://github.com/mhinz/vim-signify>
 * configure whether a message should be displayed. >
   let g:airline#extensions#whitespace#show_message = 1
 <
+* configure the formatting of the warning messages. >
+  let g:airline#extensions#whitespace#trailing_format = 'trailing[%s]'
+  let g:airline#extensions#whitespace#mixed_indent_format = 'mixed-indent[%s]'
+<
                                                              *airline-ctrlp*
 ctrlp <https://github.com/kien/ctrlp.vim>
 

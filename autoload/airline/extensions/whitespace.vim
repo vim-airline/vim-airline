@@ -15,6 +15,9 @@ let s:symbol = get(g:, 'airline#extensions#whitespace#symbol',
 
 let s:checks = get(g:, 'airline#extensions#whitespace#checks', ['indent', 'trailing'])
 
+let s:trailing_format = get(g:, 'airline#extensions#whitespace#trailing_format', 'trailing[%s]')
+let s:mixed_indent_format = get(g:, 'airline#extensions#whitespace#mixed_indent_format', 'mixed-indent[%s]')
+
 let s:initialized = 0
 let s:enabled = 1
 
@@ -41,11 +44,11 @@ function! airline#extensions#whitespace#check()
       let b:airline_whitespace_check = s:symbol." "
       if s:show_message
         if trailing != 0
-          let b:airline_whitespace_check .= 'trailing['.trailing.'] '
+          let b:airline_whitespace_check .= printf(s:trailing_format, trailing).' '
         endif
         if mixed
           let mixnr = indents[0] == indents[1] ? indents[0] : indents[2]
-          let b:airline_whitespace_check .= 'mixed-indent['.mixnr.'] '
+          let b:airline_whitespace_check .= printf(s:mixed_indent_format, mixnr).' '
         endif
       endif
     endif
