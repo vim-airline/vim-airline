@@ -10,6 +10,14 @@ function! s:init()
     let s:initialized = 1
     if get(g:, 'loaded_signify', 0)
       function! s:get_hunks()
+        " this is a temporary fix (see #188)
+        let fname = fnamemodify(bufname('%'), ':p')
+        if has_key(g:sy, fname) && has_key(g:sy[fname], 'hunks')
+          if len(g:sy[fname].hunks) == 0
+            return [0, 0, 0]
+          endif
+        endif
+
         let hunks = sy#repo#get_stats()
         if hunks[0] >= 0
           return hunks
