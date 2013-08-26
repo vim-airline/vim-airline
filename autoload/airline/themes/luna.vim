@@ -42,9 +42,10 @@ let s:IA = [ '#4e4e4e' , '#002b2b' , 59 , 23 , '' ]
 let g:airline#themes#luna#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
 
 
-if get(g:, 'loaded_ctrlp', 0)
-  let g:airline#themes#luna#palette.ctrlp = airline#extensions#ctrlp#generate_color_map(
-    \ [ '#ffffff' , '#002b2b' , 231 , 23 , ''     ] ,
-    \ [ '#ffffff' , '#005252' , 231 , 36 , ''     ] ,
-    \ [ '#ffffff' , '#973d45' , 231 , 95 , ''     ] )
+if !get(g:, 'loaded_ctrlp', 0)
+  finish
 endif
+let g:airline#themes#luna#palette.ctrlp = airline#extensions#ctrlp#generate_color_map(
+      \ [ '#ffffff' , '#002b2b' , 231 , 23 , ''     ] ,
+      \ [ '#ffffff' , '#005252' , 231 , 36 , ''     ] ,
+      \ [ '#ffffff' , '#973d45' , 231 , 95 , ''     ] )

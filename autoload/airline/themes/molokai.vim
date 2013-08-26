@@ -50,10 +50,11 @@ let g:airline#themes#molokai#palette.inactive = airline#themes#generate_color_ma
 
 
 " CtrlP
-if get(g:, 'loaded_ctrlp', 0)
-  let g:airline#themes#molokai#palette.ctrlp = airline#extensions#ctrlp#generate_color_map(
-        \ [ '#f8f8f0' , '#465457' , 253 , 67  , ''     ] ,
-        \ [ '#f8f8f0' , '#232526' , 253 , 16  , ''     ] ,
-        \ [ '#080808' , '#e6db74' , 232 , 144 , 'bold' ] )
+if !get(g:, 'loaded_ctrlp', 0)
+  finish
 endif
+let g:airline#themes#molokai#palette.ctrlp = airline#extensions#ctrlp#generate_color_map(
+      \ [ '#f8f8f0' , '#465457' , 253 , 67  , ''     ] ,
+      \ [ '#f8f8f0' , '#232526' , 253 , 16  , ''     ] ,
+      \ [ '#080808' , '#e6db74' , 232 , 144 , 'bold' ] )
 

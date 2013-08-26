@@ -79,9 +79,11 @@ let g:airline#themes#wombat#palette.insert_paste = {
 let g:airline#themes#wombat#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
 
 
-if get(g:, 'loaded_ctrlp', 0)
-  let g:airline#themes#wombat#palette.ctrlp = airline#extensions#ctrlp#generate_color_map(
-        \ [ '#DADADA' , '#242424' , 253 , 234 , ''     ] ,
-        \ [ '#DADADA' , '#40403C' , 253 , 238 , ''     ] ,
-        \ [ '#141413' , '#DADADA' , 232 , 253 , 'bold' ] )
+if !get(g:, 'loaded_ctrlp', 0)
+  finish
 endif
+let g:airline#themes#wombat#palette.ctrlp = airline#extensions#ctrlp#generate_color_map(
+      \ [ '#DADADA' , '#242424' , 253 , 234 , ''     ] ,
+      \ [ '#DADADA' , '#40403C' , 253 , 238 , ''     ] ,
+      \ [ '#141413' , '#DADADA' , 232 , 253 , 'bold' ] )
+
