@@ -10,7 +10,7 @@ Lean &amp; mean statusline for vim that's light as air.
 *  integrates with a variety of plugins, including: [vim-bufferline][6], [fugitive][4], [unite][9], [ctrlp][10], [minibufexpl][15], [gundo][16], [undotree][17], [nerdtree][18], [tagbar][19], [vim-gitgutter][29], [vim-signify][30], [syntastic][5], [lawrencium][21] and [virtualenv][31]
 *  looks good with regular fonts and provides configuration points so you can use unicode or powerline symbols.
 *  optimized for speed; it loads in under a millisecond.
-*  extensive suite of themes for popular colorschemes including [solarized][23] (dark and light), [tomorrow][24] (all variants), [base16][32] (all variants) ,[molokai][25], [jellybeans][26] and others; have a look at the [screenshots][14] in the wiki.
+*  extensive suite of themes for popular colorschemes including [solarized][23] (dark and light), [tomorrow][24] (all variants), [base16][32] (all variants), [molokai][25], [jellybeans][26] and others; have a look at the [screenshots][14] in the wiki.
 *  supports 7.2 as the minimum Vim version
 
 # Straightforward customization
@@ -121,7 +121,7 @@ Contributions and pull requests are welcome.  Please take note of the following 
 
 # License
 
-MIT license. Copyright (c) 2013 Bailey Ling.
+MIT License. Copyright (c) 2013 Bailey Ling.
 
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/bling/vim-airline/trend.png)](https://bitdeli.com/free "Bitdeli Badge")

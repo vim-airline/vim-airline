@@ -12,6 +12,10 @@ function! s:check_defined(variable, default)
   endif
 endfunction
 
+if exists('g:airline_enable_fugitive') || exists('g:airline_fugitive_prefix')
+  echom 'The g:airline_enable_fugitive and g:airline_fugitive_prefix variables are obsolete. Please read the documentation about the branch extension.'
+endif
+
 call s:check_defined('g:airline_left_sep', get(g:, 'airline_powerline_fonts', 0)?"":">")
 call s:check_defined('g:airline_left_alt_sep', get(g:, 'airline_powerline_fonts', 0)?"":">")
 call s:check_defined('g:airline_right_sep', get(g:, 'airline_powerline_fonts', 0)?"":"<")
@@ -116,6 +120,10 @@ function! s:airline_toggle()
       autocmd ColorScheme * call <sid>on_colorscheme_changed()
       autocmd WinEnter,BufWinEnter,FileType,BufUnload,ShellCmdPost *
             \ call <sid>on_window_changed()
+
+      autocmd BufWritePost */autoload/airline/themes/*.vim
+            \ exec 'source '.split(globpath(&rtp, 'autoload/airline/themes/'.g:airline_theme.'.vim', 1), '\n')[0]
+            \ | call airline#load_theme()
     augroup END
     if s:airline_initialized
       call <sid>on_window_changed()
