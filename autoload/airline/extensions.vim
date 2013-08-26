@@ -63,7 +63,7 @@ function! airline#extensions#update_statusline(...)
   let s:active_winnr = winnr()
 
   if &buftype == 'quickfix'
-    let w:airline_section_a = 'Quickfix'
+    let w:airline_section_a = '%q'
     let w:airline_section_b = ''
     let w:airline_section_c = ''
     let w:airline_section_x = ''
