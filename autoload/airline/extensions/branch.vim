@@ -3,7 +3,7 @@
 
 let s:empty_message = get(g:, 'airline#extensions#branch#empty_message',
       \ get(g:, 'airline_branch_empty_message', ''))
-let s:symbol = g:airline_symbols.branch
+let s:symbol = get(g:, 'airline#extensions#branch#symbol', g:airline_symbols.branch)
 
 let s:has_fugitive = exists('*fugitive#head')
 let s:has_fugitive_detect = exists('*fugitive#detect')

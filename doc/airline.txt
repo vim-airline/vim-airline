@@ -245,6 +245,9 @@ vim-signify <https://github.com/mhinz/vim-signify>
 * enable/disable detection of whitespace errors. >
   let g:airline#extensions#whitespace#enabled = 1
 <
+* customize the whitespace symbol. >
+  let g:airline#extensions#whitespace#symbol = '!'
+<
 * configure which whitespace checks to enable. >
   let g:airline#extensions#whitespace#checks = [ 'indent', 'trailing' ]
 <
