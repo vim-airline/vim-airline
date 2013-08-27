@@ -49,7 +49,7 @@ call s:check_defined('g:airline_theme_map', {
       \ '.*solarized.*': 'solarized',
       \ })
 
-call s:check_defined('g:airline_section_a', '%{get(w:, "airline_current_mode", "")}')
+call s:check_defined('g:airline_section_a', '%{get(w:, "airline_current_mode", "")}%{airline#fragments#get_paste()}')
 call s:check_defined('g:airline_section_b', '')
 call s:check_defined('g:airline_section_c', '%f%m')
 call s:check_defined('g:airline_section_gutter', '%=')

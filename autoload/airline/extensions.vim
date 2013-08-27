@@ -199,10 +199,6 @@ function! airline#extensions#load()
     call airline#extensions#readonly#init()
   endif
 
-  if (get(g:, 'airline#extensions#paste#enabled', 1) && get(g:, 'airline_detect_paste', 1))
-    call airline#extensions#paste#init()
-  endif
-
   if get(g:, 'airline#extensions#iminsert#enabled', 0) || get(g:, 'airline_detect_iminsert', 0)
     call airline#extensions#iminsert#init()
   endif
