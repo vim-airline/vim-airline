@@ -46,3 +46,4 @@ function! airline#extensions#default#apply(builder, context)
 
   return 1
 endfunction
+

@@ -43,6 +43,7 @@ call extend(g:airline_parts, {
       \ 'iminsert': '%{airline#parts#iminsert()}',
       \ 'paste': '%{airline#parts#paste()}',
       \ 'readonly': '%#airline_file#%{airline#parts#readonly()}',
+      \ 'ffenc': '%{printf("%s%s",&fenc,strlen(&ff)>0?"[".&ff."]":"")}',
       \ }, 'keep')
 
 call s:check_defined('g:airline_mode_map', {})
@@ -72,8 +73,8 @@ call s:check_defined('g:airline_section_a', (g:airline_parts.mode).(g:airline_pa
 call s:check_defined('g:airline_section_b', '')
 call s:check_defined('g:airline_section_c', '%f%m')
 call s:check_defined('g:airline_section_gutter', ' '.(g:airline_parts.readonly).'%=')
-call s:check_defined('g:airline_section_x', "%{strlen(&filetype)>0?&filetype:''}")
-call s:check_defined('g:airline_section_y', "%{strlen(&fenc)>0?&fenc:''}%{strlen(&ff)>0?'['.&ff.']':''}")
+call s:check_defined('g:airline_section_x', '%{&filetype}')
+call s:check_defined('g:airline_section_y', g:airline_parts.ffenc)
 call s:check_defined('g:airline_section_z', '%3p%% %{g:airline_symbols.linenr} %3l:%3c')
 call s:check_defined('g:airline_section_warning', '__')
 
