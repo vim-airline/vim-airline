@@ -44,6 +44,7 @@ call extend(g:airline_parts, {
       \ 'paste': '%{airline#parts#paste()}',
       \ 'readonly': '%#airline_file#%{airline#parts#readonly()}',
       \ 'ffenc': '%{printf("%s%s",&fenc,strlen(&ff)>0?"[".&ff."]":"")}',
+      \ 'file': '%f%m',
       \ 'hunks': '',
       \ 'branch': '',
       \ }, 'keep')
@@ -80,7 +81,7 @@ function! s:init()
     call airline#extensions#load()
     call s:check_defined('g:airline_section_a', (g:airline_parts.mode).(g:airline_parts.paste).(g:airline_parts.iminsert))
     call s:check_defined('g:airline_section_b', (g:airline_parts.hunks).(g:airline_parts.branch))
-    call s:check_defined('g:airline_section_c', '%f%m')
+    call s:check_defined('g:airline_section_c', (g:airline_parts.file))
     call s:check_defined('g:airline_section_gutter', ' '.(g:airline_parts.readonly).'%=')
     call s:check_defined('g:airline_section_x', '%{&filetype}')
     call s:check_defined('g:airline_section_y', g:airline_parts.ffenc)

@@ -10,7 +10,5 @@ function! airline#extensions#bufferline#init(ext)
   let g:bufferline_active_buffer_right = ''
   let g:bufferline_separator = ' '
 
-  if g:airline_section_c == '%f%m'
-    let g:airline_section_c = '%{bufferline#refresh_status()}'.bufferline#get_status_string()
-  endif
+  let g:airline_parts.file = '%{bufferline#refresh_status()}'.bufferline#get_status_string()
 endfunction
