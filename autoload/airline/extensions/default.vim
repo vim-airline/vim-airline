@@ -39,7 +39,7 @@ function! airline#extensions#default#apply(builder, context)
     call a:builder.add_section('airline_z', s:get_section(winnr, 'z'))
     if active
       call a:builder.add_raw('%(')
-      call a:builder.add_section('airline_warningmsg', s:get_section(winnr, 'warning', '', ''))
+      call a:builder.add_section('airline_warning', s:get_section(winnr, 'warning', '', ''))
       call a:builder.add_raw('%)')
     endif
   endif

@@ -112,7 +112,7 @@ function! s:generate()
         \ [s:N3[0].g, s:N3[1].g, s:N3[0].t, s:N3[1].t, s:N3[2]],
         \ s:NFa)
 
-  let g:airline#themes#solarized#palette.normal.airline_warningmsg = [
+  let g:airline#themes#solarized#palette.normal.airline_warning = [
         \ s:NW[0].g, s:NW[1].g, s:NW[0].t, s:NW[1].t, s:NW[2]]
 
   let g:airline#themes#solarized#palette.normal_modified = {
