@@ -44,6 +44,8 @@ call extend(g:airline_parts, {
       \ 'paste': '%{airline#parts#paste()}',
       \ 'readonly': '%#airline_file#%{airline#parts#readonly()}',
       \ 'ffenc': '%{printf("%s%s",&fenc,strlen(&ff)>0?"[".&ff."]":"")}',
+      \ 'hunks': '',
+      \ 'branch': '',
       \ }, 'keep')
 
 call s:check_defined('g:airline_mode_map', {})
@@ -69,15 +71,6 @@ call extend(g:airline_theme_map, {
       \ '.*solarized.*': 'solarized',
       \ }, 'keep')
 
-call s:check_defined('g:airline_section_a', (g:airline_parts.mode).(g:airline_parts.paste).(g:airline_parts.iminsert))
-call s:check_defined('g:airline_section_b', '')
-call s:check_defined('g:airline_section_c', '%f%m')
-call s:check_defined('g:airline_section_gutter', ' '.(g:airline_parts.readonly).'%=')
-call s:check_defined('g:airline_section_x', '%{&filetype}')
-call s:check_defined('g:airline_section_y', g:airline_parts.ffenc)
-call s:check_defined('g:airline_section_z', '%3p%% %{g:airline_symbols.linenr} %3l:%3c')
-call s:check_defined('g:airline_section_warning', '__')
-
 let s:airline_initialized = 0
 let s:airline_theme_defined = 0
 function! s:init()
@@ -85,6 +78,14 @@ function! s:init()
     let s:airline_initialized = 1
 
     call airline#extensions#load()
+    call s:check_defined('g:airline_section_a', (g:airline_parts.mode).(g:airline_parts.paste).(g:airline_parts.iminsert))
+    call s:check_defined('g:airline_section_b', (g:airline_parts.hunks).(g:airline_parts.branch))
+    call s:check_defined('g:airline_section_c', '%f%m')
+    call s:check_defined('g:airline_section_gutter', ' '.(g:airline_parts.readonly).'%=')
+    call s:check_defined('g:airline_section_x', '%{&filetype}')
+    call s:check_defined('g:airline_section_y', g:airline_parts.ffenc)
+    call s:check_defined('g:airline_section_z', '%3p%% %{g:airline_symbols.linenr} %3l:%3c')
+    call s:check_defined('g:airline_section_warning', '__')
 
     let s:airline_theme_defined = exists('g:airline_theme')
     if s:airline_theme_defined || !airline#switch_matching_theme()
