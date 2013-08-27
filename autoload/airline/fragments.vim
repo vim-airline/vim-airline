@@ -7,6 +7,13 @@ call extend(g:airline#fragments#symbols, {
       \ }, 'keep')
 
 function! airline#fragments#get_paste()
-  return &paste ? '  ' . g:airline#fragments#symbols.paste : ''
+  return g:airline_detect_paste && &paste ? '  '.g:airline#fragments#symbols.paste : ''
+endfunction
+
+function! airline#fragments#get_iminsert()
+  if g:airline_detect_iminsert && &iminsert && exists('b:keymap_name')
+    return '  '.g:airline_left_alt_sep.' '.toupper(b:keymap_name)
+  endif
+  return ''
 endfunction
 
