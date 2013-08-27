@@ -37,12 +37,12 @@ call extend(g:airline_symbols, {
       \ 'branch': get(g:, 'airline_branch_prefix', get(g:, 'airline_powerline_fonts', 0) ? '' : ''),
       \ }, 'keep')
 
-call s:check_defined('g:airline_fragments', {})
-call extend(g:airline_fragments, {
+call s:check_defined('g:airline_parts', {})
+call extend(g:airline_parts, {
       \ 'mode': '%{get(w:,"airline_current_mode","")}',
-      \ 'iminsert': '%{airline#fragments#iminsert()}',
-      \ 'paste': '%{airline#fragments#paste()}',
-      \ 'readonly': '%{airline#fragments#readonly()}',
+      \ 'iminsert': '%{airline#parts#iminsert()}',
+      \ 'paste': '%{airline#parts#paste()}',
+      \ 'readonly': '%#airline_file#%{airline#parts#readonly()}',
       \ }, 'keep')
 
 call s:check_defined('g:airline_mode_map', {})
@@ -68,10 +68,10 @@ call extend(g:airline_theme_map, {
       \ '.*solarized.*': 'solarized',
       \ }, 'keep')
 
-call s:check_defined('g:airline_section_a', (g:airline_fragments.mode).(g:airline_fragments.paste).(g:airline_fragments.iminsert))
+call s:check_defined('g:airline_section_a', (g:airline_parts.mode).(g:airline_parts.paste).(g:airline_parts.iminsert))
 call s:check_defined('g:airline_section_b', '')
 call s:check_defined('g:airline_section_c', '%f%m')
-call s:check_defined('g:airline_section_gutter', '%#airline_file#'.(g:airline_fragments.readonly).'%=')
+call s:check_defined('g:airline_section_gutter', ' '.(g:airline_parts.readonly).'%=')
 call s:check_defined('g:airline_section_x', "%{strlen(&filetype)>0?&filetype:''}")
 call s:check_defined('g:airline_section_y', "%{strlen(&fenc)>0?&fenc:''}%{strlen(&ff)>0?'['.&ff.']':''}")
 call s:check_defined('g:airline_section_z', '%3p%% %{g:airline_symbols.linenr} %3l:%3c')
