@@ -128,32 +128,32 @@ separators, as well as the powerline font glyths.
   let g:airline_left_sep = '▶'
   let g:airline_right_sep = '«'
   let g:airline_right_sep = '◀'
-  let g:airline_linecolumn_prefix = '␊ '
-  let g:airline_linecolumn_prefix = '␤ '
-  let g:airline_linecolumn_prefix = '¶ '
-  let g:airline#extensions#branch#symbol = '⎇ '
-  let g:airline#fragments#symbols.paste = 'ρ'
-  let g:airline#fragments#symbols.paste = 'Þ'
-  let g:airline#fragments#symbols.paste = '∥'
-  let g:airline#extensions#whitespace#symbol = 'Ξ'
+  let g:airline_symbols.linenr = '␊'
+  let g:airline_symbols.linenr = '␤'
+  let g:airline_symbols.linenr = '¶'
+  let g:airline_symbols.branch = '⎇'
+  let g:airline_symbols.paste = 'ρ'
+  let g:airline_symbols.paste = 'Þ'
+  let g:airline_symbols.paste = '∥'
+  let g:airline_symbols.whitespace = 'Ξ'
 
   " powerline symbols
   let g:airline_left_sep = ''
   let g:airline_left_alt_sep = ''
   let g:airline_right_sep = ''
   let g:airline_right_alt_sep = ''
-  let g:airline#extensions#branch#symbol = ' '
-  let g:airline#extensions#readonly#symbol = ''
-  let g:airline_linecolumn_prefix = ' '
+  let g:airline_symbols.branch = ''
+  let g:airline_symbols.readonly = ''
+  let g:airline_symbols.linenr = ''
 
   " old vim-powerline symbols
   let g:airline_left_sep = '⮀'
   let g:airline_left_alt_sep = '⮁'
   let g:airline_right_sep = '⮂'
   let g:airline_right_alt_sep = '⮃'
-  let g:airline#extensions#branch#symbol = '⭠'
-  let g:airline#extensions#readonly#symbol = '⭤'
-  let g:airline_linecolumn_prefix = '⭡'
+  let g:airline_symbols.branch = '⭠'
+  let g:airline_symbols.readonly = '⭤'
+  let g:airline_symbols.linenr = '⭡'
 <
 
 For more intricate customizations, you can replace the predefined sections
@@ -244,9 +244,6 @@ vim-signify <https://github.com/mhinz/vim-signify>
                                                         *airline-whitespace*
 * enable/disable detection of whitespace errors. >
   let g:airline#extensions#whitespace#enabled = 1
-<
-* customize the whitespace symbol. >
-  let g:airline#extensions#whitespace#symbol = '!'
 <
 * configure which whitespace checks to enable. >
   let g:airline#extensions#whitespace#checks = [ 'indent', 'trailing' ]

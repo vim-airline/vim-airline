@@ -3,8 +3,7 @@
 
 let s:empty_message = get(g:, 'airline#extensions#branch#empty_message',
       \ get(g:, 'airline_branch_empty_message', ''))
-let s:symbol = get(g:, 'airline#extensions#branch#symbol',
-      \ get(g:, 'airline_branch_prefix', get(g:, 'airline_powerline_fonts', 0) ? ' ' : ''))
+let s:symbol = g:airline_symbols.branch
 
 let s:has_fugitive = exists('*fugitive#head')
 let s:has_fugitive_detect = exists('*fugitive#detect')
@@ -28,7 +27,7 @@ function! airline#extensions#branch#get_head()
     endif
   endif
 
-  return empty(head) ? s:empty_message : s:symbol.head
+  return empty(head) ? s:empty_message : s:symbol.' '.head
 endfunction
 
 function! airline#extensions#branch#init(ext)
