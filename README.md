@@ -15,7 +15,7 @@ Lean &amp; mean statusline for vim that's light as air.
 
 # Straightforward customization
 
-If you don't like the defaults, you can replace all sections with standard `statusline` syntax.
+If you don't like the defaults, you can replace all sections with standard `statusline` syntax.  Give your statusline that you've built over the years a face lift.
 
 ![image](https://f.cloud.github.com/assets/306502/1009429/d69306da-0b38-11e3-94bf-7c6e3eef41e9.png)
 

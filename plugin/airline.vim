@@ -22,13 +22,31 @@ call s:check_defined('g:airline_right_sep', get(g:, 'airline_powerline_fonts', 0
 call s:check_defined('g:airline_right_alt_sep', get(g:, 'airline_powerline_fonts', 0)?"":"<")
 call s:check_defined('g:airline_detect_modified', 1)
 call s:check_defined('g:airline_detect_paste', 1)
-call s:check_defined('g:airline_linecolumn_prefix', get(g:, 'airline_powerline_fonts', 0)?' ':':')
+call s:check_defined('g:airline_detect_iminsert', 0)
 call s:check_defined('g:airline_inactive_collapse', 1)
 call s:check_defined('g:airline_exclude_filenames', ['DebuggerWatch','DebuggerStack','DebuggerStatus'])
 call s:check_defined('g:airline_exclude_filetypes', [])
 call s:check_defined('g:airline_exclude_preview', 0)
 
-call s:check_defined('g:airline_mode_map', {
+call s:check_defined('g:airline_symbols', {})
+call extend(g:airline_symbols, {
+      \ 'paste': get(g:, 'airline_paste_symbol', g:airline_left_alt_sep.' PASTE'),
+      \ 'readonly': get(g:, 'airline_readonly_symbol', get(g:, 'airline_powerline_fonts', 0) ? '' : 'RO'),
+      \ 'whitespace': get(g:, 'airline_powerline_fonts', 0) ? '✹' : '!',
+      \ 'linenr': get(g:, 'airline_linecolumn_prefix', get(g:, 'airline_powerline_fonts', 0) ? '' : ':' ),
+      \ 'branch': get(g:, 'airline_branch_prefix', get(g:, 'airline_powerline_fonts', 0) ? '' : ''),
+      \ }, 'keep')
+
+call s:check_defined('g:airline_parts', {})
+call extend(g:airline_parts, {
+      \ 'mode': '%{get(w:,"airline_current_mode","")}',
+      \ 'iminsert': '%{airline#parts#iminsert()}',
+      \ 'paste': '%{airline#parts#paste()}',
+      \ 'readonly': '%#airline_file#%{airline#parts#readonly()}',
+      \ }, 'keep')
+
+call s:check_defined('g:airline_mode_map', {})
+call extend(g:airline_mode_map, {
       \ '__' : '------',
       \ 'n'  : 'NORMAL',
       \ 'i'  : 'INSERT',
@@ -40,22 +58,23 @@ call s:check_defined('g:airline_mode_map', {
       \ 's'  : 'SELECT',
       \ 'S'  : 'S-LINE',
       \ '' : 'S-BLOCK',
-      \ })
+      \ }, 'keep')
 
-call s:check_defined('g:airline_theme_map', {
+call s:check_defined('g:airline_theme_map', {})
+call extend(g:airline_theme_map, {
       \ 'Tomorrow.*': 'tomorrow',
       \ 'mo[l|n]okai': 'molokai',
       \ 'wombat.*': 'wombat',
       \ '.*solarized.*': 'solarized',
-      \ })
+      \ }, 'keep')
 
-call s:check_defined('g:airline_section_a', '%{get(w:, "airline_current_mode", "")}')
+call s:check_defined('g:airline_section_a', (g:airline_parts.mode).(g:airline_parts.paste).(g:airline_parts.iminsert))
 call s:check_defined('g:airline_section_b', '')
 call s:check_defined('g:airline_section_c', '%f%m')
-call s:check_defined('g:airline_section_gutter', '%=')
+call s:check_defined('g:airline_section_gutter', ' '.(g:airline_parts.readonly).'%=')
 call s:check_defined('g:airline_section_x', "%{strlen(&filetype)>0?&filetype:''}")
 call s:check_defined('g:airline_section_y', "%{strlen(&fenc)>0?&fenc:''}%{strlen(&ff)>0?'['.&ff.']':''}")
-call s:check_defined('g:airline_section_z', '%3p%% '.g:airline_linecolumn_prefix.'%3l:%3c')
+call s:check_defined('g:airline_section_z', '%3p%% %{g:airline_symbols.linenr} %3l:%3c')
 call s:check_defined('g:airline_section_warning', '__')
 
 let s:airline_initialized = 0

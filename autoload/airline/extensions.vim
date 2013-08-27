@@ -195,18 +195,6 @@ function! airline#extensions#load()
     endif
   endif
 
-  if get(g:, 'airline#extensions#readonly#enabled', 1)
-    call airline#extensions#readonly#init()
-  endif
-
-  if (get(g:, 'airline#extensions#paste#enabled', 1) && get(g:, 'airline_detect_paste', 1))
-    call airline#extensions#paste#init()
-  endif
-
-  if get(g:, 'airline#extensions#iminsert#enabled', 0) || get(g:, 'airline_detect_iminsert', 0)
-    call airline#extensions#iminsert#init()
-  endif
-
   " load all other extensions not part of the default distribution
   for file in split(globpath(&rtp, "autoload/airline/extensions/*.vim"), "\n")
     " check to see that both the resolved and unresolved paths do not match
