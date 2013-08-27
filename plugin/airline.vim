@@ -47,6 +47,7 @@ call extend(g:airline_parts, {
       \ 'file': '%f%m',
       \ 'hunks': '',
       \ 'branch': '',
+      \ 'tagbar': '',
       \ }, 'keep')
 
 call s:check_defined('g:airline_mode_map', {})
@@ -83,7 +84,7 @@ function! s:init()
     call s:check_defined('g:airline_section_b', (g:airline_parts.hunks).(g:airline_parts.branch))
     call s:check_defined('g:airline_section_c', (g:airline_parts.file))
     call s:check_defined('g:airline_section_gutter', ' '.(g:airline_parts.readonly).'%=')
-    call s:check_defined('g:airline_section_x', '%{&filetype}')
+    call s:check_defined('g:airline_section_x', (g:airline_parts.tagbar).'%{&filetype}')
     call s:check_defined('g:airline_section_y', g:airline_parts.ffenc)
     call s:check_defined('g:airline_section_z', '%3p%% %{g:airline_symbols.linenr} %3l:%3c')
     call s:check_defined('g:airline_section_warning', '__')

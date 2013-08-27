@@ -20,7 +20,7 @@ function! airline#extensions#tagbar#init(ext)
   call a:ext.add_inactive_statusline_func('airline#extensions#tagbar#inactive_apply')
   let g:tagbar_status_func = 'airline#extensions#tagbar#get_status'
 
-  let g:airline_section_x = '%(%{get(w:,"airline_active",0) ? tagbar#currenttag("%s","") : ""} '
-        \ .g:airline_right_alt_sep.' %)'.g:airline_section_x
+  let g:airline_parts.tagbar = '%(%{get(w:,"airline_active",0) ? tagbar#currenttag("%s","") : ""} '
+        \ .g:airline_right_alt_sep.' %)'
 endfunction
 
