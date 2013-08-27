@@ -48,6 +48,8 @@ call extend(g:airline_parts, {
       \ 'hunks': '',
       \ 'branch': '',
       \ 'tagbar': '',
+      \ 'syntastic': '',
+      \ 'whitespace': '',
       \ }, 'keep')
 
 call s:check_defined('g:airline_mode_map', {})
@@ -87,7 +89,7 @@ function! s:init()
     call s:check_defined('g:airline_section_x', (g:airline_parts.tagbar).'%{&filetype}')
     call s:check_defined('g:airline_section_y', g:airline_parts.ffenc)
     call s:check_defined('g:airline_section_z', '%3p%% %{g:airline_symbols.linenr} %3l:%3c')
-    call s:check_defined('g:airline_section_warning', '__')
+    call s:check_defined('g:airline_section_warning', (g:airline_parts.syntastic).' '.(g:airline_parts.whitespace))
 
     let s:airline_theme_defined = exists('g:airline_theme')
     if s:airline_theme_defined || !airline#switch_matching_theme()

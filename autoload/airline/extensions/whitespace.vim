@@ -16,7 +16,6 @@ let s:checks = get(g:, 'airline#extensions#whitespace#checks', ['indent', 'trail
 let s:trailing_format = get(g:, 'airline#extensions#whitespace#trailing_format', 'trailing[%s]')
 let s:mixed_indent_format = get(g:, 'airline#extensions#whitespace#mixed_indent_format', 'mixed-indent[%s]')
 
-let s:initialized = 0
 let s:enabled = 1
 
 function! airline#extensions#whitespace#check()
@@ -39,24 +38,20 @@ function! airline#extensions#whitespace#check()
     endif
 
     if trailing != 0 || mixed
-      let b:airline_whitespace_check = s:symbol." "
+      let b:airline_whitespace_check = s:symbol.' '
       if s:show_message
         if trailing != 0
-          let b:airline_whitespace_check .= printf(s:trailing_format, trailing).' '
+          let b:airline_whitespace_check .= printf(s:trailing_format, trailing)
         endif
         if mixed
           let mixnr = indents[0] == indents[1] ? indents[0] : indents[2]
-          let b:airline_whitespace_check .= printf(s:mixed_indent_format, mixnr).' '
+          let b:airline_whitespace_check .= printf(s:mixed_indent_format, mixnr)
         endif
       endif
     endif
   endif
   return b:airline_whitespace_check
 endfunction!
-
-function! airline#extensions#whitespace#apply(...)
-  call airline#extensions#append_to_section('warning', ' %{airline#extensions#whitespace#check()}')
-endfunction
 
 function! airline#extensions#whitespace#toggle()
   if s:enabled
@@ -69,10 +64,7 @@ function! airline#extensions#whitespace#toggle()
 endfunction
 
 function! airline#extensions#whitespace#init(...)
-  if !s:initialized
-    let s:initialized = 1
-    call airline#add_statusline_func('airline#extensions#whitespace#apply')
-  endif
+  let g:airline_parts.whitespace = '%{airline#extensions#whitespace#check()}'
 
   unlet! b:airline_whitespace_check
   augroup airline_whitespace
