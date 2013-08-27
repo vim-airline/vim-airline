@@ -6,7 +6,7 @@ function! airline#extensions#virtualenv#init(ext)
 endfunction
 
 function! airline#extensions#virtualenv#apply(...)
-  if &filetype == "python"
+  if &filetype =~ "python"
     call airline#extensions#append_to_section('x', ' '.g:airline_right_alt_sep.' %{virtualenv#statusline()}')
   endif
 endfunction
