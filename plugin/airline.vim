@@ -37,7 +37,16 @@ call extend(g:airline_symbols, {
       \ 'branch': get(g:, 'airline_branch_prefix', get(g:, 'airline_powerline_fonts', 0) ? '' : ''),
       \ }, 'keep')
 
-call s:check_defined('g:airline_mode_map', {
+call s:check_defined('g:airline_fragments', {})
+call extend(g:airline_fragments, {
+      \ 'mode': '%{get(w:,"airline_current_mode","")}',
+      \ 'iminsert': '%{airline#fragments#iminsert()}',
+      \ 'paste': '%{airline#fragments#paste()}',
+      \ 'readonly': '%{airline#fragments#readonly()}',
+      \ }, 'keep')
+
+call s:check_defined('g:airline_mode_map', {})
+call extend(g:airline_mode_map, {
       \ '__' : '------',
       \ 'n'  : 'NORMAL',
       \ 'i'  : 'INSERT',
@@ -49,19 +58,20 @@ call s:check_defined('g:airline_mode_map', {
       \ 's'  : 'SELECT',
       \ 'S'  : 'S-LINE',
       \ '' : 'S-BLOCK',
-      \ })
+      \ }, 'keep')
 
-call s:check_defined('g:airline_theme_map', {
+call s:check_defined('g:airline_theme_map', {})
+call extend(g:airline_theme_map, {
       \ 'Tomorrow.*': 'tomorrow',
       \ 'mo[l|n]okai': 'molokai',
       \ 'wombat.*': 'wombat',
       \ '.*solarized.*': 'solarized',
-      \ })
+      \ }, 'keep')
 
-call s:check_defined('g:airline_section_a', '%{get(w:,"airline_current_mode","")}%{airline#fragments#get_paste()}%{airline#fragments#get_iminsert()}')
+call s:check_defined('g:airline_section_a', (g:airline_fragments.mode).(g:airline_fragments.paste).(g:airline_fragments.iminsert))
 call s:check_defined('g:airline_section_b', '')
 call s:check_defined('g:airline_section_c', '%f%m')
-call s:check_defined('g:airline_section_gutter', '%#airline_file#%{airline#fragments#get_readonly()}%=')
+call s:check_defined('g:airline_section_gutter', '%#airline_file#'.(g:airline_fragments.readonly).'%=')
 call s:check_defined('g:airline_section_x', "%{strlen(&filetype)>0?&filetype:''}")
 call s:check_defined('g:airline_section_y', "%{strlen(&fenc)>0?&fenc:''}%{strlen(&ff)>0?'['.&ff.']':''}")
 call s:check_defined('g:airline_section_z', '%3p%% %{g:airline_symbols.linenr} %3l:%3c')
