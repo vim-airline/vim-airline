@@ -7,6 +7,10 @@ let s:section_truncate_width = get(g:, 'airline#extensions#default#section_trunc
       \ 'y': 88,
       \ 'z': 45,
       \ })
+let s:layout = get(g:, 'airline#extensions#default#layout', [
+      \ [ 'a', 'b', 'c' ],
+      \ [ 'x', 'y', 'z', 'warning' ]
+      \ ])
 
 function! s:get_section(winnr, key, ...)
   if has_key(s:section_truncate_width, a:key)
@@ -19,29 +23,34 @@ function! s:get_section(winnr, key, ...)
   return empty(text) ? '' : prefix.text.suffix
 endfunction
 
+function! s:build_sections(builder, keys, winnr)
+  for key in a:keys
+    " i have no idea why the warning section needs special treatment, but it's
+    " needed to prevent separators from showing up
+    if key == 'warning'
+      call a:builder.add_raw('%(')
+    endif
+    call a:builder.add_section('airline_'.key, s:get_section(a:winnr, key))
+    if key == 'warning'
+      call a:builder.add_raw('%)')
+    endif
+  endfor
+endfunction
+
 function! airline#extensions#default#apply(builder, context)
   let winnr = a:context.winnr
   let active = a:context.active
 
   if airline#util#getwinvar(winnr, 'airline_render_left', active || (!active && !g:airline_inactive_collapse))
-    call a:builder.add_section('airline_a', s:get_section(winnr, 'a'))
-    call a:builder.add_section('airline_b', s:get_section(winnr, 'b'))
-    call a:builder.add_section('airline_c', '%<'.s:get_section(winnr, 'c'))
+    call <sid>build_sections(a:builder, s:layout[0], winnr)
   else
-    call a:builder.add_section('airline_c', '%f%m')
+    call a:builder.add_section('airline_a', '%f%m')
   endif
 
   call a:builder.split(s:get_section(winnr, 'gutter', '', ''))
 
   if airline#util#getwinvar(winnr, 'airline_render_right', 1)
-    call a:builder.add_section('airline_x', s:get_section(winnr, 'x'))
-    call a:builder.add_section('airline_y', s:get_section(winnr, 'y'))
-    call a:builder.add_section('airline_z', s:get_section(winnr, 'z'))
-    if active
-      call a:builder.add_raw('%(')
-      call a:builder.add_section('airline_warning', s:get_section(winnr, 'warning', '', ''))
-      call a:builder.add_raw('%)')
-    endif
+    call <sid>build_sections(a:builder, s:layout[1], winnr)
   endif
 
   return 1
