@@ -118,7 +118,7 @@ function! s:airline_toggle()
       autocmd CmdwinLeave * call airline#remove_statusline_func('airline#cmdwinenter')
 
       autocmd ColorScheme * call <sid>on_colorscheme_changed()
-      autocmd WinEnter,BufWinEnter,FileType,BufUnload,ShellCmdPost *
+      autocmd WinEnter,BufWinEnter,FileType,BufUnload,ShellCmdPost,VimResized *
             \ call <sid>on_window_changed()
 
       autocmd BufWritePost */autoload/airline/themes/*.vim

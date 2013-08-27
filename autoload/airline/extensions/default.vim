@@ -1,7 +1,17 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
+let s:section_truncate_width = get(g:, 'airline#extensions#default#section_truncate_width', {
+      \ 'b': 90,
+      \ 'y': 90,
+      \ })
+
 function! s:get_section(winnr, key, ...)
+  if has_key(s:section_truncate_width, a:key)
+    if winwidth(a:winnr) < s:section_truncate_width[a:key]
+      return ''
+    endif
+  endif
   let text = airline#util#getwinvar(a:winnr, 'airline_section_'.a:key, g:airline_section_{a:key})
   let [prefix, suffix] = [get(a:000, 0, '%( '), get(a:000, 1, ' %)')]
   return empty(text) ? '' : prefix.text.suffix

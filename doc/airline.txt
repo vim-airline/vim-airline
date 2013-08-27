@@ -185,6 +185,17 @@ EXTENSIONS                                              *airline-extensions*
 Most extensions are enabled by default and lazily loaded when the
 corresponding plugin (if any) is detected.
 
+                                                           *airline-default*
+The default extension understands all of the `g:` variables in the
+|airline-configuration| section, however it also has some more fine-tuned
+configuration values that you can use.
+
+* control which sections get truncated and at what width. >
+  let g:airline#extensions#default#section_truncate_width = {
+      \ 'b': 90,
+      \ 'y': 90,
+      \ })
+<
                                                             *airline-branch*
 fugitive.vim <https://github.com/tpope/vim-fugitive>
 lawrencium   <https://bitbucket.org/ludovicchabant/vim-lawrencium>

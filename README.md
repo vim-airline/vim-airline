@@ -25,9 +25,9 @@ Completely transform the statusline to your liking.
 
 ![allyourbase](https://f.cloud.github.com/assets/306502/1022714/e150034a-0da7-11e3-94a5-ca9d58a297e8.png)
 
-# Integration with external plugins
+# Seamless integration
 
-vim-airline provides seamless integration with a variety of plugins.  These extensions will be lazily loaded if and only if you have the other plugins installed (and of course you can turn them off if you don't like it).
+vim-airline integrates with a variety of plugins out of the box.  These extensions will be lazily loaded if and only if you have the other plugins installed (and of course you can turn them off).
 
 ### [ctrlp.vim][10]
 ![image](https://f.cloud.github.com/assets/306502/962258/7345a224-04ec-11e3-8b5a-f11724a47437.png)
@@ -61,8 +61,7 @@ There's already [powerline][2], why yet another statusline?
 
 What about [vim-powerline][1]?
 
-*  the author has been active developing powerline, which was rewritten in python and expands its capabilities to tools outside of Vim, such as bash, zsh, and tmux.
-*  vim-powerline has been deprecated as a result, and no features will be added to it.
+*  vim-powerline has been deprecated in favor of the newer, undifying powerline, which is under active development; the new version is written in python and expands its capabilities to tools outside of vim, such as bash, zsh, and tmux.
 *  vim-powerline uses different font codes, so if you want to use it with a powerline themed tmux (for example), it will not work.
 
 # Where did the name come from?
