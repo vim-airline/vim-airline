@@ -122,6 +122,9 @@ CUSTOMIZATION                                        *airline-customization*
 
 The following are some unicode symbols for customizing the left/right
 separators, as well as the powerline font glyths.
+
+Note: You must define the dictionary first before setting values: >
+  let g:airline_symbols = {}
 >
   " unicode symbols
   let g:airline_left_sep = '»'
