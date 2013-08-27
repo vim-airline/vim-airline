@@ -2,8 +2,10 @@
 " vim: et ts=2 sts=2 sw=2
 
 let s:section_truncate_width = get(g:, 'airline#extensions#default#section_truncate_width', {
-      \ 'b': 90,
-      \ 'y': 90,
+      \ 'b': 88,
+      \ 'x': 60,
+      \ 'y': 88,
+      \ 'z': 45,
       \ })
 
 function! s:get_section(winnr, key, ...)
