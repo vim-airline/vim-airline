@@ -6,15 +6,13 @@ if &cp || v:version < 702 || (exists('g:loaded_airline') && g:loaded_airline)
 endif
 let g:loaded_airline = 1
 
+" autocmd VimEnter * call airline#deprecation#check()
+
 function! s:check_defined(variable, default)
   if !exists(a:variable)
     let {a:variable} = a:default
   endif
 endfunction
-
-if exists('g:airline_enable_fugitive') || exists('g:airline_fugitive_prefix')
-  echom 'The g:airline_enable_fugitive and g:airline_fugitive_prefix variables are obsolete. Please read the documentation about the branch extension.'
-endif
 
 call s:check_defined('g:airline_left_sep', get(g:, 'airline_powerline_fonts', 0)?"":">")
 call s:check_defined('g:airline_left_alt_sep', get(g:, 'airline_powerline_fonts', 0)?"":">")
