@@ -201,6 +201,15 @@ configuration values that you can use.
       \ 'z': 45,
       \ })
 <
+                                                        *airline-bufferline*
+vim-bufferline <https://github.com/bling/vim-bufferline>
+
+* enable/disable bufferline integration >
+  let g:airline#extensions#bufferline#enabled = 1
+<
+* determine whether bufferline will overwrite customization variables >
+  let g:airline#extensions#bufferline#overwrite_variables = 1
+<
                                                             *airline-branch*
 fugitive.vim <https://github.com/tpope/vim-fugitive>
 lawrencium   <https://bitbucket.org/ludovicchabant/vim-lawrencium>
