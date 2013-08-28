@@ -11,6 +11,14 @@ function! airline#deprecation#check()
         \ [ 'g:airline_readonly_symbol', 'g:airline_symbols.readonly' ],
         \ [ 'g:airline_linecolumn_prefix', 'g:airline_symbols.linenr' ],
         \ [ 'g:airline_branch_prefix', 'g:airline_symbols.branch' ],
+        \ [ 'g:airline_branch_empty_message', 'g:airline#extensions#branch#empty_message' ],
+        \ [ 'g:airline_detect_whitespace', 'g:airline#extensions#whitespace#enabled|show_message' ],
+        \ [ 'g:airline_enable_hunks', 'g:airline#extensions#hunks#enabled' ],
+        \ [ 'g:airline_enable_tagbar', 'g:airline#extensions#tagbar#enabled' ],
+        \ [ 'g:airline_enable_csv', 'g:airline#extensions#csv#enabled' ],
+        \ [ 'g:airline_enable_branch', 'g:airline#extensions#branch#enabled' ],
+        \ [ 'g:airline_enable_bufferline', 'g:airline#extensions#bufferline#enabled' ],
+        \ [ 'g:airline_enable_syntastic', 'g:airline#extensions#syntastic#enabled' ],
         \ ]
   for test in tests
     if exists(test[0])
