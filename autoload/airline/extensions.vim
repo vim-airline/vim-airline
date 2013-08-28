@@ -185,14 +185,12 @@ function! airline#extensions#load()
     call airline#extensions#virtualenv#init(s:ext)
   endif
 
-  if g:airline_section_warning == '__'
-    if (get(g:, 'airline#extensions#whitespace#enabled', 1) && get(g:, 'airline_detect_whitespace', 1))
-      call airline#extensions#whitespace#init(s:ext)
-    endif
-    if (get(g:, 'airline#extensions#syntastic#enabled', 1) && get(g:, 'airline_enable_syntastic', 1))
-          \ && exists(':SyntasticCheck')
-      call airline#extensions#syntastic#init(s:ext)
-    endif
+  if (get(g:, 'airline#extensions#whitespace#enabled', 1) && get(g:, 'airline_detect_whitespace', 1))
+    call airline#extensions#whitespace#init(s:ext)
+  endif
+  if (get(g:, 'airline#extensions#syntastic#enabled', 1) && get(g:, 'airline_enable_syntastic', 1))
+        \ && exists(':SyntasticCheck')
+    call airline#extensions#syntastic#init(s:ext)
   endif
 
   " load all other extensions not part of the default distribution

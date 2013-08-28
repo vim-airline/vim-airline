@@ -26,7 +26,7 @@ function! airline#add_inactive_statusline_func(name)
 endfunction
 
 function! airline#load_theme()
-  highlight! default link airline_warningmsg WarningMsg
+  highlight! default link airline_warning WarningMsg
   call airline#highlighter#load_theme()
   call airline#extensions#load_theme()
 endfunction
