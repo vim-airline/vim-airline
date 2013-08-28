@@ -34,7 +34,7 @@ function! s:init()
 
     call s:check_defined('g:airline_symbols', {})
     call extend(g:airline_symbols, {
-          \ 'paste': get(g:, 'airline_paste_symbol', g:airline_left_alt_sep.' PASTE'),
+          \ 'paste': get(g:, 'airline_paste_symbol', 'PASTE'),
           \ 'readonly': get(g:, 'airline_readonly_symbol', get(g:, 'airline_powerline_fonts', 0) ? '' : 'RO'),
           \ 'whitespace': get(g:, 'airline_powerline_fonts', 0) ? '✹' : '!',
           \ 'linenr': get(g:, 'airline_linecolumn_prefix', get(g:, 'airline_powerline_fonts', 0) ? '' : ':' ),
@@ -43,17 +43,17 @@ function! s:init()
 
     call s:check_defined('g:airline_parts', {})
     call extend(g:airline_parts, {
-          \ 'mode': '%{get(w:,"airline_current_mode","")}',
-          \ 'iminsert': '%{airline#parts#iminsert()}',
-          \ 'paste': '%{airline#parts#paste()}',
+          \ 'mode': 'airline#parts#mode',
+          \ 'iminsert': 'airline#parts#iminsert',
+          \ 'paste': 'airline#parts#paste',
           \ 'readonly': '%#airline_file#%{airline#parts#readonly()}',
           \ 'ffenc': '%{printf("%s%s",&fenc,strlen(&ff)>0?"[".&ff."]":"")}',
           \ 'file': '%f%m',
-          \ 'hunks': '',
-          \ 'branch': '',
-          \ 'tagbar': '',
-          \ 'syntastic': '',
-          \ 'whitespace': '',
+          \ 'hunks': 'airline#parts#empty',
+          \ 'branch': 'airline#parts#empty',
+          \ 'tagbar': 'airline#parts#empty',
+          \ 'syntastic': 'airline#parts#empty',
+          \ 'whitespace': 'airline#parts#empty',
           \ }, 'keep')
 
     call s:check_defined('g:airline_mode_map', {})
@@ -80,7 +80,7 @@ function! s:init()
           \ }, 'keep')
 
     call airline#extensions#load()
-    call s:check_defined('g:airline_section_a', (g:airline_parts.mode).(g:airline_parts.paste).(g:airline_parts.iminsert))
+    call airline#util#define_section('a', ['mode', 'paste', 'iminsert'])
     call s:check_defined('g:airline_section_b', (g:airline_parts.hunks).(g:airline_parts.branch))
     call s:check_defined('g:airline_section_c', '%<'.(g:airline_parts.file))
     call s:check_defined('g:airline_section_gutter', ' '.(g:airline_parts.readonly).'%=')
