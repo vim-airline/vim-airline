@@ -61,6 +61,7 @@ function! airline#extensions#whitespace#toggle()
     call airline#extensions#whitespace#init()
     let s:enabled = 1
   endif
+  echo 'Whitespace checking: '.(s:enabled ? 'Enabled' : 'Disabled')
 endfunction
 
 function! airline#extensions#whitespace#init(...)

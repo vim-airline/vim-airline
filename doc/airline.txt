@@ -168,11 +168,11 @@ extension.
 >
   variable names                default contents
   ----------------------------------------------------------------------------
-  let g:airline_section_a       (the mode/paste indicator)
-  let g:airline_section_b       (the fugitive/lawrencium branch indicator)
+  let g:airline_section_a       (mode, paste, iminsert)
+  let g:airline_section_b       (hunks, branch)
   let g:airline_section_c       (bufferline or filename)
   let g:airline_section_gutter  (readonly, csv)
-  let g:airline_section_x       (tagbar, virtualenv, filetype)
+  let g:airline_section_x       (tagbar, filetype, virtualenv)
   let g:airline_section_y       (fileencoding, fileformat)
   let g:airline_section_z       (percentage, line number, column number)
   let g:airline_section_warning (syntastic, whitespace)
@@ -309,23 +309,29 @@ temporary override. >
 PIPELINE                                                  *airline-pipeline*
 
 Sometimes you want to do more than just use overrides.  The statusline funcref
-is invoked and passed a bunch of arguments.  The first of these arguments is
-the statusline builder.  You can use this to build completely custom
-statuslines to your liking.  Here is an example: >
+is invoked and passed two arguments.  The first of these arguments is the
+statusline builder.  You can use this to build completely custom statuslines
+to your liking.  Here is an example: >
 >
   function! MyPlugin(...)
     " first variable is the statusline builder
     let builder = a:1
 
-    " build and set the statusline
     " WARNING: the API for the builder is not finalized and may change
     call builder.add_section('Normal', '%f')
     call builder.add_section('WarningMsg', '%{getcwd()}')
-    call setwinvar(winnr(), '&statusline', builder.build())
+    call builder.split()
+    call builder.add_section('airline_z', '%p%%')
 
-    return -1
+    " tell the core to use the contents of the builder
+    return 1
   endfunction
 <
+The above example uses various some example highlight groups to demonstrate
+that you can make any combination from the loaded colorscheme.  However, if
+you want colors to change between modes, you should use one of the section
+highlight groups, e.g. `airline_a` and `airline_b`.
+
 The second variable is the context, which is a dictionary containing various
 values such as whether the statusline is active or not, and the window number.
 >
@@ -334,7 +340,6 @@ values such as whether the statusline is active or not, and the window number.
     'active': 'whether the window is active or not',
   }
 <
-
                                              *airline-pipeline-return-codes*
 The pipeline accepts various return codes and can be used to determine the
 next action.  The following are the supported codes: >
@@ -373,6 +378,9 @@ For contributions into the plugin, here are the following guidelines:
 
   b.  Configuration variables for the extension should reside in the
       extension, e.g. `g:airline#extensions#foo_plugin#bar_variable`.
+
+  c.  A value should be added to the `g:airline_parts` dictionary such that
+      the extension can be arbitrarily positioned.
 
 See the source of |example.vim| for a working extension.
 

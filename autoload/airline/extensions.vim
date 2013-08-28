@@ -28,11 +28,7 @@ let s:filetype_regex_overrides = {}
 
 function! s:check_defined_section(name)
   if !exists('w:airline_section_{a:name}')
-    if g:airline_section_{a:name} == '__'
-      let w:airline_section_{a:name} = ''
-    else
-      let w:airline_section_{a:name} = g:airline_section_{a:name}
-    endif
+    let w:airline_section_{a:name} = g:airline_section_{a:name}
   endif
 endfunction
 

@@ -6,24 +6,18 @@ if !exists('g:airline#extensions#example#number_of_cats')
   let g:airline#extensions#example#number_of_cats = 42
 endif
 
-" There are predominantly two methods for integrating a plugin into
-" vim-airline.  The first method here simply modifies the global section and
-" appends information to it.  This is useful for cases where the information
-" should be displayed all the time for all filetypes.
+" First we define an init function that will be invoked from extensions.vim
 function! airline#extensions#example#init(ext)
-  let g:airline_section_y .= '%{airline#extensions#example#get_cats()}'
-endfunction
 
-" The second method involves using the 'ext'ension manager that was passed in
-" and appends a name of a function.  This function will be invoked just prior
-" to updating the statusline.  This method is useful for plugin-specific
-" statuslines (like NERDTree or Tagbar) or language specific plugins (like
-" virtualenv) which do not need to be loaded all the time.
-function! airline#extensions#example#init(ext)
+  " Here we define a new part for the plugin.  This allows users to place this
+  " extension in arbitrary locations.
+  let g:airline_parts.cats = '%{airline#extensions#example#get_cats()}'
+
+  " Next up we add a funcref so that we can run some code prior to the
+  " statusline getting modifed.
   call a:ext.add_statusline_func('airline#extensions#example#apply')
 
-  " There is also the following function for making changes just prior to an
-  " inactive statusline.
+  " You can also add a funcref for inactive statuslines.
   " call a:ext.add_inactive_statusline_func('airline#extensions#example#unapply')
 endfunction
 
@@ -34,7 +28,7 @@ function! airline#extensions#example#apply(...)
     " Let's use a helper function.  It will take care of ensuring that the
     " window-local override exists (and create one based on the global
     " airline_section if not), and prepend to it.
-    call airline#extensions#prepend_to_section('x', '%{airline#extensions#example#get_cats()} ')
+    call airline#extensions#prepend_to_section('x', g:airline_parts.cats)
   endif
 endfunction
 
