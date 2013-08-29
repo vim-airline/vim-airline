@@ -62,7 +62,7 @@ There's already [powerline][2], why yet another statusline?
 
 What about [vim-powerline][1]?
 
-*  vim-powerline has been deprecated in favor of the newer, undifying powerline, which is under active development; the new version is written in python and expands its capabilities to tools outside of vim, such as bash, zsh, and tmux.
+*  vim-powerline has been deprecated in favor of the newer, unifying powerline, which is under active development; the new version is written in python and expands its capabilities to tools outside of vim, such as bash, zsh, and tmux.
 *  vim-powerline uses different font codes, so if you want to use it with a powerline themed tmux (for example), it will not work.
 
 # Where did the name come from?
