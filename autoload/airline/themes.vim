@@ -43,7 +43,8 @@ endfunction
 function! airline#themes#get_highlight(group, ...)
   let fg = s:get_syn(a:group, 'fg')
   let bg = s:get_syn(a:group, 'bg')
-  return s:get_array(fg, bg, a:000)
+  let reverse = synIDattr(synIDtrans(hlID(a:group)), 'reverse', has('gui_running') ? 'gui' : 'term')
+  return reverse ? s:get_array(bg, fg, a:000) : s:get_array(fg, bg, a:000)
 endfunction
 
 function! airline#themes#get_highlight2(fg, bg, ...)
