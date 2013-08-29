@@ -12,7 +12,7 @@ Lean &amp; mean statusline for vim that's light as air.
 *  optimized for speed; it loads in under a millisecond.
 *  extensive suite of themes for popular colorschemes including [solarized][23] (dark and light), [tomorrow][24] (all variants), [base16][32] (all variants), [molokai][25], [jellybeans][26] and others; have a look at the [screenshots][14] in the wiki.
 *  supports 7.2 as the minimum Vim version
-*  predictable release cycle; the master branch is experimental and may break from time to time, if you prefer stability, use the most recent tag which usually is released once every 2 weeks.
+*  predictable release cycle; **the master branch is experimental and may break from time to time**, if you prefer stability, use the most recent tag which goes through a [full regression test][33] and is released roughly every 2 weeks.
 
 # Straightforward customization
 
@@ -158,3 +158,4 @@ MIT License. Copyright (c) 2013 Bailey Ling.
 [30]: https://github.com/mhinz/vim-signify
 [31]: https://github.com/jmcantrell/vim-virtualenv
 [32]: https://github.com/chriskempson/base16-vim
+[33]: https://github.com/bling/vim-airline/wiki/Test-Plan
