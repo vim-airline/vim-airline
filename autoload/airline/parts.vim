@@ -8,7 +8,7 @@ endfunction
 
 function! airline#parts#prepend(name)
   let val = function(a:name)()
-  return empty(val) ? '' : val.' '.g:airline_right_alt_sep
+  return empty(val) ? '' : val.' '.g:airline_right_alt_sep.' '
 endfunction
 
 function! airline#parts#empty()
