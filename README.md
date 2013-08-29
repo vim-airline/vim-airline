@@ -22,7 +22,7 @@ If you don't like the defaults, you can replace all sections with standard `stat
 
 # Extensible pipeline
 
-Completely transform the statusline to your liking.
+Completely transform the statusline to your liking.  Build out the statusline as you see fit by extracting colors from the current colorscheme's highlight groups.
 
 ![allyourbase](https://f.cloud.github.com/assets/306502/1022714/e150034a-0da7-11e3-94a5-ca9d58a297e8.png)
 
@@ -45,14 +45,18 @@ vim-airline integrates with a variety of plugins out of the box.  These extensio
 ### [syntastic][5]
 ![image](https://f.cloud.github.com/assets/306502/962864/9824c484-04f7-11e3-9928-da94f8c7da5a.png)
 
-### whitespace
-![image](https://f.cloud.github.com/assets/306502/962401/2a75385e-04ef-11e3-935c-e3b9f0e954cc.png)
-
 ### hunks ([vim-gitgutter][29] & [vim-signify][30])
 ![image](https://f.cloud.github.com/assets/306502/995185/73fc7054-09b9-11e3-9d45-618406c6ed98.png)
 
 ### [virtualenv][31]
 ![image](https://f.cloud.github.com/assets/390964/1022566/cf81f830-0d98-11e3-904f-cf4fe3ce201e.png)
+
+# Extras
+
+vim-airline also supplies some supplementary stand-alone extensions.
+
+### whitespace
+![image](https://f.cloud.github.com/assets/306502/962401/2a75385e-04ef-11e3-935c-e3b9f0e954cc.png)
 
 # Rationale
 
@@ -106,18 +110,18 @@ A full list of screenshots for various themes can be found in the [Wiki][14].
 
 Tracking down bugs can take a very long time due to different configurations, versions, and operating systems.  To ensure a timely response, please help me out by doing the following:
 
-*  reproduce it with this [minivimrc][7] repository to rule out any configuration conflicts.
-*  a link to your vimrc or a gist which shows how you configured the plugin(s).
-*  and so I can reproduce; your `:version` of vim, and the commit of vim-airline you're using.
+*  Reproduce it with this [minivimrc][7] repository to rule out any configuration conflicts.
+*  A link to your vimrc or a gist which shows how you configured the plugin(s).
+*  And so I can reproduce; your `:version` of vim, and the commit of vim-airline you're using.
 
 # Contributions
 
 Contributions and pull requests are welcome.  Please take note of the following guidelines:
 
-*  adhere to the existing style as much as possible; notably, 2 space indents and long-form keywords.
-*  keep the history clean! squash your branches before you submit a pull request. `pull --rebase` is your friend.
-*  any changes to the core should be tested against Vim 7.2.
-*  if you submit a theme, please create a screenshot so it can be added to the [Wiki][14].
+*  Adhere to the existing style as much as possible; notably, 2 space indents and long-form keywords.
+*  Keep the history clean! squash your branches before you submit a pull request. `pull --rebase` is your friend.
+*  Any changes to the core should be tested against Vim 7.2.
+*  If you submit a theme, please create a screenshot so it can be added to the [Wiki][14].
 
 # License
 
