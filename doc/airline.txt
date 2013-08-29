@@ -200,6 +200,9 @@ configuration values that you can use.
       \ 'y': 88,
       \ 'z': 45,
       \ })
+
+  " Note: set to an empty dictionary to disable truncation.
+  let g:airline#extensions#default#section_truncate_width = {}
 <
                                                         *airline-bufferline*
 vim-bufferline <https://github.com/bling/vim-bufferline>
