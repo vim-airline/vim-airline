@@ -6,13 +6,13 @@ Lean &amp; mean statusline for vim that's light as air.
 
 # Features
 
-*  tiny core written with extensibility in mind ([open/closed principle][8]).
-*  integrates with a variety of plugins, including: [vim-bufferline][6], [fugitive][4], [unite][9], [ctrlp][10], [minibufexpl][15], [gundo][16], [undotree][17], [nerdtree][18], [tagbar][19], [vim-gitgutter][29], [vim-signify][30], [syntastic][5], [lawrencium][21] and [virtualenv][31]
-*  looks good with regular fonts and provides configuration points so you can use unicode or powerline symbols.
-*  optimized for speed; it loads in under a millisecond.
-*  extensive suite of themes for popular colorschemes including [solarized][23] (dark and light), [tomorrow][24] (all variants), [base16][32] (all variants), [molokai][25], [jellybeans][26] and others; have a look at the [screenshots][14] in the wiki.
-*  supports 7.2 as the minimum Vim version
-*  predictable release cycle; **the master branch is experimental and may break from time to time**, if you prefer stability, use the most recent tag which goes through a [full regression test][33] and is released roughly every 2 weeks.
+*  Tiny core written with extensibility in mind ([open/closed principle][8]).
+*  Integrates with a variety of plugins, including: [vim-bufferline][6], [fugitive][4], [unite][9], [ctrlp][10], [minibufexpl][15], [gundo][16], [undotree][17], [nerdtree][18], [tagbar][19], [vim-gitgutter][29], [vim-signify][30], [syntastic][5], [lawrencium][21] and [virtualenv][31].
+*  Looks good with regular fonts and provides configuration points so you can use unicode or powerline symbols.
+*  Optimized for speed; it loads in under a millisecond.
+*  Extensive suite of themes for popular colorschemes including [solarized][23] (dark and light), [tomorrow][24] (all variants), [base16][32] (all variants), [molokai][25], [jellybeans][26] and others; have a look at the [screenshots][14] in the wiki.
+*  Supports 7.2 as the minimum Vim version.
+*  Stable release cycle; bleeding edge changes happen on the `dev` branch, and after they have gone through a [full regression test][33] will eventually be merged in the stable master branch.  Releases typically occur every 2 weeks.
 
 # Straightforward customization
 
