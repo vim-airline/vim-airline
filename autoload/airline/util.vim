@@ -2,12 +2,15 @@
 " vim: et ts=2 sts=2 sw=2
 
 function! s:get_val(part)
-  let val = g:airline_parts[a:part]
-  if match(val, '%') > -1
-    return val
-  else
-    return '%{function("'.val.'")()}'
+  if has_key(g:airline_parts, a:part)
+    let val = g:airline_parts[a:part]
+    if match(val, '%\| ') > -1
+      return val
+    else
+      return '%{'.val.'()}'
+    endif
   endif
+  return a:part
 endfunction
 
 function! airline#util#define_section(key, parts)

@@ -31,6 +31,6 @@ function! airline#extensions#branch#get_head()
 endfunction
 
 function! airline#extensions#branch#init(ext)
-  let g:airline_parts.branch = '%{airline#extensions#branch#get_head()}'
+  let g:airline_parts.branch = 'airline#extensions#branch#get_head'
 endfunction
 
