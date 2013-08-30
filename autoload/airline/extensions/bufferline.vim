@@ -14,5 +14,6 @@ function! airline#extensions#bufferline#init(ext)
     let g:bufferline_separator = ' '
   endif
 
-  let g:airline_parts.file = '%{bufferline#refresh_status()}'.bufferline#get_status_string()
+  call airline#parts#define_raw('file', '%{bufferline#refresh_status()}'.bufferline#get_status_string())
 endfunction
+

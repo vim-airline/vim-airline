@@ -1,14 +1,27 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
-function! airline#parts#append(name)
-  let val = function(a:name)()
-  return empty(val) ? '' : '  '.g:airline_left_alt_sep.' '.val
+let s:parts = {}
+
+function! airline#parts#define(key, config)
+  let s:parts[a:key] = get(s:parts, a:key, {})
+  call extend(s:parts[a:key], a:config)
 endfunction
 
-function! airline#parts#prepend(name)
-  let val = function(a:name)()
-  return empty(val) ? '' : val.' '.g:airline_right_alt_sep.' '
+function! airline#parts#define_function(key, name)
+  call airline#parts#define(a:key, { 'function': a:name })
+endfunction
+
+function! airline#parts#define_text(key, text)
+  call airline#parts#define(a:key, { 'text': a:text })
+endfunction
+
+function! airline#parts#define_raw(key, raw)
+  call airline#parts#define(a:key, { 'raw': a:raw })
+endfunction
+
+function! airline#parts#get(key)
+  return get(s:parts, a:key, {})
 endfunction
 
 function! airline#parts#empty()

@@ -41,16 +41,18 @@ function! s:init()
           \ 'branch': get(g:, 'airline_branch_prefix', get(g:, 'airline_powerline_fonts', 0) ? '' : ''),
           \ }, 'keep')
 
+    call airline#parts#define_function('mode', 'airline#parts#mode')
+    call airline#parts#define_function('iminsert', 'airline#parts#iminsert')
+    call airline#parts#define_function('paste', 'airline#parts#paste')
+    call airline#parts#define('readonly', {
+          \ 'function': 'airline#parts#readonly',
+          \ 'highlight': 'airline_file',
+          \ })
+    call airline#parts#define_raw('file', '%f%m')
+
     call s:check_defined('g:airline_parts', {})
     call extend(g:airline_parts, {
-          \ 'mode': 'airline#parts#mode',
-          \ 'iminsert': 'airline#parts#iminsert',
-          \ 'paste': 'airline#parts#paste',
-          \ 'readonly': '%#airline_file#%{airline#parts#readonly()}',
           \ 'ffenc': '%{printf("%s%s",&fenc,strlen(&ff)>0?"[".&ff."]":"")}',
-          \ 'file': '%f%m',
-          \ 'hunks': 'airline#parts#empty',
-          \ 'branch': 'airline#parts#empty',
           \ 'tagbar': 'airline#parts#empty',
           \ 'syntastic': 'airline#parts#empty',
           \ 'whitespace': 'airline#parts#empty',
@@ -80,14 +82,19 @@ function! s:init()
           \ }, 'keep')
 
     call airline#extensions#load()
-    call airline#util#define_left_section('a', ['mode', 'paste', 'iminsert'])
-    call airline#util#define_left_section('b', ['hunks', 'branch'])
-    call airline#util#define_left_section('c', ['%<', 'file'])
-    call airline#util#define_left_section('gutter', ['readonly', '%='])
-    call airline#util#define_right_section('x', ['tagbar', '%{&filetype}'])
-    call airline#util#define_right_section('y', ['ffenc'])
-    call airline#util#define_right_section('z', ['%3p%% %{g:airline_symbols.linenr} %3l:%3c '])
-    call airline#util#define_right_section('warning', ['syntastic', 'whitespace'])
+
+    if !exists('g:airline_section_a')
+      let g:airline_section_a = airline#section#create_left(['mode', 'paste', 'iminsert'])
+    endif
+    if !exists('g:airline_section_b')
+      let g:airline_section_b = airline#section#create(['hunks', 'branch'])
+    endif
+    let g:airline_section_c = airline#section#create(['%<', 'file'])
+    let g:airline_section_gutter = airline#section#create([' ', 'readonly', '%='])
+    let g:airline_section_x = airline#section#create(['tagbar', '%{&filetype}'])
+    let g:airline_section_y = airline#section#create(['ffenc'])
+    let g:airline_section_z = airline#section#create(['%3p%% %{g:airline_symbols.linenr} %3l:%3c '])
+    let g:airline_section_warning = airline#section#create(['syntastic', 'whitespace'])
 
     let s:airline_theme_defined = exists('g:airline_theme')
     if s:airline_theme_defined || !airline#switch_matching_theme()
