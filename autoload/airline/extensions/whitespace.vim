@@ -65,7 +65,7 @@ function! airline#extensions#whitespace#toggle()
 endfunction
 
 function! airline#extensions#whitespace#init(...)
-  let g:airline_parts.whitespace = '%{airline#extensions#whitespace#check()}'
+  call airline#parts#define_function('whitespace', 'airline#extensions#whitespace#check')
 
   unlet! b:airline_whitespace_check
   augroup airline_whitespace

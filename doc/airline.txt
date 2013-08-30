@@ -388,9 +388,6 @@ For contributions into the plugin, here are the following guidelines:
   b.  Configuration variables for the extension should reside in the
       extension, e.g. `g:airline#extensions#foo_plugin#bar_variable`.
 
-  c.  A value should be added to the `g:airline_parts` dictionary such that
-      the extension can be arbitrarily positioned.
-
 See the source of |example.vim| for a working extension.
 
 ==============================================================================

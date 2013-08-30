@@ -37,14 +37,7 @@ function! airline#init#bootstrap()
         \ 'highlight': 'airline_file',
         \ })
   call airline#parts#define_raw('file', '%f%m')
-
-  call s:check_defined('g:airline_parts', {})
-  call extend(g:airline_parts, {
-        \ 'ffenc': '%{printf("%s%s",&fenc,strlen(&ff)>0?"[".&ff."]":"")}',
-        \ 'tagbar': 'airline#parts#empty',
-        \ 'syntastic': 'airline#parts#empty',
-        \ 'whitespace': 'airline#parts#empty',
-        \ }, 'keep')
+  call airline#parts#define_raw('ffenc', '%{printf("%s%s",&fenc,strlen(&ff)>0?"[".&ff."]":"")}')
 
   call s:check_defined('g:airline_mode_map', {})
   call extend(g:airline_mode_map, {

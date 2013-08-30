@@ -11,7 +11,7 @@ function! airline#extensions#example#init(ext)
 
   " Here we define a new part for the plugin.  This allows users to place this
   " extension in arbitrary locations.
-  let g:airline_parts.cats = '%{airline#extensions#example#get_cats()}'
+  call airline#parts#define_raw('cats', '%{airline#extensions#example#get_cats()}')
 
   " Next up we add a funcref so that we can run some code prior to the
   " statusline getting modifed.
@@ -28,7 +28,7 @@ function! airline#extensions#example#apply(...)
     " Let's use a helper function.  It will take care of ensuring that the
     " window-local override exists (and create one based on the global
     " airline_section if not), and prepend to it.
-    call airline#extensions#prepend_to_section('x', g:airline_parts.cats)
+    call airline#extensions#prepend_to_section('x', airline#parts#get('cats').raw)
   endif
 endfunction
 
