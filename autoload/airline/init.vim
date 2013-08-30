@@ -77,11 +77,23 @@ function! airline#init#bootstrap()
   if !exists('g:airline_section_b')
     let g:airline_section_b = airline#section#create(['hunks', 'branch'])
   endif
-  let g:airline_section_c = airline#section#create(['%<', 'file'])
-  let g:airline_section_gutter = airline#section#create([' ', 'readonly', '%='])
-  let g:airline_section_x = airline#section#create(['tagbar', '%{&filetype}'])
-  let g:airline_section_y = airline#section#create(['ffenc'])
-  let g:airline_section_z = airline#section#create(['%3p%% %{g:airline_symbols.linenr} %3l:%3c '])
-  let g:airline_section_warning = airline#section#create(['syntastic', 'whitespace'])
+  if !exists('g:airline_section_c')
+    let g:airline_section_c = airline#section#create(['%<', 'file'])
+  endif
+  if !exists('g:airline_section_gutter')
+    let g:airline_section_gutter = airline#section#create([' ', 'readonly', '%='])
+  endif
+  if !exists('g:airline_section_x')
+    let g:airline_section_x = airline#section#create(['tagbar', '%{&filetype}'])
+  endif
+  if !exists('g:airline_section_y')
+    let g:airline_section_y = airline#section#create(['ffenc'])
+  endif
+  if !exists('g:airline_section_z')
+    let g:airline_section_z = airline#section#create(['%3p%% %{g:airline_symbols.linenr} %3l:%3c '])
+  endif
+  if !exists('g:airline_section_warning')
+    let g:airline_section_warning = airline#section#create(['syntastic', 'whitespace'])
+  endif
 endfunction
 
