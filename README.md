@@ -14,48 +14,54 @@ Lean &amp; mean statusline for vim that's light as air.
 *  Supports 7.2 as the minimum Vim version.
 *  Stable release cycle; bleeding edge changes happen on the `dev` branch, and after they have gone through a [full regression test][33] will eventually be merged in the stable master branch.  Releases typically occur every 2 weeks.
 
-# Straightforward customization
+## Straightforward customization
 
 If you don't like the defaults, you can replace all sections with standard `statusline` syntax.  Give your statusline that you've built over the years a face lift.
 
 ![image](https://f.cloud.github.com/assets/306502/1009429/d69306da-0b38-11e3-94bf-7c6e3eef41e9.png)
 
-# Extensible pipeline
+## Automatic truncation
+
+Sections are automatically hidden when the window size shrinks.
+
+![image](https://f.cloud.github.com/assets/306502/1060831/05c08aac-11bc-11e3-8470-a506a3037f45.png)
+
+## Extensible pipeline
 
 Completely transform the statusline to your liking.  Build out the statusline as you see fit by extracting colors from the current colorscheme's highlight groups.
 
 ![allyourbase](https://f.cloud.github.com/assets/306502/1022714/e150034a-0da7-11e3-94a5-ca9d58a297e8.png)
 
-# Seamless integration
+## Seamless integration
 
 vim-airline integrates with a variety of plugins out of the box.  These extensions will be lazily loaded if and only if you have the other plugins installed (and of course you can turn them off).
 
-### [ctrlp.vim][10]
+#### [ctrlp.vim][10]
 ![image](https://f.cloud.github.com/assets/306502/962258/7345a224-04ec-11e3-8b5a-f11724a47437.png)
 
-### [unite.vim][9]
+#### [unite.vim][9]
 ![image](https://f.cloud.github.com/assets/306502/962319/4d7d3a7e-04ed-11e3-9d59-ab29cb310ff8.png)
 
-### [tagbar][19]
+#### [tagbar][19]
 ![image](https://f.cloud.github.com/assets/306502/962150/7e7bfae6-04ea-11e3-9e28-32af206aed80.png)
 
-### [csv.vim][28]
+#### [csv.vim][28]
 ![image](https://f.cloud.github.com/assets/306502/962204/cfc1210a-04eb-11e3-8a93-42e6bcd21efa.png)
 
-### [syntastic][5]
+#### [syntastic][5]
 ![image](https://f.cloud.github.com/assets/306502/962864/9824c484-04f7-11e3-9928-da94f8c7da5a.png)
 
-### hunks ([vim-gitgutter][29] & [vim-signify][30])
+#### hunks ([vim-gitgutter][29] & [vim-signify][30])
 ![image](https://f.cloud.github.com/assets/306502/995185/73fc7054-09b9-11e3-9d45-618406c6ed98.png)
 
-### [virtualenv][31]
+#### [virtualenv][31]
 ![image](https://f.cloud.github.com/assets/390964/1022566/cf81f830-0d98-11e3-904f-cf4fe3ce201e.png)
 
-# Extras
+## Extras
 
 vim-airline also supplies some supplementary stand-alone extensions.
 
-### whitespace
+#### whitespace
 ![image](https://f.cloud.github.com/assets/306502/962401/2a75385e-04ef-11e3-935c-e3b9f0e954cc.png)
 
 # Rationale
