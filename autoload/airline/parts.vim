@@ -24,10 +24,6 @@ function! airline#parts#get(key)
   return get(s:parts, a:key, {})
 endfunction
 
-function! airline#parts#empty()
-  return ''
-endfunction
-
 function! airline#parts#mode()
   return get(w:, 'airline_current_mode', '')
 endfunction
