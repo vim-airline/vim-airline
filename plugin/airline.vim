@@ -54,47 +54,48 @@ function! s:airline_toggle()
       au!
     augroup END
     augroup! airline
-      if exists("s:stl")
-        let &stl = s:stl
-      endif
-    else
-      let s:stl = &stl
-      augroup airline
-        autocmd!
 
-        autocmd CmdwinEnter *
-              \ call airline#add_statusline_func('airline#cmdwinenter')
-              \ | call <sid>on_window_changed()
-        autocmd CmdwinLeave * call airline#remove_statusline_func('airline#cmdwinenter')
-
-        autocmd ColorScheme * call <sid>on_colorscheme_changed()
-        autocmd WinEnter,BufWinEnter,FileType,BufUnload,ShellCmdPost,VimResized *
-              \ call <sid>on_window_changed()
-
-        autocmd BufWritePost */autoload/airline/themes/*.vim
-              \ exec 'source '.split(globpath(&rtp, 'autoload/airline/themes/'.g:airline_theme.'.vim', 1), "\n")[0]
-              \ | call airline#load_theme()
-      augroup END
-      if s:airline_initialized
-        call <sid>on_window_changed()
-      endif
+    if exists("s:stl")
+      let &stl = s:stl
     endif
-  endfunction
+  else
+    let s:stl = &stl
+    augroup airline
+      autocmd!
 
-  function! s:get_airline_themes(a, l, p)
-    let files = split(globpath(&rtp, 'autoload/airline/themes/'.a:a.'*'), "\n")
-    return map(files, 'fnamemodify(v:val, ":t:r")')
-  endfunction
-  function! s:airline_theme(...)
-    if a:0
-      call airline#switch_theme(a:1)
-    else
-      echo g:airline_theme
+      autocmd CmdwinEnter *
+            \ call airline#add_statusline_func('airline#cmdwinenter')
+            \ | call <sid>on_window_changed()
+      autocmd CmdwinLeave * call airline#remove_statusline_func('airline#cmdwinenter')
+
+      autocmd ColorScheme * call <sid>on_colorscheme_changed()
+      autocmd WinEnter,BufWinEnter,FileType,BufUnload,ShellCmdPost,VimResized *
+            \ call <sid>on_window_changed()
+
+      autocmd BufWritePost */autoload/airline/themes/*.vim
+            \ exec 'source '.split(globpath(&rtp, 'autoload/airline/themes/'.g:airline_theme.'.vim', 1), "\n")[0]
+            \ | call airline#load_theme()
+    augroup END
+    if s:airline_initialized
+      call <sid>on_window_changed()
     endif
-  endfunction
-  command! -nargs=? -complete=customlist,<sid>get_airline_themes AirlineTheme call <sid>airline_theme(<f-args>)
-  command! AirlineToggleWhitespace call airline#extensions#whitespace#toggle()
-  command! AirlineToggle call <sid>airline_toggle()
+  endif
+endfunction
 
-  call <sid>airline_toggle()
+function! s:get_airline_themes(a, l, p)
+  let files = split(globpath(&rtp, 'autoload/airline/themes/'.a:a.'*'), "\n")
+  return map(files, 'fnamemodify(v:val, ":t:r")')
+endfunction
+function! s:airline_theme(...)
+  if a:0
+    call airline#switch_theme(a:1)
+  else
+    echo g:airline_theme
+  endif
+endfunction
+command! -nargs=? -complete=customlist,<sid>get_airline_themes AirlineTheme call <sid>airline_theme(<f-args>)
+command! AirlineToggleWhitespace call airline#extensions#whitespace#toggle()
+command! AirlineToggle call <sid>airline_toggle()
+
+call <sid>airline_toggle()
 
