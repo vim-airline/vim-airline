@@ -3,17 +3,23 @@
 
 function! s:get_val(key, append)
   let part = airline#parts#get(a:key)
+
+  let val = ''
+  if exists('part.highlight')
+    let val .= '%#'.(part.highlight).'#'
+  endif
+
   if exists('part.function')
     let func = (part.function).'()'
   elseif exists('part.text')
     let func = '"'.(part.text).'"'
   elseif exists('part.raw')
-    return part.raw
+    return val.(part.raw)
   else
     return a:key
   endif
 
-  let val = ''
+
   if a:append > 0
     let val .= '%{airline#util#append('.func.')}'
   elseif a:append < 0
