@@ -27,7 +27,9 @@ function! airline#extensions#branch#get_head()
     endif
   endif
 
-  return empty(head) ? s:empty_message : s:symbol.' '.head
+  return empty(head)
+        \ ? s:empty_message
+        \ : printf('%s%s', empty(s:symbol) ? '' : s:symbol.' ', head)
 endfunction
 
 function! airline#extensions#branch#init(ext)
