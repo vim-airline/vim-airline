@@ -48,5 +48,12 @@ describe 'airline'
     call airline#update_statusline()
     Expect &statusline =~ '%{airline#util#wrap(airline#parts#mode(),0)}%{airline#util#wrap(airline#parts#mode(),0)}'
   end
+
+  it 'should remove funcrefs properly'
+    let c = len(g:airline_statusline_funcrefs)
+    call airline#add_statusline_func('MyIgnoreFuncref')
+    call airline#remove_statusline_func('MyIgnoreFuncref')
+    Expect len(g:airline_statusline_funcrefs) == c
+  end
 end
 
