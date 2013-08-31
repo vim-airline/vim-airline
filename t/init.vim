@@ -22,9 +22,8 @@ describe 'init'
     Expect g:airline_section_a =~ 'iminsert'
   end
 
-  it 'section b should have hunks and branch'
-    Expect g:airline_section_b =~ 'hunks'
-    Expect g:airline_section_b =~ 'branch'
+  it 'section b should be blank because no extensions are installed'
+    Expect g:airline_section_b == ''
   end
 
   it 'section c should be file'
@@ -54,6 +53,13 @@ describe 'init'
     for s in s:sections
       Expect g:airline_section_{s} == s
     endfor
+  end
+
+  it 'all default statusline extensions should be blank'
+    Expect airline#parts#get('hunks').raw == ''
+    Expect airline#parts#get('branch').raw == ''
+    Expect airline#parts#get('tagbar').raw == ''
+    Expect airline#parts#get('syntastic').raw == ''
   end
 end
 

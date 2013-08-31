@@ -20,6 +20,12 @@ function! airline#parts#define_raw(key, raw)
   call airline#parts#define(a:key, { 'raw': a:raw })
 endfunction
 
+function! airline#parts#define_empty(keys)
+  for key in a:keys
+    call airline#parts#define_raw(key, '')
+  endfor
+endfunction
+
 function! airline#parts#get(key)
   return get(s:parts, a:key, {})
 endfunction
