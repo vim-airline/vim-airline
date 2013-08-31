@@ -19,12 +19,14 @@ function! s:get_val(key, append)
     return a:key
   endif
 
+  let minwidth = get(part, 'minwidth', 0)
+
   if a:append > 0
-    let val .= '%{airline#util#append('.func.')}'
+    let val .= printf('%%{airline#util#append(%s,%s)}', func, minwidth)
   elseif a:append < 0
-    let val .= '%{airline#util#prepend('.func.')}'
+    let val .= printf('%%{airline#util#prepend(%s,%s)}', func, minwidth)
   else
-    let val .= '%{'.func.'}'
+    let val .= printf('%%{airline#util#wrap(%s,%s)}', func, minwidth)
   endif
   return val
 endfunction

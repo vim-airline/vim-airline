@@ -20,5 +20,10 @@ describe 'parts'
     call airline#parts#define_raw('raw', 'bar')
     Expect airline#parts#get('raw').raw == 'bar'
   end
+
+  it 'can define a minwidth'
+    call airline#parts#define_minwidth('mw', 123)
+    Expect airline#parts#get('mw').minwidth == 123
+  end
 end
 

@@ -1,11 +1,24 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
-function! airline#util#append(text)
+function! airline#util#wrap(text, minwidth)
+  if a:minwidth > 0 && winwidth(0) < a:minwidth
+    return ''
+  endif
+  return a:text
+endfunction
+
+function! airline#util#append(text, minwidth)
+  if a:minwidth > 0 && winwidth(0) < a:minwidth
+    return ''
+  endif
   return empty(a:text) ? '' : '  '.g:airline_left_alt_sep.' '.a:text
 endfunction
 
-function! airline#util#prepend(text)
+function! airline#util#prepend(text, minwidth)
+  if a:minwidth > 0 && winwidth(0) < a:minwidth
+    return ''
+  endif
   return empty(a:text) ? '' : a:text.' '.g:airline_right_alt_sep.' '
 endfunction
 
