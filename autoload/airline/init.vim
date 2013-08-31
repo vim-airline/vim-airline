@@ -7,11 +7,7 @@ function! s:check_defined(variable, default)
   endif
 endfunction
 
-let s:init_vars = 0
-function airline#init#vars()
-  if s:init_vars | return | endif
-  let s:init_vars = 1
-
+function! airline#init#bootstrap()
   call s:check_defined('g:airline_left_sep', get(g:, 'airline_powerline_fonts', 0)?"":">")
   call s:check_defined('g:airline_left_alt_sep', get(g:, 'airline_powerline_fonts', 0)?"":">")
   call s:check_defined('g:airline_right_sep', get(g:, 'airline_powerline_fonts', 0)?"":"<")
@@ -55,12 +51,11 @@ function airline#init#vars()
         \ 'linenr': get(g:, 'airline_linecolumn_prefix', get(g:, 'airline_powerline_fonts', 0) ? '' : ':' ),
         \ 'branch': get(g:, 'airline_branch_prefix', get(g:, 'airline_powerline_fonts', 0) ? '' : ''),
         \ }, 'keep')
+
+  call airline#extensions#load()
 endfunction
 
-function! airline#init#bootstrap()
-  call airline#init#vars()
-  call airline#extensions#load()
-
+function! airline#init#sections()
   if !exists('g:airline_section_a')
     let g:airline_section_a = airline#section#create_left(['mode', 'paste', 'iminsert'])
   endif

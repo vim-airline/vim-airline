@@ -33,5 +33,10 @@ describe 'section'
     let s = airline#section#create(['hi'])
     Expect s == '%#hlgroup#hello'
   end
+
+  it 'should parse out a section from the vimrc'
+    let s = airline#section#create(['whitespace'])
+    Expect s =~ 'airline#extensions#whitespace#check'
+  end
 end
 

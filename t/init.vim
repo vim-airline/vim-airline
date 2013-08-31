@@ -10,6 +10,7 @@ describe 'init'
   before
     call s:clear()
     call airline#init#bootstrap()
+    call airline#init#sections()
   end
 
   after

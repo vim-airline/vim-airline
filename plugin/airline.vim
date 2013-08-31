@@ -15,6 +15,7 @@ function! s:init()
     let s:airline_initialized = 1
 
     call airline#init#bootstrap()
+    call airline#init#sections()
 
     let s:airline_theme_defined = exists('g:airline_theme')
     if s:airline_theme_defined || !airline#switch_matching_theme()
@@ -69,7 +70,7 @@ function! s:airline_toggle()
       autocmd CmdwinLeave * call airline#remove_statusline_func('airline#cmdwinenter')
 
       autocmd ColorScheme * call <sid>on_colorscheme_changed()
-      autocmd WinEnter,BufWinEnter,FileType,BufUnload,ShellCmdPost,VimResized *
+      autocmd VimEnter,WinEnter,BufWinEnter,FileType,BufUnload,VimResized *
             \ call <sid>on_window_changed()
 
       autocmd BufWritePost */autoload/airline/themes/*.vim

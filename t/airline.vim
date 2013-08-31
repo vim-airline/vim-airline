@@ -1,4 +1,5 @@
 call airline#init#bootstrap()
+call airline#init#sections()
 
 function! MyFuncref(...)
   call a:1.add_raw('hello world')

@@ -1,6 +1,8 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
+call airline#init#bootstrap()
+
 function! s:get_val(key, append)
   let part = airline#parts#get(a:key)
 

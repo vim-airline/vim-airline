@@ -1,4 +1,5 @@
 call airline#init#bootstrap()
+call airline#init#sections()
 
 describe 'default'
   before
