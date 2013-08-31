@@ -10,6 +10,6 @@ function! airline#extensions#syntastic#get_warnings()
 endfunction
 
 function! airline#extensions#syntastic#init(ext)
-  let g:airline_parts.syntastic = '%{airline#extensions#syntastic#get_warnings()}'
+  call airline#parts#define_function('syntastic', 'airline#extensions#syntastic#get_warnings')
 endfunction
 

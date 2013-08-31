@@ -1,13 +1,46 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
+let s:parts = {}
+
+function! airline#parts#define(key, config)
+  let s:parts[a:key] = get(s:parts, a:key, {})
+  call extend(s:parts[a:key], a:config)
+endfunction
+
+function! airline#parts#define_function(key, name)
+  call airline#parts#define(a:key, { 'function': a:name })
+endfunction
+
+function! airline#parts#define_text(key, text)
+  call airline#parts#define(a:key, { 'text': a:text })
+endfunction
+
+function! airline#parts#define_raw(key, raw)
+  call airline#parts#define(a:key, { 'raw': a:raw })
+endfunction
+
+function! airline#parts#define_empty(keys)
+  for key in a:keys
+    call airline#parts#define_raw(key, '')
+  endfor
+endfunction
+
+function! airline#parts#get(key)
+  return get(s:parts, a:key, {})
+endfunction
+
+function! airline#parts#mode()
+  return get(w:, 'airline_current_mode', '')
+endfunction
+
 function! airline#parts#paste()
-  return g:airline_detect_paste && &paste ? '  '.g:airline_symbols.paste : ''
+  return g:airline_detect_paste && &paste ? g:airline_symbols.paste : ''
 endfunction
 
 function! airline#parts#iminsert()
   if g:airline_detect_iminsert && &iminsert && exists('b:keymap_name')
-    return '  '.g:airline_left_alt_sep.' '.toupper(b:keymap_name)
+    return toupper(b:keymap_name)
   endif
   return ''
 endfunction
