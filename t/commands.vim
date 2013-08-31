@@ -1,0 +1,26 @@
+call airline#init#bootstrap()
+source plugin/airline.vim
+
+describe 'commands'
+  it 'should toggle off and on'
+    execute 'AirlineToggle'
+    Expect exists('#airline') to_be_false
+    execute 'AirlineToggle'
+    Expect exists('#airline') to_be_true
+  end
+
+  it 'should toggle whitespace off and on'
+    execute 'AirlineToggleWhitespace'
+    Expect exists('#airline_whitespace') to_be_false
+    execute 'AirlineToggleWhitespace'
+    Expect exists('#airline_whitespace') to_be_true
+  end
+
+  it 'should display theme name with no args'
+    execute 'AirlineTheme simple'
+    Expect g:airline_theme == 'simple'
+    execute 'AirlineTheme dark'
+    Expect g:airline_theme == 'dark'
+  end
+end
+
