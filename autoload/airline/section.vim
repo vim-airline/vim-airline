@@ -19,7 +19,6 @@ function! s:get_val(key, append)
     return a:key
   endif
 
-
   if a:append > 0
     let val .= '%{airline#util#append('.func.')}'
   elseif a:append < 0

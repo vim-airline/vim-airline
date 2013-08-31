@@ -26,8 +26,9 @@ describe 'util'
   end
 
   it 'has getwinvar function'
-    Expect airline#util#getwinvar(1, '&statusline', 'foo') == getwinvar(1, '&statusline')
     Expect airline#util#getwinvar(1, 'asdf', '123') == '123'
+    call setwinvar(1, 'vspec', 'is cool')
+    Expect airline#util#getwinvar(1, 'vspec', '') == 'is cool'
   end
 
   it 'has exec funcrefs helper functions'
