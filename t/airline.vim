@@ -1,5 +1,6 @@
 call airline#init#bootstrap()
 call airline#init#sections()
+source plugin/airline.vim
 
 function! MyFuncref(...)
   call a:1.add_raw('hello world')
@@ -55,6 +56,27 @@ describe 'airline'
     call airline#add_statusline_func('MyIgnoreFuncref')
     call airline#remove_statusline_func('MyIgnoreFuncref')
     Expect len(g:airline_statusline_funcrefs) == c
+  end
+
+  it 'should overwrite the statusline with active and inactive splits'
+    wincmd s
+    Expect getwinvar(1, '&statusline') !~ 'inactive'
+    Expect getwinvar(2, '&statusline') =~ 'inactive'
+    wincmd c
+  end
+
+  it 'should collapse the inactive split if the variable is set true'
+    let g:airline_inactive_collapse = 1
+    wincmd s
+    Expect getwinvar(2, '&statusline') !~ 'airline#parts#mode'
+    wincmd c
+  end
+
+  it 'should not collapse the inactive split if the variable is set false'
+    let g:airline_inactive_collapse = 0
+    wincmd s
+    Expect getwinvar(2, '&statusline') != 'airline#parts#mode'
+    wincmd c
   end
 end
 
