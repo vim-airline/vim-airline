@@ -14,6 +14,8 @@ Lean &amp; mean statusline for vim that's light as air.
 *  supports 7.2 as the minimum Vim version
 *  predictable release cycle; the master branch is experimental and may break from time to time, if you prefer stability, use the most recent tag which usually is released once every 2 weeks.
 
+[![Build Status](https://travis-ci.org/bling/vim-airline.png)](https://travis-ci.org/bling/vim-airline)
+
 # Straightforward customization
 
 If you don't like the defaults, you can replace all sections with standard `statusline` syntax.  Give your statusline that you've built over the years a face lift.
