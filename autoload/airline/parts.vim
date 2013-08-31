@@ -3,6 +3,8 @@
 
 let s:parts = {}
 
+" PUBLIC API {{{
+
 function! airline#parts#define(key, config)
   let s:parts[a:key] = get(s:parts, a:key, {})
   call extend(s:parts[a:key], a:config)
@@ -30,9 +32,7 @@ function! airline#parts#get(key)
   return get(s:parts, a:key, {})
 endfunction
 
-function! airline#parts#mode()
-  return get(w:, 'airline_current_mode', '')
-endfunction
+" }}}
 
 function! airline#parts#paste()
   return g:airline_detect_paste && &paste ? g:airline_symbols.paste : ''
