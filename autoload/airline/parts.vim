@@ -38,6 +38,10 @@ endfunction
 
 " }}}
 
+function! airline#parts#mode()
+  return get(w:, 'airline_current_mode', '')
+endfunction
+
 function! airline#parts#paste()
   return g:airline_detect_paste && &paste ? g:airline_symbols.paste : ''
 endfunction
@@ -52,4 +56,16 @@ endfunction
 function! airline#parts#readonly()
   return &readonly ? g:airline_symbols.readonly : ''
 endfunction
+
+call airline#parts#define_function('mode', 'airline#parts#mode')
+call airline#parts#define_function('iminsert', 'airline#parts#iminsert')
+call airline#parts#define_function('paste', 'airline#parts#paste')
+call airline#parts#define('readonly', {
+      \ 'function': 'airline#parts#readonly',
+      \ 'highlight': 'airline_file',
+      \ })
+call airline#parts#define_raw('file', '%f%m')
+call airline#parts#define_raw('ffenc', '%{printf("%s%s",&fenc,strlen(&ff)>0?"[".&ff."]":"")}')
+
+call airline#parts#define_empty(['hunks', 'branch', 'tagbar', 'syntastic'])
 

@@ -1,6 +1,8 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
+call airline#init#vars()
+
 function! airline#util#wrap(text, minwidth)
   if a:minwidth > 0 && winwidth(0) < a:minwidth
     return ''

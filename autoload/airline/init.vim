@@ -7,7 +7,11 @@ function! s:check_defined(variable, default)
   endif
 endfunction
 
-function! airline#init#bootstrap()
+let s:init_vars = 0
+function airline#init#vars()
+  if s:init_vars | return | endif
+  let s:init_vars = 1
+
   call s:check_defined('g:airline_left_sep', get(g:, 'airline_powerline_fonts', 0)?"":">")
   call s:check_defined('g:airline_left_alt_sep', get(g:, 'airline_powerline_fonts', 0)?"":">")
   call s:check_defined('g:airline_right_sep', get(g:, 'airline_powerline_fonts', 0)?"":"<")
@@ -51,19 +55,10 @@ function! airline#init#bootstrap()
         \ 'linenr': get(g:, 'airline_linecolumn_prefix', get(g:, 'airline_powerline_fonts', 0) ? '' : ':' ),
         \ 'branch': get(g:, 'airline_branch_prefix', get(g:, 'airline_powerline_fonts', 0) ? '' : ''),
         \ }, 'keep')
+endfunction
 
-  call airline#parts#define_raw('mode', '%{get(w:, "airline_current_mode", "")}')
-  call airline#parts#define_function('iminsert', 'airline#parts#iminsert')
-  call airline#parts#define_function('paste', 'airline#parts#paste')
-  call airline#parts#define('readonly', {
-        \ 'function': 'airline#parts#readonly',
-        \ 'highlight': 'airline_file',
-        \ })
-  call airline#parts#define_raw('file', '%f%m')
-  call airline#parts#define_raw('ffenc', '%{printf("%s%s",&fenc,strlen(&ff)>0?"[".&ff."]":"")}')
-
-  call airline#parts#define_empty(['hunks', 'branch', 'tagbar', 'syntastic'])
-
+function! airline#init#bootstrap()
+  call airline#init#vars()
   call airline#extensions#load()
 
   if !exists('g:airline_section_a')
