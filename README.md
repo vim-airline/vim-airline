@@ -13,8 +13,7 @@ Lean &amp; mean statusline for vim that's light as air.
 *  Extensive suite of themes for popular colorschemes including [solarized][23] (dark and light), [tomorrow][24] (all variants), [base16][32] (all variants), [molokai][25], [jellybeans][26] and others; have a look at the [screenshots][14] in the wiki.
 *  Supports 7.2 as the minimum Vim version.
 *  Stable release cycle; bleeding edge changes happen on the `dev` branch, and after they have gone through a [full regression test][33] will eventually be merged in the stable master branch.  Releases typically occur every 2 weeks.
-
-[![Build Status](https://travis-ci.org/bling/vim-airline.png)](https://travis-ci.org/bling/vim-airline)
+*  Unit tests: [![Build Status](https://travis-ci.org/bling/vim-airline.png)](https://travis-ci.org/bling/vim-airline)
 
 ## Straightforward customization
 
