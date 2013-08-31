@@ -88,7 +88,7 @@ function! airline#init#bootstrap()
     let g:airline_section_z = airline#section#create_right(['%3p%% %{g:airline_symbols.linenr} %3l:%3c '])
   endif
   if !exists('g:airline_section_warning')
-    let g:airline_section_warning = airline#section#create_right(['syntastic', 'whitespace'])
+    let g:airline_section_warning = airline#section#create(['syntastic', 'whitespace'])
   endif
 endfunction
 
