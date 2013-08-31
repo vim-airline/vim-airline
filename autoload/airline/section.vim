@@ -2,7 +2,6 @@
 " vim: et ts=2 sts=2 sw=2
 
 function! s:get_val(key, append)
-  let val = ''
   let part = airline#parts#get(a:key)
   if exists('part.function')
     let func = (part.function).'()'
@@ -14,12 +13,13 @@ function! s:get_val(key, append)
     return a:key
   endif
 
+  let val = ''
   if a:append > 0
     let val .= '%{airline#util#append('.func.')}'
   elseif a:append < 0
-    return '%{airline#util#prepend('.func.')}'
+    let val .= '%{airline#util#prepend('.func.')}'
   else
-    return '%{'.func.'}'
+    let val .= '%{'.func.'}'
   endif
   return val
 endfunction
