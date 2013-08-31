@@ -1,9 +1,21 @@
-for key in ['a', 'b', 'c', 'gutter', 'x', 'y', 'z', 'warning']
-  unlet! g:airline_section_{key}
-endfor
-call airline#init#bootstrap()
+let s:sections = ['a', 'b', 'c', 'gutter', 'x', 'y', 'z', 'warning']
+
+function! s:clear()
+  for key in s:sections
+    unlet! g:airline_section_{key}
+  endfor
+endfunction
 
 describe 'init'
+  before
+    call s:clear()
+    call airline#init#bootstrap()
+  end
+
+  after
+    call s:clear()
+  end
+
   it 'section a should have mode, paste, iminsert'
     Expect g:airline_section_a =~ 'mode'
     Expect g:airline_section_a =~ 'paste'
@@ -32,6 +44,16 @@ describe 'init'
     Expect g:airline_section_z =~ '%3p%%'
     Expect g:airline_section_z =~ '%3l'
     Expect g:airline_section_z =~ '%3c'
+  end
+
+  it 'should not redefine sections already defined'
+    for s in s:sections
+      let g:airline_section_{s} = s
+    endfor
+    call airline#init#bootstrap()
+    for s in s:sections
+      Expect g:airline_section_{s} == s
+    endfor
   end
 end
 
