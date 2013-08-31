@@ -84,9 +84,12 @@ function! airline#update_statusline()
   call s:invoke_funcrefs(context, g:airline_statusline_funcrefs)
 endfunction
 
+let s:core_funcrefs = [
+      \ function('airline#extensions#apply'),
+      \ function('airline#extensions#default#apply') ]
 function! s:invoke_funcrefs(context, funcrefs)
   let builder = airline#builder#new(a:context)
-  let err = airline#util#exec_funcrefs(a:funcrefs + [function('airline#extensions#default#apply')], builder, a:context)
+  let err = airline#util#exec_funcrefs(a:funcrefs + s:core_funcrefs, builder, a:context)
   if err == 1
     call setwinvar(a:context.winnr, '&statusline', builder.build())
   endif

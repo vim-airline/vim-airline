@@ -51,7 +51,7 @@ function! airline#extensions#apply_left_override(section1, section2)
 endfunction
 
 let s:active_winnr = -1
-function! airline#extensions#update_statusline(...)
+function! airline#extensions#apply(...)
   if s:is_excluded_window()
     return -1
   endif
@@ -123,9 +123,6 @@ endfunction
 function! airline#extensions#load()
   " non-trivial number of external plugins use eventignore=all, so we need to account for that
   autocmd CursorMoved * call <sid>sync_active_winnr()
-
-  " load core funcrefs
-  call airline#add_statusline_func('airline#extensions#update_statusline')
 
   if get(g:, 'loaded_unite', 0)
     call airline#extensions#unite#init(s:ext)
