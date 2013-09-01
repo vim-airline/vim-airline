@@ -27,6 +27,12 @@ Sections are automatically hidden when the window size shrinks.
 
 ![image](https://f.cloud.github.com/assets/306502/1060831/05c08aac-11bc-11e3-8470-a506a3037f45.png)
 
+## Fine-tuned configuration
+
+Every section is composed of parts, and you can reorder and reconfigure them at will.
+
+![image](https://f.cloud.github.com/assets/306502/1064458/9a5632a8-1332-11e3-82e1-8208d8285455.png)
+
 ## Extensible pipeline
 
 Completely transform the statusline to your liking.  Build out the statusline as you see fit by extracting colors from the current colorscheme's highlight groups.
