@@ -54,6 +54,12 @@ function! airline#themes#get_highlight2(fg, bg, ...)
 endfunction
 
 function! airline#themes#patch(palette)
+  for mode in keys(a:palette)
+    if !has_key(a:palette[mode], 'airline_warning')
+      let a:palette[mode]['airline_warning'] = [ '#000000', '#df5f00', 232, 166 ]
+    endif
+  endfor
+
   " this is a pretty heavy handed, but it works...
   " basically, look for the 'airline_file' group and copy the bg
   " colors from 'airline_c' into it.
