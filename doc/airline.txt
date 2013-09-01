@@ -286,17 +286,50 @@ ctrlp <https://github.com/kien/ctrlp.vim>
   let g:airline#extensions#ctrlp#color_template = 'replace'
 <
                                                         *airline-virtualenv*
-
 virtualenv <https://github.com/jmcantrell/vim-virtualenv>
 
 * enable/disable virtualenv integration >
   let g:airline#extensions#virtualenv#enabled = 1
 
 ==============================================================================
+ADVANCED CUSTOMIZATION                      *airline-advanced-customization*
+
+The defaults will accomodate the mass majority of users with minimal
+configuration. However, if you want to reposition sections or contents you can
+do so. All sections are composed of parts. Each part is composed of metadata
+that is eventually used to render its content. For example, here is how you
+define a part that invokes a function: >
+  call airline#parts#define_function('foo', 'GetFooText')
+<
+Note: Look at the source code and tests for the full API.
+
+Once a part is defined, you can use helper functions to generate the
+statuslines for each section. For example, to use the part above, we could
+define a section like this: >
+  autocmd VimEnter *
+    \ let g:airline_section_a = airline#section#create(['mode', ' ', 'foo'])
+<
+This will create a section with the `mode`, followed by a space, and our `foo`
+component. There are other functions that take care of putting in separators
+in the right place for the left and right side. Have a look at the code/tests
+for all available options.
+
+Note: The use of `VimEnter` is important, because most extensions are lazily
+loaded, so we must give them a chance to define their parts before we can use
+them.
+
+==============================================================================
 FUNCREFS                                                  *airline-funcrefs*
 
 vim-airline internally uses funcrefs to integrate with third party plugins,
-and you can tap into this functionality to extend it for you needs.
+and you can tap into this functionality to extend it for you needs. This is
+the most powerful way to customize the statusline, and sometimes it may be
+easier to go this route than the above methods.
+
+Every section can have two values. The default value is the global `g:`
+variable which is used in the absense of a `w:` value. This makes it very easy
+to override only certain parts of the statusline by only defining window-local
+variables for a subset of all sections.
 
                                                        *add_statusline_func*
 The following is an example of how you can extend vim-airline to support a
@@ -364,13 +397,6 @@ funcref from executing.
 
 ==============================================================================
 WRITING EXTENSIONS                              *airline-writing-extensions*
-
-The basic idea is that the statusline is rendered with a series of overrides.
-For each section that the algorithm encounters, it will first check to see if
-there is a window-local variable of the section.  If it exists, the value will
-be used, otherwise, the global variable of the section will be used.  This
-means it is possible to override only one or two sections of the statusline.
-See |add_statusline_func| for an example of a simple extension.
 
 For contributions into the plugin, here are the following guidelines:
 
