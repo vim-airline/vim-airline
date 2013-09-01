@@ -3,6 +3,19 @@
 
 function! airline#extensions#tabline#init(ext)
   set tabline=%!airline#extensions#tabline#get()
+
+  call a:ext.add_theme_func('airline#extensions#tabline#load_theme')
+endfunction
+
+function! airline#extensions#tabline#load_theme(palette)
+  let fill = a:palette.normal.airline_c
+  let normal = a:palette.normal.airline_b
+  let selected = a:palette.normal.airline_a
+  let type = a:palette.visual.airline_a
+  call airline#highlighter#exec('airline_tabline', normal)
+  call airline#highlighter#exec('airline_tablinesel', selected)
+  call airline#highlighter#exec('airline_tablinetype', type)
+  call airline#highlighter#exec('airline_tablinefill', fill)
 endfunction
 
 function! airline#extensions#tabline#get()
@@ -14,29 +27,29 @@ function! airline#extensions#tabline#get()
     for nr in range(1, bufnr('$'))
       if buflisted(nr) && bufexists(nr)
         if cur == nr
-          call b.add_section('TabLineSel', '%( %{fnamemodify(bufname('.nr.'), ":t")} %)')
+          call b.add_section('airline_tablinesel', '%( %{fnamemodify(bufname('.nr.'), ":t")} %)')
         else
-          call b.add_section('TabLine', '%( %{fnamemodify(bufname('.nr.'), ":t")} %)')
+          call b.add_section('airline_tabline', '%( %{fnamemodify(bufname('.nr.'), ":t")} %)')
         endif
       endif
     endfor
-    call b.add_section('TabLineFill', '')
+    call b.add_section('airline_tablinefill', '')
     call b.split()
-    call b.add_section('TabLineSel', ' buffers ')
+    call b.add_section('airline_tablinetype', ' buffers ')
   else
     let s = ''
     for i in range(tabpagenr('$'))
       if i + 1 == tabpagenr()
-        call b.add_section('TabLineSel', '%( %'.(i+1).'T %{airline#extensions#tabline#title('.(i+1).')} %)')
+        call b.add_section('airline_tablinesel', '%( %'.(i+1).'T %{airline#extensions#tabline#title('.(i+1).')} %)')
       else
-        call b.add_section('TabLine', '%( %'.(i+1).'T %{airline#extensions#tabline#title('.(i+1).')} %)')
+        call b.add_section('airline_tabline', '%( %'.(i+1).'T %{airline#extensions#tabline#title('.(i+1).')} %)')
       endif
     endfor
     call b.add_raw('%T')
-    call b.add_section('TabLineFill', '')
+    call b.add_section('airline_tablinefill', '')
     call b.split()
-    call b.add_section('TabLine', ' %999XX ')
-    call b.add_section('TabLineSel', ' tabs ')
+    call b.add_section('airline_tabline', ' %999XX ')
+    call b.add_section('airline_tablinetype', ' tabs ')
   endif
   return b.build()
 endfunction

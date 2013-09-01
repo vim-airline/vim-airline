@@ -2,6 +2,8 @@
 " vim: et ts=2 sts=2 sw=2
 
 let s:ext = {}
+let s:ext._theme_funcrefs = []
+
 function! s:ext.add_statusline_func(name) dict
   call airline#add_statusline_func(a:name)
 endfunction
@@ -10,6 +12,9 @@ function! s:ext.add_statusline_funcref(function) dict
 endfunction
 function! s:ext.add_inactive_statusline_func(name) dict
   call airline#add_inactive_statusline_func(a:name)
+endfunction
+function! s:ext.add_theme_func(name) dict
+  call add(self._theme_funcrefs, function(a:name))
 endfunction
 
 let s:script_path = resolve(expand('<sfile>:p:h'))
@@ -109,9 +114,7 @@ function! s:is_excluded_window()
 endfunction
 
 function! airline#extensions#load_theme()
-  if get(g:, 'loaded_ctrlp', 0)
-    call airline#extensions#ctrlp#load_theme()
-  endif
+  call airline#util#exec_funcrefs(s:ext._theme_funcrefs, g:airline#themes#{g:airline_theme}#palette)
 endfunction
 
 function! s:sync_active_winnr()
