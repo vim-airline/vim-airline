@@ -34,7 +34,7 @@ describe 'section'
     Expect s == '%#hlgroup#hello'
   end
 
-  it 'should parse out a section from the vimrc'
+  it 'should parse out a section from the distro'
     let s = airline#section#create(['whitespace'])
     Expect s =~ 'airline#extensions#whitespace#check'
   end
@@ -42,6 +42,17 @@ describe 'section'
   it 'should use parts as is if they are not found'
     let s = airline#section#create(['asdf', 'func'])
     Expect s == 'asdf%{airline#util#wrap(SectionSpec(),0)}'
+  end
+
+  it 'should force add separators for raw and missing keys'
+    let s = airline#section#create_left(['asdf', 'raw'])
+    Expect s == 'asdf > raw'
+    let s = airline#section#create_left(['asdf', 'aaaa', 'raw'])
+    Expect s == 'asdf > aaaa > raw'
+    let s = airline#section#create_right(['raw', '%f'])
+    Expect s == 'raw < %f'
+    let s = airline#section#create_right(['%t', 'asdf', '%{getcwd()}'])
+    Expect s == '%t < asdf < %{getcwd()}'
   end
 end
 

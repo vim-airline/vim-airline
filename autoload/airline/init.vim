@@ -58,6 +58,7 @@ function! airline#init#bootstrap()
   call airline#parts#define_function('mode', 'airline#parts#mode')
   call airline#parts#define_function('iminsert', 'airline#parts#iminsert')
   call airline#parts#define_function('paste', 'airline#parts#paste')
+  call airline#parts#define_function('filetype', 'airline#parts#filetype')
   call airline#parts#define('readonly', {
         \ 'function': 'airline#parts#readonly',
         \ 'highlight': 'airline_file',
@@ -83,7 +84,7 @@ function! airline#init#sections()
     let g:airline_section_gutter = airline#section#create([' ', 'readonly', '%='])
   endif
   if !exists('g:airline_section_x')
-    let g:airline_section_x = airline#section#create_right(['tagbar', '%{&filetype}'])
+    let g:airline_section_x = airline#section#create_right(['tagbar', 'filetype'])
   endif
   if !exists('g:airline_section_y')
     let g:airline_section_y = airline#section#create_right(['ffenc'])

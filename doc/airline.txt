@@ -319,6 +319,12 @@ Note: The use of `VimEnter` is important, because most extensions are lazily
 loaded, so we must give them a chance to define their parts before we can use
 them.
 
+Note: The `airline#section#create` function and friends will do its best to
+create a section with the appropriate separators, but it only works for
+function and text parts. Special |statusline| items like %f or raw parts will
+not work as it is not possible to inspect their widths/contents before
+rendering to the statusline.
+
 ==============================================================================
 FUNCREFS                                                  *airline-funcrefs*
 
