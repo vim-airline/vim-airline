@@ -15,6 +15,7 @@ function! s:init()
     let s:airline_initialized = 1
 
     call airline#init#bootstrap()
+    call airline#extensions#load()
     call airline#init#sections()
 
     let s:airline_theme_defined = exists('g:airline_theme')

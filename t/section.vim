@@ -1,4 +1,5 @@
 call airline#init#bootstrap()
+call airline#extensions#load()
 
 function! SectionSpec()
 endfunction
