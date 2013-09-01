@@ -297,13 +297,28 @@ ADVANCED CUSTOMIZATION                      *airline-advanced-customization*
 
 The defaults will accomodate the mass majority of users with minimal
 configuration. However, if you want to reposition sections or contents you can
-do so. All sections are composed of parts. Each part is composed of metadata
-that is eventually used to render its content. For example, here is how you
-define a part that invokes a function: >
+do so with built-in helper functions, which makes it possible to create
+sections in a more declarative style.
+
+-------------------------------------                        *airline-parts*
+A part is something that contains metadata that eventually gets rendered into
+the statusline. You can define parts that contain constant strings or
+functions. Defining parts is needed if you want to use features like automatic
+insertion of separators or hiding based on window width.
+
+For example, this is how you would define a part function: >
   call airline#parts#define_function('foo', 'GetFooText')
 <
+Here is how you would define a part that is visible only if the window width
+greater than a minimum width. >
+  call airline#parts#define_minwidth('foo', 50)
+<
+Note: Part definitions are combinative; e.g. the two examples above modify the
+same `foo` part.
+
 Note: Look at the source code and tests for the full API.
 
+-------------------------------------                     *airline-sections*
 Once a part is defined, you can use helper functions to generate the
 statuslines for each section. For example, to use the part above, we could
 define a section like this: >
