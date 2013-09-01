@@ -55,6 +55,17 @@ function! airline#init#bootstrap()
         \ 'branch': get(g:, 'airline_branch_prefix', get(g:, 'airline_powerline_fonts', 0) ? '' : ''),
         \ }, 'keep')
 
+  call airline#parts#define_function('mode', 'airline#parts#mode')
+  call airline#parts#define_function('iminsert', 'airline#parts#iminsert')
+  call airline#parts#define_function('paste', 'airline#parts#paste')
+  call airline#parts#define('readonly', {
+        \ 'function': 'airline#parts#readonly',
+        \ 'highlight': 'airline_file',
+        \ })
+  call airline#parts#define_raw('file', '%f%m')
+  call airline#parts#define_raw('ffenc', '%{printf("%s%s",&fenc,strlen(&ff)>0?"[".&ff."]":"")}')
+  call airline#parts#define_empty(['hunks', 'branch', 'tagbar', 'syntastic'])
+
   call airline#extensions#load()
 endfunction
 

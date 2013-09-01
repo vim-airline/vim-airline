@@ -8,10 +8,6 @@ describe 'section'
     call airline#parts#define_text('text', 'text')
     call airline#parts#define_raw('raw', 'raw')
     call airline#parts#define_function('func', 'SectionSpec')
-    call airline#parts#define('hi', {
-          \ 'raw': 'hello',
-          \ 'highlight': 'hlgroup',
-          \ })
   end
 
   it 'should create sections with no separators'
@@ -30,6 +26,10 @@ describe 'section'
   end
 
   it 'should prefix with highlight group if provided'
+    call airline#parts#define('hi', {
+          \ 'raw': 'hello',
+          \ 'highlight': 'hlgroup',
+          \ })
     let s = airline#section#create(['hi'])
     Expect s == '%#hlgroup#hello'
   end
@@ -37,6 +37,11 @@ describe 'section'
   it 'should parse out a section from the vimrc'
     let s = airline#section#create(['whitespace'])
     Expect s =~ 'airline#extensions#whitespace#check'
+  end
+
+  it 'should use parts as is if they are not found'
+    let s = airline#section#create(['asdf', 'func'])
+    Expect s == 'asdf%{airline#util#wrap(SectionSpec(),0)}'
   end
 end
 
