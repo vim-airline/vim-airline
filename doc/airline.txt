@@ -307,13 +307,15 @@ Note: Look at the source code and tests for the full API.
 Once a part is defined, you can use helper functions to generate the
 statuslines for each section. For example, to use the part above, we could
 define a section like this: >
-  autocmd VimEnter *
-    \ let g:airline_section_a = airline#section#create(['mode', ' ', 'foo'])
+  function! AirlineInit()
+    let g:airline_section_a = airline#section#create(['mode', ' ', 'foo'])
+    let g:airline_section_b = airline#section#create_left(['ffenc','file'])
+  endfunction
+  autocmd VimEnter * call AirlineInit()
 <
 This will create a section with the `mode`, followed by a space, and our `foo`
-component. There are other functions that take care of putting in separators
-in the right place for the left and right side. Have a look at the code/tests
-for all available options.
+part in section `a`. Section `b` will have two parts with a left-side
+separator. Have a look at the code/tests for all available options.
 
 Note: The use of `VimEnter` is important, because most extensions are lazily
 loaded, so we must give them a chance to define their parts before we can use
