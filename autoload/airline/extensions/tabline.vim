@@ -1,6 +1,8 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
+let s:fmod = get(g:, 'airline#extensions#tabline#fnamemod', ':p:.')
+
 function! airline#extensions#tabline#init(ext)
   set tabline=%!airline#extensions#tabline#get()
 
@@ -27,9 +29,9 @@ function! airline#extensions#tabline#get()
     for nr in range(1, bufnr('$'))
       if buflisted(nr) && bufexists(nr)
         if cur == nr
-          call b.add_section('airline_tablinesel', '%( %{fnamemodify(bufname('.nr.'), ":t")} %)')
+          call b.add_section('airline_tablinesel', '%( %{fnamemodify(bufname('.nr.'),"'.s:fmod.'")} %)')
         else
-          call b.add_section('airline_tabline', '%( %{fnamemodify(bufname('.nr.'), ":t")} %)')
+          call b.add_section('airline_tabline', '%( %{fnamemodify(bufname('.nr.'),"'.s:fmod.'")} %)')
         endif
       endif
     endfor
@@ -57,6 +59,6 @@ endfunction
 function! airline#extensions#tabline#title(n)
   let buflist = tabpagebuflist(a:n)
   let winnr = tabpagewinnr(a:n)
-  return fnamemodify(bufname(buflist[winnr - 1]), ':p:.')
+  return fnamemodify(bufname(buflist[winnr - 1]), s:fmod)
 endfunction
 
