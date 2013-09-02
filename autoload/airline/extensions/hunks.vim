@@ -32,6 +32,9 @@ function! s:init()
 endfunction
 
 function! airline#extensions#hunks#get_hunks()
+  if !get(w:, 'airline_active', 0)
+    return ''
+  endif
   call <sid>init()
   let hunks = s:get_hunks()
   let string = ''
