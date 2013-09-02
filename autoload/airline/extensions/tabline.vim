@@ -2,6 +2,7 @@
 " vim: et ts=2 sts=2 sw=2
 
 let s:fmod = get(g:, 'airline#extensions#tabline#fnamemod', ':p:.')
+let s:excludes = get(g:, 'airline#extensions#tabline#excludes', [])
 
 function! airline#extensions#tabline#init(ext)
   set tabline=%!airline#extensions#tabline#get()
@@ -21,39 +22,11 @@ function! airline#extensions#tabline#load_theme(palette)
 endfunction
 
 function! airline#extensions#tabline#get()
-  let b = airline#builder#new({'active': 1})
-  let b._line = ''
-
   if tabpagenr('$') == 1
-    let cur = bufnr('%')
-    for nr in range(1, bufnr('$'))
-      if buflisted(nr) && bufexists(nr)
-        if cur == nr
-          call b.add_section('airline_tablinesel', '%( %{airline#extensions#tabline#get_buffer_name('.nr.')} %)')
-        else
-          call b.add_section('airline_tabline', '%( %{airline#extensions#tabline#get_buffer_name('.nr.')} %)')
-        endif
-      endif
-    endfor
-    call b.add_section('airline_tablinefill', '')
-    call b.split()
-    call b.add_section('airline_tablinetype', ' buffers ')
+    return s:get_buffers()
   else
-    let s = ''
-    for i in range(tabpagenr('$'))
-      if i + 1 == tabpagenr()
-        call b.add_section('airline_tablinesel', '%( %'.(i+1).'T %{airline#extensions#tabline#title('.(i+1).')} %)')
-      else
-        call b.add_section('airline_tabline', '%( %'.(i+1).'T %{airline#extensions#tabline#title('.(i+1).')} %)')
-      endif
-    endfor
-    call b.add_raw('%T')
-    call b.add_section('airline_tablinefill', '')
-    call b.split()
-    call b.add_section('airline_tabline', ' %999XX ')
-    call b.add_section('airline_tablinetype', ' tabs ')
+    return s:get_tabs()
   endif
-  return b.build()
 endfunction
 
 function! airline#extensions#tabline#title(n)
@@ -68,5 +41,39 @@ function! airline#extensions#tabline#get_buffer_name(nr)
     return '[No Name]'
   endif
   return fnamemodify(name, s:fmod)
+endfunction
+
+function! s:get_buffers()
+  let b = airline#builder#new({'active': 1})
+  let cur = bufnr('%')
+  for nr in range(1, bufnr('$'))
+    if buflisted(nr) && bufexists(nr)
+      for ex in s:excludes
+        if match(bufname(nr), ex)
+          continue
+        endif
+      endfor
+      let group = cur == nr ? 'airline_tablinesel' : 'airline_tabline'
+      call b.add_section(group, '%( %{airline#extensions#tabline#get_buffer_name('.nr.')} %)')
+    endif
+  endfor
+  call b.add_section('airline_tablinefill', '')
+  call b.split()
+  call b.add_section('airline_tablinetype', ' buffers ')
+  return b.build()
+endfunction
+
+function! s:get_tabs()
+  let b = airline#builder#new({'active': 1})
+  for i in range(1, tabpagenr('$'))
+    let group = i == tabpagenr() ? 'airline_tablinesel' : 'airline_tabline'
+    call b.add_section(group, ' %{len(tabpagebuflist(tabpagenr()))}%( %'.i.'T %{airline#extensions#tabline#title('.i.')} %)')
+  endfor
+  call b.add_raw('%T')
+  call b.add_section('airline_tablinefill', '')
+  call b.split()
+  call b.add_section('airline_tabline', ' %999XX ')
+  call b.add_section('airline_tablinetype', ' tabs ')
+  return b.build()
 endfunction
 
