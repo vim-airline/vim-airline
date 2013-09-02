@@ -43,7 +43,6 @@ function! airline#switch_theme(name)
   let w:airline_lastmode = ''
   call airline#update_statusline()
   call airline#load_theme()
-  call airline#check_mode()
 endfunction
 
 function! airline#switch_matching_theme()
@@ -82,6 +81,7 @@ function! airline#update_statusline()
   call s:invoke_funcrefs(context, g:airline_statusline_funcrefs)
 endfunction
 
+let s:contexts = {}
 let s:core_funcrefs = [
       \ function('airline#extensions#apply'),
       \ function('airline#extensions#default#apply') ]
@@ -89,11 +89,13 @@ function! s:invoke_funcrefs(context, funcrefs)
   let builder = airline#builder#new(a:context)
   let err = airline#util#exec_funcrefs(a:funcrefs + s:core_funcrefs, builder, a:context)
   if err == 1
-    call setwinvar(a:context.winnr, '&statusline', builder.build())
+    let a:context.line = builder.build()
+    let s:contexts[a:context.winnr] = a:context
+    call setwinvar(a:context.winnr, '&statusline', '%!airline#statusline('.a:context.winnr.')')
   endif
 endfunction
 
-function! airline#check_mode()
+function! airline#statusline(winnr)
   if get(w:, 'airline_active', 1)
     let l:m = mode()
     if l:m ==# "i"
@@ -123,6 +125,7 @@ function! airline#check_mode()
     call airline#highlighter#highlight(l:mode)
     let w:airline_lastmode = mode_string
   endif
-  return ''
+
+  return s:contexts[a:winnr].line
 endfunction
 

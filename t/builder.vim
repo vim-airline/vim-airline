@@ -5,9 +5,9 @@ describe 'active builder'
     let s:builder = airline#builder#new({'active': 1})
   end
 
-  it 'should have a call to check mode'
+  it 'should start with an empty statusline'
     let stl = s:builder.build()
-    Expect stl =~ '%{airline#check_mode()}'
+    Expect stl == ''
   end
 
   it 'should transition colors from one to the next'

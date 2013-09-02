@@ -23,8 +23,8 @@ describe 'default'
 
   it 'should only render warning section in active splits'
     wincmd s
-    Expect getwinvar(1, '&statusline') =~ 'whitespace'
-    Expect getwinvar(2, '&statusline') !~ 'whitespace'
+    Expect airline#statusline(1) =~ 'whitespace'
+    Expect airline#statusline(2) !~ 'whitespace'
     wincmd c
   end
 end
