@@ -29,9 +29,9 @@ function! airline#extensions#tabline#get()
     for nr in range(1, bufnr('$'))
       if buflisted(nr) && bufexists(nr)
         if cur == nr
-          call b.add_section('airline_tablinesel', '%( %{fnamemodify(bufname('.nr.'),"'.s:fmod.'")} %)')
+          call b.add_section('airline_tablinesel', '%( %{airline#extensions#tabline#get_buffer_name('.nr.')} %)')
         else
-          call b.add_section('airline_tabline', '%( %{fnamemodify(bufname('.nr.'),"'.s:fmod.'")} %)')
+          call b.add_section('airline_tabline', '%( %{airline#extensions#tabline#get_buffer_name('.nr.')} %)')
         endif
       endif
     endfor
@@ -59,6 +59,14 @@ endfunction
 function! airline#extensions#tabline#title(n)
   let buflist = tabpagebuflist(a:n)
   let winnr = tabpagewinnr(a:n)
-  return fnamemodify(bufname(buflist[winnr - 1]), s:fmod)
+  return airline#extensions#tabline#get_buffer_name(buflist[winnr - 1])
+endfunction
+
+function! airline#extensions#tabline#get_buffer_name(nr)
+  let name = bufname(a:nr)
+  if empty(name)
+    return '[No Name]'
+  endif
+  return fnamemodify(name, s:fmod)
 endfunction
 
