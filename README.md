@@ -35,6 +35,8 @@ Automatically displays all buffers when there's only one tab open.  This is disa
 
 ![tabline](https://f.cloud.github.com/assets/306502/1072623/44c292a0-1495-11e3-9ce6-dcada3f1c536.gif)
 
+Note: This extension only works in terminal vim at the moment.
+
 ## Seamless integration
 
 vim-airline integrates with a variety of plugins out of the box.  These extensions will be lazily loaded if and only if you have the other plugins installed (and of course you can turn them off).
