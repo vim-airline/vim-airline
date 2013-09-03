@@ -5,6 +5,9 @@ let s:fmod = get(g:, 'airline#extensions#tabline#fnamemod', ':p:.')
 let s:excludes = get(g:, 'airline#extensions#tabline#excludes', [])
 
 function! airline#extensions#tabline#init(ext)
+  if has('gui_running')
+    set guioptions-=e
+  endif
   set showtabline=2
   set tabline=%!airline#extensions#tabline#get()
 
