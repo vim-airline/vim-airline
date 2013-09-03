@@ -11,14 +11,11 @@ function! airline#extensions#tabline#init(ext)
 endfunction
 
 function! airline#extensions#tabline#load_theme(palette)
-  let fill = a:palette.normal.airline_c
-  let normal = a:palette.normal.airline_b
-  let selected = a:palette.normal.airline_a
-  let type = a:palette.visual.airline_a
-  call airline#highlighter#exec('airline_tabline', normal)
-  call airline#highlighter#exec('airline_tablinesel', selected)
-  call airline#highlighter#exec('airline_tablinetype', type)
-  call airline#highlighter#exec('airline_tablinefill', fill)
+  call airline#highlighter#exec('airline_tab', a:palette.normal.airline_b)
+  call airline#highlighter#exec('airline_tabsel', a:palette.normal.airline_a)
+  call airline#highlighter#exec('airline_tabtype', a:palette.visual.airline_a)
+  call airline#highlighter#exec('airline_tabfill', a:palette.normal.airline_c)
+  call airline#highlighter#exec('airline_tabmod', a:palette.insert.airline_a)
 endfunction
 
 function! airline#extensions#tabline#get()
@@ -53,27 +50,35 @@ function! s:get_buffers()
           continue
         endif
       endfor
-      let group = cur == nr ? 'airline_tablinesel' : 'airline_tabline'
+      if cur == nr
+        if g:airline_detect_modified && getbufvar(nr, '&modified')
+          let group = 'airline_tabmod'
+        else
+          let group = 'airline_tabsel'
+        endif
+      else
+        let group = 'airline_tab'
+      endif
       call b.add_section(group, '%( %{airline#extensions#tabline#get_buffer_name('.nr.')} %)')
     endif
   endfor
-  call b.add_section('airline_tablinefill', '')
+  call b.add_section('airline_tabfill', '')
   call b.split()
-  call b.add_section('airline_tablinetype', ' buffers ')
+  call b.add_section('airline_tabtype', ' buffers ')
   return b.build()
 endfunction
 
 function! s:get_tabs()
   let b = airline#builder#new({'active': 1})
   for i in range(1, tabpagenr('$'))
-    let group = i == tabpagenr() ? 'airline_tablinesel' : 'airline_tabline'
+    let group = i == tabpagenr() ? 'airline_tabsel' : 'airline_tab'
     call b.add_section(group, ' %{len(tabpagebuflist(tabpagenr()))}%( %'.i.'T %{airline#extensions#tabline#title('.i.')} %)')
   endfor
   call b.add_raw('%T')
-  call b.add_section('airline_tablinefill', '')
+  call b.add_section('airline_tabfill', '')
   call b.split()
-  call b.add_section('airline_tabline', ' %999XX ')
-  call b.add_section('airline_tablinetype', ' tabs ')
+  call b.add_section('airline_tab', ' %999XX ')
+  call b.add_section('airline_tabtype', ' tabs ')
   return b.build()
 endfunction
 
