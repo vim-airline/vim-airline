@@ -25,5 +25,13 @@ describe 'themes'
     Expect colors[2] == '222'
     Expect colors[3] == '103'
   end
+
+  it 'should pass args through correctly'
+    let hl = airline#themes#get_highlight('Foo', 'bold', 'italic')
+    Expect hl == ['', '', 0, 1, 'bold,italic']
+
+    let hl = airline#themes#get_highlight2(['Foo','bg'], ['Foo','fg'], 'italic', 'bold')
+    Expect hl == ['', '', 1, 0, 'italic,bold']
+  end
 end
 

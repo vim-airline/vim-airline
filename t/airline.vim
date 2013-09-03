@@ -1,3 +1,4 @@
+let g:airline_theme = 'dark'
 call airline#init#bootstrap()
 call airline#init#sections()
 source plugin/airline.vim
@@ -28,7 +29,7 @@ describe 'airline'
     call airline#add_statusline_func('MyFuncref')
     let &statusline = ''
     call airline#update_statusline()
-    Expect &statusline =~ 'hello world'
+    Expect airline#statusline(1) =~ 'hello world'
   end
 
   it 'should not change the statusline with -1'
@@ -42,13 +43,13 @@ describe 'airline'
     call airline#add_statusline_func('MyAppend1')
     call airline#add_statusline_func('MyAppend2')
     call airline#update_statusline()
-    Expect &statusline =~ 'helloworld'
+    Expect airline#statusline(1) =~ 'helloworld'
   end
 
   it 'should allow users to redefine sections'
     let g:airline_section_a = airline#section#create(['mode', 'mode'])
     call airline#update_statusline()
-    Expect &statusline =~ '%{airline#util#wrap(airline#parts#mode(),0)}%{airline#util#wrap(airline#parts#mode(),0)}'
+    Expect airline#statusline(1) =~ '%{airline#util#wrap(airline#parts#mode(),0)}%{airline#util#wrap(airline#parts#mode(),0)}'
   end
 
   it 'should remove funcrefs properly'
@@ -60,8 +61,8 @@ describe 'airline'
 
   it 'should overwrite the statusline with active and inactive splits'
     wincmd s
-    Expect getwinvar(1, '&statusline') !~ 'inactive'
-    Expect getwinvar(2, '&statusline') =~ 'inactive'
+    Expect airline#statusline(1) !~ 'inactive'
+    Expect airline#statusline(2) =~ 'inactive'
     wincmd c
   end
 

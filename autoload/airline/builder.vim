@@ -39,7 +39,7 @@ function! airline#builder#new(context)
   let builder._context = a:context
   let builder._side = 1
   let builder._curgroup = ''
-  let builder._line = '%{airline#check_mode()}'
+  let builder._line = ''
   return builder
 endfunction
 

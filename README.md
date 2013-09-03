@@ -1,4 +1,4 @@
-# vim-airline
+# vim-airline [![Build Status](https://travis-ci.org/bling/vim-airline.png)](https://travis-ci.org/bling/vim-airline)
 
 Lean &amp; mean statusline for vim that's light as air.
 
@@ -13,7 +13,7 @@ Lean &amp; mean statusline for vim that's light as air.
 *  Extensive suite of themes for popular colorschemes including [solarized][23] (dark and light), [tomorrow][24] (all variants), [base16][32] (all variants), [molokai][25], [jellybeans][26] and others; have a look at the [screenshots][14] in the wiki.
 *  Supports 7.2 as the minimum Vim version.
 *  Stable release cycle; bleeding edge changes happen on the `dev` branch, and after they have gone through a [full regression test][33] will eventually be merged in the stable master branch.  Releases typically occur every 2 weeks.
-*  Unit tests: [![Build Status](https://travis-ci.org/bling/vim-airline.png)](https://travis-ci.org/bling/vim-airline)
+*  Unit testing suite.
 
 ## Straightforward customization
 
@@ -27,17 +27,13 @@ Sections are automatically hidden when the window size shrinks.
 
 ![image](https://f.cloud.github.com/assets/306502/1060831/05c08aac-11bc-11e3-8470-a506a3037f45.png)
 
-## Fine-tuned configuration
+## Smarter tab line
 
-Every section is composed of parts, and you can reorder and reconfigure them at will.
+Automatically displays all buffers when there's only one tab open.  This is disabled by default; add the following to your vimrc to enable the extension:
 
-![image](https://f.cloud.github.com/assets/306502/1064458/9a5632a8-1332-11e3-82e1-8208d8285455.png)
+    let g:airline#extensions#tabline#enabled = 1
 
-## Extensible pipeline
-
-Completely transform the statusline to your liking.  Build out the statusline as you see fit by extracting colors from the current colorscheme's highlight groups.
-
-![allyourbase](https://f.cloud.github.com/assets/306502/1022714/e150034a-0da7-11e3-94a5-ca9d58a297e8.png)
+![tabline](https://f.cloud.github.com/assets/306502/1072623/44c292a0-1495-11e3-9ce6-dcada3f1c536.gif)
 
 ## Seamless integration
 
@@ -66,10 +62,24 @@ vim-airline integrates with a variety of plugins out of the box.  These extensio
 
 ## Extras
 
-vim-airline also supplies some supplementary stand-alone extensions.
+vim-airline also supplies some supplementary stand-alone extensions.  In addition to the tabline extension mentioned earlier, there is also:
 
 #### whitespace
 ![image](https://f.cloud.github.com/assets/306502/962401/2a75385e-04ef-11e3-935c-e3b9f0e954cc.png)
+
+## Configurable and extensible
+
+#### Fine-tuned configuration
+
+Every section is composed of parts, and you can reorder and reconfigure them at will.
+
+![image](https://f.cloud.github.com/assets/306502/1073278/f291dd4c-14a3-11e3-8a83-268e2753f97d.png)
+
+#### Extensible pipeline
+
+Completely transform the statusline to your liking.  Build out the statusline as you see fit by extracting colors from the current colorscheme's highlight groups.
+
+![allyourbase](https://f.cloud.github.com/assets/306502/1022714/e150034a-0da7-11e3-94a5-ca9d58a297e8.png)
 
 # Rationale
 
