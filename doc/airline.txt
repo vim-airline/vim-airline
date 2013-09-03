@@ -250,7 +250,7 @@ csv.vim <https://github.com/chrisbra/csv.vim>
 vim-gitgutter <https://github.com/airblade/vim-gitgutter>
 vim-signify <https://github.com/mhinz/vim-signify>
 
-* enable/disable showing a summary of changed hunks under source control.
+* enable/disable showing a summary of changed hunks under source control. >
   let g:airline#extensions#hunks#enabled = 1
 <
 * enable/disable showing only non-zero hunks. >
@@ -258,6 +258,22 @@ vim-signify <https://github.com/mhinz/vim-signify>
 <
 * set hunk count symbols. >
   let g:airline#extensions#hunks#hunk_symbols = ['+', '~', '-']
+<
+-------------------------------------                        *airline-ctrlp*
+ctrlp <https://github.com/kien/ctrlp.vim>
+
+* configure which mode colors should ctrlp window use (takes effect
+  only if the active airline theme doesn't define ctrlp colors) >
+  let g:airline#extensions#ctrlp#color_template = 'insert' (default)
+  let g:airline#extensions#ctrlp#color_template = 'normal'
+  let g:airline#extensions#ctrlp#color_template = 'visual'
+  let g:airline#extensions#ctrlp#color_template = 'replace'
+<
+-------------------------------------                   *airline-virtualenv*
+virtualenv <https://github.com/jmcantrell/vim-virtualenv>
+
+* enable/disable virtualenv integration >
+  let g:airline#extensions#virtualenv#enabled = 1
 <
 -------------------------------------                   *airline-whitespace*
 * enable/disable detection of whitespace errors. >
@@ -276,21 +292,17 @@ vim-signify <https://github.com/mhinz/vim-signify>
   let g:airline#extensions#whitespace#trailing_format = 'trailing[%s]'
   let g:airline#extensions#whitespace#mixed_indent_format = 'mixed-indent[%s]'
 <
--------------------------------------                        *airline-ctrlp*
-ctrlp <https://github.com/kien/ctrlp.vim>
-
-* configure which mode colors should ctrlp window use (takes effect
-  only if the active airline theme doesn't define ctrlp colors) >
-  let g:airline#extensions#ctrlp#color_template = 'insert' (default)
-  let g:airline#extensions#ctrlp#color_template = 'normal'
-  let g:airline#extensions#ctrlp#color_template = 'visual'
-  let g:airline#extensions#ctrlp#color_template = 'replace'
+-------------------------------------                      *airline-tabline*
+* enable/disable enhanced tabline. >
+  let g:airline#extensions#tabline#enabled = 0
 <
--------------------------------------                   *airline-virtualenv*
-virtualenv <https://github.com/jmcantrell/vim-virtualenv>
-
-* enable/disable virtualenv integration >
-  let g:airline#extensions#virtualenv#enabled = 1
+* configure the formatting of filenames (see |filename-modifiers|). >
+  let g:airline#extensions#tabline#fnamemod = ':p:.'
+<
+* configure filename match rules to exclude from the tabline. >
+  let g:airline#extensions#tabline#excludes = []
+<
+Note: You will likely want to set |showtabline| to 2.
 
 ==============================================================================
 ADVANCED CUSTOMIZATION                      *airline-advanced-customization*
