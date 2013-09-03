@@ -5,6 +5,7 @@ let s:fmod = get(g:, 'airline#extensions#tabline#fnamemod', ':p:.')
 let s:excludes = get(g:, 'airline#extensions#tabline#excludes', [])
 
 function! airline#extensions#tabline#init(ext)
+  set showtabline=2
   set tabline=%!airline#extensions#tabline#get()
 
   call a:ext.add_theme_func('airline#extensions#tabline#load_theme')
