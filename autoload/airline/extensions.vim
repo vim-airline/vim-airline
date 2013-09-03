@@ -17,7 +17,7 @@ function! s:ext.add_theme_func(name) dict
   call add(self._theme_funcrefs, function(a:name))
 endfunction
 
-let s:script_path = resolve(expand('<sfile>:p:h'))
+let s:script_path = tolower(resolve(expand('<sfile>:p:h')))
 
 let s:filetype_overrides = {
       \ 'netrw': [ 'netrw', '%f' ],
@@ -198,8 +198,8 @@ function! airline#extensions#load()
   for file in split(globpath(&rtp, "autoload/airline/extensions/*.vim"), "\n")
     " we have to check both resolved and unresolved paths, since it's possible
     " that they might not get resolved properly (see #187)
-    if stridx(resolve(fnamemodify(file, ':p')), s:script_path) < 0
-          \ && stridx(fnamemodify(file, ':p'), s:script_path) < 0
+    if stridx(tolower(resolve(fnamemodify(file, ':p'))), s:script_path) < 0
+          \ && stridx(tolower(fnamemodify(file, ':p')), s:script_path) < 0
       let name = fnamemodify(file, ':t:r')
       if !get(g:, 'airline#extensions#'.name.'#enabled', 1)
         continue
