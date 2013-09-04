@@ -11,11 +11,11 @@ endfunction
 function! s:prototype.add_section(group, contents)
   if self._curgroup != ''
     if self._curgroup == a:group
-      let self._line .= self._side ? g:airline_left_alt_sep : g:airline_right_alt_sep
+      let self._line .= self._side ? self._context.left_alt_sep : self._context.right_alt_sep
     else
       call airline#highlighter#add_separator(self._curgroup, a:group, self._side)
       let self._line .= '%#'.self._curgroup.'_to_'.a:group.'#'
-      let self._line .= self._side ? g:airline_left_sep : g:airline_right_sep
+      let self._line .= self._side ? self._context.left_sep : self._context.right_sep
     endif
   endif
 
@@ -40,6 +40,13 @@ function! airline#builder#new(context)
   let builder._side = 1
   let builder._curgroup = ''
   let builder._line = ''
+
+  call extend(builder._context, {
+        \ 'left_sep': g:airline_left_sep,
+        \ 'left_alt_sep': g:airline_left_alt_sep,
+        \ 'right_sep': g:airline_right_sep,
+        \ 'right_alt_sep': g:airline_right_alt_sep,
+        \ }, 'keep')
   return builder
 endfunction
 

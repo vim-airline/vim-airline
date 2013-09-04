@@ -8,6 +8,14 @@ let s:buf_nr_show = get(g:, 'airline#extensions#tabline#buffer_nr_show', 0)
 let s:buf_nr_format = get(g:, 'airline#extensions#tabline#buffer_nr_format', '%s: ')
 let s:buf_modified_symbol = g:airline_symbols.modified
 
+let s:builder_context = {
+      \ 'active'        : 1,
+      \ 'left_sep'      : get(g:, 'airline#extensions#tabline#left_sep'     , g:airline_left_sep),
+      \ 'left_alt_sep'  : get(g:, 'airline#extensions#tabline#left_alt_sep' , g:airline_left_alt_sep),
+      \ 'right_sep'     : get(g:, 'airline#extensions#tabline#right_sep'    , g:airline_right_sep),
+      \ 'right_alt_sep' : get(g:, 'airline#extensions#tabline#right_alt_sep', g:airline_right_alt_sep),
+      \ }
+
 function! airline#extensions#tabline#init(ext)
   if has('gui_running')
     set guioptions-=e
@@ -68,7 +76,7 @@ function! airline#extensions#tabline#get_buffer_name(nr)
 endfunction
 
 function! s:get_buffers()
-  let b = airline#builder#new({'active': 1})
+  let b = airline#builder#new(s:builder_context)
   let cur = bufnr('%')
   for nr in range(1, bufnr('$'))
     if buflisted(nr) && bufexists(nr)
@@ -96,7 +104,7 @@ function! s:get_buffers()
 endfunction
 
 function! s:get_tabs()
-  let b = airline#builder#new({'active': 1})
+  let b = airline#builder#new(s:builder_context)
   for i in range(1, tabpagenr('$'))
     let group = i == tabpagenr() ? 'airline_tabsel' : 'airline_tab'
     let val = '%('
