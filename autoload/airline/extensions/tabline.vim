@@ -76,7 +76,7 @@ function! s:get_tabs()
   let b = airline#builder#new({'active': 1})
   for i in range(1, tabpagenr('$'))
     let group = i == tabpagenr() ? 'airline_tabsel' : 'airline_tab'
-    call b.add_section(group, ' %{len(tabpagebuflist(tabpagenr()))}%( %'.i.'T %{airline#extensions#tabline#title('.i.')} %)')
+    call b.add_section(group, ' %{len(tabpagebuflist('.i.'))}%( %'.i.'T %{airline#extensions#tabline#title('.i.')} %)')
   endfor
   call b.add_raw('%T')
   call b.add_section('airline_tabfill', '')
