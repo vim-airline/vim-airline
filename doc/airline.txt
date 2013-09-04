@@ -312,6 +312,9 @@ virtualenv <https://github.com/jmcantrell/vim-virtualenv>
 * configure how buffer numbers should be formatted with |printf|. >
   let g:airline#extensions#tabline#buffer_nr_format = '%s: '
 <
+* configure the minimum number of buffers needed to show the tabline. >
+  let g:airline#extensions#tabline#buffer_min_count = 0
+<
 * configure separators for the tabline only. >
   let g:airline#extensions#tabline#left_sep = ''
   let g:airline#extensions#tabline#left_alt_sep = ''

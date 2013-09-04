@@ -16,12 +16,21 @@ let s:builder_context = {
       \ 'right_alt_sep' : get(g:, 'airline#extensions#tabline#right_alt_sep', g:airline_right_alt_sep),
       \ }
 
+let s:buf_min_count = get(g:, 'airline#extensions#tabline#buffer_min_count', 0)
+let s:buf_len = 0
+
 function! airline#extensions#tabline#init(ext)
   if has('gui_running')
     set guioptions-=e
   endif
-  set showtabline=2
+
   set tabline=%!airline#extensions#tabline#get()
+
+  if s:buf_min_count <= 0
+    set showtabline=2
+  else
+    autocmd CursorMoved * call <sid>cursormove()
+  endif
 
   call a:ext.add_theme_func('airline#extensions#tabline#load_theme')
 endfunction
@@ -38,6 +47,19 @@ function! airline#extensions#tabline#load_theme(palette)
   call airline#highlighter#exec('airline_tabtype', l:tabtype)
   call airline#highlighter#exec('airline_tabfill', l:tabfill)
   call airline#highlighter#exec('airline_tabmod', l:tabmod)
+endfunction
+
+function! s:cursormove()
+  let c = len(s:get_buffer_list())
+  if c > s:buf_min_count
+    if &showtabline != 2
+      set showtabline=2
+    endif
+  else
+    if &showtabline != 0
+      set showtabline=0
+    endif
+  endif
 endfunction
 
 function! airline#extensions#tabline#get()
@@ -75,8 +97,8 @@ function! airline#extensions#tabline#get_buffer_name(nr)
   return _
 endfunction
 
-function! s:get_buffers()
-  let b = airline#builder#new(s:builder_context)
+function! s:get_buffer_list()
+  let buffers = []
   let cur = bufnr('%')
   for nr in range(1, bufnr('$'))
     if buflisted(nr) && bufexists(nr)
@@ -85,18 +107,28 @@ function! s:get_buffers()
           continue
         endif
       endfor
-      if cur == nr
-        if g:airline_detect_modified && getbufvar(nr, '&modified')
-          let group = 'airline_tabmod'
-        else
-          let group = 'airline_tabsel'
-        endif
-      else
-        let group = 'airline_tab'
-      endif
-      call b.add_section(group, '%( %{airline#extensions#tabline#get_buffer_name('.nr.')} %)')
+      call add(buffers, nr)
     endif
   endfor
+  return buffers
+endfunction
+
+function! s:get_buffers()
+  let b = airline#builder#new(s:builder_context)
+  let cur = bufnr('%')
+  for nr in s:get_buffer_list()
+    if cur == nr
+      if g:airline_detect_modified && getbufvar(nr, '&modified')
+        let group = 'airline_tabmod'
+      else
+        let group = 'airline_tabsel'
+      endif
+    else
+      let group = 'airline_tab'
+    endif
+    call b.add_section(group, '%( %{airline#extensions#tabline#get_buffer_name('.nr.')} %)')
+  endfor
+
   call b.add_section('airline_tabfill', '')
   call b.split()
   call b.add_section('airline_tabtype', ' buffers ')
