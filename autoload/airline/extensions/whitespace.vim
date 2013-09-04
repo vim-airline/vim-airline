@@ -33,7 +33,7 @@ function! airline#extensions#whitespace#check()
 
     let mixed = 0
     if index(s:checks, 'indent') > -1
-      let indents = [search('^ ', 'nb'), search('^ ', 'n'), search('^\t', 'nb'), search('^\t', 'n')]
+      let indents = [search('^ \{2,}', 'nb'), search('^ \{2,}', 'n'), search('^\t', 'nb'), search('^\t', 'n')]
       let mixed = indents[0] != 0 && indents[1] != 0 && indents[2] != 0 && indents[3] != 0
     endif
 
