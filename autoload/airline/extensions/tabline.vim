@@ -3,6 +3,9 @@
 
 let s:fmod = get(g:, 'airline#extensions#tabline#fnamemod', ':p:.')
 let s:excludes = get(g:, 'airline#extensions#tabline#excludes', [])
+let s:buf_nr_show = get(g:, 'airline#extensions#tabline#buffer_nr_show', 0)
+let s:buf_nr_format = get(g:, 'airline#extensions#tabline#buffer_nr_format', '%s: ')
+let s:buf_modified_symbol = g:airline_symbols.modified
 
 function! airline#extensions#tabline#init(ext)
   if has('gui_running')
@@ -37,11 +40,24 @@ function! airline#extensions#tabline#title(n)
 endfunction
 
 function! airline#extensions#tabline#get_buffer_name(nr)
+  let _ = ''
   let name = bufname(a:nr)
-  if empty(name)
-    return '[No Name]'
+
+  if s:buf_nr_show
+    let _ .= printf(s:buf_nr_format, a:nr)
   endif
-  return fnamemodify(name, s:fmod)
+
+  if empty(name)
+    let _ .= '[No Name]'
+  else
+    let _ .= fnamemodify(name, s:fmod)
+  endif
+
+  if getbufvar(a:nr, '&modified') == 1
+    let _ .= s:buf_modified_symbol
+  endif
+
+  return _
 endfunction
 
 function! s:get_buffers()

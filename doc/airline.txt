@@ -302,6 +302,12 @@ virtualenv <https://github.com/jmcantrell/vim-virtualenv>
 * configure filename match rules to exclude from the tabline. >
   let g:airline#extensions#tabline#excludes = []
 <
+* configure whether buffer numbers should be shown. >
+  let g:airline#extensions#tabline#buffer_nr_show = 0
+<
+* configure how buffer numbers should be formatted with |printf|. >
+  let g:airline#extensions#tabline#buffer_nr_format = '%s: '
+<
 Note: Enabling this extension will modify |showtabline| and |guioptions|.
 
 ==============================================================================

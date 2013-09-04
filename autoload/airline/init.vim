@@ -54,6 +54,7 @@ function! airline#init#bootstrap()
         \ 'whitespace': get(g:, 'airline_powerline_fonts', 0) ? '✹' : '!',
         \ 'linenr': get(g:, 'airline_linecolumn_prefix', get(g:, 'airline_powerline_fonts', 0) ? '' : ':' ),
         \ 'branch': get(g:, 'airline_branch_prefix', get(g:, 'airline_powerline_fonts', 0) ? '' : ''),
+        \ 'modified': '+',
         \ }, 'keep')
 
   call airline#parts#define_function('mode', 'airline#parts#mode')
