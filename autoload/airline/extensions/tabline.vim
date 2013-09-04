@@ -3,6 +3,7 @@
 
 let s:fmod = get(g:, 'airline#extensions#tabline#fnamemod', ':p:.')
 let s:excludes = get(g:, 'airline#extensions#tabline#excludes', [])
+let s:tab_nr_type = get(g:, 'airline#extensions#tabline#tab_nr_type', 0)
 let s:buf_nr_show = get(g:, 'airline#extensions#tabline#buffer_nr_show', 0)
 let s:buf_nr_format = get(g:, 'airline#extensions#tabline#buffer_nr_format', '%s: ')
 let s:buf_modified_symbol = g:airline_symbols.modified
@@ -98,7 +99,13 @@ function! s:get_tabs()
   let b = airline#builder#new({'active': 1})
   for i in range(1, tabpagenr('$'))
     let group = i == tabpagenr() ? 'airline_tabsel' : 'airline_tab'
-    call b.add_section(group, ' %{len(tabpagebuflist('.i.'))}%( %'.i.'T %{airline#extensions#tabline#title('.i.')} %)')
+    let val = '%('
+    if s:tab_nr_type == 0
+      let val .= ' %{len(tabpagebuflist('.i.'))}'
+    else
+      let val .= ' '.i
+    endif
+    call b.add_section(group, val.'%'.i.'T %{airline#extensions#tabline#title('.i.')} %)')
   endfor
   call b.add_raw('%T')
   call b.add_section('airline_tabfill', '')
