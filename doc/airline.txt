@@ -296,6 +296,9 @@ virtualenv <https://github.com/jmcantrell/vim-virtualenv>
 * enable/disable enhanced tabline. >
   let g:airline#extensions#tabline#enabled = 0
 <
+* enable/disable displaying buffers with a single tab. >
+  let g:airline#extensions#tabline#show_buffers = 1
+<
 * configure the formatting of filenames (see |filename-modifiers|). >
   let g:airline#extensions#tabline#fnamemod = ':p:.'
 <

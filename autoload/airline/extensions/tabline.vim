@@ -4,6 +4,7 @@
 let s:fmod = get(g:, 'airline#extensions#tabline#fnamemod', ':p:.')
 let s:excludes = get(g:, 'airline#extensions#tabline#excludes', [])
 let s:tab_nr_type = get(g:, 'airline#extensions#tabline#tab_nr_type', 0)
+let s:show_buffers = get(g:, 'airline#extensions#tabline#show_buffers', 1)
 let s:buf_nr_show = get(g:, 'airline#extensions#tabline#buffer_nr_show', 0)
 let s:buf_nr_format = get(g:, 'airline#extensions#tabline#buffer_nr_format', '%s: ')
 let s:buf_modified_symbol = g:airline_symbols.modified
@@ -63,7 +64,7 @@ function! s:cursormove()
 endfunction
 
 function! airline#extensions#tabline#get()
-  if tabpagenr('$') == 1
+  if s:show_buffers && tabpagenr('$') == 1
     return s:get_buffers()
   else
     return s:get_tabs()
