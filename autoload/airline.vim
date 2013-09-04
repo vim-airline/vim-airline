@@ -96,6 +96,10 @@ function! s:invoke_funcrefs(context, funcrefs)
 endfunction
 
 function! airline#statusline(winnr)
+  return '%{airline#check_mode()}'.s:contexts[a:winnr].line
+endfunction
+
+function! airline#check_mode()
   if get(w:, 'airline_active', 1)
     let l:m = mode()
     if l:m ==# "i"
@@ -126,6 +130,6 @@ function! airline#statusline(winnr)
     let w:airline_lastmode = mode_string
   endif
 
-  return s:contexts[a:winnr].line
+  return ''
 endfunction
 

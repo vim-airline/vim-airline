@@ -79,5 +79,9 @@ describe 'airline'
     Expect getwinvar(2, '&statusline') != 'airline#parts#mode'
     wincmd c
   end
+
+  it 'should include check_mode'
+    Expect airline#statusline(1) =~ 'airline#check_mode'
+  end
 end
 
