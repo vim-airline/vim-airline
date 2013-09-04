@@ -18,11 +18,16 @@ function! airline#extensions#tabline#init(ext)
 endfunction
 
 function! airline#extensions#tabline#load_theme(palette)
-  call airline#highlighter#exec('airline_tab', a:palette.normal.airline_b)
-  call airline#highlighter#exec('airline_tabsel', a:palette.normal.airline_a)
-  call airline#highlighter#exec('airline_tabtype', a:palette.visual.airline_a)
-  call airline#highlighter#exec('airline_tabfill', a:palette.normal.airline_c)
-  call airline#highlighter#exec('airline_tabmod', a:palette.insert.airline_a)
+  let l:tab = get(a:palette, 'airline_tab', a:palette.normal.airline_b)
+  let l:tabsel = get(a:palette, 'airline_tabsel', a:palette.normal.airline_a)
+  let l:tabtype = get(a:palette, 'airline_tabtype', a:palette.visual.airline_a)
+  let l:tabfill = get(a:palette, 'airline_tabfill', a:palette.normal.airline_c)
+  let l:tabmod = get(a:palette, 'airline_tabmod', a:palette.insert.airline_a)
+  call airline#highlighter#exec('airline_tab', l:tab)
+  call airline#highlighter#exec('airline_tabsel', l:tabsel)
+  call airline#highlighter#exec('airline_tabtype', l:tabtype)
+  call airline#highlighter#exec('airline_tabfill', l:tabfill)
+  call airline#highlighter#exec('airline_tabmod', l:tabmod)
 endfunction
 
 function! airline#extensions#tabline#get()
