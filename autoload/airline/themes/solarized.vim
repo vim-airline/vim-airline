@@ -55,10 +55,11 @@ function! s:generate()
   endif
 
   " Insert mode
-  let s:I1 = [s:N1[0], s:green, 'bold']
   if s:reduced
+    let s:I1 = [s:N1[0], s:green, 'bold']
     let s:I2 = s:N2
   else
+    let s:I1 = [s:N1[0], s:orange, 'bold']
     if s:background == 'dark'
       let s:I2 = [s:base00, s:color236, '']
     else
@@ -70,11 +71,12 @@ function! s:generate()
   let s:IM = s:NM
 
   " Visual mode
-  let s:V1 = [s:N1[0], s:orange, 'bold']
   if s:reduced
+    let s:V1 = [s:N1[0], s:orange, 'bold']
     let s:V2 = s:N2
     let s:V3 = s:N3
   else
+    let s:V1 = [s:N1[0], s:green, 'bold']
     let s:V2 = s:I2
     let s:V3 = s:I3
   endif
@@ -119,6 +121,10 @@ function! s:generate()
         \ 'airline_c': [s:NM[0].g, s:NM[1].g,
         \ s:NM[0].t, s:NM[1].t, s:NM[2]]}
 
+  let g:airline#themes#solarized#palette.normal_modified.airline_warning =
+        \ g:airline#themes#solarized#palette.normal.airline_warning
+
+
   let g:airline#themes#solarized#palette.insert = airline#themes#generate_color_map(
         \ [s:I1[0].g, s:I1[1].g, s:I1[0].t, s:I1[1].t, s:I1[2]],
         \ [s:I2[0].g, s:I2[1].g, s:I2[0].t, s:I2[1].t, s:I2[2]],
@@ -138,6 +144,14 @@ function! s:generate()
   let g:airline#themes#solarized#palette.visual_modified = {
         \ 'airline_c': [s:VM[0].g, s:VM[1].g,
         \ s:VM[0].t, s:VM[1].t, s:VM[2]]}
+
+  let g:airline#themes#solarized#palette.tabline = {}
+
+  let g:airline#themes#solarized#palette.tabline.airline_tab = [
+        \ s:I2[0].g, s:I2[1].g, s:I2[0].t, s:I2[1].t, s:I2[2]]
+
+  let g:airline#themes#solarized#palette.tabline.airline_tabtype = [
+        \ s:N2[0].g, s:N2[1].g, s:N2[0].t, s:N2[1].t, s:N2[2]]
 endfunction
 
 call s:generate()
