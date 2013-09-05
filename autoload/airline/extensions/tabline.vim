@@ -139,7 +139,18 @@ endfunction
 function! s:get_tabs()
   let b = airline#builder#new(s:builder_context)
   for i in range(1, tabpagenr('$'))
-    let group = i == tabpagenr() ? 'airline_tabsel' : 'airline_tab'
+    if i == tabpagenr()
+      let group = 'airline_tabsel'
+      if g:airline_detect_modified
+        for bi in tabpagebuflist(i)
+          if getbufvar(bi, '&modified')
+            let group = 'airline_tabmod'
+          endif
+        endfor
+      endif
+    else
+      let group = 'airline_tab'
+    endif
     let val = '%('
     if s:tab_nr_type == 0
       let val .= ' %{len(tabpagebuflist('.i.'))}'
