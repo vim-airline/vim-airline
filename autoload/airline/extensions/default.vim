@@ -48,7 +48,7 @@ function! airline#extensions#default#apply(builder, context)
   if airline#util#getwinvar(winnr, 'airline_render_left', active || (!active && !g:airline_inactive_collapse))
     call <sid>build_sections(a:builder, a:context, s:layout[0])
   else
-    call a:builder.add_section('airline_b', ' %f%m ')
+    call a:builder.add_section('airline_b'.(a:context.bufnr), ' %f%m ')
     call a:builder.add_section('airline_c', '')
   endif
 
