@@ -236,6 +236,9 @@ tagbar <https://github.com/majutsushi/>
 * enable/disable tagbar integration >
   let g:airline#extensions#tagbar#enabled = 1
 <
+* change how tags are displayed (:help tagbar-statusline) >
+  let g:airline#extensions#tagbar#flags = 'f'
+<
 -------------------------------------                          *airline-csv*
 csv.vim <https://github.com/chrisbra/csv.vim>
 
