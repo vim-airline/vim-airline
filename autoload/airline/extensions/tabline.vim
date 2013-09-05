@@ -116,7 +116,7 @@ function! s:get_buffer_list()
   endfor
 
   " TODO: temporary fix; force the active buffer to be first when there are many buffers open
-  if len(buffers) > s:buf_max
+  if len(buffers) > s:buf_max && index(buffers, cur) > -1
     while buffers[0] != cur
       let first = remove(buffers, 0)
       call add(buffers, first)
