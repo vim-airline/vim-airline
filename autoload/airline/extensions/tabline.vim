@@ -20,6 +20,9 @@ let s:builder_context = {
 let s:buf_min_count = get(g:, 'airline#extensions#tabline#buffer_min_count', 0)
 let s:buf_len = 0
 
+" TODO: temporary
+let s:buf_max = get(g:, 'airline#extensions#tabline#buffer_max', 6)
+
 function! airline#extensions#tabline#init(ext)
   if has('gui_running')
     set guioptions-=e
@@ -111,6 +114,16 @@ function! s:get_buffer_list()
       call add(buffers, nr)
     endif
   endfor
+
+  " TODO: temporary fix; force the active buffer to be first when there are many buffers open
+  if len(buffers) > s:buf_max
+    while buffers[0] != cur
+      let first = remove(buffers, 0)
+      call add(buffers, first)
+    endwhile
+    let buffers = buffers[:s:buf_max]
+  endif
+
   return buffers
 endfunction
 
