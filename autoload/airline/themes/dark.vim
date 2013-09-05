@@ -84,6 +84,9 @@ let s:IA1 = [ '#4e4e4e' , '#1c1c1c' , 239 , 234 , '' ]
 let s:IA2 = [ '#4e4e4e' , '#262626' , 239 , 235 , '' ]
 let s:IA3 = [ '#4e4e4e' , '#303030' , 239 , 236 , '' ]
 let g:airline#themes#dark#palette.inactive = airline#themes#generate_color_map(s:IA1, s:IA2, s:IA3, s:file)
+let g:airline#themes#dark#palette.inactive_modified = {
+      \ 'airline_b': [ '#875faf' , '' , 97 , '' , '' ] ,
+      \ }
 
 
 " Here we define the color map for ctrlp.  We check for the g:loaded_ctrlp
