@@ -85,7 +85,7 @@ let s:IA2 = [ '#4e4e4e' , '#262626' , 239 , 235 , '' ]
 let s:IA3 = [ '#4e4e4e' , '#303030' , 239 , 236 , '' ]
 let g:airline#themes#dark#palette.inactive = airline#themes#generate_color_map(s:IA1, s:IA2, s:IA3, s:file)
 let g:airline#themes#dark#palette.inactive_modified = {
-      \ 'airline_b': [ '#875faf' , '' , 97 , '' , '' ] ,
+      \ 'airline_c': [ '#875faf' , '' , 97 , '' , '' ] ,
       \ }
 
 
