@@ -41,4 +41,7 @@ let g:airline#themes#simple#palette.visual_modified = copy(g:airline#themes#simp
 let s:IA  = [ '#4e4e4e' , s:guibg  , 239 , s:termbg  , '' ]
 let s:IA2 = [ '#4e4e4e' , s:guibg2 , 239 , s:termbg2 , '' ]
 let g:airline#themes#simple#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA2, s:IA2, s:file)
+let g:airline#themes#simple#palette.inactive_modified = {
+      \ 'airline_c': [ '#df0000', '', 160, '', '' ] ,
+      \ }
 

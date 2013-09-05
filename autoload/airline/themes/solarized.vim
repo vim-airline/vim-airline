@@ -107,6 +107,8 @@ function! s:generate()
         \ [s:IA[0].g, s:IA[1].g, s:IA[0].t, s:IA[1].t, s:IA[2]],
         \ [s:IA[0].g, s:IA[1].g, s:IA[0].t, s:IA[1].t, s:IA[2]],
         \ s:NFa)
+  let g:airline#themes#solarized#palette.inactive_modified = {
+        \ 'airline_c': [s:NM[0].g, '', s:NM[0].t, '', s:NM[2]]}
 
   let g:airline#themes#solarized#palette.normal = airline#themes#generate_color_map(
         \ [s:N1[0].g, s:N1[1].g, s:N1[0].t, s:N1[1].t, s:N1[2]],

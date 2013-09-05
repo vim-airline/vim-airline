@@ -32,6 +32,9 @@ function! s:generate()
 
   let s:IA = airline#themes#get_highlight('NonText')
   let g:airline#themes#zenburn#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
+  let g:airline#themes#zenburn#palette.inactive_modified = {
+        \ 'airline_c': s:Nmod
+        \ }
 endfunction
 
 call s:generate()

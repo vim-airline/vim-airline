@@ -47,6 +47,9 @@ let g:airline#themes#molokai#palette.visual_modified = {
 " Inactive
 let s:IA = [ '#1b1d1e' , '#465457' , 233 , 67 , '' ]
 let g:airline#themes#molokai#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
+let g:airline#themes#molokai#palette.inactive_modified = {
+      \ 'airline_c': [ '#f8f8f0' , ''        , 253 , ''  , '' ] ,
+      \ }
 
 
 " CtrlP

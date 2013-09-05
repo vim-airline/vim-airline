@@ -77,6 +77,8 @@ let g:airline#themes#wombat#palette.insert_paste = {
 
 
 let g:airline#themes#wombat#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
+let g:airline#themes#wombat#palette.inactive_modified = {
+    \ 'airline_c': [ s:N4[0] , ''      , s:N4[1] , ''      , ''     ] }
 
 
 if !get(g:, 'loaded_ctrlp', 0)

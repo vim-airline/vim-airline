@@ -33,6 +33,9 @@ function! s:generate()
 
   let s:IA = airline#themes#get_highlight2(['NonText', 'fg'], ['CursorLine', 'bg'])
   let g:airline#themes#tomorrow#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
+  let g:airline#themes#tomorrow#palette.inactive_modified = {
+        \ 'airline_c': [ group[0], '', group[2], '', '' ]
+        \ }
 endfunction
 
 call s:generate()

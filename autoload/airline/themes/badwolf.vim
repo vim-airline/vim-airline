@@ -44,4 +44,6 @@ let g:airline#themes#badwolf#palette.visual_modified = {
 
 
 let g:airline#themes#badwolf#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
+let g:airline#themes#badwolf#palette.inactive_modified = {
+      \ 'airline_c': [ s:V1[1]   , ''        , s:V1[3]   , ''        , ''     ] }
 
