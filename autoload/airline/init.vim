@@ -44,6 +44,7 @@ function! airline#init#bootstrap()
         \ 'base16.*': 'base16',
         \ 'mo[l|n]okai': 'molokai',
         \ 'wombat.*': 'wombat',
+        \ '.*zenburn.*': 'zenburn',
         \ '.*solarized.*': 'solarized',
         \ }, 'keep')
 
