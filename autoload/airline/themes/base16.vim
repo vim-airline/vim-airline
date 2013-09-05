@@ -59,6 +59,9 @@ function! s:load_constant()
   " Inactive window
   let s:IA = [s:gui_dark_gray, s:gui_med_gray_hi, s:cterm_dark_gray, s:cterm_med_gray_hi, '']
   let g:airline#themes#base16#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
+  let g:airline#themes#base16#palette.inactive_modified = {
+        \ 'airline_c': [s:gui_orange, '', s:cterm_orange, '', ''],
+        \ }
 endfunction
 
 function! s:load_dynamic()
@@ -95,6 +98,9 @@ function! s:load_dynamic()
 
   let s:IA = airline#themes#get_highlight2(['NonText', 'fg'], ['CursorLine', 'bg'])
   let g:airline#themes#base16#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
+  let g:airline#themes#base16#palette.inactive_modified = {
+        \ 'airline_c': [ group[0], '', group[2], '', '' ]
+        \ }
 endfunction
 
 if get(g:, 'airline#themes#base16#constant', 0)

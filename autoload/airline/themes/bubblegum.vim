@@ -58,4 +58,7 @@ let g:airline#themes#bubblegum#palette.visual_modified = copy(g:airline#themes#b
 " Inactive window
 let s:IA = [s:gui_dark_gray, s:gui_med_gray_hi, s:cterm_dark_gray, s:cterm_med_gray_hi, '']
 let g:airline#themes#bubblegum#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
+let g:airline#themes#bubblegum#palette.inactive_modified = {
+      \ 'airline_c': [s:gui_orange, '', s:cterm_orange, '', ''],
+      \ }
 
