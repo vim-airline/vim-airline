@@ -46,11 +46,13 @@ function! airline#extensions#tabline#load_theme(palette)
   let l:tabtype = get(colors, 'airline_tabtype', a:palette.visual.airline_a)
   let l:tabfill = get(colors, 'airline_tabfill', a:palette.normal.airline_c)
   let l:tabmod  = get(colors, 'airline_tabmod', a:palette.insert.airline_a)
+  let l:tabhid  = get(colors, 'airline_tabhid', a:palette.normal.airline_c)
   call airline#highlighter#exec('airline_tab', l:tab)
   call airline#highlighter#exec('airline_tabsel', l:tabsel)
   call airline#highlighter#exec('airline_tabtype', l:tabtype)
   call airline#highlighter#exec('airline_tabfill', l:tabfill)
   call airline#highlighter#exec('airline_tabmod', l:tabmod)
+  call airline#highlighter#exec('airline_tabhid', l:tabhid)
 endfunction
 
 function! s:cursormove()
@@ -130,6 +132,7 @@ endfunction
 function! s:get_buffers()
   let b = airline#builder#new(s:builder_context)
   let cur = bufnr('%')
+  let tab_bufs = tabpagebuflist(tabpagenr())
   for nr in s:get_buffer_list()
     if cur == nr
       if g:airline_detect_modified && getbufvar(nr, '&modified')
@@ -138,7 +141,11 @@ function! s:get_buffers()
         let group = 'airline_tabsel'
       endif
     else
-      let group = 'airline_tab'
+      if index(tab_bufs, nr) > -1
+        let group = 'airline_tab'
+      else
+        let group = 'airline_tabhid'
+      endif
     endif
     call b.add_section(group, '%( %{airline#extensions#tabline#get_buffer_name('.nr.')} %)')
   endfor
