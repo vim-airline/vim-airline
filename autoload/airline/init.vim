@@ -67,7 +67,7 @@ function! airline#init#bootstrap()
         \ })
   call airline#parts#define_raw('file', '%f%m')
   call airline#parts#define_raw('ffenc', '%{printf("%s%s",&fenc,strlen(&ff)>0?"[".&ff."]":"")}')
-  call airline#parts#define_empty(['hunks', 'branch', 'tagbar', 'syntastic'])
+  call airline#parts#define_empty(['hunks', 'branch', 'tagbar', 'syntastic', 'whitespace'])
 endfunction
 
 function! airline#init#sections()
