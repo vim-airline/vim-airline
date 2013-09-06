@@ -1,7 +1,7 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
-let s:fmod = get(g:, 'airline#extensions#tabline#fnamemod', ':p:.')
+let s:fnamefunc = get(g:, 'airline#extensions#tabline#fnamefunc', 'airline#extensions#tabline#fname_func')
 let s:excludes = get(g:, 'airline#extensions#tabline#excludes', [])
 let s:tab_nr_type = get(g:, 'airline#extensions#tabline#tab_nr_type', 0)
 let s:show_buffers = get(g:, 'airline#extensions#tabline#show_buffers', 1)
@@ -82,6 +82,11 @@ function! airline#extensions#tabline#title(n)
   return airline#extensions#tabline#get_buffer_name(buflist[winnr - 1])
 endfunction
 
+function! airline#extensions#tabline#fname_func(name)
+  let fmod = get(g:, 'airline#extensions#tabline#fnamemod', ':p:.')
+  return substitute(fnamemodify(a:name, fmod), '\w\zs.\{-}\ze\/', '', 'g')
+endfunction
+
 function! airline#extensions#tabline#get_buffer_name(nr)
   let _ = ''
   let name = bufname(a:nr)
@@ -93,7 +98,7 @@ function! airline#extensions#tabline#get_buffer_name(nr)
   if empty(name)
     let _ .= '[No Name]'
   else
-    let _ .= fnamemodify(name, s:fmod)
+    let _ .= call(s:fnamefunc, [name])
   endif
 
   if getbufvar(a:nr, '&modified') == 1

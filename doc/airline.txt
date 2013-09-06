@@ -305,8 +305,15 @@ virtualenv <https://github.com/jmcantrell/vim-virtualenv>
 * enable/disable displaying buffers with a single tab. >
   let g:airline#extensions#tabline#show_buffers = 1
 <
-* configure the formatting of filenames (see |filename-modifiers|). >
-  let g:airline#extensions#tabline#fnamemod = ':p:.'
+* defines a function for how to format the file name. >
+  " the default renders /foo/bar/file.txt => /f/b/file.txt
+  let g:airline#extensions#tabline#fnamefunc
+
+  " here's a simple example to show only the file name:
+  function! MyFileFormat(file)
+    return fnamemodify(a:file, ':t')
+  endfunction
+  let g:airline#extensions#tabline#fnamefunc = 'MyFileFormat'
 <
 * configure filename match rules to exclude from the tabline. >
   let g:airline#extensions#tabline#excludes = []

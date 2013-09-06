@@ -19,10 +19,11 @@ function! airline#deprecation#check()
         \ [ 'g:airline_enable_branch', 'g:airline#extensions#branch#enabled' ],
         \ [ 'g:airline_enable_bufferline', 'g:airline#extensions#bufferline#enabled' ],
         \ [ 'g:airline_enable_syntastic', 'g:airline#extensions#syntastic#enabled' ],
+        \ [ 'g:airline#extensions#tabline#fnamemod', 'g:airline#extensions#tabline#fnamefunc' ],
         \ ]
   for test in tests
     if exists(test[0])
-      echom printf('The variable %s is deprecated and may not work in the future. It has been replaced with %s', test[0], test[1])
+      echom printf('The variable %s is deprecated and may not work in the future. It has been replaced with %s. Please read the documentation.', test[0], test[1])
     endif
   endfor
 endfunction
