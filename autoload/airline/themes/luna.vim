@@ -51,11 +51,9 @@ let g:airline#themes#luna#palette.ctrlp = airline#extensions#ctrlp#generate_colo
       \ [ '#ffffff' , '#973d45' , 231 , 95 , ''     ] )
 
 let g:airline#themes#luna#palette.tabline = {
-      \ 'airline_tab':  ['#2aa198', '#003f3f',  88, 208, ''],
-      \ 'airline_tabsel':  ['#ffffff', '#787800',  88, 208, ''],
-      \ 'airline_tabtype':  ['#2aa198', '#003f3f',  88, 208, ''],
-      \ 'airline_tabfill':  ['#ffffff', '#002b2b',  88, 208, ''],
-      \ 'airline_tabmod':  ['#ffffff', '#780000',  88, 208, ''],
+      \ 'airline_tab':  ['#2aa198', '#003f3f',  231, 29, ''],
+      \ 'airline_tabsel':  ['#ffffff', '#2e8b57',  231, 36, ''],
+      \ 'airline_tabtype':  ['#ffffff', '#005252',  231, 36, ''],
+      \ 'airline_tabfill':  ['#ffffff', '#002b2b',  231, 23, ''],
+      \ 'airline_tabmod':  ['#ffffff', '#780000',  231, 88, ''],
       \ }
-
-" 'airline_tabsel':  ['#ffffff', '#3d9762',  88, 208, ''],
