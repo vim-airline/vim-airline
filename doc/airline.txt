@@ -332,6 +332,9 @@ virtualenv <https://github.com/jmcantrell/vim-virtualenv>
     * configure the formatting of filenames (see |filename-modifiers|). >
       let g:airline#extensions#tabline#fnamemod = ':p:.'
 <
+    * configure collapsing parent directories in buffer name. >
+      let g:airline#extensions#tabline#fnamecollapse = 1
+<
 * configure the minimum number of buffers needed to show the tabline. >
   let g:airline#extensions#tabline#buffer_min_count = 0
 <

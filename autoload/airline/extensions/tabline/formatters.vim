@@ -2,6 +2,7 @@
 " vim: et ts=2 sts=2 sw=2
 
 let s:fmod = get(g:, 'airline#extensions#tabline#fnamemod', ':p:.')
+let s:fnamecollapse = get(g:, 'airline#extensions#tabline#fnamecollapse', 1)
 let s:buf_nr_format = get(g:, 'airline#extensions#tabline#buffer_nr_format', '%s: ')
 let s:buf_nr_show = get(g:, 'airline#extensions#tabline#buffer_nr_show', 0)
 let s:buf_modified_symbol = g:airline_symbols.modified
@@ -17,7 +18,11 @@ function! airline#extensions#tabline#formatters#default(bufnr, buffers)
   if empty(name)
     let _ .= '[No Name]'
   else
-    let _ .= substitute(fnamemodify(name, s:fmod), '\w\zs.\{-}\ze\/', '', 'g')
+    if s:fnamecollapse
+      let _ .= substitute(fnamemodify(name, s:fmod), '\v\w\zs.{-}\ze(\\|/)', '', 'g')
+    else
+      let _ .= fnamemodify(name, s:fmod)
+    endif
   endif
 
   if getbufvar(a:bufnr, '&modified') == 1
