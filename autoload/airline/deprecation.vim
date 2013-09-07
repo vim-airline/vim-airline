@@ -19,7 +19,6 @@ function! airline#deprecation#check()
         \ [ 'g:airline_enable_branch', 'g:airline#extensions#branch#enabled' ],
         \ [ 'g:airline_enable_bufferline', 'g:airline#extensions#bufferline#enabled' ],
         \ [ 'g:airline_enable_syntastic', 'g:airline#extensions#syntastic#enabled' ],
-        \ [ 'g:airline#extensions#tabline#fnamemod', 'g:airline#extensions#tabline#formatter' ],
         \ ]
   for test in tests
     if exists(test[0])

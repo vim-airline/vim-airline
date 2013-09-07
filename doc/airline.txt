@@ -321,21 +321,17 @@ virtualenv <https://github.com/jmcantrell/vim-virtualenv>
   endfunction
   let g:airline#extensions#tabline#formatter = 'foo'
 <
-* configure whether buffer numbers should be shown. >
-  let g:airline#extensions#tabline#buffer_nr_show = 0
-<
-Note: this is only used by the 'default' formatter.
+  Note: the following variables are only used by the 'default' formatter.
 
-* configure how buffer numbers should be formatted with |printf|. >
-  let g:airline#extensions#tabline#buffer_nr_format = '%s: '
+    * configure whether buffer numbers should be shown. >
+      let g:airline#extensions#tabline#buffer_nr_show = 0
 <
-Note: this is only used by the 'default' formatter.
-
-* configure the formatting of filenames (see |filename-modifiers|). >
-  let g:airline#extensions#tabline#fnamemod = ':p:.'
+    * configure how buffer numbers should be formatted with |printf|. >
+      let g:airline#extensions#tabline#buffer_nr_format = '%s: '
 <
-Note: this is only used by the 'default' formatter.
-
+    * configure the formatting of filenames (see |filename-modifiers|). >
+      let g:airline#extensions#tabline#fnamemod = ':p:.'
+<
 * configure the minimum number of buffers needed to show the tabline. >
   let g:airline#extensions#tabline#buffer_min_count = 0
 <

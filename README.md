@@ -23,17 +23,19 @@ If you don't like the defaults, you can replace all sections with standard `stat
 
 ## Automatic truncation
 
-Sections are automatically hidden when the window size shrinks.
+Sections and parts within sections can be configured to automatically hide when the window size shrinks.
 
 ![image](https://f.cloud.github.com/assets/306502/1060831/05c08aac-11bc-11e3-8470-a506a3037f45.png)
 
 ## Smarter tab line
 
-Automatically displays all buffers when there's only one tab open.  This is disabled by default; add the following to your vimrc to enable the extension:
-
-    let g:airline#extensions#tabline#enabled = 1
+Automatically displays all buffers when there's only one tab open.
 
 ![tabline](https://f.cloud.github.com/assets/306502/1072623/44c292a0-1495-11e3-9ce6-dcada3f1c536.gif)
+
+This is disabled by default; add the following to your vimrc to enable the extension:
+
+    let g:airline#extensions#tabline#enabled = 1
 
 ## Seamless integration
 
@@ -90,7 +92,6 @@ There's already [powerline][2], why yet another statusline?
 What about [vim-powerline][1]?
 
 *  vim-powerline has been deprecated in favor of the newer, unifying powerline, which is under active development; the new version is written in python and expands its capabilities to tools outside of vim, such as bash, zsh, and tmux.
-*  vim-powerline uses different font codes, so if you want to use it with a powerline themed tmux (for example), it will not work.
 
 # Where did the name come from?
 
@@ -119,7 +120,7 @@ This plugin follows the standard runtime path structure, and as such it can be i
 
 For the nice looking powerline symbols to appear, you will need to install a patched font.  Instructions can be found in the official powerline [documentation][20].  Prepatched fonts can be found in the [powerline-fonts][3] repository.
 
-Finally, enable them in vim-airline by adding `let g:airline_powerline_fonts = 1` to your vimrc.
+Finally, you can add the convenience variable `let g:airline_powerline_fonts = 1` to your vimrc which will automatically populate the `g:airline_symbols` dictionary with the powerline symbols.
 
 # FAQ
 
