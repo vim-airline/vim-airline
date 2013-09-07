@@ -30,6 +30,13 @@ describe 'active builder'
     let stl = s:builder.build()
     Expect stl =~ '%#Normal#hello%#Normal_to_NonText#<%#NonText#world'
   end
+
+  it 'should not repeat the same highlight group'
+    call s:builder.add_section('Normal', 'hello')
+    call s:builder.add_section('Normal', 'hello')
+    let stl = s:builder.build()
+    Expect stl == '%#Normal#hello>hello'
+  end
 end
 
 describe 'inactive builder'

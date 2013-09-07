@@ -19,7 +19,11 @@ function! s:prototype.add_section(group, contents)
     endif
   endif
 
-  let self._line .= '%#'.a:group.'#'.a:contents
+  if self._curgroup != a:group
+    let self._line .= '%#'.a:group.'#'
+  endif
+
+  let self._line .= a:contents
   let self._curgroup = a:group
 endfunction
 
