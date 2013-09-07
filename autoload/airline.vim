@@ -122,19 +122,6 @@ function! airline#check_mode(winnr)
   if g:airline_detect_modified
     if &modified
       call add(l:mode, 'modified')
-      let colors = exists('g:airline#themes#{g:airline_theme}#palette.inactive_modified.airline_c')
-            \ ? g:airline#themes#{g:airline_theme}#palette.inactive_modified.airline_c : []
-    else
-      let colors = exists('g:airline#themes#{g:airline_theme}#palette.inactive.airline_c')
-            \ ? g:airline#themes#{g:airline_theme}#palette.inactive.airline_c : []
-    endif
-
-    if !empty(colors)
-      for winnr in range(1, winnr('$'))
-        if winnr != a:winnr && has_key(s:contexts, winnr) && s:contexts[winnr].bufnr == context.bufnr
-          call airline#highlighter#exec('airline_c'.(context.bufnr).'_inactive', colors)
-        endif
-      endfor
     endif
   endif
 
@@ -144,6 +131,7 @@ function! airline#check_mode(winnr)
 
   let mode_string = join(l:mode)
   if get(w:, 'airline_lastmode', '') != mode_string
+    call airline#highlighter#highlight_modified_inactive(context.bufnr)
     call airline#highlighter#highlight(l:mode)
     let w:airline_lastmode = mode_string
   endif
