@@ -82,6 +82,9 @@ function! s:exec_separator(dict, from, to, inverse, suffix)
 endfunction
 
 function! airline#highlighter#load_theme()
+  for winnr in filter(range(1, winnr('$')), 'v:val != winnr()')
+    call airline#highlighter#highlight_modified_inactive(winbufnr(winnr))
+  endfor
   call airline#highlighter#highlight(['inactive'])
   call airline#highlighter#highlight(['normal'])
 endfunction
