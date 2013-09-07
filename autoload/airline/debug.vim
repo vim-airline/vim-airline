@@ -32,3 +32,19 @@ function! airline#debug#profile2()
   noautocmd qall!
 endfunction
 
+function! airline#debug#profile3()
+  profile start airline-profile-mode.log
+  profile func *
+  profile file *
+
+  for i in range(1000)
+    startinsert
+    redrawstatus
+    stopinsert
+    redrawstatus
+  endfor
+
+  profile pause
+  noautocmd qall!
+endfunction
+
