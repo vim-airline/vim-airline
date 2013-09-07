@@ -61,3 +61,7 @@ function! airline#parts#filetype()
   return &filetype
 endfunction
 
+function! airline#parts#ffenc()
+  return printf('%s%s', &fenc, strlen(&ff) > 0 ? '['.&ff.']' : '')
+endfunction
+
