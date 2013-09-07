@@ -80,7 +80,7 @@ function! airline#extensions#tabline#title(n)
 endfunction
 
 function! airline#extensions#tabline#get_buffer_name(nr)
-  return airline#extensions#tabline#formatters#{s:formatter}(a:nr)
+  return airline#extensions#tabline#formatters#{s:formatter}(a:nr, get(s:, 'current_buffer_list', []))
 endfunction
 
 function! s:get_buffer_list()
@@ -106,6 +106,7 @@ function! s:get_buffer_list()
     let buffers = buffers[:s:buf_max]
   endif
 
+  let s:current_buffer_list = buffers
   return buffers
 endfunction
 

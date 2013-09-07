@@ -5,7 +5,7 @@ let s:buf_nr_format = get(g:, 'airline#extensions#tabline#buffer_nr_format', '%s
 let s:buf_nr_show = get(g:, 'airline#extensions#tabline#buffer_nr_show', 0)
 let s:buf_modified_symbol = g:airline_symbols.modified
 
-function! airline#extensions#tabline#formatters#default(bufnr)
+function! airline#extensions#tabline#formatters#default(bufnr, buffers)
   let _ = ''
 
   if s:buf_nr_show

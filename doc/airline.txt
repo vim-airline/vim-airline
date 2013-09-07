@@ -316,7 +316,7 @@ virtualenv <https://github.com/jmcantrell/vim-virtualenv>
   let g:airline#extensions#tabline#formatter = 'default'
 
   " here is how you can define a 'foo' formatter:
-  function! airline#extensions#tabline#formatters#foo(bufnr)
+  function! airline#extensions#tabline#formatters#foo(bufnr, buffers)
     return fnamemodify(bufname(a:bufnr), ':t')
   endfunction
   let g:airline#extensions#tabline#formatter = 'foo'
