@@ -6,7 +6,7 @@ if &cp || v:version < 702 || (exists('g:loaded_airline') && g:loaded_airline)
 endif
 let g:loaded_airline = 1
 
-autocmd VimEnter * call airline#deprecation#check()
+" autocmd VimEnter * call airline#deprecation#check()
 
 let s:airline_initialized = 0
 let s:airline_theme_defined = 0

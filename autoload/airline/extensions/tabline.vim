@@ -1,13 +1,10 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
-let s:fnamefunc = get(g:, 'airline#extensions#tabline#fnamefunc', 'airline#extensions#tabline#fname_func')
+let s:formatter = get(g:, 'airline#extensions#tabline#formatter', 'default')
 let s:excludes = get(g:, 'airline#extensions#tabline#excludes', [])
 let s:tab_nr_type = get(g:, 'airline#extensions#tabline#tab_nr_type', 0)
 let s:show_buffers = get(g:, 'airline#extensions#tabline#show_buffers', 1)
-let s:buf_nr_show = get(g:, 'airline#extensions#tabline#buffer_nr_show', 0)
-let s:buf_nr_format = get(g:, 'airline#extensions#tabline#buffer_nr_format', '%s: ')
-let s:buf_modified_symbol = g:airline_symbols.modified
 
 let s:builder_context = {
       \ 'active'        : 1,
@@ -82,30 +79,8 @@ function! airline#extensions#tabline#title(n)
   return airline#extensions#tabline#get_buffer_name(buflist[winnr - 1])
 endfunction
 
-function! airline#extensions#tabline#fname_func(name)
-  let fmod = get(g:, 'airline#extensions#tabline#fnamemod', ':p:.')
-  return substitute(fnamemodify(a:name, fmod), '\w\zs.\{-}\ze\/', '', 'g')
-endfunction
-
 function! airline#extensions#tabline#get_buffer_name(nr)
-  let _ = ''
-  let name = bufname(a:nr)
-
-  if s:buf_nr_show
-    let _ .= printf(s:buf_nr_format, a:nr)
-  endif
-
-  if empty(name)
-    let _ .= '[No Name]'
-  else
-    let _ .= call(s:fnamefunc, [name])
-  endif
-
-  if getbufvar(a:nr, '&modified') == 1
-    let _ .= s:buf_modified_symbol
-  endif
-
-  return _
+  return airline#extensions#tabline#formatters#{s:formatter}(a:nr)
 endfunction
 
 function! s:get_buffer_list()
