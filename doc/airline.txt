@@ -71,7 +71,8 @@ values):
     endif
   endfunction
 <
-* enable/disable automatic selection of patched powerline font symbols >
+* enable/disable automatic population of the `g:airline_symbols` dictionary
+  with powerline symbols.
   let g:airline_powerline_fonts=0
 <
 * define the set of text to display for each mode.  >
@@ -387,10 +388,10 @@ define a section like this: >
 <
 This will create a section with the `mode`, followed by a space, and our `foo`
 part in section `a`. Section `b` will have two parts with a left-side
-separator. And section`c` will contain the current path. You may notice that
-the space and cwd are not defined to be parts. For convenience, if a part of
-that key does not exist, it will be inserted as is. The unit tests will be a
-good resource for possibilities.
+separator. And section `c` will contain the current path. You may notice that
+the space and cwd are not defined parts. For convenience, if a part of that
+key does not exist, it will be inserted as is. The unit tests will be a good
+resource for possibilities.
 
 Note: The use of `VimEnter` is important, because most extensions are lazily
 loaded, so we must give them a chance to define their parts before we can use
@@ -398,9 +399,9 @@ them.
 
 Note: The `airline#section#create` function and friends will do its best to
 create a section with the appropriate separators, but it only works for
-function and text parts. Special |statusline| items like %f or raw parts will
-not work as it is not possible to inspect their widths/contents before
-rendering to the statusline.
+function and text parts. Special |statusline| items like %f or raw/undefined
+parts will not work as it is not possible to inspect their widths/contents
+before rendering to the statusline.
 
 ==============================================================================
 FUNCREFS                                                  *airline-funcrefs*
