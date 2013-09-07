@@ -1,4 +1,4 @@
-*airline.txt*  Lean and mean statusline that's light as air
+*airline.txt*  Lean and mean status/tabline that's light as air
                    _                       _      _ _                        ~
             __   _(_)_ __ ___         __ _(_)_ __| (_)_ __   ___             ~
             \ \ / / | '_ ` _ \ _____ / _` | | '__| | | '_ \ / _ \            ~
@@ -335,6 +335,8 @@ virtualenv <https://github.com/jmcantrell/vim-virtualenv>
 * configure the minimum number of buffers needed to show the tabline. >
   let g:airline#extensions#tabline#buffer_min_count = 0
 <
+  Note: this setting only applies to a single tab.
+
 * configure separators for the tabline only. >
   let g:airline#extensions#tabline#left_sep = ''
   let g:airline#extensions#tabline#left_alt_sep = ''
@@ -376,12 +378,16 @@ define a section like this: >
   function! AirlineInit()
     let g:airline_section_a = airline#section#create(['mode', ' ', 'foo'])
     let g:airline_section_b = airline#section#create_left(['ffenc','file'])
+    let g:airline_section_c = airline#section#create(['%{getcwd()}'])
   endfunction
   autocmd VimEnter * call AirlineInit()
 <
 This will create a section with the `mode`, followed by a space, and our `foo`
 part in section `a`. Section `b` will have two parts with a left-side
-separator. Have a look at the code/tests for all available options.
+separator. And section`c` will contain the current path. You may notice that
+the space and cwd are not defined to be parts. For convenience, if a part of
+that key does not exist, it will be inserted as is. The unit tests will be a
+good resource for possibilities.
 
 Note: The use of `VimEnter` is important, because most extensions are lazily
 loaded, so we must give them a chance to define their parts before we can use
@@ -419,6 +425,9 @@ new plugin. >
   endfunction
   call airline#add_statusline_func('MyPlugin')
 <
+Notice that only the left side of the statusline is overwritten. This means
+the right side (the line/column numbers, etc) will be intact.
+
 -------------------------------------               *remove_statusline_func*
 You can also remove a function as well, which is useful for when you want a
 temporary override. >
@@ -448,7 +457,7 @@ to your liking.  Here is an example: >
   endfunction
 <
 The above example uses various some example highlight groups to demonstrate
-that you can make any combination from the loaded colorscheme.  However, if
+that you can use any combination from the loaded colorscheme. However, if
 you want colors to change between modes, you should use one of the section
 highlight groups, e.g. `airline_a` and `airline_b`.
 
@@ -458,6 +467,7 @@ values such as whether the statusline is active or not, and the window number.
   context = {
     'winnr': 'the window number for the statusline',
     'active': 'whether the window is active or not',
+    'bufnr': 'the current buffer for this window',
   }
 <
 -------------------------------------        *airline-pipeline-return-codes*
@@ -492,7 +502,8 @@ For contributions into the plugin, here are the following guidelines:
   b.  Configuration variables for the extension should reside in the
       extension, e.g. `g:airline#extensions#foo_plugin#bar_variable`.
 
-See the source of |example.vim| for a working extension.
+See the source of |example.vim| for documented code of how to write one.
+Looking at the other extensions is also a good resource.
 
 ==============================================================================
 WRITING THEMES                                              *airline-themes*

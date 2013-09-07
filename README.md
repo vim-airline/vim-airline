@@ -1,6 +1,6 @@
 # vim-airline [![Build Status](https://travis-ci.org/bling/vim-airline.png)](https://travis-ci.org/bling/vim-airline)
 
-Lean &amp; mean statusline for vim that's light as air.
+Lean &amp; mean status/tabline for vim that's light as air.
 
 ![img](https://github.com/bling/vim-airline/wiki/screenshots/demo.gif)
 
@@ -91,7 +91,7 @@ There's already [powerline][2], why yet another statusline?
 
 What about [vim-powerline][1]?
 
-*  vim-powerline has been deprecated in favor of the newer, unifying powerline, which is under active development; the new version is written in python and expands its capabilities to tools outside of vim, such as bash, zsh, and tmux.
+*  vim-powerline has been deprecated in favor of the newer, unifying powerline, which is under active development; the new version is written in python at the core and exposes various bindings such that it can style statuslines not only in vim, but also tmux, bash, zsh, and others.
 
 # Where did the name come from?
 
