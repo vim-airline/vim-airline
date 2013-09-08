@@ -27,12 +27,24 @@ function! airline#extensions#branch#get_head()
     endif
   endif
 
-  return empty(head)
+  return empty(head) || !s:check_in_path()
         \ ? s:empty_message
         \ : printf('%s%s', empty(s:symbol) ? '' : s:symbol.' ', head)
 endfunction
 
+function! s:check_in_path()
+  if !exists('b:airline_branch_path')
+    let root = get(b:, 'git_dir', get(b:, 'mercurial_dir', ''))
+    let bufferpath = resolve(fnamemodify(expand('%'), ':p:h'))
+    let root = fnamemodify(root, ':h')
+    let b:airline_file_in_root = stridx(bufferpath, root) > -1
+  endif
+  return b:airline_file_in_root
+endfunction
+
 function! airline#extensions#branch#init(ext)
   call airline#parts#define_function('branch', 'airline#extensions#branch#get_head')
+
+  autocmd BufReadPost * unlet! b:airline_file_in_root
 endfunction
 
