@@ -25,5 +25,10 @@ describe 'parts'
     call airline#parts#define_minwidth('mw', 123)
     Expect airline#parts#get('mw').minwidth == 123
   end
+
+  it 'can define a condition'
+    call airline#parts#define_condition('part', '1')
+    Expect airline#parts#get('part').condition == '1'
+  end
 end
 

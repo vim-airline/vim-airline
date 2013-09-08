@@ -55,5 +55,12 @@ describe 'section'
     let s = airline#section#create_right(['%t', 'asdf', '%{getcwd()}'])
     Expect s == '%t < asdf < %{getcwd()}'
   end
+
+  it 'should empty out parts that do not pass their condition'
+    call airline#parts#define_text('conditional', 'conditional')
+    call airline#parts#define_condition('conditional', '0')
+    let s = airline#section#create(['conditional'])
+    Expect s == '%{0 ? airline#util#wrap("conditional",0) : ""}'
+  end
 end
 

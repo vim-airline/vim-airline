@@ -370,6 +370,9 @@ Here is how you would define a part that is visible only if the window width
 greater than a minimum width. >
   call airline#parts#define_minwidth('foo', 50)
 <
+Parts can be configured to be visible conditionally. >
+  call airline#parts#define_condition('foo', 'getcwd() =~ "work_dir"')
+<
 Note: Part definitions are combinative; e.g. the two examples above modify the
 same `foo` part.
 

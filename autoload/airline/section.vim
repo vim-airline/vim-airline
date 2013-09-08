@@ -36,12 +36,19 @@ function! s:create(parts, append)
     let minwidth = get(part, 'minwidth', 0)
 
     if a:append > 0 && idx != 0
-      let val .= printf('%%{airline#util#append(%s,%s)}', func, minwidth)
+      let partval = printf('%%{airline#util#append(%s,%s)}', func, minwidth)
     elseif a:append < 0 && idx != len(a:parts) - 1
-      let val .= printf('%%{airline#util#prepend(%s,%s)}', func, minwidth)
+      let partval = printf('%%{airline#util#prepend(%s,%s)}', func, minwidth)
     else
-      let val .= printf('%%{airline#util#wrap(%s,%s)}', func, minwidth)
+      let partval = printf('%%{airline#util#wrap(%s,%s)}', func, minwidth)
     endif
+
+    if exists('part.condition')
+      let partval = substitute(partval, '{', '{'.(part.condition).' ? ', '')
+      let partval = substitute(partval, '}', ' : ""}', '')
+    endif
+
+    let val .= partval
     let _ .= val
   endfor
   return _
