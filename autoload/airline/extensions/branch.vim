@@ -1,13 +1,17 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
-let s:empty_message = get(g:, 'airline#extensions#branch#empty_message',
-      \ get(g:, 'airline_branch_empty_message', ''))
-let s:symbol = get(g:, 'airline#extensions#branch#symbol', g:airline_symbols.branch)
-
 let s:has_fugitive = exists('*fugitive#head')
 let s:has_fugitive_detect = exists('*fugitive#detect')
 let s:has_lawrencium = exists('*lawrencium#statusline')
+
+if !s:has_fugitive && !s:has_lawrencium
+  finish
+endif
+
+let s:empty_message = get(g:, 'airline#extensions#branch#empty_message',
+      \ get(g:, 'airline_branch_empty_message', ''))
+let s:symbol = get(g:, 'airline#extensions#branch#symbol', g:airline_symbols.branch)
 
 function! airline#extensions#branch#get_head()
   let head = ''

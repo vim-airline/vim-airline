@@ -1,6 +1,9 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
+" we don't actually want this loaded :P
+finish
+
 " Extension specific variables can be defined the usual fashion.
 if !exists('g:airline#extensions#example#number_of_cats')
   let g:airline#extensions#example#number_of_cats = 42

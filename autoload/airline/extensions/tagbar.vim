@@ -1,6 +1,10 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
+if !exists(':TagbarToggle')
+  finish
+endif
+
 let s:flags = get(g:, 'airline#extensions#tagbar#flags', '')
 
 " Arguments: current, sort, fname

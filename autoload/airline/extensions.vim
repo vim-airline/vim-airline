@@ -204,7 +204,10 @@ function! airline#extensions#load()
       if !get(g:, 'airline#extensions#'.name.'#enabled', 1)
         continue
       endif
-      call airline#extensions#{name}#init(s:ext)
+      try
+        call airline#extensions#{name}#init(s:ext)
+      catch
+      endtry
     endif
   endfor
 endfunction
