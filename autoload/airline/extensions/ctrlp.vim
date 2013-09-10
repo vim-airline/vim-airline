@@ -1,6 +1,10 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
+if !get(g:, 'loaded_ctrlp', 0)
+  finish
+endif
+
 let s:color_template = get(g:, 'airline#extensions#ctrlp#color_template', 'insert')
 
 function! airline#extensions#ctrlp#generate_color_map(dark, light, white)

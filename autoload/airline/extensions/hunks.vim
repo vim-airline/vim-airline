@@ -1,6 +1,10 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
+if !get(g:, 'loaded_signify', 0) && !get(g:, 'loaded_gitgutter', 0)
+  finish
+endif
+
 let s:non_zero_only = get(g:, 'airline#extensions#hunks#non_zero_only', 0)
 let s:hunk_symbols = get(g:, 'airline#extensions#hunks#hunk_symbols', ['+', '~', '-'])
 

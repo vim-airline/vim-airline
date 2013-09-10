@@ -1,6 +1,10 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
+if !exists('*bufferline#get_status_string')
+  finish
+endif
+
 let s:overwrite = get(g:, 'airline#extensions#bufferline#overwrite_variables', 1)
 
 function! airline#extensions#bufferline#init(ext)

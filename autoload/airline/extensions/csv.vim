@@ -1,6 +1,10 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
+if !get(g:, 'loaded_csv', 0)
+  finish
+endif
+
 let s:column_display = get(g:, 'airline#extensions#csv#column_display', 'Number')
 
 function! airline#extensions#csv#get_column()
