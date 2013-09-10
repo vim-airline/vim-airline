@@ -93,6 +93,9 @@ function! s:get_buffer_list()
           continue
         endif
       endfor
+      if getbufvar(nr, 'current_syntax') == 'qf'
+        continue
+      endif
       call add(buffers, nr)
     endif
   endfor
