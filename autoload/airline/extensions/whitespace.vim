@@ -38,14 +38,14 @@ function! airline#extensions#whitespace#check()
     endif
 
     if trailing != 0 || mixed
-      let b:airline_whitespace_check = s:symbol.' '
+      let b:airline_whitespace_check = s:symbol
       if s:show_message
         if trailing != 0
-          let b:airline_whitespace_check .= printf(s:trailing_format, trailing)
+          let b:airline_whitespace_check .= ' '.printf(s:trailing_format, trailing)
         endif
         if mixed
           let mixnr = indents[0] == indents[1] ? indents[0] : indents[2]
-          let b:airline_whitespace_check .= printf(s:mixed_indent_format, mixnr)
+          let b:airline_whitespace_check .= ' '.printf(s:mixed_indent_format, mixnr)
         endif
       endif
     endif
