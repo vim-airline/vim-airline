@@ -19,7 +19,7 @@ let s:mixed_indent_format = get(g:, 'airline#extensions#whitespace#mixed_indent_
 let s:enabled = 1
 
 function! airline#extensions#whitespace#check()
-  if &readonly || !s:enabled
+  if &readonly || !&modifiable || !s:enabled
     return ''
   endif
 
