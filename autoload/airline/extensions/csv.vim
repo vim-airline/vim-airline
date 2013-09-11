@@ -1,7 +1,7 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
-if !get(g:, 'loaded_csv', 0) || !exists(':Table')
+if !get(g:, 'loaded_csv', 0) && !exists(':Table')
   finish
 endif
 
