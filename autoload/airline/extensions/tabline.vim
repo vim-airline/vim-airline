@@ -18,7 +18,7 @@ let s:buf_min_count = get(g:, 'airline#extensions#tabline#buffer_min_count', 0)
 let s:buf_len = 0
 
 " TODO: temporary
-let s:buf_max = get(g:, 'airline#extensions#tabline#buffer_max', winwidth(0) / 16)
+let s:buf_max = get(g:, 'airline#extensions#tabline#buffer_max', winwidth(0) / 24)
 
 function! airline#extensions#tabline#init(ext)
   if has('gui_running')
@@ -107,6 +107,8 @@ function! s:get_buffer_list()
       call add(buffers, first)
     endwhile
     let buffers = buffers[:s:buf_max]
+    call insert(buffers, -1, 0)
+    call add(buffers, -1)
   endif
 
   let s:current_buffer_list = buffers
@@ -118,6 +120,10 @@ function! s:get_buffers()
   let cur = bufnr('%')
   let tab_bufs = tabpagebuflist(tabpagenr())
   for nr in s:get_buffer_list()
+    if nr < 0
+      call b.add_raw('%#airline_tabhid#...')
+      continue
+    endif
     if cur == nr
       if g:airline_detect_modified && getbufvar(nr, '&modified')
         let group = 'airline_tabmod'
