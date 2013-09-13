@@ -72,7 +72,7 @@ values):
   endfunction
 <
 * enable/disable automatic population of the `g:airline_symbols` dictionary
-  with powerline symbols.
+  with powerline symbols. >
   let g:airline_powerline_fonts=0
 <
 * define the set of text to display for each mode.  >
