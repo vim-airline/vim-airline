@@ -40,7 +40,7 @@ function! s:check_in_path()
   if !exists('b:airline_branch_path')
     let root = get(b:, 'git_dir', get(b:, 'mercurial_dir', ''))
     let bufferpath = resolve(fnamemodify(expand('%'), ':p:h'))
-    let root = fnamemodify(root, ':h')
+    let root = expand(fnamemodify(root, ':h'))
     let b:airline_file_in_root = stridx(bufferpath, root) > -1
   endif
   return b:airline_file_in_root
