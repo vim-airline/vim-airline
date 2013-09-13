@@ -65,7 +65,7 @@ function! airline#extensions#apply(...)
 
   if &buftype == 'quickfix'
     let w:airline_section_a = '%q'
-    let w:airline_section_b = '%{w:quickfix_title}'
+    let w:airline_section_b = '%{get(w:, "quickfix_title", "")}'
     let w:airline_section_c = ''
     let w:airline_section_x = ''
   elseif &buftype == 'help'
