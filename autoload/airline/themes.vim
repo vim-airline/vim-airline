@@ -1,18 +1,31 @@
 " MIT License. Copyright (c) 2013 Bailey Ling.
-" vim: ts=2 sts=2 sw=2 fdm=indent
+" vim: et ts=2 sts=2 sw=2
 
 " generates a dictionary which defines the colors for each highlight group
-function! airline#themes#generate_color_map(section1, section2, section3, file)
-  "                       guifg           guibg           ctermfg         ctermbg         gui/term
-  return {
-      \ 'airline_a':    [ a:section1[0] , a:section1[1] , a:section1[2] , a:section1[3] , get(a:section1 , 4 , 'bold') ] ,
-      \ 'airline_b':    [ a:section2[0] , a:section2[1] , a:section2[2] , a:section2[3] , get(a:section2 , 4 , ''    ) ] ,
-      \ 'airline_c':    [ a:section3[0] , a:section3[1] , a:section3[2] , a:section3[3] , get(a:section3 , 4 , ''    ) ] ,
-      \ 'airline_file': [ a:file[0]     , a:file[1]     , a:file[2]     , a:file[3]     , get(a:file     , 4 , ''    ) ] ,
-      \ 'airline_x':    [ a:section3[0] , a:section3[1] , a:section3[2] , a:section3[3] , get(a:section3 , 4 , ''    ) ] ,
-      \ 'airline_y':    [ a:section2[0] , a:section2[1] , a:section2[2] , a:section2[3] , get(a:section2 , 4 , ''    ) ] ,
-      \ 'airline_z':    [ a:section1[0] , a:section1[1] , a:section1[2] , a:section1[3] , get(a:section1 , 4 , ''    ) ] ,
-      \ }
+function! airline#themes#generate_color_map(section1, section2, section3, ...)
+  let palette = {
+        \ 'airline_a': [ a:section1[0] , a:section1[1] , a:section1[2] , a:section1[3] , get(a:section1 , 4 , 'bold') ] ,
+        \ 'airline_b': [ a:section2[0] , a:section2[1] , a:section2[2] , a:section2[3] , get(a:section2 , 4 , ''    ) ] ,
+        \ 'airline_c': [ a:section3[0] , a:section3[1] , a:section3[2] , a:section3[3] , get(a:section3 , 4 , ''    ) ] ,
+        \ }
+
+  if a:0 > 1
+    call extend(palette, {
+          \ 'airline_x':    [ a:1[0] , a:1[1] , a:1[2] , a:1[3] , get(a:1 , 4 , ''    ) ] ,
+          \ 'airline_y':    [ a:2[0] , a:2[1] , a:2[2] , a:2[3] , get(a:2 , 4 , ''    ) ] ,
+          \ 'airline_z':    [ a:3[0] , a:3[1] , a:3[2] , a:3[3] , get(a:3 , 4 , ''    ) ] ,
+          \ 'airline_file': [ a:4[0] , a:4[1] , a:4[2] , a:4[3] , get(a:4 , 4 , ''    ) ] ,
+          \ })
+  else
+    call extend(palette, {
+          \ 'airline_file': [ a:1[0]        , a:1[1]        , a:1[2]        , a:1[3]        , get(a:1        , 4 , '' ) ] ,
+          \ 'airline_x':    [ a:section3[0] , a:section3[1] , a:section3[2] , a:section3[3] , get(a:section3 , 4 , '' ) ] ,
+          \ 'airline_y':    [ a:section2[0] , a:section2[1] , a:section2[2] , a:section2[3] , get(a:section2 , 4 , '' ) ] ,
+          \ 'airline_z':    [ a:section1[0] , a:section1[1] , a:section1[2] , a:section1[3] , get(a:section1 , 4 , '' ) ] ,
+          \ })
+  endif
+
+  return palette
 endfunction
 
 function! airline#themes#get_highlight(group, ...)
