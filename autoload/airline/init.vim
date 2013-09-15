@@ -64,7 +64,7 @@ function! airline#init#bootstrap()
   call airline#parts#define_function('filetype', 'airline#parts#filetype')
   call airline#parts#define('readonly', {
         \ 'function': 'airline#parts#readonly',
-        \ 'highlight': 'airline_file',
+        \ 'accent': 'red',
         \ })
   call airline#parts#define_raw('file', '%f%m')
   call airline#parts#define_function('ffenc', 'airline#parts#ffenc')
