@@ -39,12 +39,10 @@ describe 'themes'
           \ [ 1, 1, 1, 1, '1' ],
           \ [ 2, 2, 2, 2, '2' ],
           \ [ 3, 3, 3, 3, '3' ],
-          \ [ 4, 4, 4, 4, '4' ],
           \ )
     Expect map.airline_a[0] == 1
     Expect map.airline_b[0] == 2
     Expect map.airline_c[0] == 3
-    Expect map.airline_file[0] == 4
     Expect map.airline_x[0] == 3
     Expect map.airline_y[0] == 2
     Expect map.airline_z[0] == 1
@@ -58,7 +56,6 @@ describe 'themes'
           \ [ 4, 4, 4, 4, '4' ],
           \ [ 5, 5, 5, 5, '5' ],
           \ [ 6, 6, 6, 6, '6' ],
-          \ [ 7, 7, 7, 7, '7' ],
           \ )
     Expect map.airline_a[0] == 1
     Expect map.airline_b[0] == 2
@@ -66,7 +63,6 @@ describe 'themes'
     Expect map.airline_x[0] == 4
     Expect map.airline_y[0] == 5
     Expect map.airline_z[0] == 6
-    Expect map.airline_file[0] == 7
   end
 end
 
