@@ -15,7 +15,7 @@ let s:builder_context = {
       \ }
 
 let s:buf_min_count = get(g:, 'airline#extensions#tabline#buffer_min_count', 0)
-let s:buf_len = 0
+let s:tab_min_count = get(g:, 'airline#extensions#tabline#tab_min_count', 0)
 
 " TODO: temporary
 let s:buf_max = get(g:, 'airline#extensions#tabline#buffer_max', winwidth(0) / 24)
@@ -27,10 +27,14 @@ function! airline#extensions#tabline#init(ext)
 
   set tabline=%!airline#extensions#tabline#get()
 
-  if s:buf_min_count <= 0
+  if s:buf_min_count <= 0 && s:tab_min_count <= 0
     set showtabline=2
   else
-    autocmd CursorMoved * call <sid>cursormove()
+    if s:show_buffers == 1
+      autocmd CursorMoved * call <sid>cursormove(s:buf_min_count, len(s:get_buffer_list()))
+    else
+      autocmd CursorMoved * call <sid>cursormove(s:tab_min_count, tabpagenr('$'))
+    endif
   endif
 
   call a:ext.add_theme_func('airline#extensions#tabline#load_theme')
@@ -52,9 +56,8 @@ function! airline#extensions#tabline#load_theme(palette)
   call airline#highlighter#exec('airline_tabhid', l:tabhid)
 endfunction
 
-function! s:cursormove()
-  let c = len(s:get_buffer_list())
-  if c > s:buf_min_count
+function! s:cursormove(min_count, total_count)
+  if a:total_count >= a:min_count
     if &showtabline != 2
       set showtabline=2
     endif
