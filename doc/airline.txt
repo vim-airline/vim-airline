@@ -339,7 +339,13 @@ virtualenv <https://github.com/jmcantrell/vim-virtualenv>
 * configure the minimum number of buffers needed to show the tabline. >
   let g:airline#extensions#tabline#buffer_min_count = 0
 <
-  Note: this setting only applies to a single tab.
+  Note: this setting only applies to a single tab and when `show_buffers` is
+  true.
+
+* configure the minimum number of tabs needed to show the tabline. >
+  let g:airline#extensions#tabline#tab_min_count = 0
+<
+  Note: this setting only applies when `show_buffers` is false.
 
 * configure separators for the tabline only. >
   let g:airline#extensions#tabline#left_sep = ''
