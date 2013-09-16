@@ -9,8 +9,8 @@ function! s:create(parts, append)
     let part = airline#parts#get(a:parts[idx])
 
     let val = ''
-    if exists('part.highlight')
-      let val .= '%#'.(part.highlight).'#'
+    if exists('part.accent')
+      let val .= '%#airline_accent_'.(part.accent).'#'
     endif
 
     if exists('part.function')

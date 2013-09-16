@@ -37,6 +37,12 @@ describe 'active builder'
     let stl = s:builder.build()
     Expect stl == '%#Normal#hello>hello'
   end
+
+  it 'should replace accent groups with the specified group'
+    call s:builder.add_section('Normal', '%#airline_accent_foo#hello')
+    let stl = s:builder.build()
+    Expect stl == '%#Normal#%#Normal_foo#hello'
+  end
 end
 
 describe 'inactive builder'

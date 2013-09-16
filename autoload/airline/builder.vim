@@ -23,7 +23,8 @@ function! s:prototype.add_section(group, contents)
     let self._line .= '%#'.a:group.'#'
   endif
 
-  let self._line .= a:contents
+  let contents = substitute(a:contents, 'airline_accent', a:group, 'g')
+  let self._line .= contents
   let self._curgroup = a:group
 endfunction
 
