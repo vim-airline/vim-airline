@@ -38,11 +38,11 @@ function! s:generate()
   " Normal mode
   if s:background == 'dark'
     let s:N1 = [s:base3, s:base1, 'bold']
-    let s:N2 = [s:base2, s:base00, '']
+    let s:N2 = [s:base2, (s:tty ? s:base01 : s:base00), '']
     let s:N3 = [s:base01, s:base02, '']
   else
     let s:N1 = [s:base2, s:base00, 'bold']
-    let s:N2 = [s:base2, s:base1, '']
+    let s:N2 = [(s:tty ? s:base01 : s:base2), s:base1, '']
     let s:N3 = [s:base1, s:base2, '']
   endif
   let s:NF = [s:orange, s:N3[1], '']
@@ -61,9 +61,9 @@ function! s:generate()
   else
     let s:I1 = [s:N1[0], s:orange, 'bold']
     if s:background == 'dark'
-      let s:I2 = [s:base1, s:base00, '']
+      let s:I2 = [s:base1, (s:tty ? s:base01 : s:base00), '']
     else
-      let s:I2 = [s:base2, s:base0, '']
+      let s:I2 = [(s:tty ? s:base01 : s:base2), s:base0, '']
     endif
   endif
   let s:I3 = s:N3
