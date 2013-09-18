@@ -79,10 +79,10 @@ function! airline#init#sections()
     let g:airline_section_b = airline#section#create(['hunks', 'branch'])
   endif
   if !exists('g:airline_section_c')
-    let g:airline_section_c = airline#section#create(['%<', 'file'])
+    let g:airline_section_c = airline#section#create(['%<', 'file', ' ', 'readonly'])
   endif
   if !exists('g:airline_section_gutter')
-    let g:airline_section_gutter = airline#section#create([' ', 'readonly', '%='])
+    let g:airline_section_gutter = airline#section#create(['%='])
   endif
   if !exists('g:airline_section_x')
     let g:airline_section_x = airline#section#create_right(['tagbar', 'filetype'])

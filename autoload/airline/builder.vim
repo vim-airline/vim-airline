@@ -23,7 +23,11 @@ function! s:prototype.add_section(group, contents)
     let self._line .= '%#'.a:group.'#'
   endif
 
+  let accent = matchstr(a:contents, 'airline_accent_\zs[^#]*\ze')
   let contents = substitute(a:contents, 'airline_accent', a:group, 'g')
+  if contents != a:contents
+    call airline#highlighter#add_accent(a:group, accent)
+  endif
   let self._line .= contents
   let self._curgroup = a:group
 endfunction

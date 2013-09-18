@@ -40,26 +40,5 @@ function! airline#themes#patch(palette)
       let a:palette[mode]['airline_warning'] = [ '#000000', '#df5f00', 232, 166 ]
     endif
   endfor
-
-  " this is a pretty heavy handed, but it works...
-  " basically, look for the 'airline_file' group and copy the bg
-  " colors from 'airline_c' into it.
-  for mode in keys(a:palette)
-    let overrides = split(mode, '_')
-    let mode_colors = a:palette[overrides[0]]
-    if exists('mode_colors.airline_file')
-      let file_colors = mode_colors.airline_file
-      let file_colors[1] = mode_colors.airline_c[1]
-      let file_colors[3] = mode_colors.airline_c[3]
-
-      if len(overrides) > 1
-        let override_colors = a:palette[overrides[0].'_'.overrides[1]]
-        let override_colors.airline_file = copy(file_colors)
-        let override_status_colors = get(override_colors, 'airline_c', mode_colors.airline_c)
-        let override_colors.airline_file[1] = override_status_colors[1]
-        let override_colors.airline_file[3] = override_status_colors[3]
-      endif
-    endif
-  endfor
 endfunction
 
