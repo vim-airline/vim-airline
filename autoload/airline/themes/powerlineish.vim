@@ -26,13 +26,11 @@ let s:V1 = [ '#080808' , '#ffaf00' , 232 , 214 ] " gray3          & brightestora
 " Replace mode                                   " fg             & bg
 let s:RE = [ '#ffffff' , '#d70000' , 231 , 160 ] " white          & brightred
 
-let s:file = copy(s:N3)
-
 let g:airline#themes#powerlineish#palette = {}
 
-let g:airline#themes#powerlineish#palette.normal = airline#themes#generate_color_map(s:N1, s:N2, s:N3, s:file)
+let g:airline#themes#powerlineish#palette.normal = airline#themes#generate_color_map(s:N1, s:N2, s:N3)
 
-let g:airline#themes#powerlineish#palette.insert = airline#themes#generate_color_map(s:I1, s:I2, s:I3, s:file)
+let g:airline#themes#powerlineish#palette.insert = airline#themes#generate_color_map(s:I1, s:I2, s:I3)
 let g:airline#themes#powerlineish#palette.insert_replace = {
       \ 'airline_a': [ s:RE[0]   , s:I1[1]   , s:RE[1]   , s:I1[3]   , ''     ] }
 
@@ -44,5 +42,5 @@ let g:airline#themes#powerlineish#palette.replace.airline_a = [ s:RE[0] , s:RE[1
 
 
 let s:IA = [ s:N2[1] , s:N3[1] , s:N2[3] , s:N3[3] , '' ]
-let g:airline#themes#powerlineish#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:file)
+let g:airline#themes#powerlineish#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA)
 

@@ -28,7 +28,7 @@ describe 'init'
   end
 
   it 'section c should be file'
-    Expect g:airline_section_c == '%<%f%m'
+    Expect g:airline_section_c == '%<%f%m %#airline_accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}'
   end
 
   it 'section x should be filetype'
