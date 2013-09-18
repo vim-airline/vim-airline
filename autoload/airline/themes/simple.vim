@@ -5,10 +5,6 @@ let s:guibg2 = '#1c1c1c'
 let s:termbg = 232
 let s:termbg2= 234
 
-let g:airline#themes#simple#palette.accents = {
-      \ 'red': [ '#ff0000' , '' , 160 , ''  ]
-      \ }
-
 let s:N1 = [ s:guibg , '#00dfff' , s:termbg , 45 ]
 let s:N2 = [ '#ff5f00' , s:guibg2, 202 , s:termbg2 ]
 let s:N3 = [ '#767676' , s:guibg, 243 , s:termbg]

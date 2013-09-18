@@ -40,5 +40,10 @@ function! airline#themes#patch(palette)
       let a:palette[mode]['airline_warning'] = [ '#000000', '#df5f00', 232, 166 ]
     endif
   endfor
+
+  let a:palette.accents = get(a:palette, 'accents', {})
+  if !has_key(a:palette.accents, 'red')
+    let a:palette.accents.red = [ '#ff0000' , '' , 160 , '' ]
+  endif
 endfunction
 
