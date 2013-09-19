@@ -43,7 +43,12 @@ function! airline#extensions#ctrlp#ctrlp_airline(...)
   let focus = '%=%<%#CtrlPdark# '.a:1.' %*'
   let byfname = '%#CtrlParrow3#'.g:airline_right_alt_sep.'%#CtrlPdark# '.a:2.' %*'
   let dir = '%#CtrlParrow3#'.g:airline_right_sep.'%#CtrlPlight# '.getcwd().' %*'
-  return regex.prv.item.nxt.marked.focus.byfname.dir
+  if get(g:, 'airline#extensions#ctrlp#show_adjacent_modes', 1)
+    let modes = prv.item.nxt
+  else
+    let modes = item
+  endif
+  return regex.modes.marked.focus.byfname.dir
 endfunction
 
 " Argument: len
