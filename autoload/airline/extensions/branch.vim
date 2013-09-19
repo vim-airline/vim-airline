@@ -33,7 +33,7 @@ function! airline#extensions#branch#get_head()
 
   return empty(head) || !s:check_in_path()
         \ ? s:empty_message
-        \ : printf('%s%s', empty(s:symbol) ? '' : s:symbol.' ', head)
+        \ : printf('%s%s', empty(s:symbol) ? '' : s:symbol.(g:airline_symbols.space), head)
 endfunction
 
 function! s:check_in_path()

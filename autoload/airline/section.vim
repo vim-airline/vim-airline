@@ -2,6 +2,7 @@
 " vim: et ts=2 sts=2 sw=2
 
 call airline#init#bootstrap()
+let s:spc = g:airline_symbols.space
 
 function! s:create(parts, append)
   let _ = ''
@@ -19,10 +20,10 @@ function! s:create(parts, append)
       let func = '"'.(part.text).'"'
     else
       if a:append > 0 && idx != 0
-        let val .= ' '.g:airline_left_alt_sep.' '
+        let val .= s:spc.g:airline_left_alt_sep.s:spc
       endif
       if a:append < 0 && idx != 0
-        let val = ' '.g:airline_right_alt_sep.' '.val
+        let val = s:spc.g:airline_right_alt_sep.s:spc.val
       endif
       if exists('part.raw')
         let _ .= val.(part.raw)
