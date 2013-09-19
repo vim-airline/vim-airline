@@ -276,6 +276,11 @@ ctrlp <https://github.com/kien/ctrlp.vim>
   let g:airline#extensions#ctrlp#color_template = 'visual'
   let g:airline#extensions#ctrlp#color_template = 'replace'
 <
+
+* configure whether to show the previous and next modes (mru, buffer, etc...)
+>
+ let g:airline#extensions#ctrlp#show_adjacent_modes = 1
+<
 -------------------------------------                   *airline-virtualenv*
 virtualenv <https://github.com/jmcantrell/vim-virtualenv>
 
