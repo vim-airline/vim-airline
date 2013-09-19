@@ -49,6 +49,9 @@ function! s:create(parts, append)
     endif
 
     let val .= partval
+    if exists('part.accent')
+      let val .= '%#__restore__#'
+    endif
     let _ .= val
   endfor
   return _
