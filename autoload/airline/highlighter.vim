@@ -102,8 +102,13 @@ function! airline#highlighter#add_accent(group, accent)
         let mode_colors = kvp[1]
         if has_key(mode_colors, a:group)
           let colors = copy(mode_colors[a:group])
-          let colors[0] = p.accents[a:accent][0]
-          let colors[2] = p.accents[a:accent][2]
+          if p.accents[a:accent][0] != ''
+            let colors[0] = p.accents[a:accent][0]
+          endif
+          if p.accents[a:accent][2] != ''
+            let colors[2] = p.accents[a:accent][2]
+          endif
+          let colors[4] = get(p.accents[a:accent], 4, '')
           let mode_colors[a:group.'_'.a:accent] = colors
         endif
       endfor
