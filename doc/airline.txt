@@ -393,6 +393,21 @@ same `foo` part.
 
 Note: Look at the source code and tests for the full API.
 
+-------------------------------------             *airline-predefined-parts*
+Before is a list of parts that are predefined by vim-airline.
+
+* `mode`           displays the current mode
+* `iminsert`       displays the current insert method
+* `paste`          displays the paste indicator
+* `filetype`       displays the file type
+* `readonly`       displays the read only indicator
+* `file`           displays the filename and modified indicator
+* `ffenc`          displays the file format and encoding
+
+And the following are defined for their respective extensions:
+
+`hunks`, `branch`, `tagbar`, `syntastic`, `whitespace`
+
 -------------------------------------                     *airline-sections*
 Once a part is defined, you can use helper functions to generate the
 statuslines for each section. For example, to use the part above, we could
