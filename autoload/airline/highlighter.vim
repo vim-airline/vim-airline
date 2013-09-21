@@ -94,6 +94,28 @@ function! airline#highlighter#add_separator(from, to, inverse)
   call <sid>exec_separator({}, a:from, a:to, a:inverse, '')
 endfunction
 
+function! airline#highlighter#add_accent(group, accent)
+  let p = g:airline#themes#{g:airline_theme}#palette
+  if exists('p.accents')
+    if has_key(p.accents, a:accent)
+      for kvp in items(p)
+        let mode_colors = kvp[1]
+        if has_key(mode_colors, a:group)
+          let colors = copy(mode_colors[a:group])
+          if p.accents[a:accent][0] != ''
+            let colors[0] = p.accents[a:accent][0]
+          endif
+          if p.accents[a:accent][2] != ''
+            let colors[2] = p.accents[a:accent][2]
+          endif
+          let colors[4] = get(p.accents[a:accent], 4, '')
+          let mode_colors[a:group.'_'.a:accent] = colors
+        endif
+      endfor
+    endif
+  endif
+endfunction
+
 function! airline#highlighter#highlight_modified_inactive(bufnr)
   if getbufvar(a:bufnr, '&modified')
     let colors = exists('g:airline#themes#{g:airline_theme}#palette.inactive_modified.airline_c')

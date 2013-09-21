@@ -17,9 +17,6 @@ let s:builder_context = {
 let s:buf_min_count = get(g:, 'airline#extensions#tabline#buffer_min_count', 0)
 let s:tab_min_count = get(g:, 'airline#extensions#tabline#tab_min_count', 0)
 
-" TODO: temporary
-let s:buf_max = get(g:, 'airline#extensions#tabline#buffer_max', winwidth(0) / 24)
-
 function! airline#extensions#tabline#init(ext)
   if has('gui_running')
     set guioptions-=e
@@ -87,6 +84,9 @@ function! airline#extensions#tabline#get_buffer_name(nr)
 endfunction
 
 function! s:get_buffer_list()
+  " TODO: temporary; keep track of filename width
+  let width = 0
+
   let buffers = []
   let cur = bufnr('%')
   for nr in range(1, bufnr('$'))
@@ -100,18 +100,44 @@ function! s:get_buffer_list()
         continue
       endif
       call add(buffers, nr)
+
+      " TODO: get this information from the builder?
+      let width += len(airline#extensions#tabline#get_buffer_name(nr))
     endif
   endfor
 
-  " TODO: temporary fix; force the active buffer to be first when there are many buffers open
-  if len(buffers) > s:buf_max && index(buffers, cur) > -1
-    while buffers[1] != cur
-      let first = remove(buffers, 0)
-      call add(buffers, first)
-    endwhile
-    let buffers = buffers[:s:buf_max]
-    call insert(buffers, -1, 0)
-    call add(buffers, -1)
+  " show current buffers in the middle if there are too many buffers
+  if width > winwidth(0) && index(buffers, cur) > -1
+    let buf_count = len(buffers)
+    let position  = index(buffers, cur)
+
+    " determine the maximum number of buffers to show on each side
+    " based on the average width of all buffers
+    let buf_max = winwidth(0) / (width / buf_count) / 2 - 1
+
+    let start = max([0, position - buf_max])
+    let end   = min([buf_count, position + buf_max])
+
+    " fill up available space on the right
+    if position < buf_max
+      let end += (buf_max - position)
+    endif
+
+    " fill up available space on the left
+    if end > buf_count - 1 - buf_max
+      let start -= max([0, buf_max - (buf_count - 1 - position)])
+    endif
+
+    "
+    let buffers = eval('buffers[' . start . ':' . end . ']')
+
+    if position > 0
+      call insert(buffers, -1, 0)
+    endif
+
+    if position < buf_count - 1
+      call add(buffers, -1)
+    endif
   endif
 
   let s:current_buffer_list = buffers

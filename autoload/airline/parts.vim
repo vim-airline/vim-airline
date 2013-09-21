@@ -30,6 +30,10 @@ function! airline#parts#define_condition(key, predicate)
   call airline#parts#define(a:key, { 'condition': a:predicate })
 endfunction
 
+function! airline#parts#define_accent(key, accent)
+  call airline#parts#define(a:key, { 'accent': a:accent })
+endfunction
+
 function! airline#parts#define_empty(keys)
   for key in a:keys
     call airline#parts#define_raw(key, '')

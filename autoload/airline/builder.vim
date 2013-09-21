@@ -23,7 +23,17 @@ function! s:prototype.add_section(group, contents)
     let self._line .= '%#'.a:group.'#'
   endif
 
-  let self._line .= a:contents
+  let contents = []
+  let content_parts = split(a:contents, 'airline_accent')
+  for cpart in content_parts
+    let accent = matchstr(cpart, '_\zs[^#]*\ze')
+    call airline#highlighter#add_accent(a:group, accent)
+    call add(contents, cpart)
+  endfor
+  let line = join(contents, a:group)
+  let line = substitute(line, '__restore__', a:group, 'g')
+
+  let self._line .= line
   let self._curgroup = a:group
 endfunction
 

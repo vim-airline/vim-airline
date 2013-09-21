@@ -30,5 +30,10 @@ describe 'parts'
     call airline#parts#define_condition('part', '1')
     Expect airline#parts#get('part').condition == '1'
   end
+
+  it 'can define a accent'
+    call airline#parts#define_accent('part', 'red')
+    Expect airline#parts#get('part').accent == 'red'
+  end
 end
 
