@@ -40,13 +40,13 @@ describe 'active builder'
   end
 
   it 'should replace accent groups with the specified group'
-    call s:builder.add_section('Normal', '%#airline_accent_foo#hello')
+    call s:builder.add_section('Normal', '%#__accent_foo#hello')
     let stl = s:builder.build()
     Expect stl == '%#Normal#%#Normal_foo#hello'
   end
 
   it 'should replace two accent groups with correct groups'
-    call s:builder.add_section('Normal', '%#airline_accent_foo#hello%#airline_accent_bar#world')
+    call s:builder.add_section('Normal', '%#__accent_foo#hello%#__accent_bar#world')
     let stl = s:builder.build()
     Expect stl =~ '%#Normal_foo#hello%#Normal_bar#world'
   end

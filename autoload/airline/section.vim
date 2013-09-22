@@ -11,7 +11,7 @@ function! s:create(parts, append)
 
     let val = ''
     if exists('part.accent')
-      let val .= '%#airline_accent_'.(part.accent).'#'
+      let val .= '%#__accent_'.(part.accent).'#'
     endif
 
     if exists('part.function')
