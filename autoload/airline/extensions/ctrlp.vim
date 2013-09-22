@@ -39,7 +39,7 @@ function! airline#extensions#ctrlp#ctrlp_airline(...)
   let prv = '%#CtrlPlight# '.a:4.' %#Ctrlparrow1#'.g:airline_left_sep
   let item = '%#CtrlPwhite# '.a:5.' %#CtrlParrow2#'.g:airline_left_sep
   let nxt = '%#CtrlPlight# '.a:6.' %#CtrlParrow3#'.g:airline_left_sep
-  let marked = '%#CtrlPdark# '.a:7.' '
+  let marked = '%#CtrlPdark# '.a:7.(g:airline_symbols.space)
   let focus = '%=%<%#CtrlPdark# '.a:1.' %*'
   let byfname = '%#CtrlParrow3#'.g:airline_right_alt_sep.'%#CtrlPdark# '.a:2.' %*'
   let dir = '%#CtrlParrow3#'.g:airline_right_sep.'%#CtrlPlight# '.getcwd().' %*'

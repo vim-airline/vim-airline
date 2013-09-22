@@ -15,7 +15,7 @@ function! airline#extensions#bufferline#init(ext)
     let g:bufferline_active_highlight = 'bufferline_selected'
     let g:bufferline_active_buffer_left = ''
     let g:bufferline_active_buffer_right = ''
-    let g:bufferline_separator = ' '
+    let g:bufferline_separator = g:airline_symbols.space
   endif
 
   call airline#parts#define_raw('file', '%{bufferline#refresh_status()}'.bufferline#get_status_string())

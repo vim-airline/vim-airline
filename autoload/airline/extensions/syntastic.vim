@@ -8,7 +8,7 @@ endif
 function! airline#extensions#syntastic#get_warnings()
   let errors = SyntasticStatuslineFlag()
   if strlen(errors) > 0
-    return errors.' '
+    return errors.(g:airline_symbols.space)
   endif
   return ''
 endfunction
