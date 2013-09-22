@@ -1,3 +1,4 @@
+let g:airline_theme = 'dark'
 call airline#init#bootstrap()
 
 describe 'active builder'
@@ -36,6 +37,25 @@ describe 'active builder'
     call s:builder.add_section('Normal', 'hello')
     let stl = s:builder.build()
     Expect stl == '%#Normal#hello>hello'
+  end
+
+  it 'should replace accent groups with the specified group'
+    call s:builder.add_section('Normal', '%#airline_accent_foo#hello')
+    let stl = s:builder.build()
+    Expect stl == '%#Normal#%#Normal_foo#hello'
+  end
+
+  it 'should replace two accent groups with correct groups'
+    call s:builder.add_section('Normal', '%#airline_accent_foo#hello%#airline_accent_bar#world')
+    let stl = s:builder.build()
+    Expect stl =~ '%#Normal_foo#hello%#Normal_bar#world'
+  end
+
+  it 'should special restore group should go back to previous group'
+    call s:builder.add_section('Normal', '%#__restore__#')
+    let stl = s:builder.build()
+    Expect stl !~ '%#__restore__#'
+    Expect stl =~ '%#Normal#'
   end
 end
 

@@ -17,9 +17,6 @@ let s:builder_context = {
 let s:buf_min_count = get(g:, 'airline#extensions#tabline#buffer_min_count', 0)
 let s:tab_min_count = get(g:, 'airline#extensions#tabline#tab_min_count', 0)
 
-" TODO: temporary
-let s:buf_max = get(g:, 'airline#extensions#tabline#buffer_max', winwidth(0) / 24)
-
 function! airline#extensions#tabline#init(ext)
   if has('gui_running')
     set guioptions-=e
@@ -103,18 +100,58 @@ function! s:get_buffer_list()
     endif
   endfor
 
-  " TODO: temporary fix; force the active buffer to be first when there are many buffers open
-  if len(buffers) > s:buf_max && index(buffers, cur) > -1
-    while buffers[1] != cur
-      let first = remove(buffers, 0)
-      call add(buffers, first)
-    endwhile
-    let buffers = buffers[:s:buf_max]
-    call insert(buffers, -1, 0)
-    call add(buffers, -1)
+  let s:current_buffer_list = buffers
+  return buffers
+endfunction
+
+function! s:get_visible_buffers()
+  let buffers = s:get_buffer_list()
+  let cur = bufnr('%')
+
+  let total_width = 0
+  let max_width = 0
+
+  for nr in buffers
+    let width = len(airline#extensions#tabline#get_buffer_name(nr)) + 4
+    let total_width += width
+    let max_width = max([max_width, width])
+  endfor
+
+  " only show current and surrounding buffers if there are too many buffers
+  let position  = index(buffers, cur)
+  if total_width > winwidth(0) && position > -1
+    let buf_count = len(buffers)
+
+    " determine how many buffers to show based on the longest buffer width,
+    " use one on the right side and put the rest on the left
+    let buf_max   = winwidth(0) / max_width
+    let buf_right = 1
+    let buf_left  = max([0, buf_max - buf_right])
+
+    let start = max([0, position - buf_left])
+    let end   = min([buf_count, position + buf_right])
+
+    " fill up available space on the right
+    if position < buf_left
+      let end += (buf_left - position)
+    endif
+
+    " fill up available space on the left
+    if end > buf_count - 1 - buf_right
+      let start -= max([0, buf_right - (buf_count - 1 - position)])
+    endif
+
+    let buffers = eval('buffers[' . start . ':' . end . ']')
+
+    if start > 0
+      call insert(buffers, -1, 0)
+    endif
+
+    if end < buf_count - 1
+      call add(buffers, -1)
+    endif
   endif
 
-  let s:current_buffer_list = buffers
   return buffers
 endfunction
 
@@ -122,7 +159,7 @@ function! s:get_buffers()
   let b = airline#builder#new(s:builder_context)
   let cur = bufnr('%')
   let tab_bufs = tabpagebuflist(tabpagenr())
-  for nr in s:get_buffer_list()
+  for nr in s:get_visible_buffers()
     if nr < 0
       call b.add_raw('%#airline_tabhid#...')
       continue

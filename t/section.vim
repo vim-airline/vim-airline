@@ -26,13 +26,13 @@ describe 'section'
     Expect s == '%{airline#util#prepend("text",0)}%{airline#util#wrap("text",0)}'
   end
 
-  it 'should prefix with highlight group if provided'
+  it 'should prefix with accent group if provided'
     call airline#parts#define('hi', {
           \ 'raw': 'hello',
-          \ 'highlight': 'hlgroup',
+          \ 'accent': 'red',
           \ })
     let s = airline#section#create(['hi'])
-    Expect s == '%#hlgroup#hello'
+    Expect s == '%#airline_accent_red#hello'
   end
 
   it 'should parse out a section from the distro'
