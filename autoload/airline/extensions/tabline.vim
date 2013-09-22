@@ -8,8 +8,8 @@ let s:show_buffers = get(g:, 'airline#extensions#tabline#show_buffers', 1)
 
 let s:builder_context = {
       \ 'active'        : 1,
-      \ 'left_sep'      : get(g:, 'airline#extensions#tabline#left_sep'     , g:airline_left_sep),
-      \ 'left_alt_sep'  : get(g:, 'airline#extensions#tabline#left_alt_sep' , g:airline_left_alt_sep),
+      \ 'left_sep'      : get(g:, 'airline#extensions#tabline#left_sep'     , ' '),
+      \ 'left_alt_sep'  : get(g:, 'airline#extensions#tabline#left_alt_sep' , '|'),
       \ 'right_sep'     : get(g:, 'airline#extensions#tabline#right_sep'    , g:airline_right_sep),
       \ 'right_alt_sep' : get(g:, 'airline#extensions#tabline#right_alt_sep', g:airline_right_alt_sep),
       \ }
