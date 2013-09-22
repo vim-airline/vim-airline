@@ -56,6 +56,7 @@ function! airline#init#bootstrap()
         \ 'linenr': get(g:, 'airline_linecolumn_prefix', get(g:, 'airline_powerline_fonts', 0) ? '' : ':' ),
         \ 'branch': get(g:, 'airline_branch_prefix', get(g:, 'airline_powerline_fonts', 0) ? '' : ''),
         \ 'modified': '+',
+        \ 'space': ' ',
         \ }, 'keep')
 
   call airline#parts#define_function('mode', 'airline#parts#mode')
@@ -73,6 +74,7 @@ function! airline#init#bootstrap()
 endfunction
 
 function! airline#init#sections()
+  let spc = g:airline_symbols.space
   if !exists('g:airline_section_a')
     let g:airline_section_a = airline#section#create_left(['mode', 'paste', 'iminsert'])
   endif
@@ -80,7 +82,7 @@ function! airline#init#sections()
     let g:airline_section_b = airline#section#create(['hunks', 'branch'])
   endif
   if !exists('g:airline_section_c')
-    let g:airline_section_c = airline#section#create(['%<', 'file', ' ', 'readonly'])
+    let g:airline_section_c = airline#section#create(['%<', 'file', spc, 'readonly'])
   endif
   if !exists('g:airline_section_gutter')
     let g:airline_section_gutter = airline#section#create(['%='])
@@ -92,7 +94,7 @@ function! airline#init#sections()
     let g:airline_section_y = airline#section#create_right(['ffenc'])
   endif
   if !exists('g:airline_section_z')
-    let g:airline_section_z = airline#section#create(['%3p%% ', 'linenr', ':%3c '])
+    let g:airline_section_z = airline#section#create(['%3p%%'.spc, 'linenr', ':%3c '])
   endif
   if !exists('g:airline_section_warning')
     let g:airline_section_warning = airline#section#create(['syntastic', 'whitespace'])
