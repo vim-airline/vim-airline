@@ -11,6 +11,7 @@ let s:layout = get(g:, 'airline#extensions#default#layout', [
       \ [ 'a', 'b', 'c' ],
       \ [ 'x', 'y', 'z', 'warning' ]
       \ ])
+let s:spc = g:airline_symbols.space
 
 function! s:get_section(winnr, key, ...)
   if has_key(s:section_truncate_width, a:key)
@@ -19,7 +20,7 @@ function! s:get_section(winnr, key, ...)
     endif
   endif
   let text = airline#util#getwinvar(a:winnr, 'airline_section_'.a:key, g:airline_section_{a:key})
-  let [prefix, suffix] = [get(a:000, 0, '%( '), get(a:000, 1, ' %)')]
+  let [prefix, suffix] = [get(a:000, 0, '%('.s:spc), get(a:000, 1, s:spc.'%)')]
   return empty(text) ? '' : prefix.text.suffix
 endfunction
 

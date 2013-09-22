@@ -6,13 +6,14 @@ if !exists(':TagbarToggle')
 endif
 
 let s:flags = get(g:, 'airline#extensions#tagbar#flags', '')
+let s:spc = g:airline_symbols.space
 
 " Arguments: current, sort, fname
 function! airline#extensions#tagbar#get_status(...)
   let builder = airline#builder#new({ 'active': a:1 })
-  call builder.add_section('airline_a', ' Tagbar ')
-  call builder.add_section('airline_b', ' '.a:2.' ')
-  call builder.add_section('airline_c', ' '.a:3.' ')
+  call builder.add_section('airline_a', s:spc.'Tagbar'.s:spc)
+  call builder.add_section('airline_b', s:spc.a:2.s:spc)
+  call builder.add_section('airline_c', s:spc.a:3.s:spc)
   return builder.build()
 endfunction
 

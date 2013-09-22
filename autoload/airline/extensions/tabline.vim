@@ -205,7 +205,7 @@ function! s:get_tabs()
     if s:tab_nr_type == 0
       let val .= ' %{len(tabpagebuflist('.i.'))}'
     else
-      let val .= ' '.i
+      let val .= (g:airline_symbols.space).i
     endif
     call b.add_section(group, val.'%'.i.'T %{airline#extensions#tabline#title('.i.')} %)')
   endfor
