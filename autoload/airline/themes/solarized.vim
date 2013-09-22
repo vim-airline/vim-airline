@@ -136,8 +136,7 @@ function! s:generate()
   let g:airline#themes#solarized#palette.replace = airline#themes#generate_color_map(
         \ [s:R1[0].g, s:R1[1].g, s:R1[0].t, s:R1[1].t, s:R1[2]],
         \ [s:R2[0].g, s:R2[1].g, s:R2[0].t, s:R2[1].t, s:R2[2]],
-        \ [s:R3[0].g, s:R3[1].g, s:R3[0].t, s:R3[1].t, s:R3[2]],
-        \ s:RFa)
+        \ [s:R3[0].g, s:R3[1].g, s:R3[0].t, s:R3[1].t, s:R3[2]])
 
   let g:airline#themes#solarized#palette.replace_modified = {
         \ 'airline_c': [s:RM[0].g, s:RM[1].g,
