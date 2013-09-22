@@ -23,15 +23,20 @@ function! s:prototype.add_section(group, contents)
     let self._line .= '%#'.a:group.'#'
   endif
 
-  let contents = []
-  let content_parts = split(a:contents, '__accent')
-  for cpart in content_parts
-    let accent = matchstr(cpart, '_\zs[^#]*\ze')
-    call airline#highlighter#add_accent(a:group, accent)
-    call add(contents, cpart)
-  endfor
-  let line = join(contents, a:group)
-  let line = substitute(line, '__restore__', a:group, 'g')
+  if self._context.active
+    let contents = []
+    let content_parts = split(a:contents, '__accent')
+    for cpart in content_parts
+      let accent = matchstr(cpart, '_\zs[^#]*\ze')
+      call airline#highlighter#add_accent(a:group, accent)
+      call add(contents, cpart)
+    endfor
+    let line = join(contents, a:group)
+    let line = substitute(line, '__restore__', a:group, 'g')
+  else
+    let line = substitute(a:contents, '%#__accent[^#]*#', '', 'g')
+    let line = substitute(line, '%#__restore__#', '', 'g')
+  endif
 
   let self._line .= line
   let self._curgroup = a:group

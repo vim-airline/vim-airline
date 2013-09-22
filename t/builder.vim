@@ -70,5 +70,11 @@ describe 'inactive builder'
     let stl = s:builder.build()
     Expect stl =~ '%#Normal_inactive#hello%#Normal_to_NonText_inactive#>%#NonText_inactive#world'
   end
+
+  it 'should not render accents'
+    call s:builder.add_section('Normal', '%#__accent_foo#hello%#foo#foo%#__accent_bar#world')
+    let stl = s:builder.build()
+    Expect stl == '%#Normal_inactive#hello%#foo_inactive#fooworld'
+  end
 end
 
