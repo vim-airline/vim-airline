@@ -57,11 +57,11 @@ endfunction
 
 let s:active_winnr = -1
 function! airline#extensions#apply(...)
+  let s:active_winnr = winnr()
+
   if s:is_excluded_window()
     return -1
   endif
-
-  let s:active_winnr = winnr()
 
   if &buftype == 'quickfix'
     let w:airline_section_a = '%q'
