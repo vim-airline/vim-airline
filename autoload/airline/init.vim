@@ -9,7 +9,10 @@ endfunction
 
 let s:loaded = 0
 function! airline#init#bootstrap()
-  if s:loaded | return | endif | let s:loaded = 1
+  if s:loaded
+    return
+  endif
+  let s:loaded = 1
 
   call s:check_defined('g:airline_left_sep', get(g:, 'airline_powerline_fonts', 0)?"":">")
   call s:check_defined('g:airline_left_alt_sep', get(g:, 'airline_powerline_fonts', 0)?"":">")
