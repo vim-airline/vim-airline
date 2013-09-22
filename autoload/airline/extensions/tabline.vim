@@ -112,16 +112,15 @@ function! s:get_visible_buffers()
   let max_width = 0
 
   for nr in buffers
-    " TODO: get this information from the builder?
     let width = len(airline#extensions#tabline#get_buffer_name(nr)) + 4
     let total_width += width
     let max_width = max([max_width, width])
   endfor
 
   " only show current and surrounding buffers if there are too many buffers
-  if total_width > winwidth(0) && index(buffers, cur) > -1
+  let position  = index(buffers, cur)
+  if total_width > winwidth(0) && position > -1
     let buf_count = len(buffers)
-    let position  = index(buffers, cur)
 
     " determine how many buffers to show based on the longest buffer width,
     " use one on the right side and put the rest on the left
