@@ -82,6 +82,10 @@ Every section is composed of parts, and you can reorder and reconfigure them at 
 
 ![image](https://f.cloud.github.com/assets/306502/1073278/f291dd4c-14a3-11e3-8a83-268e2753f97d.png)
 
+Sections can contain accents, which allows for very granular control of visuals.
+
+![image](https://f.cloud.github.com/assets/306502/1195815/4bfa38d0-249d-11e3-823e-773cfc2ca894.png)
+
 #### Extensible pipeline
 
 Completely transform the statusline to your liking.  Build out the statusline as you see fit by extracting colors from the current colorscheme's highlight groups.
