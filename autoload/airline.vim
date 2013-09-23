@@ -43,6 +43,9 @@ function! airline#switch_theme(name)
   let w:airline_lastmode = ''
   call airline#update_statusline()
   call airline#load_theme()
+
+  " this is required to prevent clobbering the startup info message, i don't know why...
+  call airline#check_mode(winnr())
 endfunction
 
 function! airline#switch_matching_theme()
