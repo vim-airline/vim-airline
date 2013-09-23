@@ -26,13 +26,20 @@ describe 'section'
     Expect s == '%{airline#util#prepend("text",0)}%{airline#util#wrap("text",0)}'
   end
 
-  it 'should prefix with accent group if provided'
+  it 'should prefix with accent group if provided and restore afterwards'
     call airline#parts#define('hi', {
           \ 'raw': 'hello',
           \ 'accent': 'red',
           \ })
     let s = airline#section#create(['hi'])
-    Expect s == '%#__accent_red#hello'
+    Expect s == '%#__accent_red#hello%#__restore__#'
+  end
+
+  it 'should accent functions'
+    call airline#parts#define_function('hi', 'Hello')
+    call airline#parts#define_accent('hi', 'bold')
+    let s = airline#section#create(['hi'])
+    Expect s == '%#__accent_bold#%{airline#util#wrap(Hello(),0)}%#__restore__#'
   end
 
   it 'should parse out a section from the distro'
