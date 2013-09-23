@@ -37,6 +37,11 @@ This is disabled by default; add the following to your vimrc to enable the exten
 
     let g:airline#extensions#tabline#enabled = 1
 
+Separators can be configured independently for the tabline, so here is how you can define "straight" tabs:
+
+    let g:airline#extensions#tabline#left_sep = ' '
+    let g:airline#extensions#tabline#left_alt_sep = '|'
+
 ## Seamless integration
 
 vim-airline integrates with a variety of plugins out of the box.  These extensions will be lazily loaded if and only if you have the other plugins installed (and of course you can turn them off).
