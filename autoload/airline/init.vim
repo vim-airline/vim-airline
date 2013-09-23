@@ -62,7 +62,10 @@ function! airline#init#bootstrap()
         \ 'space': ' ',
         \ }, 'keep')
 
-  call airline#parts#define_function('mode', 'airline#parts#mode')
+  call airline#parts#define('mode', {
+        \ 'function': 'airline#parts#mode',
+        \ 'accent': 'bold',
+        \ })
   call airline#parts#define_function('iminsert', 'airline#parts#iminsert')
   call airline#parts#define_function('paste', 'airline#parts#paste')
   call airline#parts#define_function('filetype', 'airline#parts#filetype')
