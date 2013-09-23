@@ -8,11 +8,16 @@ let s:show_buffers = get(g:, 'airline#extensions#tabline#show_buffers', 1)
 
 let s:builder_context = {
       \ 'active'        : 1,
-      \ 'left_sep'      : get(g:, 'airline#extensions#tabline#left_sep'     , ' '),
-      \ 'left_alt_sep'  : get(g:, 'airline#extensions#tabline#left_alt_sep' , '|'),
       \ 'right_sep'     : get(g:, 'airline#extensions#tabline#right_sep'    , g:airline_right_sep),
       \ 'right_alt_sep' : get(g:, 'airline#extensions#tabline#right_alt_sep', g:airline_right_alt_sep),
       \ }
+if get(g:, 'airline_powerline_fonts', 0)
+  let s:builder_context.left_sep     = get(g:, 'airline#extensions#tabline#left_sep'     , '')
+  let s:builder_context.left_alt_sep = get(g:, 'airline#extensions#tabline#left_alt_sep' , '')
+else
+  let s:builder_context.left_sep     = get(g:, 'airline#extensions#tabline#left_sep'     , ' ')
+  let s:builder_context.left_alt_sep = get(g:, 'airline#extensions#tabline#left_alt_sep' , '|')
+endif
 
 let s:buf_min_count = get(g:, 'airline#extensions#tabline#buffer_min_count', 0)
 let s:tab_min_count = get(g:, 'airline#extensions#tabline#tab_min_count', 0)
