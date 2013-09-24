@@ -120,27 +120,45 @@ function! s:generate()
         \ [s:I2[0].g, s:I2[1].g, s:I2[0].t, s:I2[1].t, s:I2[2]],
         \ [s:I3[0].g, s:I3[1].g, s:I3[0].t, s:I3[1].t, s:I3[2]])
 
+  let g:airline#themes#solarized#palette.insert.airline_warning =
+        \ g:airline#themes#solarized#palette.normal.airline_warning
+
   let g:airline#themes#solarized#palette.insert_modified = {
         \ 'airline_c': [s:IM[0].g, s:IM[1].g,
         \ s:IM[0].t, s:IM[1].t, s:IM[2]]}
+
+  let g:airline#themes#solarized#palette.insert_modified.airline_warning =
+        \ g:airline#themes#solarized#palette.normal.airline_warning
 
   let g:airline#themes#solarized#palette.visual = airline#themes#generate_color_map(
         \ [s:V1[0].g, s:V1[1].g, s:V1[0].t, s:V1[1].t, s:V1[2]],
         \ [s:V2[0].g, s:V2[1].g, s:V2[0].t, s:V2[1].t, s:V2[2]],
         \ [s:V3[0].g, s:V3[1].g, s:V3[0].t, s:V3[1].t, s:V3[2]])
 
+  let g:airline#themes#solarized#palette.visual.airline_warning =
+        \ g:airline#themes#solarized#palette.normal.airline_warning
+
   let g:airline#themes#solarized#palette.visual_modified = {
         \ 'airline_c': [s:VM[0].g, s:VM[1].g,
         \ s:VM[0].t, s:VM[1].t, s:VM[2]]}
+
+  let g:airline#themes#solarized#palette.visual_modified.airline_warning =
+        \ g:airline#themes#solarized#palette.normal.airline_warning
 
   let g:airline#themes#solarized#palette.replace = airline#themes#generate_color_map(
         \ [s:R1[0].g, s:R1[1].g, s:R1[0].t, s:R1[1].t, s:R1[2]],
         \ [s:R2[0].g, s:R2[1].g, s:R2[0].t, s:R2[1].t, s:R2[2]],
         \ [s:R3[0].g, s:R3[1].g, s:R3[0].t, s:R3[1].t, s:R3[2]])
 
+  let g:airline#themes#solarized#palette.replace.airline_warning =
+        \ g:airline#themes#solarized#palette.normal.airline_warning
+
   let g:airline#themes#solarized#palette.replace_modified = {
         \ 'airline_c': [s:RM[0].g, s:RM[1].g,
         \ s:RM[0].t, s:RM[1].t, s:RM[2]]}
+
+  let g:airline#themes#solarized#palette.replace_modified.airline_warning =
+        \ g:airline#themes#solarized#palette.normal.airline_warning
 
   let g:airline#themes#solarized#palette.tabline = {}
 
