@@ -33,9 +33,9 @@ function! airline#extensions#tabline#init(ext)
     set showtabline=2
   else
     if s:show_buffers == 1
-      autocmd BufEnter * call <sid>on_buf_enter(s:buf_min_count, len(s:get_buffer_list()))
+      autocmd CursorMove * call <sid>on_cursormove(s:buf_min_count, len(s:get_buffer_list()))
     else
-      autocmd BufEnter * call <sid>on_buf_enter(s:tab_min_count, tabpagenr('$'))
+      autocmd CursorMove * call <sid>on_cursormove(s:tab_min_count, tabpagenr('$'))
     endif
   endif
 
@@ -58,7 +58,7 @@ function! airline#extensions#tabline#load_theme(palette)
   call airline#highlighter#exec('airline_tabhid', l:tabhid)
 endfunction
 
-function! s:on_buf_enter(min_count, total_count)
+function! s:on_cursormove(min_count, total_count)
   if a:total_count >= a:min_count
     if &showtabline != 2
       set showtabline=2
