@@ -6,10 +6,11 @@ function! s:clear()
   endfor
 endfunction
 
-describe 'init'
+call airline#init#bootstrap()
+
+describe 'init sections'
   before
     call s:clear()
-    call airline#init#bootstrap()
     call airline#init#sections()
   end
 
@@ -62,6 +63,14 @@ describe 'init'
     Expect airline#parts#get('tagbar').raw == ''
     Expect airline#parts#get('syntastic').raw == ''
     Expect airline#parts#get('whitespace').raw == ''
+  end
+end
+
+describe 'init parts'
+  it 'should not redefine parts already defined'
+    call airline#parts#define_raw('linenr', 'bar')
+    call airline#init#sections()
+    Expect g:airline_section_z =~ 'bar'
   end
 end
 

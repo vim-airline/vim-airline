@@ -61,6 +61,10 @@ function! airline#init#bootstrap()
         \ 'modified': '+',
         \ 'space': ' ',
         \ }, 'keep')
+endfunction
+
+function! airline#init#sections()
+  let g:airline#init#initializing_sections = 1
 
   call airline#parts#define('mode', {
         \ 'function': 'airline#parts#mode',
@@ -77,9 +81,7 @@ function! airline#init#bootstrap()
   call airline#parts#define_raw('linenr', (g:airline_symbols.linenr).'%#__accent_bold#%4l%#__restore__#')
   call airline#parts#define_function('ffenc', 'airline#parts#ffenc')
   call airline#parts#define_empty(['hunks', 'branch', 'tagbar', 'syntastic', 'whitespace'])
-endfunction
 
-function! airline#init#sections()
   let spc = g:airline_symbols.space
   if !exists('g:airline_section_a')
     let g:airline_section_a = airline#section#create_left(['mode', 'paste', 'iminsert'])
@@ -105,5 +107,7 @@ function! airline#init#sections()
   if !exists('g:airline_section_warning')
     let g:airline_section_warning = airline#section#create(['syntastic', 'whitespace'])
   endif
+
+  unlet g:airline#init#initializing_sections
 endfunction
 
