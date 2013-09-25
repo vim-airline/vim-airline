@@ -63,3 +63,30 @@ let g:airline#themes#luna#palette.tabline = {
       \ 'airline_tabfill':  ['#ffffff', '#002b2b',  231, 23, ''],
       \ 'airline_tabmod':  ['#ffffff', '#780000',  231, 88, ''],
       \ }
+
+let s:WI = [ '#ffffff', '#5f0000', 231, 88 ]
+let g:airline#themes#luna#palette.normal.airline_warning = [
+     \ s:WI[0], s:WI[1], s:WI[2], s:WI[3]
+     \ ]
+
+let g:airline#themes#luna#palette.normal_modified.airline_warning =
+    \ g:airline#themes#luna#palette.normal.airline_warning
+
+
+let g:airline#themes#luna#palette.insert.airline_warning =
+    \ g:airline#themes#luna#palette.normal.airline_warning
+
+let g:airline#themes#luna#palette.insert_modified.airline_warning =
+    \ g:airline#themes#luna#palette.normal.airline_warning
+
+let g:airline#themes#luna#palette.visual.airline_warning =
+    \ g:airline#themes#luna#palette.normal.airline_warning
+
+let g:airline#themes#luna#palette.visual_modified.airline_warning =
+    \ g:airline#themes#luna#palette.normal.airline_warning
+
+let g:airline#themes#luna#palette.replace.airline_warning =
+    \ g:airline#themes#luna#palette.normal.airline_warning
+
+let g:airline#themes#luna#palette.replace_modified.airline_warning =
+    \ g:airline#themes#luna#palette.normal.airline_warning
