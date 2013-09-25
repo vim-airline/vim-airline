@@ -31,8 +31,18 @@ function! airline#load_theme()
 endfunction
 
 function! airline#switch_theme(name)
-  let g:airline_theme = a:name
-  let palette = g:airline#themes#{g:airline_theme}#palette "also lazy loads the theme
+  try
+    let palette = g:airline#themes#{a:name}#palette "also lazy loads the theme
+    let g:airline_theme = a:name
+  catch
+    echohl WarningMsg | echo 'The specified theme cannot be found.' | echohl NONE
+    if exists('g:airline_theme')
+      return
+    else
+      let g:airline_theme = 'dark'
+      let palette = g:airline#themes#dark#palette
+    endif
+  endtry
   call airline#themes#patch(palette)
 
   if exists('g:airline_theme_patch_func')
