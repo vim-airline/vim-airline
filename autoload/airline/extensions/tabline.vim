@@ -124,12 +124,13 @@ function! s:get_visible_buffers()
 
   " only show current and surrounding buffers if there are too many buffers
   let position  = index(buffers, cur)
-  if total_width > winwidth(0) && position > -1
+  let vimwidth = &columns
+  if total_width > vimwidth && position > -1
     let buf_count = len(buffers)
 
     " determine how many buffers to show based on the longest buffer width,
     " use one on the right side and put the rest on the left
-    let buf_max   = winwidth(0) / max_width
+    let buf_max   = vimwidth / max_width
     let buf_right = 1
     let buf_left  = max([0, buf_max - buf_right])
 
