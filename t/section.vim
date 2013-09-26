@@ -1,6 +1,3 @@
-call airline#init#bootstrap()
-call airline#extensions#load()
-
 function! SectionSpec()
 endfunction
 
@@ -9,6 +6,11 @@ describe 'section'
     call airline#parts#define_text('text', 'text')
     call airline#parts#define_raw('raw', 'raw')
     call airline#parts#define_function('func', 'SectionSpec')
+  end
+
+  it 'should be able to reference default parts'
+    let s = airline#section#create(['paste'])
+    Expect s == '%{airline#util#wrap(airline#parts#paste(),0)}'
   end
 
   it 'should create sections with no separators'
@@ -43,6 +45,7 @@ describe 'section'
   end
 
   it 'should parse out a section from the distro'
+    call airline#extensions#load()
     let s = airline#section#create(['whitespace'])
     Expect s =~ 'airline#extensions#whitespace#check'
   end

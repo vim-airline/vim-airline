@@ -7,7 +7,7 @@ let s:parts = {}
 
 function! airline#parts#define(key, config)
   let s:parts[a:key] = get(s:parts, a:key, {})
-  if exists('g:airline#init#initializing_sections')
+  if exists('g:airline#init#bootstrapping')
     call extend(s:parts[a:key], a:config, 'keep')
   else
     call extend(s:parts[a:key], a:config, 'force')
