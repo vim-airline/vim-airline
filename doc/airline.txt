@@ -1,4 +1,5 @@
 *airline.txt*  Lean and mean status/tabline that's light as air
+*airline*
                    _                       _      _ _                        ~
             __   _(_)_ __ ___         __ _(_)_ __| (_)_ __   ___             ~
             \ \ / / | '_ ` _ \ _____ / _` | | '__| | | '_ \ / _ \            ~
@@ -6,7 +7,26 @@
               \_/ |_|_| |_| |_|      \__,_|_|_|  |_|_|_| |_|\___|            ~
                                                                              ~
 ==============================================================================
-INTRODUCTION                                                       *airline*
+CONTENTS                                                  *airline-contents*
+
+   01. Intro ............................................... |airline-intro|
+   02. Features ......................................... |airline-features|
+   03. Name ................................................. |airline-name|
+   04. Configuration ............................... |airline-configuration|
+   05. Commands ......................................... |airline-commands|
+   06. Customization ............................... |airline-customization|
+   07. Extensions ..................................... |airline-extensions|
+   08. Advanced Customization ............. |airline-advanced-customization|
+   09. Funcrefs ......................................... |airline-funcrefs|
+   10. Pipeline ......................................... |airline-pipeline|
+   11. Writing Extensions ..................... |airline-writing-extensions|
+   12. Writing Themes ..................................... |airline-themes|
+   13. Troubleshooting ........................... |airline-troubleshooting|
+   14. Contributions ............................... |airline-contributions|
+   15. License ........................................... |airline-license|
+
+==============================================================================
+INTRODUCTION                                                 *airline-intro*
 
 vim-airline is a fast and lightweight alternative to powerline, written
 in 100% vimscript with no outside dependencies.
