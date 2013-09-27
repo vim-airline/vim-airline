@@ -16,10 +16,10 @@ function! airline#init#bootstrap()
 
   let g:airline#init#bootstrapping = 1
 
-  call s:check_defined('g:airline_left_sep', get(g:, 'airline_powerline_fonts', 0)?"":">")
-  call s:check_defined('g:airline_left_alt_sep', get(g:, 'airline_powerline_fonts', 0)?"":">")
-  call s:check_defined('g:airline_right_sep', get(g:, 'airline_powerline_fonts', 0)?"":"<")
-  call s:check_defined('g:airline_right_alt_sep', get(g:, 'airline_powerline_fonts', 0)?"":"<")
+  call s:check_defined('g:airline_left_sep', get(g:, 'airline_powerline_fonts', 0)?"\ue0b0":">")
+  call s:check_defined('g:airline_left_alt_sep', get(g:, 'airline_powerline_fonts', 0)?"\ue0b1":">")
+  call s:check_defined('g:airline_right_sep', get(g:, 'airline_powerline_fonts', 0)?"\ue0b2":"<")
+  call s:check_defined('g:airline_right_alt_sep', get(g:, 'airline_powerline_fonts', 0)?"\ue0b3":"<")
   call s:check_defined('g:airline_detect_modified', 1)
   call s:check_defined('g:airline_detect_paste', 1)
   call s:check_defined('g:airline_detect_iminsert', 0)
@@ -56,12 +56,12 @@ function! airline#init#bootstrap()
   call s:check_defined('g:airline_symbols', {})
   call extend(g:airline_symbols, {
         \ 'paste': get(g:, 'airline_paste_symbol', 'PASTE'),
-        \ 'readonly': get(g:, 'airline_readonly_symbol', get(g:, 'airline_powerline_fonts', 0) ? '' : 'RO'),
-        \ 'whitespace': get(g:, 'airline_powerline_fonts', 0) ? '✹' : '!',
-        \ 'linenr': get(g:, 'airline_linecolumn_prefix', get(g:, 'airline_powerline_fonts', 0) ? '' : ':' ),
-        \ 'branch': get(g:, 'airline_branch_prefix', get(g:, 'airline_powerline_fonts', 0) ? '' : ''),
+        \ 'readonly': get(g:, 'airline_readonly_symbol', get(g:, 'airline_powerline_fonts', 0) ? "\ue0a2" : 'RO'),
+        \ 'whitespace': get(g:, 'airline_powerline_fonts', 0) ? "\u2739" : '!',
+        \ 'linenr': get(g:, 'airline_linecolumn_prefix', get(g:, 'airline_powerline_fonts', 0) ? "\ue0a1" : ':' ),
+        \ 'branch': get(g:, 'airline_branch_prefix', get(g:, 'airline_powerline_fonts', 0) ? "\ue0a0" : ''),
         \ 'modified': '+',
-        \ 'space': ' ',
+        \ 'space': "\ua0",
         \ }, 'keep')
 
   call airline#parts#define('mode', {
