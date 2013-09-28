@@ -1,4 +1,4 @@
-function! s:load_constant()
+if get(g:, 'airline#themes#base16#constant', 0)
   let g:airline#themes#base16#palette = {}
 
   " Color palette
@@ -60,57 +60,48 @@ function! s:load_constant()
   let g:airline#themes#base16#palette.inactive_modified = {
         \ 'airline_c': [s:gui_orange, '', s:cterm_orange, '', ''],
         \ }
-endfunction
-
-function! s:load_dynamic()
-  let g:airline#themes#base16#palette = {}
-
-  let g:airline#themes#base16#palette.accents = {
-        \ 'red': airline#themes#get_highlight('Constant'),
-        \ }
-
-  let s:N1 = airline#themes#get_highlight2(['DiffText', 'bg'], ['DiffText', 'fg'], 'bold')
-  let s:N2 = airline#themes#get_highlight('Visual')
-  let s:N3 = airline#themes#get_highlight('CursorLine')
-  let g:airline#themes#base16#palette.normal = airline#themes#generate_color_map(s:N1, s:N2, s:N3)
-
-  let group = airline#themes#get_highlight('vimCommand')
-  let g:airline#themes#base16#palette.normal_modified = {
-        \ 'statusline': [ group[0], '', group[2], '', '' ]
-        \ }
-
-  let s:I1 = airline#themes#get_highlight2(['DiffAdded', 'bg'], ['DiffAdded', 'fg'], 'bold')
-  let s:I2 = airline#themes#get_highlight2(['DiffAdded', 'fg'], ['Normal', 'bg'])
-  let s:I3 = s:N3
-  let g:airline#themes#base16#palette.insert = airline#themes#generate_color_map(s:I1, s:I2, s:I3)
-  let g:airline#themes#base16#palette.insert_modified = g:airline#themes#base16#palette.normal_modified
-
-  let s:R1 = airline#themes#get_highlight2(['WarningMsg', 'bg'], ['WarningMsg', 'fg'], 'bold')
-  let s:R2 = s:N2
-  let s:R3 = s:N3
-  let g:airline#themes#base16#palette.replace = airline#themes#generate_color_map(s:R1, s:R2, s:R3)
-  let g:airline#themes#base16#palette.replace_modified = g:airline#themes#base16#palette.normal_modified
-
-  let s:V1 = airline#themes#get_highlight2(['Normal', 'bg'], ['Constant', 'fg'], 'bold')
-  let s:V2 = airline#themes#get_highlight2(['Constant', 'fg'], ['Normal', 'bg'])
-  let s:V3 = s:N3
-  let g:airline#themes#base16#palette.visual = airline#themes#generate_color_map(s:V1, s:V2, s:V3)
-  let g:airline#themes#base16#palette.visual_modified = g:airline#themes#base16#palette.normal_modified
-
-  let s:IA = airline#themes#get_highlight2(['NonText', 'fg'], ['CursorLine', 'bg'])
-  let g:airline#themes#base16#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA)
-  let g:airline#themes#base16#palette.inactive_modified = {
-        \ 'airline_c': [ group[0], '', group[2], '', '' ]
-        \ }
-endfunction
-
-if get(g:, 'airline#themes#base16#constant', 0)
-  call s:load_constant()
 else
-  call s:load_dynamic()
-  augroup airline_base16
-    autocmd!
-    autocmd ColorScheme * call <sid>load_dynamic() | call airline#load_theme()
-  augroup END
+  function! airline#themes#base16#refresh()
+    let g:airline#themes#base16#palette = {}
+
+    let g:airline#themes#base16#palette.accents = {
+          \ 'red': airline#themes#get_highlight('Constant'),
+          \ }
+
+    let s:N1 = airline#themes#get_highlight2(['DiffText', 'bg'], ['DiffText', 'fg'], 'bold')
+    let s:N2 = airline#themes#get_highlight('Visual')
+    let s:N3 = airline#themes#get_highlight('CursorLine')
+    let g:airline#themes#base16#palette.normal = airline#themes#generate_color_map(s:N1, s:N2, s:N3)
+
+    let group = airline#themes#get_highlight('vimCommand')
+    let g:airline#themes#base16#palette.normal_modified = {
+          \ 'statusline': [ group[0], '', group[2], '', '' ]
+          \ }
+
+    let s:I1 = airline#themes#get_highlight2(['DiffAdded', 'bg'], ['DiffAdded', 'fg'], 'bold')
+    let s:I2 = airline#themes#get_highlight2(['DiffAdded', 'fg'], ['Normal', 'bg'])
+    let s:I3 = s:N3
+    let g:airline#themes#base16#palette.insert = airline#themes#generate_color_map(s:I1, s:I2, s:I3)
+    let g:airline#themes#base16#palette.insert_modified = g:airline#themes#base16#palette.normal_modified
+
+    let s:R1 = airline#themes#get_highlight2(['WarningMsg', 'bg'], ['WarningMsg', 'fg'], 'bold')
+    let s:R2 = s:N2
+    let s:R3 = s:N3
+    let g:airline#themes#base16#palette.replace = airline#themes#generate_color_map(s:R1, s:R2, s:R3)
+    let g:airline#themes#base16#palette.replace_modified = g:airline#themes#base16#palette.normal_modified
+
+    let s:V1 = airline#themes#get_highlight2(['Normal', 'bg'], ['Constant', 'fg'], 'bold')
+    let s:V2 = airline#themes#get_highlight2(['Constant', 'fg'], ['Normal', 'bg'])
+    let s:V3 = s:N3
+    let g:airline#themes#base16#palette.visual = airline#themes#generate_color_map(s:V1, s:V2, s:V3)
+    let g:airline#themes#base16#palette.visual_modified = g:airline#themes#base16#palette.normal_modified
+
+    let s:IA = airline#themes#get_highlight2(['NonText', 'fg'], ['CursorLine', 'bg'])
+    let g:airline#themes#base16#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA)
+    let g:airline#themes#base16#palette.inactive_modified = {
+          \ 'airline_c': [ group[0], '', group[2], '', '' ]
+          \ }
+  endfunction
+  call airline#themes#base16#refresh()
 endif
 

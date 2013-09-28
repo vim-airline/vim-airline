@@ -1,6 +1,6 @@
 let g:airline#themes#zenburn#palette = {}
 
-function! s:generate()
+function! airline#themes#zenburn#refresh()
   let g:airline#themes#zenburn#palette.accents = {
         \ 'red': airline#themes#get_highlight('Constant'),
         \ }
@@ -40,9 +40,5 @@ function! s:generate()
         \ }
 endfunction
 
-call s:generate()
-augroup airline_zenburn
-  autocmd!
-  autocmd ColorScheme * call <sid>generate()
-augroup END
+call airline#themes#zenburn#refresh()
 

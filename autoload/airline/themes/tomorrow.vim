@@ -1,6 +1,6 @@
 let g:airline#themes#tomorrow#palette = {}
 
-function! s:generate()
+function! airline#themes#tomorrow#refresh()
   let g:airline#themes#tomorrow#palette.accents = {
         \ 'red': airline#themes#get_highlight('Constant'),
         \ }
@@ -40,8 +40,5 @@ function! s:generate()
         \ }
 endfunction
 
-call s:generate()
-augroup airline_tomorrow
-  autocmd!
-  autocmd ColorScheme * call <sid>generate() | call airline#load_theme()
-augroup END
+call airline#themes#tomorrow#refresh()
+
