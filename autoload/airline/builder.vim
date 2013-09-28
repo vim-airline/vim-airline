@@ -28,7 +28,6 @@ function! s:prototype.add_section(group, contents)
     let content_parts = split(a:contents, '__accent')
     for cpart in content_parts
       let accent = matchstr(cpart, '_\zs[^#]*\ze')
-      call airline#highlighter#add_accent(a:group, accent)
       call add(contents, cpart)
     endfor
     let line = join(contents, a:group)

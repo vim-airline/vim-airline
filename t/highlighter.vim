@@ -11,10 +11,10 @@ describe 'highlighter'
 
   it 'should populate accent colors'
     Expect exists('g:airline#themes#dark#palette.normal.airline_c_red') to_be_false
-    Expect exists('g:airline#themes#dark#palette.insert.airline_c_red') to_be_false
-    call airline#highlighter#add_accent('airline_c', 'red')
-    Expect exists('g:airline#themes#dark#palette.normal.airline_c_red') to_be_true
-    Expect exists('g:airline#themes#dark#palette.insert.airline_c_red') to_be_true
+    Expect hlID('airline_c_red') == 0
+    call airline#themes#patch(g:airline#themes#dark#palette)
+    call airline#highlighter#highlight(['normal'])
+    Expect hlID('airline_c_red') != 0
   end
 end
 

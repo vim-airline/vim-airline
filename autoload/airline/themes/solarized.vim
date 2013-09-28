@@ -1,6 +1,6 @@
 let g:airline#themes#solarized#palette = {}
 
-function! s:generate()
+function! airline#themes#solarized#refresh()
   """"""""""""""""""""""""""""""""""""""""""""""""
   " Options
   """"""""""""""""""""""""""""""""""""""""""""""""
@@ -169,8 +169,5 @@ function! s:generate()
         \ s:N2[0].g, s:N2[1].g, s:N2[0].t, s:N2[1].t, s:N2[2]]
 endfunction
 
-call s:generate()
-augroup airline_solarized
-  autocmd!
-  autocmd ColorScheme * call <sid>generate() | call airline#load_theme()
-augroup END
+call airline#themes#solarized#refresh()
+
