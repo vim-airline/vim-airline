@@ -26,6 +26,18 @@ function! airline#add_inactive_statusline_func(name)
 endfunction
 
 function! airline#load_theme()
+  if exists('*airline#themes#{g:airline_theme}#refresh')
+    call airline#themes#{g:airline_theme}#refresh()
+  endif
+
+  let palette = g:airline#themes#{g:airline_theme}#palette
+  call airline#themes#patch(palette)
+
+  if exists('g:airline_theme_patch_func')
+    let Fn = function(g:airline_theme_patch_func)
+    call Fn(palette)
+  endif
+
   call airline#highlighter#load_theme()
   call airline#extensions#load_theme()
 endfunction
@@ -40,15 +52,8 @@ function! airline#switch_theme(name)
       return
     else
       let g:airline_theme = 'dark'
-      let palette = g:airline#themes#dark#palette
     endif
   endtry
-  call airline#themes#patch(palette)
-
-  if exists('g:airline_theme_patch_func')
-    let Fn = function(g:airline_theme_patch_func)
-    call Fn(palette)
-  endif
 
   let w:airline_lastmode = ''
   call airline#update_statusline()

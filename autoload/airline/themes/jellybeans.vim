@@ -1,6 +1,7 @@
 let g:airline#themes#jellybeans#palette = {}
 
-function! s:generate()
+" The name of the function must be 'refresh'.
+function! airline#themes#jellybeans#refresh()
   " This theme is an example of how to use helper functions to extract highlight
   " values from the corresponding colorscheme. It was written in a hurry, so it
   " is very minimalistic. If you are a jellybeans user and want to make updates,
@@ -47,8 +48,5 @@ function! s:generate()
   let g:airline#themes#jellybeans#palette.inactive_modified = g:airline#themes#jellybeans#palette.normal_modified
 endfunction
 
-call s:generate()
-augroup airline_jellybeans
-  autocmd!
-  autocmd ColorScheme * call <sid>generate()
-augroup END
+call airline#themes#jellybeans#refresh()
+
