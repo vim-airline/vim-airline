@@ -61,7 +61,7 @@ function! airline#init#bootstrap()
         \ 'linenr': get(g:, 'airline_linecolumn_prefix', get(g:, 'airline_powerline_fonts', 0) ? "\ue0a1" : ':' ),
         \ 'branch': get(g:, 'airline_branch_prefix', get(g:, 'airline_powerline_fonts', 0) ? "\ue0a0" : ''),
         \ 'modified': '+',
-        \ 'space': "\ua0",
+        \ 'space': ' ',
         \ }, 'keep')
 
   call airline#parts#define('mode', {
