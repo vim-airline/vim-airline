@@ -181,6 +181,10 @@ function! airline#extensions#load()
     call airline#extensions#virtualenv#init(s:ext)
   endif
 
+  if (get(g:, 'airline#extensions#eclim#enabled', 1) && exists(':ProjectCreate'))
+    call airline#extensions#eclim#init(s:ext)
+  endif
+
   if (get(g:, 'airline#extensions#syntastic#enabled', 1) && get(g:, 'airline_enable_syntastic', 1))
         \ && exists(':SyntasticCheck')
     call airline#extensions#syntastic#init(s:ext)
