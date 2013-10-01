@@ -62,6 +62,7 @@ describe 'init sections'
     Expect airline#parts#get('branch').raw == ''
     Expect airline#parts#get('tagbar').raw == ''
     Expect airline#parts#get('syntastic').raw == ''
+    Expect airline#parts#get('eclim').raw == ''
     Expect airline#parts#get('whitespace').raw == ''
   end
 end
