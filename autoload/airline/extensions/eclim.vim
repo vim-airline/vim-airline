@@ -11,7 +11,7 @@ function! airline#extensions#eclim#get_warnings()
     let errorsLine = eclimList[0]['line']
     let errorsNumber = len(eclimList)
     let errors = "[Eclim: line:".string(errorsLine)." (".string(errorsNumber).")]"
-    if !exists(':SyntasticStatuslineFlag') || SyntasticStatuslineFlag() == ''
+    if !exists(':SyntasticCheck') || SyntasticStatuslineFlag() == ''
       return errors.(g:airline_symbols.space)
     endif
   endif
