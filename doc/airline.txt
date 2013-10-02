@@ -311,6 +311,13 @@ virtualenv <https://github.com/jmcantrell/vim-virtualenv>
 * enable/disable virtualenv integration >
   let g:airline#extensions#virtualenv#enabled = 1
 <
+-------------------------------------                        *airline-eclim*
+eclim <https://eclim.org>
+
+* enable/disable eclim integratino, which works well with the
+  |airline-syntastic| extension. >
+  let g:airline#extensions#eclim#enabled = 1
+
 -------------------------------------                   *airline-whitespace*
 * enable/disable detection of whitespace errors. >
   let g:airline#extensions#whitespace#enabled = 1
