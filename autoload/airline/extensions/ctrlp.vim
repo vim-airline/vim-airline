@@ -33,22 +33,25 @@ function! airline#extensions#ctrlp#load_theme(palette)
   endfor
 endfunction
 
-" Arguments: focus, byfname, s:regexp, prv, item, nxt, marked
+" Arguments: focus, byfname, regexp, prv, item, nxt, marked
 function! airline#extensions#ctrlp#ctrlp_airline(...)
-  let regex = a:3 ? '%#CtrlPlight#  regex %*' : ''
-  let prv = '%#CtrlPlight# '.a:4.' %#Ctrlparrow1#'.g:airline_left_sep
-  let item = '%#CtrlPwhite# '.a:5.' %#CtrlParrow2#'.g:airline_left_sep
-  let nxt = '%#CtrlPlight# '.a:6.' %#CtrlParrow3#'.g:airline_left_sep
-  let marked = '%#CtrlPdark# '.a:7.(g:airline_symbols.space)
-  let focus = '%=%<%#CtrlPdark# '.a:1.' %*'
-  let byfname = '%#CtrlParrow3#'.g:airline_right_alt_sep.'%#CtrlPdark# '.a:2.' %*'
-  let dir = '%#CtrlParrow3#'.g:airline_right_sep.'%#CtrlPlight# '.getcwd().' %*'
-  if get(g:, 'airline#extensions#ctrlp#show_adjacent_modes', 1)
-    let modes = prv.item.nxt
-  else
-    let modes = item
+  let b = airline#builder#new({'active': 1})
+  if a:3
+    call b.add_section_spaced('CtrlPlight', 'regex')
   endif
-  return regex.modes.marked.focus.byfname.dir
+  if get(g:, 'airline#extensions#ctrlp#show_adjacent_modes', 1)
+    call b.add_section_spaced('CtrlPlight', a:4)
+    call b.add_section_spaced('CtrlPwhite', a:5)
+    call b.add_section_spaced('CtrlPlight', a:6)
+  else
+    call b.add_section_spaced('CtrlPwhite', a:5)
+  endif
+  call b.add_section_spaced('CtrlPdark', a:7)
+  call b.split()
+  call b.add_raw('%#CtrlPdark#'.a:1.(g:airline_symbols.space))
+  call b.add_section_spaced('CtrlPdark', a:2)
+  call b.add_section_spaced('CtrlPlight', '%{getcwd()}')
+  return b.build()
 endfunction
 
 " Argument: len
@@ -60,7 +63,7 @@ endfunction
 
 function! airline#extensions#ctrlp#apply(...)
   " disable statusline overwrite if ctrlp already did it
-  return match(&statusline, 'CtrlPlight') >= 0 ? -1 : 0
+  return match(&statusline, 'CtrlPwhite') >= 0 ? -1 : 0
 endfunction
 
 function! airline#extensions#ctrlp#init(ext)
