@@ -5,6 +5,16 @@ if !exists(':ProjectCreate')
   finish
 endif
 
+function! airline#extensions#eclim#creat_line(...)
+  if &filetype == "tree"
+    let builder = a:1
+    call builder.add_section('airline_a', ' Project ')
+    call builder.add_section('airline_b', ' %f ')
+    call builder.add_section('airline_c', '')
+  return 1
+  endif
+endfunction
+
 function! airline#extensions#eclim#get_warnings()
   let eclimList = eclim#display#signs#GetExisting()
   if !empty(eclimList)
@@ -20,4 +30,6 @@ endfunction
 
 function! airline#extensions#eclim#init(ext)
   call airline#parts#define_function('eclim', 'airline#extensions#eclim#get_warnings')
+  call a:ext.add_statusline_func('airline#extensions#eclim#creat_line')
 endfunction
+
