@@ -11,6 +11,12 @@ function! airline#add_statusline_func(name)
 endfunction
 
 function! airline#add_statusline_funcref(function)
+  if index(g:airline_statusline_funcrefs, a:function) >= 0
+    echohl WarningMsg
+    echo 'The airline statusline funcref '.string(a:function).' has already been added.'
+    echohl NONE
+    return
+  endif
   call add(g:airline_statusline_funcrefs, a:function)
 endfunction
 
