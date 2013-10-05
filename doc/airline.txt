@@ -314,7 +314,7 @@ virtualenv <https://github.com/jmcantrell/vim-virtualenv>
 -------------------------------------                        *airline-eclim*
 eclim <https://eclim.org>
 
-* enable/disable eclim integratino, which works well with the
+* enable/disable eclim integration, which works well with the
   |airline-syntastic| extension. >
   let g:airline#extensions#eclim#enabled = 1
 
