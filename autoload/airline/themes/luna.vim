@@ -47,15 +47,6 @@ let g:airline#themes#luna#palette.inactive_modified = {
       \ 'airline_c': [ '#450000' , ''        , 52      , ''      , ''     ] ,
       \ }
 
-
-if !get(g:, 'loaded_ctrlp', 0)
-  finish
-endif
-let g:airline#themes#luna#palette.ctrlp = airline#extensions#ctrlp#generate_color_map(
-      \ [ '#ffffff' , '#002b2b' , 231 , 23 , ''     ] ,
-      \ [ '#ffffff' , '#005252' , 231 , 36 , ''     ] ,
-      \ [ '#ffffff' , '#973d45' , 231 , 95 , ''     ] )
-
 let g:airline#themes#luna#palette.tabline = {
       \ 'airline_tab':  ['#2aa198', '#003f3f',  231, 29, ''],
       \ 'airline_tabsel':  ['#ffffff', '#2e8b57',  231, 36, ''],
@@ -71,7 +62,6 @@ let g:airline#themes#luna#palette.normal.airline_warning = [
 
 let g:airline#themes#luna#palette.normal_modified.airline_warning =
     \ g:airline#themes#luna#palette.normal.airline_warning
-
 
 let g:airline#themes#luna#palette.insert.airline_warning =
     \ g:airline#themes#luna#palette.normal.airline_warning
@@ -90,3 +80,13 @@ let g:airline#themes#luna#palette.replace.airline_warning =
 
 let g:airline#themes#luna#palette.replace_modified.airline_warning =
     \ g:airline#themes#luna#palette.normal.airline_warning
+
+
+if !get(g:, 'loaded_ctrlp', 0)
+  finish
+endif
+let g:airline#themes#luna#palette.ctrlp = airline#extensions#ctrlp#generate_color_map(
+      \ [ '#ffffff' , '#002b2b' , 231 , 23 , ''     ] ,
+      \ [ '#ffffff' , '#005252' , 231 , 36 , ''     ] ,
+      \ [ '#ffffff' , '#973d45' , 231 , 95 , ''     ] )
+
