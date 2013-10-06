@@ -120,7 +120,12 @@ function! s:invoke_funcrefs(context, funcrefs)
 endfunction
 
 function! airline#statusline(winnr)
-  return '%{airline#check_mode('.a:winnr.')}'.s:contexts[a:winnr].line
+  if has_key(s:contexts, a:winnr)
+    return '%{airline#check_mode('.a:winnr.')}'.s:contexts[a:winnr].line
+  endif
+
+  " in rare circumstances this happens...see #276
+  return ''
 endfunction
 
 function! airline#check_mode(winnr)
