@@ -438,6 +438,22 @@ And the following are defined for their respective extensions:
 
 `hunks`, `branch`, `tagbar`, `syntastic`, `whitespace`
 
+-------------------------------------                      *airline-accents*
+Accents can be defined on any part, like so: >
+  call airline#parts#define_accent('foo', 'red')
+<
+This will override the colors of that part by using what is defined in that
+particular accent. In the above example, the `red` accent is used, which means
+regardless of which section the part is used in, it will have red foreground
+colors instead of the section's default foreground color.
+
+The following accents are defined by default. Themes can define their variants
+of the colors, but defaults will be provided if missing. >
+  bold, italic, red, green, blue, yellow, orange, purple
+<
+The defaults configure the mode and line number parts to be bold, and the
+readonly part to be red.
+
 -------------------------------------                     *airline-sections*
 Once a part is defined, you can use helper functions to generate the
 statuslines for each section. For example, to use the part above, we could

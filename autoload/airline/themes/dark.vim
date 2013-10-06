@@ -76,9 +76,13 @@ let g:airline#themes#dark#palette.inactive_modified = {
       \ }
 
 
-" Accents are used to give parts within a section a slightly different look.
-" Here we are defining a "red" accent, which is used by the 'readonly' part by
-" default.
+" Accents are used to give parts within a section a slightly different look or
+" color. Here we are defining a "red" accent, which is used by the 'readonly'
+" part by default. Only the foreground colors are specified, so the background
+" colors are automatically extracted from the underlying section colors. What
+" this means is that regardless of which section the part is defined in, it
+" will be red instead of the section's foreground color. You can also have
+" multiple parts with accents within a section.
 let g:airline#themes#dark#palette.accents = {
       \ 'red': [ '#ff0000' , '' , 160 , ''  ]
       \ }
