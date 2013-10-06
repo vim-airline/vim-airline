@@ -136,7 +136,10 @@ COMMANDS                                                  *airline-commands*
   Toggles whitespace detection.
 
 :AirlineToggle                                              *:AirlineToggle*
-  Toggles between the standard 'statusline'
+  Toggles between the standard 'statusline' and airline.
+
+:AirlineRefresh                                            *:AirlineRefresh*
+  Refreshes all highlight groups.
 
 ==============================================================================
 CUSTOMIZATION                                        *airline-customization*

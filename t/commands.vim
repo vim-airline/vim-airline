@@ -25,5 +25,9 @@ describe 'commands'
     execute 'AirlineTheme dark'
     Expect g:airline_theme == 'dark'
   end
+
+  it 'should have a refresh command'
+    Expect exists(':AirlineRefresh') to_be_true
+  end
 end
 
