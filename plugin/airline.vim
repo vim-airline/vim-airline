@@ -58,10 +58,10 @@ function! s:airline_toggle()
     augroup! airline
 
     if exists("s:stl")
-      let &stl = s:stl
+      let [ &stl, &tal, &stal ] = [ s:stl, s:tal, s:stal ]
     endif
   else
-    let s:stl = &stl
+    let [ s:stl, s:tal, s:stal ] = [ &stl, &tal, &stal ]
     augroup airline
       autocmd!
 
