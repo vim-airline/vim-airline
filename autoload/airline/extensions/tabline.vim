@@ -27,19 +27,36 @@ function! airline#extensions#tabline#init(ext)
     set guioptions-=e
   endif
 
-  set tabline=%!airline#extensions#tabline#get()
+  autocmd User AirlineToggledOn call s:toggle_on()
+  autocmd User AirlineToggledOff call s:toggle_off()
 
+  call s:toggle_on()
+  call a:ext.add_theme_func('airline#extensions#tabline#load_theme')
+endfunction
+
+function! s:toggle_off()
+  if exists('s:original_tabline')
+    let &tabline = s:original_tabline
+    let &showtabline = s:original_showtabline
+  endif
+endfunction
+
+function! s:toggle_on()
+  let [ s:original_tabline, s:original_showtabline ] = [ &tabline, &showtabline ]
+
+  set tabline=%!airline#extensions#tabline#get()
   if s:buf_min_count <= 0 && s:tab_min_count <= 1
     set showtabline=2
   else
-    if s:show_buffers == 1
-      autocmd CursorMoved * call <sid>on_cursormove(s:buf_min_count, len(s:get_buffer_list()))
-    else
-      autocmd TabEnter * call <sid>on_cursormove(s:tab_min_count, tabpagenr('$'))
-    endif
+    augroup airline_tabline
+      autocmd!
+      if s:show_buffers == 1
+        autocmd CursorMoved * call <sid>on_cursormove(s:buf_min_count, len(s:get_buffer_list()))
+      else
+        autocmd TabEnter * call <sid>on_cursormove(s:tab_min_count, tabpagenr('$'))
+      endif
+    augroup END
   endif
-
-  call a:ext.add_theme_func('airline#extensions#tabline#load_theme')
 endfunction
 
 function! airline#extensions#tabline#load_theme(palette)
