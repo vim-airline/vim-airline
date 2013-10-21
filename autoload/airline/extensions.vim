@@ -63,12 +63,7 @@ function! airline#extensions#apply(...)
     return -1
   endif
 
-  if &buftype == 'quickfix'
-    let w:airline_section_a = '%q'
-    let w:airline_section_b = '%{get(w:, "quickfix_title", "")}'
-    let w:airline_section_c = ''
-    let w:airline_section_x = ''
-  elseif &buftype == 'help'
+  if &buftype == 'help'
     call airline#extensions#apply_left_override('Help', '%f')
     let w:airline_section_x = ''
     let w:airline_section_y = ''
@@ -126,6 +121,8 @@ endfunction
 function! airline#extensions#load()
   " non-trivial number of external plugins use eventignore=all, so we need to account for that
   autocmd CursorMoved * call <sid>sync_active_winnr()
+
+  call airline#extensions#quickfix#init(s:ext)
 
   if get(g:, 'loaded_unite', 0)
     call airline#extensions#unite#init(s:ext)

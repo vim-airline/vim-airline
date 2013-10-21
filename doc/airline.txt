@@ -233,6 +233,18 @@ configuration values that you can use.
   " Note: set to an empty dictionary to disable truncation.
   let g:airline#extensions#default#section_truncate_width = {}
 <
+-------------------------------------                     *airline-quickfix*
+The quickfix extension is a simple built-in extension which determines
+whether the buffer is a quickfix or location list buffer, and adjusts the
+title accordingly.
+
+* configure the title text for quickfix buffers >
+  let g:airline#extensions#quickfix#quickfix_text = 'Quickfix'
+<
+* configure the title text for location list buffers >
+  let g:airline#extensions#quickfix#location_text = 'Location'
+<
+
 -------------------------------------                   *airline-bufferline*
 vim-bufferline <https://github.com/bling/vim-bufferline>
 
