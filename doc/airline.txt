@@ -386,6 +386,11 @@ eclim <https://eclim.org>
 <
     * configure collapsing parent directories in buffer name. >
       let g:airline#extensions#tabline#fnamecollapse = 1
+
+  " The `unique_tail` algorithm will display the tail of the filename, unless
+  " there is another file of the same name, in which it will display it along
+  " with the containing parent directory.
+  let g:airline#extensions#tabline#formatter = 'unique_tail'
 <
 * configure the minimum number of buffers needed to show the tabline. >
   let g:airline#extensions#tabline#buffer_min_count = 0
