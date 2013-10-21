@@ -192,7 +192,7 @@ with the usual statusline syntax.
 
 Note: If you define any section variables it will replace the default values
 entirely.  If you want to disable only certain parts of a section you can try
-using variables defined in the |airline-configuration| or |airline_extensions|
+using variables defined in the |airline-configuration| or |airline-extensions|
 section.
 >
   variable names                default contents
