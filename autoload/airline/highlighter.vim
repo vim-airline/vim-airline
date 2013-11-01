@@ -3,6 +3,7 @@
 
 let s:is_win32term = (has('win32') || has('win64')) && !has('gui_running')
 let s:separators = {}
+let s:accents = {}
 
 function! s:gui2cui(rgb, fallback)
   if a:rgb == ''
@@ -94,6 +95,10 @@ function! airline#highlighter#add_separator(from, to, inverse)
   call <sid>exec_separator({}, a:from, a:to, a:inverse, '')
 endfunction
 
+function! airline#highlighter#add_accent(accent)
+  let s:accents[a:accent] = 1
+endfunction
+
 function! airline#highlighter#highlight_modified_inactive(bufnr)
   if getbufvar(a:bufnr, '&modified')
     let colors = exists('g:airline#themes#{g:airline_theme}#palette.inactive_modified.airline_c')
@@ -121,7 +126,10 @@ function! airline#highlighter#highlight(modes)
         let mode_colors = kvp[1]
         call airline#highlighter#exec(kvp[0].suffix, mode_colors)
 
-        for accent in keys(p.accents)
+        for accent in keys(s:accents)
+          if !has_key(p.accents, accent)
+            continue
+          endif
           let colors = copy(mode_colors)
           if p.accents[accent][0] != ''
             let colors[0] = p.accents[accent][0]

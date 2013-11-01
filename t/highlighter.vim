@@ -13,6 +13,7 @@ describe 'highlighter'
     Expect exists('g:airline#themes#dark#palette.normal.airline_c_red') to_be_false
     Expect hlID('airline_c_red') == 0
     call airline#themes#patch(g:airline#themes#dark#palette)
+    call airline#highlighter#add_accent('red')
     call airline#highlighter#highlight(['normal'])
     Expect hlID('airline_c_red') != 0
   end
