@@ -21,6 +21,7 @@ endif
 
 let s:buf_min_count = get(g:, 'airline#extensions#tabline#buffer_min_count', 0)
 let s:tab_min_count = get(g:, 'airline#extensions#tabline#tab_min_count', 0)
+let s:spc = g:airline_symbols.space
 
 function! airline#extensions#tabline#init(ext)
   if has('gui_running')
@@ -200,7 +201,7 @@ function! s:get_buffers()
         let group = 'airline_tabhid'
       endif
     endif
-    call b.add_section(group, '%( %{airline#extensions#tabline#get_buffer_name('.nr.')} %)')
+    call b.add_section(group, s:spc.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.s:spc)
   endfor
 
   call b.add_section('airline_tabfill', '')
