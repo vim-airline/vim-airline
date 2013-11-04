@@ -233,6 +233,14 @@ configuration values that you can use.
   " Note: set to an empty dictionary to disable truncation.
   let g:airline#extensions#default#section_truncate_width = {}
 <
+* configure the layout of the sections by specificing an array of two arrays
+  (first array is the left side, second array is the right side). >
+  let g:airline#extensions#default#layout = [
+      \ [ 'a', 'b', 'c' ],
+      \ [ 'x', 'y', 'z', 'warning' ]
+      \ ])
+<
+
 -------------------------------------                     *airline-quickfix*
 The quickfix extension is a simple built-in extension which determines
 whether the buffer is a quickfix or location list buffer, and adjusts the
