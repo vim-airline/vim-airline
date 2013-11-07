@@ -4,8 +4,9 @@
 let s:has_fugitive = exists('*fugitive#head')
 let s:has_fugitive_detect = exists('*fugitive#detect')
 let s:has_lawrencium = exists('*lawrencium#statusline')
+let s:has_vcscommand = exists('*VCSCommandGetStatusLine')
 
-if !s:has_fugitive && !s:has_lawrencium
+if !s:has_fugitive && !s:has_lawrencium && !s:has_vcscommand
   finish
 endif
 
@@ -28,6 +29,15 @@ function! airline#extensions#branch#get_head()
   if empty(head)
     if s:has_lawrencium
       let head = lawrencium#statusline()
+    endif
+  endif
+
+  if empty(head)
+    if s:has_vcscommand
+      call VCSCommandEnableBufferSetup()
+      if exists('b:VCSCommandBufferInfo')
+        let head = get(b:VCSCommandBufferInfo, 0, '')
+      endif
     endif
   endif
 
