@@ -69,6 +69,10 @@ function! airline#parts#readonly()
   return &readonly ? g:airline_symbols.readonly : ''
 endfunction
 
+function! airline#parts#linenr()
+  return g:airline_symbols.linenr
+endfunction
+
 function! airline#parts#filetype()
   return &filetype
 endfunction

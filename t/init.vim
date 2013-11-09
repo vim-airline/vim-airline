@@ -69,9 +69,9 @@ end
 
 describe 'init parts'
   it 'should not redefine parts already defined'
-    call airline#parts#define_raw('linenr', 'bar')
+    call airline#parts#define_raw('file', 'bar')
     call airline#init#sections()
-    Expect g:airline_section_z =~ 'bar'
+    Expect g:airline_section_c =~ 'bar'
   end
 end
 
