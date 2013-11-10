@@ -76,7 +76,7 @@ function! airline#init#bootstrap()
         \ 'accent': 'red',
         \ })
   call airline#parts#define_raw('file', '%f%m')
-  call airline#parts#define_raw('linenr', (g:airline_symbols.linenr).'%#__accent_bold#%4l%#__restore__#')
+  call airline#parts#define_raw('linenr', '%{g:airline_symbols.linenr}%#__accent_bold#%4l%#__restore__#')
   call airline#parts#define_function('ffenc', 'airline#parts#ffenc')
   call airline#parts#define_empty(['hunks', 'branch', 'tagbar', 'syntastic', 'eclim', 'whitespace'])
 
