@@ -265,12 +265,16 @@ vim-bufferline <https://github.com/bling/vim-bufferline>
 -------------------------------------                       *airline-branch*
 fugitive.vim <https://github.com/tpope/vim-fugitive>
 lawrencium   <https://bitbucket.org/ludovicchabant/vim-lawrencium>
+vcscommand   <http://www.vim.org/scripts/script.php?script_id=90>
 
 * enable/disable fugitive/lawrencium integration >
   let g:airline#extensions#branch#enabled = 1
 <
 * change the text for when no branch is detected >
   let g:airline#extensions#branch#empty_message = ''
+
+* use vcscommand.vim if available >
+  let g:airline#extensions#branch#use_vcscommand = 0
 <
 -------------------------------------                    *airline-syntastic*
 syntastic <https://github.com/scrooloose/syntastic>

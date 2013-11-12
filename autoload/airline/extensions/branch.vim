@@ -4,7 +4,7 @@
 let s:has_fugitive = exists('*fugitive#head')
 let s:has_fugitive_detect = exists('*fugitive#detect')
 let s:has_lawrencium = exists('*lawrencium#statusline')
-let s:has_vcscommand = exists('*VCSCommandGetStatusLine')
+let s:has_vcscommand = get(g:, 'airline#extensions#branch#use_vcscommand', 0) && exists('*VCSCommandGetStatusLine')
 
 if !s:has_fugitive && !s:has_lawrencium && !s:has_vcscommand
   finish
