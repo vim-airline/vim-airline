@@ -7,7 +7,7 @@ Lean &amp; mean status/tabline for vim that's light as air.
 # Features
 
 *  Tiny core written with extensibility in mind ([open/closed principle][8]).
-*  Integrates with a variety of plugins, including: [vim-bufferline][6], [fugitive][4], [unite][9], [ctrlp][10], [minibufexpl][15], [gundo][16], [undotree][17], [nerdtree][18], [tagbar][19], [vim-gitgutter][29], [vim-signify][30], [syntastic][5], [eclim][34], [lawrencium][21] and [virtualenv][31].
+*  Integrates with a variety of plugins, including: [CoVim][35] (Results may vary depending on how CoVim's deps are installed. For best results, use the system package manager (e.g., apt-get).), [ctrlp][10], [eclim][34], [fugitive][4], [gundo][16], [lawrencium][21], [minibufexpl][15], [nerdtree][18], [syntastic][5], [tagbar][19], [undotree][17], [unite][9], [vim-bufferline][6], [vim-gitgutter][29], [vim-signify][30] and [virtualenv][31].
 *  Looks good with regular fonts and provides configuration points so you can use unicode or powerline symbols.
 *  Optimized for speed; it loads in under a millisecond.
 *  Extensive suite of themes for popular colorschemes including [solarized][23] (dark and light), [tomorrow][24] (all variants), [base16][32] (all variants), [molokai][25], [jellybeans][26] and others; have a look at the [screenshots][14] in the wiki.
@@ -197,3 +197,4 @@ MIT License. Copyright (c) 2013 Bailey Ling.
 [32]: https://github.com/chriskempson/base16-vim
 [33]: https://github.com/bling/vim-airline/wiki/Test-Plan
 [34]: http://eclim.org
+[35]: https://github.com/FredKSchott/CoVim
