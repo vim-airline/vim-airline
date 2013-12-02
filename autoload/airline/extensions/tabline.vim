@@ -179,9 +179,15 @@ function! s:get_visible_buffers()
   return buffers
 endfunction
 
+let s:current_bufnr = -1
+let s:current_tabline = ''
 function! s:get_buffers()
-  let b = airline#builder#new(s:builder_context)
   let cur = bufnr('%')
+  if cur == s:current_bufnr
+    return s:current_tabline
+  endif
+
+  let b = airline#builder#new(s:builder_context)
   let tab_bufs = tabpagebuflist(tabpagenr())
   for nr in s:get_visible_buffers()
     if nr < 0
@@ -207,7 +213,10 @@ function! s:get_buffers()
   call b.add_section('airline_tabfill', '')
   call b.split()
   call b.add_section('airline_tabtype', ' buffers ')
-  return b.build()
+
+  let s:current_bufnr = cur
+  let s:current_tabline = b.build()
+  return s:current_tabline
 endfunction
 
 function! s:get_tabs()
