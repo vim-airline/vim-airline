@@ -17,8 +17,9 @@ function! s:get_hunks_signify()
 endfunction
 
 function! s:get_hunks_gitgutter()
-  if !get(g:, 'gitgutter_enabled', 0)
-    return ''
+  if !get(g:, 'gitgutter_enabled', 0) || airline#extensions#branch#get_head() ==
+    \ get(g:, 'airline#extensions#branch#empty_message', get(g:, 'airline_branch_empty_message', ''))
+      return ''
   endif
   return GitGutterGetHunkSummary()
 endfunction
