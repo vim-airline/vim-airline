@@ -16,10 +16,13 @@ function! s:get_hunks_signify()
   return []
 endfunction
 
+function! s:is_branch_empty()
+  return get(g:, 'airline#extensions#branch#enabled', 1) && empty(airline#extensions#branch#head())
+endfunction
+
 function! s:get_hunks_gitgutter()
-  if !get(g:, 'gitgutter_enabled', 0) || airline#extensions#branch#get_head() ==
-    \ get(g:, 'airline#extensions#branch#empty_message', get(g:, 'airline_branch_empty_message', ''))
-      return ''
+  if !get(g:, 'gitgutter_enabled', 0) || s:is_branch_empty()
+    return ''
   endif
   return GitGutterGetHunkSummary()
 endfunction
