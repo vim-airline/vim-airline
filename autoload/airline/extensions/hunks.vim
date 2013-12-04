@@ -17,7 +17,7 @@ function! s:get_hunks_signify()
 endfunction
 
 function! s:is_branch_empty()
-  return get(g:, 'airline#extensions#branch#enabled', 1) && empty(airline#extensions#branch#head())
+  return exists('*airline#extensions#branch#head') && empty(airline#extensions#branch#head())
 endfunction
 
 function! s:get_hunks_gitgutter()
