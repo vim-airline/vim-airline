@@ -128,6 +128,9 @@ This plugin follows the standard runtime path structure, and as such it can be i
 
 `:help airline`
 
+The default setting of 'laststatus' is for the statusline to not appear until a split is created. If you want it to appear all the time, add the following to your vimrc:
+`set laststatus=2`
+
 # Integrating with powerline fonts
 
 For the nice looking powerline symbols to appear, you will need to install a patched font.  Instructions can be found in the official powerline [documentation][20].  Prepatched fonts can be found in the [powerline-fonts][3] repository.
