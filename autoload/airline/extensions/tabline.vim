@@ -180,6 +180,7 @@ function! s:get_visible_buffers()
 endfunction
 
 let s:current_bufnr = -1
+let s:current_tabnr = -1
 let s:current_tabline = ''
 function! s:get_buffers()
   let cur = bufnr('%')
@@ -220,9 +221,15 @@ function! s:get_buffers()
 endfunction
 
 function! s:get_tabs()
+  let curbuf = bufnr('%')
+  let curtab = tabpagenr()
+  if curbuf == s:current_bufnr && curtab == s:current_tabnr
+    return s:current_tabline
+  endif
+
   let b = airline#builder#new(s:builder_context)
   for i in range(1, tabpagenr('$'))
-    if i == tabpagenr()
+    if i == curtab
       let group = 'airline_tabsel'
       if g:airline_detect_modified
         for bi in tabpagebuflist(i)
@@ -242,11 +249,16 @@ function! s:get_tabs()
     endif
     call b.add_section(group, val.'%'.i.'T %{airline#extensions#tabline#title('.i.')} %)')
   endfor
+
   call b.add_raw('%T')
   call b.add_section('airline_tabfill', '')
   call b.split()
   call b.add_section('airline_tab', ' %999XX ')
   call b.add_section('airline_tabtype', ' tabs ')
-  return b.build()
+
+  let s:current_bufnr = curbuf
+  let s:current_tabnr = curtab
+  let s:current_tabline = b.build()
+  return s:current_tabline
 endfunction
 
