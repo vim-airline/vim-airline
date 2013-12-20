@@ -4,8 +4,8 @@ let g:airline#themes#jellybeans#palette = {}
 " compatible color array is generated.
 function! s:get_highlight(group, ctermfg, ctermbg)
   let c = airline#themes#get_highlight(a:group)
-  let c[2] = (exists(c[2]) && !empty(c[2])) ? c[2] : a:ctermfg
-  let c[3] = (exists(c[3]) && !empty(c[3])) ? c[3] : a:ctermbg
+  let c[2] = (exists("c[2]") && !empty(c[2])) ? c[2] : a:ctermfg
+  let c[3] = (exists("c[3]") && !empty(c[3])) ? c[3] : a:ctermbg
   return c
 endfunction
 
@@ -13,13 +13,13 @@ endfunction
 " that with this method.
 function! s:get_highlight_inverse(group)
   let c = airline#themes#get_highlight2(['Normal', 'bg'], [a:group, 'fg'])
-  let c[2] = (exists(c[2]) && !empty(c[2])) ? c[2] : 'Black'
+  let c[2] = (exists("c[2]") && !empty(c[2])) ? c[2] : 'Black'
   return c
 endfunction
 
 function! s:get_highlight_inverse2(group)
   let c = airline#themes#get_highlight2([a:group[1], 'bg'], [a:group[0], 'fg'])
-  let c[2] = (exists(c[2]) && !empty(c[2])) ? c[2] : 'Black'
+  let c[2] = (exists("c[2]") && !empty(c[2])) ? c[2] : 'Black'
   return c
 endfunction
 
