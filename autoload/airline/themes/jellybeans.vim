@@ -62,6 +62,7 @@ function! airline#themes#jellybeans#refresh()
   let g:airline#themes#jellybeans#palette.visual.airline_warning = g:airline#themes#jellybeans#palette.normal.airline_warning
   let g:airline#themes#jellybeans#palette.visual_modified = g:airline#themes#jellybeans#palette.normal_modified
 
+  let s:N2 = s:get_highlight('StatusLineNC', 'Grey', 'DarkGrey')
   let g:airline#themes#jellybeans#palette.inactive = airline#themes#generate_color_map(s:N2, s:N2, s:N3)
   let g:airline#themes#jellybeans#palette.inactive_modified = g:airline#themes#jellybeans#palette.normal_modified
 endfunction
