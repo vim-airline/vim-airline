@@ -837,10 +837,18 @@ colors instead of the section's default foreground color.
 
 The following accents are defined by default. Themes can define their variants
 of the colors, but defaults will be provided if missing. >
-  bold, italic, red, green, blue, yellow, orange, purple
+  bold, italic, red, green, blue, yellow, orange, purple, none
 <
 The defaults configure the mode and line number parts to be bold, and the
 readonly part to be red.
+
+"none" is special. This can be used, to remove a bold accent from an existing
+theme. For example, usually the mode part of the statusline is usually defined
+to be bold. However, it can be hard to remove an existing bold accent from the
+default configuration. Therefore, you can use the none accent to remove
+existing accents, so if you put >
+    call airline#parts#define_accent('mode', 'none')
+the mode section will be set to non-bold font style.
 
 -------------------------------------                     *airline-sections*
 Once a part is defined, you can use helper functions to generate the
