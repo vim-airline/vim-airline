@@ -39,6 +39,7 @@ function! airline#themes#jellybeans#refresh()
 
   let g:airline#themes#jellybeans#palette.accents = {
         \ 'red': s:get_highlight('Constant', 'Red', ''),
+        \ 'bold': ['', '', '', '', ''],
         \ }
 
   let g:airline#themes#jellybeans#palette.normal = airline#themes#generate_color_map(s:N1, s:N2, s:N3)
