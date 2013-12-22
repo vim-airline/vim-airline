@@ -99,11 +99,13 @@ function! airline#extensions#tabline#formatters#unique_tail_improved(bufnr, buff
     for token1 in reverse(path)
       if !token1['duplicated'] && len(buf_name) > 1
         call insert(buf_name, skip_symbol)
+        let has_skipped = 0
         break
       endif
 
       if has_uniq == 1
         call insert(buf_name, skip_symbol)
+        let has_skipped = 0
         break
       endif
 
@@ -121,6 +123,11 @@ function! airline#extensions#tabline#formatters#unique_tail_improved(bufnr, buff
         let has_uniq = 1
       endif
     endfor
+
+    if has_skipped == 1
+      call insert(buf_name, skip_symbol)
+    endif
+
     return s:wrap_name(a:bufnr, join(buf_name, '/'))
   else
     return airline#extensions#tabline#formatters#default(a:bufnr, a:buffers)
