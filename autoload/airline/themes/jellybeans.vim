@@ -23,15 +23,15 @@ function! s:get_highlight_inverse2(group)
   return c
 endfunction
 
-" And of course, you can always do it manually as well.
-let s:warn = s:get_highlight('ErrorMsg', 'White', 'DarkRed')
-
 " The name of the function must be 'refresh'.
 function! airline#themes#jellybeans#refresh()
   " This theme is an example of how to use helper functions to extract highlight
   " values from the corresponding colorscheme. It was written in a hurry, so it
   " is very minimalistic. If you are a jellybeans user and want to make updates,
   " please send pull requests.
+
+  " And of course, you can always do it manually as well.
+  let s:warn = s:get_highlight('ErrorMsg', 'White', 'DarkRed')
 
   let s:N1 = s:get_highlight_inverse('Statement')
   let s:N2 = s:get_highlight('StatusLine', 'White', 'DarkGrey')
@@ -45,7 +45,7 @@ function! airline#themes#jellybeans#refresh()
   let g:airline#themes#jellybeans#palette.normal = airline#themes#generate_color_map(s:N1, s:N2, s:N3)
   let g:airline#themes#jellybeans#palette.normal.airline_warning = s:warn
   let g:airline#themes#jellybeans#palette.normal_modified = {
-        \ 'airline_c': [ '#ffb964', '', 215, '', '' ],
+        \ 'airline_c': s:get_highlight('Type', 'Yellow', 'Black'),
         \ 'airline_warning': s:warn }
 
   let s:I = s:get_highlight_inverse('Type')
