@@ -78,7 +78,7 @@ function! airline#extensions#tabline#formatters#unique_tail_improved(bufnr, buff
   if do_deduplicate == 1
     let path = []
     let token_index = 0
-    for token in reverse(split(fnamemodify(bufname(a:bufnr), ':p:.:h'), '\'))
+    for token in reverse(split(fnamemodify(bufname(a:bufnr), ':p:.:h'), '/'))
       if token == '.' | break | endif
       let duplicated = 0
       let uniq = 1
