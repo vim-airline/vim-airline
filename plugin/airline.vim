@@ -24,6 +24,7 @@ function! s:init()
       call airline#switch_theme(g:airline_theme)
     endif
   endif
+  redraw
 endfunction
 
 function! s:on_window_changed()
