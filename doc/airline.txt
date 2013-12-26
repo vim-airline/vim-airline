@@ -410,7 +410,7 @@ eclim <https://eclim.org>
   " with the containing parent directory.
   let g:airline#extensions#tabline#formatter = 'unique_tail'
 
-  " The `unique_tail_improved` - another algorithm, that will smartly uniqualise
+  " The `unique_tail_improved` - another algorithm, that will smartly uniquify
   " buffers names with similar filename, suppressing common parts of paths.
   let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 <
