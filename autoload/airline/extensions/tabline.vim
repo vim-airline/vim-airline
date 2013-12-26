@@ -5,6 +5,7 @@ let s:formatter = get(g:, 'airline#extensions#tabline#formatter', 'default')
 let s:excludes = get(g:, 'airline#extensions#tabline#excludes', [])
 let s:tab_nr_type = get(g:, 'airline#extensions#tabline#tab_nr_type', 0)
 let s:show_buffers = get(g:, 'airline#extensions#tabline#show_buffers', 1)
+let s:show_tab_nr = get(g:, 'airline#extensions#tabline#show_tab_nr', 1)
 
 let s:builder_context = {
       \ 'active'        : 1,
@@ -103,7 +104,7 @@ function! airline#extensions#tabline#title(n)
 endfunction
 
 function! airline#extensions#tabline#get_buffer_name(nr)
-  return airline#extensions#tabline#formatters#{s:formatter}(a:nr, get(s:, 'current_buffer_list', []))
+  return airline#extensions#tabline#{s:formatter}#format(a:nr, get(s:, 'current_buffer_list', s:get_buffer_list()))
 endfunction
 
 function! s:get_buffer_list()
@@ -242,10 +243,12 @@ function! s:get_tabs()
       let group = 'airline_tab'
     endif
     let val = '%('
-    if s:tab_nr_type == 0
-      let val .= ' %{len(tabpagebuflist('.i.'))}'
-    else
-      let val .= (g:airline_symbols.space).i
+    if s:show_tab_nr
+      if s:tab_nr_type == 0
+        let val .= ' %{len(tabpagebuflist('.i.'))}'
+      else
+        let val .= (g:airline_symbols.space).i
+      endif
     endif
     call b.add_section(group, val.'%'.i.'T %{airline#extensions#tabline#title('.i.')} %)')
   endfor
@@ -261,4 +264,3 @@ function! s:get_tabs()
   let s:current_tabline = b.build()
   return s:current_tabline
 endfunction
-
