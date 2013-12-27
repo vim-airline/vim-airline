@@ -19,7 +19,6 @@ function! airline#themes#jellybeans#refresh()
   " is very minimalistic. If you are a jellybeans user and want to make updates,
   " please send pull requests.
 
-  " And of course, you can always do it manually as well.
   let s:warn = s:get_highlight('ErrorMsg')
 
   let s:N1 = s:get_highlight_inverse('Statement')
