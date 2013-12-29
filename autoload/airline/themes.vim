@@ -34,6 +34,10 @@ function! airline#themes#get_highlight2(fg, bg, ...)
   return call('airline#highlighter#get_highlight2', [a:fg, a:bg] + a:000)
 endfunction
 
+function! airline#themes#get_highlight_reverse(group, ...)
+  return call('airline#themes#get_highlight2', [[a:group, 'bg'], [a:group, 'fg']] + a:000)
+endfunction
+
 function! airline#themes#patch(palette)
   for mode in keys(a:palette)
     if !has_key(a:palette[mode], 'airline_warning')
