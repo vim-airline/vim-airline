@@ -70,6 +70,9 @@ vim-airline integrates with a variety of plugins out of the box.  These extensio
 #### [tmuxline][35]
 ![image](https://f.cloud.github.com/assets/1532071/1559276/4c28fbac-4fc7-11e3-90ef-7e833d980f98.gif)
 
+#### [promptline][36]
+![airline-promptline-sc](https://f.cloud.github.com/assets/1532071/1871900/7d4b28a0-789d-11e3-90e4-16f37269981b.gif)
+
 ## Extras
 
 vim-airline also supplies some supplementary stand-alone extensions.  In addition to the tabline extension mentioned earlier, there is also:
@@ -204,3 +207,4 @@ MIT License. Copyright (c) 2013 Bailey Ling.
 [33]: https://github.com/bling/vim-airline/wiki/Test-Plan
 [34]: http://eclim.org
 [35]: https://github.com/edkolev/tmuxline.vim
+[36]: https://github.com/edkolev/promptline.vim
