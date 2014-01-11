@@ -199,6 +199,10 @@ function! airline#extensions#load()
     call airline#extensions#tmuxline#init(s:ext)
   endif
 
+  if get(g:, 'airline#extensions#promptline#enabled', 1) && exists(':PromptlineSnapshot') && len(get(g:, 'airline#extensions#promptline#snapshot_file', ''))
+    call airline#extensions#promptline#init(s:ext)
+  endif
+
   " load all other extensions not part of the default distribution
   for file in split(globpath(&rtp, "autoload/airline/extensions/*.vim"), "\n")
     " we have to check both resolved and unresolved paths, since it's possible
