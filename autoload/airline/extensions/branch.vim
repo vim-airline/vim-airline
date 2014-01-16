@@ -10,10 +10,6 @@ if !s:has_fugitive && !s:has_lawrencium && !s:has_vcscommand
   finish
 endif
 
-let s:empty_message = get(g:, 'airline#extensions#branch#empty_message',
-      \ get(g:, 'airline_branch_empty_message', ''))
-let s:symbol = get(g:, 'airline#extensions#branch#symbol', g:airline_symbols.branch)
-
 function! airline#extensions#branch#head()
   let head = ''
 
@@ -48,9 +44,13 @@ endfunction
 
 function! airline#extensions#branch#get_head()
   let head = airline#extensions#branch#head()
+  let empty_message = get(g:, 'airline#extensions#branch#empty_message',
+      \ get(g:, 'airline_branch_empty_message', ''))
+  let symbol = get(g:, 'airline#extensions#branch#symbol', g:airline_symbols.branch)
+  
   return empty(head)
-        \ ? s:empty_message
-        \ : printf('%s%s', empty(s:symbol) ? '' : s:symbol.(g:airline_symbols.space), head)
+        \ ? empty_message
+        \ : printf('%s%s', empty(symbol) ? '' : symbol.(g:airline_symbols.space), head)
 endfunction
 
 function! s:check_in_path()
