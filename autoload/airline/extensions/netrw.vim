@@ -7,11 +7,15 @@ endif
 
 function! airline#extensions#netrw#apply(...)
   if &ft == 'netrw'
-    call a:1.add_section('airline_a', ' netrw ')
-    call a:1.add_section('airline_b', ' %{airline#extensions#branch#get_head()} ')
-    call a:1.add_section('airline_c', ' %f ')
+    let spc = g:airline_symbols.space
+
+    call a:1.add_section('airline_a', spc.'netrw'.spc)
+    if exists('*airline#extensions#branch#get_head')
+      call a:1.add_section('airline_b', spc.'%{airline#extensions#branch#get_head()}'.spc)
+    endif
+    call a:1.add_section('airline_c', spc.'%f'.spc)
     call a:1.split()
-    call a:1.add_section('airline_y', ' %{airline#extensions#netrw#sortstring()} ')
+    call a:1.add_section('airline_y', spc.'%{airline#extensions#netrw#sortstring()}'.spc)
     return 1
   endif
 endfunction
@@ -24,5 +28,5 @@ endfunction
 
 function! airline#extensions#netrw#sortstring()
   let order = (g:netrw_sort_direction =~ 'n') ? '+' : '-'
-  return g:netrw_sort_by . ' [' . order . ']'
+  return g:netrw_sort_by . (g:airline_symbols.space) . '[' . order . ']'
 endfunction
