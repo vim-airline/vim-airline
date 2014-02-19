@@ -251,7 +251,9 @@ function! s:get_tabs()
     endif
     let val = '%('
     if s:show_tab_nr
-      if s:tab_nr_type == 0
+      if type(s:tab_nr_type) == type('')
+        let val .= substitute(s:tab_nr_type, '__tabnr__', i, 'g')
+      elseif s:tab_nr_type == 0
         let val .= ' %{len(tabpagebuflist('.i.'))}'
       else
         let val .= (g:airline_symbols.space).i

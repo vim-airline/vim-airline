@@ -375,11 +375,13 @@ eclim <https://eclim.org>
 * configure filename match rules to exclude from the tabline. >
   let g:airline#extensions#tabline#excludes = []
 <
-* configure how numbers are calculated in tab mode. >
+* configure how numbers are displayed in tab mode. >
   let g:airline#extensions#tabline#tab_nr_type = 0 " # of splits (default)
   let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+  let g:airline#extensions#tabline#tab_nr_type = '__tabnr__' " string where __tabnr__ is replaced
+  let g:airline#extensions#tabline#tab_nr_type = '[__tabnr__.%{len(tabpagebuflist(__tabnr__))}]'
 <
-* enable/disable displaying tab number in tabs mode. >
+* enable/disable display of number/string in tabs mode. >
   let g:airline#extensions#tabline#show_tab_nr = 1
 
 * defines the name of a formatter for how buffer names are displayed. >
