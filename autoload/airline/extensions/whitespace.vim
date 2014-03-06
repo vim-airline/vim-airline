@@ -16,6 +16,7 @@ let s:default_checks = ['indent', 'trailing']
 let s:trailing_format = get(g:, 'airline#extensions#whitespace#trailing_format', 'trailing[%s]')
 let s:mixed_indent_format = get(g:, 'airline#extensions#whitespace#mixed_indent_format', 'mixed-indent[%s]')
 
+let s:indent_spaces = get(g:, 'airline#extensions#whitespace#indent_spaces', &shiftwidth)
 let s:max_lines = get(g:, 'airline#extensions#whitespace#max_lines', 20000)
 
 let s:enabled = 1
@@ -31,24 +32,28 @@ function! airline#extensions#whitespace#check()
 
     let trailing = 0
     if index(checks, 'trailing') > -1
-      let trailing = search(' $', 'nw')
+      let trailing = search('[ \t]$', 'nw')
     endif
 
     let mixed = 0
     if index(checks, 'indent') > -1
-      let indents = [search('^ \{2,}', 'nb'), search('^ \{2,}', 'n'), search('^\t', 'nb'), search('^\t', 'n')]
-      let mixed = indents[0] != 0 && indents[1] != 0 && indents[2] != 0 && indents[3] != 0
+      let spaces = '^ \{' . s:indent_spaces . ',}'
+      let indents = [search(spaces, 'nbw'), search(spaces, 'nw'), search('^\t', 'nbw'), search('^\t', 'nw')]
+      if indents[0] != 0 && indents[2] != 0
+        let mixed = indents[0] == indents[1] ? indents[0] : (indents[2] == indents[3] ? indents[2] : min([indents[1], indents[3]]))
+      else
+        let mixed = search(spaces . '\t', 'nw')
+      endif
     endif
 
-    if trailing != 0 || mixed
+    if trailing != 0 || mixed != 0
       let b:airline_whitespace_check = s:symbol
       if s:show_message
         if trailing != 0
           let b:airline_whitespace_check .= (g:airline_symbols.space).printf(s:trailing_format, trailing)
         endif
-        if mixed
-          let mixnr = indents[0] == indents[1] ? indents[0] : indents[2]
-          let b:airline_whitespace_check .= (g:airline_symbols.space).printf(s:mixed_indent_format, mixnr)
+        if mixed != 0
+          let b:airline_whitespace_check .= (g:airline_symbols.space).printf(s:mixed_indent_format, mixed)
         endif
       endif
     endif
