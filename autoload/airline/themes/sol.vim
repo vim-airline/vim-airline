@@ -38,7 +38,7 @@ let s:V2 = [ '#343434' , '#a3a3a3' , 237 , 249 ]
 let s:V3 = [ '#343434' , '#b0b0b0' , 237 , 250 ]
 let g:airline#themes#sol#palette.visual = airline#themes#generate_color_map(s:V1, s:V2, s:V3)
 let g:airline#themes#sol#palette.visual_modified = {
-      \ 'airline_c': [ '#ffffff' , '#ffdbc7' , 231 , 216 , '' ] ,
+      \ 'airline_c': [ '#343434' , '#ffdbc7' , 237 , 216 , '' ] ,
       \ }
 
 let s:IA = [ '#777777' , '#c7c7c7' , 244 , 251 , '' ]
