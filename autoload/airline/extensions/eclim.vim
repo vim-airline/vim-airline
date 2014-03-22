@@ -20,7 +20,8 @@ function! airline#extensions#eclim#get_warnings()
 
   if !empty(eclimList)
     " Remove any non-eclim signs (see eclim#display#signs#Update)
-    call filter(eclimList, "v:val.name =~ '^\(qf_\)\?\(error\|info\|warning\)$'")
+    " :help filter() ---- `the result **is zero** remove the item from the |List| or |Dictionary|.`
+    call filter(eclimList, "v:val.name != '^\(qf_\)\?\(error\|info\|warning\)$'")
 
     if !empty(eclimList)
       let errorsLine = eclimList[0]['line']
