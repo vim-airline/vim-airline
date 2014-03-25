@@ -19,14 +19,14 @@ function! airline#init#bootstrap()
   call s:check_defined('g:airline_left_sep', get(g:, 'airline_powerline_fonts', 0)?"\ue0b0":">")
   " call s:check_defined('g:airline_left_alt_sep', get(g:, 'airline_powerline_fonts', 0)?"\ue0b1":">")
   if (g:airline_left_sep == '')
-    call s:check_defined('g:airline_left_alt_sep', get(g:, 'airline_powerline_fonts', 0)?"|":">")
+    call s:check_defined('g:airline_left_alt_sep', get(g:, 'airline_powerline_fonts', 0)?"|":"|")
   else
     call s:check_defined('g:airline_left_alt_sep', get(g:, 'airline_powerline_fonts', 0)?"\ue0b1":">")
   endif
   call s:check_defined('g:airline_right_sep', get(g:, 'airline_powerline_fonts', 0)?"\ue0b2":"<")
   " call s:check_defined('g:airline_right_alt_sep', get(g:, 'airline_powerline_fonts', 0)?"\ue0b3":"<")
   if (g:airline_right_sep == '')
-    call s:check_defined('g:airline_right_alt_sep', get(g:, 'airline_powerline_fonts', 0)?"|":"<")
+    call s:check_defined('g:airline_right_alt_sep', get(g:, 'airline_powerline_fonts', 0)?"|":"|")
   else
     call s:check_defined('g:airline_right_alt_sep', get(g:, 'airline_powerline_fonts', 0)?"\ue0b3":"<")
   endif
