@@ -84,4 +84,5 @@ function! airline#extensions#branch#init(ext)
   call airline#parts#define_function('branch', 'airline#extensions#branch#get_head')
 
   autocmd BufReadPost * unlet! b:airline_file_in_root
+  autocmd CursorHold * unlet! b:airline_head
 endfunction
