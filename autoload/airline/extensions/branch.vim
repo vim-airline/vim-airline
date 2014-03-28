@@ -39,7 +39,7 @@ function! airline#extensions#branch#head()
 
   return empty(head) || !s:check_in_path()
         \ ? ''
-        \ : head
+        \ : len(head) > 7 ? head[0:5].'…' : head
 endfunction
 
 function! airline#extensions#branch#get_head()
