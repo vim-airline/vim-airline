@@ -11,35 +11,41 @@ if !s:has_fugitive && !s:has_lawrencium && !s:has_vcscommand
 endif
 
 function! airline#extensions#branch#head()
-  let head = ''
+  if exists('b:airline_head')
+    return b:airline_head
+  endif
+
+  let b:airline_head = ''
 
   if s:has_fugitive && !exists('b:mercurial_dir')
-    let head = fugitive#head()
+    let b:airline_head = fugitive#head()
 
-    if empty(head) && s:has_fugitive_detect && !exists('b:git_dir')
+    if empty(b:airline_head) && s:has_fugitive_detect && !exists('b:git_dir')
       call fugitive#detect(getcwd())
-      let head = fugitive#head()
+      let b:airline_head = fugitive#head()
     endif
   endif
 
-  if empty(head)
+  if empty(b:airline_head)
     if s:has_lawrencium
-      let head = lawrencium#statusline()
+      let b:airline_head = lawrencium#statusline()
     endif
   endif
 
-  if empty(head)
+  if empty(b:airline_head)
     if s:has_vcscommand
       call VCSCommandEnableBufferSetup()
       if exists('b:VCSCommandBufferInfo')
-        let head = get(b:VCSCommandBufferInfo, 0, '')
+        let b:airline_head = get(b:VCSCommandBufferInfo, 0, '')
       endif
     endif
   endif
 
-  return empty(head) || !s:check_in_path()
-        \ ? ''
-        \ : head
+  if empty(b:airline_head) || !s:check_in_path()
+    let b:airline_head = ''
+  endif
+
+  return b:airline_head
 endfunction
 
 function! airline#extensions#branch#get_head()
@@ -78,5 +84,5 @@ function! airline#extensions#branch#init(ext)
   call airline#parts#define_function('branch', 'airline#extensions#branch#get_head')
 
   autocmd BufReadPost * unlet! b:airline_file_in_root
+  autocmd CursorHold * unlet! b:airline_head
 endfunction
-
