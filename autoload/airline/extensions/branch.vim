@@ -2,7 +2,7 @@
 " vim: et ts=2 sts=2 sw=2
 
 let s:has_fugitive = exists('*fugitive#head')
-let s:has_fugitive_detect = exists('*fugitive#detect')
+let s:has_fugitive_detect = 0 " TODO: figure out alternative
 let s:has_lawrencium = exists('*lawrencium#statusline')
 let s:has_vcscommand = get(g:, 'airline#extensions#branch#use_vcscommand', 0) && exists('*VCSCommandGetStatusLine')
 
