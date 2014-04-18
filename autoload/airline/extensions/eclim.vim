@@ -8,10 +8,17 @@ endif
 function! airline#extensions#eclim#creat_line(...)
   if &filetype == "tree"
     let builder = a:1
-    call builder.add_section('airline_a', ' Project ')
-    call builder.add_section('airline_b', ' %f ')
-    call builder.add_section('airline_c', '')
-  return 1
+    if match(g:Eclim_project_tree_names, "|") == -1
+      call builder.add_section('airline_a', ' Project ')
+      call builder.add_section('airline_b', ' %f ')
+      call builder.add_section('airline_c', '')
+    else
+      let s:projets = substitute(g:Eclim_project_tree_names, "\|", ", ", "g")
+      call builder.add_section('airline_a', ' Projects ')
+      call builder.add_section('airline_b', ' ' . s:projets . ' ')
+      call builder.add_section('airline_c', '')
+    endif
+    return 1
   endif
 endfunction
 
@@ -20,7 +27,7 @@ function! airline#extensions#eclim#get_warnings()
 
   if !empty(eclimList)
     " Remove any non-eclim signs (see eclim#display#signs#Update)
-      call filter(eclimList, 'v:val.name =~ "^\\(qf_\\)\\?\\(error\\|info\\|warning\\)$"')
+    call filter(eclimList, 'v:val.name =~ "^\\(qf_\\)\\?\\(error\\|info\\|warning\\)$"')
 
     if !empty(eclimList)
       let errorsLine = eclimList[0]['line']
@@ -38,4 +45,3 @@ function! airline#extensions#eclim#init(ext)
   call airline#parts#define_function('eclim', 'airline#extensions#eclim#get_warnings')
   call a:ext.add_statusline_func('airline#extensions#eclim#creat_line')
 endfunction
-
