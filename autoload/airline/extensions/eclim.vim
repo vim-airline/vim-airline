@@ -5,20 +5,22 @@ if !exists(':ProjectCreate')
   finish
 endif
 
+let s:spc = g:airline_symbols.space
+
 function! airline#extensions#eclim#creat_line(...)
   if &filetype == "tree"
     let builder = a:1
-    if match(g:Eclim_project_tree_names, "|") == -1
-      call builder.add_section('airline_a', ' Project ')
-      call builder.add_section('airline_b', ' ' . g:Eclim_project_tree_names . ' ')
-      call builder.add_section('airline_c', '')
+    let s:projets = exists("g:Eclim_project_tree_names") ?
+          \ substitute(g:Eclim_project_tree_names, "\|", ", ", "g") :
+          \ ""
+    if match(g:Eclim_project_tree_names, "\|") == -1
+      call builder.add_section('airline_a', s:spc.'Project'.s:spc)
     else
-      let s:projets = substitute(g:Eclim_project_tree_names, "\|", ", ", "g")
-      call builder.add_section('airline_a', ' Projects ')
-      call builder.add_section('airline_b', ' ' . s:projets . ' ')
-      call builder.add_section('airline_c', '')
+      call builder.add_section('airline_a', s:spc.'Projects'.s:spc)
     endif
-    return 1
+    call builder.add_section('airline_b', s:spc.s:projets.s:spc)
+    call builder.add_section('airline_c', '')
+  return 1
   endif
 endfunction
 
