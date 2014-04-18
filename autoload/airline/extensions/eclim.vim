@@ -10,7 +10,7 @@ function! airline#extensions#eclim#creat_line(...)
     let builder = a:1
     if match(g:Eclim_project_tree_names, "|") == -1
       call builder.add_section('airline_a', ' Project ')
-      call builder.add_section('airline_b', ' %f ')
+      call builder.add_section('airline_b', ' ' . g:Eclim_project_tree_names . ' ')
       call builder.add_section('airline_c', '')
     else
       let s:projets = substitute(g:Eclim_project_tree_names, "\|", ", ", "g")
