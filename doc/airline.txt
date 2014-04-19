@@ -217,6 +217,14 @@ EXTENSIONS                                              *airline-extensions*
 Most extensions are enabled by default and lazily loaded when the
 corresponding plugin (if any) is detected.
 
+By default, airline will attempt to load any extension it can find in the
+'runtimepath'.  On some systems this can result in an undersirable startup
+cost.  You can disable the check with the following flag. >
+  let g:airline#extensions#disable_rtp_load = 1
+<
+  Note: Third party plugins that rely on this behavior will be affected. You
+  will need to manually load them.
+
 -------------------------------------                      *airline-default*
 The default extension understands all of the `g:` variables in the
 |airline-configuration| section, however it also has some more fine-tuned
@@ -240,7 +248,6 @@ configuration values that you can use.
       \ [ 'x', 'y', 'z', 'warning' ]
       \ ])
 <
-
 -------------------------------------                     *airline-quickfix*
 The quickfix extension is a simple built-in extension which determines
 whether the buffer is a quickfix or location list buffer, and adjusts the
