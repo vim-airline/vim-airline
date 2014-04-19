@@ -19,7 +19,7 @@ let s:indent_algo = get(g:, 'airline#extensions#whitespace#mixed_indent_algo', 0
 
 let s:max_lines = get(g:, 'airline#extensions#whitespace#max_lines', 20000)
 
-let s:enabled = 1
+let s:enabled = get(g:, 'airline#extensions#whitespace#enabled', 1)
 
 function! s:check_mixed_indent()
   if s:indent_algo == 0
@@ -79,6 +79,14 @@ function! airline#extensions#whitespace#toggle()
   else
     call airline#extensions#whitespace#init()
     let s:enabled = 1
+  endif
+  if exists("g:airline#extensions#whitespace#enabled")
+    let g:airline#extensions#whitespace#enabled = s:enabled
+    if s:enabled
+      let g:airline_section_warning = airline#section#create(['syntastic', 'eclim', 'whitespace'])
+      call airline#update_statusline()
+      call airline#extensions#whitespace#init()
+    endif
   endif
   echo 'Whitespace checking: '.(s:enabled ? 'Enabled' : 'Disabled')
 endfunction
