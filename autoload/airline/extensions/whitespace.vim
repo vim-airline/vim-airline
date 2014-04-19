@@ -62,8 +62,10 @@ endfunction!
 
 function! airline#extensions#whitespace#toggle()
   if s:enabled
-    autocmd! airline_whitespace CursorHold,BufWritePost
-    augroup! airline_whitespace
+    if exists("#airline_whitespace")
+      autocmd! airline_whitespace CursorHold,BufWritePost
+      augroup! airline_whitespace
+    endif
     let s:enabled = 0
   else
     call airline#extensions#whitespace#init()
