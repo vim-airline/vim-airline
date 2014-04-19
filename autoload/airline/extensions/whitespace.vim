@@ -15,10 +15,25 @@ let s:default_checks = ['indent', 'trailing']
 
 let s:trailing_format = get(g:, 'airline#extensions#whitespace#trailing_format', 'trailing[%s]')
 let s:mixed_indent_format = get(g:, 'airline#extensions#whitespace#mixed_indent_format', 'mixed-indent[%s]')
+let s:indent_algo = get(g:, 'airline#extensions#whitespace#mixed_indent_algo', 0)
 
 let s:max_lines = get(g:, 'airline#extensions#whitespace#max_lines', 20000)
 
 let s:enabled = 1
+
+function! s:check_mixed_indent()
+  if s:indent_algo == 0
+    return search('\v(^\t+ +)|(^ +\t+)', 'nw')
+  else
+    " [<tab>]<space><tab>
+    " spaces before or between tabs are not allowed
+    let t_s_t = '(^\t* +\t\s*\S)'
+    " <tab>(<space> x count)
+    " count of spaces at the end of tabs should be less then tabstop value
+    let t_l_s = '(^\t+ {' . &ts . ',}' . '\S)'
+    return search('\v' . t_s_t . '|' . t_l_s, 'nw')
+  endif
+endfunction
 
 function! airline#extensions#whitespace#check()
   if &readonly || !&modifiable || !s:enabled || line('$') > s:max_lines
@@ -36,13 +51,7 @@ function! airline#extensions#whitespace#check()
 
     let mixed = 0
     if index(checks, 'indent') > -1
-      " [<tab>]<space><tab>
-      " Spaces before or between tabs are not allowed
-      let t_s_t = '(^\t* +\t\s*\S)'
-      " <tab>(<space> x count)
-      " Count of spaces at the end of tabs should be less then tabstop value
-      let t_l_s = '(^\t+ {' . &ts . ',}' . '\S)'
-      let mixed = search('\v' . t_s_t . '|' . t_l_s, 'nw')
+      let mixed = s:check_mixed_indent()
     endif
 
     if trailing != 0 || mixed != 0
