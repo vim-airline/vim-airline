@@ -22,9 +22,7 @@ let s:max_lines = get(g:, 'airline#extensions#whitespace#max_lines', 20000)
 let s:enabled = get(g:, 'airline#extensions#whitespace#enabled', 1)
 
 function! s:check_mixed_indent()
-  if s:indent_algo == 0
-    return search('\v(^\t+ +)|(^ +\t+)', 'nw')
-  else
+  if s:indent_algo == 1
     " [<tab>]<space><tab>
     " spaces before or between tabs are not allowed
     let t_s_t = '(^\t* +\t\s*\S)'
@@ -32,6 +30,8 @@ function! s:check_mixed_indent()
     " count of spaces at the end of tabs should be less then tabstop value
     let t_l_s = '(^\t+ {' . &ts . ',}' . '\S)'
     return search('\v' . t_s_t . '|' . t_l_s, 'nw')
+  else
+    return search('\v(^\t+ +)|(^ +\t+)', 'nw')
   endif
 endfunction
 
@@ -80,12 +80,12 @@ function! airline#extensions#whitespace#toggle()
     call airline#extensions#whitespace#init()
     let s:enabled = 1
   endif
+
   if exists("g:airline#extensions#whitespace#enabled")
     let g:airline#extensions#whitespace#enabled = s:enabled
-    if s:enabled
-      let g:airline_section_warning = airline#section#create(['syntastic', 'eclim', 'whitespace'])
+    if s:enabled && match(g:airline_section_warning, '#whitespace#check') < 0
+      let g:airline_section_warning .= airline#section#create(['whitespace'])
       call airline#update_statusline()
-      call airline#extensions#whitespace#init()
     endif
   endif
   echo 'Whitespace checking: '.(s:enabled ? 'Enabled' : 'Disabled')
