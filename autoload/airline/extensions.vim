@@ -207,6 +207,10 @@ function! airline#extensions#load()
     call airline#extensions#promptline#init(s:ext)
   endif
 
+  if get(g:, 'airline#extensions#nrrwrgn#enabled', 1) && exists(':NR') == 2
+      call airline#extensions#nrrwrgn#init(s:ext)
+  endif
+
   if !get(g:, 'airline#extensions#disable_rtp_load', 0)
     " load all other extensions, which are not part of the default distribution.
     " (autoload/airline/extensions/*.vim outside of our s:script_path).

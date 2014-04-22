@@ -492,6 +492,11 @@ promptline <https://github.com/edkolev/promptline.vim>
   let airline#extensions#promptline#color_template = 'visual'
   let airline#extensions#promptline#color_template = 'replace'
 <
+-------------------------------------                    *airline-nrrwrgn*
+NrrwRgn <https://github.com/chrisbra/NrrwRgn>
+
+* enable/disable NrrwRgn integration >
+  let g:airline#extensions#nrrwrgn#enabled = 1
 
 ==============================================================================
 ADVANCED CUSTOMIZATION                      *airline-advanced-customization*
