@@ -163,7 +163,9 @@ function! airline#themes#solarized#refresh()
   let g:airline#themes#solarized#palette.replace_modified.airline_warning =
         \ g:airline#themes#solarized#palette.normal.airline_warning
 
-  let g:airline#themes#solarized#palette.tabline = {}
+  let g:airline#themes#solarized#palette.tabline = {
+        \ 'airline_tabmod':      [s:NM[1].g, s:NM[0].g,
+        \ s:NM[1].t, s:NM[0].t, s:NM[2]]}
 
   let g:airline#themes#solarized#palette.tabline.airline_tab = [
         \ s:I2[0].g, s:I2[1].g, s:I2[0].t, s:I2[1].t, s:I2[2]]
@@ -173,4 +175,3 @@ function! airline#themes#solarized#refresh()
 endfunction
 
 call airline#themes#solarized#refresh()
-
