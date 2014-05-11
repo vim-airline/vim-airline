@@ -36,42 +36,42 @@ function! airline#themes#solarized#refresh()
   """"""""""""""""""""""""""""""""""""""""""""""""
   " Normal mode
   if s:background == 'dark'
-    let s:N1 = [s:base3, s:base1, 'bold']
+    let s:N1 = [s:base3, s:blue, 'bold']
     let s:N2 = [s:base2, (s:tty ? s:base01 : s:base00), '']
-    let s:N3 = [s:base01, s:base02, '']
+    let s:N3 = [s:blue, s:base02, '']
   else
-    let s:N1 = [s:base2, s:base00, 'bold']
+    let s:N1 = [s:base2, s:blue, 'bold']
     let s:N2 = [(s:tty ? s:base01 : s:base2), s:base1, '']
-    let s:N3 = [s:base1, s:base2, '']
+    let s:N3 = [s:blue, s:base2, '']
   endif
   let s:NF = [s:orange, s:N3[1], '']
   let s:NW = [s:base3, s:orange, '']
   if s:background == 'dark'
-    let s:NM = [s:base1, s:N3[1], '']
+    let s:NM = [s:orange, s:base03, '']
     let s:NMi = [s:base2, s:N3[1], '']
   else
-    let s:NM = [s:base01, s:N3[1], '']
+    let s:NM = [s:orange, s:N3[1], '']
     let s:NMi = [s:base02, s:N3[1], '']
   endif
 
   " Insert mode
   let s:I1 = [s:N1[0], s:yellow, 'bold']
   let s:I2 = s:N2
-  let s:I3 = s:N3
+  let s:I3 = [s:yellow, s:N3[1], '']
   let s:IF = s:NF
   let s:IM = s:NM
 
   " Visual mode
   let s:V1 = [s:N1[0], s:magenta, 'bold']
   let s:V2 = s:N2
-  let s:V3 = s:N3
+  let s:V3 = [s:magenta, s:N3[1], '']
   let s:VF = s:NF
   let s:VM = s:NM
 
   " Replace mode
   let s:R1 = [s:N1[0], s:red, '']
   let s:R2 = s:N2
-  let s:R3 = s:N3
+  let s:R3 = [s:red, s:N3[1], '']
   let s:RM = s:NM
   let s:RF = s:NF
 
