@@ -65,8 +65,8 @@ function! airline#extensions#branch#head()
     let b:airline_head = ''
   endif
 
-  if len(b:airline_head) > 15
-    let b:airline_head = b:airline_head[0:14].'…'
+  if exists("g:airline#extensions#branch#displayed_head_limit") && g:airline#extensions#branch#displayed_head_limit > 0 && len(b:airline_head) > g:airline#extensions#branch#displayed_head_limit - 1
+    let b:airline_head = b:airline_head[0:g:airline#extensions#branch#displayed_head_limit - 1].'…'
   endif
 
   return b:airline_head
