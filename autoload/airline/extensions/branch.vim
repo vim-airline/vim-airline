@@ -65,6 +65,10 @@ function! airline#extensions#branch#head()
     let b:airline_head = ''
   endif
 
+  if len(b:airline_head) > 15
+    let b:airline_head = b:airline_head[0:14].'…'
+  endif
+
   return b:airline_head
 endfunction
 
