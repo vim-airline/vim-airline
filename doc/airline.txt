@@ -282,7 +282,10 @@ vcscommand   <http://www.vim.org/scripts/script.php?script_id=90>
 
 * use vcscommand.vim if available >
   let g:airline#extensions#branch#use_vcscommand = 0
-<
+
+* truncate long branch names to a fixed length >
+  let g:airline#extensions#branch#displayed_head_limit = 10
+
 -------------------------------------                    *airline-syntastic*
 syntastic <https://github.com/scrooloose/syntastic>
 
