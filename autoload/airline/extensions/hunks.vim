@@ -58,7 +58,7 @@ function! airline#extensions#hunks#get_hunks()
       endif
     endfor
   endif
-  return string
+  return strpart(string, 0, strlen(string)-1)
 endfunction
 
 function! airline#extensions#hunks#init(ext)
