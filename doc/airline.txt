@@ -317,6 +317,7 @@ csv.vim <https://github.com/chrisbra/csv.vim>
 -------------------------------------                        *airline-hunks*
 vim-gitgutter <https://github.com/airblade/vim-gitgutter>
 vim-signify <https://github.com/mhinz/vim-signify>
+changesPlugin <https://github.com/chrisbra/changesPlugin>
 
 * enable/disable showing a summary of changed hunks under source control. >
   let g:airline#extensions#hunks#enabled = 1
