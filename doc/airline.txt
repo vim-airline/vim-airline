@@ -502,6 +502,12 @@ NrrwRgn <https://github.com/chrisbra/NrrwRgn>
 * enable/disable NrrwRgn integration >
   let g:airline#extensions#nrrwrgn#enabled = 1
 
+-------------------------------------                        *airline-capslock*
+vim-capslock <https://github.com/tpope/vim-capslock>
+
+* enable/disable vim-capslock integration >
+  let g:airline#extensions#capslock#enabled = 1
+<
 ==============================================================================
 ADVANCED CUSTOMIZATION                      *airline-advanced-customization*
 
