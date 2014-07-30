@@ -139,7 +139,7 @@ COMMANDS                                                  *airline-commands*
   Toggles between the standard 'statusline' and airline.
 
 :AirlineRefresh                                            *:AirlineRefresh*
-  Refreshes all highlight groups.
+  Refreshes all highlight groups and redraws the statusline.
 
 ==============================================================================
 CUSTOMIZATION                                        *airline-customization*
