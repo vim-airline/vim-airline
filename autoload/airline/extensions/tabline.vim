@@ -93,7 +93,12 @@ function! s:on_cursormove(min_count, total_count)
 endfunction
 
 function! airline#extensions#tabline#get()
-  if s:show_buffers && tabpagenr('$') == 1
+  let curtabcnt = tabpagenr('$')
+  if curtabcnt != s:current_tabcnt
+    let s:current_tabcnt = curtabcnt
+    let s:current_bufnr = -1  " force a refresh...
+  endif
+  if s:show_buffers && curtabcnt == 1
     return s:get_buffers()
   else
     return s:get_tabs()
@@ -185,6 +190,7 @@ endfunction
 
 let s:current_bufnr = -1
 let s:current_tabnr = -1
+let s:current_tabcnt = -1
 let s:current_tabline = ''
 let s:current_modified = 0
 function! s:get_buffers()
