@@ -31,10 +31,17 @@ let g:airline#themes#powerlineish2#palette.replace = airline#themes#generate_col
 
 let g:airline#themes#powerlineish2#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA)
 
-if !get(g:, 'loaded_bufferline', 0)
+" Tabline
+let g:airline#themes#powerlineish2#palette.tabline = {
+      \ 'airline_tabsel': s:N2,
+      \ 'airline_tabtype': s:N2
+      \ }
+
+" CtrlP
+if !get(g:, 'loaded_ctrlp', 0)
   finish
 endif
-
-let g:airline#themes#powerlineish2#palette.normal.bufferline_selected = [ '#ffffd7' , '#585858' , 231 , 240 ]
-let g:airline#themes#powerlineish2#palette.insert.bufferline_selected = [ '#ffffd7' , '#0087af' , 231 , 31  ]
-let g:airline#themes#powerlineish2#palette.replace.bufferline_selected = [ '#ffffd7' , '#0087af' , 231 , 31  ]
+let g:airline#themes#powerlineish2#palette.ctrlp = airline#extensions#ctrlp#generate_color_map(
+      \  s:N3,
+      \  s:N2,
+      \  [ '#005f00' , '#afd700' , 22  , 148 , 'bold'] )
