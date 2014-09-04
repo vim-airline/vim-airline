@@ -71,12 +71,14 @@ function! airline#extensions#tabline#load_theme(palette)
   let l:tabtype = get(colors, 'airline_tabtype', a:palette.visual.airline_a)
   let l:tabfill = get(colors, 'airline_tabfill', a:palette.normal.airline_c)
   let l:tabmod  = get(colors, 'airline_tabmod', a:palette.insert.airline_a)
+  let l:tabmodu = get(colors, 'airline_tabmod_unsel', a:palette.normal_modified.airline_c)
   let l:tabhid  = get(colors, 'airline_tabhid', a:palette.normal.airline_c)
   call airline#highlighter#exec('airline_tab', l:tab)
   call airline#highlighter#exec('airline_tabsel', l:tabsel)
   call airline#highlighter#exec('airline_tabtype', l:tabtype)
   call airline#highlighter#exec('airline_tabfill', l:tabfill)
   call airline#highlighter#exec('airline_tabmod', l:tabmod)
+  call airline#highlighter#exec('airline_tabmod_unsel', l:tabmodu)
   call airline#highlighter#exec('airline_tabhid', l:tabhid)
 endfunction
 
@@ -216,7 +218,9 @@ function! s:get_buffers()
       endif
       let s:current_modified = (group == 'airline_tabmod') ? 1 : 0
     else
-      if index(tab_bufs, nr) > -1
+      if g:airline_detect_modified && getbufvar(nr, '&modified')
+        let group = 'airline_tabmod_unsel'
+      elseif index(tab_bufs, nr) > -1
         let group = 'airline_tab'
       else
         let group = 'airline_tabhid'
