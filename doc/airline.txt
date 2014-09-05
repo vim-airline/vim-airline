@@ -510,6 +510,15 @@ vim-capslock <https://github.com/tpope/vim-capslock>
 
 * enable/disable vim-capslock integration >
   let g:airline#extensions#capslock#enabled = 1
+
+-------------------------------------                       *airline-windowswap*
+vim-windowswap <https://github.com/wesQ3/vim-windowswap>
+
+* enable/disable vim-windowswap integration >
+  let g:airline#extensions#windowswap#enabled = 1
+
+* set marked window indicator string >
+  let g:airline#extensions#windowswap#indicator_text = 'WS'
 <
 ==============================================================================
 ADVANCED CUSTOMIZATION                      *airline-advanced-customization*
