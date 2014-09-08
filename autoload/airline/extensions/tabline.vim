@@ -71,7 +71,13 @@ function! airline#extensions#tabline#load_theme(palette)
   let l:tabtype = get(colors, 'airline_tabtype', a:palette.visual.airline_a)
   let l:tabfill = get(colors, 'airline_tabfill', a:palette.normal.airline_c)
   let l:tabmod  = get(colors, 'airline_tabmod', a:palette.insert.airline_a)
-  let l:tabmodu = get(colors, 'airline_tabmod_unsel', a:palette.normal_modified.airline_c)
+  if has_key(a:palette, 'normal_modified') && has_key(a:palette.normal_modified, 'airline_c')
+    let l:tabmodu = get(colors, 'airline_tabmod_unsel', a:palette.normal_modified.airline_c)
+  else
+    "Fall back to normal airline_c if modified airline_c isn't present
+    let l:tabmodu = get(colors, 'airline_tabmod_unsel', a:palette.normal.airline_c)
+  endif
+
   let l:tabhid  = get(colors, 'airline_tabhid', a:palette.normal.airline_c)
   call airline#highlighter#exec('airline_tab', l:tab)
   call airline#highlighter#exec('airline_tabsel', l:tabsel)
