@@ -9,6 +9,7 @@ let s:show_tab_nr = get(g:, 'airline#extensions#tabline#show_tab_nr', 1)
 let s:show_tab_type = get(g:, 'airline#extensions#tabline#show_tab_type', 1)
 let s:show_close_button = get(g:, 'airline#extensions#tabline#show_close_button', 1)
 let s:close_symbol = get(g:, 'airline#extensions#tabline#close_symbol', 'X')
+let s:buffer_idx_mode = get(g:, 'airline#extensions#tabline#buffer_idx_mode', 0)
 
 let s:builder_context = {
       \ 'active'        : 1,
@@ -38,6 +39,9 @@ function! airline#extensions#tabline#init(ext)
 
   call s:toggle_on()
   call a:ext.add_theme_func('airline#extensions#tabline#load_theme')
+  if s:buffer_idx_mode
+    call s:define_buffer_idx_mode_mappings()
+  endif
 endfunction
 
 function! s:toggle_off()
@@ -210,6 +214,10 @@ function! s:get_buffers()
     endif
   endif
 
+  if s:buffer_idx_mode
+    let s:buffer_idx_mode_buffers = []
+    let l:index = 1
+  endif
   let b = airline#builder#new(s:builder_context)
   let tab_bufs = tabpagebuflist(tabpagenr())
   for nr in s:get_visible_buffers()
@@ -233,7 +241,13 @@ function! s:get_buffers()
         let group = 'airline_tabhid'
       endif
     endif
-    call b.add_section(group, s:spc.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.s:spc)
+    if s:buffer_idx_mode
+      call b.add_section(group, '['.l:index.s:spc.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.']')
+      let l:index = l:index + 1
+      call add(s:buffer_idx_mode_buffers, nr)
+    else
+      call b.add_section(group, s:spc.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.s:spc)
+    endif
   endfor
 
   call b.add_section('airline_tabfill', '')
@@ -243,6 +257,28 @@ function! s:get_buffers()
   let s:current_bufnr = cur
   let s:current_tabline = b.build()
   return s:current_tabline
+endfunction
+
+function! s:select_tab(buf_index)
+  " no-op when called in the NERDTree buffer
+  if exists('t:NERDTreeBufName') && bufname('%') == t:NERDTreeBufName
+    return
+  endif
+  if a:buf_index <= len(s:buffer_idx_mode_buffers)
+    exec "b!" . s:buffer_idx_mode_buffers[a:buf_index - 1]
+  endif
+endfunction
+
+function! s:define_buffer_idx_mode_mappings()
+  noremap <unique> <Plug>AirlineSelectTab1 :call <SID>select_tab(1)<CR>
+  noremap <unique> <Plug>AirlineSelectTab2 :call <SID>select_tab(2)<CR>
+  noremap <unique> <Plug>AirlineSelectTab3 :call <SID>select_tab(3)<CR>
+  noremap <unique> <Plug>AirlineSelectTab4 :call <SID>select_tab(4)<CR>
+  noremap <unique> <Plug>AirlineSelectTab5 :call <SID>select_tab(5)<CR>
+  noremap <unique> <Plug>AirlineSelectTab6 :call <SID>select_tab(6)<CR>
+  noremap <unique> <Plug>AirlineSelectTab7 :call <SID>select_tab(7)<CR>
+  noremap <unique> <Plug>AirlineSelectTab8 :call <SID>select_tab(8)<CR>
+  noremap <unique> <Plug>AirlineSelectTab9 :call <SID>select_tab(9)<CR>
 endfunction
 
 function! s:get_tabs()
