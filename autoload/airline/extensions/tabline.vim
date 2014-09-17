@@ -28,6 +28,21 @@ let s:buf_min_count = get(g:, 'airline#extensions#tabline#buffer_min_count', 0)
 let s:tab_min_count = get(g:, 'airline#extensions#tabline#tab_min_count', 0)
 let s:spc = g:airline_symbols.space
 
+let s:number_map = &encoding == 'utf-8'
+      \ ? {
+      \ '0': '⁰',
+      \ '1': '¹',
+      \ '2': '²',
+      \ '3': '³',
+      \ '4': '⁴',
+      \ '5': '⁵',
+      \ '6': '⁶',
+      \ '7': '⁷',
+      \ '8': '⁸',
+      \ '9': '⁹'
+      \ }
+      \ : {}
+
 function! airline#extensions#tabline#init(ext)
   if has('gui_running')
     set guioptions-=e
@@ -198,6 +213,7 @@ function! s:get_visible_buffers()
     endif
   endif
 
+  let g:current_visible_buffers = buffers
   return buffers
 endfunction
 
@@ -214,10 +230,7 @@ function! s:get_buffers()
     endif
   endif
 
-  if s:buffer_idx_mode
-    let s:buffer_idx_mode_buffers = []
-    let l:index = 1
-  endif
+  let l:index = 1
   let b = airline#builder#new(s:builder_context)
   let tab_bufs = tabpagebuflist(tabpagenr())
   for nr in s:get_visible_buffers()
@@ -225,6 +238,7 @@ function! s:get_buffers()
       call b.add_raw('%#airline_tabhid#...')
       continue
     endif
+
     if cur == nr
       if g:airline_detect_modified && getbufvar(nr, '&modified')
         let group = 'airline_tabmod'
@@ -241,10 +255,14 @@ function! s:get_buffers()
         let group = 'airline_tabhid'
       endif
     endif
+
     if s:buffer_idx_mode
-      call b.add_section(group, '['.l:index.s:spc.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.']')
+      if len(s:number_map) > 0
+        call b.add_section(group, s:spc . get(s:number_map, l:index, '') . '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)' . s:spc)
+      else
+        call b.add_section(group, '['.l:index.s:spc.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.']')
+      endif
       let l:index = l:index + 1
-      call add(s:buffer_idx_mode_buffers, nr)
     else
       call b.add_section(group, s:spc.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.s:spc)
     endif
@@ -264,21 +282,28 @@ function! s:select_tab(buf_index)
   if exists('t:NERDTreeBufName') && bufname('%') == t:NERDTreeBufName
     return
   endif
-  if a:buf_index <= len(s:buffer_idx_mode_buffers)
-    exec "b!" . s:buffer_idx_mode_buffers[a:buf_index - 1]
+
+  let idx = a:buf_index
+  if g:current_visible_buffers[0] == -1
+    let idx = idx + 1
+  endif
+
+  let buf = get(g:current_visible_buffers, idx, 0)
+  if buf != 0
+    exec 'b!' . buf
   endif
 endfunction
 
 function! s:define_buffer_idx_mode_mappings()
-  noremap <unique> <Plug>AirlineSelectTab1 :call <SID>select_tab(1)<CR>
-  noremap <unique> <Plug>AirlineSelectTab2 :call <SID>select_tab(2)<CR>
-  noremap <unique> <Plug>AirlineSelectTab3 :call <SID>select_tab(3)<CR>
-  noremap <unique> <Plug>AirlineSelectTab4 :call <SID>select_tab(4)<CR>
-  noremap <unique> <Plug>AirlineSelectTab5 :call <SID>select_tab(5)<CR>
-  noremap <unique> <Plug>AirlineSelectTab6 :call <SID>select_tab(6)<CR>
-  noremap <unique> <Plug>AirlineSelectTab7 :call <SID>select_tab(7)<CR>
-  noremap <unique> <Plug>AirlineSelectTab8 :call <SID>select_tab(8)<CR>
-  noremap <unique> <Plug>AirlineSelectTab9 :call <SID>select_tab(9)<CR>
+  noremap <unique> <Plug>AirlineSelectTab1 :call <SID>select_tab(0)<CR>
+  noremap <unique> <Plug>AirlineSelectTab2 :call <SID>select_tab(1)<CR>
+  noremap <unique> <Plug>AirlineSelectTab3 :call <SID>select_tab(2)<CR>
+  noremap <unique> <Plug>AirlineSelectTab4 :call <SID>select_tab(3)<CR>
+  noremap <unique> <Plug>AirlineSelectTab5 :call <SID>select_tab(4)<CR>
+  noremap <unique> <Plug>AirlineSelectTab6 :call <SID>select_tab(5)<CR>
+  noremap <unique> <Plug>AirlineSelectTab7 :call <SID>select_tab(6)<CR>
+  noremap <unique> <Plug>AirlineSelectTab8 :call <SID>select_tab(7)<CR>
+  noremap <unique> <Plug>AirlineSelectTab9 :call <SID>select_tab(8)<CR>
 endfunction
 
 function! s:get_tabs()
