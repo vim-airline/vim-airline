@@ -1,6 +1,5 @@
 let g:airline#themes#raven#palette = {}
 
-" TODO: Using GUI values, the cterm values must be set
 let g:airline#themes#raven#palette.accents = {
       \ 'red': [ '#ff2121' , '' , 196 , '' , '' ],
       \ }
@@ -37,20 +36,18 @@ let g:airline#themes#raven#palette.visual_modified = {
       \ 'airline_c': [ '#e25000' , '#2e2e2e' , 166 , 235 , '' ] ,
       \ }
 
-let s:IA = [ '#5e5e5e' , '#222222' , 145 , 235 , '' ]
+let s:IA = [ '#5e5e5e' , '#222222' , 59 , 235 , '' ]
 let g:airline#themes#raven#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA)
 let g:airline#themes#raven#palette.inactive_modified = {
       \ 'airline_c': [ '#e25000' , '' , 166 , '' , '' ] ,
        \ }
 
-" TODO: Tabs colors need to be converted from Sol to minimal ones
-" TODO: add cterm from here
 let g:airline#themes#raven#palette.tabline = {
-      \ 'airline_tab':      ['#c8c8c8' , '#2e2e2e' , 59  , 235 , '' ],
-      \ 'airline_tabsel':   ['#2e2e2e' , '#a4c639' , 235 , 30  , '' ],
-      \ 'airline_tabtype':  ['#c8c8c8' , '#2e2e2e' , 59  , 235 , '' ],
-      \ 'airline_tabfill':  ['#c8c8c8' , '#2e2e2e' , 59  , 235 , '' ],
-      \ 'airline_tabmod':   ['#2e2e2e' , '#a4c639' , 235 , 30  , '' ],
+      \ 'airline_tab':      ['#c8c8c8' , '#2e2e2e' , 188 , 235 , '' ],
+      \ 'airline_tabsel':   ['#2e2e2e' , '#a4c639' , 235 , 149 , '' ],
+      \ 'airline_tabtype':  ['#c8c8c8' , '#2e2e2e' , 188 , 235 , '' ],
+      \ 'airline_tabfill':  ['#c8c8c8' , '#2e2e2e' , 188 , 235 , '' ],
+      \ 'airline_tabmod':   ['#2e2e2e' , '#a4c639' , 235 , 149 , '' ],
       \ }
 
 let s:WI = [ '#ff0000', '#2e2e2e', 196, 188 ]
@@ -83,6 +80,6 @@ if !get(g:, 'loaded_ctrlp', 0)
   finish
 endif
 let g:airline#themes#raven#palette.ctrlp = airline#extensions#ctrlp#generate_color_map(
-      \ [ '#c8c8c8' , '#2e2e2e' , 59  , 188 , ''     ] ,
-      \ [ '#c8c8c8' , '#2e2e2e' , 59  , 188 , ''     ] ,
-      \ [ '#2e2e2e' , '#a4c639' , 188 , 30  , ''     ] )
+      \ [ '#c8c8c8' , '#2e2e2e' , 188 , 235 , ''     ] ,
+      \ [ '#c8c8c8' , '#2e2e2e' , 188 , 235 , ''     ] ,
+      \ [ '#2e2e2e' , '#a4c639' , 235 , 149 , ''     ] )

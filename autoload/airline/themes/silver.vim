@@ -1,6 +1,5 @@
 let g:airline#themes#silver#palette = {}
 
-" TODO: Using GUI values, the cterm values must be set
 let g:airline#themes#silver#palette.accents = {
       \ 'red': [ '#ff2121' , '' , 196 , '' , '' ],
       \ }
@@ -43,8 +42,6 @@ let g:airline#themes#silver#palette.inactive_modified = {
       \ 'airline_c': [ '#e25000' , '' , 166 , '' , '' ] ,
        \ }
 
-" TODO: Tabs colors need to be converted from Sol to minimal ones
-" TODO: add cterm from here
 let g:airline#themes#silver#palette.tabline = {
       \ 'airline_tab':      ['#414141' , '#e1e1e1' , 59  , 188 , '' ],
       \ 'airline_tabsel':   ['#e1e1e1' , '#007599' , 188 , 30  , '' ],
