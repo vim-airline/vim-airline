@@ -50,7 +50,7 @@ let g:airline#themes#raven#palette.tabline = {
       \ 'airline_tabmod':   ['#2e2e2e' , '#a4c639' , 235 , 149 , '' ],
       \ }
 
-let s:WI = [ '#ff0000', '#2e2e2e', 196, 188 ]
+let s:WI = [ '#ff0000', '#2e2e2e', 196, 235 ]
 let g:airline#themes#raven#palette.normal.airline_warning = [
      \ s:WI[0], s:WI[1], s:WI[2], s:WI[3]
      \ ]
