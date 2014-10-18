@@ -13,9 +13,18 @@ describe 'active builder'
 
   it 'should transition colors from one to the next'
     call s:builder.add_section('Normal', 'hello')
-    call s:builder.add_section('NonText', 'world')
+    call s:builder.add_section('Search', 'world')
     let stl = s:builder.build()
-    Expect stl =~ '%#Normal#hello%#Normal_to_NonText#>%#NonText#world'
+    Expect stl =~ '%#Normal#hello%#Normal_to_Search#>%#Search#world'
+  end
+
+  it 'should reuse highlight group if background colors match'
+    highlight Foo1 ctermfg=1 ctermbg=2
+    highlight Foo2 ctermfg=3 ctermbg=2
+    call s:builder.add_section('Foo1', 'hello')
+    call s:builder.add_section('Foo2', 'world')
+    let stl = s:builder.build()
+    Expect stl =~ '%#Foo1#hello>world'
   end
 
   it 'should split left/right sections'
@@ -27,9 +36,9 @@ describe 'active builder'
   it 'after split, sections use the right separator'
     call s:builder.split()
     call s:builder.add_section('Normal', 'hello')
-    call s:builder.add_section('NonText', 'world')
+    call s:builder.add_section('Search', 'world')
     let stl = s:builder.build()
-    Expect stl =~ '%#Normal#hello%#Normal_to_NonText#<%#NonText#world'
+    Expect stl =~ 'hello%#Normal_to_Search#<%#Search#world'
   end
 
   it 'should not repeat the same highlight group'
@@ -66,9 +75,9 @@ describe 'inactive builder'
 
   it 'should transition colors from one to the next'
     call s:builder.add_section('Normal', 'hello')
-    call s:builder.add_section('NonText', 'world')
+    call s:builder.add_section('Search', 'world')
     let stl = s:builder.build()
-    Expect stl =~ '%#Normal_inactive#hello%#Normal_to_NonText_inactive#>%#NonText_inactive#world'
+    Expect stl =~ '%#Normal_inactive#hello%#Normal_to_Search_inactive#>%#Search_inactive#world'
   end
 
   it 'should not render accents'

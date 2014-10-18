@@ -39,6 +39,16 @@ function! s:get_array(fg, bg, opts)
         \ : [ '', '', fg, bg, join(a:opts, ',') ]
 endfunction
 
+function! airline#highlighter#is_same_bg(group1, group2)
+  let color1 = airline#highlighter#get_highlight(a:group1)
+  let color2 = airline#highlighter#get_highlight(a:group2)
+  if has('gui_running')
+    return color1[1] == color2[1]
+  else
+    return color1[3] == color2[3]
+  endif
+endfunction
+
 function! airline#highlighter#get_highlight(group, ...)
   let fg = s:get_syn(a:group, 'fg')
   let bg = s:get_syn(a:group, 'bg')

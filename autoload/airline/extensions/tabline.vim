@@ -256,6 +256,7 @@ function! s:get_buffers()
 
   call b.add_section('airline_tabfill', '')
   call b.split()
+  call b.add_section('airline_tabfill', '')
   call b.add_section('airline_tabtype', ' buffers ')
 
   let s:current_bufnr = cur
