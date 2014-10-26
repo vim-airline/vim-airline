@@ -26,7 +26,7 @@ function! airline#extensions#eclim#get_warnings()
 
     if (empty(errorList))
       " use the warnings
-      call filter(eclimList, 'v:val.name =~ "^\\(qf_\\)\\?\\(info\\|warning\\)$"')
+      call filter(eclimList, 'v:val.name =~ "^\\(qf_\\)\\?\\(warning\\)$"')
       let type = 'W'
     else
       " Use the errors
