@@ -10,20 +10,6 @@ let s:show_tab_type = get(g:, 'airline#extensions#tabline#show_tab_type', 1)
 let s:show_close_button = get(g:, 'airline#extensions#tabline#show_close_button', 1)
 let s:close_symbol = get(g:, 'airline#extensions#tabline#close_symbol', 'X')
 let s:buffer_idx_mode = get(g:, 'airline#extensions#tabline#buffer_idx_mode', 0)
-
-let s:builder_context = {
-      \ 'active'        : 1,
-      \ 'right_sep'     : get(g:, 'airline#extensions#tabline#right_sep'    , g:airline_right_sep),
-      \ 'right_alt_sep' : get(g:, 'airline#extensions#tabline#right_alt_sep', g:airline_right_alt_sep),
-      \ }
-if get(g:, 'airline_powerline_fonts', 0)
-  let s:builder_context.left_sep     = get(g:, 'airline#extensions#tabline#left_sep'     , g:airline_left_sep)
-  let s:builder_context.left_alt_sep = get(g:, 'airline#extensions#tabline#left_alt_sep' , g:airline_left_alt_sep)
-else
-  let s:builder_context.left_sep     = get(g:, 'airline#extensions#tabline#left_sep'     , ' ')
-  let s:builder_context.left_alt_sep = get(g:, 'airline#extensions#tabline#left_alt_sep' , '|')
-endif
-
 let s:buf_min_count = get(g:, 'airline#extensions#tabline#buffer_min_count', 0)
 let s:tab_min_count = get(g:, 'airline#extensions#tabline#tab_min_count', 0)
 let s:spc = g:airline_symbols.space
@@ -231,7 +217,7 @@ function! s:get_buffers()
   endif
 
   let l:index = 1
-  let b = airline#builder#new(s:builder_context)
+  let b = s:new_builder()
   let tab_bufs = tabpagebuflist(tabpagenr())
   for nr in s:get_visible_buffers()
     if nr < 0
@@ -306,6 +292,23 @@ function! s:define_buffer_idx_mode_mappings()
   noremap <unique> <Plug>AirlineSelectTab9 :call <SID>select_tab(8)<CR>
 endfunction
 
+function! s:new_builder()
+  let builder_context = {
+        \ 'active'        : 1,
+        \ 'right_sep'     : get(g:, 'airline#extensions#tabline#right_sep'    , g:airline_right_sep),
+        \ 'right_alt_sep' : get(g:, 'airline#extensions#tabline#right_alt_sep', g:airline_right_alt_sep),
+        \ }
+  if get(g:, 'airline_powerline_fonts', 0)
+    let builder_context.left_sep     = get(g:, 'airline#extensions#tabline#left_sep'     , g:airline_left_sep)
+    let builder_context.left_alt_sep = get(g:, 'airline#extensions#tabline#left_alt_sep' , g:airline_left_alt_sep)
+  else
+    let builder_context.left_sep     = get(g:, 'airline#extensions#tabline#left_sep'     , ' ')
+    let builder_context.left_alt_sep = get(g:, 'airline#extensions#tabline#left_alt_sep' , '|')
+  endif
+
+  return airline#builder#new(builder_context)
+endfunction
+
 function! s:get_tabs()
   let curbuf = bufnr('%')
   let curtab = tabpagenr()
@@ -315,7 +318,7 @@ function! s:get_tabs()
     endif
   endif
 
-  let b = airline#builder#new(s:builder_context)
+  let b = s:new_builder()
   for i in range(1, tabpagenr('$'))
     if i == curtab
       let group = 'airline_tabsel'
