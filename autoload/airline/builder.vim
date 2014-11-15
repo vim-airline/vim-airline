@@ -59,15 +59,28 @@ function! s:prototype.build()
   return line
 endfunction
 
+function! s:should_change_group(group1, group2)
+  if a:group1 == a:group2
+    return 0
+  endif
+  let color1 = airline#highlighter#get_highlight(a:group1)
+  let color2 = airline#highlighter#get_highlight(a:group2)
+  if has('gui_running')
+    return color1[1] != color2[1] || color1[0] != color2[0]
+  else
+    return color1[3] != color2[3] || color1[2] != color2[2]
+  endif
+endfunction
+
 function! s:get_seperator(self, prev_group, group, side)
   let line = ''
-  if airline#highlighter#is_same_bg(a:prev_group, a:group)
-    let line .= a:side ? a:self._context.left_alt_sep : a:self._context.right_alt_sep
-  else
+  if s:should_change_group(a:prev_group, a:group)
     call airline#highlighter#add_separator(a:prev_group, a:group, a:side)
     let line .= '%#'.a:prev_group.'_to_'.a:group.'#'
     let line .= a:side ? a:self._context.left_sep : a:self._context.right_sep
     let line .= '%#'.a:group.'#'
+  else
+    let line .= a:side ? a:self._context.left_alt_sep : a:self._context.right_alt_sep
   endif
   return line
 endfunction
