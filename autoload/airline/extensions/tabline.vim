@@ -62,9 +62,10 @@ function! s:toggle_on()
     augroup airline_tabline
       autocmd!
       if s:show_buffers == 1
-        autocmd CursorMoved * call <sid>on_cursormove(s:buf_min_count, len(s:get_buffer_list()))
+        autocmd BufEnter * call <sid>show_tabline(s:buf_min_count, len(s:get_buffer_list()))
+        autocmd BufUnload * call <sid>show_tabline(s:buf_min_count, len(s:get_buffer_list()) - 1)
       else
-        autocmd TabEnter * call <sid>on_cursormove(s:tab_min_count, tabpagenr('$'))
+        autocmd TabEnter * call <sid>show_tabline(s:tab_min_count, tabpagenr('$'))
       endif
     augroup END
   endif
@@ -94,7 +95,7 @@ function! airline#extensions#tabline#load_theme(palette)
   call airline#highlighter#exec('airline_tabhid', l:tabhid)
 endfunction
 
-function! s:on_cursormove(min_count, total_count)
+function! s:show_tabline(min_count, total_count)
   if a:total_count >= a:min_count
     if &showtabline != 2
       set showtabline=2
