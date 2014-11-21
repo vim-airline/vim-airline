@@ -178,7 +178,7 @@ function! airline#extensions#load()
     call airline#extensions#bufferline#init(s:ext)
   endif
 
-  if get(g:, 'virtualenv_loaded', 0) && get(g:, 'airline#extensions#virtualenv#enabled', 1)
+  if isdirectory($VIRTUAL_ENV) && get(g:, 'airline#extensions#virtualenv#enabled', 1)
     call airline#extensions#virtualenv#init(s:ext)
   endif
 
