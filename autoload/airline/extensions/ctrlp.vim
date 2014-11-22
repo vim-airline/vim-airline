@@ -48,7 +48,7 @@ function! airline#extensions#ctrlp#ctrlp_airline(...)
   endif
   call b.add_section_spaced('CtrlPdark', a:7)
   call b.split()
-  call b.add_raw('%#CtrlPdark#'.a:1.(g:airline_symbols.space))
+  call b.add_section_spaced('CtrlPdark', a:1)
   call b.add_section_spaced('CtrlPdark', a:2)
   call b.add_section_spaced('CtrlPlight', '%{getcwd()}')
   return b.build()

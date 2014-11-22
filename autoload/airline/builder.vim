@@ -19,35 +19,47 @@ function! s:prototype.add_raw(text)
   call add(self._sections, ['', a:text])
 endfunction
 
+function! s:get_prev_group(sections, i)
+  let x = a:i - 1
+  while x >= 0
+    let group = a:sections[x][0]
+    if group != '' && group != '|'
+      return group
+    endif
+    let x = x - 1
+  endwhile
+  return ''
+endfunction
+
 function! s:prototype.build()
   let side = 1
-  let prev_group = ''
   let line = ''
   let i = 0
   let length = len(self._sections)
+  let split = 0
 
   while i < length
     let section = self._sections[i]
     let group = section[0]
     let contents = section[1]
+    let prev_group = s:get_prev_group(self._sections, i)
 
     if group == ''
       let line .= contents
     elseif group == '|'
       let side = 0
       let line .= contents
-      let prev_group = ''
+      let split = 1
     else
-      if i == 0
+      if prev_group == ''
         let line .= '%#'.group.'#'
-      endif
-
-      if prev_group != '' && group != ''
+      elseif split
+        let line .= s:get_transitioned_seperator(self, prev_group, group, side)
+        let split = 0
+      else
         let line .= s:get_seperator(self, prev_group, group, side)
       endif
-
       let line .= s:get_accented_line(self, group, contents)
-      let prev_group = group
     endif
 
     let i = i + 1
@@ -72,17 +84,21 @@ function! s:should_change_group(group1, group2)
   endif
 endfunction
 
-function! s:get_seperator(self, prev_group, group, side)
+function! s:get_transitioned_seperator(self, prev_group, group, side)
   let line = ''
-  if s:should_change_group(a:prev_group, a:group)
-    call airline#highlighter#add_separator(a:prev_group, a:group, a:side)
-    let line .= '%#'.a:prev_group.'_to_'.a:group.'#'
-    let line .= a:side ? a:self._context.left_sep : a:self._context.right_sep
-    let line .= '%#'.a:group.'#'
-  else
-    let line .= a:side ? a:self._context.left_alt_sep : a:self._context.right_alt_sep
-  endif
+  call airline#highlighter#add_separator(a:prev_group, a:group, a:side)
+  let line .= '%#'.a:prev_group.'_to_'.a:group.'#'
+  let line .= a:side ? a:self._context.left_sep : a:self._context.right_sep
+  let line .= '%#'.a:group.'#'
   return line
+endfunction
+
+function! s:get_seperator(self, prev_group, group, side)
+  if s:should_change_group(a:prev_group, a:group)
+    return s:get_transitioned_seperator(a:self, a:prev_group, a:group, a:side)
+  else
+    return a:side ? a:self._context.left_alt_sep : a:self._context.right_alt_sep
+  endif
 endfunction
 
 function! s:get_accented_line(self, group, contents)

@@ -75,6 +75,14 @@ describe 'active builder'
     Expect stl !~ '%#__restore__#'
     Expect stl =~ '%#Normal#'
   end
+
+  it 'should blend colors from the left through the split to the right'
+    call s:builder.add_section('Normal', 'hello')
+    call s:builder.split()
+    call s:builder.add_section('Search', 'world')
+    let stl = s:builder.build()
+    Expect stl =~ 'Normal_to_Search'
+  end
 end
 
 describe 'inactive builder'
