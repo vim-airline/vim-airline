@@ -26,6 +26,7 @@ let s:filetype_overrides = {
       \ 'vimfiler': [ 'vimfiler', '%{vimfiler#get_status_string()}' ],
       \ 'minibufexpl': [ 'MiniBufExplorer', '' ],
       \ 'startify': [ 'startify', '' ],
+      \ 'vim-plug': [ 'Plugins', '' ],
       \ }
 
 let s:filetype_regex_overrides = {}
