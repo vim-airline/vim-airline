@@ -144,6 +144,16 @@ Finally, you can add the convenience variable `let g:airline_powerline_fonts = 1
 
 Solutions to common problems can be found in the [Wiki][27].
 
+# Performance
+
+Whoa!  Everything got slow all of a sudden...
+
+vim-airline strives to make it easy to use out of the box, which means that by default it will look for all compatible plugins that you have installed and enable the relevant extension.
+
+Many optimizations have been made such that the majority of users will not see any performance degradation, but it can still happen.  For example, users who routinely open very large files may want to disable the tagbar extension, as it can be very expensive to scan for the name of the current function.
+
+The [minivimrc][7] project has some helper mappings to troubleshoot performance related issues.
+
 # Screenshots
 
 A full list of screenshots for various themes can be found in the [Wiki][14].
@@ -191,7 +201,7 @@ MIT License. Copyright (c) 2013-2014 Bailey Ling.
 [17]: https://github.com/mbbill/undotree
 [18]: https://github.com/scrooloose/nerdtree
 [19]: https://github.com/majutsushi/tagbar
-[20]: https://powerline.readthedocs.org/en/latest/fontpatching.html
+[20]: https://powerline.readthedocs.org/en/master/installation.html#patched-fonts
 [21]: https://bitbucket.org/ludovicchabant/vim-lawrencium
 [22]: https://github.com/MarcWeber/vim-addon-manager
 [23]: https://github.com/altercation/solarized
