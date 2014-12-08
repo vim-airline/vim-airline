@@ -46,7 +46,8 @@ function! airline#extensions#whitespace#check()
 
     let trailing = 0
     if index(checks, 'trailing') > -1
-      let trailing = search('\s$', 'nw')
+      " Added an \s so it checks for 2 whitepaces, not one.  RPD 07-Dec-2014 
+      let trailing = search('\s\s$', 'nw')
     endif
 
     let mixed = 0
