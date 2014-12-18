@@ -135,15 +135,19 @@ function! s:get_buffer_list()
   let cur = bufnr('%')
   for nr in range(1, bufnr('$'))
     if buflisted(nr) && bufexists(nr)
+      let toadd = 1
       for ex in s:excludes
-        if match(bufname(nr), ex)
-          continue
+        if match(bufname(nr), ex) >= 0
+          let toadd = 0
+          break
         endif
       endfor
       if getbufvar(nr, 'current_syntax') == 'qf'
-        continue
+        let toadd = 0
       endif
-      call add(buffers, nr)
+      if toadd
+        call add(buffers, nr)
+      endif
     endif
   endfor
 
