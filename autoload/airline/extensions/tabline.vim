@@ -5,6 +5,7 @@ let s:formatter = get(g:, 'airline#extensions#tabline#formatter', 'default')
 let s:excludes = get(g:, 'airline#extensions#tabline#excludes', [])
 let s:tab_nr_type = get(g:, 'airline#extensions#tabline#tab_nr_type', 0)
 let s:show_buffers = get(g:, 'airline#extensions#tabline#show_buffers', 1)
+let s:show_tabs = get(g:, 'airline#extensions#tabline#show_tabs', 1)
 let s:show_tab_nr = get(g:, 'airline#extensions#tabline#show_tab_nr', 1)
 let s:show_tab_type = get(g:, 'airline#extensions#tabline#show_tab_type', 1)
 let s:show_close_button = get(g:, 'airline#extensions#tabline#show_close_button', 1)
@@ -113,7 +114,7 @@ function! airline#extensions#tabline#get()
     let s:current_tabcnt = curtabcnt
     let s:current_bufnr = -1  " force a refresh...
   endif
-  if s:show_buffers && curtabcnt == 1
+  if s:show_buffers && curtabcnt == 1 || !s:show_tabs
     return s:get_buffers()
   else
     return s:get_tabs()
