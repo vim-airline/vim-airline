@@ -89,6 +89,10 @@ endfunction
 
 function! airline#update_statusline()
   for nr in filter(range(1, winnr('$')), 'v:val != winnr()')
+    if !empty(getwinvar(nr, 'airline_disabled')) &&
+        \ getwinvar(nr, 'airline_disabled')
+        continue
+    endif
     call setwinvar(nr, 'airline_active', 0)
     let context = { 'winnr': nr, 'active': 0, 'bufnr': winbufnr(nr) }
     call s:invoke_funcrefs(context, s:inactive_funcrefs)
