@@ -61,19 +61,20 @@ function! s:toggle_on()
   set tabline=%!airline#extensions#tabline#get()
   augroup airline_tabline
     autocmd!
-    " Invalidate cache.
-    autocmd BufAdd,BufUnload * unlet! s:current_buffer_list
-
     if s:buf_min_count <= 0 && s:tab_min_count <= 1
       set showtabline=2
     else
       if s:show_buffers == 1
-        autocmd BufEnter * call <sid>show_tabline(s:buf_min_count, len(s:get_buffer_list()))
+        autocmd BufEnter  * call <sid>show_tabline(s:buf_min_count, len(s:get_buffer_list()))
         autocmd BufUnload * call <sid>show_tabline(s:buf_min_count, len(s:get_buffer_list()) - 1)
       else
-        autocmd TabEnter * call <sid>show_tabline(s:tab_min_count, tabpagenr('$'))
+        autocmd TabEnter  * call <sid>show_tabline(s:tab_min_count, tabpagenr('$'))
       endif
     endif
+
+    " Invalidate cache.  This has to come after the BufUnload for
+    " s:show_buffers, to invalidate the cache for BufEnter.
+    autocmd BufAdd,BufUnload * unlet! s:current_buffer_list
   augroup END
 endfunction
 
