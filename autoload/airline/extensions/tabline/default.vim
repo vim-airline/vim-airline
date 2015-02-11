@@ -15,7 +15,9 @@ function! airline#extensions#tabline#default#format(bufnr, buffers)
     let _ .= '[No Name]'
   else
     if s:fnamecollapse
-      let _ .= substitute(fnamemodify(name, s:fmod), '\v\w\zs.{-}\ze(\\|/)', '', 'g')
+      " Collapse directories, but not for the last one if this is a
+      " __init__.py file.
+      let _ .= substitute(fnamemodify(name, s:fmod), '\v\w\zs.{-}\ze(\\|/)(__init__.py)@!', '', 'g')
     else
       let _ .= fnamemodify(name, s:fmod)
     endif
