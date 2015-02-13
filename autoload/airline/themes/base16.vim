@@ -44,7 +44,6 @@ if get(g:, 'airline#themes#base16#constant', 0)
   " Replace mode
   let g:airline#themes#base16#palette.replace = {
         \ 'airline_a': [s:gui_dark_gray, s:gui_red, s:cterm_dark_gray, s:cterm_red, ''],
-
         \ 'airline_c': [s:gui_red, s:gui_med_gray_hi, s:cterm_red, s:cterm_med_gray_hi, ''],
         \ }
   let g:airline#themes#base16#palette.replace_modified = copy(g:airline#themes#base16#palette.insert_modified)
