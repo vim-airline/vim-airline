@@ -795,7 +795,7 @@ Contributions and pull requests are welcome.
 ==============================================================================
 LICENSE                                                    *airline-license*
 
-MIT License.  Copyright © 2013-2014 Bailey Ling.
+MIT License.  Copyright © 2013-2015 Bailey Ling.
 
 
  vim:tw=78:ts=8:ft=help:norl:
