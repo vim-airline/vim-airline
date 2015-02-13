@@ -5,9 +5,9 @@ scriptencoding utf-8
 
 let s:skip_symbol = '…'
 
-function! airline#extensions#tabline#unique_tail_improved#format(bufnr, buffers)
+function! airline#extensions#tabline#formatters#unique_tail_improved#format(bufnr, buffers)
   if len(a:buffers) <= 1 " don't need to compare bufnames if has less than one buffer opened
-    return airline#extensions#tabline#default#format(a:bufnr, a:buffers)
+    return airline#extensions#tabline#formatters#default#format(a:bufnr, a:buffers)
   endif
 
   let curbuf_tail = fnamemodify(bufname(a:bufnr), ':t')
@@ -84,8 +84,8 @@ function! airline#extensions#tabline#unique_tail_improved#format(bufnr, buffers)
       call insert(buf_name, s:skip_symbol)
     endif
 
-    return airline#extensions#tabline#default#wrap_name(a:bufnr, join(buf_name, '/'))
+    return airline#extensions#tabline#formatters#default#wrap_name(a:bufnr, join(buf_name, '/'))
   else
-    return airline#extensions#tabline#default#format(a:bufnr, a:buffers)
+    return airline#extensions#tabline#formatters#default#format(a:bufnr, a:buffers)
   endif
 endfunction
