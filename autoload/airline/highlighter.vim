@@ -22,10 +22,11 @@ function! s:get_syn(group, what)
     let color = synIDattr(synIDtrans(hlID('Normal')), a:what, mode)
   endif
   if empty(color) || color == -1
+    let darkattr = &background == 'dark' ? 'bg' : 'fg'
     if has('gui_running')
-      let color = a:what ==# 'fg' ? '#000000' : '#FFFFFF'
+      let color = a:what ==# darkattr ? '#000000' : '#FFFFFF'
     else
-      let color = a:what ==# 'fg' ? 0 : 1
+      let color = a:what ==# darkattr ? '0' : '15'
     endif
   endif
   return color
