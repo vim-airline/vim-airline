@@ -4,7 +4,6 @@
 scriptencoding utf-8
 
 let s:formatter = get(g:, 'airline#extensions#tabline#formatter', 'default')
-let s:excludes = get(g:, 'airline#extensions#tabline#excludes', [])
 let s:tab_nr_type = get(g:, 'airline#extensions#tabline#tab_nr_type', 0)
 let s:show_buffers = get(g:, 'airline#extensions#tabline#show_buffers', 1)
 let s:show_tabs = get(g:, 'airline#extensions#tabline#show_tabs', 1)
@@ -65,8 +64,8 @@ function! s:toggle_on()
       set showtabline=2
     else
       if s:show_buffers == 1
-        autocmd BufEnter  * call <sid>show_tabline(s:buf_min_count, len(s:get_buffer_list()))
-        autocmd BufUnload * call <sid>show_tabline(s:buf_min_count, len(s:get_buffer_list()) - 1)
+        autocmd BufEnter  * call <sid>show_tabline(s:buf_min_count, len(airline#extensions#tabline#buflist#list()))
+        autocmd BufUnload * call <sid>show_tabline(s:buf_min_count, len(airline#extensions#tabline#buflist#list()) - 1)
       else
         autocmd TabEnter  * call <sid>show_tabline(s:tab_min_count, tabpagenr('$'))
       endif
@@ -74,7 +73,7 @@ function! s:toggle_on()
 
     " Invalidate cache.  This has to come after the BufUnload for
     " s:show_buffers, to invalidate the cache for BufEnter.
-    autocmd BufAdd,BufUnload * unlet! s:current_buffer_list
+    autocmd BufAdd,BufUnload * call airline#extensions#tabline#buflist#invalidate()
   augroup END
 endfunction
 
@@ -134,40 +133,11 @@ function! airline#extensions#tabline#title(n)
 endfunction
 
 function! airline#extensions#tabline#get_buffer_name(nr)
-  return airline#extensions#tabline#formatters#{s:formatter}#format(a:nr, s:get_buffer_list())
-endfunction
-
-function! s:get_buffer_list()
-  if exists('s:current_buffer_list')
-    return s:current_buffer_list
-  endif
-
-  let buffers = []
-  let cur = bufnr('%')
-  for nr in range(1, bufnr('$'))
-    if buflisted(nr) && bufexists(nr)
-      let toadd = 1
-      for ex in s:excludes
-        if match(bufname(nr), ex) >= 0
-          let toadd = 0
-          break
-        endif
-      endfor
-      if getbufvar(nr, 'current_syntax') == 'qf'
-        let toadd = 0
-      endif
-      if toadd
-        call add(buffers, nr)
-      endif
-    endif
-  endfor
-
-  let s:current_buffer_list = buffers
-  return buffers
+  return airline#extensions#tabline#formatters#{s:formatter}#format(a:nr, airline#extensions#tabline#buflist#list())
 endfunction
 
 function! s:get_visible_buffers()
-  let buffers = s:get_buffer_list()
+  let buffers = airline#extensions#tabline#buflist#list()
   let cur = bufnr('%')
 
   let total_width = 0
