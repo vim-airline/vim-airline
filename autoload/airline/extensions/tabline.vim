@@ -12,8 +12,6 @@ let s:show_tab_type = get(g:, 'airline#extensions#tabline#show_tab_type', 1)
 let s:show_close_button = get(g:, 'airline#extensions#tabline#show_close_button', 1)
 let s:close_symbol = get(g:, 'airline#extensions#tabline#close_symbol', 'X')
 let s:buffer_idx_mode = get(g:, 'airline#extensions#tabline#buffer_idx_mode', 0)
-let s:buf_min_count = get(g:, 'airline#extensions#tabline#buffer_min_count', 0)
-let s:tab_min_count = get(g:, 'airline#extensions#tabline#tab_min_count', 0)
 let s:spc = g:airline_symbols.space
 
 let s:number_map = &encoding == 'utf-8'
@@ -48,33 +46,13 @@ function! airline#extensions#tabline#init(ext)
 endfunction
 
 function! s:toggle_off()
-  if exists('s:original_tabline')
-    let &tabline = s:original_tabline
-    let &showtabline = s:original_showtabline
-  endif
+  call airline#extensions#tabline#autoshow#off()
 endfunction
 
 function! s:toggle_on()
-  let [ s:original_tabline, s:original_showtabline ] = [ &tabline, &showtabline ]
-
   set tabline=%!airline#extensions#tabline#get()
-  augroup airline_tabline
-    autocmd!
-    if s:buf_min_count <= 0 && s:tab_min_count <= 1
-      set showtabline=2
-    else
-      if s:show_buffers == 1
-        autocmd BufEnter  * call <sid>show_tabline(s:buf_min_count, len(airline#extensions#tabline#buflist#list()))
-        autocmd BufUnload * call <sid>show_tabline(s:buf_min_count, len(airline#extensions#tabline#buflist#list()) - 1)
-      else
-        autocmd TabEnter  * call <sid>show_tabline(s:tab_min_count, tabpagenr('$'))
-      endif
-    endif
 
-    " Invalidate cache.  This has to come after the BufUnload for
-    " s:show_buffers, to invalidate the cache for BufEnter.
-    autocmd BufAdd,BufUnload * call airline#extensions#tabline#buflist#invalidate()
-  augroup END
+  call airline#extensions#tabline#autoshow#on()
 endfunction
 
 function! airline#extensions#tabline#load_theme(palette)
@@ -99,18 +77,6 @@ function! airline#extensions#tabline#load_theme(palette)
   call airline#highlighter#exec('airline_tabmod', l:tabmod)
   call airline#highlighter#exec('airline_tabmod_unsel', l:tabmodu)
   call airline#highlighter#exec('airline_tabhid', l:tabhid)
-endfunction
-
-function! s:show_tabline(min_count, total_count)
-  if a:total_count >= a:min_count
-    if &showtabline != 2
-      set showtabline=2
-    endif
-  else
-    if &showtabline != 0
-      set showtabline=0
-    endif
-  endif
 endfunction
 
 function! airline#extensions#tabline#get()
