@@ -20,8 +20,12 @@ endfunction
 function! airline#extensions#tabline#tabs#on()
   augroup airline_tabline_tabs
     autocmd!
-    autocmd BufDelete * let s:current_bufnr = -1
+    autocmd BufDelete * call airline#extensions#tabline#tabs#invalidate()
   augroup END
+endfunction
+
+function! airline#extensions#tabline#tabs#invalidate()
+  let s:current_bufnr = -1
 endfunction
 
 function! airline#extensions#tabline#tabs#get()
