@@ -4,13 +4,8 @@
 scriptencoding utf-8
 
 let s:formatter = get(g:, 'airline#extensions#tabline#formatter', 'default')
-let s:tab_nr_type = get(g:, 'airline#extensions#tabline#tab_nr_type', 0)
 let s:show_buffers = get(g:, 'airline#extensions#tabline#show_buffers', 1)
 let s:show_tabs = get(g:, 'airline#extensions#tabline#show_tabs', 1)
-let s:show_tab_nr = get(g:, 'airline#extensions#tabline#show_tab_nr', 1)
-let s:show_tab_type = get(g:, 'airline#extensions#tabline#show_tab_type', 1)
-let s:show_close_button = get(g:, 'airline#extensions#tabline#show_close_button', 1)
-let s:close_symbol = get(g:, 'airline#extensions#tabline#close_symbol', 'X')
 let s:buffer_idx_mode = get(g:, 'airline#extensions#tabline#buffer_idx_mode', 0)
 let s:spc = g:airline_symbols.space
 
@@ -47,12 +42,14 @@ endfunction
 
 function! s:toggle_off()
   call airline#extensions#tabline#autoshow#off()
+  call airline#extensions#tabline#tabs#off()
 endfunction
 
 function! s:toggle_on()
-  set tabline=%!airline#extensions#tabline#get()
-
   call airline#extensions#tabline#autoshow#on()
+  call airline#extensions#tabline#tabs#on()
+
+  set tabline=%!airline#extensions#tabline#get()
 endfunction
 
 function! airline#extensions#tabline#load_theme(palette)
@@ -85,10 +82,11 @@ function! airline#extensions#tabline#get()
     let s:current_tabcnt = curtabcnt
     let s:current_bufnr = -1  " force a refresh...
   endif
+
   if s:show_buffers && curtabcnt == 1 || !s:show_tabs
     return s:get_buffers()
   else
-    return s:get_tabs()
+    return airline#extensions#tabline#tabs#get()
   endif
 endfunction
 
@@ -156,7 +154,6 @@ function! s:get_visible_buffers()
 endfunction
 
 let s:current_bufnr = -1
-let s:current_tabnr = -1
 let s:current_tabcnt = -1
 let s:current_tabline = ''
 let s:current_modified = 0
@@ -169,7 +166,7 @@ function! s:get_buffers()
   endif
 
   let l:index = 1
-  let b = s:new_builder()
+  let b = airline#extensions#tabline#new_builder()
   let tab_bufs = tabpagebuflist(tabpagenr())
   for nr in s:get_visible_buffers()
     if nr < 0
@@ -245,7 +242,7 @@ function! s:define_buffer_idx_mode_mappings()
   noremap <unique> <Plug>AirlineSelectTab9 :call <SID>select_tab(8)<CR>
 endfunction
 
-function! s:new_builder()
+function! airline#extensions#tabline#new_builder()
   let builder_context = {
         \ 'active'        : 1,
         \ 'right_sep'     : get(g:, 'airline#extensions#tabline#right_sep'    , g:airline_right_sep),
@@ -260,55 +257,4 @@ function! s:new_builder()
   endif
 
   return airline#builder#new(builder_context)
-endfunction
-
-function! s:get_tabs()
-  let curbuf = bufnr('%')
-  let curtab = tabpagenr()
-  if curbuf == s:current_bufnr && curtab == s:current_tabnr
-    if !g:airline_detect_modified || getbufvar(curbuf, '&modified') == s:current_modified
-      return s:current_tabline
-    endif
-  endif
-
-  let b = s:new_builder()
-  for i in range(1, tabpagenr('$'))
-    if i == curtab
-      let group = 'airline_tabsel'
-      if g:airline_detect_modified
-        for bi in tabpagebuflist(i)
-          if getbufvar(bi, '&modified')
-            let group = 'airline_tabmod'
-          endif
-        endfor
-      endif
-      let s:current_modified = (group == 'airline_tabmod') ? 1 : 0
-    else
-      let group = 'airline_tab'
-    endif
-    let val = '%('
-    if s:show_tab_nr
-      if s:tab_nr_type == 0
-        let val .= ' %{len(tabpagebuflist('.i.'))}'
-      else
-        let val .= (g:airline_symbols.space).i
-      endif
-    endif
-    call b.add_section(group, val.'%'.i.'T %{airline#extensions#tabline#title('.i.')} %)')
-  endfor
-
-  call b.add_raw('%T')
-  call b.add_section('airline_tabfill', '')
-  call b.split()
-  if s:show_close_button
-    call b.add_section('airline_tab', ' %999X'.s:close_symbol.' ')
-  endif
-  if s:show_tab_type
-    call b.add_section('airline_tabtype', ' tabs ')
-  endif
-
-  let s:current_bufnr = curbuf
-  let s:current_tabnr = curtab
-  let s:current_tabline = b.build()
-  return s:current_tabline
 endfunction
