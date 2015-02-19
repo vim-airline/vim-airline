@@ -2,6 +2,14 @@
 " vim: et ts=2 sts=2 sw=2
 
 let s:excludes = get(g:, 'airline#extensions#tabline#excludes', [])
+let s:buffers = {}
+
+for nr in range(1, bufnr('$'))
+  let s:buffers[nr] = 1
+endfor
+
+autocmd BufAdd * let s:buffers[expand('<abuf>')] = 1
+autocmd BufDelete * let nr = expand('<abuf>') | if has_key(s:buffers, nr) | unlet s:buffers[nr] | endif
 
 function! airline#extensions#tabline#buflist#invalidate()
   unlet! s:current_buffer_list
@@ -13,8 +21,8 @@ function! airline#extensions#tabline#buflist#list()
   endif
 
   let buffers = []
-  let cur = bufnr('%')
-  for nr in range(1, bufnr('$'))
+  for key in keys(s:buffers)
+    let nr = str2nr(key)
     if buflisted(nr) && bufexists(nr)
       let toadd = 1
       for ex in s:excludes
