@@ -4,6 +4,7 @@
 scriptencoding utf-8
 
 let s:buffer_idx_mode = get(g:, 'airline#extensions#tabline#buffer_idx_mode', 0)
+let s:show_tab_type = get(g:, 'airline#extensions#tabline#show_tab_type', 1)
 let s:spc = g:airline_symbols.space
 
 let s:current_bufnr = -1
@@ -96,7 +97,9 @@ function! airline#extensions#tabline#buffers#get()
   call b.add_section('airline_tabfill', '')
   call b.split()
   call b.add_section('airline_tabfill', '')
-  call b.add_section('airline_tabtype', ' buffers ')
+  if s:show_tab_type
+    call b.add_section('airline_tabtype', ' buffers ')
+  endif
 
   let s:current_bufnr = cur
   let s:current_tabline = b.build()
