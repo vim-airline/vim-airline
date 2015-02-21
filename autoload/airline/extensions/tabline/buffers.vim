@@ -38,10 +38,6 @@ function! airline#extensions#tabline#buffers#on()
     autocmd!
     autocmd BufDelete * call airline#extensions#tabline#buffers#invalidate()
   augroup END
-
-  if s:buffer_idx_mode
-    call s:define_buffer_idx_mode_mappings()
-  endif
 endfunction
 
 function! airline#extensions#tabline#buffers#invalidate()
@@ -176,14 +172,14 @@ function! s:select_tab(buf_index)
   endif
 endfunction
 
-function! s:define_buffer_idx_mode_mappings()
-  noremap! <unique> <Plug>AirlineSelectTab1 :call <SID>select_tab(0)<CR>
-  noremap! <unique> <Plug>AirlineSelectTab2 :call <SID>select_tab(1)<CR>
-  noremap! <unique> <Plug>AirlineSelectTab3 :call <SID>select_tab(2)<CR>
-  noremap! <unique> <Plug>AirlineSelectTab4 :call <SID>select_tab(3)<CR>
-  noremap! <unique> <Plug>AirlineSelectTab5 :call <SID>select_tab(4)<CR>
-  noremap! <unique> <Plug>AirlineSelectTab6 :call <SID>select_tab(5)<CR>
-  noremap! <unique> <Plug>AirlineSelectTab7 :call <SID>select_tab(6)<CR>
-  noremap! <unique> <Plug>AirlineSelectTab8 :call <SID>select_tab(7)<CR>
-  noremap! <unique> <Plug>AirlineSelectTab9 :call <SID>select_tab(8)<CR>
-endfunction
+if s:buffer_idx_mode
+  noremap <unique> <Plug>AirlineSelectTab1 :call <SID>select_tab(0)<CR>
+  noremap <unique> <Plug>AirlineSelectTab2 :call <SID>select_tab(1)<CR>
+  noremap <unique> <Plug>AirlineSelectTab3 :call <SID>select_tab(2)<CR>
+  noremap <unique> <Plug>AirlineSelectTab4 :call <SID>select_tab(3)<CR>
+  noremap <unique> <Plug>AirlineSelectTab5 :call <SID>select_tab(4)<CR>
+  noremap <unique> <Plug>AirlineSelectTab6 :call <SID>select_tab(5)<CR>
+  noremap <unique> <Plug>AirlineSelectTab7 :call <SID>select_tab(6)<CR>
+  noremap <unique> <Plug>AirlineSelectTab8 :call <SID>select_tab(7)<CR>
+  noremap <unique> <Plug>AirlineSelectTab9 :call <SID>select_tab(8)<CR>
+endif
