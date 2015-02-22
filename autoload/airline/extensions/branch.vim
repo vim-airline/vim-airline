@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2013-2014 Bailey Ling.
+" MIT License. Copyright (c) 2013-2015 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
 let s:has_fugitive = exists('*fugitive#head')
@@ -107,6 +107,7 @@ function! s:check_in_path()
         if match(root, pattern) >= 0
           let root = substitute(root, pattern, '', '')
         endif
+      endif
     endif
 
     let b:airline_file_in_root = stridx(bufferpath, root) > -1
