@@ -99,5 +99,4 @@ command! AirlineToggle call <sid>airline_toggle()
 command! AirlineRefresh call airline#load_theme() | call airline#update_statusline()
 
 autocmd VimEnter * call airline#deprecation#check()
-autocmd VimEnter * call s:init()
-
+call s:init()
