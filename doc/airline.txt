@@ -296,13 +296,27 @@ vcscommand   <http://www.vim.org/scripts/script.php?script_id=90>
 <
 * change the text for when no branch is detected >
   let g:airline#extensions#branch#empty_message = ''
-
+<
 * use vcscommand.vim if available >
   let g:airline#extensions#branch#use_vcscommand = 0
-
+<
 * truncate long branch names to a fixed length >
   let g:airline#extensions#branch#displayed_head_limit = 10
+<
+* customize formatting of branch name >
+  " default value leaves the name unmodifed
+  let g:airline#extensions#branch#format = 0
 
+  " to only show the tail, e.g. a branch 'feature/foo' show 'foo'
+  let g:airline#extensions#branch#format = 1
+
+  " if a string is provided, it should be the name of a function that
+  " takes a string and returns the desired value
+  let g:airline#extensions#branch#format = 'CustomBranchName'
+  function! CustomBranchName(name)
+    return '[' . a:name . ']'
+  endfunction
+<
 -------------------------------------                    *airline-syntastic*
 syntastic <https://github.com/scrooloose/syntastic>
 
