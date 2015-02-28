@@ -242,6 +242,15 @@ cost.  You can disable the check with the following flag. >
   Note: Third party plugins that rely on this behavior will be affected. You
   will need to manually load them.
 
+Alternatively, if you want a minimalistic setup and would rather opt-in which
+extensions get loaded instead of disabling each individually, you can declare
+the following list variable: >
+  " an empty list disables all extensions
+  let g:airline_extensions = []
+
+  " or only load what you want
+  let g:airline_extensions = ['branch', 'tabline']
+<
 -------------------------------------                      *airline-default*
 The default extension understands all of the `g:` variables in the
 |airline-configuration| section, however it also has some more fine-tuned

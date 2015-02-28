@@ -121,6 +121,13 @@ function! airline#extensions#load()
   " non-trivial number of external plugins use eventignore=all, so we need to account for that
   autocmd CursorMoved * call <sid>sync_active_winnr()
 
+  if exists('g:airline_extensions')
+    for ext in g:airline_extensions
+      call airline#extensions#{ext}#init(s:ext)
+    endfor
+    return
+  endif
+
   call airline#extensions#quickfix#init(s:ext)
 
   if get(g:, 'loaded_unite', 0)
