@@ -139,6 +139,10 @@ function! airline#extensions#load()
     call airline#extensions#ctrlp#init(s:ext)
   endif
 
+  if get(g:, 'ctrlspace_loaded', 0)
+    call airline#extensions#ctrlspace#init(s:ext)
+  endif
+
   if get(g:, 'command_t_loaded', 0)
     call airline#extensions#commandt#init(s:ext)
   endif
