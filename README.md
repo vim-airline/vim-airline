@@ -151,9 +151,11 @@ Whoa!  Everything got slow all of a sudden...
 
 vim-airline strives to make it easy to use out of the box, which means that by default it will look for all compatible plugins that you have installed and enable the relevant extension.
 
-Many optimizations have been made such that the majority of users will not see any performance degradation, but it can still happen.  For example, users who routinely open very large files may want to disable the tagbar extension, as it can be very expensive to scan for the name of the current function.
+Many optimizations have been made such that the majority of users will not see any performance degradation, but it can still happen.  For example, users who routinely open very large files may want to disable the `tagbar` extension, as it can be very expensive to scan for the name of the current function.
 
 The [minivimrc][7] project has some helper mappings to troubleshoot performance related issues.
+
+If you don't want all the bells and whistles enabled by default, you can define a value for `g:airline_extensions`.  When this variable is defined, only the extensions listed will be loaded; an empty array would effectively disable all extensions.
 
 # Screenshots
 
