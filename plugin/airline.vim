@@ -8,7 +8,6 @@ let g:loaded_airline = 1
 
 let s:airline_theme_defined = 0
 function! s:init()
-  call airline#init#bootstrap()
   call airline#extensions#load()
   call airline#init#sections()
 
@@ -98,6 +97,7 @@ command! AirlineToggleWhitespace call airline#extensions#whitespace#toggle()
 command! AirlineToggle call <sid>airline_toggle()
 command! AirlineRefresh call airline#load_theme() | call airline#update_statusline()
 
+call airline#init#bootstrap()
+
 autocmd VimEnter * call airline#deprecation#check()
 autocmd VimEnter * call s:init()
-
