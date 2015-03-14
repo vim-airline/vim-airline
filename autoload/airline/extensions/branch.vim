@@ -87,6 +87,8 @@ function! airline#extensions#branch#head()
     let b:airline_head = ''
   endif
 
+  let b:airline_head = s:format_name(b:airline_head)
+
   if exists("g:airline#extensions#branch#displayed_head_limit")
     let w:displayed_head_limit = g:airline#extensions#branch#displayed_head_limit
     if len(b:airline_head) > w:displayed_head_limit - 1
@@ -94,7 +96,6 @@ function! airline#extensions#branch#head()
     endif
   endif
 
-  let b:airline_head = s:format_name(b:airline_head)
   return b:airline_head
 endfunction
 
