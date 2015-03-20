@@ -11,6 +11,8 @@ let s:current_bufnr = -1
 let s:current_modified = 0
 let s:current_tabline = ''
 let s:current_visible_buffers = []
+let s:prev_buftabposition = 0
+let s:prev_buftabright = -1
 
 let s:number_map = &encoding == 'utf-8'
       \ ? {
@@ -124,7 +126,22 @@ function! s:get_visible_buffers()
     " determine how many buffers to show based on the longest buffer width,
     " use one on the right side and put the rest on the left
     let buf_max   = vimwidth / max_width
-    let buf_right = 1
+    let buf_right = 0
+    if position > 1 && position == s:prev_buftabposition - 1 && s:prev_buftabright > -1
+      " moving left one tab
+      let buf_right = min([s:prev_buftabright + 1, buf_max])
+    elseif position == s:prev_buftabposition + 1 && s:prev_buftabright > 0
+      " moving right one tab
+      let buf_right = s:prev_buftabright - 1
+    elseif s:prev_buftabright > -1
+      " jump between buffers - try to keep previous tab on screen
+      if position < s:prev_buftabposition
+        let buf_right = min([s:prev_buftabright + s:prev_buftabposition - position, buf_max])
+      else
+        let buf_right = max([s:prev_buftabright - (position - s:prev_buftabposition), 0])
+      endif
+    endif
+    let s:prev_buftabright = buf_right
     let buf_left  = max([0, buf_max - buf_right])
 
     let start = max([0, position - buf_left])
@@ -151,6 +168,7 @@ function! s:get_visible_buffers()
     endif
   endif
 
+  let s:prev_buftabposition = position
   let s:current_visible_buffers = buffers
   return buffers
 endfunction
