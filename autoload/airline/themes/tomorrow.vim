@@ -33,7 +33,7 @@ function! airline#themes#tomorrow#refresh()
   let g:airline#themes#tomorrow#palette.visual = airline#themes#generate_color_map(s:V1, s:V2, s:V3)
   let g:airline#themes#tomorrow#palette.visual_modified = g:airline#themes#tomorrow#palette.normal_modified
 
-  let s:IA = [ '#4e4e4e' , '#2A2A2A' , 239 , 235 , '' ]
+  let s:IA = airline#themes#get_highlight('StatusLineNC')
   let g:airline#themes#tomorrow#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA)
   let g:airline#themes#tomorrow#palette.inactive_modified = {
         \ 'airline_c': [ group[0], '', group[2], '', '' ]
