@@ -30,6 +30,8 @@ function! s:check_mixed_indent()
     " count of spaces at the end of tabs should be less then tabstop value
     let t_l_s = '(^\t+ {' . &ts . ',}' . '\S)'
     return search('\v' . t_s_t . '|' . t_l_s, 'nw')
+  elseif s:indent_algo == 2
+    return search('\v(^\t* +\t\s*\S)', 'nw')
   else
     return search('\v(^\t+ +)|(^ +\t+)', 'nw')
   endif
