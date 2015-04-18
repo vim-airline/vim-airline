@@ -7,7 +7,7 @@ function! airline#themes#tomorrow#refresh()
 
   let s:N1 = airline#themes#get_highlight2(['Normal', 'bg'], ['Directory', 'fg'], 'bold')
   let s:N2 = airline#themes#get_highlight('Pmenu')
-  let s:N3 = airline#themes#get_highlight('CursorLine')
+  let s:N3 = [ '#ffffff' , '#282a2e' , 255     , 'black' ]
   let g:airline#themes#tomorrow#palette.normal = airline#themes#generate_color_map(s:N1, s:N2, s:N3)
 
   let group = airline#themes#get_highlight('vimCommand')
