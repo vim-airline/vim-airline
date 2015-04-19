@@ -10,7 +10,8 @@ else
   let s:show_message = get(g:, 'airline#extensions#whitespace#show_message', 1)
 endif
 
-let s:symbol = get(g:, 'airline#extensions#whitespace#symbol', g:airline_symbols.whitespace)
+let s:symbol = get(g:, 'airline#extensions#whitespace#symbol', g:airline_symbols.whitespace) 
+
 let s:default_checks = ['indent', 'trailing']
 
 let s:trailing_format = get(g:, 'airline#extensions#whitespace#trailing_format', 'trailing[%s]')
