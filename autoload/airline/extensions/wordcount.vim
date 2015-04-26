@@ -1,6 +1,7 @@
+" 26-Apr-2015
 " Copied in from stackoverflow
 " http://stackoverflow.com/questions/114431/fast-word-count-function-in-vim
-
+" Renamed 
 
 let s:spc = g:airline_symbols.space
 
@@ -24,6 +25,7 @@ end
 endfunction
 
 function! airline#extensions#wordcount#apply(...)
+" Call the WordCount function for Markdown files
 if &ft == "markdown"
     let w:airline_section_x = "%{airline#extensions#wordcount#word_count()} Words"
 endif
