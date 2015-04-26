@@ -230,6 +230,12 @@ function! airline#extensions#load()
     call airline#extensions#windowswap#init(s:ext)
   endif
 
+" WordCount: 
+" wordcount.vim in extensions RD 26-Apr-2015 
+" Displays a live wordcount instead of filetype
+" when file is a markdown document. 
+call airline#extensions#wordcount#init(s:ext)
+
   if !get(g:, 'airline#extensions#disable_rtp_load', 0)
     " load all other extensions, which are not part of the default distribution.
     " (autoload/airline/extensions/*.vim outside of our s:script_path).
