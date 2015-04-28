@@ -27,7 +27,7 @@ function! s:check_mixed_indent()
     " spaces before or between tabs are not allowed
     let t_s_t = '(^\t* +\t\s*\S)'
     " <tab>(<space> x count)
-    " count of spaces at the end of tabs should be less then tabstop value
+    " count of spaces at the end of tabs should be less than tabstop value
     let t_l_s = '(^\t+ {' . &ts . ',}' . '\S)'
     return search('\v' . t_s_t . '|' . t_l_s, 'nw')
   else
