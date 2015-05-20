@@ -407,6 +407,11 @@ eclim <https://eclim.org>
   " certain number of spaces are allowed after tabs, but not in between
   " this algorithm works well for /** */ style comments in a tab-indented file
   let g:airline#extensions#whitespace#mixed_indent_algo = 1
+
+  " spaces are allowed after tabs, but not in between
+  " this algorithm works well with programming styles that use tabs for
+  " indentation and spaces for alignment
+  let g:airline#extensions#whitespace#mixed_indent_algo = 2
 <
 * customize the whitespace symbol. >
   let g:airline#extensions#whitespace#symbol = '!'
