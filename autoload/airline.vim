@@ -142,6 +142,8 @@ function! airline#check_mode(winnr)
       let l:mode = ['replace']
     elseif l:m =~# '\v(v|V||s|S|)'
       let l:mode = ['visual']
+    elseif l:m ==# "t"
+      let l:mode = ['terminal']
     else
       let l:mode = ['normal']
     endif
