@@ -16,7 +16,7 @@ let s:default_checks = ['indent', 'trailing']
 let s:trailing_format = get(g:, 'airline#extensions#whitespace#trailing_format', 'trailing[%s]')
 let s:mixed_indent_format = get(g:, 'airline#extensions#whitespace#mixed_indent_format', 'mixed-indent[%s]')
 let s:long_format = get(g:, 'airline#extensions#whitespace#long_format', 'long[%s]')
-let s:indent_algo = get(g:, 'airline#extensions#whitespace#mixed_indent_algo', 0)
+let s:indent_algo = get(g:, 'airline#extensions#whitespace#mixed_indent_algo', 1)
 
 let s:max_lines = get(g:, 'airline#extensions#whitespace#max_lines', 20000)
 
