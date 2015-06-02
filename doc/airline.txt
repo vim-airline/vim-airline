@@ -70,6 +70,9 @@ values):
 * enable paste detection >
   let g:airline_detect_paste=1
 <
+* enable crypt detection >
+  let g:airline_detect_crypt=1
+<
 * enable iminsert detection >
   let g:airline_detect_iminsert=0
 <
@@ -176,6 +179,7 @@ its contents. >
   let g:airline_left_sep = '▶'
   let g:airline_right_sep = '«'
   let g:airline_right_sep = '◀'
+  let g:airline_symbols.crypt = '🔒'
   let g:airline_symbols.linenr = '␊'
   let g:airline_symbols.linenr = '␤'
   let g:airline_symbols.linenr = '¶'
@@ -214,7 +218,7 @@ section.
 >
   variable names                default contents
   ----------------------------------------------------------------------------
-  let g:airline_section_a       (mode, paste, iminsert)
+  let g:airline_section_a       (mode, crypt, paste, iminsert)
   let g:airline_section_b       (hunks, branch)
   let g:airline_section_c       (bufferline or filename)
   let g:airline_section_gutter  (readonly, csv)
@@ -639,6 +643,7 @@ Before is a list of parts that are predefined by vim-airline.
 * `mode`           displays the current mode
 * `iminsert`       displays the current insert method
 * `paste`          displays the paste indicator
+* crypt          displays the crypted indicator
 * `filetype`       displays the file type
 * `readonly`       displays the read only indicator
 * `file`           displays the filename and modified indicator
