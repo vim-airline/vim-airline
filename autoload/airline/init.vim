@@ -55,9 +55,6 @@ function! airline#init#bootstrap()
         \ }, 'keep')
 
   call s:check_defined('g:airline_symbols', {})
-  let s:airline_crypt=''
-  " generate crypt symbol, "\u" only accepts up to 4 chars
-  exe 'sil norm!' ":\<C-V>U1F512\<c-\>eextend(s:, {'airline_crypt': getcmdline()}).airline_crypt\n"
   call extend(g:airline_symbols, {
         \ 'paste': get(g:, 'airline_paste_symbol', 'PASTE'),
         \ 'readonly': get(g:, 'airline_readonly_symbol', get(g:, 'airline_powerline_fonts', 0) ? "\ue0a2" : 'RO'),
@@ -66,9 +63,8 @@ function! airline#init#bootstrap()
         \ 'branch': get(g:, 'airline_branch_prefix', get(g:, 'airline_powerline_fonts', 0) ? "\ue0a0" : ''),
         \ 'modified': '+',
         \ 'space': ' ',
-        \ 'crypt': get(g:, 'airline_crypt_symbol', s:airline_crypt),
+        \ 'crypt': get(g:, 'airline_crypt_symbol', nr2char(0x1F512, 1)),
         \ }, 'keep')
-  unlet! s:airline_crypt
 
   call airline#parts#define('mode', {
         \ 'function': 'airline#parts#mode',
