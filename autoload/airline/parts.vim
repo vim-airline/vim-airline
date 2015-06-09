@@ -55,7 +55,7 @@ function! airline#parts#mode()
 endfunction
 
 function! airline#parts#crypt()
-  return g:airline_detect_crypt && !empty(&key) ? g:airline_symbols.crypt : ''
+  return g:airline_detect_crypt && exists("+key") && !empty(&key) ? g:airline_symbols.crypt : ''
 endfunction
 
 function! airline#parts#paste()
