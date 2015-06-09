@@ -161,7 +161,7 @@ function! airline#check_mode(winnr)
     call add(l:mode, 'paste')
   endif
 
-  if g:airline_detect_crypt && !empty(&key)
+  if g:airline_detect_crypt && exists("+key") && !empty(&key)
     call add(l:mode, 'crypt')
   endif
 
