@@ -63,7 +63,7 @@ function! airline#init#bootstrap()
         \ 'branch': get(g:, 'airline_branch_prefix', get(g:, 'airline_powerline_fonts', 0) ? "\ue0a0" : ''),
         \ 'modified': '+',
         \ 'space': ' ',
-        \ 'crypt': get(g:, 'airline_crypt_symbol', nr2char(0x1F512, 1)),
+        \ 'crypt': get(g:, 'airline_crypt_symbol', nr2char(0x1F512)),
         \ }, 'keep')
 
   call airline#parts#define('mode', {
