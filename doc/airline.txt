@@ -165,10 +165,10 @@ Airline comes with some user-defined autocommands.
 CUSTOMIZATION                                        *airline-customization*
 
 The following are some unicode symbols for customizing the left/right
-separators, as well as the powerline font glyths.
+separators, as well as the powerline font glyphs.
 
 Note: You must define the dictionary first before setting values. Also, it's a
-good idea to check whether if it exists as to avoid accidentally overwritting
+good idea to check whether it exists as to avoid accidentally overwriting
 its contents. >
   if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -239,7 +239,7 @@ Most extensions are enabled by default and lazily loaded when the
 corresponding plugin (if any) is detected.
 
 By default, airline will attempt to load any extension it can find in the
-'runtimepath'.  On some systems this can result in an undersirable startup
+'runtimepath'.  On some systems this can result in an undesirable startup
 cost.  You can disable the check with the following flag. >
   let g:airline#extensions#disable_rtp_load = 1
 <
@@ -271,7 +271,7 @@ configuration values that you can use.
   " Note: set to an empty dictionary to disable truncation.
   let g:airline#extensions#default#section_truncate_width = {}
 <
-* configure the layout of the sections by specificing an array of two arrays
+* configure the layout of the sections by specifying an array of two arrays
   (first array is the left side, second array is the right side). >
   let g:airline#extensions#default#layout = [
       \ [ 'a', 'b', 'c' ],
@@ -611,7 +611,7 @@ vim-ctrlspace <https://github.com/szw/vim-ctrlspace>
 ==============================================================================
 ADVANCED CUSTOMIZATION                      *airline-advanced-customization*
 
-The defaults will accomodate the mass majority of users with minimal
+The defaults will accommodate the mass majority of users with minimal
 configuration. However, if you want to reposition sections or contents you can
 do so with built-in helper functions, which makes it possible to create
 sections in a more declarative style.
@@ -706,7 +706,7 @@ the most powerful way to customize the statusline, and sometimes it may be
 easier to go this route than the above methods.
 
 Every section can have two values. The default value is the global `g:`
-variable which is used in the absense of a `w:` value. This makes it very easy
+variable which is used in the absence of a `w:` value. This makes it very easy
 to override only certain parts of the statusline by only defining window-local
 variables for a subset of all sections.
 
