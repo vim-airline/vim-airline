@@ -81,3 +81,12 @@ function! airline#parts#ffenc()
   return printf('%s%s', &fenc, strlen(&ff) > 0 ? '['.&ff.']' : '')
 endfunction
 
+function! airline#parts#sep_left()
+  let l:pad = g:airline_symbols.pad_sep
+  return l:pad . g:airline_left_alt_sep . l:pad
+endfunction
+
+function! airline#parts#sep_right()
+  let l:pad = g:airline_symbols.pad_sep
+  return l:pad . g:airline_right_alt_sep . l:pad
+endfunction
