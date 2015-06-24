@@ -2,7 +2,6 @@
 " vim: et ts=2 sts=2 sw=2
 
 call airline#init#bootstrap()
-let s:spc = g:airline_symbols.space
 
 function! airline#util#wrap(text, minwidth)
   if a:minwidth > 0 && winwidth(0) < a:minwidth
@@ -12,18 +11,20 @@ function! airline#util#wrap(text, minwidth)
 endfunction
 
 function! airline#util#append(text, minwidth)
+  let l:spc = g:airline_symbols.pad_sep
   if a:minwidth > 0 && winwidth(0) < a:minwidth
     return ''
   endif
-  let prefix = s:spc == "\ua0" ? s:spc : s:spc.s:spc
-  return empty(a:text) ? '' : prefix.g:airline_left_alt_sep.s:spc.a:text
+  let prefix = l:spc == "\ua0" ? l:spc : l:spc.l:spc
+  return empty(a:text) ? '' : prefix.g:airline_left_alt_sep.l:spc.a:text
 endfunction
 
 function! airline#util#prepend(text, minwidth)
+  let l:spc = g:airline_symbols.pad_sep
   if a:minwidth > 0 && winwidth(0) < a:minwidth
     return ''
   endif
-  return empty(a:text) ? '' : a:text.s:spc.g:airline_right_alt_sep.s:spc
+  return empty(a:text) ? '' : a:text.l:spc.g:airline_right_alt_sep.l:spc
 endfunction
 
 if v:version >= 704

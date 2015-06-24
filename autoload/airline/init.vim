@@ -64,6 +64,9 @@ function! airline#init#bootstrap()
         \ 'modified': '+',
         \ 'space': ' ',
         \ 'crypt': get(g:, 'airline_crypt_symbol', nr2char(0x1F512)),
+        \ 'pad': get(g:airline_symbols, 'space', ' '),
+        \ 'pad_section': get(g:airline_symbols, 'space', ' '),
+        \ 'pad_sep': get(g:airline_symbols, 'space', ' '),
         \ }, 'keep')
 
   call airline#parts#define('mode', {
