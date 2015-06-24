@@ -66,6 +66,13 @@ describe 'section'
     Expect s == '%t%{airline#parts#sep_right()}asdf%{airline#parts#sep_right()}%{getcwd()}'
   end
 
+  it 'should return separators expected'
+    let s = airline#parts#sep_left()
+    Expect s == ' > '
+    let s = airline#parts#sep_right()
+    Expect s == ' < '
+  end
+
   it 'should empty out parts that do not pass their condition'
     call airline#parts#define_text('conditional', 'conditional')
     call airline#parts#define_condition('conditional', '0')
