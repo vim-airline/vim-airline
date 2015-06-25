@@ -2,7 +2,6 @@
 " vim: et ts=2 sts=2 sw=2
 
 call airline#init#bootstrap()
-let s:spc = g:airline_symbols.space
 
 function! s:wrap_accent(part, value)
   if exists('a:part.accent')
@@ -13,6 +12,7 @@ function! s:wrap_accent(part, value)
 endfunction
 
 function! s:create(parts, append)
+  let s:spc = g:airline_symbols.pad_sep
   let _ = ''
   for idx in range(len(a:parts))
     let part = airline#parts#get(a:parts[idx])

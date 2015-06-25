@@ -2,7 +2,6 @@
 " vim: et ts=2 sts=2 sw=2
 
 call airline#init#bootstrap()
-let s:spc = g:airline_symbols.space
 
 function! airline#util#wrap(text, minwidth)
   if a:minwidth > 0 && winwidth(0) < a:minwidth
@@ -12,6 +11,7 @@ function! airline#util#wrap(text, minwidth)
 endfunction
 
 function! airline#util#append(text, minwidth)
+  let s:spc = g:airline_symbols.space
   if a:minwidth > 0 && winwidth(0) < a:minwidth
     return ''
   endif
@@ -20,6 +20,7 @@ function! airline#util#append(text, minwidth)
 endfunction
 
 function! airline#util#prepend(text, minwidth)
+  let s:spc = g:airline_symbols.space
   if a:minwidth > 0 && winwidth(0) < a:minwidth
     return ''
   endif

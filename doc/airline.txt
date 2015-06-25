@@ -208,6 +208,24 @@ its contents. >
   let g:airline_symbols.linenr = '⭡'
 <
 
+White space and padding:
+
+Some white space variables exist to allow greater control of padding and
+white space.  If these are changed after airline is running you may need to
+:AirlineRefresh to see your changes
+
+Note: You must define the dictionary first before setting values. Also, it's a
+good idea to check whether if it exists as to avoid accidentally overwritting
+its contents. >
+
+
+  variable names                     usage
+  ----------------------------------------------------------------------------
+  let g:airline_symbols.space        normal space
+  let g:airline_symbols.pad          padding that can collapse
+  let g:airline_symbols.pad_section  padding at start and end of a section
+  let g:airline_symbols.pad_sep      padding around a separator
+
 For more intricate customizations, you can replace the predefined sections
 with the usual statusline syntax.
 
