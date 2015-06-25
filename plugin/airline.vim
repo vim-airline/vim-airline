@@ -24,6 +24,7 @@ function! s:init()
   endif
 
   silent doautocmd User AirlineAfterInit
+  call s:on_window_changed()
 endfunction
 
 function! s:on_window_changed()
