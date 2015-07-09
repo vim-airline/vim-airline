@@ -446,7 +446,10 @@ eclim <https://eclim.org>
 <
 * configure filename match rules to exclude from the tabline. >
   let g:airline#extensions#tabline#excludes = []
-<
+
+* enable/disable display preview window buffer in the tabline.
+  let g:airline#extensions#tabline#exclude_preview = 1
+
 * configure how numbers are displayed in tab mode. >
   let g:airline#extensions#tabline#tab_nr_type = 0 " # of splits (default)
   let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
