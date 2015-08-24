@@ -27,11 +27,19 @@ describe 'themes'
   end
 
   it 'should pass args through correctly'
-    let hl = airline#themes#get_highlight('Foo', 'bold', 'italic')
-    Expect hl == ['', '', 0, 1, 'bold,italic']
-
+    set t_Co=8
     let hl = airline#themes#get_highlight2(['Foo','bg'], ['Foo','fg'], 'italic', 'bold')
-    Expect hl == ['', '', 1, 0, 'italic,bold']
+    Expect hl == ['', '', 8, 0, 'italic,bold']
+
+    let hl = airline#themes#get_highlight('Foo', 'bold', 'italic')
+    Expect hl == ['', '', 0, 8, 'bold,italic']
+
+    set t_Co=256
+    let hl = airline#themes#get_highlight2(['Foo','bg'], ['Foo','fg'], 'italic', 'bold')
+    Expect hl == ['', '', 235, 0, 'italic,bold']
+
+    let hl = airline#themes#get_highlight('Foo', 'bold', 'italic')
+    Expect hl == ['', '', 0, 235, 'bold,italic']
   end
 
   it 'should generate color map with mirroring'
