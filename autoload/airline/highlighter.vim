@@ -26,7 +26,7 @@ function! s:get_syn(group, what)
     if has('gui_running') || (has("termtruecolor") && &guicolors == 1)
       let color = a:what ==# 'fg' ? '#000000' : '#FFFFFF'
     else
-      let color = a:what ==# 'fg' ? 0 : 1
+      let color = a:what ==# 'fg' ? 0 : &t_Co == 256 ? 235 : 8
     endif
   endif
   return color
