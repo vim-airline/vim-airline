@@ -401,6 +401,15 @@ eclim <https://eclim.org>
   |airline-syntastic| extension. >
   let g:airline#extensions#eclim#enabled = 1
 
+-------------------------------------                    *airline-wordcount*
+* enable/disable word counting. >
+  let g:airline#extensions#wordcount#enabled = 1
+<
+* regex of filetypes to enable word counting. >
+  " the default value matches filetypes typically used for documentation
+  " such as markdown and help files.
+  let g:airline#extensions#wordcount#filetypes = ...
+<
 -------------------------------------                   *airline-whitespace*
 * enable/disable detection of whitespace errors. >
   let g:airline#extensions#whitespace#enabled = 1
@@ -490,8 +499,8 @@ exposed.
   let g:airline#extensions#tabline#formatter = 'foo'
 <
 
-  Note: the following variables are only used by the 'default' formatter. 
-  When no disambiguation is needed, both 'unique_tail_improved' and 
+  Note: the following variables are only used by the 'default' formatter.
+  When no disambiguation is needed, both 'unique_tail_improved' and
   'unique_tail' delegate formatting to 'default', so these variables also
   control rendering of unique filenames when using these formatters.
 
