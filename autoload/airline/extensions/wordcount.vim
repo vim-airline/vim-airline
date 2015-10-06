@@ -8,21 +8,24 @@ function! airline#extensions#wordcount#count()
   let old_status = v:statusmsg
   let position = getpos(".")
   exe "silent normal g\<c-g>"
-  let cnt = 0
+  let txt = ''
   let stat = v:statusmsg
   if stat != '--No lines in buffer--'
-    let cnt = str2nr(split(v:statusmsg)[11])
+    let parts = split(v:statusmsg)
+    if len(parts) > 11
+      let cnt = str2nr(split(v:statusmsg)[11])
+      let spc = g:airline_symbols.space
+      let txt = cnt . spc . 'words' . spc . g:airline_right_alt_sep . spc
+    endif
   end
   call setpos('.', position)
   let v:statusmsg = old_status
-  return cnt
+  return txt
 endfunction
 
 function! airline#extensions#wordcount#apply(...)
   if &ft =~ g:airline#extensions#wordcount#filetypes
-    let spc = g:airline_symbols.space
-    call airline#extensions#prepend_to_section('z',
-          \ '%{airline#extensions#wordcount#count()}' . spc . 'words' . spc . g:airline_right_alt_sep .spc)
+    call airline#extensions#prepend_to_section('z', '%{airline#extensions#wordcount#count()}')
   endif
 endfunction
 
