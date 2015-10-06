@@ -3,33 +3,38 @@
 
 let g:airline#extensions#wordcount#filetypes = '\vhelp|markdown|rst|org'
 
-" http://stackoverflow.com/questions/114431/fast-word-count-function-in-vim
-function! airline#extensions#wordcount#count()
+" adapted from http://stackoverflow.com/questions/114431/fast-word-count-function-in-vim
+function! s:update()
+  if &ft !~ g:airline#extensions#wordcount#filetypes
+    unlet! b:airline_wordcount
+    return
+  endif
+
   let old_status = v:statusmsg
   let position = getpos(".")
   exe "silent normal g\<c-g>"
-  let txt = ''
   let stat = v:statusmsg
-  if stat != '--No lines in buffer--'
-    let parts = split(v:statusmsg)
-    if len(parts) > 11
-      let cnt = str2nr(split(v:statusmsg)[11])
-      let spc = g:airline_symbols.space
-      let txt = cnt . spc . 'words' . spc . g:airline_right_alt_sep . spc
-    endif
-  end
   call setpos('.', position)
   let v:statusmsg = old_status
-  return txt
+
+  let parts = split(stat)
+  if len(parts) > 11
+    let cnt = str2nr(split(stat)[11])
+    let spc = g:airline_symbols.space
+    let b:airline_wordcount = cnt . spc . 'words' . spc . g:airline_right_alt_sep . spc
+  else
+    unlet! b:airline_wordcount
+  endif
 endfunction
 
 function! airline#extensions#wordcount#apply(...)
   if &ft =~ g:airline#extensions#wordcount#filetypes
-    call airline#extensions#prepend_to_section('z', '%{airline#extensions#wordcount#count()}')
+    call airline#extensions#prepend_to_section('z', '%{get(b:, "airline_wordcount", "")}')
   endif
 endfunction
 
 function! airline#extensions#wordcount#init(ext)
   call a:ext.add_statusline_func('airline#extensions#wordcount#apply')
+  autocmd BufReadPost,CursorMoved,CursorMovedI * call s:update()
 endfunction
 
