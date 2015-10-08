@@ -1,11 +1,11 @@
 " MIT License. Copyright (c) 2013-2015 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
-let g:airline#extensions#wordcount#filetypes = '\vhelp|markdown|rst|org'
+let s:filetypes = get(g:, 'airline#extensions#wordcount#filetypes', '\vhelp|markdown|rst|org')
 
 " adapted from http://stackoverflow.com/questions/114431/fast-word-count-function-in-vim
 function! s:update()
-  if &ft !~ g:airline#extensions#wordcount#filetypes
+  if &ft !~ s:filetypes
     unlet! b:airline_wordcount
     return
   endif
@@ -28,7 +28,7 @@ function! s:update()
 endfunction
 
 function! airline#extensions#wordcount#apply(...)
-  if &ft =~ g:airline#extensions#wordcount#filetypes
+  if &ft =~ s:filetypes
     call airline#extensions#prepend_to_section('z', '%{get(b:, "airline_wordcount", "")}')
   endif
 endfunction
