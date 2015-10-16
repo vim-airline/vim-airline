@@ -12,7 +12,7 @@ function! s:update()
 
   let old_status = v:statusmsg
   let position = getpos(".")
-  exe "silent normal g\<c-g>"
+  exe "silent normal! g\<c-g>"
   let stat = v:statusmsg
   call setpos('.', position)
   let v:statusmsg = old_status
