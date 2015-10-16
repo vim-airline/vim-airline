@@ -130,6 +130,9 @@ function! airline#highlighter#highlight(modes)
         let mode_colors = kvp[1]
         call airline#highlighter#exec(kvp[0].suffix, mode_colors)
 
+        if !exists('p.accents')
+          continue
+        endif
         for accent in keys(s:accents)
           if !has_key(p.accents, accent)
             continue
