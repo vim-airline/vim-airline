@@ -206,7 +206,7 @@ function! airline#extensions#load()
     call airline#extensions#whitespace#init(s:ext)
   endif
 
-  if get(g:, 'airline#extensions#wordcount#enabled', 0)
+  if get(g:, 'airline#extensions#wordcount#enabled', 1)
     call airline#extensions#wordcount#init(s:ext)
   endif
 
