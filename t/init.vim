@@ -44,6 +44,7 @@ describe 'init sections'
   it 'section z should be line numbers'
     Expect g:airline_section_z =~ '%3p%%'
     Expect g:airline_section_z =~ '%4l'
+    Expect g:airline_section_z =~ '%L'
     Expect g:airline_section_z =~ '%3v'
   end
 
