@@ -9,6 +9,9 @@ function! s:update()
   if &ft !~ s:filetypes
     unlet! b:airline_wordcount
     return
+  elseif mode() =~? 's'
+    " Bail on select mode
+    return
   endif
 
   let old_status = v:statusmsg
