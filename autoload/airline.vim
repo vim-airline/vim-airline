@@ -3,7 +3,7 @@
 
 let g:airline_statusline_funcrefs = get(g:, 'airline_statusline_funcrefs', [])
 
-let s:sections = ['a','b','c','gutter','x','y','z','warning']
+let s:sections = ['a','b','c','gutter','x','y','z', 'error', 'warning']
 let s:inactive_funcrefs = []
 
 function! airline#add_statusline_func(name)
