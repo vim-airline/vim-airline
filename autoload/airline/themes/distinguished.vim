@@ -10,7 +10,7 @@ let s:golden  = [143, '#afaf5f']
 let s:pink    = [131, '#af5f5f']
 let s:blue    = [ 67, '#5f87af']
 let s:orange  = [166, '#d75f00']
-let s:outerfg = [  0, '#000000']
+let s:outerfg = [ 16, '#000000']
 let s:innerbg = [234, '#1c1c1c']
 let s:middle  = ['#bcbcbc', '#444444', 250, 238]
 
