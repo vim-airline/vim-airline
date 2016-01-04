@@ -97,7 +97,7 @@ function! airline#init#sections()
     let g:airline_section_b = airline#section#create(['hunks', 'branch'])
   endif
   if !exists('g:airline_section_c')
-    if &autochdir == 1
+    if exists("+autochdir") && &autochdir == 1
       let g:airline_section_c = airline#section#create(['%<', 'path', spc, 'readonly'])
     else
       let g:airline_section_c = airline#section#create(['%<', 'file', spc, 'readonly'])
