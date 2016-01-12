@@ -150,7 +150,7 @@ function! airline#extensions#load()
     call airline#extensions#ctrlp#init(s:ext)
   endif
 
-  if get(g:, 'ctrlspace_loaded', 0)
+  if get(g:, 'CtrlSpaceLoaded', 0)
     call airline#extensions#ctrlspace#init(s:ext)
   endif
 

@@ -512,6 +512,10 @@ eclim <https://eclim.org>
 
 * enable/disable displaying index of the buffer.
 
+  Note: If you're using ctrlspace the tabline shows your tabs on the right and
+  buffer on the left. Also none of the tabline switches is currently
+  supported!
+
 When enabled, numbers will be displayed in the tabline and mappings will be
 exposed to allow you to select a buffer directly.  Up to 9 mappings will be
 exposed.
@@ -677,6 +681,12 @@ vim-ctrlspace <https://github.com/szw/vim-ctrlspace>
 
 * enable/disable vim-ctrlspace integration >
   let g:airline#extensions#ctrlspace#enabled = 1
+
+  To make the vim-ctrlspace integration work you will need to make the
+  ctrlspace statusline function call the correct airline function. Therefore
+  add the following line into your .vimrc:
+
+  let g:CtrlSpaceStatuslineFunction = "airline#extensions#ctrlspace#statusline()"
 <
 -------------------------------------                    *airline-ycm*
 YouCompleteMe <https://github.com/Valloric/YouCompleteMe>
