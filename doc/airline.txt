@@ -413,6 +413,8 @@ eclim <https://eclim.org>
   " the default value matches filetypes typically used for documentation
   " such as markdown and help files.
   let g:airline#extensions#wordcount#filetypes = ...
+  (default: markdown,rst,org,help,text)
+
 <
 -------------------------------------                   *airline-whitespace*
 * enable/disable detection of whitespace errors. >
