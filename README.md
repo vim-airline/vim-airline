@@ -128,6 +128,8 @@ This plugin follows the standard runtime path structure, and as such it can be i
   *  `NeoBundle 'vim-airline/vim-airline'`
 *  [Vundle][13]
   *  `Plugin 'vim-airline/vim-airline'`
+*  [Plug][40]
+  *  `Plug 'vim-airline/vim-airline'`
 *  [VAM][22]
   *  `call vam#ActivateAddons([ 'vim-airline' ])`
 *  manual
@@ -233,3 +235,4 @@ MIT License. Copyright (c) 2013-2015 Bailey Ling.
 [37]: https://github.com/gcmt/taboo.vim
 [38]: https://github.com/szw/vim-ctrlspace
 [39]: https://github.com/tomtom/quickfixsigns_vim
+[40]: https://github.com/junegunn/vim-plug
