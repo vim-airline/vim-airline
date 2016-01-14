@@ -1,7 +1,7 @@
 " MIT License. Copyright (c) 2013-2015 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
-let s:filetypes = get(g:, 'airline#extensions#wordcount#filetypes', '\vhelp|markdown|rst|org')
+let s:filetypes = get(g:, 'airline#extensions#wordcount#filetypes', '\vhelp|markdown|rst|org|text')
 let s:format = get(g:, 'airline#extensions#wordcount#format', '%d words')
 
 " adapted from http://stackoverflow.com/questions/114431/fast-word-count-function-in-vim
