@@ -1,8 +1,8 @@
-# vim-airline [![Build Status](https://travis-ci.org/bling/vim-airline.png)](https://travis-ci.org/bling/vim-airline)
+# vim-airline [![Build Status](https://travis-ci.org/vim-airline/vim-airline.png)](https://travis-ci.org/vim-airline/vim-airline)
 
 Lean &amp; mean status/tabline for vim that's light as air.
 
-![img](https://github.com/bling/vim-airline/wiki/screenshots/demo.gif)
+![img](https://github.com/vim-airline/vim-airline/wiki/screenshots/demo.gif)
 
 # Features
 
@@ -93,7 +93,7 @@ Every section is composed of parts, and you can reorder and reconfigure them at 
 
 ![image](https://f.cloud.github.com/assets/306502/1073278/f291dd4c-14a3-11e3-8a83-268e2753f97d.png)
 
-Sections can contain accents, which allows for very granular control of visuals (see configuration [here](https://github.com/bling/vim-airline/issues/299#issuecomment-25772886)).
+Sections can contain accents, which allows for very granular control of visuals (see configuration [here](https://github.com/vim-airline/vim-airline/issues/299#issuecomment-25772886)).
 
 ![image](https://f.cloud.github.com/assets/306502/1195815/4bfa38d0-249d-11e3-823e-773cfc2ca894.png)
 
@@ -122,12 +122,12 @@ I wrote the initial version on an airplane, and since it's light as air it turne
 This plugin follows the standard runtime path structure, and as such it can be installed with a variety of plugin managers:
 
 *  [Pathogen][11]
-  *  `git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline`
+  *  `git clone https://github.com/vim-airline/vim-airline ~/.vim/bundle/vim-airline`
   *  Remember to run `:Helptags` to generate help tags
 *  [NeoBundle][12]
-  *  `NeoBundle 'bling/vim-airline'`
+  *  `NeoBundle 'vim-airline/vim-airline'`
 *  [Vundle][13]
-  *  `Plugin 'bling/vim-airline'`
+  *  `Plugin 'vim-airline/vim-airline'`
 *  [VAM][22]
   *  `call vam#ActivateAddons([ 'vim-airline' ])`
 *  manual
@@ -207,7 +207,7 @@ MIT License. Copyright (c) 2013-2015 Bailey Ling.
 [11]: https://github.com/tpope/vim-pathogen
 [12]: https://github.com/Shougo/neobundle.vim
 [13]: https://github.com/gmarik/vundle
-[14]: https://github.com/bling/vim-airline/wiki/Screenshots
+[14]: https://github.com/vim-airline/vim-airline/wiki/Screenshots
 [15]: https://github.com/techlivezheng/vim-plugin-minibufexpl
 [16]: https://github.com/sjl/gundo.vim
 [17]: https://github.com/mbbill/undotree
@@ -220,13 +220,13 @@ MIT License. Copyright (c) 2013-2015 Bailey Ling.
 [24]: https://github.com/chriskempson/tomorrow-theme
 [25]: https://github.com/tomasr/molokai
 [26]: https://github.com/nanotech/jellybeans.vim
-[27]: https://github.com/bling/vim-airline/wiki/FAQ
+[27]: https://github.com/vim-airline/vim-airline/wiki/FAQ
 [28]: https://github.com/chrisbra/csv.vim
 [29]: https://github.com/airblade/vim-gitgutter
 [30]: https://github.com/mhinz/vim-signify
 [31]: https://github.com/jmcantrell/vim-virtualenv
 [32]: https://github.com/chriskempson/base16-vim
-[33]: https://github.com/bling/vim-airline/wiki/Test-Plan
+[33]: https://github.com/vim-airline/vim-airline/wiki/Test-Plan
 [34]: http://eclim.org
 [35]: https://github.com/edkolev/tmuxline.vim
 [36]: https://github.com/edkolev/promptline.vim
