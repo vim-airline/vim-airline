@@ -189,12 +189,17 @@ Contributions and pull requests are welcome.  Please take note of the following 
 *  If you submit a theme, please create a screenshot so it can be added to the [Wiki][14].
 *  In the majority of cases, modifications to colors of existing themes will likely be rejected.  Themes are a subjective thing, so while you may prefer that a particular color be darker, another user will prefer it to be lighter, or something entirely different.  The more popular the theme, the more unlikely the change will be accepted.  However, it's pretty simple to create your own theme; copy the theme to `~/.vim/autoload/airline/themes` under a new name with your modifications, and it can be used.
 
+# Maintainers
+
+The project is currently being maintained by [Bailey Ling][41] and [Christian Brabandt][42].
+
+If you are interested in becoming a maintainer (we always welcome more maintainers), please [go here][43].
+
 # License
 
-MIT License. Copyright (c) 2013-2015 Bailey Ling.
+MIT License. Copyright (c) 2013-2016 Bailey Ling.
 
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/bling/vim-airline/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/vim-airline/vim-airline/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 [1]: https://github.com/Lokaltog/vim-powerline
 [2]: https://github.com/Lokaltog/powerline
@@ -236,3 +241,6 @@ MIT License. Copyright (c) 2013-2015 Bailey Ling.
 [38]: https://github.com/szw/vim-ctrlspace
 [39]: https://github.com/tomtom/quickfixsigns_vim
 [40]: https://github.com/junegunn/vim-plug
+[41]: https://github.com/bling
+[42]: https://github.com/chrisbra
+[43]: https://github.com/vim-airline/vim-airline/wiki/Becoming-a-Maintainer
