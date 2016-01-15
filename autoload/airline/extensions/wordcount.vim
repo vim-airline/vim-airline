@@ -9,25 +9,28 @@ function! s:update()
   if &ft !~ s:filetypes
     unlet! b:airline_wordcount
     return
+  elseif exists("*wordcount")
+    let b:airline_wordcount = printf(s:format, wordcount()['words']).
+          \ g:airline_symbols.space . g:airline_right_alt_sep . g:airline_symbols.space
   elseif mode() =~? 's'
     " Bail on select mode
     return
-  endif
-
-  let old_status = v:statusmsg
-  let position = getpos(".")
-  exe "silent normal! g\<c-g>"
-  let stat = v:statusmsg
-  call setpos('.', position)
-  let v:statusmsg = old_status
-
-  let parts = split(stat)
-  if len(parts) > 11
-    let cnt = str2nr(split(stat)[11])
-    let spc = g:airline_symbols.space
-    let b:airline_wordcount = printf(s:format, cnt) . spc . g:airline_right_alt_sep . spc
   else
-    unlet! b:airline_wordcount
+    let old_status = v:statusmsg
+    let position = getpos(".")
+    exe "silent normal! g\<c-g>"
+    let stat = v:statusmsg
+    call setpos('.', position)
+    let v:statusmsg = old_status
+
+    let parts = split(stat)
+    if len(parts) > 11
+      let cnt = str2nr(split(stat)[11])
+      let spc = g:airline_symbols.space
+      let b:airline_wordcount = printf(s:format, cnt) . spc . g:airline_right_alt_sep . spc
+    else
+      unlet! b:airline_wordcount
+    endif
   endif
 endfunction
 
