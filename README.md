@@ -191,7 +191,7 @@ Contributions and pull requests are welcome.  Please take note of the following 
 
 # Maintainers
 
-The project is currently being maintained by [Bailey Ling][41] and [Christian Brabandt][42].
+The project is currently being maintained by [Bailey Ling][41], [Christian Brabandt][42], and [Mike Hartington][44].
 
 If you are interested in becoming a maintainer (we always welcome more maintainers), please [go here][43].
 
@@ -244,3 +244,4 @@ MIT License. Copyright (c) 2013-2016 Bailey Ling.
 [41]: https://github.com/bling
 [42]: https://github.com/chrisbra
 [43]: https://github.com/vim-airline/vim-airline/wiki/Becoming-a-Maintainer
+[44]: https://github.com/mhartington
