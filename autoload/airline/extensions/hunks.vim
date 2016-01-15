@@ -44,22 +44,21 @@ function! s:get_hunks_empty()
   return ''
 endfunction
 
-let s:source_func = ''
 function! s:get_hunks()
-  if empty(s:source_func)
-    if get(g:, 'loaded_signify', 0)
-      let s:source_func = 's:get_hunks_signify'
+  if !exists('b:source_func')
+    if get(g:, 'loaded_signify') && sy#buffer_is_active()
+      let b:source_func = 's:get_hunks_signify'
     elseif exists('*GitGutterGetHunkSummary')
-      let s:source_func = 's:get_hunks_gitgutter'
+      let b:source_func = 's:get_hunks_gitgutter'
     elseif exists('*changes#GetStats')
-      let s:source_func = 's:get_hunks_changes'
+      let b:source_func = 's:get_hunks_changes'
     elseif exists('*quickfixsigns#vcsdiff#GetHunkSummary')
-      let s:source_func = 'quickfixsigns#vcsdiff#GetHunkSummary'
+      let b:source_func = 'quickfixsigns#vcsdiff#GetHunkSummary'
     else
-      let s:source_func = 's:get_hunks_empty'
+      let b:source_func = 's:get_hunks_empty'
     endif
   endif
-  return {s:source_func}()
+  return {b:source_func}()
 endfunction
 
 function! airline#extensions#hunks#get_hunks()
