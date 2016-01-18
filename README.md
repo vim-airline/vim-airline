@@ -168,27 +168,6 @@ If you don't want all the bells and whistles enabled by default, you can define 
 
 A full list of screenshots for various themes can be found in the [Wiki][14].
 
-# Bugs
-
-Tracking down bugs can take a very long time due to different configurations, versions, and operating systems.  To ensure a timely response, please help me out by doing the following:
-
-*  Reproduce it with this [minivimrc][7] repository to rule out any configuration conflicts.
-*  A link to your vimrc or a gist which shows how you configured the plugin(s).
-*  And so I can reproduce; your `:version` of vim, and the commit of vim-airline you're using.
-
-# Contributions
-
-Contributions and pull requests are welcome.  Please take note of the following guidelines:
-
-*  Adhere to the existing style as much as possible; notably, 2 space indents and long-form keywords.
-*  Keep the history clean! squash your branches before you submit a pull request. `pull --rebase` is your friend.
-*  Any changes to the core should be tested against Vim 7.2.
-
-## Themes
-
-*  If you submit a theme, please create a screenshot so it can be added to the [Wiki][14].
-*  In the majority of cases, modifications to colors of existing themes will likely be rejected.  Themes are a subjective thing, so while you may prefer that a particular color be darker, another user will prefer it to be lighter, or something entirely different.  The more popular the theme, the more unlikely the change will be accepted.  However, it's pretty simple to create your own theme; copy the theme to `~/.vim/autoload/airline/themes` under a new name with your modifications, and it can be used.
-
 # Maintainers
 
 The project is currently being maintained by [Bailey Ling][41], [Christian Brabandt][42], and [Mike Hartington][44].
