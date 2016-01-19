@@ -27,7 +27,8 @@ function! s:init()
 endfunction
 
 function! s:on_window_changed()
-  if pumvisible()
+  if pumvisible() && (!&previewwindow ||
+        \ (g:airline_exclude_preview && &previewwindow))
     return
   endif
   call s:init()
