@@ -181,15 +181,15 @@ function! s:jump_to_tab(offset)
 endfunction
 
 if s:buffer_idx_mode
-  noremap <unique> <Plug>AirlineSelectTab1 :call <SID>select_tab(0)<CR>
-  noremap <unique> <Plug>AirlineSelectTab2 :call <SID>select_tab(1)<CR>
-  noremap <unique> <Plug>AirlineSelectTab3 :call <SID>select_tab(2)<CR>
-  noremap <unique> <Plug>AirlineSelectTab4 :call <SID>select_tab(3)<CR>
-  noremap <unique> <Plug>AirlineSelectTab5 :call <SID>select_tab(4)<CR>
-  noremap <unique> <Plug>AirlineSelectTab6 :call <SID>select_tab(5)<CR>
-  noremap <unique> <Plug>AirlineSelectTab7 :call <SID>select_tab(6)<CR>
-  noremap <unique> <Plug>AirlineSelectTab8 :call <SID>select_tab(7)<CR>
-  noremap <unique> <Plug>AirlineSelectTab9 :call <SID>select_tab(8)<CR>
-  noremap <unique> <Plug>AirlineSelectPrevTab :<C-u>call <SID>jump_to_tab(-v:count1)<CR>
-  noremap <unique> <Plug>AirlineSelectNextTab :<C-u>call <SID>jump_to_tab(v:count1)<CR>
+  noremap <silent><unique> <Plug>AirlineSelectTab1 :call <SID>select_tab(0)<CR>
+  noremap <silent><unique> <Plug>AirlineSelectTab2 :call <SID>select_tab(1)<CR>
+  noremap <silent><unique> <Plug>AirlineSelectTab3 :call <SID>select_tab(2)<CR>
+  noremap <silent><unique> <Plug>AirlineSelectTab4 :call <SID>select_tab(3)<CR>
+  noremap <silent><unique> <Plug>AirlineSelectTab5 :call <SID>select_tab(4)<CR>
+  noremap <silent><unique> <Plug>AirlineSelectTab6 :call <SID>select_tab(5)<CR>
+  noremap <silent><unique> <Plug>AirlineSelectTab7 :call <SID>select_tab(6)<CR>
+  noremap <silent><unique> <Plug>AirlineSelectTab8 :call <SID>select_tab(7)<CR>
+  noremap <silent><unique> <Plug>AirlineSelectTab9 :call <SID>select_tab(8)<CR>
+  noremap <silent><unique> <Plug>AirlineSelectPrevTab :<C-u>call <SID>jump_to_tab(-v:count1)<CR>
+  noremap <silent><unique> <Plug>AirlineSelectNextTab :<C-u>call <SID>jump_to_tab(v:count1)<CR>
 endif
