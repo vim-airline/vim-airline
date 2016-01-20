@@ -189,7 +189,7 @@ function! airline#extensions#load()
     call airline#extensions#bufferline#init(s:ext)
   endif
 
-  if isdirectory($VIRTUAL_ENV) && get(g:, 'airline#extensions#virtualenv#enabled', 1)
+  if (get(g:, 'airline#extensions#virtualenv#enabled', 1) && exists(':VirtualEnvList'))
     call airline#extensions#virtualenv#init(s:ext)
   endif
 
