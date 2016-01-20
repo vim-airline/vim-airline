@@ -45,6 +45,7 @@ function! airline#extensions#tabline#buffers#invalidate()
 endfunction
 
 function! airline#extensions#tabline#buffers#get()
+  call <sid>map_keys()
   let cur = bufnr('%')
   if cur == s:current_bufnr
     if !g:airline_detect_modified || getbufvar(cur, '&modified') == s:current_modified
@@ -180,16 +181,18 @@ function! s:jump_to_tab(offset)
     endif
 endfunction
 
-if s:buffer_idx_mode
-  noremap <silent><unique> <Plug>AirlineSelectTab1 :call <SID>select_tab(0)<CR>
-  noremap <silent><unique> <Plug>AirlineSelectTab2 :call <SID>select_tab(1)<CR>
-  noremap <silent><unique> <Plug>AirlineSelectTab3 :call <SID>select_tab(2)<CR>
-  noremap <silent><unique> <Plug>AirlineSelectTab4 :call <SID>select_tab(3)<CR>
-  noremap <silent><unique> <Plug>AirlineSelectTab5 :call <SID>select_tab(4)<CR>
-  noremap <silent><unique> <Plug>AirlineSelectTab6 :call <SID>select_tab(5)<CR>
-  noremap <silent><unique> <Plug>AirlineSelectTab7 :call <SID>select_tab(6)<CR>
-  noremap <silent><unique> <Plug>AirlineSelectTab8 :call <SID>select_tab(7)<CR>
-  noremap <silent><unique> <Plug>AirlineSelectTab9 :call <SID>select_tab(8)<CR>
-  noremap <silent><unique> <Plug>AirlineSelectPrevTab :<C-u>call <SID>jump_to_tab(-v:count1)<CR>
-  noremap <silent><unique> <Plug>AirlineSelectNextTab :<C-u>call <SID>jump_to_tab(v:count1)<CR>
-endif
+function s:map_keys()
+  if s:buffer_idx_mode
+    noremap <silent> <Plug>AirlineSelectTab1 :call <SID>select_tab(0)<CR>
+    noremap <silent> <Plug>AirlineSelectTab2 :call <SID>select_tab(1)<CR>
+    noremap <silent> <Plug>AirlineSelectTab3 :call <SID>select_tab(2)<CR>
+    noremap <silent> <Plug>AirlineSelectTab4 :call <SID>select_tab(3)<CR>
+    noremap <silent> <Plug>AirlineSelectTab5 :call <SID>select_tab(4)<CR>
+    noremap <silent> <Plug>AirlineSelectTab6 :call <SID>select_tab(5)<CR>
+    noremap <silent> <Plug>AirlineSelectTab7 :call <SID>select_tab(6)<CR>
+    noremap <silent> <Plug>AirlineSelectTab8 :call <SID>select_tab(7)<CR>
+    noremap <silent> <Plug>AirlineSelectTab9 :call <SID>select_tab(8)<CR>
+    noremap <silent> <Plug>AirlineSelectPrevTab :<C-u>call <SID>jump_to_tab(-v:count1)<CR>
+    noremap <silent> <Plug>AirlineSelectNextTab :<C-u>call <SID>jump_to_tab(v:count1)<CR>
+  endif
+endfunction
