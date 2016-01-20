@@ -500,7 +500,9 @@ exposed.
   let g:airline#extensions#tabline#formatter = 'default'
 
   " here is how you can define a 'foo' formatter:
-  function! airline#extensions#tabline#foo#format(bufnr, buffers)
+  " create a file in the dir autoload/airline/extensions/tabline/formatter/
+  " called foo.vim
+  function! airline#extensions#tabline#formatter#foo#format(bufnr, buffers)
     return fnamemodify(bufname(a:bufnr), ':t')
   endfunction
   let g:airline#extensions#tabline#formatter = 'foo'
