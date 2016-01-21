@@ -37,6 +37,18 @@ function! s:toggle_on()
   set tabline=%!airline#extensions#tabline#get()
 endfunction
 
+function! s:update_tabline()
+  if pumvisible()
+    return
+  elseif !get(g:, 'airline#extensions#tabline#enabled', 0)
+    return
+  endif
+  " force re-evaluation of tabline setting
+  set mod!
+  redraw
+  set mod!
+endfunction
+
 function! airline#extensions#tabline#load_theme(palette)
   let colors    = get(a:palette, 'tabline', {})
   let l:tab     = get(colors, 'airline_tab', a:palette.normal.airline_b)
@@ -70,6 +82,9 @@ function! airline#extensions#tabline#get()
     call airline#extensions#tabline#buffers#invalidate()
   endif
 
+  if !exists('#airline#BufAdd#*')
+    autocmd airline BufAdd * call <sid>update_tabline()
+  endif
   if s:show_buffers && curtabcnt == 1 || !s:show_tabs
     return airline#extensions#tabline#buffers#get()
   else
