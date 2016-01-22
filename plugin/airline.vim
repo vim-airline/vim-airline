@@ -24,19 +24,20 @@ function! s:init()
   endif
 
   silent doautocmd User AirlineAfterInit
+  call s:on_window_changed()
 endfunction
 
 function! s:on_window_changed()
   if pumvisible() && (!&previewwindow || g:airline_exclude_preview)
     return
   endif
-  call s:init()
-  call airline#update_statusline()
+  if s:airline_initialized
+    call airline#update_statusline()
+  endif
 endfunction
 
 function! s:on_colorscheme_changed()
-  call s:init()
-  if !s:airline_theme_defined
+  if s:airline_initialized && !s:airline_theme_defined
     if airline#switch_matching_theme()
       return
     endif
@@ -73,8 +74,9 @@ function! s:airline_toggle()
       autocmd CmdwinLeave * call airline#remove_statusline_func('airline#cmdwinenter')
 
       autocmd ColorScheme * call <sid>on_colorscheme_changed()
-      autocmd VimEnter,WinEnter,BufWinEnter,FileType,BufUnload,VimResized *
+      autocmd WinEnter,BufWinEnter,FileType,BufUnload,VimResized *
             \ call <sid>on_window_changed()
+      autocmd VimEnter * call <sid>init()
 
       autocmd BufWritePost */autoload/airline/themes/*.vim
             \ exec 'source '.split(globpath(&rtp, 'autoload/airline/themes/'.g:airline_theme.'.vim', 1), "\n")[0]
