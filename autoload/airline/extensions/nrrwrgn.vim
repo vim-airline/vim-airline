@@ -39,7 +39,8 @@ function! airline#extensions#nrrwrgn#apply(...)
         endif
       endif
       let range=(dict.multi ? '' : printf("[%d-%d]", dict.start[1], dict.end[1]))
-      call a:1.add_section('airline_c', printf("%s %s %s", name, range, dict.enabled ? "\u2713" : '!'))
+      call a:1.add_section('airline_c', printf("%s %s %s", name, range,
+        \ dict.enabled ? (&encoding ==? 'utf-8'  ? "\u2713"  : '')  : '!'))
       call a:1.split()
       call a:1.add_section('airline_x', get(g:, 'airline_section_x').spc)
       call a:1.add_section('airline_y', spc.get(g:, 'airline_section_y').spc)
