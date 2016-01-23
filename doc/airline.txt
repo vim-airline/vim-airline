@@ -664,6 +664,10 @@ greater than a minimum width. >
 Parts can be configured to be visible conditionally. >
   call airline#parts#define_condition('foo', 'getcwd() =~ "work_dir"')
 <
+
+Now add part "foo" to section section airline_section_y: >
+  let g:airline_section_y = airline#section#create_right(['ffenc','foo'])
+<
 Note: Part definitions are combinative; e.g. the two examples above modify the
 same `foo` part.
 
