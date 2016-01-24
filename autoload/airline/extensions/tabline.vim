@@ -4,6 +4,8 @@
 let s:formatter = get(g:, 'airline#extensions#tabline#formatter', 'default')
 let s:show_buffers = get(g:, 'airline#extensions#tabline#show_buffers', 1)
 let s:show_tabs = get(g:, 'airline#extensions#tabline#show_tabs', 1)
+let s:ignore_bufadd_pat = '\c\vgundo|undotree|vimfiler|tagbar' .
+      \ get(g:, 'airline#extensions#tabline#ignore_bufadd_pat')
 
 let s:taboo = get(g:, 'airline#extensions#taboo#enabled', 1) && get(g:, 'loaded_taboo', 0)
 if s:taboo
@@ -38,9 +40,12 @@ function! s:toggle_on()
 endfunction
 
 function! s:update_tabline()
+  let match = expand('<amatch>')
   if pumvisible()
     return
   elseif !get(g:, 'airline#extensions#tabline#enabled', 0)
+    return
+  elseif match(s:ignore_bufadd_pat, match) > -1 || isdirectory(match)
     return
   endif
   " force re-evaluation of tabline setting
