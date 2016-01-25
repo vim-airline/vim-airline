@@ -45,7 +45,7 @@ function! s:update_tabline()
     return
   elseif !get(g:, 'airline#extensions#tabline#enabled', 0)
     return
-  elseif match(s:ignore_bufadd_pat, match) > -1 || isdirectory(match)
+  elseif match(s:ignore_bufadd_pat, match) > -1 || isdirectory(match)||match(expand('<afile>'),match)
     return
   endif
   " force re-evaluation of tabline setting
