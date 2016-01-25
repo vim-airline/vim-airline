@@ -64,13 +64,13 @@ function! airline#highlighter#exec(group, colors)
   endif
   exec printf('hi %s %s %s %s %s %s %s %s',
         \ a:group,
-        \ get(colors, 0, '') != '' ? 'guifg='.colors[0] : '',
-        \ get(colors, 1, '') != '' ? 'guibg='.colors[1] : '',
-        \ get(colors, 2, '') != '' ? 'ctermfg='.colors[2] : '',
-        \ get(colors, 3, '') != '' ? 'ctermbg='.colors[3] : '',
-        \ get(colors, 4, '') != '' ? 'gui='.colors[4] : '',
-        \ get(colors, 4, '') != '' ? 'cterm='.colors[4] : '',
-        \ get(colors, 4, '') != '' ? 'term='.colors[4] : '')
+        \ get(colors, 0, '') isnot# '' ? 'guifg='.colors[0] : '',
+        \ get(colors, 1, '') isnot# '' ? 'guibg='.colors[1] : '',
+        \ get(colors, 2, '') isnot# '' ? 'ctermfg='.colors[2] : '',
+        \ get(colors, 3, '') isnot# '' ? 'ctermbg='.colors[3] : '',
+        \ get(colors, 4, '') isnot# '' ? 'gui='.colors[4] : '',
+        \ get(colors, 4, '') isnot# '' ? 'cterm='.colors[4] : '',
+        \ get(colors, 4, '') isnot# '' ? 'term='.colors[4] : '')
 endfunction
 
 function! s:exec_separator(dict, from, to, inverse, suffix)
