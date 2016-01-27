@@ -19,7 +19,7 @@ endfunction
 function! s:wordcount()
   if exists("*wordcount")
     return wordcount()['words']
-  else if mode() =~? 's'
+  elseif mode() =~? 's'
     return
   else
     let old_status = v:statusmsg
