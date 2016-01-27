@@ -9,12 +9,11 @@ let s:accents = {}
 function! s:gui2cui(rgb, fallback)
   if a:rgb == ''
     return a:fallback
-  elseif match(a:rgb, 'NONE\|[fb]g')
+  elseif match(a:rgb, '^\%(NONE\|[fb]g\)$') > -1
     return a:rgb
   endif
-  let rgb = map(matchlist(a:rgb, '#\(..\)\(..\)\(..\)')[1:3], '0 + ("0x".v:val)')
-  let rgb = [rgb[0] > 127 ? 4 : 0, rgb[1] > 127 ? 2 : 0, rgb[2] > 127 ? 1 : 0]
-  return rgb[0]+rgb[1]+rgb[2]
+  let rgb = map(split(a:rgb[1:], '..\zs'), '0 + ("0x".v:val)')
+  return airline#msdos#round_msdos_colors(rgb)
 endfunction
 
 function! s:get_syn(group, what)
