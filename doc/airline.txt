@@ -415,6 +415,20 @@ eclim <https://eclim.org>
   let g:airline#extensions#wordcount#filetypes = ...
   (default: markdown,rst,org,help,text)
 
+* defines the name of a formatter for word count will be displayed: >
+  " The default will try to guess LC_NUMERIC and format number accordingly
+  " e.g. 1,042 in English and 1.042 in German locale
+  let g:airline#extensions#wordcount#formatter = 'default'
+
+  " here is how you can define a 'foo' formatter:
+  " create a file in the dir autoload/airline/extensions/wordcount/formatters/
+  " called foo.vim
+  " this example needs at least Vim > 7.4.1042
+  function! airline#extensions#wordcount#formatters#foo#format()
+    return (wordcount()['words'] == 0 ? 'NONE' :
+        \ wordcount()['words'] > 100 ? 'okay' : 'not enough')
+  endfunction
+  let g:airline#extensions#wordline#formatter = 'foo'
 <
 -------------------------------------                   *airline-whitespace*
 * enable/disable detection of whitespace errors. >
@@ -510,9 +524,9 @@ exposed.
   let g:airline#extensions#tabline#formatter = 'default'
 
   " here is how you can define a 'foo' formatter:
-  " create a file in the dir autoload/airline/extensions/tabline/formatter/
+  " create a file in the dir autoload/airline/extensions/tabline/formatters/
   " called foo.vim
-  function! airline#extensions#tabline#formatter#foo#format(bufnr, buffers)
+  function! airline#extensions#tabline#formatters#foo#format(bufnr, buffers)
     return fnamemodify(bufname(a:bufnr), ':t')
   endfunction
   let g:airline#extensions#tabline#formatter = 'foo'
