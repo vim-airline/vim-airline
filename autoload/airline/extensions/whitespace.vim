@@ -49,7 +49,14 @@ function! airline#extensions#whitespace#check()
 
     let trailing = 0
     if index(checks, 'trailing') > -1
-      let trailing = search('\s$', 'nw')
+      try
+        let regexp = get(g:, 'airline#extensions#whitespace#trailing_regexp', '\s$')
+        let trailing = search(regexp, 'nw')
+      catch
+        echomsg 'airline#whitespace: error occured evaluating '. regexp
+        echomsg v:exception
+        return ''
+      endtry
     endif
 
     let mixed = 0

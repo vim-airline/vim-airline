@@ -449,6 +449,9 @@ eclim <https://eclim.org>
   let g:airline#extensions#whitespace#trailing_format = 'trailing[%s]'
   let g:airline#extensions#whitespace#mixed_indent_format = 'mixed-indent[%s]'
   let g:airline#extensions#whitespace#long_format = 'long[%s]'
+
+* configure custom trailing whitespace regexp rule >
+  let g:airline#extensions#whitespace#trailing_regexp = '\s$'
 <
 -------------------------------------                      *airline-tabline*
 * enable/disable enhanced tabline. >
