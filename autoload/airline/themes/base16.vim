@@ -131,6 +131,33 @@ else
 
     let g:airline#themes#base16#palette.replace_modified.airline_warning =
         \ g:airline#themes#base16#palette.normal.airline_warning
+        
+    " Errors
+    let s:ER = airline#themes#get_highlight2(['ErrorMsg', 'bg'], ['ErrorMsg', 'fg'], 'bold')
+    let g:airline#themes#base16#palette.normal.airline_error = [
+         \ s:ER[0], s:ER[1], s:ER[2], s:ER[3]
+         \ ]
+
+    let g:airline#themes#base16#palette.normal_modified.airline_error =
+        \ g:airline#themes#base16#palette.normal.airline_error
+
+    let g:airline#themes#base16#palette.insert.airline_error =
+        \ g:airline#themes#base16#palette.normal.airline_error
+
+    let g:airline#themes#base16#palette.insert_modified.airline_error =
+        \ g:airline#themes#base16#palette.normal.airline_error
+
+    let g:airline#themes#base16#palette.visual.airline_error =
+        \ g:airline#themes#base16#palette.normal.airline_error
+
+    let g:airline#themes#base16#palette.visual_modified.airline_error =
+        \ g:airline#themes#base16#palette.normal.airline_error
+
+    let g:airline#themes#base16#palette.replace.airline_error =
+        \ g:airline#themes#base16#palette.normal.airline_error
+
+    let g:airline#themes#base16#palette.replace_modified.airline_error =
+        \ g:airline#themes#base16#palette.normal.airline_error
 
   endfunction
   call airline#themes#base16#refresh()
