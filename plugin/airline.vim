@@ -102,10 +102,16 @@ function! s:airline_theme(...)
   endif
 endfunction
 
+function! s:airline_refresh()
+  unlet! b:airline_head
+  call airline#load_theme()
+  call airline#update_statusline()
+endfunction
+
 command! -bar -nargs=? -complete=customlist,<sid>get_airline_themes AirlineTheme call <sid>airline_theme(<f-args>)
 command! -bar AirlineToggleWhitespace call airline#extensions#whitespace#toggle()
 command! -bar AirlineToggle call s:airline_toggle()
-command! -bar AirlineRefresh call airline#load_theme() | call airline#update_statusline()
+command! -bar AirlineRefresh ccall s:airline_refresh()
 
 call airline#init#bootstrap()
 call s:airline_toggle()
