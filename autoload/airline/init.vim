@@ -56,11 +56,11 @@ function! airline#init#bootstrap()
 
   call s:check_defined('g:airline_symbols', {})
   call extend(g:airline_symbols, {
-        \ 'paste': get(g:, 'airline_paste_symbol', 'PASTE'),
-        \ 'readonly': get(g:, 'airline_readonly_symbol', get(g:, 'airline_powerline_fonts', 0) ? "\ue0a2" : 'RO'),
+        \ 'paste': 'PASTE',
+        \ 'readonly': get(g:, 'airline_powerline_fonts', 0) ? "\ue0a2" : 'RO',
         \ 'whitespace': get(g:, 'airline_powerline_fonts', 0) ? "\u2739" : '!',
-        \ 'linenr': get(g:, 'airline_linecolumn_prefix', get(g:, 'airline_powerline_fonts', 0) ? "\ue0a1" : ':' ),
-        \ 'branch': get(g:, 'airline_branch_prefix', get(g:, 'airline_powerline_fonts', 0) ? "\ue0a0" : ''),
+        \ 'linenr': get(g:, 'airline_powerline_fonts', 0) ? "\ue0a1" : ':',
+        \ 'branch': get(g:, 'airline_powerline_fonts', 0) ? "\ue0a0" : '',
         \ 'modified': '+',
         \ 'space': ' ',
         \ 'crypt': get(g:, 'airline_crypt_symbol', nr2char(0x1F512)),

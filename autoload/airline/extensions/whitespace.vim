@@ -3,13 +3,7 @@
 
 " http://got-ravings.blogspot.com/2008/10/vim-pr0n-statusline-whitespace-flags.html
 
-" for backwards compatibility
-if exists('g:airline_detect_whitespace')
-  let s:show_message = g:airline_detect_whitespace == 1
-else
-  let s:show_message = get(g:, 'airline#extensions#whitespace#show_message', 1)
-endif
-
+let s:show_message = get(g:, 'airline#extensions#whitespace#show_message', 1)
 let s:symbol = get(g:, 'airline#extensions#whitespace#symbol', g:airline_symbols.whitespace)
 let s:default_checks = ['indent', 'trailing']
 

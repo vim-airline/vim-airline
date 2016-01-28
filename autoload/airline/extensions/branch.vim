@@ -105,8 +105,7 @@ endfunction
 
 function! airline#extensions#branch#get_head()
   let head = airline#extensions#branch#head()
-  let empty_message = get(g:, 'airline#extensions#branch#empty_message',
-      \ get(g:, 'airline_branch_empty_message', ''))
+  let empty_message = get(g:, 'airline#extensions#branch#empty_message', '')
   let symbol = get(g:, 'airline#extensions#branch#symbol', g:airline_symbols.branch)
   return empty(head)
         \ ? empty_message
