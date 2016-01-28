@@ -2,6 +2,10 @@
 " vim: et ts=2 sts=2 sw=2
 
 function! airline#deprecation#check()
+  if !exists('g:loaded_airline_themes')
+    echom 'airline themes have been migrated to github.com/vim-airline/vim-airline-themes and will be removed from the core in the near future.'
+  endif
+
   if exists('g:airline_enable_fugitive') || exists('g:airline_fugitive_prefix')
     echom 'The g:airline_enable_fugitive and g:airline_fugitive_prefix variables are obsolete. Please read the documentation about the branch extension.'
   endif
