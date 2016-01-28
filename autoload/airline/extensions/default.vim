@@ -50,7 +50,7 @@ else
   function s:add_section(builder, context, key)
     if a:key == 'warning'
       call a:builder.add_raw('%#airline_warning#'.s:get_section(a:context.winnr, a:key))
-    else if a:key == 'error'
+    elseif a:key == 'error'
       call a:builder.add_raw('%#airline_error#'.s:get_section(a:context.winnr, a:key))
     else
       call a:builder.add_section('airline_'.a:key, s:get_section(a:context.winnr, a:key))
