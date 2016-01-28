@@ -111,7 +111,7 @@ endfunction
 command! -bar -nargs=? -complete=customlist,<sid>get_airline_themes AirlineTheme call <sid>airline_theme(<f-args>)
 command! -bar AirlineToggleWhitespace call airline#extensions#whitespace#toggle()
 command! -bar AirlineToggle call s:airline_toggle()
-command! -bar AirlineRefresh ccall s:airline_refresh()
+command! -bar AirlineRefresh call s:airline_refresh()
 
 call airline#init#bootstrap()
 call s:airline_toggle()
