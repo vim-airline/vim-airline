@@ -917,7 +917,7 @@ A. Certain themes are derived from the active colorscheme by extracting colors
 
 
 Solutions to other common problems can be found in the Wiki:
-<https://github.com/bling/vim-airline/wiki/FAQ>
+<https://github.com/vim-airline/vim-airline/wiki/FAQ>
 
 ==============================================================================
 CONTRIBUTIONS                                        *airline-contributions*
