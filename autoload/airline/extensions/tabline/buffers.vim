@@ -62,23 +62,7 @@ function! airline#extensions#tabline#buffers#get()
       continue
     endif
 
-    if cur == nr
-      if g:airline_detect_modified && getbufvar(nr, '&modified')
-        let group = 'airline_tabmod'
-      else
-        let group = 'airline_tabsel'
-      endif
-      let s:current_modified = (group == 'airline_tabmod') ? 1 : 0
-    else
-      if g:airline_detect_modified && getbufvar(nr, '&modified')
-        let group = 'airline_tabmod_unsel'
-      elseif index(tab_bufs, nr) > -1
-        let group = 'airline_tab'
-      else
-        let group = 'airline_tabhid'
-      endif
-    endif
-
+    let group = airline#extensions#tabline#group_of_bufnr(tab_bufs, nr)
     if s:buffer_idx_mode
       if len(s:number_map) > 0
         call b.add_section(group, s:spc . get(s:number_map, l:index, '') . '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)' . s:spc)
