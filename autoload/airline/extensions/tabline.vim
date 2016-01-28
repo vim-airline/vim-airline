@@ -5,11 +5,12 @@ let s:formatter = get(g:, 'airline#extensions#tabline#formatter', 'default')
 let s:show_buffers = get(g:, 'airline#extensions#tabline#show_buffers', 1)
 let s:show_tabs = get(g:, 'airline#extensions#tabline#show_tabs', 1)
 let s:ignore_bufadd_pat = get(g:, 'airline#extensions#tabline#ignore_bufadd_pat', '\c\vgundo|undotree|vimfiler|tagbar|nerd_tree')
+let s:combined = get(g:, 'airline#extensions#tabline#combined', 1)
+
 let s:taboo = get(g:, 'airline#extensions#taboo#enabled', 1) && get(g:, 'loaded_taboo', 0)
 if s:taboo
   let g:taboo_tabline = 0
 endif
-
 
 function! airline#extensions#tabline#init(ext)
   if has('gui_running')
@@ -132,4 +133,25 @@ function! airline#extensions#tabline#new_builder()
   endif
 
   return airline#builder#new(builder_context)
+endfunction
+
+function! airline#extensions#tabline#group_of_bufnr(tab_bufs, bufnr)
+  let cur = bufnr('%')
+  if cur == a:bufnr
+    if g:airline_detect_modified && getbufvar(a:bufnr, '&modified')
+      let group = 'airline_tabmod'
+    else
+      let group = 'airline_tabsel'
+    endif
+    let s:current_modified = (group == 'airline_tabmod') ? 1 : 0
+  else
+    if g:airline_detect_modified && getbufvar(a:bufnr, '&modified')
+      let group = 'airline_tabmod_unsel'
+    elseif index(a:tab_bufs, a:bufnr) > -1
+      let group = 'airline_tab'
+    else
+      let group = 'airline_tabhid'
+    endif
+  endif
+  return group
 endfunction
