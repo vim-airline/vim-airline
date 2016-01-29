@@ -26,29 +26,43 @@ endif
 
 let s:git_dirs = {}
 function! s:get_git_branch(path)
-  if has_key(s:git_dirs, a:path)
-    return s:git_dirs[a:path]
+  if !s:has_fugitive
+    return ''
   endif
 
-  let dir = fugitive#extract_git_dir(a:path)
-  if empty(dir)
-    let name = ''
-  else
-    try
-      let line = join(readfile(dir . '/HEAD'))
-      if strpart(line, 0, 16) == 'ref: refs/heads/'
-        let name = strpart(line, 16)
-      else
-        " raw commit hash
-        let name = strpart(line, 0, 7)
-      endif
-    catch
+  let name = fugitive#head(7)
+  if empty(name)
+    if has_key(s:git_dirs, a:path)
+      return s:git_dirs[a:path]
+    endif
+
+    let dir = fugitive#extract_git_dir(a:path)
+    if empty(dir)
       let name = ''
-    endtry
+    else
+      try
+        let line = join(readfile(dir . '/HEAD'))
+        if strpart(line, 0, 16) == 'ref: refs/heads/'
+          let name = strpart(line, 16)
+        else
+          " raw commit hash
+          let name = strpart(line, 0, 7)
+        endif
+      catch
+        let name = ''
+      endtry
+    endif
   endif
 
   let s:git_dirs[a:path] = name
   return name
+endfunction
+
+function! s:get_hg_branch()
+  if s:has_lawrencium
+    return lawrencium#statusline()
+  endif
+  return ''
 endfunction
 
 function! airline#extensions#branch#head()
@@ -57,37 +71,39 @@ function! airline#extensions#branch#head()
   endif
 
   let b:airline_head = ''
+  let l:heads = {}
+  let l:vcs_priority = get(g:, "airline#extensions#branch#vcs_priority", ["git", "mercurial"])
   let found_fugitive_head = 0
 
-  if s:has_fugitive && !exists('b:mercurial_dir')
-    let b:airline_head = fugitive#head(7)
+  let l:git_head = s:get_git_branch(expand("%:p:h"))
+  if !empty(l:git_head)
     let found_fugitive_head = 1
-
-    if empty(b:airline_head) && !exists('b:git_dir')
-      let b:airline_head = s:get_git_branch(expand("%:p:h"))
-    endif
+    let l:heads.git = "git:" . s:format_name(l:git_head)
   endif
 
-  if empty(b:airline_head)
-    if s:has_lawrencium
-      let b:airline_head = lawrencium#statusline()
-    endif
+  let l:hg_head = s:get_hg_branch()
+  if !empty(l:hg_head)
+    let l:heads.mercurial = "hg:" . s:format_name(l:hg_head)
   endif
 
-  if empty(b:airline_head)
+  if empty(l:heads)
     if s:has_vcscommand
       call VCSCommandEnableBufferSetup()
       if exists('b:VCSCommandBufferInfo')
         let b:airline_head = get(b:VCSCommandBufferInfo, 0, '')
+        let b:airline_head = s:format_name(b:airline_head)
       endif
     endif
+  else
+    for vcs in l:vcs_priority
+      if has_key(l:heads, vcs)
+        if !empty(b:airline_head)
+          let b:airline_head = b:airline_head . " | "
+        endif
+        let b:airline_head = b:airline_head . l:heads[vcs]
+      endif
+    endfor
   endif
-
-  if empty(b:airline_head) || !found_fugitive_head && !s:check_in_path()
-    let b:airline_head = ''
-  endif
-
-  let b:airline_head = s:format_name(b:airline_head)
 
   if exists("g:airline#extensions#branch#displayed_head_limit")
     let w:displayed_head_limit = g:airline#extensions#branch#displayed_head_limit
@@ -96,6 +112,9 @@ function! airline#extensions#branch#head()
     endif
   endif
 
+  if empty(b:airline_head) || !found_fugitive_head && !s:check_in_path()
+    let b:airline_head = ''
+  endif
   return b:airline_head
 endfunction
 

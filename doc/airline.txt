@@ -310,6 +310,10 @@ vcscommand   <http://www.vim.org/scripts/script.php?script_id=90>
 * change the text for when no branch is detected >
   let g:airline#extensions#branch#empty_message = ''
 <
+* define the order in which the branches of different vcs systems will be
+  displayed on the statusline (currently only for fugitive and lawrencium) >
+  let g:airline#extensions#branch#vcs_priority = ["git", "mercurial"]
+<
 * use vcscommand.vim if available >
   let g:airline#extensions#branch#use_vcscommand = 0
 <
