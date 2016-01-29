@@ -103,7 +103,7 @@ function! s:airline_theme(...)
 endfunction
 
 function! s:airline_refresh()
-  unlet! b:airline_head
+  silent doautocmd User AirlineBeforeRefresh
   call airline#load_theme()
   call airline#update_statusline()
 endfunction

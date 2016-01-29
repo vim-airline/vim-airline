@@ -140,4 +140,5 @@ function! airline#extensions#branch#init(ext)
 
   autocmd BufReadPost * unlet! b:airline_file_in_root
   autocmd CursorHold,ShellCmdPost,CmdwinLeave * unlet! b:airline_head
+  autocmd User AirlineBeforeRefresh unlet! b:airline_head
 endfunction
