@@ -119,10 +119,10 @@ function! airline#init#sections()
     let g:airline_section_z = airline#section#create(['windowswap', '%3p%%'.spc, 'linenr', ':%3v '])
   endif
   if !exists('g:airline_section_error')
-    let g:airline_section_error = airline#section#create(['ycm_error_count'])
+    let g:airline_section_error = airline#section#create(['ycm_error_count', 'syntastic', 'eclim'])
   endif
   if !exists('g:airline_section_warning')
-    let g:airline_section_warning = airline#section#create(['ycm_warning_count', 'syntastic', 'eclim', 'whitespace'])
+    let g:airline_section_warning = airline#section#create(['ycm_warning_count', 'whitespace'])
   endif
 endfunction
 

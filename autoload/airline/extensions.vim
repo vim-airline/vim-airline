@@ -138,7 +138,7 @@ function! airline#extensions#load()
     call airline#extensions#netrw#init(s:ext)
   endif
 
-  if exists(':YcmDiag')
+  if get(g:, 'airline#extensions#ycm#enabled', 0)
     call airline#extensions#ycm#init(s:ext)
   endif
 
