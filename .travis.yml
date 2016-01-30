@@ -1,4 +1,6 @@
 language: ruby
+before_install:
+  - curl -f -L "https://raw.githubusercontent.com/vim-airline/vim-airline-themes/master/autoload/airline/themes/simple.vim" -o autoload/airline/themes/simple.vim
 rvm:
   - 1.9.3
 script: rake ci
