@@ -138,7 +138,9 @@ function! airline#extensions#load()
     call airline#extensions#netrw#init(s:ext)
   endif
 
-  call airline#extensions#ycm#init(s:ext)
+  if get(g:, 'airline#extensions#ycm#enabled', 0)
+    call airline#extensions#ycm#init(s:ext)
+  endif
 
   if get(g:, 'loaded_vimfiler', 0)
     let g:vimfiler_force_overwrite_statusline = 0
