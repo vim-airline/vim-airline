@@ -22,7 +22,7 @@ function! s:init()
     try
       let palette = g:airline#themes#{g:airline_theme}#palette
     catch
-      echom 'Could not resolve airline theme "' . g:airline_theme . '". Themes have been migrated to github.com/vim-airline/vim-airline-themes.'
+      echom "Could not resolve g:airline_theme. Themes have been migrated to github.com/vim-airline/vim-airline-themes."
       let g:airline_theme = 'dark'
     endtry
     call airline#switch_theme(g:airline_theme)
