@@ -84,7 +84,8 @@ function! airline#init#bootstrap()
         \ 'raw': '%{g:airline_symbols.linenr}%#__accent_bold#%4l%#__restore__#',
         \ 'accent': 'bold'})
   call airline#parts#define_function('ffenc', 'airline#parts#ffenc')
-  call airline#parts#define_empty(['hunks', 'branch', 'tagbar', 'syntastic', 'eclim', 'whitespace','windowswap'])
+  call airline#parts#define_empty(['hunks', 'branch', 'tagbar', 'syntastic',
+        \ 'eclim', 'whitespace','windowswap', 'ycm_error_count', 'ycm_warning_count'])
   call airline#parts#define_text('capslock', '')
 
   unlet g:airline#init#bootstrapping
