@@ -271,6 +271,8 @@ configuration values that you can use.
       \ 'x': 60,
       \ 'y': 88,
       \ 'z': 45,
+      \ 'warning': 80,
+      \ 'error': 80,
       \ }
 
   " Note: set to an empty dictionary to disable truncation.
