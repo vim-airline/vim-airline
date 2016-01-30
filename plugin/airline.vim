@@ -21,7 +21,7 @@ function! s:init()
       let g:airline_theme = 'dark'
       let s:airline_theme_defined = 1
   endif
-  if !airline#switch_matching_theme()
+  if s:airline_theme_defined || !airline#switch_matching_theme()
     try
       let palette = g:airline#themes#{g:airline_theme}#palette
     catch
