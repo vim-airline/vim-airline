@@ -6,10 +6,12 @@ let s:section_truncate_width = get(g:, 'airline#extensions#default#section_trunc
       \ 'x': 60,
       \ 'y': 88,
       \ 'z': 45,
+      \ 'warning': 80,
+      \ 'error': 80,
       \ })
 let s:layout = get(g:, 'airline#extensions#default#layout', [
       \ [ 'a', 'b', 'c' ],
-      \ [ 'x', 'y', 'z', 'error', 'warning' ]
+      \ [ 'x', 'y', 'z', 'warning', 'error' ]
       \ ])
 
 function! s:get_section(winnr, key, ...)
@@ -51,6 +53,9 @@ if v:version >= 704 || (v:version >= 703 && has('patch81'))
 else
   " older version don't like the use of %(%)
   function s:add_section(builder, context, key)
+    if ((a:key == 'error' || a:key == 'warning') && empty(s:get_section(a:context.winnr, a:key)))
+      return
+    endif
     if a:key == 'warning'
       call a:builder.add_raw('%#airline_warning#'.s:get_section(a:context.winnr, a:key))
     elseif a:key == 'error'
