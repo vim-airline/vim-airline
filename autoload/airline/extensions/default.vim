@@ -37,6 +37,9 @@ if v:version >= 704 || (v:version >= 703 && has('patch81'))
   function s:add_section(builder, context, key)
     " i have no idea why the warning section needs special treatment, but it's
     " needed to prevent separators from showing up
+    if ((a:key == 'error' || a:key == 'warning') && empty(s:get_section(a:context.winnr, a:key)))
+      return
+    endif
     if (a:key == 'warning' || a:key == 'error')
       call a:builder.add_raw('%(')
     endif
