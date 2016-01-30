@@ -82,8 +82,12 @@ values):
 <
 * themes are automatically selected based on the matching colorscheme. this
   can be overridden by defining a value. >
-  let g:airline_theme=
+  let g:airline_theme='dark'
 <
+  Note: Only the dark theme is distributed with vim-airline. For more themes,
+  checkout the vim-airline-themes repository
+  (github.com/vim-airline/vim-airline-themes)
+
 * if you want to patch the airline theme before it gets applied, you can
   supply the name of a function where you can modify the palette. >
   let g:airline_theme_patch_func = 'AirlineThemePatch'

@@ -7,8 +7,8 @@ endif
 let g:loaded_airline = 1
 
 let s:airline_initialized = 0
-let s:airline_theme_defined = 0
 function! s:init()
+  let s:airline_theme_defined = exists('g:airline_theme')
   if s:airline_initialized
     return
   endif
@@ -17,8 +17,11 @@ function! s:init()
   call airline#extensions#load()
   call airline#init#sections()
 
-  let s:airline_theme_defined = exists('g:airline_theme')
-  if s:airline_theme_defined || !airline#switch_matching_theme()
+  if !s:airline_theme_defined
+      let g:airline_theme = 'dark'
+      let s:airline_theme_defined = 1
+  endif
+  if !airline#switch_matching_theme()
     try
       let palette = g:airline#themes#{g:airline_theme}#palette
     catch
