@@ -672,6 +672,9 @@ YouCompleteMe <https://github.com/Valloric/YouCompleteMe>
 
 Shows number of errors and warnings in the current file detected by YCM.
 
+* enable/disable YCM integration >
+  let g:airline#extensions#ycm#enabled = 1
+
 * set error count prefix >
   let g:airline#extensions#ycm#error_symbol = 'E:'
 
