@@ -71,14 +71,20 @@ endfunction
 
 function! airline#switch_matching_theme()
   if exists('g:colors_name')
+    let existing = g:airline_theme
     try
       let palette = g:airline#themes#{g:colors_name}#palette
-      silent call airline#switch_theme(g:colors_name)
+      call airline#switch_theme(g:colors_name)
       return 1
     catch
       for map in items(g:airline_theme_map)
         if match(g:colors_name, map[0]) > -1
-          silent call airline#switch_theme(map[1])
+          try
+            let palette = g:airline#themes#{map[1]}#palette
+            call airline#switch_theme(map[1])
+          catch
+            call airline#switch_theme(existing)
+          endtry
           return 1
         endif
       endfor
