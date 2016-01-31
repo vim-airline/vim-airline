@@ -8,7 +8,6 @@ let g:loaded_airline = 1
 
 let s:airline_initialized = 0
 function! s:init()
-  let s:airline_theme_defined = exists('g:airline_theme')
   if s:airline_initialized
     return
   endif
@@ -17,18 +16,18 @@ function! s:init()
   call airline#extensions#load()
   call airline#init#sections()
 
-  if !s:airline_theme_defined
-      let g:airline_theme = 'dark'
-      let s:airline_theme_defined = 1
-  endif
-  if s:airline_theme_defined || !airline#switch_matching_theme()
+  let s:theme_in_vimrc = exists('g:airline_theme')
+  if s:theme_in_vimrc
     try
       let palette = g:airline#themes#{g:airline_theme}#palette
     catch
       echom 'Could not resolve airline theme "' . g:airline_theme . '". Themes have been migrated to github.com/vim-airline/vim-airline-themes.'
       let g:airline_theme = 'dark'
     endtry
-    call airline#switch_theme(g:airline_theme)
+    silent call airline#switch_theme(g:airline_theme)
+  else
+    let g:airline_theme = 'dark'
+    silent call s:on_colorscheme_changed()
   endif
 
   silent doautocmd User AirlineAfterInit
@@ -44,10 +43,8 @@ endfunction
 
 function! s:on_colorscheme_changed()
   call s:init()
-  if !s:airline_theme_defined
-    if airline#switch_matching_theme()
-      return
-    endif
+  if !s:theme_in_vimrc
+    call airline#switch_matching_theme()
   endif
 
   " couldn't find a match, or theme was defined, just refresh
