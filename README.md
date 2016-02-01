@@ -15,7 +15,8 @@ Lean &amp; mean status/tabline for vim that's light as air.
    [ctrlspace][38] and more.
 *  Looks good with regular fonts and provides configuration points so you can use unicode or powerline symbols.
 *  Optimized for speed; it loads in under a millisecond.
-*  Extensive suite of themes for popular color schemes including [solarized][23] (dark and light), [tomorrow][24] (all variants), [base16][32] (all variants), [molokai][25], [jellybeans][26] and others; have a look at the [screenshots][14] in the wiki.
+*  Extensive suite of themes for popular color schemes including [solarized][23] (dark and light), [tomorrow][24] (all variants), [base16][32] (all variants), [molokai][25], [jellybeans][26] and others.
+ Note these are now external to this plugin. See [below][46] for detail.
 *  Supports 7.2 as the minimum Vim version.
 *  The master branch tries to be as stable as possible, and new features are merged in only after they have gone through a [full regression test][33].
 *  Unit testing suite.
@@ -25,6 +26,20 @@ Lean &amp; mean status/tabline for vim that's light as air.
 If you don't like the defaults, you can replace all sections with standard `statusline` syntax.  Give your statusline that you've built over the years a face lift.
 
 ![image](https://f.cloud.github.com/assets/306502/1009429/d69306da-0b38-11e3-94bf-7c6e3eef41e9.png)
+
+## Themes
+
+Themes have moved to
+another repository as of [this commit][45].
+
+Install the themes as you would this plugin (Vundle example):
+
+```vim
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+```
+
+See https://github.com/vim-airline/vim-airline-themes for more.
 
 ## Automatic truncation
 
@@ -224,3 +239,5 @@ MIT License. Copyright (c) 2013-2016 Bailey Ling.
 [42]: https://github.com/chrisbra
 [43]: https://github.com/vim-airline/vim-airline/wiki/Becoming-a-Maintainer
 [44]: https://github.com/mhartington
+[45]: https://github.com/vim-airline/vim-airline/commit/d7fd8ca649e441b3865551a325b10504cdf0711b
+[46]: https://github.com/vim-airline/vim-airline#themes
