@@ -35,7 +35,10 @@ function! s:build_sections(builder, context, keys)
   endfor
 endfunction
 
-if v:version >= 704 || (v:version >= 703 && has('patch81'))
+" There still is a highlighting bug when using groups %(%) in the statusline,
+" deactivate it, until this is properly fixed:
+" https://groups.google.com/d/msg/vim_dev/sb1jmVirXPU/mPhvDnZ-CwAJ
+if 0 && (v:version >= 704 || (v:version >= 703 && has('patch81')))
   function s:add_section(builder, context, key)
     " i have no idea why the warning section needs special treatment, but it's
     " needed to prevent separators from showing up
