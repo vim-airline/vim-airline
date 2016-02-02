@@ -61,6 +61,7 @@ function! airline#init#bootstrap()
         \ 'whitespace': get(g:, 'airline_powerline_fonts', 0) ? "\u2739" : '!',
         \ 'linenr': get(g:, 'airline_powerline_fonts', 0) ? "\ue0a1" : ':',
         \ 'branch': get(g:, 'airline_powerline_fonts', 0) ? "\ue0a0" : '',
+        \ 'notexists': get(g:, 'airline_powerline_fonts', 0) ? "\u2204" : '',
         \ 'modified': '+',
         \ 'space': ' ',
         \ 'crypt': get(g:, 'airline_crypt_symbol', nr2char(0x1F512)),
