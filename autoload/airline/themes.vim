@@ -40,7 +40,7 @@ function! airline#themes#patch(palette)
       let a:palette[mode]['airline_warning'] = [ '#000000', '#df5f00', 232, 190 ]
     endif
     if !has_key(a:palette[mode], 'airline_error')
-      let a:palette[mode]['airline_error'] = [ '#000000', '#df5f00', 232, 160 ]
+      let a:palette[mode]['airline_error'] = [ '#000000', '#990000', 232, 160 ]
     endif
   endfor
 
