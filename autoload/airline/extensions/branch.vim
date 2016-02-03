@@ -67,6 +67,9 @@ endfunction
 
 function! s:get_git_untracked(file)
   let untracked = ''
+  if empty(a:file)
+    return untracked
+  endif
   if has_key(s:untracked_git, a:file)
     let untracked = s:untracked_git[a:file]
   else
@@ -81,6 +84,9 @@ function! s:get_hg_untracked(file)
   if s:has_lawrencium
     " delete cache when unlet b:airline head?
     let untracked = ''
+    if empty(a:file)
+      return untracked
+    endif
     if has_key(s:untracked_hg, a:file)
       let untracked = s:untracked_hg[a:file]
     else
