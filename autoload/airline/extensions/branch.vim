@@ -9,6 +9,10 @@ if !s:has_fugitive && !s:has_lawrencium && !s:has_vcscommand
   finish
 endif
 
+let s:git_dirs = {}
+let s:untracked_git = {}
+let s:untracked_hg = {}
+
 let s:head_format = get(g:, 'airline#extensions#branch#format', 0)
 if s:head_format == 1
   function! s:format_name(name)
@@ -28,7 +32,6 @@ else
   endfunction
 endif
 
-let s:git_dirs = {}
 function! s:get_git_branch(path)
   if !s:has_fugitive
     return ''
@@ -62,6 +65,39 @@ function! s:get_git_branch(path)
   return name
 endfunction
 
+function! s:get_git_untracked(file)
+  let untracked = ''
+  if empty(a:file)
+    return untracked
+  endif
+  if has_key(s:untracked_git, a:file)
+    let untracked = s:untracked_git[a:file]
+  else
+    let untracked = ((system('git status --porcelain -- ' . a:file)[0:1]) is# '??'  ?
+          \ get(g:, 'airline#extensions#branch#notexists', g:airline_symbols.notexists) : '')
+    let s:untracked_git[a:file] = untracked
+  endif
+  return untracked
+endfunction
+
+function! s:get_hg_untracked(file)
+  if s:has_lawrencium
+    " delete cache when unlet b:airline head?
+    let untracked = ''
+    if empty(a:file)
+      return untracked
+    endif
+    if has_key(s:untracked_hg, a:file)
+      let untracked = s:untracked_hg[a:file]
+    else
+      let untracked = (system('hg status -u -- '. a:file)[0] is# '?'  ?
+            \ get(g:, 'airline#extensions#branch#notexists', g:airline_symbols.notexists) : '')
+      let s:untracked_hg[a:file] = untracked
+    endif
+    return untracked
+  endif
+endfunction
+
 function! s:get_hg_branch()
   if s:has_lawrencium
     return lawrencium#statusline()
@@ -85,10 +121,14 @@ function! airline#extensions#branch#head()
   if !empty(l:git_head)
     let found_fugitive_head = 1
     let l:heads.git = (!empty(l:hg_head) ? "git:" : '') . s:format_name(l:git_head)
+    let l:git_untracked = s:get_git_untracked(expand("%:p"))
+    let l:heads.git .= l:git_untracked
   endif
 
   if !empty(l:hg_head)
     let l:heads.mercurial = (!empty(l:git_head) ? "hg:" : '') . s:format_name(l:hg_head)
+    let l:hg_untracked = s:get_hg_untracked(expand("%:p"))
+    let l:heads.mercurial.= l:hg_untracked
   endif
 
   if empty(l:heads)
@@ -154,10 +194,20 @@ function! s:check_in_path()
   return b:airline_file_in_root
 endfunction
 
+function! s:reset_untracked_cache()
+  if exists("s:untracked_git")
+    let s:untracked_git={}
+  endif
+  if exists("s:untracked_hg")
+    let s:untracked_hg={}
+  endif
+endfunction
+
 function! airline#extensions#branch#init(ext)
   call airline#parts#define_function('branch', 'airline#extensions#branch#get_head')
 
   autocmd BufReadPost * unlet! b:airline_file_in_root
   autocmd CursorHold,ShellCmdPost,CmdwinLeave * unlet! b:airline_head
   autocmd User AirlineBeforeRefresh unlet! b:airline_head
+  autocmd BufWritePost,ShellCmdPost * call s:reset_untracked_cache()
 endfunction
