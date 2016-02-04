@@ -94,5 +94,5 @@ function s:map_keys()
   noremap <silent> <Plug>AirlineSelectTab9 :9tabn<CR>
   noremap <silent> <Plug>AirlineSelectPrevTab gT
   " tabn {count} goes to count tab does not go {count} tab pages forward!
-  noremap <silent> <Plug>AirlineSelectNextTab :<C-U>exe repeat(':tabn|', v:count1)<cr>
+  noremap <silent> <Plug>AirlineSelectNextTab :<C-U>exe repeat(':tabn\|', v:count1)<cr>
 endfunction
