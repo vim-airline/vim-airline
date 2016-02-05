@@ -78,6 +78,6 @@ function! airline#parts#filetype()
 endfunction
 
 function! airline#parts#ffenc()
-  return printf('%s%s', &fenc, strlen(&ff) > 0 ? '['.&ff.']' : '')
+  return printf('%s%s%s', &fenc, &l:bomb ? '[B]' : '', strlen(&ff) > 0 ? '['.&ff.']' : '')
 endfunction
 
