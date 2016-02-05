@@ -17,14 +17,15 @@ function! s:gui2cui(rgb, fallback)
 endfunction
 
 function! s:get_syn(group, what)
-  " need to pass in mode, known to break on 7.3.547
-  let mode = has('nvim') || has('gui_running') || (has("termtruecolor") && &guicolors == 1) ? 'gui' : 'cterm'
-  let color = synIDattr(synIDtrans(hlID(a:group)), a:what, mode)
+  if !exists("g:airline_gui_mode")
+    let g:airline_gui_mode = airline#init#gui_mode()
+  endif
+  let color = synIDattr(synIDtrans(hlID(a:group)), a:what, g:airline_gui_mode)
   if empty(color) || color == -1
-    let color = synIDattr(synIDtrans(hlID('Normal')), a:what, mode)
+    let color = synIDattr(synIDtrans(hlID('Normal')), a:what, g:airline_gui_mode)
   endif
   if empty(color) || color == -1
-    if has('nvim') || has('gui_running') || (has("termtruecolor") && &guicolors == 1)
+    if g:airline_gui_mode ==# 'gui'
       let color = a:what ==# 'fg' ? '#000000' : '#FFFFFF'
     else
       let color = a:what ==# 'fg' ? 0 : 1
@@ -36,7 +37,7 @@ endfunction
 function! s:get_array(fg, bg, opts)
   let fg = a:fg
   let bg = a:bg
-  return has('nvim') || has('gui_running') || (has("termtruecolor") && &guicolors == 1)
+  return g:airline_gui_mode ==# 'gui'
         \ ? [ fg, bg, '', '', join(a:opts, ',') ]
         \ : [ '', '', fg, bg, join(a:opts, ',') ]
 endfunction
@@ -44,7 +45,7 @@ endfunction
 function! airline#highlighter#get_highlight(group, ...)
   let fg = s:get_syn(a:group, 'fg')
   let bg = s:get_syn(a:group, 'bg')
-  let reverse = has('nvim') || has('gui_running') || (has("termtruecolor") && &guicolors == 1)
+  let reverse = g:airline_gui_mode ==# 'gui'
         \ ? synIDattr(synIDtrans(hlID(a:group)), 'reverse', 'gui')
         \ : synIDattr(synIDtrans(hlID(a:group)), 'reverse', 'cterm')
         \|| synIDattr(synIDtrans(hlID(a:group)), 'reverse', 'term')

@@ -27,6 +27,7 @@ function! airline#init#bootstrap()
   call s:check_defined('g:airline_exclude_filenames', ['DebuggerWatch','DebuggerStack','DebuggerStatus'])
   call s:check_defined('g:airline_exclude_filetypes', [])
   call s:check_defined('g:airline_exclude_preview', 0)
+  call s:check_defined('g:airline_gui_mode', airline#init#gui_mode())
 
   call s:check_defined('g:airline_mode_map', {})
   call extend(g:airline_mode_map, {
@@ -90,6 +91,12 @@ function! airline#init#bootstrap()
   call airline#parts#define_text('capslock', '')
 
   unlet g:airline#init#bootstrapping
+endfunction
+
+function! airline#init#gui_mode()
+  return ((has('nvim') && exists('$NVIM_TUI_ENABLE_TRUE_COLOR'))
+        \ || has('gui_running') || (has("termtruecolor") && &guicolors == 1)) ?
+        \ 'gui' : 'cterm'
 endfunction
 
 function! airline#init#sections()
