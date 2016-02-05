@@ -12,7 +12,7 @@ endif
 
 
 function! airline#extensions#tabline#init(ext)
-  if has('gui_running')
+  if has('nvim') || has('gui_running')
     set guioptions-=e
   endif
 
