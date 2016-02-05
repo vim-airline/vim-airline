@@ -73,8 +73,10 @@ function! s:get_git_untracked(file)
   if has_key(s:untracked_git, a:file)
     let untracked = s:untracked_git[a:file]
   else
-    let untracked = ((system('git status --porcelain -- ' . a:file)[0:1]) is# '??'  ?
-          \ get(g:, 'airline#extensions#branch#notexists', g:airline_symbols.notexists) : '')
+    let output    = system('git status --porcelain -- '. a:file)
+    if output[0:1] is# '??' && output[3:-2] is? a:file
+      let untracked = get(g:, 'airline#extensions#branch#notexists', g:airline_symbols.notexists)
+    endif
     let s:untracked_git[a:file] = untracked
   endif
   return untracked
