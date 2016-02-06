@@ -230,6 +230,10 @@ function! airline#extensions#load()
       call airline#extensions#nrrwrgn#init(s:ext)
   endif
 
+  if get(g:, 'airline#extensions#unicode#enabled', 1) && exists(':UnicodeTable') == 2
+      call airline#extensions#unicode#init(s:ext)
+  endif
+
   if (get(g:, 'airline#extensions#capslock#enabled', 1) && exists('*CapsLockStatusline'))
     call airline#extensions#capslock#init(s:ext)
   endif
