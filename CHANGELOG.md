@@ -5,6 +5,14 @@ This is the Changelog for the vim-airline project.
 ## [Unreleased]
 - Changes
   - Themes have been moved into an extra repository [vim-airline-themes](https://github.com/vim-airline/vim-airline-themes)
+  - Many new themes
+  - Airline Moved to new [repository](https://github.com/vim-airline/vim-airline)
+- New features
+  - Integration with [taboo](https://github.com/gcmt/taboo.vim), [vim-ctrlspace](https://github.com/szw/vim-ctrlspace),
+    [quickfixsigns](https://github.com/tomtom/quickfixsigns_vim), [YouCompleteMe](https://github.com/Valloric/YouCompleteMe)
+  - Support for Neovim
+  - Added wordcount extension
+  - Adding Crypt and Byte Order Mark Indicator
 
 ## [0.7] - 2014-12-10
 - New features
