@@ -50,8 +50,8 @@ function! s:update_tabline()
     return
   endif
   " force re-evaluation of tabline setting
-  sil call feedkeys(":set mod!\n")
-  sil call feedkeys(":set mod!\n")
+  sil call feedkeys(":set mod!\n", 'n')
+  sil call feedkeys(":set mod!\n", 'n')
   " disable explicit redraw, may cause E315
   " https://groups.google.com/d/msg/vim_dev/fYl4dP1i9fo/rPT5f7h1DAAJ
   "redraw
