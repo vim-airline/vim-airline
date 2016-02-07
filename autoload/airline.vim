@@ -179,10 +179,12 @@ function! airline#check_mode(winnr)
   endif
 
   let mode_string = join(l:mode)
-  if get(w:, 'airline_lastmode', '') != mode_string
+  if get(w:, 'airline_lastmode', '') != mode_string ||
+      \ get(s:, 'airline_lastmode', []) != l:mode
     call airline#highlighter#highlight_modified_inactive(context.bufnr)
     call airline#highlighter#highlight(l:mode)
     let w:airline_lastmode = mode_string
+    let s:airline_lastmode = l:mode
   endif
 
   return ''
