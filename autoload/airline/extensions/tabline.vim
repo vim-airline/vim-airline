@@ -52,13 +52,16 @@ function! s:update_tabline()
         \ || isdirectory(expand("<afile>"))
     return
   endif
+  if empty(mapcheck("<Plug>AirlineTablineRefresh", 'n'))
+    noremap <silent> <Plug>AirlineTablineRefresh :set mod!<cr>
+  endif
+  call feedkeys("\<Plug>AirlineTablineRefresh")
+  call feedkeys("\<Plug>AirlineTablineRefresh")
+  "call feedkeys(',,', 't')
+  "call feedkeys(':unmap ,,')
   " force re-evaluation of tabline setting
-  sil call feedkeys(":set mod!\n", 'n')
-  sil call feedkeys(":set mod!\n", 'n')
   " disable explicit redraw, may cause E315
-  " https://groups.google.com/d/msg/vim_dev/fYl4dP1i9fo/rPT5f7h1DAAJ
   "redraw
-  "set mod!
 endfunction
 
 function! airline#extensions#tabline#load_theme(palette)
