@@ -59,6 +59,9 @@ function! s:update_tabline()
 endfunction
 
 function! airline#extensions#tabline#load_theme(palette)
+  if pumvisible()
+    return
+  endif
   let colors    = get(a:palette, 'tabline', {})
   let l:tab     = get(colors, 'airline_tab', a:palette.normal.airline_b)
   let l:tabsel  = get(colors, 'airline_tabsel', a:palette.normal.airline_a)
