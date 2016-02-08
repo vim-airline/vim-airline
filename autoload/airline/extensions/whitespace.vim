@@ -5,11 +5,12 @@
 
 let s:show_message = get(g:, 'airline#extensions#whitespace#show_message', 1)
 let s:symbol = get(g:, 'airline#extensions#whitespace#symbol', g:airline_symbols.whitespace)
-let s:default_checks = ['indent', 'trailing']
+let s:default_checks = ['indent', 'trailing', 'mixed-indent-file']
 
 let s:trailing_format = get(g:, 'airline#extensions#whitespace#trailing_format', 'trailing[%s]')
 let s:mixed_indent_format = get(g:, 'airline#extensions#whitespace#mixed_indent_format', 'mixed-indent[%s]')
 let s:long_format = get(g:, 'airline#extensions#whitespace#long_format', 'long[%s]')
+let s:mixed_indent_file_format = get(g:, 'airline#extensions#whitespace#mixed_indent_file_format', 'mix-indent-file[%s]')
 let s:indent_algo = get(g:, 'airline#extensions#whitespace#mixed_indent_algo', 0)
 
 let s:max_lines = get(g:, 'airline#extensions#whitespace#max_lines', 20000)
@@ -29,6 +30,16 @@ function! s:check_mixed_indent()
     return search('\v(^\t* +\t\s*\S)', 'nw')
   else
     return search('\v(^\t+ +)|(^ +\t+)', 'nw')
+  endif
+endfunction
+
+function! s:check_mixed_indent_file()
+  let indent_tabs = search('\v(^\t+)', 'nw')
+  let indent_spc  = search('\v(^ +)', 'nw')
+  if indent_tabs > 0 && indent_spc > 0
+    return printf("%d:%d", indent_tabs, indent_spc)
+  else
+    return ''
   endif
 endfunction
 
@@ -58,12 +69,17 @@ function! airline#extensions#whitespace#check()
       let mixed = s:check_mixed_indent()
     endif
 
+    let mixed_file = ''
+    if index(checks, 'mixed-indent-file') > -1
+      let mixed_file = s:check_mixed_indent_file()
+    endif
+
     let long = 0
     if index(checks, 'long') > -1 && &tw > 0
       let long = search('\%>'.&tw.'v.\+', 'nw')
     endif
 
-    if trailing != 0 || mixed != 0 || long != 0
+    if trailing != 0 || mixed != 0 || long != 0 || !empty(mixed_file)
       let b:airline_whitespace_check = s:symbol
       if s:show_message
         if trailing != 0
@@ -74,6 +90,9 @@ function! airline#extensions#whitespace#check()
         endif
         if long != 0
           let b:airline_whitespace_check .= (g:airline_symbols.space).printf(s:long_format, long)
+        endif
+        if !empty(mixed_file)
+          let b:airline_whitespace_check .= (g:airline_symbols.space).printf(s:mixed_indent_file_format, mixed_file)
         endif
       endif
     endif

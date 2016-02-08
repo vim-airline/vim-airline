@@ -59,23 +59,40 @@ function! airline#highlighter#get_highlight2(fg, bg, ...)
 endfunction
 
 function! airline#highlighter#exec(group, colors)
+  if pumvisible()
+    return
+  endif
   let colors = a:colors
   if s:is_win32term
     let colors[2] = s:gui2cui(get(colors, 0, ''), get(colors, 2, ''))
     let colors[3] = s:gui2cui(get(colors, 1, ''), get(colors, 3, ''))
   endif
-  exec printf('hi %s %s %s %s %s %s %s %s',
-        \ a:group,
-        \ get(colors, 0, '') isnot# '' ? 'guifg='.colors[0] : '',
-        \ get(colors, 1, '') isnot# '' ? 'guibg='.colors[1] : '',
-        \ get(colors, 2, '') isnot# '' ? 'ctermfg='.colors[2] : '',
-        \ get(colors, 3, '') isnot# '' ? 'ctermbg='.colors[3] : '',
-        \ get(colors, 4, '') isnot# '' ? 'gui='.colors[4] : '',
-        \ get(colors, 4, '') isnot# '' ? 'cterm='.colors[4] : '',
-        \ get(colors, 4, '') isnot# '' ? 'term='.colors[4] : '')
+  let cmd= printf('hi %s %s %s %s %s %s %s %s',
+        \ a:group, s:Get(colors, 0, 'guifg=', ''), s:Get(colors, 1, 'guibg=', ''),
+        \ s:Get(colors, 2, 'ctermfg=', ''), s:Get(colors, 3, 'ctermbg=', ''),
+        \ s:Get(colors, 4, 'gui=', ''), s:Get(colors, 4, 'cterm=', ''),
+        \ s:Get(colors, 4, 'term=', ''))
+  let old_hi = airline#highlighter#get_highlight(a:group)
+  if len(colors) == 4
+    call add(colors, '')
+  endif
+  if old_hi != colors
+    exe cmd
+  endif
+endfunction
+
+function! s:Get(dict, key, prefix, default)
+  if get(a:dict, a:key, a:default) isnot# a:default
+    return a:prefix. get(a:dict, a:key)
+  else
+    return ''
+  endif
 endfunction
 
 function! s:exec_separator(dict, from, to, inverse, suffix)
+  if pumvisible()
+    return
+  endif
   let l:from = airline#themes#get_highlight(a:from.a:suffix)
   let l:to = airline#themes#get_highlight(a:to.a:suffix)
   let group = a:from.'_to_'.a:to.a:suffix
@@ -89,6 +106,9 @@ function! s:exec_separator(dict, from, to, inverse, suffix)
 endfunction
 
 function! airline#highlighter#load_theme()
+  if pumvisible()
+    return
+  endif
   for winnr in filter(range(1, winnr('$')), 'v:val != winnr()')
     call airline#highlighter#highlight_modified_inactive(winbufnr(winnr))
   endfor

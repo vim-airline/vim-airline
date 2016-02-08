@@ -467,7 +467,11 @@ eclim <https://eclim.org>
   let g:airline#extensions#whitespace#symbol = '!'
 <
 * configure which whitespace checks to enable. >
-  let g:airline#extensions#whitespace#checks = [ 'indent', 'trailing', 'long' ]
+  " indent: mixed indent within a line
+  " long:   overlong lines
+  " trailing: trailing whitespace
+  " mixed-indent-file: different indentation in different lines
+  let g:airline#extensions#whitespace#checks = [ 'indent', 'trailing', 'long', 'mixed-indent-file' ]
 <
 * configure the maximum number of lines where whitespace checking is enabled. >
   let g:airline#extensions#whitespace#max_lines = 20000
@@ -479,6 +483,7 @@ eclim <https://eclim.org>
   let g:airline#extensions#whitespace#trailing_format = 'trailing[%s]'
   let g:airline#extensions#whitespace#mixed_indent_format = 'mixed-indent[%s]'
   let g:airline#extensions#whitespace#long_format = 'long[%s]'
+  let g:airline#extensions#whitespace#mixed_indent_file_format = 'mix-indent-file[%s]'
 
 * configure custom trailing whitespace regexp rule >
   let g:airline#extensions#whitespace#trailing_regexp = '\s$'
@@ -511,6 +516,10 @@ eclim <https://eclim.org>
   let g:airline#extensions#tabline#show_tab_type = 1
 
 * enable/disable displaying index of the buffer.
+
+  Note: If you're using ctrlspace the tabline shows your tabs on the right and
+  buffer on the left. Also none of the tabline switches is currently
+  supported!
 
 When enabled, numbers will be displayed in the tabline and mappings will be
 exposed to allow you to select a buffer directly.  Up to 9 mappings will be
@@ -677,6 +686,12 @@ vim-ctrlspace <https://github.com/szw/vim-ctrlspace>
 
 * enable/disable vim-ctrlspace integration >
   let g:airline#extensions#ctrlspace#enabled = 1
+
+  To make the vim-ctrlspace integration work you will need to make the
+  ctrlspace statusline function call the correct airline function. Therefore
+  add the following line into your .vimrc:
+
+  let g:CtrlSpaceStatuslineFunction = "airline#extensions#ctrlspace#statusline()"
 <
 -------------------------------------                    *airline-ycm*
 YouCompleteMe <https://github.com/Valloric/YouCompleteMe>
