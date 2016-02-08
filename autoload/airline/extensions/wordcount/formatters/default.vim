@@ -18,7 +18,17 @@ endfunction
 
 function! s:wordcount()
   if exists("*wordcount")
-    return wordcount()['words']
+    let l:mode = mode()
+    if l:mode ==# 'v' || l:mode ==# 'V' || l:mode ==# 's' || l:mode ==# 'S'
+      let l:visual_words = wordcount()['visual_words']
+      if l:visual_words != ''
+        return l:visual_words
+      else
+        return 0
+      endif
+    else
+      return wordcount()['words']
+    endif
   elseif mode() =~? 's'
     return
   else
@@ -41,7 +51,7 @@ endfunction
 function s:get_decimal_group()
   if match(v:lang, '\v\cC|en') > -1
     return ','
-  elseif match(v:lang, '\v\cde|dk|fr') > -1
+  elseif match(v:lang, '\v\cde|dk|fr|pt') > -1
     return '.'
   endif
   return ''
