@@ -71,6 +71,10 @@ function! airline#extensions#tabline#buffers#get()
       let s:current_modified = (group == 'airline_tabmod') ? 1 : 0
     endif
 
+    " Neovim feature: Have clickable buffers
+    if has("tablineat")
+      call b.add_raw('%'.nr.'@airline#extensions#tabline#buffers#switchbuf@')
+    endif
     if s:buffer_idx_mode
       if len(s:number_map) > 0
         call b.add_section(group, s:spc . get(s:number_map, l:index, '') . '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)' . s:spc)
@@ -80,6 +84,9 @@ function! airline#extensions#tabline#buffers#get()
       let l:index = l:index + 1
     else
       call b.add_section(group, s:spc.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.s:spc)
+    endif
+    if has("tablineat")
+      call b.add_raw('%X')
     endif
   endfor
 
@@ -187,4 +194,12 @@ function s:map_keys()
     noremap <silent> <Plug>AirlineSelectPrevTab :<C-u>call <SID>jump_to_tab(-v:count1)<CR>
     noremap <silent> <Plug>AirlineSelectNextTab :<C-u>call <SID>jump_to_tab(v:count1)<CR>
   endif
+endfunction
+
+function airline#extensions#tabline#buffers#switchbuf(minwid, clicks, button, modifiers) abort
+    " Run the following code only on a single left mouse button click without modifiers pressed
+    " works only in recent NeoVim with has('tablineat')
+    if a:clicks == 1 && a:button is# 'l' && a:modifiers !~# '[^ ]'
+        sil execute 'buffer' a:minwid
+    endif
 endfunction
