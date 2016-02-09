@@ -12,6 +12,7 @@ let s:mixed_indent_format = get(g:, 'airline#extensions#whitespace#mixed_indent_
 let s:long_format = get(g:, 'airline#extensions#whitespace#long_format', 'long[%s]')
 let s:mixed_indent_file_format = get(g:, 'airline#extensions#whitespace#mixed_indent_file_format', 'mix-indent-file[%s]')
 let s:indent_algo = get(g:, 'airline#extensions#whitespace#mixed_indent_algo', 0)
+let s:skip_check_ft = {'make': ['indent', 'mixed-indent-file'] }
 
 let s:max_lines = get(g:, 'airline#extensions#whitespace#max_lines', 20000)
 
@@ -65,12 +66,14 @@ function! airline#extensions#whitespace#check()
     endif
 
     let mixed = 0
-    if index(checks, 'indent') > -1
+    let check = 'indent'
+    if index(checks, check) > -1 && index(get(s:skip_check_ft, &ft, []), check) < 0
       let mixed = s:check_mixed_indent()
     endif
 
     let mixed_file = ''
-    if index(checks, 'mixed-indent-file') > -1
+    let check = 'mixed-indent-file'
+    if index(checks, check) > -1 && index(get(s:skip_check_ft, &ft, []), check) < 0
       let mixed_file = s:check_mixed_indent_file()
     endif
 
