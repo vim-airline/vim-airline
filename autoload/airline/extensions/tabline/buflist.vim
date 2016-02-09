@@ -14,25 +14,23 @@ function! airline#extensions#tabline#buflist#list()
   endif
 
   let buffers = []
-  let cur = bufnr('%')
+  " If this is too slow, we can switch to a different algorithm.
+  " Basically branch 535 already does it, but since it relies on
+  " BufAdd autocommand, I'd like to avoid this if possible.
   for nr in range(1, bufnr('$'))
-    if buflisted(nr) && bufexists(nr)
-      let toadd = 1
-      for ex in s:excludes
-        if match(bufname(nr), ex) >= 0
-          let toadd = 0
-          break
-        endif
-      endfor
-      if getbufvar(nr, 'current_syntax') == 'qf'
-        let toadd = 0
+    if buflisted(nr)
+      " Do not add to the bufferlist, if either
+      " 1) buffername matches exclude pattern
+      " 2) buffer is a quickfix buffer
+      " 3) exclude preview windows (if 'bufhidden' == wipe
+      "    and 'buftype' == nofile
+      if (!empty(s:excludes) && match(bufname(nr), join(s:excludes, '\|')) > -1) ||
+            \ (getbufvar(nr, 'current_syntax') == 'qf') ||
+            \  (s:exclude_preview && getbufvar(nr, '&bufhidden') == 'wipe'
+            \  && getbufvar(nr, '&buftype') == 'nofile')
+        continue
       endif
-      if s:exclude_preview && getbufvar(nr, '&bufhidden') == 'wipe' && getbufvar(nr, '&buftype') == 'nofile'
-        let toadd = 0
-      endif
-      if toadd
-        call add(buffers, nr)
-      endif
+      call add(buffers, nr)
     endif
   endfor
 
