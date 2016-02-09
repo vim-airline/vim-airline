@@ -93,6 +93,9 @@ vim-airline integrates with a variety of plugins out of the box.  These extensio
 #### [promptline][36]
 ![airline-promptline-sc](https://f.cloud.github.com/assets/1532071/1871900/7d4b28a0-789d-11e3-90e4-16f37269981b.gif)
 
+#### [ctrlspace][38]
+![papercolor_with_ctrlspace](https://cloud.githubusercontent.com/assets/493242/12912041/7fc3c6ec-cf16-11e5-8775-8492b9c64ebf.png)
+
 ## Extras
 
 vim-airline also supplies some supplementary stand-alone extensions.  In addition to the tabline extension mentioned earlier, there is also:
