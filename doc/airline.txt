@@ -501,7 +501,7 @@ eclim <https://eclim.org>
 * configure filename match rules to exclude from the tabline. >
   let g:airline#extensions#tabline#excludes = []
 
-* enable/disable display preview window buffer in the tabline.
+* enable/disable display preview window buffer in the tabline. >
   let g:airline#extensions#tabline#exclude_preview = 1
 
 * configure how numbers are displayed in tab mode. >
@@ -512,7 +512,7 @@ eclim <https://eclim.org>
 * enable/disable displaying tab number in tabs mode. >
   let g:airline#extensions#tabline#show_tab_nr = 1
 
-* enable/disable displaying tab type (far right)
+* enable/disable displaying tab type (far right) >
   let g:airline#extensions#tabline#show_tab_type = 1
 
 * enable/disable displaying index of the buffer.
@@ -521,9 +521,9 @@ eclim <https://eclim.org>
   buffer on the left. Also none of the tabline switches is currently
   supported!
 
-When enabled, numbers will be displayed in the tabline and mappings will be
-exposed to allow you to select a buffer directly.  Up to 9 mappings will be
-exposed.
+  When enabled, numbers will be displayed in the tabline and mappings will be
+  exposed to allow you to select a buffer directly.  Up to 9 mappings will be
+  exposed. >
 
   let g:airline#extensions#tabline#buffer_idx_mode = 1
   nmap <leader>1 <Plug>AirlineSelectTab1
@@ -603,10 +603,10 @@ exposed.
   let g:airline#extensions#tabline#right_sep = ''
   let g:airline#extensions#tabline#right_alt_sep = ''
 
-* configure whether close button should be shown
+* configure whether close button should be shown: >
   let g:airline#extensions#tabline#show_close_button = 1
 
-* configure symbol used to represent close button
+* configure symbol used to represent close button >
   let g:airline#extensions#tabline#close_symbol = 'X'
 
 * configure pattern to be ignored on BufAdd autocommand >
@@ -746,7 +746,7 @@ Before is a list of parts that are predefined by vim-airline.
 * `mode`           displays the current mode
 * `iminsert`       displays the current insert method
 * `paste`          displays the paste indicator
-* crypt          displays the crypted indicator
+* `crypt`          displays the crypted indicator
 * `filetype`       displays the file type
 * `readonly`       displays the read only indicator
 * `file`           displays the filename and modified indicator
@@ -951,6 +951,11 @@ A. Certain themes are derived from the active colorscheme by extracting colors
    their intended matching colorschemes, but will be hit or miss when loaded
    with other colorschemes.
 
+Q. Themes are missing
+A. Themes have been extracted into the vim-airlines-themes repository. Simply
+   clone https://github.com/vim-airline/vim-airline-themes and everything
+   should work again.
+
 
 Solutions to other common problems can be found in the Wiki:
 <https://github.com/vim-airline/vim-airline/wiki/FAQ>
@@ -964,6 +969,5 @@ Contributions and pull requests are welcome.
 LICENSE                                                    *airline-license*
 
 MIT License.  Copyright © 2013-2016 Bailey Ling.
-
 
  vim:tw=78:ts=8:ft=help:norl:
