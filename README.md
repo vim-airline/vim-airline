@@ -244,3 +244,7 @@ MIT License. Copyright (c) 2013-2016 Bailey Ling.
 [44]: https://github.com/mhartington
 [45]: https://github.com/vim-airline/vim-airline/commit/d7fd8ca649e441b3865551a325b10504cdf0711b
 [46]: https://github.com/vim-airline/vim-airline#themes
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/vim-airline/vim-airline/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
