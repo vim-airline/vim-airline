@@ -102,6 +102,11 @@ endfunction
 
 function! s:get_hg_branch()
   if s:has_lawrencium
+    let mq=system('hg qtop')
+    if v:shell_error==0
+      let mq=matchstr(mq, '.*\ze\n')
+      return lawrencium#statusline(). '/'. mq
+    endif
     return lawrencium#statusline()
   endif
   return ''
