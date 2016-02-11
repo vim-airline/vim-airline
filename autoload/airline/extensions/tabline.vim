@@ -58,11 +58,6 @@ function! s:update_tabline()
   endif
   call feedkeys("\<Plug>AirlineTablineRefresh")
   call feedkeys("\<Plug>AirlineTablineRefresh")
-  "call feedkeys(',,', 't')
-  "call feedkeys(':unmap ,,')
-  " force re-evaluation of tabline setting
-  " disable explicit redraw, may cause E315
-  "redraw
 endfunction
 
 function! airline#extensions#tabline#load_theme(palette)
@@ -92,8 +87,8 @@ function! airline#extensions#tabline#load_theme(palette)
   call airline#highlighter#exec('airline_tabhid', l:tabhid)
 
   " Theme for tabs on the right
-  let l:tab_right     = get(colors, 'airline_tab_right',    a:palette.normal.airline_b)
   let l:tabsel_right  = get(colors, 'airline_tabsel_right', a:palette.normal.airline_a)
+  let l:tab_right     = get(colors, 'airline_tab_right',    a:palette.inactive.airline_c)
   let l:tabmod_right  = get(colors, 'airline_tabmod_right', a:palette.insert.airline_a)
   let l:tabhid_right  = get(colors, 'airline_tabhid_right', a:palette.normal.airline_c)
   if has_key(a:palette, 'normal_modified') && has_key(a:palette.normal_modified, 'airline_c')
