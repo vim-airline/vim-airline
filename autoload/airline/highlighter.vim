@@ -25,11 +25,7 @@ function! s:get_syn(group, what)
     let color = synIDattr(synIDtrans(hlID('Normal')), a:what, g:airline_gui_mode)
   endif
   if empty(color) || color == -1
-    if g:airline_gui_mode ==# 'gui'
-      let color = a:what ==# 'fg' ? '#000000' : '#FFFFFF'
-    else
-      let color = a:what ==# 'fg' ? 0 : 1
-    endif
+    let color = 'NONE'
   endif
   return color
 endfunction
