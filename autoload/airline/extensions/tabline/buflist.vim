@@ -13,11 +13,13 @@ function! airline#extensions#tabline#buflist#list()
     return s:current_buffer_list
   endif
 
+  let list = (exists('g:did_bufmru') && g:did_bufmru) ? BufMRUList() : range(1, bufnr("$"))
+
   let buffers = []
   " If this is too slow, we can switch to a different algorithm.
   " Basically branch 535 already does it, but since it relies on
   " BufAdd autocommand, I'd like to avoid this if possible.
-  for nr in range(1, bufnr('$'))
+  for nr in list
     if buflisted(nr)
       " Do not add to the bufferlist, if either
       " 1) buffername matches exclude pattern
