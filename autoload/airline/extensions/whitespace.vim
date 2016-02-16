@@ -34,11 +34,17 @@ function! s:check_mixed_indent()
   endif
 endfunction
 
+function! s:is_comment_group(list)
+  return synIDattr(synID(a:list[0], a:list[1], 1), 'name') =~? 'comment'
+endfunction
+
 function! s:check_mixed_indent_file()
-  let indent_tabs = search('\v(^\t+)', 'nw')
-  let indent_spc  = search('\v(^ +)', 'nw')
-  if indent_tabs > 0 && indent_spc > 0
-    return printf("%d:%d", indent_tabs, indent_spc)
+  let indent_tabs = searchpos('\v(^\t+)', 'nw')
+  let indent_spc  = searchpos('\v(^ +)', 'nw')
+  if (indent_tabs[0] > 0 && indent_spc[0] > 0 &&
+        \ !s:is_comment_group(indent_tabs) &&
+        \ !s:is_comment_group(indent_spc))
+    return printf("%d:%d", indent_tabs[0], indent_spc[0])
   else
     return ''
   endif
