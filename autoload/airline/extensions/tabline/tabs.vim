@@ -6,6 +6,7 @@ let s:show_tab_type = get(g:, 'airline#extensions#tabline#show_tab_type', 1)
 let s:show_tab_nr = get(g:, 'airline#extensions#tabline#show_tab_nr', 1)
 let s:tab_nr_type = get(g:, 'airline#extensions#tabline#tab_nr_type', 0)
 let s:close_symbol = get(g:, 'airline#extensions#tabline#close_symbol', 'X')
+let s:tabs_label = get(g:, 'airline#extensions#tabline#tabs_label', 'tabs')
 let s:show_splits = get(g:, 'airline#extensions#tabline#show_splits', 1)
 let s:spc = g:airline_symbols.space
 
@@ -84,7 +85,7 @@ function! airline#extensions#tabline#tabs#get()
       call b.add_section_spaced(group, '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)')
     endfor
   elseif s:show_tab_type == 1
-    call b.add_section('airline_tabtype', ' tabs ')
+    call b.add_section_spaced('airline_tabtype', s:tabs_label)
   endif
 
   let s:current_bufnr = curbuf
