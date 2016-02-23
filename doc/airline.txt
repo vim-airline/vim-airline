@@ -492,6 +492,9 @@ eclim <https://eclim.org>
 * enable/disable enhanced tabline. >
   let g:airline#extensions#tabline#enabled = 0
 <
+* enable/disable displaying open splits per tab (only when tabs are opened). >
+  let g:airline#extensions#tabline#show_splits = 1
+<
 * enable/disable displaying buffers with a single tab. >
   let g:airline#extensions#tabline#show_buffers = 1
 <
