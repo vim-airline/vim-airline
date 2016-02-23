@@ -42,6 +42,9 @@ function! s:toggle_on()
 endfunction
 
 function! s:update_tabline()
+  if get(g:, 'airline#extensions#tabline#disable_refresh', 0)
+    return
+  endif
   let match = expand('<afile>')
   if pumvisible()
     return
