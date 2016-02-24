@@ -524,12 +524,12 @@ eclim <https://eclim.org>
   buffer on the left. Also none of the above tabline switches is currently
   supported!
 
-* rename label for buffers (default: 'buffers')
+* rename label for buffers (default: 'buffers') >
   let g:airline#extensions#tabline#buffers_label = 'b'
 
-* rename label for tabs (default: 'tabs')
+* rename label for tabs (default: 'tabs') >
   let g:airline#extensions#tabline#tabs_label = 't'
-
+<
   When enabled, numbers will be displayed in the tabline and mappings will be
   exposed to allow you to select a buffer directly.  Up to 9 mappings will be
   exposed. >
@@ -574,7 +574,7 @@ eclim <https://eclim.org>
     * configure whether buffer numbers should be shown. >
       let g:airline#extensions#tabline#buffer_nr_show = 0
 <
-    * configure how buffer numbers should be formatted with |printf|. >
+    * configure how buffer numbers should be formatted with |printf()|. >
       let g:airline#extensions#tabline#buffer_nr_format = '%s: '
 <
     * configure the formatting of filenames (see |filename-modifiers|). >
@@ -625,6 +625,11 @@ eclim <https://eclim.org>
 
 <
 Note: Enabling this extension will modify 'showtabline' and 'guioptions'.
+
+* enable Refresh of tabline buffers on |BufAdd| autocommands
+  (set this to one, if you note 'AirlineTablineRefresh', however, this
+   won't update airline on |:badd| commands) >
+  let airline#extensions#tabline#disable_refresh = 0
 
 -------------------------------------                     *airline-tmuxline*
 tmuxline <https://github.com/edkolev/tmuxline.vim>
