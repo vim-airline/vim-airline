@@ -70,7 +70,12 @@ function! airline#parts#iminsert()
 endfunction
 
 function! airline#parts#readonly()
-  return &readonly ? g:airline_symbols.readonly : ''
+  let buffer=winbufnr('')
+  if &readonly && &modifiable && !filereadable(buffer)
+    return '[noperm]'
+  else
+    return &readonly ? g:airline_symbols.readonly : ''
+  endif
 endfunction
 
 function! airline#parts#filetype()
