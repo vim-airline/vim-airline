@@ -66,7 +66,11 @@ function! airline#extensions#tabline#buffers#get()
     endif
 
     let group = airline#extensions#tabline#group_of_bufnr(tab_bufs, nr)
-    let s:current_modified = (group == 'airline_tabmod') ? 1 : 0
+
+    if nr == cur
+      let s:current_modified = (group == 'airline_tabmod') ? 1 : 0
+    endif
+
     if s:buffer_idx_mode
       if len(s:number_map) > 0
         call b.add_section(group, s:spc . get(s:number_map, l:index, '') . '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)' . s:spc)
