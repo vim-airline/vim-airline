@@ -11,6 +11,7 @@ let s:buffers_label = get(g:, 'airline#extensions#tabline#buffers_label', 'buffe
 let s:tabs_label = get(g:, 'airline#extensions#tabline#tabs_label', 'tabs')
 let s:switch_buffers_and_tabs = get(g:, 'airline#extensions#tabline#switch_buffers_and_tabs', 0)
 let s:show_buffers = get(g:, 'airline#extensions#tabline#show_buffers', 1)
+let s:show_tabs = get(g:, 'airline#extensions#tabline#show_tabs', 1)
 
 function! airline#extensions#tabline#ctrlspace#off()
   augroup airline_tabline_ctrlspace
@@ -105,6 +106,8 @@ function! airline#extensions#tabline#ctrlspace#get()
   " Add left tabline content
   if s:show_buffers == 0
       call airline#extensions#tabline#ctrlspace#add_tab_section(builder, 0)
+  elseif s:show_tabs == 0
+      call airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_tab, cur_buf, 0)
   else
     if s:switch_buffers_and_tabs == 0
       call builder.add_section_spaced('airline_tabtype', s:buffers_label)
@@ -122,6 +125,8 @@ function! airline#extensions#tabline#ctrlspace#get()
   " Add right tabline content
   if s:show_buffers == 0
       call builder.add_section_spaced('airline_tabtype', s:tabs_label)
+  elseif s:show_tabs == 0
+      call builder.add_section_spaced('airline_tabtype', s:buffers_label)
   else
     if s:switch_buffers_and_tabs == 0
       call airline#extensions#tabline#ctrlspace#add_tab_section(builder, 1)
