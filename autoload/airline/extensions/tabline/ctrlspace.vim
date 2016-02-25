@@ -9,6 +9,7 @@ let s:current_tabline = ''
 
 let s:buffers_label = get(g:, 'airline#extensions#tabline#buffers_label', 'buffers')
 let s:tabs_label = get(g:, 'airline#extensions#tabline#tabs_label', 'tabs')
+let s:switch_buffers_and_tabs = get(g:, 'airline#extensions#tabline#switch_buffers_and_tabs', 1)
 
 function! airline#extensions#tabline#ctrlspace#off()
   augroup airline_tabline_ctrlspace
@@ -28,6 +29,72 @@ function! airline#extensions#tabline#ctrlspace#invalidate()
   let s:current_tabnr = -1
 endfunction
 
+function! airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_tab, cur_buf, pos)
+  if a:pos == 0
+    call a:builder.add_section_spaced('airline_tabtype', s:buffers_label)
+    let pos_extension = ''
+  else
+    let pos_extension = '_right'
+  endif
+
+  let s:buffer_list = ctrlspace#api#BufferList(a:cur_tab)
+  for buffer in s:buffer_list
+      if a:cur_buf == buffer.index
+        if buffer.modified
+          let group = 'airline_tabmod'.pos_extension
+        else
+          let group = 'airline_tabsel'.pos_extension
+        endif
+      else
+        if buffer.modified
+          let group = 'airline_tabmod_unsel'.pos_extension
+        elseif buffer.visible
+          let group = 'airline_tab'.pos_extension
+        else
+          let group = 'airline_tabhid'.pos_extension
+        endif
+      endif
+
+      let buf_name = '%(%{airline#extensions#tabline#get_buffer_name('.buffer.index.')}%)'
+      call a:builder.add_section_spaced(group, buf_name)
+  endfor
+
+  if a:pos == 1
+    call a:builder.add_section_spaced('airline_tabtype', s:buffers_label)
+  endif
+endfunction
+
+function! airline#extensions#tabline#ctrlspace#add_tab_section(builder, pos)
+  if a:pos == 0
+    call a:builder.add_section_spaced('airline_tabtype', s:tabs_label)
+    let pos_extension = ''
+  else
+    let pos_extension = '_right'
+  endif
+
+  for tab in s:tab_list
+    if tab.current
+      if tab.modified
+        let group = 'airline_tabmod'.pos_extension
+      else
+        let group = 'airline_tabsel'.pos_extension
+      endif
+    else
+      if tab.modified
+        let group = 'airline_tabmod_unsel'.pos_extension
+      else
+        let group = 'airline_tabhid'.pos_extension
+      endif
+    endif
+
+    call a:builder.add_section_spaced(group, tab.title.ctrlspace#api#TabBuffersNumber(tab.index))
+  endfor
+
+  if a:pos == 1
+    call a:builder.add_section_spaced('airline_tabtype', s:tabs_label)
+  endif
+endfunction
+
 function! airline#extensions#tabline#ctrlspace#get()
   let cur_buf = bufnr('%')
 
@@ -42,59 +109,26 @@ function! airline#extensions#tabline#ctrlspace#get()
     return s:current_tabline
   endif
 
-  let b = airline#extensions#tabline#new_builder()
+  let builder = airline#extensions#tabline#new_builder()
 
-  call b.add_section_spaced('airline_tabtype', s:buffers_label)
+  if s:switch_buffers_and_tabs == 0
+    call airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_tab, cur_buf, 0)
+  else
+    call airline#extensions#tabline#ctrlspace#add_tab_section(builder, 0)
+  endif
 
-  let s:buffer_list = ctrlspace#api#BufferList(cur_tab)
-  for buffer in s:buffer_list
-      if cur_buf == buffer.index
-        if buffer.modified
-          let group = 'airline_tabmod'
-        else
-          let group = 'airline_tabsel'
-        endif
-      else
-        if buffer.modified
-          let group = 'airline_tabmod_unsel'
-        elseif buffer.visible
-          let group = 'airline_tab'
-        else
-          let group = 'airline_tabhid'
-        endif
-      endif
+  call builder.add_section('airline_tabfill', '')
+  call builder.split()
+  call builder.add_section('airline_tabfill', '')
 
-      let buf_name = '%(%{airline#extensions#tabline#get_buffer_name('.buffer.index.')}%)'
-      call b.add_section_spaced(group, buf_name)
-  endfor
-
-
-  call b.add_section('airline_tabfill', '')
-  call b.split()
-  call b.add_section('airline_tabfill', '')
-
-  for tab in s:tab_list
-    if tab.current
-      if tab.modified
-        let group = 'airline_tabmod_right'
-      else
-        let group = 'airline_tabsel_right'
-      endif
-    else
-      if tab.modified
-        let group = 'airline_tabmod_unsel_right'
-      else
-        let group = 'airline_tabhid_right'
-      endif
-    endif
-
-    call b.add_section_spaced(group, tab.title.ctrlspace#api#TabBuffersNumber(tab.index))
-  endfor
-
-  call b.add_section_spaced('airline_tabtype', s:tabs_label)
+  if s:switch_buffers_and_tabs == 0
+    call airline#extensions#tabline#ctrlspace#add_tab_section(builder, 1)
+  else
+    call airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_tab, cur_buf, 1)
+  endif
 
   let s:current_bufnr = cur_buf
   let s:current_tabnr = cur_tab
-  let s:current_tabline = b.build()
+  let s:current_tabline = builder.build()
   return s:current_tabline
 endfunction
