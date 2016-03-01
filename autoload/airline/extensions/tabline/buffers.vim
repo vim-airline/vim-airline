@@ -73,7 +73,7 @@ function! airline#extensions#tabline#buffers#get()
 
     " Neovim feature: Have clickable buffers
     if has("tablineat")
-      call b.add_section(group, '%'.nr.'@airline#extensions#tabline#buffers#switchbuf@{')
+      call b.add_raw('%'.nr.'@airline#extensions#tabline#buffers#switchbuf@')
     endif
     if s:buffer_idx_mode
       if len(s:number_map) > 0
@@ -86,7 +86,7 @@ function! airline#extensions#tabline#buffers#get()
       call b.add_section(group, s:spc.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.s:spc)
     endif
     if has("tablineat")
-      call b.add_section(group, '}%X')
+      call b.add_raw('%X')
     endif
   endfor
 
@@ -198,7 +198,8 @@ endfunction
 
 function airline#extensions#tabline#buffers#switchbuf(minwid, clicks, button, modifiers) abort
     " Run the following code only on a single left mouse button click without modifiers pressed
+    " works only in recent NeoVim with has('tablineat')
     if a:clicks == 1 && a:button is# 'l' && a:modifiers !~# '[^ ]'
-        execute 'buffer' a:minwid
+        sil execute 'buffer' a:minwid
     endif
 endfunction
