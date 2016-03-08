@@ -35,7 +35,7 @@ function! s:check_mixed_indent()
 endfunction
 
 function! s:check_mixed_indent_file()
-  if stridx(&ft, 'c') == 0 || stridx(&ft, 'cpp') == 0
+  if stridx(&ft, 'c') == 0 || stridx(&ft, 'cpp') == 0 || stridx(&ft, 'javascript') == 0
     " for C/CPP only allow /** */ comment style with one space before the '*'
     let head_spc = '\v(^ +\*@!)'
   else
