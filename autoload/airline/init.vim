@@ -124,7 +124,7 @@ function! airline#init#sections()
     let g:airline_section_y = airline#section#create_right(['ffenc'])
   endif
   if !exists('g:airline_section_z')
-    let g:airline_section_z = airline#section#create(['windowswap', '%3p%%'.spc, 'linenr', ':%3v '])
+    let g:airline_section_z = airline#section#create(['windowswap', '%3p%%'.spc, 'linenr', ':%3v ☰ %L'])
   endif
   if !exists('g:airline_section_error')
     let g:airline_section_error = airline#section#create(['ycm_error_count', 'syntastic', 'eclim'])
