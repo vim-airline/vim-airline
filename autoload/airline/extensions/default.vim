@@ -39,7 +39,7 @@ endfunction
 " There still is a highlighting bug when using groups %(%) in the statusline,
 " deactivate it, until this is properly fixed:
 " https://groups.google.com/d/msg/vim_dev/sb1jmVirXPU/mPhvDnZ-CwAJ
-if s:section_use_groups && (v:version >= 704 || (v:version >= 703 && has('patch81')))
+if s:section_use_groups && (v:version >= 704 || (v:version >= 703 && has('patch81'))) && !has('nvim')
   function s:add_section(builder, context, key)
     " i have no idea why the warning section needs special treatment, but it's
     " needed to prevent separators from showing up
