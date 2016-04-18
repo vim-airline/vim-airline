@@ -140,6 +140,10 @@ values):
 * disable the Airline customization for selective windows (this is a
   window-local variable so you can disable it for only some windows) >
   let w:airline_disabled = 1
+
+* Do not draw separators for empty sections (only for the active window)
+ >
+  let g:airline_skip_empty_sections = 1
 <
 
 ==============================================================================
