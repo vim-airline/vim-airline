@@ -508,6 +508,11 @@ are supported!
 * enable/disable displaying buffers with a single tab. (c)
   let g:airline#extensions#tabline#show_buffers = 1
 <
+
+Note: If you are using neovim (has('tablineat') = 1), then you can click
+on the tabline with the left mouse button to switch to that buffer, and
+with the middle mouse button to delete that buffer.
+
 * enable/disable displaying tabs, regardless of number. (c)
   let g:airline#extensions#tabline#show_tabs = 1
 <
