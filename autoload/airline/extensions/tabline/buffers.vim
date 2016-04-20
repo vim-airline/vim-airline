@@ -180,7 +180,7 @@ function! s:jump_to_tab(offset)
     endif
 endfunction
 
-function s:map_keys()
+function! s:map_keys()
   if s:buffer_idx_mode
     noremap <silent> <Plug>AirlineSelectTab1 :call <SID>select_tab(0)<CR>
     noremap <silent> <Plug>AirlineSelectTab2 :call <SID>select_tab(1)<CR>
@@ -196,7 +196,7 @@ function s:map_keys()
   endif
 endfunction
 
-function airline#extensions#tabline#buffers#clickbuf(minwid, clicks, button, modifiers) abort
+function! airline#extensions#tabline#buffers#clickbuf(minwid, clicks, button, modifiers) abort
     " Clickable buffers
     " works only in recent NeoVim with has('tablineat')
 
