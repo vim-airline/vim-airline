@@ -52,7 +52,7 @@ function! s:on_colorscheme_changed()
   call airline#load_theme()
 endfunction
 
-function airline#cmdwinenter(...)
+function! airline#cmdwinenter(...)
   call airline#extensions#apply_left_override('Command Line', '')
 endfunction
 
