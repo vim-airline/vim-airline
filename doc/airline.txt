@@ -491,6 +491,10 @@ eclim <https://eclim.org>
 
 * configure custom trailing whitespace regexp rule >
   let g:airline#extensions#whitespace#trailing_regexp = '\s$'
+
+* configure, which filetypes have special treatment of /* */ comments,
+  matters for mix-indent-file algorithm: >
+  let airline#extensions#c_like_langs = ['c', 'cpp', 'cuda', 'javascript', 'ld', 'php']
 <
 -------------------------------------                      *airline-tabline*
 Note: If you're using the ctrlspace tabline only the option marked with (c)
