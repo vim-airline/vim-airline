@@ -41,6 +41,7 @@ function! s:on_window_changed()
   " different autocommands.
   let l:key = [bufnr('%'), winnr(), winnr('$')]
   if get(t:, 'airline_last_window_changed', []) == l:key
+        \ && &stl =~? 'airline#statusline(\d\+)$'
     return
   endif
   let t:airline_last_window_changed = l:key
@@ -86,7 +87,7 @@ function! s:airline_toggle()
       autocmd CmdwinLeave * call airline#remove_statusline_func('airline#cmdwinenter')
 
       autocmd GUIEnter,ColorScheme * call <sid>on_colorscheme_changed()
-      autocmd VimEnter,WinEnter,BufWinEnter,FileType,BufUnload,VimResized *
+      autocmd SessionLoadPost,VimEnter,WinEnter,BufWinEnter,FileType,BufUnload,VimResized *
             \ call <sid>on_window_changed()
 
       autocmd TabEnter * :unlet! w:airline_lastmode
