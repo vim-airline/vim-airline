@@ -8,10 +8,8 @@ function! s:prototype.split(...)
 endfunction
 
 function! s:prototype.add_section_spaced(group, contents)
-  if a:contents
-    let a:contents = (g:airline_symbols.space).a:contents.(g:airline_symbols.space)
-  endif
-  call self.add_section(a:group, a:contents)
+  let spc = empty(a:contents) ? '' : g:airline_symbols.space
+  call self.add_section(a:group, spc.a:contents.spc)
 endfunction
 
 function! s:prototype.add_section(group, contents)
