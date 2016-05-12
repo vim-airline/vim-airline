@@ -90,7 +90,7 @@ function! s:airline_toggle()
       autocmd SessionLoadPost,VimEnter,WinEnter,BufWinEnter,FileType,BufUnload *
             \ call <sid>on_window_changed()
 
-      autocmd VimResized * call <sid>airline_refresh()
+      autocmd VimResized * unlet! w:airline_lastmode | :call <sid>airline_refresh()
       autocmd TabEnter * :unlet! w:airline_lastmode w:airline_active
       autocmd BufWritePost */autoload/airline/themes/*.vim
             \ exec 'source '.split(globpath(&rtp, 'autoload/airline/themes/'.g:airline_theme.'.vim', 1), "\n")[0]
