@@ -119,7 +119,11 @@ function! s:airline_theme(...)
 endfunction
 
 function! s:airline_refresh()
-  silent doautocmd User AirlineBeforeRefresh
+  let nomodeline=''
+  if v:version > 703 || v:version == 703 && has("patch438")
+    let nomodeline = '<nomodeline>'
+  endif
+  exe printf("silent doautocmd %s User AirlineBeforeRefresh", nomodeline)
   call airline#load_theme()
   call airline#update_statusline()
 endfunction
