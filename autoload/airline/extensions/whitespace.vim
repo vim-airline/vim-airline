@@ -51,6 +51,7 @@ endfunction
 
 function! airline#extensions#whitespace#check()
   if &readonly || !&modifiable || !s:enabled || line('$') > s:max_lines
+          \ || get(b:, 'airline_whitespace_disabled', 0)
     return ''
   endif
 
