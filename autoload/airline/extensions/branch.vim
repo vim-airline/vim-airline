@@ -141,6 +141,7 @@ function! airline#extensions#branch#head()
       endif
     endif
   else
+    let b:airline_head = get(b:, 'airline_head', '')
     for vcs in l:vcs_priority
       if has_key(l:heads, vcs)
         if !empty(b:airline_head)
