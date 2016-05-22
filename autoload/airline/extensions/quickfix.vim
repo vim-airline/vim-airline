@@ -19,7 +19,7 @@ function! airline#extensions#quickfix#init(ext)
 endfunction
 
 function! airline#extensions#quickfix#inactive_qf_window(...)
-  if getbufvar(a:2.bufnr, '&filetype') is# 'qf' && !empty(getwinvar(a:2.winnr, 'quickfix_title', ''))
+  if getbufvar(a:2.bufnr, '&filetype') is# 'qf' && !empty(airline#util#getwinvar(a:2.winnr, 'quickfix_title', ''))
     call setwinvar(a:2.winnr, 'airline_section_c', '[%{get(w:, "quickfix_title", "")}] %f %m')
   endif
 endfunction
