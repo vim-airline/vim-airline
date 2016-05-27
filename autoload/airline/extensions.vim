@@ -210,6 +210,11 @@ function! airline#extensions#load()
     call airline#extensions#syntastic#init(s:ext)
   endif
 
+  if get(g:, 'airline#extensions#neomake#enabled', 1)
+        \ && exists(':Neomake')
+    call airline#extensions#neomake#init(s:ext)
+  endif
+
   if get(g:, 'airline#extensions#whitespace#enabled', 1)
     call airline#extensions#whitespace#init(s:ext)
   endif
