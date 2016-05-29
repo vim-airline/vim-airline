@@ -93,7 +93,7 @@ function! airline#init#bootstrap()
         \ 'raw': '%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__#',
         \ 'accent': 'bold'})
   call airline#parts#define_function('ffenc', 'airline#parts#ffenc')
-  call airline#parts#define_empty(['hunks', 'branch', 'tagbar', 'syntastic',
+  call airline#parts#define_empty(['hunks', 'branch', 'obsession', 'tagbar', 'syntastic',
         \ 'eclim', 'whitespace','windowswap', 'ycm_error_count', 'ycm_warning_count'])
   call airline#parts#define_text('capslock', '')
 
@@ -131,7 +131,7 @@ function! airline#init#sections()
     let g:airline_section_y = airline#section#create_right(['ffenc'])
   endif
   if !exists('g:airline_section_z')
-    let g:airline_section_z = airline#section#create(['windowswap', '%3p%%'.spc, 'linenr', 'maxlinenr', spc.':%3v'])
+    let g:airline_section_z = airline#section#create(['windowswap', 'obsession', '%3p%%'.spc, 'linenr', 'maxlinenr', spc.':%3v'])
   endif
   if !exists('g:airline_section_error')
     let g:airline_section_error = airline#section#create(['ycm_error_count', 'syntastic', 'eclim'])
