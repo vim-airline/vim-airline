@@ -250,6 +250,10 @@ function! airline#extensions#load()
     call airline#extensions#windowswap#init(s:ext)
   endif
 
+  if (get(g:, 'airline#extensions#obsession#enabled', 1) && exists('*ObsessionStatus'))
+    call airline#extensions#obsession#init(s:ext)
+  endif
+
   if !get(g:, 'airline#extensions#disable_rtp_load', 0)
     " load all other extensions, which are not part of the default distribution.
     " (autoload/airline/extensions/*.vim outside of our s:script_path).
