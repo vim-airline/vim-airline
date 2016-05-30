@@ -718,6 +718,15 @@ vim-windowswap <https://github.com/wesQ3/vim-windowswap>
 * set marked window indicator string >
   let g:airline#extensions#windowswap#indicator_text = 'WS'
 <
+-------------------------------------                    *airline-obsession*
+vim-obsession <https://github.com/tpope/vim-obsession>
+
+* enable/disable vim-obsession integration >
+  let g:airline#extensions#obsession#enabled = 1
+
+* set marked window indicator string >
+  let g:airline#extensions#obsession#indicator_text = '$'
+<
 -------------------------------------                        *airline-taboo*
 taboo.vim <https://github.com/gcmt/taboo.vim>
 
