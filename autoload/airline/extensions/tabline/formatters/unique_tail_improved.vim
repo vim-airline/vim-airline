@@ -17,12 +17,14 @@ function! airline#extensions#tabline#formatters#unique_tail_improved#format(bufn
 
   let has_fugitive = exists('*fugitive#buffer')
   if has_fugitive && getbufvar(a:bufnr, 'fugitive_type', '') != ''
-    let curbuf_name = fugitive#buffer(a:bufnr).path()
+    let fug_buffer = fugitive#buffer(a:bufnr)
+    let curbuf_name = fug_buffer.repo().tree(fug_buffer.path())
   endif
   for nr in a:buffers
     let name = bufname(nr)
     if has_fugitive && getbufvar(nr, 'fugitive_type', '') != ''
-      let name = fugitive#buffer(nr).path()
+      let fug_buffer = fugitive#buffer(nr)
+      let name = fug_buffer.repo().tree(fug_buffer.path())
     endif
     if !empty(name) && nr != a:bufnr && fnamemodify(name, ':t') == curbuf_tail " only perform actions if curbuf_tail isn't unique
       let do_deduplicate = 1
