@@ -31,11 +31,9 @@ function! s:get_syn(group, what)
 endfunction
 
 function! s:get_array(fg, bg, opts)
-  let fg = a:fg
-  let bg = a:bg
   return g:airline_gui_mode ==# 'gui'
-        \ ? [ fg, bg, '', '', join(a:opts, ',') ]
-        \ : [ '', '', fg, bg, join(a:opts, ',') ]
+        \ ? [ a:fg, a:bg, '', '', join(a:opts, ',') ]
+        \ : [ '', '', a:fg, a:bg, join(a:opts, ',') ]
 endfunction
 
 function! airline#highlighter#get_highlight(group, ...)
@@ -63,16 +61,16 @@ function! airline#highlighter#exec(group, colors)
     let colors[2] = s:gui2cui(get(colors, 0, ''), get(colors, 2, ''))
     let colors[3] = s:gui2cui(get(colors, 1, ''), get(colors, 3, ''))
   endif
-  let cmd= printf('hi %s %s %s %s %s %s %s %s',
-        \ a:group, s:Get(colors, 0, 'guifg=', ''), s:Get(colors, 1, 'guibg=', ''),
-        \ s:Get(colors, 2, 'ctermfg=', ''), s:Get(colors, 3, 'ctermbg=', ''),
-        \ s:Get(colors, 4, 'gui=', ''), s:Get(colors, 4, 'cterm=', ''),
-        \ s:Get(colors, 4, 'term=', ''))
   let old_hi = airline#highlighter#get_highlight(a:group)
   if len(colors) == 4
     call add(colors, '')
   endif
   if old_hi != colors
+    let cmd = printf('hi %s %s %s %s %s %s %s %s',
+        \ a:group, s:Get(colors, 0, 'guifg=', ''), s:Get(colors, 1, 'guibg=', ''),
+        \ s:Get(colors, 2, 'ctermfg=', ''), s:Get(colors, 3, 'ctermbg=', ''),
+        \ s:Get(colors, 4, 'gui=', ''), s:Get(colors, 4, 'cterm=', ''),
+        \ s:Get(colors, 4, 'term=', ''))
     exe cmd
   endif
 endfunction
