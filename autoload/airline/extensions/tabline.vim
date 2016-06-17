@@ -138,14 +138,17 @@ function! airline#extensions#tabline#title(n)
   if empty(title)
     let buflist = tabpagebuflist(a:n)
     let winnr = tabpagewinnr(a:n)
-    return airline#extensions#tabline#get_buffer_name(buflist[winnr - 1])
+    let all_buffers = airline#extensions#tabline#buflist#list()
+    return airline#extensions#tabline#get_buffer_name(
+          \ buflist[winnr - 1],
+          \ filter(buflist, 'index(all_buffers, v:val) != -1'))
   endif
 
   return title
 endfunction
 
-function! airline#extensions#tabline#get_buffer_name(nr)
-  return airline#extensions#tabline#formatters#{s:formatter}#format(a:nr, airline#extensions#tabline#buflist#list())
+function! airline#extensions#tabline#get_buffer_name(nr, buffers)
+  return airline#extensions#tabline#formatters#{s:formatter}#format(a:nr, a:buffers)
 endfunction
 
 function! airline#extensions#tabline#new_builder()
