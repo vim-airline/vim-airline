@@ -11,7 +11,7 @@ function! airline#extensions#ycm#init(ext)
 endfunction
 
 function! airline#extensions#ycm#get_error_count()
-  if exists(':YcmDiag')
+  if exists(':YcmDiag') && exists("*youcompleteme#GetErrorCount")
     let cnt = youcompleteme#GetErrorCount()
 
     if cnt != 0
@@ -23,7 +23,7 @@ function! airline#extensions#ycm#get_error_count()
 endfunction
 
 function! airline#extensions#ycm#get_warning_count()
-  if exists(':YcmDiag')
+  if exists(':YcmDiag') && exists("*youcompleteme#GetWarningCount")
     let cnt = youcompleteme#GetWarningCount()
 
     if cnt != 0
