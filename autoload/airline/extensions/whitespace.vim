@@ -106,12 +106,7 @@ function! airline#extensions#whitespace#check()
       endif
     endif
   endif
-  if winwidth(0) < 120 && len(split(b:airline_whitespace_check, '\zs')) > 9
-    return matchstr(b:airline_whitespace_check, '^.\{9\}').'…'
-  else
-    return b:airline_whitespace_check
-  endif
-
+  return airline#util#shorten(b:airline_whitespace_check, 120, 9)
 endfunction
 
 function! airline#extensions#whitespace#toggle()
