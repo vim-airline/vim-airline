@@ -162,6 +162,9 @@ function! airline#extensions#branch#head()
   if empty(b:airline_head) || !found_fugitive_head && !s:check_in_path()
     let b:airline_head = ''
   endif
+  if winwidth(0) < 120 && len(split(b:airline_head, '\zs')) > 9
+    let b:airline_head =  matchstr(b:airline_head, '^.\{9\}').'…'
+  endif
   return b:airline_head
 endfunction
 
