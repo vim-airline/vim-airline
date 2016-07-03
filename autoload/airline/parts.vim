@@ -82,10 +82,9 @@ function! airline#parts#readonly()
 endfunction
 
 function! airline#parts#filetype()
-  return &filetype
+  return winwidth(0) < 100 && strlen(&filetype) > 3 ? matchstr(&filetype, '...'). '…' : &filetype
 endfunction
 
 function! airline#parts#ffenc()
   return printf('%s%s%s', &fenc, &l:bomb ? '[BOM]' : '', strlen(&ff) > 0 ? '['.&ff.']' : '')
 endfunction
-
