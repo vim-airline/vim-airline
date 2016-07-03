@@ -166,7 +166,8 @@ function! airline#extensions#branch#head()
   if empty(b:airline_head) || !found_fugitive_head && !s:check_in_path()
     let b:airline_head = ''
   endif
-  let b:airline_head = airline#util#shorten(b:airline_head, 120, 9)
+  let minwidth = empty(get(b:, 'airline_hunks', '')) ? 14 : 7
+  let b:airline_head = airline#util#shorten(b:airline_head, 120, minwidth)
   return b:airline_head
 endfunction
 
