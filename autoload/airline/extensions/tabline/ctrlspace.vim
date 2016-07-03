@@ -95,6 +95,7 @@ endfunction
 function! airline#extensions#tabline#ctrlspace#get()
   let cur_buf = bufnr('%')
 
+  call airline#extensions#tabline#tabs#map_keys()
   let s:tab_list = ctrlspace#api#TabList()
   for tab in s:tab_list
     if tab.current

@@ -34,7 +34,7 @@ endfunction
 function! airline#extensions#tabline#tabs#get()
   let curbuf = bufnr('%')
   let curtab = tabpagenr()
-  call s:map_keys()
+  call airline#extensions#tabline#tabs#map_keys()
   if curbuf == s:current_bufnr && curtab == s:current_tabnr
     if !g:airline_detect_modified || getbufvar(curbuf, '&modified') == s:current_modified
       return s:current_tabline
@@ -94,7 +94,7 @@ function! airline#extensions#tabline#tabs#get()
   return s:current_tabline
 endfunction
 
-function! s:map_keys()
+function! airline#extensions#tabline#tabs#map_keys()
   noremap <silent> <Plug>AirlineSelectTab1 :1tabn<CR>
   noremap <silent> <Plug>AirlineSelectTab2 :2tabn<CR>
   noremap <silent> <Plug>AirlineSelectTab3 :3tabn<CR>
