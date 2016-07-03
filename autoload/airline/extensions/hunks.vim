@@ -65,19 +65,27 @@ function! airline#extensions#hunks#get_hunks()
   if !get(w:, 'airline_active', 0)
     return ''
   endif
+  " Cache vavlues, so that it isn't called too often
+  if exists("b:airline_hunks") &&
+    \  get(b:,  'airline_changenr', 0) == changenr() &&
+    \ winwidth(0) == get(s:, 'airline_winwidth', 0)
+    return b:airline_hunks
+  endif
   let hunks = s:get_hunks()
   let string = ''
   if !empty(hunks)
     for i in [0, 1, 2]
-      if s:non_zero_only == 0 || hunks[i] > 0
+      if (s:non_zero_only == 0 && winwidth(0) > 100) || hunks[i] > 0
         let string .= printf('%s%s ', s:hunk_symbols[i], hunks[i])
       endif
     endfor
   endif
+  let b:airline_hunks = string
+  let b:airline_changenr = changenr()
+  let s:airline_winwidth = winwidth(0)
   return string
 endfunction
 
 function! airline#extensions#hunks#init(ext)
   call airline#parts#define_function('hunks', 'airline#extensions#hunks#get_hunks')
 endfunction
-
