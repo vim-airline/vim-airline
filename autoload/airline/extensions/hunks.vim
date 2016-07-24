@@ -45,7 +45,7 @@ function! s:get_hunks_empty()
 endfunction
 
 function! s:get_hunks()
-  if !exists('b:source_func')
+  if !exists('b:source_func') || get(b:, 'source_func', '') is# 's:get_hunks_empty'
     if get(g:, 'loaded_signify') && sy#buffer_is_active()
       let b:source_func = 's:get_hunks_signify'
     elseif exists('*GitGutterGetHunkSummary')
@@ -67,8 +67,10 @@ function! airline#extensions#hunks#get_hunks()
   endif
   " Cache vavlues, so that it isn't called too often
   if exists("b:airline_hunks") &&
-    \  get(b:,  'airline_changenr', 0) == changenr() &&
-    \ winwidth(0) == get(s:, 'airline_winwidth', 0)
+    \ get(b:,  'airline_changenr', 0) == changenr() &&
+    \ winwidth(0) == get(s:, 'airline_winwidth', 0) &&
+    \ get(b:, 'source_func', '') isnot# 's:get_hunks_signify' &&
+    \ get(b:, 'source_func', '') isnot# 's:get_hunks_empty'
     return b:airline_hunks
   endif
   let hunks = s:get_hunks()
