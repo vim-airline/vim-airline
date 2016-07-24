@@ -119,6 +119,10 @@ function! s:airline_theme(...)
 endfunction
 
 function! s:airline_refresh()
+  if !exists("#airline")
+    " disabled
+    return
+  endif
   let nomodeline=''
   if v:version > 703 || v:version == 703 && has("patch438")
     let nomodeline = '<nomodeline>'
