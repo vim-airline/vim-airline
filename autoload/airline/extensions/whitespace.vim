@@ -15,7 +15,7 @@ let s:indent_algo = get(g:, 'airline#extensions#whitespace#mixed_indent_algo', 0
 let s:skip_check_ft = {'make': ['indent', 'mixed-indent-file'] }
 let s:max_lines = get(g:, 'airline#extensions#whitespace#max_lines', 20000)
 let s:enabled = get(g:, 'airline#extensions#whitespace#enabled', 1)
-let s:c_like_langs = get(g:, 'airline#extensions#c_like_langs', [ 'c', 'cpp', 'cuda', 'javascript', 'ld', 'php' ])
+let s:c_like_langs = get(g:, 'airline#extensions#c_like_langs', [ 'c', 'cpp', 'cuda', 'go', 'javascript', 'ld', 'php' ])
 
 function! s:check_mixed_indent()
   if s:indent_algo == 1
