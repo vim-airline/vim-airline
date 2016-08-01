@@ -17,6 +17,7 @@ function! s:create(parts, append)
   for idx in range(len(a:parts))
     let part = airline#parts#get(a:parts[idx])
     let val = ''
+    let add_sep = get(l:, 'add_sep', 0)
 
     if exists('part.function')
       let func = (part.function).'()'
@@ -27,7 +28,11 @@ function! s:create(parts, append)
         let val .= s:spc.g:airline_left_alt_sep.s:spc
       endif
       if a:append < 0 && idx != 0
-        let val = s:spc.g:airline_right_alt_sep.s:spc.val
+        let t = ''
+        if !add_sep
+          let t = s:spc.g:airline_right_alt_sep.s:spc
+        endif
+        let val = t.val
       endif
       if exists('part.raw')
         let _ .= s:wrap_accent(part, val.(part.raw))
@@ -42,10 +47,15 @@ function! s:create(parts, append)
 
     if a:append > 0 && idx != 0
       let partval = printf('%%{airline#util#append(%s,%s)}', func, minwidth)
+      " will add an extra separator, if minwidth is zero
+      let add_sep = (minwidth == 0)
     elseif a:append < 0 && idx != len(a:parts) - 1
       let partval = printf('%%{airline#util#prepend(%s,%s)}', func, minwidth)
+      " will add an extra separator, if minwidth is zero
+      let add_sep = (minwidth == 0)
     else
       let partval = printf('%%{airline#util#wrap(%s,%s)}', func, minwidth)
+      let add_sep = 0
     endif
 
     if exists('part.condition')
