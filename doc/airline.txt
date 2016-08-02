@@ -551,6 +551,9 @@ with the middle mouse button to delete that buffer.
 
 * enable/disable displaying tab type (far right) >
   let g:airline#extensions#tabline#show_tab_type = 1
+  
+  Note: The tab-type will only be displayed in tab-mode, 
+  if there are no splits shown. (See: g:airline#extensions#tabline#show_splits)
 
 * rename label for buffers (default: 'buffers') (c)
   let g:airline#extensions#tabline#buffers_label = 'b'
