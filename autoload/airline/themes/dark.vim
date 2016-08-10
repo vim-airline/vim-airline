@@ -1,37 +1,84 @@
-" Each theme is contained in its own file and declares variables scoped to the
-" file.  These variables represent the possible "modes" that airline can
-" detect.  The mode is the return value of mode(), which gets converted to a
-" readable string.  The following is a list currently supported modes: normal,
-" insert, replace, visual, and inactive.
+" Airline themes are generated based on the following concepts:
+"   * The section of the status line, valid Airline statusline sections are:
+"       * airline_a (left most section)
+"       * airline_b (section just to the right of airline_a)
+"       * airline_c (section just to the right of airline_b)
+"       * airline_x (first section of the right most sections)
+"       * airline_y (section just to the right of airline_x)
+"       * airline_z (right most section)
+"   * The mode of the buffer, as reported by the :mode() function.  Airline 
+"     converts the values reported by mode() to the following:
+"       * normal
+"       * insert
+"       * replace
+"       * visual
+"       * inactive
+"   * In addition to each section and mode specified above, airline themes 
+"     can also specify overrides.  Overrides can be provided for the following
+"     scenarios:
+"       * 'modified'
+"       * 'paste'
 "
-" Each mode can also have overrides.  These are small changes to the mode that
-" don't require a completely different look.  "modified" and "paste" are two
-" such supported overrides.  These are simply suffixed to the major mode,
-" separated by an underscore.  For example, "normal_modified" would be normal
-" mode where the current buffer is modified.
+" Airline themes are specified as a global viml dictionary using the above
+" sections, modes and overrides as keys to the dictionary.  The name of the
+" dictionary is significant and should be specified as:
+"   * g:airline#themes#<theme_name>#palette
+" where <theme_name> is substituted for the name of the theme.vim file where the
+" theme definition resides.  Airline themes should reside somewhere on the
+" 'runtimepath' where it will be loaded at vim startup, for example:  
+"   * autoload/airline/themes/theme_name.vim
 "
-" The theming algorithm is a 2-pass system where the mode will draw over all
-" parts of the statusline, and then the override is applied after.  This means
-" it is possible to specify a subset of the theme in overrides, as it will
-" simply overwrite the previous colors.  If you want simultaneous overrides,
-" then they will need to change different parts of the statusline so they do
-" not conflict with each other.
-"
-" First, let's define an empty dictionary and assign it to the "palette"
-" variable. The # is a separator that maps with the directory structure. If
-" you get this wrong, Vim will complain loudly.
+" For this, the dark.vim, theme, this is defined as
 let g:airline#themes#dark#palette = {}
 
-" First let's define some arrays. The s: is just a VimL thing for scoping the
-" variables to the current script. Without this, these variables would be
-" declared globally. Now let's declare some colors for normal mode and add it
-" to the dictionary.  The array is in the format:
-" [ guifg, guibg, ctermfg, ctermbg, opts ]. See "help attr-list" for valid
-" values for the "opt" value.
-let s:N1   = [ '#00005f' , '#dfff00' , 17  , 190 ]
-let s:N2   = [ '#ffffff' , '#444444' , 255 , 238 ]
-let s:N3   = [ '#9cffd3' , '#202020' , 85  , 234 ]
-let g:airline#themes#dark#palette.normal = airline#themes#generate_color_map(s:N1, s:N2, s:N3)
+" Keys in the dictionary are composed of the mode, and if specified the
+" override.  For example:
+"   * g:airline#themes#dark#palette.normal 
+"       * the colors for a statusline while in normal mode
+"   * g:airline#themes#dark#palette.normal_modified 
+"       * the colors for a statusline while in normal mode when the buffer has
+"         been modified
+"   * g:airline#themes#dark#palette.visual 
+"       * the colors for a statusline while in visual mode
+"
+" Values for each dictionary key is an array of color values that should be
+" familiar for colorscheme designers:
+"   * [guifg, guibg, ctermfg, ctermbg, opts]
+" See "help attr-list" for valid values for the "opt" value.
+"
+" Each theme must provide an array of such values for each airline section of
+" the statusline (airline_a through airline_z).  A convenience function, 
+" airline#themes#generate_color_map() exists to mirror airline_a/b/c to
+" airline_x/y/z, respectively.
+
+" The dark.vim theme:
+let s:airline_a_normal   = [ '#00005f' , '#dfff00' , 17  , 190 ]
+let s:airline_b_normal   = [ '#ffffff' , '#444444' , 255 , 238 ]
+let s:airline_c_normal   = [ '#9cffd3' , '#202020' , 85  , 234 ]
+let g:airline#themes#dark#palette.normal = airline#themes#generate_color_map(s:airline_a_normal, s:airline_b_normal, s:airline_c_normal)
+
+" It should be noted the above is equivalent to:
+" let g:airline#themes#dark#palette.normal = airline#themes#generate_color_map(
+"    \  'airline_a': [ '#00005f' , '#dfff00' , 17  , 190 ],  "section airline_a
+"    \  'airline_b': [ '#ffffff' , '#444444' , 255 , 238 ],  "section airline_b
+"    \  'airline_c': [ '#9cffd3' , '#202020' , 85  , 234 ]   "section airline_c
+"    \)
+"
+" In turn, that is equivalent to:
+" let g:airline#themes#dark#palette.normal = {
+"    \  'airline_a': [ '#00005f' , '#dfff00' , 17  , 190 ],  "section airline_a
+"    \  'airline_b': [ '#ffffff' , '#444444' , 255 , 238 ],  "section airline_b
+"    \  'airline_c': [ '#9cffd3' , '#202020' , 85  , 234 ],  "section airline_c
+"    \  'airline_x': [ '#9cffd3' , '#202020' , 85  , 234 ],  "section airline_x
+"    \  'airline_y': [ '#ffffff' , '#444444' , 255 , 238 ],  "section airline_y
+"    \  'airline_z': [ '#00005f' , '#dfff00' , 17  , 190 ]   "section airline_z
+"    \}
+"
+" airline#themes#generate_color_map() also uses the values provided as
+" parameters to create intermediary groups such as:
+"   airline_a_to_airline_b
+"   airline_b_to_airline_c
+"   etc...
 
 " Here we define overrides for when the buffer is modified.  This will be
 " applied after g:airline#themes#dark#palette.normal, hence why only certain keys are
@@ -41,36 +88,36 @@ let g:airline#themes#dark#palette.normal_modified = {
       \ }
 
 
-let s:I1 = [ '#00005f' , '#00dfff' , 17  , 45  ]
-let s:I2 = [ '#ffffff' , '#005fff' , 255 , 27  ]
-let s:I3 = [ '#ffffff' , '#000080' , 15  , 17  ]
-let g:airline#themes#dark#palette.insert = airline#themes#generate_color_map(s:I1, s:I2, s:I3)
+let s:airline_a_insert = [ '#00005f' , '#00dfff' , 17  , 45  ]
+let s:airline_b_insert = [ '#ffffff' , '#005fff' , 255 , 27  ]
+let s:airline_c_insert = [ '#ffffff' , '#000080' , 15  , 17  ]
+let g:airline#themes#dark#palette.insert = airline#themes#generate_color_map(s:airline_a_insert, s:airline_b_insert, s:airline_c_insert)
 let g:airline#themes#dark#palette.insert_modified = {
       \ 'airline_c': [ '#ffffff' , '#5f005f' , 255     , 53      , ''     ] ,
       \ }
 let g:airline#themes#dark#palette.insert_paste = {
-      \ 'airline_a': [ s:I1[0]   , '#d78700' , s:I1[2] , 172     , ''     ] ,
+      \ 'airline_a': [ s:airline_a_insert[0]   , '#d78700' , s:airline_a_insert[2] , 172     , ''     ] ,
       \ }
 
 
 let g:airline#themes#dark#palette.replace = copy(g:airline#themes#dark#palette.insert)
-let g:airline#themes#dark#palette.replace.airline_a = [ s:I2[0]   , '#af0000' , s:I2[2] , 124     , ''     ]
+let g:airline#themes#dark#palette.replace.airline_a = [ s:airline_b_insert[0]   , '#af0000' , s:airline_b_insert[2] , 124     , ''     ]
 let g:airline#themes#dark#palette.replace_modified = g:airline#themes#dark#palette.insert_modified
 
 
-let s:V1 = [ '#000000' , '#ffaf00' , 232 , 214 ]
-let s:V2 = [ '#000000' , '#ff5f00' , 232 , 202 ]
-let s:V3 = [ '#ffffff' , '#5f0000' , 15  , 52  ]
-let g:airline#themes#dark#palette.visual = airline#themes#generate_color_map(s:V1, s:V2, s:V3)
+let s:airline_a_visual = [ '#000000' , '#ffaf00' , 232 , 214 ]
+let s:airline_b_visual = [ '#000000' , '#ff5f00' , 232 , 202 ]
+let s:airline_c_visual = [ '#ffffff' , '#5f0000' , 15  , 52  ]
+let g:airline#themes#dark#palette.visual = airline#themes#generate_color_map(s:airline_a_visual, s:airline_b_visual, s:airline_c_visual)
 let g:airline#themes#dark#palette.visual_modified = {
       \ 'airline_c': [ '#ffffff' , '#5f005f' , 255     , 53      , ''     ] ,
       \ }
 
 
-let s:IA1 = [ '#4e4e4e' , '#1c1c1c' , 239 , 234 , '' ]
-let s:IA2 = [ '#4e4e4e' , '#262626' , 239 , 235 , '' ]
-let s:IA3 = [ '#4e4e4e' , '#303030' , 239 , 236 , '' ]
-let g:airline#themes#dark#palette.inactive = airline#themes#generate_color_map(s:IA1, s:IA2, s:IA3)
+let s:airline_a_inactive = [ '#4e4e4e' , '#1c1c1c' , 239 , 234 , '' ]
+let s:airline_b_inactive = [ '#4e4e4e' , '#262626' , 239 , 235 , '' ]
+let s:airline_c_inactive = [ '#4e4e4e' , '#303030' , 239 , 236 , '' ]
+let g:airline#themes#dark#palette.inactive = airline#themes#generate_color_map(s:airline_a_inactive, s:airline_b_inactive, s:airline_c_inactive)
 let g:airline#themes#dark#palette.inactive_modified = {
       \ 'airline_c': [ '#875faf' , '' , 97 , '' , '' ] ,
       \ }
@@ -100,3 +147,4 @@ let g:airline#themes#dark#palette.ctrlp = airline#extensions#ctrlp#generate_colo
       \ [ '#ffffff' , '#875fd7' , 231 , 98  , ''     ],
       \ [ '#5f00af' , '#ffffff' , 55  , 231 , 'bold' ])
 
+" vim: tw=80
