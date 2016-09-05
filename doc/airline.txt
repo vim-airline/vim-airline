@@ -168,6 +168,7 @@ Airline comes with some user-defined autocommands.
 
 |AirlineAfterInit|     after plugin is initialized, but before the statusline
                     is replaced
+|AirlineAfterTheme|   after theme of the statusline has been changed
 |AirlineToggledOn|    after airline is activated and replaced the statusline
 |AirlineToggledOff|   after airline is deactivated and the statusline is
                     restored to the original
