@@ -70,6 +70,7 @@ function! airline#extensions#hunks#get_hunks()
     \ get(b:,  'airline_changenr', 0) == changenr() &&
     \ winwidth(0) == get(s:, 'airline_winwidth', 0) &&
     \ get(b:, 'source_func', '') isnot# 's:get_hunks_signify' &&
+    \ get(b:, 'source_func', '') isnot# 's:get_hunks_gitgutter' &&
     \ get(b:, 'source_func', '') isnot# 's:get_hunks_empty'
     return b:airline_hunks
   endif
