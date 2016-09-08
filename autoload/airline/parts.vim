@@ -82,7 +82,7 @@ function! airline#parts#readonly()
 endfunction
 
 function! airline#parts#filetype()
-  return winwidth(0) < 100 && strlen(&filetype) > 3 ? matchstr(&filetype, '...'). '…' : &filetype
+  return winwidth(0) < 100 && strlen(&filetype) > 3 ? matchstr(&filetype, '...'). iconv(nr2char(0x2026, 1), "utf-8", &encoding) : &filetype
 endfunction
 
 function! airline#parts#ffenc()
