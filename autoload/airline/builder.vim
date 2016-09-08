@@ -47,6 +47,9 @@ function! s:prototype.build()
     let contents = section[1]
     let pgroup = prev_group
     let prev_group = s:get_prev_group(self._sections, i)
+    if group ==# 'airline_c' && !self._context.active
+      let group = 'airline_c'. self._context.bufnr
+    endif
     if is_empty
       let prev_group = pgroup
     endif
@@ -87,6 +90,7 @@ function! s:prototype.build()
   endwhile
 
   if !self._context.active
+    "let line = substitute(line, '%#airline_c#', '%#airline_c'.self._context.bufnr.'#', '')
     let line = substitute(line, '%#.\{-}\ze#', '\0_inactive', 'g')
   endif
   return line
