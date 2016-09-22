@@ -57,7 +57,7 @@ function! airline#extensions#whitespace#check()
 
   if !exists('b:airline_whitespace_check')
     let b:airline_whitespace_check = ''
-    let checks = get(g:, 'airline#extensions#whitespace#checks', s:default_checks)
+    let checks = get(b:, 'airline_whitespace_checks', get(g:, 'airline#extensions#whitespace#checks', s:default_checks))
 
     let trailing = 0
     if index(checks, 'trailing') > -1
