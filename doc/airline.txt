@@ -487,6 +487,9 @@ eclim <https://eclim.org>
   " trailing: trailing whitespace
   " mixed-indent-file: different indentation in different lines
   let g:airline#extensions#whitespace#checks = [ 'indent', 'trailing', 'long', 'mixed-indent-file' ]
+
+  " this can also be configured for an individual buffer
+  let b:airline_whitespace_checks = [ 'indent', 'trailing', 'long', 'mixed-indent-file' ]
 <
 * configure the maximum number of lines where whitespace checking is enabled. >
   let g:airline#extensions#whitespace#max_lines = 20000
