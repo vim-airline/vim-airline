@@ -1,6 +1,8 @@
 " MIT License. Copyright (c) 2013-2016 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
+scriptencoding utf-8
+
 let s:show_close_button = get(g:, 'airline#extensions#tabline#show_close_button', 1)
 let s:show_tab_type = get(g:, 'airline#extensions#tabline#show_tab_type', 1)
 let s:show_tab_nr = get(g:, 'airline#extensions#tabline#show_tab_nr', 1)

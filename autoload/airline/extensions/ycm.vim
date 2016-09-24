@@ -1,6 +1,8 @@
 " MIT License. Copyright (c) 2015 Evgeny Firsov.
 " vim: et ts=2 sts=2 sw=2
 
+scriptencoding utf-8
+
 let s:spc = g:airline_symbols.space
 let s:error_symbol = get(g:, 'airline#extensions#ycm#error_symbol', 'E:')
 let s:warning_symbol = get(g:, 'airline#extensions#ycm#warning_symbol', 'W:')
