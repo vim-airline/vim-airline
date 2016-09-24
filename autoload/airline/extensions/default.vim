@@ -1,6 +1,8 @@
 " MIT License. Copyright (c) 2013-2016 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
+scriptencoding utf-8
+
 let s:section_use_groups     = get(g:, 'airline#extensions#default#section_use_groupitems', 1)
 let s:section_truncate_width = get(g:, 'airline#extensions#default#section_truncate_width', {
       \ 'b': 79,
