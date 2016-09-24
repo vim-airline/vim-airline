@@ -1,6 +1,8 @@
 " MIT License. Copyright (c) 2013-2016 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
+scriptencoding utf-8
+
 " generates a dictionary which defines the colors for each highlight group
 function! airline#themes#generate_color_map(sect1, sect2, sect3, ...)
   let palette = {

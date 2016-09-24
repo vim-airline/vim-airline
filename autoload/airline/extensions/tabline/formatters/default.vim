@@ -1,6 +1,8 @@
 " MIT License. Copyright (c) 2013-2016 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
+scriptencoding utf-8
+
 let s:fmod = get(g:, 'airline#extensions#tabline#fnamemod', ':~:.')
 let s:fnamecollapse = get(g:, 'airline#extensions#tabline#fnamecollapse', 1)
 let s:fnametruncate = get(g:, 'airline#extensions#tabline#fnametruncate', 0)

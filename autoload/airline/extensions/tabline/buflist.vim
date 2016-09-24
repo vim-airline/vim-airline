@@ -1,6 +1,8 @@
 " MIT License. Copyright (c) 2013-2016 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
+scriptencoding utf-8
+
 let s:excludes = get(g:, 'airline#extensions#tabline#excludes', [])
 let s:exclude_preview = get(g:, 'airline#extensions#tabline#exclude_preview', 1)
 

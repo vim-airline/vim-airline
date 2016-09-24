@@ -1,6 +1,8 @@
 " MIT License. Copyright (c) 2013-2016 Bailey Ling.
 " vim: et ts=2 sts=2 sw=2
 
+scriptencoding utf-8
+
 " basic 16 msdos from MSDOS
 " see output of color, should be
 "     0    Black
@@ -21,7 +23,7 @@
 "     15   White
 
 let s:basic16 = [
-  \ [ 0x00, 0x00, 0x00 ], 
+  \ [ 0x00, 0x00, 0x00 ],
   \ [ 0x00, 0x00, 0x80 ],
   \ [ 0x00, 0x80, 0x00 ],
   \ [ 0x00, 0x80, 0x80 ],

@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 " Each theme is contained in its own file and declares variables scoped to the
 " file.  These variables represent the possible "modes" that airline can
 " detect.  The mode is the return value of mode(), which gets converted to a
