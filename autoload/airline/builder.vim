@@ -162,6 +162,9 @@ function! s:section_is_empty(self, content)
   if match(a:content, '%#__accent_[^#]*#.*__restore__#') > -1
     return 0
   endif
+  if empty(a:content)
+    return 1
+  endif
   let list=matchlist(a:content, '%{\zs.\{-}\ze}', 1, start)
   if empty(list)
     return 0 " no function in statusline text
