@@ -157,6 +157,7 @@ endfunction
 function! airline#extensions#tabline#new_builder()
   let builder_context = {
         \ 'active'        : 1,
+        \ 'tabline'       : 1,
         \ 'right_sep'     : get(g:, 'airline#extensions#tabline#right_sep'    , g:airline_right_sep),
         \ 'right_alt_sep' : get(g:, 'airline#extensions#tabline#right_alt_sep', g:airline_right_alt_sep),
         \ }
