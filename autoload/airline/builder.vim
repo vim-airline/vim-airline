@@ -150,8 +150,10 @@ endfunction
 function! s:section_is_empty(self, content)
   let start=1
 
-  " do not check for inactive windows
+  " do not check for inactive windows or the tabline
   if a:self._context.active == 0
+    return 0
+  elseif get(a:self._context, 'tabline', 0)
     return 0
   endif
 
