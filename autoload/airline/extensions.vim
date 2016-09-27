@@ -216,6 +216,10 @@ function! airline#extensions#load()
     call airline#extensions#whitespace#init(s:ext)
   endif
 
+  if (get(g:, 'airline#extensions#neomake#enabled', 1) && exists(':Neomake'))
+    call airline#extensions#neomake#init(s:ext)
+  endif
+
   if get(g:, 'airline#extensions#po#enabled', 1) && executable('msgfmt')
     call airline#extensions#po#init(s:ext)
   endif

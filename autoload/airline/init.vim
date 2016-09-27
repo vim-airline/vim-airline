@@ -96,7 +96,8 @@ function! airline#init#bootstrap()
         \ 'accent': 'bold'})
   call airline#parts#define_function('ffenc', 'airline#parts#ffenc')
   call airline#parts#define_empty(['hunks', 'branch', 'obsession', 'tagbar', 'syntastic',
-        \ 'eclim', 'whitespace','windowswap', 'ycm_error_count', 'ycm_warning_count'])
+        \ 'eclim', 'whitespace','windowswap', 'ycm_error_count', 'ycm_warning_count',
+        \ 'neomake_error_count', 'neomake_warning_count'])
   call airline#parts#define_text('capslock', '')
 
   unlet g:airline#init#bootstrapping
@@ -140,10 +141,10 @@ function! airline#init#sections()
     endif
   endif
   if !exists('g:airline_section_error')
-    let g:airline_section_error = airline#section#create(['ycm_error_count', 'syntastic', 'eclim'])
+    let g:airline_section_error = airline#section#create(['ycm_error_count', 'syntastic', 'eclim', 'neomake_error_count'])
   endif
   if !exists('g:airline_section_warning')
-    let g:airline_section_warning = airline#section#create(['ycm_warning_count', 'whitespace'])
+    let g:airline_section_warning = airline#section#create(['ycm_warning_count',  'neomake_warning_count', 'whitespace'])
   endif
 endfunction
 
