@@ -6,6 +6,9 @@ scriptencoding utf-8
 let s:has_fugitive = exists('*fugitive#head')
 let s:has_lawrencium = exists('*lawrencium#statusline')
 let s:has_vcscommand = get(g:, 'airline#extensions#branch#use_vcscommand', 0) && exists('*VCSCommandGetStatusLine')
+let s:has_async = v:version >= 800 && has('job')
+let s:git_cmd = 'git status --porcelain -- '
+let s:hg_cmd  = 'hg status -u -- '
 
 if !s:has_fugitive && !s:has_lawrencium && !s:has_vcscommand
   finish
@@ -68,37 +71,35 @@ function! s:get_git_branch(path)
 endfunction
 
 function! s:get_git_untracked(file)
-  let untracked = ''
   if empty(a:file)
-    return untracked
+    return
   endif
-  if has_key(s:untracked_git, a:file)
-    let untracked = s:untracked_git[a:file]
-  else
-    let output    = system('git status --porcelain -- '. shellescape(a:file))
-    if output[0:1] is# '??' && output[3:-2] is? a:file
-      let untracked = get(g:, 'airline#extensions#branch#notexists', g:airline_symbols.notexists)
+  if !has_key(s:untracked_git, a:file)
+    if s:has_async
+      call s:DoAsync(s:git_cmd, a:file)
+    else
+      let output = system(s:git_cmd. shellescape(a:file))
+      if output[0:1] is# '??' && output[3:-2] is? a:file
+        let untracked = get(g:, 'airline#extensions#branch#notexists', g:airline_symbols.notexists)
+      endif
+      let s:untracked_git[a:file] = untracked
     endif
-    let s:untracked_git[a:file] = untracked
   endif
-  return untracked
 endfunction
 
 function! s:get_hg_untracked(file)
-  if s:has_lawrencium
-    " delete cache when unlet b:airline head?
-    let untracked = ''
-    if empty(a:file)
-      return untracked
-    endif
-    if has_key(s:untracked_hg, a:file)
-      let untracked = s:untracked_hg[a:file]
+  if !s:has_lawrencium && empty(a:file)
+    return
+  endif
+  " delete cache when unlet b:airline head?
+  if !has_key(s:untracked_hg, a:file)
+    if s:has_async
+      call s:DoAsync(s:hg_cmd, a:file)
     else
-      let untracked = (system('hg status -u -- '. shellescape(a:file))[0] is# '?'  ?
+      let untracked = (system(s:hg_cmd. shellescape(a:file))[0] is# '?'  ?
             \ get(g:, 'airline#extensions#branch#notexists', g:airline_symbols.notexists) : '')
       let s:untracked_hg[a:file] = untracked
     endif
-    return untracked
   endif
 endfunction
 
@@ -108,6 +109,47 @@ function! s:get_hg_branch()
   endif
   return ''
 endfunction
+
+if s:has_async
+  let s:jobs = {}
+
+  function! s:on_stdout(channel, msg) dict abort
+    let self.buf .= a:msg
+  endfunction
+
+  function! s:on_exit(channel) dict abort
+    let untracked = get(g:, 'airline#extensions#branch#notexists', g:airline_symbols.notexists)
+    if empty(self.buf)
+      let s:untracked_{self.cmd}[self.file] = ''
+    else
+      let s:untracked_{self.cmd}[self.file] = untracked
+    endif
+  endfunction
+
+  function! s:DoAsync(cmd, file)
+    if (has('win32') || has('win64')) && &shell =~ 'cmd'
+      let cmd = a:cmd. shellescape(a:file)
+    else
+      let cmd = ['sh', '-c', a:cmd. shellescape(a:file)]
+    endif
+    let cmdstring = split(a:cmd)[0]
+
+    let options = {'cmd': cmdstring, 'buf': '', 'file': a:file}
+    if has_key(s:jobs, a:file)
+      if job_status(get(s:jobs, a:file)) == 'run'
+        return
+      else
+        call job_stop(get(s:jobs, a:file))
+        call remove(s:jobs, a:file)
+      endif
+    endif
+    let id = job_start(cmd, {
+          \ 'err_io':   'out',
+          \ 'out_cb':   function('s:on_stdout', options),
+          \ 'close_cb': function('s:on_exit', options)})
+    let s:jobs[a:file] = id
+  endfu
+endif
 
 function! airline#extensions#branch#head()
   if exists('b:airline_head') && !empty(b:airline_head)
@@ -126,17 +168,18 @@ function! airline#extensions#branch#head()
   endif
   let l:hg_head = s:get_hg_branch()
 
+  let l:file = expand("%:p")
   if !empty(l:git_head)
     let found_fugitive_head = 1
     let l:heads.git = (!empty(l:hg_head) ? "git:" : '') . s:format_name(l:git_head)
-    let l:git_untracked = s:get_git_untracked(expand("%:p"))
-    let l:heads.git .= l:git_untracked
+    call s:get_git_untracked(l:file)
+    let l:heads.git .= get(s:untracked_git, l:file, '')
   endif
 
   if !empty(l:hg_head)
     let l:heads.mercurial = (!empty(l:git_head) ? "hg:" : '') . s:format_name(l:hg_head)
-    let l:hg_untracked = s:get_hg_untracked(expand("%:p"))
-    let l:heads.mercurial.= l:hg_untracked
+    call s:get_hg_untracked(l:file)
+    let l:heads.mercurial.= get(s:untracked_hg, l:file, '')
   endif
 
   if empty(l:heads)
@@ -205,16 +248,7 @@ function! s:check_in_path()
   return b:airline_file_in_root
 endfunction
 
-function! s:reset_untracked_cache(shellcmdpost)
-  if a:shellcmdpost
-    " function called after executing a shell command,
-    " only clear cache, if there was no error, else the
-    " system() command from get_git_untracked() would
-    " overwrite the v:shell_error status
-    if v:shell_error
-      return
-    endif
-  endif
+function! s:reset_untracked_cache()
   if exists("s:untracked_git")
     let s:untracked_git={}
   endif
@@ -229,6 +263,5 @@ function! airline#extensions#branch#init(ext)
   autocmd BufReadPost * unlet! b:airline_file_in_root
   autocmd CursorHold,ShellCmdPost,CmdwinLeave * unlet! b:airline_head
   autocmd User AirlineBeforeRefresh unlet! b:airline_head
-  autocmd BufWritePost * call s:reset_untracked_cache(0)
-  autocmd ShellCmdPost * call s:reset_untracked_cache(1)
+  autocmd ShellCmdPost,BufWritePost * call s:reset_untracked_cache()
 endfunction
