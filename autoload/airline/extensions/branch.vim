@@ -71,7 +71,7 @@ function! s:get_git_branch(path)
 endfunction
 
 function! s:get_git_untracked(file)
-  if empty(a:file)
+  if empty(a:file) || !executable('git')
     return
   endif
   if !has_key(s:untracked_git, a:file)
@@ -88,7 +88,7 @@ function! s:get_git_untracked(file)
 endfunction
 
 function! s:get_hg_untracked(file)
-  if !s:has_lawrencium && empty(a:file)
+  if !s:has_lawrencium || empty(a:file) || !executable('hg')
     return
   endif
   " delete cache when unlet b:airline head?
