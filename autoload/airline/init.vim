@@ -32,6 +32,9 @@ function! airline#init#bootstrap()
   call s:check_defined('g:airline_exclude_preview', 0)
   call s:check_defined('g:airline_gui_mode', airline#init#gui_mode())
 
+  let g:airline#util#async = v:version >= 800 && has('job')
+  let g:airline#util#is_windows = has('win32') || has('win64')
+
   call s:check_defined('g:airline_mode_map', {})
   call extend(g:airline_mode_map, {
         \ '__' : '------',
@@ -147,4 +150,3 @@ function! airline#init#sections()
     let g:airline_section_warning = airline#section#create(['ycm_warning_count',  'neomake_warning_count', 'whitespace'])
   endif
 endfunction
-

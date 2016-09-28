@@ -6,7 +6,7 @@ scriptencoding utf-8
 let s:has_fugitive = exists('*fugitive#head')
 let s:has_lawrencium = exists('*lawrencium#statusline')
 let s:has_vcscommand = get(g:, 'airline#extensions#branch#use_vcscommand', 0) && exists('*VCSCommandGetStatusLine')
-let s:has_async = v:version >= 800 && has('job')
+let s:has_async = airline#util#async
 let s:git_cmd = 'git status --porcelain -- '
 let s:hg_cmd  = 'hg status -u -- '
 
@@ -121,13 +121,15 @@ if s:has_async
     let untracked = get(g:, 'airline#extensions#branch#notexists', g:airline_symbols.notexists)
     if empty(self.buf)
       let s:untracked_{self.cmd}[self.file] = ''
-    else
+    elseif (self.buf[0:1] is# '??' && self.cmd is# 'git') || (self.buf[0] is# '?' && self.cmd is# 'hg')
       let s:untracked_{self.cmd}[self.file] = untracked
+    else
+      let s:untracked_{self.cmd}[self.file] = ''
     endif
   endfunction
 
   function! s:DoAsync(cmd, file)
-    if (has('win32') || has('win64')) && &shell =~ 'cmd'
+    if g:airline#util#is_windows && &shell =~ 'cmd'
       let cmd = a:cmd. shellescape(a:file)
     else
       let cmd = ['sh', '-c', a:cmd. shellescape(a:file)]
@@ -276,5 +278,4 @@ function! airline#extensions#branch#init(ext)
   autocmd User AirlineBeforeRefresh unlet! b:airline_head
   autocmd BufWritePost * call s:reset_untracked_cache(0)
   autocmd ShellCmdPost * call s:reset_untracked_cache(1)
-
 endfunction

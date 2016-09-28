@@ -77,4 +77,3 @@ else
     return 0
   endfunction
 endif
-
