@@ -92,18 +92,24 @@ function! airline#extensions#whitespace#check()
 
     if trailing != 0 || mixed != 0 || long != 0 || !empty(mixed_file)
       let b:airline_whitespace_check = s:symbol
+      if strlen(s:symbol) > 0
+        let space = (g:airline_symbols.space)
+      else
+        let space = ''
+      endif
+
       if s:show_message
         if trailing != 0
-          let b:airline_whitespace_check .= (g:airline_symbols.space).printf(s:trailing_format, trailing)
+          let b:airline_whitespace_check .= space.printf(s:trailing_format, trailing)
         endif
         if mixed != 0
-          let b:airline_whitespace_check .= (g:airline_symbols.space).printf(s:mixed_indent_format, mixed)
+          let b:airline_whitespace_check .= space.printf(s:mixed_indent_format, mixed)
         endif
         if long != 0
-          let b:airline_whitespace_check .= (g:airline_symbols.space).printf(s:long_format, long)
+          let b:airline_whitespace_check .= space.printf(s:long_format, long)
         endif
         if !empty(mixed_file)
-          let b:airline_whitespace_check .= (g:airline_symbols.space).printf(s:mixed_indent_file_format, mixed_file)
+          let b:airline_whitespace_check .= space.printf(s:mixed_indent_file_format, mixed_file)
         endif
       endif
     endif
