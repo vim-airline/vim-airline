@@ -59,6 +59,8 @@ function! airline#init#bootstrap()
         \ 'wombat': 'wombat',
         \ 'zenburn': 'zenburn',
         \ 'solarized': 'solarized',
+        \ 'flattened': 'solarized',
+        \ '\CNeoSolarized': 'solarized',
         \ }, 'keep')
 
   call s:check_defined('g:airline_symbols', {})
