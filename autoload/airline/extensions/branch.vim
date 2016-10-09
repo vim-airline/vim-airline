@@ -76,7 +76,7 @@ function! s:get_git_untracked(file)
   endif
   if !has_key(s:untracked_git, a:file)
     if s:has_async
-      call s:DoAsync(s:git_cmd, a:file)
+      call s:get_vcs_untracked_async(s:git_cmd, a:file)
     else
       let output = system(s:git_cmd. shellescape(a:file))
       if output[0:1] is# '??' && output[3:-2] is? a:file
@@ -88,13 +88,13 @@ function! s:get_git_untracked(file)
 endfunction
 
 function! s:get_hg_untracked(file)
-  if !s:has_lawrencium || empty(a:file) || !executable('hg')
+  if empty(a:file) || !executable('hg')
     return
   endif
   " delete cache when unlet b:airline head?
   if !has_key(s:untracked_hg, a:file)
     if s:has_async
-      call s:DoAsync(s:hg_cmd, a:file)
+      call s:get_vcs_untracked_async(s:hg_cmd, a:file)
     else
       let untracked = (system(s:hg_cmd. shellescape(a:file))[0] is# '?'  ?
             \ get(g:, 'airline#extensions#branch#notexists', g:airline_symbols.notexists) : '')
@@ -126,9 +126,10 @@ if s:has_async
     else
       let s:untracked_{self.cmd}[self.file] = ''
     endif
+    call remove(s:jobs, self.file)
   endfunction
 
-  function! s:DoAsync(cmd, file)
+  function! s:get_vcs_untracked_async(cmd, file)
     if g:airline#util#is_windows && &shell =~ 'cmd'
       let cmd = a:cmd. shellescape(a:file)
     else
@@ -140,8 +141,7 @@ if s:has_async
     if has_key(s:jobs, a:file)
       if job_status(get(s:jobs, a:file)) == 'run'
         return
-      else
-        call job_stop(get(s:jobs, a:file))
+      elseif has_key(s:jobs, a:file)
         call remove(s:jobs, a:file)
       endif
     endif
@@ -251,12 +251,12 @@ function! s:check_in_path()
 endfunction
 
 function! s:reset_untracked_cache(shellcmdpost)
+  " shellcmdpost - whether function was called as a result of ShellCmdPost hook
   if !s:has_async
     if a:shellcmdpost
-      " function called after executing a shell command,
-      " only clear cache, if there was no error, else the
-      " system() command from get_git_untracked() would
-      " overwrite the v:shell_error status
+      " Clear cache only if there was no error or the script uses an
+      " asynchronous interface. Otherwise, cache clearing would overwrite
+      " v:shell_error with a system() call inside get_*_untracked.
       if v:shell_error
         return
       endif
