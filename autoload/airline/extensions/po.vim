@@ -30,7 +30,7 @@ if s:has_async
     call s:shorten()
   endfunction
 
-  function! s:DoAsyncPO(cmd, file)
+  function! s:get_msgfmt_stat_async(cmd, file)
     if g:airline#util#is_windows || !executable('msgfmt')
       " no msgfmt on windows?
       return
@@ -69,7 +69,7 @@ function! airline#extensions#po#stats()
 
   let cmd = 'msgfmt --statistics -o /dev/null -- '
   if s:has_async
-    call s:DoAsyncPO(cmd, expand('%:p'))
+    call s:get_msgfmt_stat_async(cmd, expand('%:p'))
   else
     let airline_po_stats = system(cmd. shellescape(expand('%:p')))
     if v:shell_error
