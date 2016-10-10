@@ -212,6 +212,10 @@ function! airline#extensions#load()
     call airline#extensions#syntastic#init(s:ext)
   endif
 
+  if (get(g:, 'airline#extensions#ale#enabled', 1) && exists('g:loaded_ale'))
+    call airline#extensions#ale#init(s:ext)
+  endif
+
   if get(g:, 'airline#extensions#whitespace#enabled', 1)
     call airline#extensions#whitespace#init(s:ext)
   endif
