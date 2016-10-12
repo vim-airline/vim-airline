@@ -196,8 +196,6 @@ If you are interested in becoming a maintainer (we always welcome more maintaine
 
 MIT License. Copyright (c) 2013-2016 Bailey Ling.
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/vim-airline/vim-airline/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
 [1]: https://github.com/Lokaltog/vim-powerline
 [2]: https://github.com/Lokaltog/powerline
 [3]: https://github.com/Lokaltog/powerline-fonts
