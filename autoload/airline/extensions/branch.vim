@@ -79,6 +79,7 @@ function! s:get_git_untracked(file)
       call s:get_vcs_untracked_async(s:git_cmd, a:file)
     else
       let output = system(s:git_cmd. shellescape(a:file))
+      let untracked = ''
       if output[0:1] is# '??' && output[3:-2] is? a:file
         let untracked = get(g:, 'airline#extensions#branch#notexists', g:airline_symbols.notexists)
       endif
