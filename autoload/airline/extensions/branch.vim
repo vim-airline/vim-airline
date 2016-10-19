@@ -127,7 +127,9 @@ if s:has_async
     else
       let s:untracked_{self.cmd}[self.file] = ''
     endif
-    call remove(s:jobs, self.file)
+    if has_key(s:jobs, self.file)
+      call remove(s:jobs, self.file)
+    endif
   endfunction
 
   function! s:get_vcs_untracked_async(cmd, file)
