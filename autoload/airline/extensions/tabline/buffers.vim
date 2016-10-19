@@ -207,7 +207,21 @@ function! airline#extensions#tabline#buffers#clickbuf(minwid, clicks, button, mo
         silent execute 'buffer' a:minwid
       elseif a:button is# 'm'
         " middle button - delete buffer
-        silent execute 'bdelete' a:minwid
+        let current_window = bufwinnr("%")
+        let window_number = bufwinnr(a:minwid)
+        let last_window_visited = -1
+        let buffer_in_window = 0
+        while window_number != -1 && window_number != last_window_visited
+          let buffer_in_window = 1
+          silent execute window_number . 'wincmd w'
+          silent execute 'enew'
+          let last_window_visited = window_number
+          let window_number = bufwinnr(a:minwid)
+        endwhile
+        silent execute current_window . 'wincmd w'
+        if window_number != last_window_visited || buffer_in_window == 0
+          silent execute 'bdelete' a:minwid
+        endif
       endif
     endif
 endfunction
