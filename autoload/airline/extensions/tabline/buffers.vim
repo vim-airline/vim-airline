@@ -208,7 +208,41 @@ function! airline#extensions#tabline#buffers#clickbuf(minwid, clicks, button, mo
         silent execute 'buffer' a:minwid
       elseif a:button is# 'm'
         " middle button - delete buffer
-        silent execute 'bdelete' a:minwid
+
+        if get(g:, 'airline#extensions#tabline#middle_click_preserves_windows', 0) == 0
+          " just simply delete the clicked buffer. This will cause windows
+          " associated with the clicked buffer to be closed.
+          silent execute 'bdelete' a:minwid
+        else
+          " find windows displaying the clicked buffer and open an new
+          " buffer in them.
+          let current_window = bufwinnr("%")
+          let window_number = bufwinnr(a:minwid)
+          let last_window_visited = -1
+
+          " Set to 1 if the clicked buffer was open in any windows.
+          let buffer_in_window = 0
+
+          " Find the next window with the clicked buffer open. If bufwinnr()
+          " returns the same window number, this is because we clicked a new
+          " buffer, and then tried editing a new buffer. Vim won't create a
+          " new empty buffer for the same window, so we get the same window
+          " number from bufwinnr(). In this case we just give up and don't
+          " delete the buffer.
+          " This could be made cleaner if we could check if the clicked buffer
+          " is a new buffer, but I don't know if there is a way to do that.
+          while window_number != -1 && window_number != last_window_visited
+            let buffer_in_window = 1
+            silent execute window_number . 'wincmd w'
+            silent execute 'enew'
+            let last_window_visited = window_number
+            let window_number = bufwinnr(a:minwid)
+          endwhile
+          silent execute current_window . 'wincmd w'
+          if window_number != last_window_visited || buffer_in_window == 0
+            silent execute 'bdelete' a:minwid
+          endif
+        endif
       endif
     endif
 endfunction
