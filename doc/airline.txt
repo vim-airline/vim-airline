@@ -145,7 +145,6 @@ values):
  >
   let g:airline_skip_empty_sections = 1
 <
-
 ==============================================================================
 COMMANDS                                                  *airline-commands*
 
@@ -693,6 +692,10 @@ Note: Enabling this extension will modify 'showtabline' and 'guioptions'.
    won't update airline on |:badd| commands) >
   let airline#extensions#tabline#disable_refresh = 0
 
+* preserve windows when closing a buffer from the bufferline (default: 0) >
+
+  let airline#extensions#tabline#middle_click_preserves_windows = 1
+<
 -------------------------------------                     *airline-tmuxline*
 tmuxline <https://github.com/edkolev/tmuxline.vim>
 
