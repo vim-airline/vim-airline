@@ -6,6 +6,7 @@ scriptencoding utf-8
 let s:buffer_idx_mode = get(g:, 'airline#extensions#tabline#buffer_idx_mode', 0)
 let s:show_tab_type = get(g:, 'airline#extensions#tabline#show_tab_type', 1)
 let s:buffers_label = get(g:, 'airline#extensions#tabline#buffers_label', 'buffers')
+let s:middle_click_preserves_windows = get(g:, 'airline#extensions#tabline#middle_click_preserves_windows', 0)
 let s:spc = g:airline_symbols.space
 
 let s:current_bufnr = -1
@@ -208,7 +209,7 @@ function! airline#extensions#tabline#buffers#clickbuf(minwid, clicks, button, mo
       elseif a:button is# 'm'
         " middle button - delete buffer
 
-        if get(g:, 'airline_middle_click_preserve_windows', 0) == 0
+        if s:middle_click_preserves_windows == 0
           " just simply delete the clicked buffer. This will cause windows 
           " associated with the clicked buffer to be closed.
           silent execute 'bdelete' a:minwid

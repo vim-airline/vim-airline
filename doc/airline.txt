@@ -145,9 +145,6 @@ values):
  >
   let g:airline_skip_empty_sections = 1
 <
-* preserve windows when closing a buffer from the bufferline >
-  let g:airline_middle_click_preserve_windows=1
-<
 ==============================================================================
 COMMANDS                                                  *airline-commands*
 
@@ -542,6 +539,12 @@ Note: If you are using neovim (has('tablineat') = 1), then you can click
 on the tabline with the left mouse button to switch to that buffer, and
 with the middle mouse button to delete that buffer.
 
+* enable/disable preserving window layout when closing a buffer with middle
+  click by opening a new buffer in the windows which have the clicked buffer
+  open >
+  
+  let g:airline#extensions#tabline#middle_click_preserves_windows = 0
+<
 * enable/disable displaying tabs, regardless of number. (c)
   let g:airline#extensions#tabline#show_tabs = 1
 <
