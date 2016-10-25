@@ -120,6 +120,7 @@ function! s:sync_active_winnr()
 endfunction
 
 function! airline#extensions#load()
+  let loaded_ext = []
   " non-trivial number of external plugins use eventignore=all, so we need to account for that
   autocmd CursorMoved * call <sid>sync_active_winnr()
 
@@ -135,17 +136,21 @@ function! airline#extensions#load()
   endif
 
   call airline#extensions#quickfix#init(s:ext)
+  call add(loaded_ext, 'quickfix')
 
   if get(g:, 'loaded_unite', 0)
     call airline#extensions#unite#init(s:ext)
+    call add(loaded_ext, 'unite')
   endif
 
   if exists(':NetrwSettings')
     call airline#extensions#netrw#init(s:ext)
+    call add(loaded_ext, 'netrw')
   endif
 
   if get(g:, 'airline#extensions#ycm#enabled', 0)
     call airline#extensions#ycm#init(s:ext)
+    call add(loaded_ext, 'ycm')
   endif
 
   if get(g:, 'loaded_vimfiler', 0)
@@ -154,33 +159,40 @@ function! airline#extensions#load()
 
   if get(g:, 'loaded_ctrlp', 0)
     call airline#extensions#ctrlp#init(s:ext)
+    call add(loaded_ext, 'ctrlp')
   endif
 
   if get(g:, 'CtrlSpaceLoaded', 0)
     call airline#extensions#ctrlspace#init(s:ext)
+    call add(loaded_ext, 'ctrlspace')
   endif
 
   if get(g:, 'command_t_loaded', 0)
     call airline#extensions#commandt#init(s:ext)
+    call add(loaded_ext, 'commandt')
   endif
 
   if exists(':UndotreeToggle')
     call airline#extensions#undotree#init(s:ext)
+    call add(loaded_ext, 'undotree')
   endif
 
   if get(g:, 'airline#extensions#hunks#enabled', 1)
         \ && (exists('g:loaded_signify') || exists('g:loaded_gitgutter') || exists('g:loaded_changes') || exists('g:loaded_quickfixsigns'))
     call airline#extensions#hunks#init(s:ext)
+    call add(loaded_ext, 'hunks')
   endif
 
   if get(g:, 'airline#extensions#tagbar#enabled', 1)
         \ && exists(':TagbarToggle')
     call airline#extensions#tagbar#init(s:ext)
+    call add(loaded_ext, 'tagbar')
   endif
 
   if get(g:, 'airline#extensions#csv#enabled', 1)
         \ && (get(g:, 'loaded_csv', 0) || exists(':Table'))
     call airline#extensions#csv#init(s:ext)
+    call add(loaded_ext, 'csv')
   endif
 
   if exists(':VimShell')
@@ -192,76 +204,94 @@ function! airline#extensions#load()
         \ && (exists('*fugitive#head') || exists('*lawrencium#statusline') ||
         \     (get(g:, 'airline#extensions#branch#use_vcscommand', 0) && exists('*VCSCommandGetStatusLine')))
     call airline#extensions#branch#init(s:ext)
+    call add(loaded_ext, 'branch')
   endif
 
   if get(g:, 'airline#extensions#bufferline#enabled', 1)
         \ && exists('*bufferline#get_status_string')
     call airline#extensions#bufferline#init(s:ext)
+    call add(loaded_ext, 'bufferline')
   endif
 
   if (get(g:, 'airline#extensions#virtualenv#enabled', 1) && (exists(':VirtualEnvList') || isdirectory($VIRTUAL_ENV)))
     call airline#extensions#virtualenv#init(s:ext)
+    call add(loaded_ext, 'virtualenv')
   endif
 
   if (get(g:, 'airline#extensions#eclim#enabled', 1) && exists(':ProjectCreate'))
     call airline#extensions#eclim#init(s:ext)
+    call add(loaded_ext, 'eclim')
   endif
 
   if get(g:, 'airline#extensions#syntastic#enabled', 1)
         \ && exists(':SyntasticCheck')
     call airline#extensions#syntastic#init(s:ext)
+    call add(loaded_ext, 'syntastic')
   endif
 
   if (get(g:, 'airline#extensions#ale#enabled', 1) && exists('g:loaded_ale'))
     call airline#extensions#ale#init(s:ext)
+    call add(loaded_ext, 'ale')
   endif
 
   if get(g:, 'airline#extensions#whitespace#enabled', 1)
     call airline#extensions#whitespace#init(s:ext)
+    call add(loaded_ext, 'whitespace')
   endif
 
   if (get(g:, 'airline#extensions#neomake#enabled', 1) && exists(':Neomake'))
     call airline#extensions#neomake#init(s:ext)
+    call add(loaded_ext, 'neomake')
   endif
 
   if get(g:, 'airline#extensions#po#enabled', 1) && executable('msgfmt')
     call airline#extensions#po#init(s:ext)
+    call add(loaded_ext, 'po')
   endif
 
   if get(g:, 'airline#extensions#wordcount#enabled', 1)
     call airline#extensions#wordcount#init(s:ext)
+    call add(loaded_ext, 'wordcount')
   endif
 
   if get(g:, 'airline#extensions#tabline#enabled', 0)
     call airline#extensions#tabline#init(s:ext)
+    call add(loaded_ext, 'tabline')
   endif
 
   if get(g:, 'airline#extensions#tmuxline#enabled', 1) && exists(':Tmuxline')
     call airline#extensions#tmuxline#init(s:ext)
+    call add(loaded_ext, 'tmuxline')
   endif
 
   if get(g:, 'airline#extensions#promptline#enabled', 1) && exists(':PromptlineSnapshot') && len(get(g:, 'airline#extensions#promptline#snapshot_file', ''))
     call airline#extensions#promptline#init(s:ext)
+    call add(loaded_ext, 'promptline')
   endif
 
   if get(g:, 'airline#extensions#nrrwrgn#enabled', 1) && exists(':NR') == 2
       call airline#extensions#nrrwrgn#init(s:ext)
+    call add(loaded_ext, 'nrrwrgn')
   endif
 
   if get(g:, 'airline#extensions#unicode#enabled', 1) && exists(':UnicodeTable') == 2
       call airline#extensions#unicode#init(s:ext)
+    call add(loaded_ext, 'nrrwrgn')
   endif
 
   if (get(g:, 'airline#extensions#capslock#enabled', 1) && exists('*CapsLockStatusline'))
     call airline#extensions#capslock#init(s:ext)
+    call add(loaded_ext, 'capslock')
   endif
 
   if (get(g:, 'airline#extensions#windowswap#enabled', 1) && get(g:, 'loaded_windowswap', 0))
     call airline#extensions#windowswap#init(s:ext)
+    call add(loaded_ext, 'windowswap')
   endif
 
   if (get(g:, 'airline#extensions#obsession#enabled', 1) && exists('*ObsessionStatus'))
     call airline#extensions#obsession#init(s:ext)
+    call add(loaded_ext, 'obsession')
   endif
 
   if !get(g:, 'airline#extensions#disable_rtp_load', 0)
@@ -273,7 +303,8 @@ function! airline#extensions#load()
       if stridx(tolower(resolve(fnamemodify(file, ':p'))), s:script_path) < 0
             \ && stridx(tolower(fnamemodify(file, ':p')), s:script_path) < 0
         let name = fnamemodify(file, ':t:r')
-        if !get(g:, 'airline#extensions#'.name.'#enabled', 1)
+        if !get(g:, 'airline#extensions#'.name.'#enabled', 1) ||
+            \ index(loaded_ext, name) > -1
           continue
         endif
         try
