@@ -80,7 +80,7 @@ function! s:get_git_untracked(file)
     else
       let output = system(s:git_cmd. shellescape(a:file))
       let untracked = ''
-      if output[0:1] is# '??' && output[3:-2] is? a:file
+      if output[0:1] is# '??'
         let untracked = get(g:, 'airline#extensions#branch#notexists', g:airline_symbols.notexists)
       endif
       let s:untracked_git[a:file] = untracked
@@ -174,17 +174,23 @@ function! airline#extensions#branch#head()
   let l:hg_head = s:get_hg_branch()
 
   let l:file = expand("%:p")
+  " Do not get untracked flag if we are modifying a directory.
+  let l:is_file_and_not_dir = !isdirectory(l:file)
   if !empty(l:git_head)
     let found_fugitive_head = 1
     let l:heads.git = (!empty(l:hg_head) ? "git:" : '') . s:format_name(l:git_head)
-    call s:get_git_untracked(l:file)
-    let l:heads.git .= get(s:untracked_git, l:file, '')
+    if l:is_file_and_not_dir
+      call s:get_git_untracked(l:file)
+      let l:heads.git .= get(s:untracked_git, l:file, '')
+    endif
   endif
 
   if !empty(l:hg_head)
     let l:heads.mercurial = (!empty(l:git_head) ? "hg:" : '') . s:format_name(l:hg_head)
-    call s:get_hg_untracked(l:file)
-    let l:heads.mercurial.= get(s:untracked_hg, l:file, '')
+    if l:is_file_and_not_dir
+      call s:get_hg_untracked(l:file)
+      let l:heads.mercurial.= get(s:untracked_hg, l:file, '')
+    endif
   endif
 
   if empty(l:heads)
