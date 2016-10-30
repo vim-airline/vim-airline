@@ -185,7 +185,7 @@ function! s:update_untracked()
       " doesn't happen often in practice, so we let it be.
       call s:get_vcs_untracked_async(l:config, l:file)
     else
-      let output = system(l:config.cmd . shellescape(l:file))
+      let output = airline#util#system(l:config.cmd . shellescape(l:file))
       if output =~? ('^' . l:config.untracked_mark)
         let l:config.untracked[l:file] = get(g:, 'airline#extensions#branch#notexists', g:airline_symbols.notexists)
       else
@@ -365,7 +365,7 @@ endfunction
 
 function! s:reset_untracked_cache(shellcmdpost)
   " shellcmdpost - whether function was called as a result of ShellCmdPost hook
-  if !s:has_async
+  if !s:has_async && !has('nvim')
     if a:shellcmdpost
       " Clear cache only if there was no error or the script uses an
       " asynchronous interface. Otherwise, cache clearing would overwrite
