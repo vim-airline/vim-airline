@@ -107,7 +107,7 @@ endfunction
 function! s:get_hg_branch()
   if s:has_lawrencium
     let stl=lawrencium#statusline()
-    if !empty(stl) && has('job')
+    if !empty(stl) && s:has_async
       call s:get_mq_async('hg qtop', expand('%:p'))
     endif
     if exists("s:mq") && !empty(s:mq)
