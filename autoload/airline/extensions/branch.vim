@@ -3,13 +3,14 @@
 
 scriptencoding utf-8
 
+let s:has_fugitive = exists('*fugitive#head')
+let s:has_lawrencium = exists('*lawrencium#statusline')
+let s:has_vcscommand = get(g:, 'airline#extensions#branch#use_vcscommand', 0) && exists('*VCSCommandGetStatusLine')
+
 if !s:has_fugitive && !s:has_lawrencium && !s:has_vcscommand
   finish
 endif
 
-let s:has_fugitive = exists('*fugitive#head')
-let s:has_lawrencium = exists('*lawrencium#statusline')
-let s:has_vcscommand = get(g:, 'airline#extensions#branch#use_vcscommand', 0) && exists('*VCSCommandGetStatusLine')
 let s:has_async = airline#util#async
 let s:git_dirs = {}
 
