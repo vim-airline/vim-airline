@@ -323,9 +323,16 @@ vim-bufferline <https://github.com/bling/vim-bufferline>
   let g:airline#extensions#bufferline#overwrite_variables = 1
 <
 -------------------------------------                       *airline-branch*
+
+vim-airline will display the branch-indicator together with the branch name in
+the statusline, if one of the following plugins is installed:
+
 fugitive.vim <https://github.com/tpope/vim-fugitive>
 lawrencium   <https://bitbucket.org/ludovicchabant/vim-lawrencium>
 vcscommand   <http://www.vim.org/scripts/script.php?script_id=90>
+
+If a file is edited, that is not yet in the repository, the
+notexists symbol will be displayed after the branch name.
 
 * enable/disable fugitive/lawrencium integration >
   let g:airline#extensions#branch#enabled = 1
