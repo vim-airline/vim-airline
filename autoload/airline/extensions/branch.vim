@@ -148,7 +148,6 @@ if s:has_async
     else
       let cmd = ['sh', '-c', a:config['cmd'] . shellescape(a:file)]
     endif
-    let cmdstring = split(a:cmd)[0]
 
     let options = {'config': a:config, 'buf': '', 'file': a:file}
     if has_key(s:jobs, a:file)
@@ -211,7 +210,6 @@ function! airline#extensions#branch#head()
 
   let b:airline_head = ''
   let l:vcs_priority = get(g:, "airline#extensions#branch#vcs_priority", ["git", "mercurial"])
-  let found_fugitive_head = 0
   let l:heads = {}
 
   for vcs in l:vcs_priority
@@ -229,15 +227,12 @@ function! airline#extensions#branch#head()
     if !empty(b:airline_head)
       let b:airline_head .= ' | '
     endif
-  endfor
-
-  if !empty(l:hg_head)
-    let l:heads.mercurial = (!empty(l:git_head) ? "hg:" : '') . s:format_name(l:hg_head)
+    let b:airline_head .= (len(l:heads) > 1 ? s:vcs_config[l:vcs].exe : '') . s:format_name(l:heads[l:vcs])
     if l:is_file_and_not_dir
-      call s:get_hg_untracked(l:file)
-      let l:heads.mercurial.= get(s:untracked_hg, l:file, '')
+      call s:get_untracked(l:file, s:vcs_config[l:vcs])
+      let b:airline_head .= get(s:vcs_config[l:vcs]['untracked'], l:file, '')
     endif
-  endif
+  endfor
 
   if empty(l:heads)
     if s:has_vcscommand
