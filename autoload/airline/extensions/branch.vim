@@ -7,16 +7,12 @@ let s:has_fugitive = exists('*fugitive#head')
 let s:has_lawrencium = exists('*lawrencium#statusline')
 let s:has_vcscommand = get(g:, 'airline#extensions#branch#use_vcscommand', 0) && exists('*VCSCommandGetStatusLine')
 let s:has_async = airline#util#async
-let s:git_cmd = 'git status --porcelain -- '
-let s:hg_cmd  = 'hg status -u -- '
 
 if !s:has_fugitive && !s:has_lawrencium && !s:has_vcscommand
   finish
 endif
 
 let s:git_dirs = {}
-let s:untracked_git = {}
-let s:untracked_hg = {}
 
 let s:head_format = get(g:, 'airline#extensions#branch#format', 0)
 if s:head_format == 1
@@ -70,41 +66,7 @@ function! s:get_git_branch(path)
   return name
 endfunction
 
-function! s:get_git_untracked(file)
-  if empty(a:file) || !executable('git')
-    return
-  endif
-  if !has_key(s:untracked_git, a:file)
-    if s:has_async
-      call s:get_vcs_untracked_async(s:git_cmd, a:file)
-    else
-      let output = system(s:git_cmd. shellescape(a:file))
-      let untracked = ''
-      if output[0:1] is# '??'
-        let untracked = get(g:, 'airline#extensions#branch#notexists', g:airline_symbols.notexists)
-      endif
-      let s:untracked_git[a:file] = untracked
-    endif
-  endif
-endfunction
-
-function! s:get_hg_untracked(file)
-  if empty(a:file) || !executable('hg')
-    return
-  endif
-  " delete cache when unlet b:airline head?
-  if !has_key(s:untracked_hg, a:file)
-    if s:has_async
-      call s:get_vcs_untracked_async(s:hg_cmd, a:file)
-    else
-      let untracked = (system(s:hg_cmd. shellescape(a:file))[0] is# '?'  ?
-            \ get(g:, 'airline#extensions#branch#notexists', g:airline_symbols.notexists) : '')
-      let s:untracked_hg[a:file] = untracked
-    endif
-  endif
-endfunction
-
-function! s:get_hg_branch()
+function! s:get_hg_branch(path)
   if s:has_lawrencium
     let stl=lawrencium#statusline()
     if !empty(stl) && s:has_async
@@ -122,6 +84,45 @@ function! s:get_hg_branch()
   return ''
 endfunction
 
+" 'untracked' - dictionary with files as keys. A file has a not exists symbol
+"               set as its value if it is untracked.
+let s:vcs_config = {
+\  'git': {
+\    'exe': 'git',
+\    'cmd': 'git status --porcelain -- ',
+\    'untracked_mark': '??',
+\    'get_branch': 's:get_git_branch',
+\    'untracked': {},
+\  },
+\  'mercurial': {
+\    'exe': 'hg',
+\    'cmd': 'hg status -u -- ',
+\    'untracked_mark': '?',
+\    'get_branch': 's:get_hg_branch',
+\    'untracked': {},
+\  },
+\}
+
+function! s:get_untracked(file, config)
+  " Assigns the notexists symbol to 'file's entry in the untracked cache if
+  " 'file' is indeed untracked by current VCS.
+  " 'config' is this script's configuration of the VCS.
+  if empty(a:file) || !executable(a:config['exe'])
+    return
+  endif
+
+  if s:has_async
+    call s:get_vcs_untracked_async(a:config, a:file)
+  else
+    let output = system(a:config['cmd'] . shellescape(a:file))
+    if output =~? ('^' . a:config['untracked_mark'])
+      let a:config['untracked'][a:file] = get(g:, 'airline#extensions#branch#notexists', g:airline_symbols.notexists)
+    else
+      let a:config['untracked'][a:file] = ''
+    endif
+  endif
+endfunction
+
 if s:has_async
   let s:jobs = {}
 
@@ -130,28 +131,24 @@ if s:has_async
   endfunction
 
   function! s:on_exit(channel) dict abort
-    let untracked = get(g:, 'airline#extensions#branch#notexists', g:airline_symbols.notexists)
-    if empty(self.buf)
-      let s:untracked_{self.cmd}[self.file] = ''
-    elseif (self.buf[0:1] is# '??' && self.cmd is# 'git') || (self.buf[0] is# '?' && self.cmd is# 'hg')
-      let s:untracked_{self.cmd}[self.file] = untracked
+    if self.buf =~? ('^' . self.config['untracked_mark'])
+      let self.config['untracked'][self.file] = get(g:, 'airline#extensions#branch#notexists', g:airline_symbols.notexists)
     else
-      let s:untracked_{self.cmd}[self.file] = ''
+      let self.config['untracked'][self.file] = ''
     endif
     if has_key(s:jobs, self.file)
       call remove(s:jobs, self.file)
     endif
   endfunction
 
-  function! s:get_vcs_untracked_async(cmd, file)
+  function! s:get_vcs_untracked_async(config, file)
     if g:airline#util#is_windows && &shell =~ 'cmd'
-      let cmd = a:cmd. shellescape(a:file)
+      let cmd = a:config['cmd'] . shellescape(a:file)
     else
-      let cmd = ['sh', '-c', a:cmd. shellescape(a:file)]
+      let cmd = ['sh', '-c', a:config['cmd'] . shellescape(a:file)]
     endif
-    let cmdstring = split(a:cmd)[0]
 
-    let options = {'cmd': cmdstring, 'buf': '', 'file': a:file}
+    let options = {'config': a:config, 'buf': '', 'file': a:file}
     if has_key(s:jobs, a:file)
       if job_status(get(s:jobs, a:file)) == 'run'
         return
@@ -211,36 +208,30 @@ function! airline#extensions#branch#head()
   endif
 
   let b:airline_head = ''
-  let l:heads = {}
   let l:vcs_priority = get(g:, "airline#extensions#branch#vcs_priority", ["git", "mercurial"])
-  let found_fugitive_head = 0
+  let l:heads = {}
 
-  if exists("*fnamemodify")
-    let l:git_head = s:get_git_branch(fnamemodify(resolve(@%), ":p:h"))
-  else
-    let l:git_head = s:get_git_branch(expand("%:p:h"))
-  endif
-  let l:hg_head = s:get_hg_branch()
+  for vcs in l:vcs_priority
+    let l:path = exists("*fnamemodify") ? fnamemodify(resolve(@%), ":p:h") : expand("%:p:h")
+    let l:head = {s:vcs_config[vcs].get_branch}(l:path)
+    if !empty(l:head)
+      let l:heads[vcs] = l:head
+    endif
+  endfor
 
   let l:file = expand("%:p")
   " Do not get untracked flag if we are modifying a directory.
   let l:is_file_and_not_dir = !isdirectory(l:file)
-  if !empty(l:git_head)
-    let found_fugitive_head = 1
-    let l:heads.git = (!empty(l:hg_head) ? "git:" : '') . s:format_name(l:git_head)
-    if l:is_file_and_not_dir
-      call s:get_git_untracked(l:file)
-      let l:heads.git .= get(s:untracked_git, l:file, '')
+  for vcs in keys(l:heads)
+    if !empty(b:airline_head)
+      let b:airline_head .= ' | '
     endif
-  endif
-
-  if !empty(l:hg_head)
-    let l:heads.mercurial = (!empty(l:git_head) ? "hg:" : '') . s:format_name(l:hg_head)
+    let b:airline_head .= (len(l:heads) > 1 ? s:vcs_config[l:vcs].exe : '') . s:format_name(l:heads[l:vcs])
     if l:is_file_and_not_dir
-      call s:get_hg_untracked(l:file)
-      let l:heads.mercurial.= get(s:untracked_hg, l:file, '')
+      call s:get_untracked(l:file, s:vcs_config[l:vcs])
+      let b:airline_head .= get(s:vcs_config[l:vcs]['untracked'], l:file, '')
     endif
-  endif
+  endfor
 
   if empty(l:heads)
     if s:has_vcscommand
@@ -249,16 +240,6 @@ function! airline#extensions#branch#head()
         let b:airline_head = s:format_name(get(b:VCSCommandBufferInfo, 0, ''))
       endif
     endif
-  else
-    let b:airline_head = get(b:, 'airline_head', '')
-    for vcs in l:vcs_priority
-      if has_key(l:heads, vcs)
-        if !empty(b:airline_head)
-          let b:airline_head = b:airline_head . " | "
-        endif
-        let b:airline_head = b:airline_head . l:heads[vcs]
-      endif
-    endfor
   endif
 
   if exists("g:airline#extensions#branch#displayed_head_limit")
@@ -268,7 +249,7 @@ function! airline#extensions#branch#head()
     endif
   endif
 
-  if empty(b:airline_head) || !found_fugitive_head && !s:check_in_path()
+  if has_key(l:heads, 'git') && !s:check_in_path()
     let b:airline_head = ''
   endif
   let minwidth = empty(get(b:, 'airline_hunks', '')) ? 14 : 7
@@ -320,12 +301,9 @@ function! s:reset_untracked_cache(shellcmdpost)
       endif
     endif
   endif
-  if exists("s:untracked_git")
-    let s:untracked_git={}
-  endif
-  if exists("s:untracked_hg")
-    let s:untracked_hg={}
-  endif
+  for vcs in ["git", "mercurial"]
+    let s:vcs_config[vcs]['untracked'] = {}
+  endfor
 endfunction
 
 function! airline#extensions#branch#init(ext)
