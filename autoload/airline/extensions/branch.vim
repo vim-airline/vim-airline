@@ -131,7 +131,7 @@ function! s:update_hg_branch(path)
       endif
       let stl.=' ['.s:mq.']'
     endif
-    s:vcs_config['mercurial'].branch = stl
+    let s:vcs_config['mercurial'].branch = stl
   else
     let s:vcs_config['mercurial'].branch = ''
   endif
