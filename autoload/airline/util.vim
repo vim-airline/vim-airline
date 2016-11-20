@@ -97,10 +97,7 @@ if has('nvim')
     if l:id < 1
       return system(a:cmd)
     endif
-    let l:ret_code = jobwait([l:id])
-    if l:ret_code != [0]
-      return system(a:cmd)
-    endif
+    call jobwait([l:id])
     return l:config.buf
   endfunction
 else
