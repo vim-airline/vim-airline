@@ -351,7 +351,13 @@ function! s:check_in_path()
         let root = expand(fnamemodify(root, ':h'))
       else
         " else it's the newer format, and we need to guesstimate
-        let pattern = '\.git\(\\\|\/\)modules\(\\\|\/\)'
+        " 1) check for worktrees
+        if match(root, 'worktrees') > -1
+          " worktree can be anywhere, so simply assume true here
+          return 1
+        endif
+        " 2) check for submodules
+        let pattern = '\.git[\\/]\(modules\)[\\/]'
         if match(root, pattern) >= 0
           let root = substitute(root, pattern, '', '')
         endif
