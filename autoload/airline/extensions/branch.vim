@@ -341,7 +341,7 @@ function! airline#extensions#branch#get_head()
 endfunction
 
 function! s:check_in_path()
-  if !exists('b:airline_branch_path')
+  if !exists('b:airline_file_in_root')
     let root = get(b:, 'git_dir', get(b:, 'mercurial_dir', ''))
     let bufferpath = resolve(fnamemodify(expand('%'), ':p'))
 
