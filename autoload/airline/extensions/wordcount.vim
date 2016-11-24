@@ -3,7 +3,7 @@
 
 scriptencoding utf-8
 
-let s:filetypes = get(g:, 'airline#extensions#wordcount#filetypes', '\vhelp|markdown|rst|org|text|asciidoc')
+let s:filetypes = get(g:, 'airline#extensions#wordcount#filetypes', '\vhelp|markdown|rst|org|text|asciidoc|tex|mail')
 let s:format = get(g:, 'airline#extensions#wordcount#format', '%d words')
 let s:formatter = get(g:, 'airline#extensions#wordcount#formatter', 'default')
 
