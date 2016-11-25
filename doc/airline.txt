@@ -566,8 +566,8 @@ with the middle mouse button to delete that buffer.
 
 * enable/disable displaying tab type (far right) >
   let g:airline#extensions#tabline#show_tab_type = 1
-  
-  Note: The tab-type will only be displayed in tab-mode, 
+
+  Note: The tab-type will only be displayed in tab-mode,
   if there are no splits shown. (See: g:airline#extensions#tabline#show_splits)
 
 * rename label for buffers (default: 'buffers') (c)
@@ -601,6 +601,21 @@ with the middle mouse button to delete that buffer.
   current tab, but switch to the buffer visible in that tab.
   Use |gt| for switching tabs.
   In tabmode, those mappings will switch to the specified tab.
+
+* change the display format of the buffer index >
+  let g:airline#extensions#tabline#buffer_idx_format = {
+        \ '0': '0 ',
+        \ '1': '1 ',
+        \ '2': '2 ',
+        \ '3': '3 ',
+        \ '4': '4 ',
+        \ '5': '5 ',
+        \ '6': '6 ',
+        \ '7': '7 ',
+        \ '8': '8 ',
+        \ '9': '9 '
+        \}
+<
 
 * defines the name of a formatter for how buffer names are displayed. (c)
   let g:airline#extensions#tabline#formatter = 'default'
