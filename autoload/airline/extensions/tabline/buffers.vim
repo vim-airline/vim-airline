@@ -13,8 +13,7 @@ let s:current_modified = 0
 let s:current_tabline = ''
 let s:current_visible_buffers = []
 
-let s:number_map = &encoding == 'utf-8'
-      \ ? {
+let s:number_map = {
       \ '0': '⁰',
       \ '1': '¹',
       \ '2': '²',
@@ -26,6 +25,8 @@ let s:number_map = &encoding == 'utf-8'
       \ '8': '⁸',
       \ '9': '⁹'
       \ }
+let s:number_map = &encoding == 'utf-8'
+      \ ? get(g:, 'airline#extensions#tabline#buffer_idx_format', s:number_map)
       \ : {}
 
 function! airline#extensions#tabline#buffers#off()
