@@ -108,6 +108,7 @@ function! airline#highlighter#load_theme()
   for winnr in filter(range(1, winnr('$')), 'v:val != winnr()')
     call airline#highlighter#highlight_modified_inactive(winbufnr(winnr))
   endfor
+  call airline#highlighter#highlight(['inactive'])
   if getbufvar( bufnr('%'), '&modified'  )
     call airline#highlighter#highlight(['normal', 'modified'])
   else
