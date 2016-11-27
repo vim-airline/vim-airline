@@ -11,10 +11,6 @@ function! airline#extensions#tabline#buflist#invalidate()
 endfunction
 
 function! airline#extensions#tabline#buflist#list()
-  if exists('s:current_buffer_list')
-    return s:current_buffer_list
-  endif
-
   let list = (exists('g:did_bufmru') && g:did_bufmru) ? BufMRUList() : range(1, bufnr("$"))
 
   let buffers = []

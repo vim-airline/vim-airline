@@ -150,7 +150,10 @@ function! airline#extensions#tabline#title(n)
 endfunction
 
 function! airline#extensions#tabline#get_buffer_name(nr, ...)
-  let buffers = a:0 ? a:1 : airline#extensions#tabline#buflist#list()
+  let buffers = a:0 ? a:1
+        \ : exists('s:current_buffer_list')
+        \ ? s:current_buffer_list
+        \ : airline#extensions#tabline#buflist#list()
   return airline#extensions#tabline#formatters#{s:formatter}#format(a:nr, buffers)
 endfunction
 
