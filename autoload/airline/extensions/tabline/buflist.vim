@@ -3,9 +3,6 @@
 
 scriptencoding utf-8
 
-let s:excludes = get(g:, 'airline#extensions#tabline#excludes', [])
-let s:exclude_preview = get(g:, 'airline#extensions#tabline#exclude_preview', 1)
-
 function! airline#extensions#tabline#buflist#invalidate()
   unlet! s:current_buffer_list
 endfunction
@@ -14,6 +11,9 @@ function! airline#extensions#tabline#buflist#list()
   if exists('s:current_buffer_list')
     return s:current_buffer_list
   endif
+
+  let excludes = get(g:, 'airline#extensions#tabline#excludes', [])
+  let exclude_preview = get(g:, 'airline#extensions#tabline#exclude_preview', 1)
 
   let list = (exists('g:did_bufmru') && g:did_bufmru) ? BufMRUList() : range(1, bufnr("$"))
 
@@ -28,9 +28,9 @@ function! airline#extensions#tabline#buflist#list()
       " 2) buffer is a quickfix buffer
       " 3) exclude preview windows (if 'bufhidden' == wipe
       "    and 'buftype' == nofile
-      if (!empty(s:excludes) && match(bufname(nr), join(s:excludes, '\|')) > -1) ||
+      if (!empty(excludes) && match(bufname(nr), join(excludes, '\|')) > -1) ||
             \ (getbufvar(nr, 'current_syntax') == 'qf') ||
-            \  (s:exclude_preview && getbufvar(nr, '&bufhidden') == 'wipe'
+            \  (exclude_preview && getbufvar(nr, '&bufhidden') == 'wipe'
             \  && getbufvar(nr, '&buftype') == 'nofile')
         continue
       endif
