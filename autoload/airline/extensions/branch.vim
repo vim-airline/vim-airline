@@ -341,7 +341,7 @@ function! airline#extensions#branch#get_head()
 endfunction
 
 function! s:check_in_path()
-  if !exists('b:airline_branch_path')
+  if !exists('b:airline_file_in_root')
     let root = get(b:, 'git_dir', get(b:, 'mercurial_dir', ''))
     let bufferpath = resolve(fnamemodify(expand('%'), ':p'))
 
@@ -351,7 +351,13 @@ function! s:check_in_path()
         let root = expand(fnamemodify(root, ':h'))
       else
         " else it's the newer format, and we need to guesstimate
-        let pattern = '\.git\(\\\|\/\)modules\(\\\|\/\)'
+        " 1) check for worktrees
+        if match(root, 'worktrees') > -1
+          " worktree can be anywhere, so simply assume true here
+          return 1
+        endif
+        " 2) check for submodules
+        let pattern = '\.git[\\/]\(modules\)[\\/]'
         if match(root, pattern) >= 0
           let root = substitute(root, pattern, '', '')
         endif
