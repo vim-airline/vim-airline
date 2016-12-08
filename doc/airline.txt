@@ -145,6 +145,9 @@ values):
  >
   let g:airline_skip_empty_sections = 1
 <
+* define whether the nerdtree statusline shows in its original way. >
+  let g:airline_nerd_origin_stat = 1
+<
 
 ==============================================================================
 COMMANDS                                                  *airline-commands*
