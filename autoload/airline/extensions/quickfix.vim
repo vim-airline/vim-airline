@@ -27,6 +27,14 @@ function! airline#extensions#quickfix#inactive_qf_window(...)
 endfunction
 
 function! s:get_text()
+  if exists("*win_getid") && exists("*getwininfo")
+    let dict = getwininfo(win_getid())
+    if len(dict) > 0 && dict[0].quickfix && !dict[0].loclist
+      return g:airline#extensions#quickfix#quickfix_text
+    elseif len(dict) > 0 && dict[0].quickfix && dict[0].loclist
+      return g:airline#extensions#quickfix#location_text
+    endif
+  endif
   redir => buffers
   silent ls
   redir END
@@ -43,4 +51,3 @@ function! s:get_text()
   endfor
   return ''
 endfunction
-
