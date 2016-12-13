@@ -42,20 +42,21 @@ function! s:build_sections(builder, context, keys)
 endfunction
 
 " There still is a highlighting bug when using groups %(%) in the statusline,
-" deactivate it, until this is properly fixed:
-" https://groups.google.com/d/msg/vim_dev/sb1jmVirXPU/mPhvDnZ-CwAJ
+" deactivate it, unless it is fixed (7.4.1511)
 if s:section_use_groups && (v:version >= 704 || (v:version >= 703 && has('patch81')))
   function! s:add_section(builder, context, key)
+    let condition = '(a:key is# "warning" || a:key is# "error")'.
+          \ '&& (v:version == 704 && !has("patch1511"))'
     " i have no idea why the warning section needs special treatment, but it's
     " needed to prevent separators from showing up
     if ((a:key == 'error' || a:key == 'warning') && empty(s:get_section(a:context.winnr, a:key)))
       return
     endif
-    if (a:key == 'warning' || a:key == 'error')
+    if condition
       call a:builder.add_raw('%(')
     endif
     call a:builder.add_section('airline_'.a:key, s:get_section(a:context.winnr, a:key))
-    if (a:key == 'warning' || a:key == 'error')
+    if condition
       call a:builder.add_raw('%)')
     endif
   endfunction
