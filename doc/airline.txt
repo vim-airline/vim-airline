@@ -466,6 +466,9 @@ eclim <https://eclim.org>
         \ wordcount()['words'] > 100 ? 'okay' : 'not enough')
   endfunction
   let g:airline#extensions#wordline#formatter = 'foo'
+
+* defines how to display the wordcount statistics: >
+  let g:airline#extensions#wordcount#format = '%d words'
 <
 -------------------------------------                   *airline-whitespace*
 * enable/disable detection of whitespace errors. >
