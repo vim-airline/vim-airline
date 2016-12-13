@@ -88,5 +88,12 @@ function! airline#parts#filetype()
 endfunction
 
 function! airline#parts#ffenc()
-  return printf('%s%s%s', &fenc, &l:bomb ? '[BOM]' : '', strlen(&ff) > 0 ? '['.&ff.']' : '')
+  let expected = get(g:, 'airline#parts#ffenc#skip_expected_string', '')
+  let bomb     = &l:bomb ? '[BOM]' : ''
+  let ff       = strlen(&ff) ? '['.&ff.']' : ''
+  if expected is# &fenc.bomb.ff
+    return ''
+  else
+    return &fenc.bomb.ff
+  endif
 endfunction
