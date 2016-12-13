@@ -300,6 +300,12 @@ configuration values that you can use.
   Try setting this to zero, if you notice bleeding color artifacts >
   let airline#extensions#default#section_use_groupitems = 1
 <
+* configure the fileformat output
+  By default, it will display something like 'utf-8[unix]', however, you can
+  skip displaying it, if the output matches a configured string. To do so,
+  set >
+  let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+<
 -------------------------------------                     *airline-quickfix*
 The quickfix extension is a simple built-in extension which determines
 whether the buffer is a quickfix or location list buffer, and adjusts the
