@@ -111,11 +111,8 @@ function! airline#update_statusline()
     call s:invoke_funcrefs(context, s:inactive_funcrefs)
   endfor
 
-  unlet! w:airline_render_left
-  unlet! w:airline_render_right
-  for section in s:sections
-    unlet! w:airline_section_{section}
-  endfor
+  unlet! w:airline_render_left w:airline_render_right
+  exe 'unlet! ' 'w:airline_section_'. join(s:sections, ' w:airline_section_')
 
   let w:airline_active = 1
   let context = { 'winnr': winnr(), 'active': 1, 'bufnr': winbufnr(winnr()) }
@@ -196,4 +193,3 @@ function! airline#check_mode(winnr)
 
   return ''
 endfunction
-
