@@ -45,8 +45,8 @@ endfunction
 " deactivate it, unless it is fixed (7.4.1511)
 if s:section_use_groups && (v:version >= 704 || (v:version >= 703 && has('patch81')))
   function! s:add_section(builder, context, key)
-    let condition = '(a:key is# "warning" || a:key is# "error")'.
-          \ '&& (v:version == 704 && !has("patch1511"))'
+    let condition = (a:key is# "warning" || a:key is# "error") &&
+          \ (v:version == 704 && !has("patch1511"))
     " i have no idea why the warning section needs special treatment, but it's
     " needed to prevent separators from showing up
     if ((a:key == 'error' || a:key == 'warning') && empty(s:get_section(a:context.winnr, a:key)))
