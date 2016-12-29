@@ -27,7 +27,9 @@ if s:has_async
     else
       let b:airline_po_stats = ''
     endif
-    call remove(s:jobs, self.file)
+    if has_key(s:jobs, self.file)
+      call remove(s:jobs, self.file)
+    endif
     call s:shorten()
   endfunction
 
