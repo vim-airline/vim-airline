@@ -256,7 +256,7 @@ if s:has_async
 
   function! s:get_mq_async(cmd, file)
     if g:airline#util#is_windows && &shell =~ 'cmd'
-      let cmd = a:cmd. shellescape(a:file)
+      let cmd = a:cmd
     else
       let cmd = ['sh', '-c', a:cmd]
     endif
