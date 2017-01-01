@@ -244,6 +244,11 @@ function! airline#extensions#load()
     call add(loaded_ext, 'neomake')
   endif
 
+  if (get(g:, 'airline#extensions#neoterm#enabled', 1) && exists(':Tnew'))
+    call airline#extensions#neoterm#init(s:ext)
+    call add(loaded_ext, 'neoterm')
+  endif
+
   if get(g:, 'airline#extensions#po#enabled', 1) && executable('msgfmt')
     call airline#extensions#po#init(s:ext)
     call add(loaded_ext, 'po')

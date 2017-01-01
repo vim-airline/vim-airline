@@ -65,6 +65,7 @@ describe 'init sections'
     Expect airline#parts#get('syntastic').raw == ''
     Expect airline#parts#get('eclim').raw == ''
     Expect airline#parts#get('whitespace').raw == ''
+    Expect airline#parts#get('neoterm_test_status').raw == ''
   end
 end
 

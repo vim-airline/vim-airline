@@ -812,6 +812,16 @@ po.vim <http://www.vim.org/scripts/script.php?script_id=2530>
 <
 * truncate width names to a fixed length >
   let g:airline#extensions#po#displayed_limit = 0
+
+-------------------------------------                  *airline-neoterm-test-status*
+neoterm <https://github.com/kassio/neoterm>
+
+* enable/disable neoterm integration >
+  let g:airline#extensions#neoterm#enabled = 1
+
+  this extension will automatically set neoterm variable as follows
+  let g:neoterm_test_status = {'running': '🏃','success': '💚','failed': '💔'}
+  let g:neoterm_test_status_format = '%s'
 <
 ==============================================================================
 ADVANCED CUSTOMIZATION                      *airline-advanced-customization*

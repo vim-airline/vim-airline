@@ -102,7 +102,7 @@ function! airline#init#bootstrap()
   call airline#parts#define_function('ffenc', 'airline#parts#ffenc')
   call airline#parts#define_empty(['hunks', 'branch', 'obsession', 'tagbar', 'syntastic',
         \ 'eclim', 'whitespace','windowswap', 'ycm_error_count', 'ycm_warning_count',
-        \ 'neomake_error_count', 'neomake_warning_count', 'ale_error_count', 'ale_warning_count'])
+        \ 'neomake_error_count', 'neomake_warning_count', 'ale_error_count', 'ale_warning_count','neoterm_test_status'])
   call airline#parts#define_text('capslock', '')
 
   unlet g:airline#init#bootstrapping
@@ -136,7 +136,7 @@ function! airline#init#sections()
     let g:airline_section_x = airline#section#create_right(['tagbar', 'filetype'])
   endif
   if !exists('g:airline_section_y')
-    let g:airline_section_y = airline#section#create_right(['ffenc'])
+    let g:airline_section_y = airline#section#create_right(['ffenc','neoterm_test_status'])
   endif
   if !exists('g:airline_section_z')
     if winwidth(0) > 80
