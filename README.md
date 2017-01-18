@@ -96,6 +96,9 @@ vim-airline integrates with a variety of plugins out of the box.  These extensio
 #### [ctrlspace][38]
 ![papercolor_with_ctrlspace](https://cloud.githubusercontent.com/assets/493242/12912041/7fc3c6ec-cf16-11e5-8775-8492b9c64ebf.png)
 
+#### [xkb-switch][48]/[xkb-layout][49]
+![image](https://cloud.githubusercontent.com/assets/5715281/22061422/347e7842-ddb8-11e6-8bdb-7abbd418653c.gif)
+
 ## Extras
 
 vim-airline also supplies some supplementary stand-alone extensions.  In addition to the tabline extension mentioned earlier, there is also:
@@ -243,3 +246,5 @@ MIT License. Copyright (c) 2013-2016 Bailey Ling.
 [45]: https://github.com/vim-airline/vim-airline/commit/d7fd8ca649e441b3865551a325b10504cdf0711b
 [46]: https://github.com/vim-airline/vim-airline#themes
 [47]: https://github.com/mildred/vim-bufmru
+[48]: https://github.com/ierton/xkb-switch
+[49]: https://github.com/vovkasm/input-source-switcher
