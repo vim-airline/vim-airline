@@ -104,6 +104,7 @@ function! airline#init#bootstrap()
         \ 'eclim', 'whitespace','windowswap', 'ycm_error_count', 'ycm_warning_count',
         \ 'neomake_error_count', 'neomake_warning_count', 'ale_error_count', 'ale_warning_count'])
   call airline#parts#define_text('capslock', '')
+  call airline#parts#define_text('xkblayout', '')
 
   unlet g:airline#init#bootstrapping
 endfunction
@@ -117,7 +118,7 @@ endfunction
 function! airline#init#sections()
   let spc = g:airline_symbols.space
   if !exists('g:airline_section_a')
-    let g:airline_section_a = airline#section#create_left(['mode', 'crypt', 'paste', 'spell', 'capslock', 'iminsert'])
+    let g:airline_section_a = airline#section#create_left(['mode', 'crypt', 'paste', 'spell', 'capslock', 'xkblayout', 'iminsert'])
   endif
   if !exists('g:airline_section_b')
     let g:airline_section_b = airline#section#create(['hunks', 'branch'])

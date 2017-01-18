@@ -284,6 +284,11 @@ function! airline#extensions#load()
     call add(loaded_ext, 'capslock')
   endif
 
+  if (get(g:, 'airline#extensions#xkblayout#enabled', 1) && exists('g:XkbSwitchLib'))
+    call airline#extensions#xkblayout#init(s:ext)
+    call add(loaded_ext, 'xkblayout')
+  endif
+
   if (get(g:, 'airline#extensions#windowswap#enabled', 1) && get(g:, 'loaded_windowswap', 0))
     call airline#extensions#windowswap#init(s:ext)
     call add(loaded_ext, 'windowswap')
