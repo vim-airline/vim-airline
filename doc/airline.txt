@@ -754,6 +754,18 @@ vim-capslock <https://github.com/tpope/vim-capslock>
 * enable/disable vim-capslock integration >
   let g:airline#extensions#capslock#enabled = 1
 
+-------------------------------------                     *airline-xkblayout*
+vim-xkblayout
+
+* enable/disable vim-xkblayout extension >
+  let g:airline#extensions#xkblayout#enabled = 1
+
+* define path to the backend switcher library
+  Linux (Install https://github.com/ierton/xkb-switch):
+   let g:XkbSwitchLib = '/usr/local/lib/libxkbswitch.so'
+  macOS (Install https://github.com/vovkasm/input-source-switcher):
+   let g:XkbSwitchLib = '/usr/local/lib/libInputSourceSwitcher.dylib'
+
 -------------------------------------                   *airline-windowswap*
 vim-windowswap <https://github.com/wesQ3/vim-windowswap>
 
