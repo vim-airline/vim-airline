@@ -420,6 +420,12 @@ quickfixsigns <https://github.com/tomtom/quickfixsigns_vim>
 * set hunk count symbols. >
   let g:airline#extensions#hunks#hunk_symbols = ['+', '~', '-']
 <
+-------------------------------------                     *airline-vimagit*
+vimagit <https://github.com/jreybert/vimagit>
+
+* enable/disable vimagit integration >
+  let g:airline#extensions#vimagit#enabled = 1
+<
 -------------------------------------                        *airline-ctrlp*
 ctrlp <https://github.com/kien/ctrlp.vim>
 
