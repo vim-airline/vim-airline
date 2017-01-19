@@ -630,7 +630,7 @@ with the middle mouse button to delete that buffer.
 
   " here is how you can define a 'foo' formatter:
   " create a file in the dir autoload/airline/extensions/tabline/formatters/
-  " called foo.vim
+  " called foo.vim >
   function! airline#extensions#tabline#formatters#foo#format(bufnr, buffers)
     return fnamemodify(bufname(a:bufnr), ':t')
   endfunction
