@@ -12,7 +12,7 @@ Lean &amp; mean status/tabline for vim that's light as air.
    [undotree][17], [nerdtree][18], [tagbar][19], [vim-gitgutter][29],
    [vim-signify][30], [quickfixsigns][39], [syntastic][5], [eclim][34],
    [lawrencium][21], [virtualenv][31], [tmuxline][35], [taboo.vim][37],
-   [ctrlspace][38], [vim-bufmru][47] and more.
+   [ctrlspace][38], [vim-bufmru][47], [vimagit][50] and more.
 *  Looks good with regular fonts and provides configuration points so you can use unicode or powerline symbols.
 *  Optimized for speed; it loads in under a millisecond.
 *  Extensive suite of themes for popular color schemes including [solarized][23] (dark and light), [tomorrow][24] (all variants), [base16][32] (all variants), [molokai][25], [jellybeans][26] and others.
@@ -83,6 +83,9 @@ vim-airline integrates with a variety of plugins out of the box.  These extensio
 
 #### hunks ([vim-gitgutter][29] & [vim-signify][30])
 ![image](https://f.cloud.github.com/assets/306502/995185/73fc7054-09b9-11e3-9d45-618406c6ed98.png)
+
+#### [vimagit][50]
+![vim-airline-vimagit-demo](https://cloud.githubusercontent.com/assets/533068/22107273/2ea85ba0-de4d-11e6-9fa8-331103b88df4.gif)
 
 #### [virtualenv][31]
 ![image](https://f.cloud.github.com/assets/390964/1022566/cf81f830-0d98-11e3-904f-cf4fe3ce201e.png)
@@ -248,3 +251,4 @@ MIT License. Copyright (c) 2013-2016 Bailey Ling.
 [47]: https://github.com/mildred/vim-bufmru
 [48]: https://github.com/ierton/xkb-switch
 [49]: https://github.com/vovkasm/input-source-switcher
+[50]: https://github.com/jreybert/vimagit
