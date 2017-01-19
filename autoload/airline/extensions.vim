@@ -183,6 +183,12 @@ function! airline#extensions#load()
     call add(loaded_ext, 'hunks')
   endif
 
+  if get(g:, 'airline#extensions#vimagit#enabled', 1)
+        \ && (exists('g:loaded_magit'))
+    call airline#extensions#vimagit#init(s:ext)
+    call add(loaded_ext, 'vimagit')
+  endif
+
   if get(g:, 'airline#extensions#tagbar#enabled', 1)
         \ && exists(':TagbarToggle')
     call airline#extensions#tagbar#init(s:ext)
