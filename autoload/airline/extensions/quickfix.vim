@@ -29,9 +29,9 @@ endfunction
 function! s:get_text()
   if exists("*win_getid") && exists("*getwininfo")
     let dict = getwininfo(win_getid())
-    if len(dict) > 0 && dict[0].quickfix && !dict[0].loclist
+    if len(dict) > 0 && get(dict[0], 'quickfix', 0) && !get(dict[0], 'loclist', 0)
       return g:airline#extensions#quickfix#quickfix_text
-    elseif len(dict) > 0 && dict[0].quickfix && dict[0].loclist
+    elseif len(dict) > 0 && get(dict[0], 'quickfix', 0) && get(dict[0], 'loclist', 0)
       return g:airline#extensions#quickfix#location_text
     endif
   endif
