@@ -94,7 +94,7 @@ function! airline#init#bootstrap()
   call airline#parts#define_raw('file', '%f%m')
   call airline#parts#define_raw('path', '%F%m')
   call airline#parts#define('linenr', {
-        \ 'raw': '%{g:airline_symbols.linenr}%4l'
+        \ 'raw': '%{g:airline_symbols.linenr}%4l',
         \ 'accent': 'bold' })
   call airline#parts#define('maxlinenr', {
         \ 'raw': '/%L%{g:airline_symbols.maxlinenr}',
