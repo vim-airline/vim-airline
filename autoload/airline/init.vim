@@ -94,11 +94,11 @@ function! airline#init#bootstrap()
   call airline#parts#define_raw('file', '%f%m')
   call airline#parts#define_raw('path', '%F%m')
   call airline#parts#define('linenr', {
-        \ 'raw': '%{g:airline_symbols.linenr}%#__accent_bold#%4l%#__restore__#',
-        \ 'accent': 'bold'})
+        \ 'raw': '%{g:airline_symbols.linenr}%4l'
+        \ 'accent': 'bold' })
   call airline#parts#define('maxlinenr', {
-        \ 'raw': '%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__#',
-        \ 'accent': 'bold'})
+        \ 'raw': '/%L%{g:airline_symbols.maxlinenr}',
+        \ 'accent': 'bold' })
   call airline#parts#define_function('ffenc', 'airline#parts#ffenc')
   call airline#parts#define_empty(['hunks', 'branch', 'obsession', 'tagbar', 'syntastic',
         \ 'eclim', 'whitespace','windowswap', 'ycm_error_count', 'ycm_warning_count',
