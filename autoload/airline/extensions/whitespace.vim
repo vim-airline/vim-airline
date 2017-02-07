@@ -9,10 +9,10 @@ let s:show_message = get(g:, 'airline#extensions#whitespace#show_message', 1)
 let s:symbol = get(g:, 'airline#extensions#whitespace#symbol', g:airline_symbols.whitespace)
 let s:default_checks = ['indent', 'trailing', 'mixed-indent-file']
 
-let s:trailing_format = get(g:, 'airline#extensions#whitespace#trailing_format', 'trailing[%s]')
-let s:mixed_indent_format = get(g:, 'airline#extensions#whitespace#mixed_indent_format', 'mixed-indent[%s]')
-let s:long_format = get(g:, 'airline#extensions#whitespace#long_format', 'long[%s]')
-let s:mixed_indent_file_format = get(g:, 'airline#extensions#whitespace#mixed_indent_file_format', 'mix-indent-file[%s]')
+let s:trailing_format = get(g:, 'airline#extensions#whitespace#trailing_format', '[%s]trailing')
+let s:mixed_indent_format = get(g:, 'airline#extensions#whitespace#mixed_indent_format', '[%s]mixed-indent')
+let s:long_format = get(g:, 'airline#extensions#whitespace#long_format', '[%s]long')
+let s:mixed_indent_file_format = get(g:, 'airline#extensions#whitespace#mixed_indent_file_format', '[%s]mix-indent-file')
 let s:indent_algo = get(g:, 'airline#extensions#whitespace#mixed_indent_algo', 0)
 let s:skip_check_ft = {'make': ['indent', 'mixed-indent-file'] }
 let s:max_lines = get(g:, 'airline#extensions#whitespace#max_lines', 20000)
