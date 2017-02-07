@@ -17,10 +17,10 @@ function! airline#init#bootstrap()
   let s:loaded = 1
 
   let g:airline#init#bootstrapping = 1
-  call s:check_defined('g:airline_left_sep', get(g:, 'airline_powerline_fonts', 0)?"\ue0b0":">")
-  call s:check_defined('g:airline_left_alt_sep', get(g:, 'airline_powerline_fonts', 0)?"\ue0b1":">")
-  call s:check_defined('g:airline_right_sep', get(g:, 'airline_powerline_fonts', 0)?"\ue0b2":"<")
-  call s:check_defined('g:airline_right_alt_sep', get(g:, 'airline_powerline_fonts', 0)?"\ue0b3":"<")
+  call s:check_defined('g:airline_left_sep', get(g:, 'airline_powerline_fonts', 0) ? "\ue0b0" : " ")
+  call s:check_defined('g:airline_left_alt_sep', get(g:, 'airline_powerline_fonts', 0) ? "\ue0b1" : "|")
+  call s:check_defined('g:airline_right_sep', get(g:, 'airline_powerline_fonts', 0) ? "\ue0b2" : " ")
+  call s:check_defined('g:airline_right_alt_sep', get(g:, 'airline_powerline_fonts', 0) ? "\ue0b3" : "|")
   call s:check_defined('g:airline_detect_modified', 1)
   call s:check_defined('g:airline_detect_paste', 1)
   call s:check_defined('g:airline_detect_crypt', 1)
@@ -68,10 +68,10 @@ function! airline#init#bootstrap()
         \ 'paste': 'PASTE',
         \ 'spell': 'SPELL',
         \ 'readonly': get(g:, 'airline_powerline_fonts', 0) ? "\ue0a2" : 'RO',
-        \ 'whitespace': get(g:, 'airline_powerline_fonts', 0) ? "\u2739" : '!',
-        \ 'linenr': get(g:, 'airline_powerline_fonts', 0) ? "\ue0a1" : ':',
-        \ 'maxlinenr': get(g:, 'airline_powerline_fonts', 0) ? "\u2630" : '',
-        \ 'branch': get(g:, 'airline_powerline_fonts', 0) ? "\ue0a0" : '',
+        \ 'whitespace': get(g:, 'airline_powerline_fonts', 0) ? "\u2632" : "\u2632",
+        \ 'linenr': get(g:, 'airline_powerline_fonts', 0) ? "\ue0a1" : "\u33D1",
+        \ 'maxlinenr': get(g:, 'airline_powerline_fonts', 0) ? "\u2630" : "\u2630",
+        \ 'branch': get(g:, 'airline_powerline_fonts', 0) ? "\ue0a0" : "\u16A0",
         \ 'notexists': "\u2204",
         \ 'modified': '+',
         \ 'space': ' ',
