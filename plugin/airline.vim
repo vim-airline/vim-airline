@@ -91,6 +91,9 @@ function! s:airline_toggle()
       autocmd GUIEnter,ColorScheme * call <sid>on_colorscheme_changed()
       autocmd SessionLoadPost,VimEnter,WinEnter,BufWinEnter,FileType,BufUnload *
             \ call <sid>on_window_changed()
+      if exists('#CompleteDone')
+        autocmd CompleteDone * call <sid>on_window_changed()
+      endif
 
       autocmd VimResized * unlet! w:airline_lastmode | :call <sid>airline_refresh()
       autocmd TabEnter * :unlet! w:airline_lastmode | let w:airline_active=1
