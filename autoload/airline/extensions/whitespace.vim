@@ -139,6 +139,12 @@ function! airline#extensions#whitespace#toggle()
   echo 'Whitespace checking: '.(s:enabled ? 'Enabled' : 'Disabled')
 endfunction
 
+function! airline#extensions#whitespace#disable()
+  if s:enabled
+    call airline#extensions#whitespace#toggle()
+  endif
+endfunction
+
 function! airline#extensions#whitespace#init(...)
   call airline#parts#define_function('whitespace', 'airline#extensions#whitespace#check')
 
