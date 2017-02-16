@@ -68,7 +68,7 @@ function! airline#highlighter#exec(group, colors)
     call add(colors, '')
   endif
   if old_hi != colors
-    let cmd = printf('hi %s %s %s %s %s %s %s %s',
+    let cmd = printf('hi default %s %s %s %s %s %s %s %s',
         \ a:group, s:Get(colors, 0, 'guifg=', ''), s:Get(colors, 1, 'guibg=', ''),
         \ s:Get(colors, 2, 'ctermfg=', ''), s:Get(colors, 3, 'ctermbg=', ''),
         \ s:Get(colors, 4, 'gui=', ''), s:Get(colors, 4, 'cterm=', ''),
