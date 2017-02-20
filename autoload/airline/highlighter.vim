@@ -72,6 +72,7 @@ function! airline#highlighter#exec(group, colors)
   if len(colors) == 4
     call add(colors, '')
   endif
+  let colors = s:CheckDefined(colors)
   if old_hi != colors
     let cmd = printf('hi %s %s %s %s %s %s %s %s',
         \ a:group, s:Get(colors, 0, 'guifg=', ''), s:Get(colors, 1, 'guibg=', ''),
@@ -80,6 +81,24 @@ function! airline#highlighter#exec(group, colors)
         \ s:Get(colors, 4, 'term=', ''))
     exe cmd
   endif
+endfunction
+
+function! s:CheckDefined(colors)
+  " Checks, whether the definition of the colors is valid and is not empty or NONE
+  " e.g. if the colors would expand to this:
+  " hi airline_c ctermfg=NONE ctermbg=NONE
+  " that means to clear that highlighting group, therefore, add a special term=NONE
+  " argument
+  for val in a:colors
+    if !empty(val) && val !=# 'NONE'
+      return a:colors
+    endif
+  endfor
+  " this adds the bold attribute to the term argument of the :hi command,
+  " but at least this makes sure, the group will be defined
+  let fg = synIDattr(synIDtrans(hlID('Normal')), 'fg', 'cterm')
+  let bg = synIDattr(synIDtrans(hlID('Normal')), 'bg', 'cterm')
+  return a:colors[0:1] + [fg, bg] + [a:colors[4]]
 endfunction
 
 function! s:Get(dict, key, prefix, default)
