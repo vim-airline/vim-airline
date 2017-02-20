@@ -22,12 +22,17 @@ function! s:get_syn(group, what)
   if !exists("g:airline_gui_mode")
     let g:airline_gui_mode = airline#init#gui_mode()
   endif
-  let color = synIDattr(synIDtrans(hlID(a:group)), a:what, g:airline_gui_mode)
-  if empty(color) || color == -1
-    let color = synIDattr(synIDtrans(hlID('Normal')), a:what, g:airline_gui_mode)
+  let color = ''
+  if hlexists(a:group)
+    let color = synIDattr(synIDtrans(hlID(a:group)), a:what, g:airline_gui_mode)
   endif
   if empty(color) || color == -1
-    let color = 'NONE'
+    " should always exists
+    let color = synIDattr(synIDtrans(hlID('Normal')), a:what, g:airline_gui_mode)
+    " however, just in case
+    if empty(color) || color == -1
+      let color = 'NONE'
+    endif
   endif
   return color
 endfunction
