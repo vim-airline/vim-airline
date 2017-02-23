@@ -1029,6 +1029,12 @@ neomake <https://github.com/neomake/neomake>
 * neomake warning >
   let airline#extensions#neomake#warning_symbol = 'W:'
 <
+-------------------------------------                    *airline-cursormode*
+cursormode <https://github.com/vheon/vim-cursormode>
+
+Displays cursor in different colors depending on the current mode (only works
+in terminals iTerm, AppleTerm and xterm)
+
 ==============================================================================
 ADVANCED CUSTOMIZATION                      *airline-advanced-customization*
 
