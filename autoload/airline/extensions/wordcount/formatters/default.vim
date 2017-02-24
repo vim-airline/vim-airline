@@ -13,9 +13,7 @@ function! airline#extensions#wordcount#formatters#default#format()
     let separator = s:get_decimal_group()
     if words > 999 && !empty(separator)
       " Format number according to locale, e.g. German: 1.245 or English: 1,245
-      let a = join(reverse(split(words, '.\zs')),'')
-      let a = substitute(a, '...', '&'.separator, 'g')
-      let words = join(reverse(split(a, '.\zs')),'')
+      let words = substitute(words, '\d\@<=\(\(\d\{3\}\)\+\)$', separator.'&', 'g')
     endif
     let result = printf("%s%s", words, " words"). result
   else
