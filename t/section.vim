@@ -57,13 +57,13 @@ describe 'section'
 
   it 'should force add separators for raw and missing keys'
     let s = airline#section#create_left(['asdf', 'raw'])
-    Expect s == 'asdf > raw'
+    Expect s == 'asdf  raw'
     let s = airline#section#create_left(['asdf', 'aaaa', 'raw'])
-    Expect s == 'asdf > aaaa > raw'
+    Expect s == 'asdf  aaaa  raw'
     let s = airline#section#create_right(['raw', '%f'])
-    Expect s == 'raw < %f'
+    Expect s == 'raw  %f'
     let s = airline#section#create_right(['%t', 'asdf', '%{getcwd()}'])
-    Expect s == '%t < asdf < %{getcwd()}'
+    Expect s == '%t  asdf  %{getcwd()}'
   end
 
   it 'should empty out parts that do not pass their condition'
