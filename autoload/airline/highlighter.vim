@@ -22,12 +22,17 @@ function! s:get_syn(group, what)
   if !exists("g:airline_gui_mode")
     let g:airline_gui_mode = airline#init#gui_mode()
   endif
-  let color = synIDattr(synIDtrans(hlID(a:group)), a:what, g:airline_gui_mode)
-  if empty(color) || color == -1
-    let color = synIDattr(synIDtrans(hlID('Normal')), a:what, g:airline_gui_mode)
+  let color = ''
+  if hlexists(a:group)
+    let color = synIDattr(synIDtrans(hlID(a:group)), a:what, g:airline_gui_mode)
   endif
   if empty(color) || color == -1
-    let color = 'NONE'
+    " should always exists
+    let color = synIDattr(synIDtrans(hlID('Normal')), a:what, g:airline_gui_mode)
+    " however, just in case
+    if empty(color) || color == -1
+      let color = 'NONE'
+    endif
   endif
   return color
 endfunction
@@ -67,7 +72,8 @@ function! airline#highlighter#exec(group, colors)
   if len(colors) == 4
     call add(colors, '')
   endif
-  if old_hi != colors
+  let colors = s:CheckDefined(colors)
+  if old_hi != colors || !hlexists(a:group)
     let cmd = printf('hi %s %s %s %s %s %s %s %s',
         \ a:group, s:Get(colors, 0, 'guifg=', ''), s:Get(colors, 1, 'guibg=', ''),
         \ s:Get(colors, 2, 'ctermfg=', ''), s:Get(colors, 3, 'ctermbg=', ''),
@@ -75,6 +81,24 @@ function! airline#highlighter#exec(group, colors)
         \ s:Get(colors, 4, 'term=', ''))
     exe cmd
   endif
+endfunction
+
+function! s:CheckDefined(colors)
+  " Checks, whether the definition of the colors is valid and is not empty or NONE
+  " e.g. if the colors would expand to this:
+  " hi airline_c ctermfg=NONE ctermbg=NONE
+  " that means to clear that highlighting group, therefore, add a special term=NONE
+  " argument
+  for val in a:colors
+    if !empty(val) && val !=# 'NONE'
+      return a:colors
+    endif
+  endfor
+  " this adds the bold attribute to the term argument of the :hi command,
+  " but at least this makes sure, the group will be defined
+  let fg = synIDattr(synIDtrans(hlID('Normal')), 'fg', 'cterm')
+  let bg = synIDattr(synIDtrans(hlID('Normal')), 'bg', 'cterm')
+  return a:colors[0:1] + [fg, bg] + [a:colors[4]]
 endfunction
 
 function! s:Get(dict, key, prefix, default)
