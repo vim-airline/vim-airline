@@ -102,9 +102,12 @@ values):
     endif
   endfunction
 <
-* enable/disable automatic population of the `g:airline_symbols` dictionary
-  with powerline symbols. >
-  let g:airline_powerline_fonts=0
+* By default, airline will use unicode symbols if your encoding matches
+  utf-8. If you want the powerline symbols set this variable: >
+  let g:airline_powerline_fonts = 1
+<
+  If you want to use plain ascii symbols, set this variable: >
+  let g:airline_symbols_ascii = 1
 <
 * define the set of text to display for each mode.  >
   let g:airline_mode_map = {} " see source for the defaults
