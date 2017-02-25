@@ -87,7 +87,7 @@ function! airline#init#bootstrap()
           \ 'notexists': "\u0246",
           \ 'crypt': nr2char(0x1F512),
           \ }, 'keep')
-  elseif &encoding==?'utf-8'
+  elseif &encoding==?'utf-8' && !get(g:, "g:airline_symbols_ascii", 0)
     " Symbols for Unicode terminals
     call s:check_defined('g:airline_left_sep', "")
     call s:check_defined('g:airline_left_alt_sep', "")
