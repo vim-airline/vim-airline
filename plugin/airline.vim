@@ -41,7 +41,7 @@ function! s:on_window_changed()
   endif
   " Handle each window only once, since we might come here several times for
   " different autocommands.
-  let l:key = [bufnr('%'), winnr(), winnr('$'), tabpagenr()]
+  let l:key = [bufnr('%'), winnr(), winnr('$'), tabpagenr(), &ft]
   if get(g:, 'airline_last_window_changed', []) == l:key
         \ && &stl is# '%!airline#statusline('.winnr().')'
     return
