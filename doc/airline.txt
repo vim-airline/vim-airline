@@ -489,6 +489,10 @@ eclim <https://eclim.org>
 * enable/disable detection of whitespace errors. >
   let g:airline#extensions#whitespace#enabled = 1
 <
+* disable detection of whitespace errors. >
+  " useful to call for particular file types (e.g., in "ftplugin/*")
+  silent! call airline#extensions#whitespace#disable
+<
 * customize the type of mixed indent checking to perform. >
   " must be all spaces or all tabs before the first non-whitespace character
   let g:airline#extensions#whitespace#mixed_indent_algo = 0 (default)
