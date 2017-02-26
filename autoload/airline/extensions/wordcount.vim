@@ -7,7 +7,7 @@ let s:formatter = get(g:, 'airline#extensions#wordcount#formatter', 'default')
 let g:airline#extensions#wordcount#filetypes = get(g:, 'airline#extensions#wordcount#filetypes',
       \ '\vhelp|markdown|rst|org|text|asciidoc|tex|mail')
 
-function! s:update()
+function! s:wordcount_update()
   if match(&ft, get(g:, 'airline#extensions#wordcount#filetypes')) > -1
     let l:mode = mode()
     if l:mode ==# 'v' || l:mode ==# 'V' || l:mode ==# 's' || l:mode ==# 'S'
@@ -36,5 +36,5 @@ endfunction
 
 function! airline#extensions#wordcount#init(ext)
   call a:ext.add_statusline_func('airline#extensions#wordcount#apply')
-  autocmd BufReadPost,CursorMoved,CursorMovedI * call s:update()
+  autocmd BufReadPost,CursorMoved,CursorMovedI * call s:wordcount_update()
 endfunction
