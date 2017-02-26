@@ -8,6 +8,9 @@ let g:airline#extensions#wordcount#filetypes = get(g:, 'airline#extensions#wordc
       \ '\vhelp|markdown|rst|org|text|asciidoc|tex|mail')
 
 function! s:wordcount_update()
+  if empty(bufname(''))
+    return
+  endif
   if match(&ft, get(g:, 'airline#extensions#wordcount#filetypes')) > -1
     let l:mode = mode()
     if l:mode ==# 'v' || l:mode ==# 'V' || l:mode ==# 's' || l:mode ==# 'S'
