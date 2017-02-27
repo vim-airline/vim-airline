@@ -189,6 +189,10 @@ function! airline#extensions#load()
     call add(loaded_ext, 'vimagit')
   endif
 
+  if get(g:, 'airline#extensions#watchman#enabled', 1)
+    call airline#extensions#watchman#init(s:ext)
+  endif
+
   if get(g:, 'airline#extensions#tagbar#enabled', 1)
         \ && exists(':TagbarToggle')
     call airline#extensions#tagbar#init(s:ext)
