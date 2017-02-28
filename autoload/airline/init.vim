@@ -71,7 +71,7 @@ function! airline#init#bootstrap()
           \ 'space': ' '
           \  }, 'keep')
 
-  if exists('g:airline_powerline_fonts')
+  if get(g:, 'airline_powerline_fonts', 0)
     " Symbols for Powerline terminals
     call s:check_defined('g:airline_left_sep', "\ue0b0")      " 
     call s:check_defined('g:airline_left_alt_sep', "\ue0b1")  " 
