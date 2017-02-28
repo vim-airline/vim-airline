@@ -177,10 +177,10 @@ function! s:select_tab(buf_index)
 endfunction
 
 function! s:jump_to_tab(offset)
-    let l = s:current_visible_buffers
+    let l = airline#extensions#tabline#buflist#list()
     let i = index(l, bufnr('%'))
     if i > -1
-        exec 'b!' . l[float2nr(fmod(i + a:offset, len(l)))]
+        exec 'b!' . l[(i + a:offset) % len(l)]
     endif
 endfunction
 
