@@ -87,8 +87,18 @@ function! s:CheckDefined(colors)
   " Checks, whether the definition of the colors is valid and is not empty or NONE
   " e.g. if the colors would expand to this:
   " hi airline_c ctermfg=NONE ctermbg=NONE
-  " that means to clear that highlighting group, therefore, add a special term=NONE
-  " argument
+  " that means to clear that highlighting group, therefore, fallback to Normal
+  " highlighting group for the cterm values
+
+  " This only works, if the Normal highlighting group is actually defined, so
+  " return early, if it has been cleared
+  if !exists("g:airline#highlighter#normal_fg_hi")
+    let g:airline#highlighter#normal_fg_hi = synIDattr(synIDtrans(hlID('Normal')), 'fg', 'cterm')
+  endif
+  if empty(g:airline#highlighter#normal_fg_hi)
+    return a:colors
+  endif
+
   for val in a:colors
     if !empty(val) && val !=# 'NONE'
       return a:colors
@@ -96,7 +106,7 @@ function! s:CheckDefined(colors)
   endfor
   " this adds the bold attribute to the term argument of the :hi command,
   " but at least this makes sure, the group will be defined
-  let fg = synIDattr(synIDtrans(hlID('Normal')), 'fg', 'cterm')
+  let fg = g:airline#highlighter#normal_fg_hi
   let bg = synIDattr(synIDtrans(hlID('Normal')), 'bg', 'cterm')
   return a:colors[0:1] + [fg, bg] + [a:colors[4]]
 endfunction
