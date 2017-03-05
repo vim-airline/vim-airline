@@ -108,6 +108,10 @@ function! s:CheckDefined(colors)
   " but at least this makes sure, the group will be defined
   let fg = g:airline#highlighter#normal_fg_hi
   let bg = synIDattr(synIDtrans(hlID('Normal')), 'bg', 'cterm')
+  if bg < 0
+    " in case there is no background color defined for Normal
+    let bg = a:colors[3]
+  endif
   return a:colors[0:1] + [fg, bg] + [a:colors[4]]
 endfunction
 
