@@ -122,7 +122,7 @@ function! s:update_hg_branch(path)
   if s:has_lawrencium
     let stl=lawrencium#statusline()
     if !empty(stl) && s:has_async
-      call s:get_mq_async('hg qtop', expand('%:p'))
+      call s:get_mq_async('LC_ALL=C hg qtop', expand('%:p'))
     endif
     if exists("s:mq") && !empty(s:mq)
       if stl is# 'default'
