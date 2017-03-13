@@ -95,7 +95,7 @@ function! s:CheckDefined(colors)
   if !exists("g:airline#highlighter#normal_fg_hi")
     let g:airline#highlighter#normal_fg_hi = synIDattr(synIDtrans(hlID('Normal')), 'fg', 'cterm')
   endif
-  if empty(g:airline#highlighter#normal_fg_hi)
+  if empty(g:airline#highlighter#normal_fg_hi) || g:airline#highlighter#normal_fg_hi < 0
     return a:colors
   endif
 
