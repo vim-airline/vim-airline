@@ -143,6 +143,11 @@ function! airline#extensions#load()
     call add(loaded_ext, 'unite')
   endif
 
+  if get(g:, 'loaded_denite', 0)
+    call airline#extensions#denite#init(s:ext)
+    call add(loaded_ext, 'denite')
+  endif
+
   if exists(':NetrwSettings')
     call airline#extensions#netrw#init(s:ext)
     call add(loaded_ext, 'netrw')
