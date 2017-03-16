@@ -557,9 +557,10 @@ are supported!
 * enable/disable displaying open splits per tab (only when tabs are opened). >
   let g:airline#extensions#tabline#show_splits = 1
     *
-* switch position of buffers and tabs on splited tabline (c)
+* switch position of buffers and tabs on splited tabline (c) 
+  (only supported for ctrlspace plugin). >
   let g:airline#extensions#tabline#switch_buffers_and_tabs = 0
-
+<
 * enable/disable displaying buffers with a single tab. (c)
   let g:airline#extensions#tabline#show_buffers = 1
 <
@@ -808,10 +809,10 @@ vim-ctrlspace <https://github.com/szw/vim-ctrlspace>
 
 * enable/disable vim-ctrlspace integration >
   let g:airline#extensions#ctrlspace#enabled = 1
-
+<
   To make the vim-ctrlspace integration work you will need to make the
   ctrlspace statusline function call the correct airline function. Therefore
-  add the following line into your .vimrc:
+  add the following line into your .vimrc: >
 
   let g:CtrlSpaceStatuslineFunction = "airline#extensions#ctrlspace#statusline()"
 <
