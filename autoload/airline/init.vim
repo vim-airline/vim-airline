@@ -81,8 +81,8 @@ function! airline#init#bootstrap()
     call extend(g:airline_symbols, {
           \ 'readonly': "\ue0a2",
           \ 'whitespace': "\u2632",
-          \ 'linenr': "\u2630",
-          \ 'maxlinenr': "\ue0a1",
+          \ 'linenr': "\u2630 ",
+          \ 'maxlinenr': " \ue0a1",
           \ 'branch': "\ue0a0",
           \ 'notexists': "\u0246",
           \ 'crypt': nr2char(0x1F512),
@@ -97,8 +97,8 @@ function! airline#init#bootstrap()
     call extend(g:airline_symbols, {
           \ 'readonly': "\u229D",
           \ 'whitespace': "\u2632",
-          \ 'linenr': "\u2630",
-          \ 'maxlinenr': "\u33D1",
+          \ 'linenr': "\u2630 ",
+          \ 'maxlinenr': " \u33D1",
           \ 'branch': "\u16A0",
           \ 'notexists': "\u0246",
           \ 'crypt': nr2char(0x1F512),
@@ -112,8 +112,8 @@ function! airline#init#bootstrap()
     call extend(g:airline_symbols, {
           \ 'readonly': 'RO',
           \ 'whitespace': '!',
-          \ 'linenr': 'ln',
-          \ 'maxlinenr': ':',
+          \ 'linenr': 'ln ',
+          \ 'maxlinenr': ' :',
           \ 'branch': '',
           \ 'notexists': '?',
           \ 'crypt': 'cr',
