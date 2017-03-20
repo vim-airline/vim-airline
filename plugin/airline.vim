@@ -44,6 +44,9 @@ function! s:on_window_changed()
   let l:key = [bufnr('%'), winnr(), winnr('$'), tabpagenr(), &ft]
   if get(g:, 'airline_last_window_changed', []) == l:key
         \ && &stl is# '%!airline#statusline('.winnr().')'
+        \ && ft !~? 'gitcommit'
+    " fugitive is special, it changes names and filetypes several times,
+    " make sure the caching does not get into its way
     return
   endif
   let g:airline_last_window_changed = l:key
