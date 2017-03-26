@@ -148,19 +148,14 @@ I wrote the initial version on an airplane, and since it's light as air it turne
 
 This plugin follows the standard runtime path structure, and as such it can be installed with a variety of plugin managers:
 
-*  [Pathogen][11]
-  *  `git clone https://github.com/vim-airline/vim-airline ~/.vim/bundle/vim-airline`
-  *  Remember to run `:Helptags` to generate help tags
-*  [NeoBundle][12]
-  *  `NeoBundle 'vim-airline/vim-airline'`
-*  [Vundle][13]
-  *  `Plugin 'vim-airline/vim-airline'`
-*  [Plug][40]
-  *  `Plug 'vim-airline/vim-airline'`
-*  [VAM][22]
-  *  `call vam#ActivateAddons([ 'vim-airline' ])`
-*  manual
-  *  copy all of the files into your `~/.vim` directory
+| Plugin Manager | Install with... |
+| ------------- | ------------- |
+| [Pathogen][11] | `git clone https://github.com/vim-airline/vim-airline ~/.vim/bundle/vim-airline`<br/>Remember to run `:Helptags` to generate help tags |
+| [NeoBundle][12] | `NeoBundle 'vim-airline/vim-airline'` |
+| [Vundle][13] | `Plugin 'vim-airline/vim-airline'` |
+| [Plug][40] | `Plug 'vim-airline/vim-airline'` |
+| [VAM][22] | `call vam#ActivateAddons([ 'vim-airline' ])` |
+| manual | copy all of the files into your `~/.vim` directory |
 
 # Configuration
 
