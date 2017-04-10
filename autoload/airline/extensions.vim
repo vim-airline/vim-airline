@@ -310,6 +310,12 @@ function! airline#extensions#load()
     call add(loaded_ext, 'obsession')
   endif
 
+  runtime autoload/vimtex.vim
+  if (get(g:, 'airline#extensions#vimtex#enabled', 1)) && exists('*vimtex#init')
+   call airline#extensions#vimtex#init(s:ext)
+   call add(loaded_ext, 'vimtex')
+  endif
+
   if !get(g:, 'airline#extensions#disable_rtp_load', 0)
     " load all other extensions, which are not part of the default distribution.
     " (autoload/airline/extensions/*.vim outside of our s:script_path).
