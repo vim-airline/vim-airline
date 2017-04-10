@@ -148,6 +148,12 @@ values):
  >
   let g:airline_skip_empty_sections = 1
 <
+
+  This variable can be overriden by setting a window-local variable with
+  the same name (in the correct window):
+ >
+  let w:airline_skip_empty_sections = 0
+<
 ==============================================================================
 COMMANDS                                                  *airline-commands*
 
