@@ -19,6 +19,7 @@ endfunction
 
 function! airline#extensions#denite#apply(...)
   if &ft == 'denite'
+    let w:airline_skip_empty_sections = 0
     call a:1.add_section('airline_a', ' Denite %{airline#extensions#denite#check_denite_mode('.a:2['bufnr'].')}')
     call a:1.add_section('airline_c', ' %{denite#get_status_sources()}')
     call a:1.split()

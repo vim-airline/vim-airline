@@ -161,6 +161,11 @@ function! s:section_is_empty(self, content)
   if get(g:, 'airline_skip_empty_sections', 0) == 0
     return 0
   endif
+
+  " only check, if airline#skip_empty_sections == 1
+  if get(w:, 'airline_skip_empty_sections', 0) == 0
+    return 0
+  endif
   " assume accents sections to be never empty
   " (avoides, that on startup the mode message becomes empty)
   if match(a:content, '%#__accent_[^#]*#.*__restore__#') > -1
