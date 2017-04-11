@@ -163,7 +163,7 @@ function! s:section_is_empty(self, content)
   endif
 
   " only check, if airline#skip_empty_sections == 1
-  if get(w:, 'airline_skip_empty_sections', 0) == 0
+  if get(w:, 'airline_skip_empty_sections', -1) == 0
     return 0
   endif
   " assume accents sections to be never empty
