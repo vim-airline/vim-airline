@@ -245,6 +245,11 @@ function! airline#extensions#load()
     call add(loaded_ext, 'ale')
   endif
 
+  if get(g:, 'airline#extensions#neomake#enabled', 1)
+        \ && exists(':Neomake')
+    call airline#extensions#neomake#init(s:ext)
+  endif
+
   if get(g:, 'airline#extensions#whitespace#enabled', 1)
     call airline#extensions#whitespace#init(s:ext)
     call add(loaded_ext, 'whitespace')
