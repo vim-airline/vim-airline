@@ -144,14 +144,11 @@ values):
   window-local variable so you can disable it for only some windows) >
   let w:airline_disabled = 1
 
-* Do not draw separators for empty sections (only for the active window)
- >
+* Do not draw separators for empty sections (only for the active window) >
   let g:airline_skip_empty_sections = 1
 <
-
   This variable can be overriden by setting a window-local variable with
-  the same name (in the correct window):
- >
+  the same name (in the correct window): >
   let w:airline_skip_empty_sections = 0
 <
 ==============================================================================
@@ -889,11 +886,16 @@ Before is a list of parts that are predefined by vim-airline.
 * `filetype`       displays the file type
 * `readonly`       displays the read only indicator
 * `file`           displays the filename and modified indicator
+* `path`           displays the filename (absolute path) and modifier indicator
+* `linenr`         displays the current line number
+* `maxlinenr`      dispalys the number of lines in the buffer
 * `ffenc`          displays the file format and encoding
 
 And the following are defined for their respective extensions:
 
-`hunks`, `branch`, `tagbar`, `syntastic`, `whitespace`
+`ale_error_count``ale_warning_count``branch``eclim``hunks`
+`neomake_error_count``neomake_warning_count``obsession``syntastic`
+`tagbar``whitespace``windowswap``ycm_error_count``ycm_warning_count`
 
 -------------------------------------                      *airline-accents*
 Accents can be defined on any part, like so: >
@@ -937,9 +939,10 @@ the space and cwd are not defined parts. For convenience, if a part of that
 key does not exist, it will be inserted as is. The unit tests will be a good
 resource for possibilities.
 
-Note: The use of |VimEnter| is important, because most extensions are lazily
+Note: The use of |User| is important, because most extensions are lazily
 loaded, so we must give them a chance to define their parts before we can use
-them.
+them. Also this autocommand is only triggered, after the airline functions are
+actually available on startup.
 
 Note: The `airline#section#create` function and friends will do its best to
 create a section with the appropriate separators, but it only works for
@@ -981,7 +984,6 @@ You can also remove a function as well, which is useful for when you want a
 temporary override. >
   call airline#remove_statusline_func('MyPlugin')
 <
-
 ==============================================================================
 PIPELINE                                                  *airline-pipeline*
 
@@ -1115,6 +1117,6 @@ Contributions and pull requests are welcome.
 ==============================================================================
 LICENSE                                                    *airline-license*
 
-MIT License.  Copyright © 2013-2016 Bailey Ling.
+MIT License.  Copyright © 2013-2017 Bailey Ling, Christian Brabandt
 
  vim:tw=78:ts=8:ft=help:norl:
