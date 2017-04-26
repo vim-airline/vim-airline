@@ -254,6 +254,14 @@ section.
   let g:airline_section_b = '%{getcwd()}'
   let g:airline_section_c = '%t'
 <
+Note: If you want to redefine section content and symbols at the same time,
+you should place symbols definitions after custom section definitions.
+>
+  let g:airline_section_z = airline#section#create(['%3p%%', 'linenr'])
+  let g:airline_left_sep = ''
+  let g:airline_left_sep = ''
+<
+
 ==============================================================================
 EXTENSIONS                                              *airline-extensions*
 
