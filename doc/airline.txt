@@ -32,6 +32,62 @@ INTRODUCTION                                                 *airline-intro*
 vim-airline is a fast and lightweight alternative to powerline, written
 in 100% vimscript with no outside dependencies.
 
+When the plugin is correctly loaded, and Vim is configured for drawing a
+'statusline' (set 'laststatus' to 2, to always display the airline
+statusline) Vim will draw a nice statusline at the bottom of each window.
+
+That line consists of several sections, each one displaying some piece of
+information. By default (without configuration) this line will look like this: >
+
++-----------------------------------------------------------------------------+
+|~                                                                            |
+|~                                                                            |
+|~                     VIM - Vi IMproved                                      |
+|~                                                                            |
+|~                       version 8.0                                          |
+|~                    by Bram Moolenaar et al.                                |
+|~           Vim is open source and freely distributable                      |
+|~                                                                            |
+|~           type :h :q<Enter>          to exit                               |
+|~           type :help<Enter> or <F1>  for on-line help                      |
+|~           type :help version8<Enter> for version info                      |
+|~                                                                            |
+|~                                                                            |
++-----------------------------------------------------------------------------+
+| A | B |                     C                            X | Y | Z |  [...] |
++-----------------------------------------------------------------------------+
+
+The statusline is the colored line at the bottom, which contains the sections
+(possibly in different colors):
+
+section  meaning (example)~
+--------------------------
+  A      displays the mode + additional flags like crypt/spell/paste (INSERT)
+  B      VCS information (branch, hunk summary) (master)
+  C      filename + read-only flag (~/.vim/vimrc RO)
+  X      filetype  (vim)
+  Y      file encoding[fileformat] (utf-8[unix])
+  Z      current position in the file 
+           percentage % ☰ current line/number of lines ln : column
+           So this: 10% ☰ 10/100 ln : 20   means: >
+              10%     - 10 percent
+              ☰ 10    - current line 10
+              /100 ln - of 100 lines
+              : 20    - current column 20
+<
+  [...]  additional sections (warning/errors/statistics)
+         from external plugins (e.g. YCM/syntastic/...)
+
+For a better look, those sections can be colored differently, depending on the mode and
+whether the current file is 'modified'
+
+Additionally, several extensions exists, that can provide additional feature (e.g. the
+tabline extension provides an extra statusline on the top of the Vim window and can
+display loaded buffers and tabs in the current Vim session).
+
+Most of this is customizable and the default sections can be configured using the vim
+variables g:airline_section_<name> (see |airline-default-sections|)
+
 ==============================================================================
 FEATURES                                                  *airline-features*
 
@@ -236,6 +292,7 @@ Note: If you define any section variables it will replace the default values
 entirely.  If you want to disable only certain parts of a section you can try
 using variables defined in the |airline-configuration| or |airline-extensions|
 section.
+                                                    |airline-default-sections|
 >
   variable names                default contents
   ----------------------------------------------------------------------------
