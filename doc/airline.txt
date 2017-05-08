@@ -67,7 +67,7 @@ section  meaning (example)~
   C      filename + read-only flag (~/.vim/vimrc RO)
   X      filetype  (vim)
   Y      file encoding[fileformat] (utf-8[unix])
-  Z      current position in the file 
+  Z      current position in the file
            percentage % ☰ current line/number of lines ln : column
            So this: 10% ☰ 10/100 ln : 20   means: >
               10%     - 10 percent
@@ -617,7 +617,7 @@ are supported!
 * enable/disable displaying open splits per tab (only when tabs are opened). >
   let g:airline#extensions#tabline#show_splits = 1
     *
-* switch position of buffers and tabs on splited tabline (c) 
+* switch position of buffers and tabs on splited tabline (c)
   (only supported for ctrlspace plugin). >
   let g:airline#extensions#tabline#switch_buffers_and_tabs = 0
 <
@@ -898,7 +898,41 @@ po.vim <http://www.vim.org/scripts/script.php?script_id=2530>
 <
 * truncate width names to a fixed length >
   let g:airline#extensions#po#displayed_limit = 0
+
+-------------------------------------                          *airline-vimtex*
+vimtex <https://github.com/lervag/vimtex>
+
+Shows the current file's vimtex related info.
+
+* enable/disable vimtex integration >
+  let g:airline#extensions#vimtex#enabled = 1
 <
+* left and right delimiters (shown only when status string is not empty)
+  let g:airline#extensions#vimtex#left = "{"
+  let g:airline#extensions#vimtex#right = "}"
+
+State indicators:
+
+* the current tex file is the main project file (nothing is shown by default)
+  let g:airline#extensions#vimtex#main = ""
+
+* the current tex file is a subfile of the project 
+  and the compilation is set for the main file
+  let g:airline#extensions#vimtex#sub_main = "m"
+
+* the current tex file is a subfile of the project
+  and the compilation is set for this subfile
+  let g:airline#extensions#vimtex#sub_local = "l"
+
+* single compilation is running
+  let g:airline#extensions#vimtex#compiled = "c₁"
+
+* continuousr compilation is running
+  let g:airline#extensions#vimtex#continuous = "c"
+
+* viewer is opened
+  let g:airline#extensions#vimtex#viewer = "v"
+
 ==============================================================================
 ADVANCED CUSTOMIZATION                      *airline-advanced-customization*
 
