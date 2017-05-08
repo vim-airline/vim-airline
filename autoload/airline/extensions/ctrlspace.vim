@@ -3,6 +3,10 @@
 
 scriptencoding utf-8
 
+if !exists('g:airline_symbols')
+  let g:airline_symbols = { 'space' : ' ' }
+endif
+
 let s:spc = g:airline_symbols.space
 let s:padding = s:spc . s:spc . s:spc
 
