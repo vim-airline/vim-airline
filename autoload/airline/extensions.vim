@@ -135,6 +135,12 @@ function! airline#extensions#load()
     return
   endif
 
+  if exists('g:airline_extensions_add')
+    for ext in g:airline_extensions_add
+      call airline#extensions#{ext}#init(s:ext)
+    endfor
+  endif
+
   call airline#extensions#quickfix#init(s:ext)
   call add(loaded_ext, 'quickfix')
 
