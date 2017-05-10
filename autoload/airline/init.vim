@@ -142,9 +142,13 @@ function! airline#init#bootstrap()
         \ 'raw': '/%L%{g:airline_symbols.maxlinenr}',
         \ 'accent': 'bold'})
   call airline#parts#define_function('ffenc', 'airline#parts#ffenc')
-  call airline#parts#define_empty(['hunks', 'branch', 'obsession', 'tagbar', 'syntastic',
-        \ 'eclim', 'whitespace','windowswap', 'ycm_error_count', 'ycm_warning_count',
-        \ 'neomake_error_count', 'neomake_warning_count', 'ale_error_count', 'ale_warning_count'])
+
+  " Adding watchman extension
+  let modules = ['hunks', 'branch', 'obsession', 'tagbar', 'syntastic',
+    \ 'eclim', 'whitespace','windowswap', 'ycm_error_count', 'ycm_warning_count',
+    \ 'neomake_error_count', 'neomake_warning_count', 'ale_error_count', 'ale_warning_count']
+  call airline#parts#define_empty(modules)
+
   call airline#parts#define_text('capslock', '')
   call airline#parts#define_text('xkblayout', '')
 
@@ -179,7 +183,7 @@ function! airline#init#sections()
     let g:airline_section_x = airline#section#create_right(['tagbar', 'filetype'])
   endif
   if !exists('g:airline_section_y')
-    let g:airline_section_y = airline#section#create_right(['ffenc'])
+    let g:airline_section_y = airline#section#create_right(['watchman'])
   endif
   if !exists('g:airline_section_z')
     if winwidth(0) > 80
@@ -192,6 +196,6 @@ function! airline#init#sections()
     let g:airline_section_error = airline#section#create(['ycm_error_count', 'syntastic', 'eclim', 'neomake_error_count', 'ale_error_count'])
   endif
   if !exists('g:airline_section_warning')
-    let g:airline_section_warning = airline#section#create(['ycm_warning_count',  'neomake_warning_count', 'ale_warning_count', 'whitespace'])
+    let g:airline_section_warning = airline#section#create(['ycm_warning_count'])
   endif
 endfunction

@@ -67,12 +67,19 @@ function! airline#extensions#tabline#load_theme(palette)
   endif
   let colors    = get(a:palette, 'tabline', {})
   " Theme for tabs on the left
-  let l:tab     = get(colors, 'airline_tab', a:palette.normal.airline_b)
+  " airline_tab: not selected, visible
+  " airline_tabsel: selected, not modified
+  " airline_tabtype:
+  " airline_tabfill: background
+  " airline_tabmod: selected, modified visible
+  " airline_tabhid: not selected, not visible
+  " airline_tabmod_unsel: not selected, visible, modified
+  let l:tab     = get(colors, 'airline_tab', a:palette.tabline.airline_b)
   let l:tabsel  = get(colors, 'airline_tabsel', a:palette.normal.airline_a)
-  let l:tabtype = get(colors, 'airline_tabtype', a:palette.visual.airline_a)
+  let l:tabtype = get(colors, 'airline_tabtype', a:palette.tabline.airline_c)
   let l:tabfill = get(colors, 'airline_tabfill', a:palette.normal.airline_c)
   let l:tabmod  = get(colors, 'airline_tabmod', a:palette.insert.airline_a)
-  let l:tabhid  = get(colors, 'airline_tabhid', a:palette.normal.airline_c)
+  let l:tabhid  = get(colors, 'airline_tabhid', a:palette.tabline.airline_c)
   if has_key(a:palette, 'normal_modified') && has_key(a:palette.normal_modified, 'airline_c')
     let l:tabmodu = get(colors, 'airline_tabmod_unsel', a:palette.normal_modified.airline_c)
   else
