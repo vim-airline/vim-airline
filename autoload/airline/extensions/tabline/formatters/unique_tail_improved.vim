@@ -10,12 +10,22 @@ function! airline#extensions#tabline#formatters#unique_tail_improved#format(bufn
     return airline#extensions#tabline#formatters#default#format(a:bufnr, a:buffers)
   endif
 
-  let curbuf_tail = fnamemodify(bufname(a:bufnr), ':t')
+  let curbuf_name = bufname(a:bufnr)
+  let curbuf_tail = fnamemodify(curbuf_name, ':t')
   let do_deduplicate = 0
   let path_tokens = {}
 
+  let has_fugitive = exists('*fugitive#buffer')
+  if has_fugitive && getbufvar(a:bufnr, 'fugitive_type', '') != ''
+    let fug_buffer = fugitive#buffer(a:bufnr)
+    let curbuf_name = fug_buffer.repo().tree(fug_buffer.path())
+  endif
   for nr in a:buffers
     let name = bufname(nr)
+    if has_fugitive && getbufvar(nr, 'fugitive_type', '') != ''
+      let fug_buffer = fugitive#buffer(nr)
+      let name = fug_buffer.repo().tree(fug_buffer.path())
+    endif
     if !empty(name) && nr != a:bufnr && fnamemodify(name, ':t') == curbuf_tail " only perform actions if curbuf_tail isn't unique
       let do_deduplicate = 1
       let tokens = reverse(split(substitute(fnamemodify(name, ':p:h'), '\\', '/', 'g'), '/'))
