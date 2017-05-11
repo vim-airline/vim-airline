@@ -1,0 +1,33 @@
+Introduction
+=============
+
+This fontpatcher is a modified version of the original patcher from the vim-powerline project so all credit goes to the creator of the vim-powerline plugin Kim Silkebækken (kim.silkebaekken+vim@gmail.com).
+
+I can only take credit for modifying the script and symbol file so that it uses the new glyph codes in the range U+E000..U+F8FF, in other words the glyph codes that the new powerline project uses.
+
+This script produces font that are both compatible with vim-airline and the new powerline plugin and all other related tools that use the new powerline glyphs.
+
+Usage
+=====
+
+1. To use this script and patch the fonts you have to install fontforge built with python support: 
+
+ - on Ubuntu and Debian this is: apt-get install python-fontforge
+ - on ArchLinux: pacman -S fontforge
+
+You should search Google for other supported distros and installation methods.
+
+2. After installing the required software now we get to step 2, chosing and aquring the fonts to be patched. Once you have the fonts just create a temporary working folder and place the fonts inside. Copy the two included files "fontpatcher" and "PowerlineSymbols.sfd" without the quotes :) and paste them inside the working directory, the one that contains the fonts to be patched, now you are ready to patch the fonts.
+
+3. To patch the fonts you just have to run the script from console
+
+  - ./fontpatcher TheNameofTheFont.ttf 
+
+The above command will produce a new font file ex: TheNameofTheFont-Powerline.ttf, that is the patched font.
+
+4. After patchhing the fonts copy them to ~/.fonts and run fc-cache -vf to recache the fonts.
+
+5. Set the patched font as the default inside your terminal emulator of choice and you are good to go.
+
+Enjoy.
+
