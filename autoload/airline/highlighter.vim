@@ -195,6 +195,9 @@ function! airline#highlighter#highlight(modes, ...)
         endif
         call airline#highlighter#exec(name.suffix, mode_colors)
 
+        if !exists('p.accents')
+          continue
+        endif
         for accent in keys(s:accents)
           if !has_key(p.accents, accent)
             continue
