@@ -115,10 +115,13 @@ endfunction
 
 function! s:get_transitioned_seperator(self, prev_group, group, side)
   let line = ''
+  let sep = a:side ? a:self._context.left_sep : a:self._context.right_sep
+  if a:self._context.active == 0 &&
+      \ get(get(g:airline#themes#{g:airline_theme}#palette, 'separator', {}), 'inactive_window') ==? 'alt'
+    let sep = a:side ? a:self._context.left_alt_sep : a:self._context.right_alt_sep
+  endif
   call airline#highlighter#add_separator(a:prev_group, a:group, a:side)
-  let line .= '%#'.a:prev_group.'_to_'.a:group.'#'
-  let line .= a:side ? a:self._context.left_sep : a:self._context.right_sep
-  let line .= '%#'.a:group.'#'
+  let line .= '%#'.a:prev_group.'_to_'.a:group.'#'.sep.'%#'.a:group.'#'
   return line
 endfunction
 

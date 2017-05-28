@@ -68,7 +68,6 @@ let g:airline#themes#dark#palette.visual_modified = {
       \ 'airline_c': [ '#ffffff' , '#5f005f' , 255     , 53      , ''     ] ,
       \ }
 
-
 let s:IA1 = [ '#4e4e4e' , '#1c1c1c' , 239 , 234 , '' ]
 let s:IA2 = [ '#4e4e4e' , '#262626' , 239 , 235 , '' ]
 let s:IA3 = [ '#4e4e4e' , '#303030' , 239 , 236 , '' ]
@@ -89,6 +88,11 @@ let g:airline#themes#dark#palette.accents = {
       \ 'red': [ '#ff0000' , '' , 160 , ''  ]
       \ }
 
+" What kind of separator to use for inactive windows.
+" Possible values: - 'normal' uses the default separators
+"                  - 'alt'    always uses the alternative separators
+" The default is 'normal'
+let g:airline#themes#dark#palette.separator = {'inactive_window': 'alt'}
 
 " Here we define the color map for ctrlp.  We check for the g:loaded_ctrlp
 " variable so that related functionality is loaded iff the user is using
