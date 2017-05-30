@@ -335,9 +335,16 @@ function! airline#extensions#branch#get_head()
   let head = airline#extensions#branch#head()
   let empty_message = get(g:, 'airline#extensions#branch#empty_message', '')
   let symbol = get(g:, 'airline#extensions#branch#symbol', g:airline_symbols.branch)
+  let tracked = s:check_file_tracked() ? '' : ' (UNTRACKED FILE)'
   return empty(head)
         \ ? empty_message
-        \ : printf('%s%s', empty(symbol) ? '' : symbol.(g:airline_symbols.space), head)
+        \ : printf('%s%s%s', empty(symbol) ? '' : symbol.(g:airline_symbols.space), head, tracked)
+endfunction
+
+function! s:check_file_tracked()
+  let file = expand("%")
+  let is_tracked = (system('git status ' . file) =~ 'Untracked') ? 0 : 1
+  return is_tracked
 endfunction
 
 function! s:check_in_path()
