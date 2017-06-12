@@ -13,7 +13,10 @@ endif
 function! airline#extensions#denite#check_denite_mode(bufnr)
   let l:mode = split(denite#get_status_mode(), ' ')
   let l:mode = tolower(l:mode[1])
-  call airline#highlighter#highlight([l:mode], a:bufnr)
+  if !exists('b:denite_mode_cache') || l:mode != b:denite_mode_cache
+    call airline#highlighter#highlight([l:mode], a:bufnr)
+    let b:denite_mode_cache = l:mode
+  endif
   return ''
 endfunction
 
