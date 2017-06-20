@@ -8,14 +8,18 @@ function! airline#extensions#wordcount#formatters#default#format()
   if empty(words)
     return
   endif
-  let separator = s:get_decimal_group()
-  if words > 999 && !empty(separator)
-    " Format number according to locale, e.g. German: 1.245 or English: 1,245
-    let a = join(reverse(split(words, '.\zs')),'')
-    let a = substitute(a, '...', '&'.separator, 'g')
-    let words = join(reverse(split(a, '.\zs')),'')
+  let result = g:airline_symbols.space . g:airline_right_alt_sep . g:airline_symbols.space
+  if winwidth(0) >= 80
+    let separator = s:get_decimal_group()
+    if words > 999 && !empty(separator)
+      " Format number according to locale, e.g. German: 1.245 or English: 1,245
+      let words = substitute(words, '\d\@<=\(\(\d\{3\}\)\+\)$', separator.'&', 'g')
+    endif
+    let result = printf("%s%s", words, " words"). result
+  else
+    let result = printf("%s%s", words, "W"). result
   endif
-  return  words . " words" . g:airline_symbols.space . g:airline_right_alt_sep . g:airline_symbols.space
+  return result
 endfunction
 
 function! s:wordcount()
