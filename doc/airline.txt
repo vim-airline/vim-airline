@@ -303,8 +303,8 @@ section.
   let g:airline_section_x       (tagbar, filetype, virtualenv)
   let g:airline_section_y       (fileencoding, fileformat)
   let g:airline_section_z       (percentage, line number, column number)
-  let g:airline_section_error   (ycm_error_count, syntastic, eclim)
-  let g:airline_section_warning (ycm_warning_count, whitespace)
+  let g:airline_section_error   (ycm_error_count, syntastic-err, eclim)
+  let g:airline_section_warning (ycm_warning_count, syntastic-warn, whitespace)
 
   " here is an example of how you could replace the branch indicator with
   " the current working directory (limited to 10 characters),
@@ -438,7 +438,7 @@ notexists symbol will be displayed after the branch name.
   endfunction
 <
 -------------------------------------                    *airline-syntastic*
-syntastic <https://github.com/scrooloose/syntastic>
+syntastic <https://github.com/vim-syntastic/syntastic>
 
 * enable/disable syntastic integration >
   let g:airline#extensions#syntastic#enabled = 1
@@ -446,6 +446,12 @@ syntastic <https://github.com/scrooloose/syntastic>
   Note: The recommendation from syntastic to modify the statusline directly
   does not apply, if you use vim-airline, since it will take care for you of
   adjusting the statusline.
+
+* syntastic error_symbol >
+  let airline#extensions#syntastic#error_symbol = 'E:'
+<
+* syntastic warning >
+  let airline#extensions#syntastic#warning_symbol = 'W:'
 <
 -------------------------------------                       *airline-tagbar*
 tagbar <https://github.com/majutsushi/tagbar>
@@ -934,6 +940,30 @@ State indicators:
 * viewer is opened
   let g:airline#extensions#vimtex#viewer = "v"
 
+-------------------------------------                    *airline-ale*
+ale <https://github.com/w0rp/ale>
+
+* enable/disable ale integration >
+  let g:airline#extensions#ale#enabled = 1
+
+* ale error_symbol >
+  let airline#extensions#ale#error_symbol = 'E:'
+<
+* ale warning >
+  let airline#extensions#ale#warning_symbol = 'W:'
+<
+-------------------------------------                    *airline-neomake*
+neomake <https://github.com/neomake/neomake>
+
+* enable/disable neomake integration >
+  let g:airline#extensions#neomake#enabled = 1
+
+* neomake error_symbol >
+  let airline#extensions#neomake#error_symbol = 'E:'
+<
+* neomake warning >
+  let airline#extensions#neomake#warning_symbol = 'W:'
+<
 ==============================================================================
 ADVANCED CUSTOMIZATION                      *airline-advanced-customization*
 
@@ -985,9 +1015,10 @@ Before is a list of parts that are predefined by vim-airline.
 
 And the following are defined for their respective extensions:
 
-`ale_error_count``ale_warning_count``branch``eclim``hunks`
-`neomake_error_count``neomake_warning_count``obsession``syntastic`
-`tagbar``whitespace``windowswap``ycm_error_count``ycm_warning_count`
+`ale_error_count` `ale_warning_count` `branch` `eclim` `hunks`
+`neomake_error_count` `neomake_warning_count` `obsession`
+`syntastic-warn` `syntastic-err` `tagbar` `whitespace`
+`windowswap` `ycm_error_count` `ycm_warning_count`
 
 -------------------------------------                      *airline-accents*
 Accents can be defined on any part, like so: >
