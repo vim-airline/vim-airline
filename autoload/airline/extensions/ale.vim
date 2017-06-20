@@ -20,6 +20,14 @@ function! s:count(index)
   return l:count
 endfunction
 
+function! airline#extensions#ale#get_warning()
+  return airline#extensions#ale#get('warning')
+endfunction
+
+function! airline#extensions#ale#get_error()
+  return airline#extensions#ale#get('error')
+endfunction
+
 function! airline#extensions#ale#get(type)
   let is_err = a:type is# 'error'
   let cnt = s:count(is_err)
@@ -31,6 +39,6 @@ function! airline#extensions#ale#get(type)
 endfunction
 
 function! airline#extensions#ale#init(ext)
-  call airline#parts#define_function('ale_error_count', 'airline#extensions#ale#get("error")')
-  call airline#parts#define_function('ale_warning_count', 'airline#extensions#ale#get("warning")')
+  call airline#parts#define_function('ale_error_count', 'airline#extensions#ale#get_error')
+  call airline#parts#define_function('ale_warning_count', 'airline#extensions#ale#get_warning')
 endfunction
