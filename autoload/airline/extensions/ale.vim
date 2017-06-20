@@ -20,17 +20,17 @@ function! s:count(index)
   return l:count
 endfunction
 
-function! airline#extensions#ale#get_errors()
-  let l:count = s:count(0)
-  return l:count ? s:error_symbol . l:count : ''
-endfunction
-
-function! airline#extensions#ale#get_warnings()
-  let l:count = s:count(1)
-  return l:count ? s:warning_symbol . l:count : ''
+function! airline#extensions#ale#get(type)
+  let is_err = a:type is# 'error'
+  let cnt = s:count(is_err)
+  if cnt == 0
+    return ''
+  else
+    return (is_err ? s:error_symbol : s:warning_symbol) . cnt
+  endif
 endfunction
 
 function! airline#extensions#ale#init(ext)
-  call airline#parts#define_function('ale_error_count', 'airline#extensions#ale#get_errors')
-  call airline#parts#define_function('ale_warning_count', 'airline#extensions#ale#get_warnings')
+  call airline#parts#define_function('ale_error_count', 'airline#extensions#ale#get("error")')
+  call airline#parts#define_function('ale_warning_count', 'airline#extensions#ale#get("warning")')
 endfunction
