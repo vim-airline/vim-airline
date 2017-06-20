@@ -303,7 +303,7 @@ function! airline#extensions#branch#head()
     if !empty(b:airline_head)
       let b:airline_head .= ' | '
     endif
-    let b:airline_head .= (len(l:heads) > 1 ? s:vcs_config[l:vcs].exe : '') . s:format_name(l:heads[l:vcs])
+    let b:airline_head .= (len(l:heads) > 1 ? s:vcs_config[l:vcs].exe .':' : '') . s:format_name(l:heads[l:vcs])
     let b:airline_head .= b:buffer_vcs_config[vcs].untracked
   endfor
 
