@@ -59,12 +59,21 @@ describe 'init sections'
   end
 
   it 'all default statusline extensions should be blank'
+    Expect airline#parts#get('ale_error_count').raw == ''
+    Expect airline#parts#get('ale_warning_count').raw == ''
     Expect airline#parts#get('hunks').raw == ''
     Expect airline#parts#get('branch').raw == ''
-    Expect airline#parts#get('tagbar').raw == ''
-    Expect airline#parts#get('syntastic').raw == ''
     Expect airline#parts#get('eclim').raw == ''
+    Expect airline#parts#get('neomake_error_count').raw == ''
+    Expect airline#parts#get('neomake_warning_count').raw == ''
+    Expect airline#parts#get('obsession').raw == ''
+    Expect airline#parts#get('syntastic-err').raw == ''
+    Expect airline#parts#get('syntastic-warn').raw == ''
+    Expect airline#parts#get('tagbar').raw == ''
     Expect airline#parts#get('whitespace').raw == ''
+    Expect airline#parts#get('windowswap').raw == ''
+    Expect airline#parts#get('ycm_error_count').raw == ''
+    Expect airline#parts#get('ycm_warning_count').raw == ''
   end
 end
 
