@@ -142,9 +142,10 @@ function! airline#init#bootstrap()
         \ 'raw': '/%L%{g:airline_symbols.maxlinenr}',
         \ 'accent': 'bold'})
   call airline#parts#define_function('ffenc', 'airline#parts#ffenc')
-  call airline#parts#define_empty(['hunks', 'branch', 'obsession', 'tagbar', 'syntastic',
-        \ 'eclim', 'whitespace','windowswap', 'ycm_error_count', 'ycm_warning_count',
-        \ 'neomake_error_count', 'neomake_warning_count', 'ale_error_count', 'ale_warning_count'])
+  call airline#parts#define_empty(['hunks', 'branch', 'obsession', 'tagbar',
+        \ 'syntastic-warn', 'syntastic-err', 'eclim', 'whitespace','windowswap',
+        \ 'ycm_error_count', 'ycm_warning_count', 'neomake_error_count',
+        \ 'neomake_warning_count', 'ale_error_count', 'ale_warning_count'])
   call airline#parts#define_text('capslock', '')
   call airline#parts#define_text('xkblayout', '')
 
@@ -189,9 +190,9 @@ function! airline#init#sections()
     endif
   endif
   if !exists('g:airline_section_error')
-    let g:airline_section_error = airline#section#create(['ycm_error_count', 'syntastic', 'eclim', 'neomake_error_count', 'ale_error_count'])
+    let g:airline_section_error = airline#section#create(['ycm_error_count', 'syntastic-err', 'eclim', 'neomake_error_count', 'ale_error_count'])
   endif
   if !exists('g:airline_section_warning')
-    let g:airline_section_warning = airline#section#create(['ycm_warning_count',  'neomake_warning_count', 'ale_warning_count', 'whitespace'])
+    let g:airline_section_warning = airline#section#create(['ycm_warning_count',  'syntastic-warn', 'neomake_warning_count', 'ale_warning_count', 'whitespace'])
   endif
 endfunction
