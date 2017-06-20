@@ -307,8 +307,9 @@ section.
   let g:airline_section_warning (ycm_warning_count, whitespace)
 
   " here is an example of how you could replace the branch indicator with
-  " the current working directory, followed by the filename.
-  let g:airline_section_b = '%{getcwd()}'
+  " the current working directory (limited to 10 characters),
+  " followed by the filename.
+  let g:airline_section_b = '%-0.10{getcwd()}'
   let g:airline_section_c = '%t'
 <
 ==============================================================================
