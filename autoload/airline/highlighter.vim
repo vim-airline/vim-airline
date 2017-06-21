@@ -59,6 +59,15 @@ function! airline#highlighter#get_highlight2(fg, bg, ...)
   return s:get_array(fg, bg, a:000)
 endfunction
 
+function! s:hl_group_exists(group)
+  if !hlexists(a:group)
+    return 0
+  elseif empty(synIDattr(hlID(a:group), 'fg'))
+    return 0
+  endif
+  return 1
+endfunction
+
 function! airline#highlighter#exec(group, colors)
   if pumvisible()
     return
@@ -73,7 +82,7 @@ function! airline#highlighter#exec(group, colors)
     call add(colors, '')
   endif
   let colors = s:CheckDefined(colors)
-  if old_hi != colors || !hlexists(a:group)
+  if old_hi != colors || !s:hl_group_exists(a:group)
     let cmd = printf('hi %s %s %s %s %s %s %s %s',
         \ a:group, s:Get(colors, 0, 'guifg=', ''), s:Get(colors, 1, 'guibg=', ''),
         \ s:Get(colors, 2, 'ctermfg=', ''), s:Get(colors, 3, 'ctermbg=', ''),
