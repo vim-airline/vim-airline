@@ -21,7 +21,6 @@ endfunction
 function! airline#extensions#syntastic#get(type)
   let _backup = get(g:, 'syntastic_stl_format', '')
   let is_err = (a:type  is# 'error')
-  let res    = ''
   if is_err
     let g:syntastic_stl_format = '%E{%e}'
   else
