@@ -29,6 +29,7 @@ let s:vcs_config = {
 \    'cmd': 'git status --porcelain -- ',
 \    'untracked_mark': '??',
 \    'update_branch': 's:update_git_branch',
+\    'exclude': '\.git',
 \    'branch': '',
 \    'untracked': {},
 \  },
@@ -36,6 +37,7 @@ let s:vcs_config = {
 \    'exe': 'hg',
 \    'cmd': 'hg status -u -- ',
 \    'untracked_mark': '?',
+\    'exclude': '\.hg',
 \    'update_branch': 's:update_hg_branch',
 \    'branch': '',
 \    'untracked': {},
@@ -165,6 +167,10 @@ function! s:update_untracked()
 
   let l:needs_update = 1
   for vcs in keys(s:vcs_config)
+    if l:file =~ s:vcs_config[vcs].exclude
+      " Skip check for files that live in the exclude directory
+      let l:needs_update = 0
+    endif
     if has_key(s:vcs_config[vcs].untracked, l:file)
       let l:needs_update = 0
       call s:update_untracked_in_buffer_config(l:file, vcs)
