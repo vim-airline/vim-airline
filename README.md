@@ -203,7 +203,7 @@ If you are interested in becoming a maintainer (we always welcome more maintaine
 
 # License
 
-MIT License. Copyright (c) 2013-2016 Bailey Ling.
+MIT License. Copyright (c) 2013-2017 Bailey Ling & Contributors.
 
 [1]: https://github.com/Lokaltog/vim-powerline
 [2]: https://github.com/Lokaltog/powerline
@@ -217,7 +217,7 @@ MIT License. Copyright (c) 2013-2016 Bailey Ling.
 [10]: https://github.com/ctrlpvim/ctrlp.vim
 [11]: https://github.com/tpope/vim-pathogen
 [12]: https://github.com/Shougo/neobundle.vim
-[13]: https://github.com/gmarik/vundle
+[13]: https://github.com/VundleVim/Vundle.vim
 [14]: https://github.com/vim-airline/vim-airline/wiki/Screenshots
 [15]: https://github.com/techlivezheng/vim-plugin-minibufexpl
 [16]: https://github.com/sjl/gundo.vim
