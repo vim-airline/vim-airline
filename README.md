@@ -159,7 +159,7 @@ This plugin follows the standard runtime path structure, and as such it can be i
 | [Plug][40] | `Plug 'vim-airline/vim-airline'` |
 | [VAM][22] | `call vam#ActivateAddons([ 'vim-airline' ])` |
 | [Dein][52] | `call dein#add('vim-airline/vim-airline')` |
-| [minpac][54] | `call minpac#add('vim-airline/vim-airline') |
+| [minpac][54] | `call minpac#add('vim-airline/vim-airline')` |
 | manual | copy all of the files into your `~/.vim` directory |
 
 # Configuration
