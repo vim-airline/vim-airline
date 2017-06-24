@@ -159,6 +159,7 @@ This plugin follows the standard runtime path structure, and as such it can be i
 | [Plug][40] | `Plug 'vim-airline/vim-airline'` |
 | [VAM][22] | `call vam#ActivateAddons([ 'vim-airline' ])` |
 | [Dein][52] | `call dein#add('vim-airline/vim-airline')` |
+| [minpac][54] | `call minpac#add('vim-airline/vim-airline') |
 | manual | copy all of the files into your `~/.vim` directory |
 
 # Configuration
@@ -257,3 +258,4 @@ MIT License. Copyright (c) 2013-2016 Bailey Ling.
 [51]: https://github.com/Shougo/denite.nvim
 [52]: https://github.com/Shougo/dein.vim
 [53]: https://github.com/lervag/vimtex
+[54]: https://github.com/k-takata/minpac/
