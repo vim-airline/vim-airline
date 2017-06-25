@@ -240,7 +240,7 @@ function! airline#extensions#load()
     call add(loaded_ext, 'syntastic')
   endif
 
-  if (get(g:, 'airline#extensions#ale#enabled', 1) && exists('g:loaded_ale'))
+  if (get(g:, 'airline#extensions#ale#enabled', 1) && exists(':ALELint'))
     call airline#extensions#ale#init(s:ext)
     call add(loaded_ext, 'ale')
   endif
