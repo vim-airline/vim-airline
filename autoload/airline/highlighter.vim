@@ -84,8 +84,13 @@ function! airline#highlighter#exec(group, colors)
   if len(colors) == 4
     call add(colors, '')
   endif
+  if g:airline_gui_mode ==# 'gui'
+    let new_hi = [colors[0], colors[1], '', '', colors[4]]
+  else
+    let new_hi = ['', '', printf("%s", colors[2]), printf("%s", colors[3]), colors[4]]
+  endif
   let colors = s:CheckDefined(colors)
-  if old_hi != colors || !s:hl_group_exists(a:group)
+  if old_hi != new_hi || !s:hl_group_exists(a:group)
     let cmd = printf('hi %s %s %s %s %s %s %s %s',
         \ a:group, s:Get(colors, 0, 'guifg=', ''), s:Get(colors, 1, 'guibg=', ''),
         \ s:Get(colors, 2, 'ctermfg=', ''), s:Get(colors, 3, 'ctermbg=', ''),
