@@ -156,8 +156,12 @@ function! airline#extensions#whitespace#init(...)
 endfunction
 
 function! s:ws_refresh()
+  if get(b:, 'airline_ws_changedtick', 0) == b:changedtick
+    return
+  endif
   unlet! b:airline_whitespace_check
   if get(g:, 'airline_skip_empty_sections', 0)
     exe ':AirlineRefresh'
   endif
+  let b:airline_ws_changedtick = b:changedtick
 endfunction
