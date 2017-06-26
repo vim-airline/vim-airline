@@ -3,6 +3,19 @@
 
 scriptencoding utf-8
 
+" min percentage width per section
+let g:section_width = get(g:, 'airline#extensions#default#section_width', {
+      \ 'a': {'pct': 7},
+      \ 'b': {'pct': 10},
+      \ 'c': {'pct': 25},
+      \ 'x': {'pct': 7},
+      \ 'y': {'pct': 11},
+      \ 'z': {'pct': 15},
+      \ 'warning': {'pct': 10},
+      \ 'error':   {'pct': 10},
+      \ 'gutter':  {'pct': 5},
+      \ })
+
 let s:prototype = {}
 
 function! s:prototype.split(...) dict
@@ -87,6 +100,7 @@ function! s:prototype.build() dict
           let line .= s:get_seperator(self, prev_group, group, side)
         endif
       endif
+      let contents = s:calculate_max_width(self, contents, group)
       let line .= is_empty ? '' : s:get_accented_line(self, group, contents)
     endif
 
@@ -145,6 +159,37 @@ function! s:get_accented_line(self, group, contents)
     let line = substitute(line, '%#__restore__#', '', 'g')
   endif
   return line
+endfunction
+
+function! s:calculate_section_width()
+  if get(b:, 'airline_winwidth', 0) != winwidth(0)
+    let winwidth = winwidth(0)
+    for key in keys(g:section_width)
+      let g:section_width[key]['width'] = float2nr(winwidth * (g:section_width[key]['pct']/100.0))
+    endfor
+    let b:airline_winwidth = winwidth
+  endif
+endfunction
+
+function! s:calculate_max_width(self, content, key)
+  if a:self._context.active == 0 ||
+        \ get(a:self._context, 'tabline', 0)
+    return a:content
+  endif
+  call s:calculate_section_width()
+  if winwidth(0) >= 100
+    " only truncate sections for window width < 100
+    return a:content
+  endif
+  let section_key = matchstr(a:key, 'airline_\zs.*')
+  let width = g:section_width[section_key]['width']
+  if section_key == 'c'
+    " for the buffername, use a min-width
+    return '%-'.(width > 50 ? 50 : width).'.('.a:content.'%)'
+  else
+    " the rest takes a maxwidth
+    return '%-.'.width.'('.a:content.'%)'
+endif
 endfunction
 
 function! s:section_is_empty(self, content)
@@ -207,4 +252,3 @@ function! airline#builder#new(context)
         \ }, 'keep')
   return builder
 endfunction
-
