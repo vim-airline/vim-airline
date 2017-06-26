@@ -84,6 +84,10 @@ function! airline#highlighter#exec(group, colors)
   if len(colors) == 4
     call add(colors, '')
   endif
+  if has_key(g:airline_theme_dict, 'a:group') &&
+        \ get(g:airline_theme_dict[a:group]) == a:colors
+    return
+  endif
   if g:airline_gui_mode ==# 'gui'
     let new_hi = [colors[0], colors[1], '', '', colors[4]]
   else
@@ -98,6 +102,7 @@ function! airline#highlighter#exec(group, colors)
         \ s:Get(colors, 4, 'term=', ''))
     exe cmd
   endif
+  let g:airline_theme_dict[a:group] = a:colors
 endfunction
 
 function! s:CheckDefined(colors)
@@ -160,6 +165,7 @@ function! airline#highlighter#load_theme()
   if pumvisible()
     return
   endif
+  let g:airline_theme_dict = {}
   for winnr in filter(range(1, winnr('$')), 'v:val != winnr()')
     call airline#highlighter#highlight_modified_inactive(winbufnr(winnr))
   endfor
@@ -169,6 +175,7 @@ function! airline#highlighter#load_theme()
   else
     call airline#highlighter#highlight(['normal'])
   endif
+  unlet g:airline_theme_dict
 endfunction
 
 function! airline#highlighter#add_separator(from, to, inverse)
