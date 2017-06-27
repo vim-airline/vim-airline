@@ -47,9 +47,7 @@ function! airline#load_theme()
   endif
 
   call airline#highlighter#load_theme()
-  let g:airline_theme_dict = {}
   call airline#extensions#load_theme()
-  unlet g:airline_theme_dict
   call airline#update_statusline()
 endfunction
 
@@ -104,7 +102,6 @@ function! airline#update_statusline()
   if airline#util#getwinvar(winnr(), 'airline_disabled', 0)
     return
   endif
-  let g:airline_theme_dict={}
   for nr in filter(range(1, winnr('$')), 'v:val != winnr()')
     if airline#util#getwinvar(nr, 'airline_disabled', 0)
       continue
@@ -120,7 +117,6 @@ function! airline#update_statusline()
   let w:airline_active = 1
   let context = { 'winnr': winnr(), 'active': 1, 'bufnr': winbufnr(winnr()) }
   call s:invoke_funcrefs(context, g:airline_statusline_funcrefs)
-  unlet g:airline_theme_dict
 endfunction
 
 let s:contexts = {}
@@ -202,11 +198,9 @@ function! airline#check_mode(winnr)
     return ''
   endif
   if get(w:, 'airline_lastmode', '') != mode_string
-    let g:airline_theme_dict = {}
     call airline#highlighter#highlight_modified_inactive(context.bufnr)
     call airline#highlighter#highlight(l:mode, context.bufnr)
     let w:airline_lastmode = mode_string
-    unlet g:airline_theme_dict
   endif
 
   return ''
