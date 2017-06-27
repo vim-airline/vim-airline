@@ -19,7 +19,8 @@ function! s:get_hunks_signify()
 endfunction
 
 function! s:is_branch_empty()
-  return exists('*airline#extensions#branch#head') && empty(airline#extensions#branch#head())
+  return exists('*airline#extensions#branch#head') &&
+        \ empty(get(b:, 'airline_head', ''))
 endfunction
 
 function! s:get_hunks_gitgutter()
@@ -34,12 +35,7 @@ function! s:get_hunks_changes()
     return []
   endif
   let hunks = changes#GetStats()
-  for i in hunks
-    if i > 0
-      return hunks
-    endif
-  endfor
-  return []
+  return hunks == [0, 0, 0] ? [] : hunks
 endfunction
 
 function! s:get_hunks_empty()
@@ -69,7 +65,7 @@ function! airline#extensions#hunks#get_hunks()
   endif
   " Cache vavlues, so that it isn't called too often
   if exists("b:airline_hunks") &&
-    \ get(b:,  'airline_changenr', 0) == changenr() &&
+    \ get(b:,  'airline_changenr', 0) == b:changedtick &&
     \ winwidth(0) == get(s:, 'airline_winwidth', 0) &&
     \ get(b:, 'source_func', '') isnot# 's:get_hunks_signify' &&
     \ get(b:, 'source_func', '') isnot# 's:get_hunks_gitgutter' &&
@@ -86,7 +82,7 @@ function! airline#extensions#hunks#get_hunks()
     endfor
   endif
   let b:airline_hunks = string
-  let b:airline_changenr = changenr()
+  let b:airline_changenr = b:changedtick
   let s:airline_winwidth = winwidth(0)
   return string
 endfunction
