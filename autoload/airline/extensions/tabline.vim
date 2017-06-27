@@ -146,11 +146,14 @@ function! airline#extensions#tabline#title(n)
     let buflist = tabpagebuflist(a:n)
     let winnr = tabpagewinnr(a:n)
     let all_buffers = airline#extensions#tabline#buflist#list()
-    return airline#extensions#tabline#get_buffer_name(
+    let title = airline#extensions#tabline#get_buffer_name(
           \ buflist[winnr - 1],
           \ filter(buflist, 'index(all_buffers, v:val) != -1'))
   endif
 
+  if exists("*settabvar") && !empty(title)
+    call settabvar(a:n, 'title', title)
+  endif
   return title
 endfunction
 
