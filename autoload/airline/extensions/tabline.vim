@@ -147,7 +147,12 @@ function! airline#extensions#tabline#title(n)
   endif
 
   if exists("*settabvar") && !empty(title)
-    call settabvar(a:n, 'title', title)
+    " don't use settabvar, it causes a refresh,
+    " which in turn causes flicker on windows
+    "call settabvar(a:n, 'title', title)
+    if tabpagenr() == a:n
+      let t:title = title
+    endif
   endif
   return title
 endfunction
