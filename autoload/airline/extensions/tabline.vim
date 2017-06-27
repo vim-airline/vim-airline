@@ -118,18 +118,13 @@ function! airline#extensions#tabline#get()
   if !exists('#airline#BufAdd#*')
     autocmd airline BufAdd * call <sid>update_tabline()
   endif
-  try
-    let g:airline_theme_dict = {}
-    if s:ctrlspace
-      return airline#extensions#tabline#ctrlspace#get()
-    elseif s:show_buffers && curtabcnt == 1 || !s:show_tabs
-      return airline#extensions#tabline#buffers#get()
-    else
-      return airline#extensions#tabline#tabs#get()
-    endif
-  finally
-    unlet g:airline_theme_dict
-  endtry
+  if s:ctrlspace
+    return airline#extensions#tabline#ctrlspace#get()
+  elseif s:show_buffers && curtabcnt == 1 || !s:show_tabs
+    return airline#extensions#tabline#buffers#get()
+  else
+    return airline#extensions#tabline#tabs#get()
+  endif
 endfunction
 
 function! airline#extensions#tabline#title(n)
