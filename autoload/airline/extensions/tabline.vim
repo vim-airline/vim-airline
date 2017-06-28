@@ -141,19 +141,11 @@ function! airline#extensions#tabline#title(n)
     let buflist = tabpagebuflist(a:n)
     let winnr = tabpagewinnr(a:n)
     let all_buffers = airline#extensions#tabline#buflist#list()
-    let title = airline#extensions#tabline#get_buffer_name(
+    return airline#extensions#tabline#get_buffer_name(
           \ buflist[winnr - 1],
           \ filter(buflist, 'index(all_buffers, v:val) != -1'))
   endif
 
-  if exists("*settabvar") && !empty(title)
-    " don't use settabvar, it causes a refresh,
-    " which in turn causes flicker on windows
-    "call settabvar(a:n, 'title', title)
-    if tabpagenr() == a:n
-      let t:title = title
-    endif
-  endif
   return title
 endfunction
 
