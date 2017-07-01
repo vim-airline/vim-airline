@@ -402,7 +402,7 @@ function! airline#extensions#branch#init(ext)
   call airline#parts#define_function('branch', 'airline#extensions#branch#get_head')
 
   autocmd BufReadPost * unlet! b:airline_file_in_root
-  autocmd CursorHold,ShellCmdPost,CmdwinLeave * unlet! b:airline_head
+  autocmd ShellCmdPost,CmdwinLeave * unlet! b:airline_head
   autocmd User AirlineBeforeRefresh unlet! b:airline_head
   autocmd BufWritePost * call s:reset_untracked_cache(0)
   autocmd ShellCmdPost * call s:reset_untracked_cache(1)
