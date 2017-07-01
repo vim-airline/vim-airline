@@ -98,7 +98,7 @@ function! airline#extensions#whitespace#check()
       if s:show_message
         if trailing != 0
           let trailing_fmt = get(g:, 'airline#extensions#whitespace#trailing_format', '[%s]trailing')
-          let b:airline_whitespace_check .= space.printf(trailing_fm, trailing)
+          let b:airline_whitespace_check .= space.printf(trailing_fmt, trailing)
         endif
         if mixed != 0
           let mixed_indent_fmt = get(g:, 'airline#extensions#whitespace#mixed_indent_format', '[%s]mixed-indent')
