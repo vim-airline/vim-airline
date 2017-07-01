@@ -63,7 +63,7 @@ function! airline#extensions#hunks#get_hunks()
   if !get(w:, 'airline_active', 0)
     return ''
   endif
-  " Cache vavlues, so that it isn't called too often
+  " Cache values, so that it isn't called too often
   if exists("b:airline_hunks") &&
     \ get(b:,  'airline_changenr', 0) == b:changedtick &&
     \ winwidth(0) == get(s:, 'airline_winwidth', 0) &&
