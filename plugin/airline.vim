@@ -106,6 +106,9 @@ function! s:airline_toggle()
             \ | call airline#load_theme()
     augroup END
 
+    if &laststatus < 2
+      set laststatus=2
+    endif
     if s:airline_initialized
       call s:on_window_changed()
     endif
