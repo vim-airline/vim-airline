@@ -14,7 +14,7 @@ function! airline#extensions#unicode#apply(...)
           \ 'accent': 'bold' })
     let w:airline_section_a = airline#section#create(['unicode'])
     let w:airline_section_b = ''
-    let w:airline_section_c = ''
+    let w:airline_section_c = ' '
     let w:airline_section_y = ''
   endif
 endfunction
