@@ -150,7 +150,7 @@ function! airline#check_mode(winnr)
 
   let context = s:contexts[a:winnr]
   let is_term = 0
-  if has("terminal")
+  if exists("*term_list")
     let is_term = index(term_list(), bufnr('')) > -1
   endif
 
