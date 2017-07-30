@@ -149,6 +149,10 @@ function! airline#check_mode(winnr)
   let s:airline_run += 1
 
   let context = s:contexts[a:winnr]
+  let is_term = 0
+  if has("terminal")
+    let is_term = index(term_list(), bufnr('')) > -1
+  endif
 
   if get(w:, 'airline_active', 1)
     let l:m = mode()
@@ -158,8 +162,9 @@ function! airline#check_mode(winnr)
       let l:mode = ['replace']
     elseif l:m =~# '\v(v|V||s|S|)'
       let l:mode = ['visual']
-    elseif l:m ==# "t"
+    elseif l:m ==# "t" || is_term
       let l:mode = ['terminal']
+      let l:m = 't'
     else
       let l:mode = ['normal']
     endif
