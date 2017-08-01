@@ -131,6 +131,10 @@ values):
 
 * enable spell detection >
   let g:airline_detect_spell=1
+
+* display spelling language when spell detection is enabled
+  (if enough space is available) >
+  let g:airline_detect_spelllang=1
 <
 * enable iminsert detection >
   let g:airline_detect_iminsert=0

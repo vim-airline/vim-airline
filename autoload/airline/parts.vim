@@ -65,7 +65,17 @@ function! airline#parts#paste()
 endfunction
 
 function! airline#parts#spell()
-  return g:airline_detect_spell && &spell ? g:airline_symbols.spell : ''
+  let spelllang = g:airline_detect_spelllang ? printf(" [%s]", toupper(substitute(&spelllang, ',', '/', 'g'))) : ''
+  if g:airline_detect_spell && &spell
+    if winwidth(0) >= 90
+      return g:airline_symbols.spell . spelllang
+    elseif winwidth(0) >= 70
+      return g:airline_symbols.spell
+    else
+      return split(g:airline_symbols.spell, '\zs')[0]
+    endif
+  endif
+  return ''
 endfunction
 
 function! airline#parts#iminsert()
