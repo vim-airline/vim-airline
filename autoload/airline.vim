@@ -76,7 +76,7 @@ endfunction
 function! airline#switch_matching_theme()
   if exists('g:colors_name')
     let existing = g:airline_theme
-    let theme = substitute(g:colors_name, '-', '_', 'g')
+    let theme = substitute(tolower(g:colors_name), '-', '_', 'g')
     try
       let palette = g:airline#themes#{theme}#palette
       call airline#switch_theme(theme)
