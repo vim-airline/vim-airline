@@ -39,6 +39,15 @@ function! airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_t
   endif
 
   let s:buffer_list = ctrlspace#api#BufferList(a:cur_tab)
+  " add by tenfy(tenfyzhong@qq.com)
+  " if the current buffer no in the buffer list
+  " return false and no redraw tabline. 
+  " Fixes #1515. if there a BufEnter autocmd execute redraw. The tabline may no update.
+  let bufnr_list = map(copy(s:buffer_list), 'v:val["index"]')
+  if index(bufnr_list, a:cur_buf) == -1
+    return 0
+  endif
+
   for buffer in s:buffer_list
       if a:cur_buf == buffer.index
         if buffer.modified
@@ -64,6 +73,10 @@ function! airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_t
 
       call a:builder.add_section_spaced(group, buf_name)
   endfor
+  " add by tenfy(tenfyzhong@qq.com)
+  " if the selected buffer was updated
+  " return true
+  return 1
 endfunction
 
 function! airline#extensions#tabline#ctrlspace#add_tab_section(builder, pos)
@@ -113,11 +126,19 @@ function! airline#extensions#tabline#ctrlspace#get()
   if s:show_buffers == 0
       call airline#extensions#tabline#ctrlspace#add_tab_section(builder, 0)
   elseif s:show_tabs == 0
-      call airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_tab, cur_buf, 0)
+      " add by tenfy(tenfyzhong@qq.com)
+      " if current buffer no in the buffer list, does't update tabline
+      if airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_tab, cur_buf, 0) == 0
+        return s:current_tabline
+      endif
   else
     if s:switch_buffers_and_tabs == 0
       call builder.add_section_spaced('airline_tabtype', s:buffers_label)
-      call airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_tab, cur_buf, 0)
+      " add by tenfy(tenfyzhong@qq.com)
+      " if current buffer no in the buffer list, does't update tabline
+      if airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_tab, cur_buf, 0) == 0
+        return s:current_tabline
+      endif
     else
       call builder.add_section_spaced('airline_tabtype', s:tabs_label)
       call airline#extensions#tabline#ctrlspace#add_tab_section(builder, 0)
@@ -138,7 +159,11 @@ function! airline#extensions#tabline#ctrlspace#get()
       call airline#extensions#tabline#ctrlspace#add_tab_section(builder, 1)
       call builder.add_section_spaced('airline_tabtype', s:tabs_label)
     else
-      call airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_tab, cur_buf, 1)
+      " add by tenfy(tenfyzhong@qq.com)
+      " if current buffer no in the buffer list, does't update tabline
+      if airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_tab, cur_buf, 0) == 0
+        return s:current_tabline
+      endif
       call builder.add_section_spaced('airline_tabtype', s:buffers_label)
     endif
   endif
