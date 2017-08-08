@@ -22,9 +22,9 @@ function! airline#extensions#syntastic#get(type)
   let _backup = get(g:, 'syntastic_stl_format', '')
   let is_err = (a:type  is# 'error')
   if is_err
-    let g:syntastic_stl_format = '%E{%e}'
+    let g:syntastic_stl_format = '%E{%e(L%fe)}'
   else
-    let g:syntastic_stl_format = '%W{%w}'
+    let g:syntastic_stl_format = '%W{%w(L%fw)}'
   endif
   let cnt = SyntasticStatuslineFlag()
   if !empty(_backup)
