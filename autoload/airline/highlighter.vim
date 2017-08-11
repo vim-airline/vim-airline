@@ -41,9 +41,10 @@ function! s:get_syn(group, what)
 endfunction
 
 function! s:get_array(fg, bg, opts)
+  let opts=empty(a:opts) ? '' : join(a:opts, ',')
   return g:airline_gui_mode ==# 'gui'
-        \ ? [ a:fg, a:bg, '', '', join(a:opts, ',') ]
-        \ : [ '', '', a:fg, a:bg, join(a:opts, ',') ]
+        \ ? [ a:fg, a:bg, '', '', opts ]
+        \ : [ '', '', a:fg, a:bg, opts ]
 endfunction
 
 function! airline#highlighter#get_highlight(group, ...)
