@@ -57,6 +57,7 @@ endfunction
 function! s:on_colorscheme_changed()
   call s:init()
   unlet! g:airline#highlighter#normal_fg_hi
+  call airline#highlighter#reset_hlcache()
   let g:airline_gui_mode = airline#init#gui_mode()
   if !s:theme_in_vimrc
     call airline#switch_matching_theme()
