@@ -81,6 +81,7 @@ function! s:airline_toggle()
     if exists("s:stl")
       let &stl = s:stl
     endif
+    call airline#highlighter#reset_hlcache()
 
     silent doautocmd User AirlineToggledOff
   else

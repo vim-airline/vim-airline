@@ -19,6 +19,7 @@ describe 'active builder'
   end
 
   it 'should reuse highlight group if background colors match'
+    call airline#highlighter#reset_hlcache()
     highlight Foo1 ctermfg=1 ctermbg=2
     highlight Foo2 ctermfg=1 ctermbg=2
     call s:builder.add_section('Foo1', 'hello')
@@ -28,6 +29,7 @@ describe 'active builder'
   end
 
   it 'should switch highlight groups if foreground colors differ'
+    call airline#highlighter#reset_hlcache()
     highlight Foo1 ctermfg=1 ctermbg=2
     highlight Foo2 ctermfg=2 ctermbg=2
     call s:builder.add_section('Foo1', 'hello')
