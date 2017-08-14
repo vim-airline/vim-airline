@@ -142,6 +142,7 @@ function! s:airline_refresh()
     let nomodeline = '<nomodeline>'
   endif
   exe printf("silent doautocmd %s User AirlineBeforeRefresh", nomodeline)
+  call airline#highlighter#reset_hlcache()
   call airline#load_theme()
   call airline#update_statusline()
 endfunction

@@ -211,6 +211,10 @@ values):
   the same name (in the correct window): >
   let w:airline_skip_empty_sections = 0
 <
+* Caches the changes to the highlighting groups, should therefore be faster.
+  Set this to one, if you experience a sluggish Vim: >
+  let g:airline_highlighting_cache = 0
+<
 ==============================================================================
 COMMANDS                                                  *airline-commands*
 
