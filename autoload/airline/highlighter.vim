@@ -53,7 +53,7 @@ function! airline#highlighter#reset_hlcache()
 endfunction
 
 function! airline#highlighter#get_highlight(group, ...)
-  if has_key(s:hl_groups, a:group)
+  if get(g:, 'airline_highlighting_cache', 0) && has_key(s:hl_groups, a:group)
     return s:hl_groups[a:group]
   else
     let fg = s:get_syn(a:group, 'fg')
