@@ -152,9 +152,6 @@ function! airline#check_mode(winnr)
 
   if get(w:, 'airline_active', 1)
     let l:m = mode()
-    if exists("*term_list") && index(term_list(), bufnr('')) > -1
-      let l:m = "t"
-    endif
     if l:m ==# "i"
       let l:mode = ['insert']
     elseif l:m ==# "R"
