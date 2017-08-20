@@ -149,7 +149,7 @@ endfunction
 
 function! s:Get(dict, key, prefix)
   let res=get(a:dict, a:key, '')
-  if empty(res)
+  if res is ''
     return ''
   else
     return a:prefix. res
