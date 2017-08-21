@@ -3,8 +3,6 @@
 
 scriptencoding utf-8
 
-let s:has_async = airline#util#async
-
 function! s:shorten()
   if exists("g:airline#extensions#po#displayed_limit")
     let w:displayed_po_limit = g:airline#extensions#po#displayed_limit
@@ -14,7 +12,7 @@ function! s:shorten()
   endif
 endfunction
 
-if s:has_async
+if airline#init#async
   let s:jobs = {}
 
   function! s:on_stdout(channel, msg) dict abort
@@ -70,7 +68,7 @@ function! airline#extensions#po#stats()
   endif
 
   let cmd = 'msgfmt --statistics -o /dev/null -- '
-  if s:has_async
+  if airline#init#async
     call s:get_msgfmt_stat_async(cmd, expand('%:p'))
   else
     let airline_po_stats = system(cmd. shellescape(expand('%:p')))

@@ -18,7 +18,7 @@ function! airline#init#bootstrap()
 
   let g:airline#init#bootstrapping = 1
 
-  let g:airline#util#async = v:version >= 800 && has('job')
+  let g:airline#init#async = (has("nvim") || (v:version >= 800 && has('job')))
   let g:airline#util#is_windows = has('win32') || has('win64')
 
   call s:check_defined('g:airline_detect_modified', 1)

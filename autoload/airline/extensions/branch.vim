@@ -11,8 +11,6 @@ if !s:has_fugitive && !s:has_lawrencium && !s:has_vcscommand
   finish
 endif
 
-let s:has_async = airline#util#async
-
 " s:vcs_config contains static configuration of VCSes and their status relative
 " to the active file.
 " 'branch'    - The name of currently active branch. This field is empty iff it
@@ -123,7 +121,7 @@ endfunction
 function! s:update_hg_branch(path)
   if s:has_lawrencium
     let stl=lawrencium#statusline()
-    if !empty(stl) && s:has_async
+    if !empty(stl) && g:airline#init#async
       call s:get_mq_async('LC_ALL=C hg qtop', expand('%:p'))
     endif
     if exists("s:mq") && !empty(s:mq)
@@ -183,7 +181,7 @@ function! s:update_untracked()
 
   for vcs in keys(s:vcs_config)
     let l:config = s:vcs_config[vcs]
-    if s:has_async
+    if g:airline#init#async
       " Note that asynchronous update updates s:vcs_config only, and only
       " s:update_untracked updates b:buffer_vcs_config. If s:vcs_config is
       " invalidated again before s:update_untracked is called, then we lose the
@@ -202,7 +200,7 @@ function! s:update_untracked()
   endfor
 endfunction
 
-if s:has_async
+if g:airline#init#async
   let s:jobs = {}
 
   function! s:on_stdout(channel, msg) dict abort
@@ -377,7 +375,7 @@ endfunction
 
 function! s:reset_untracked_cache(shellcmdpost)
   " shellcmdpost - whether function was called as a result of ShellCmdPost hook
-  if !s:has_async && !has('nvim')
+  if !g:airline#init#async && !has('nvim')
     if a:shellcmdpost
       " Clear cache only if there was no error or the script uses an
       " asynchronous interface. Otherwise, cache clearing would overwrite
