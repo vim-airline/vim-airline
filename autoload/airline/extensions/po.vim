@@ -12,7 +12,7 @@ function! s:shorten()
   endif
 endfunction
 
-if airline#init#async
+if g:airline#init#async
   let s:jobs = {}
 
   function! s:on_stdout(channel, msg) dict abort
@@ -32,7 +32,7 @@ if airline#init#async
   endfunction
 
   function! s:get_msgfmt_stat_async(cmd, file)
-    if g:airline#util#is_windows || !executable('msgfmt')
+    if g:airline#init#is_windows || !executable('msgfmt')
       " no msgfmt on windows?
       return
     else
@@ -68,7 +68,7 @@ function! airline#extensions#po#stats()
   endif
 
   let cmd = 'msgfmt --statistics -o /dev/null -- '
-  if airline#init#async
+  if g:airline#init#async
     call s:get_msgfmt_stat_async(cmd, expand('%:p'))
   else
     let airline_po_stats = system(cmd. shellescape(expand('%:p')))
