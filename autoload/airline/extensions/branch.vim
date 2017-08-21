@@ -221,7 +221,7 @@ if g:airline#init#async
   endfunction
 
   function! s:get_vcs_untracked_async(config, file)
-    if g:airline#util#is_windows && &shell =~ 'cmd'
+    if g:airline#init#is_windows && &shell =~ 'cmd'
       let cmd = a:config['cmd'] . shellescape(a:file)
     else
       let cmd = ['sh', '-c', a:config['cmd'] . shellescape(a:file)]
@@ -259,7 +259,7 @@ if g:airline#init#async
   endfunction
 
   function! s:get_mq_async(cmd, file)
-    if g:airline#util#is_windows && &shell =~ 'cmd'
+    if g:airline#init#is_windows && &shell =~ 'cmd'
       let cmd = a:cmd
     else
       let cmd = ['sh', '-c', a:cmd]
