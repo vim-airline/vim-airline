@@ -5,6 +5,7 @@ let s:untracked_jobs = {}
 let s:mq_jobs        = {}
 let s:po_jobs        = {}
 
+" Generic functions handling on exit event of the various async functions
 function! s:untracked_output(dict, buf)
   if a:buf =~? ('^'. a:dict.cfg['untracked_mark'])
     let a:dict.cfg.untracked[a:dict.file] = get(g:, 'airline#extensions#branch#notexists', g:airline_symbols.notexists)
@@ -41,7 +42,8 @@ function! s:po_output(buf, file)
   endif
 endfunction
 
-if !has("nvim")
+if v:version >= 800 && has("job")
+  " Vim 8.0 with Job feature
 
   function! s:on_stdout(channel, msg) dict abort
     let self.buf .= a:msg
@@ -130,36 +132,82 @@ if !has("nvim")
     let s:untracked_jobs[a:file] = id
   endfunction
 
-endif " end !NVim
+elseif has("nvim")
+  " NVim specific functions
 
-function! s:nvim_untracked_job_handler(job_id, data, event) dict
-  if a:event == 'stdout'
-    let self.buf .=  join(a:data)
-  else " on_exit handler
-    call s:untracked_output(self, self.buf)
-    if has_key(s:untracked_jobs, self.file)
-      call remove(s:untracked_jobs, self.file)
+  function! s:nvim_untracked_job_handler(job_id, data, event) dict
+    if a:event == 'stdout'
+      let self.buf .=  join(a:data)
+    else " on_exit handler
+      call s:untracked_output(self, self.buf)
+      if has_key(s:untracked_jobs, self.file)
+        call remove(s:untracked_jobs, self.file)
+      endif
     endif
-  endif
-endfunction
+  endfunction
 
-function! s:nvim_mq_job_handler(job_id, data, event) dict
-  if a:event == 'stdout'
-    let self.buf .=  join(a:data)
-  else " on_exit handler
-    call s:mq_output(self.buf, self.file)
-  endif
-endfunction
+  function! s:nvim_mq_job_handler(job_id, data, event) dict
+    if a:event == 'stdout'
+      let self.buf .=  join(a:data)
+    else " on_exit handler
+      call s:mq_output(self.buf, self.file)
+    endif
+  endfunction
 
-function! s:nvim_po_job_handler(job_id, data, event) dict
-  if a:event == 'stdout'
-    let self.buf .=  join(a:data)
-  else " on_exit handler
-    call s:po_output(self.buf, self.file)
-    call airline#extensions#po#shorten()
-  endif
-endfunction
+  function! s:nvim_po_job_handler(job_id, data, event) dict
+    if a:event == 'stdout'
+      let self.buf .=  join(a:data)
+    else " on_exit handler
+      call s:po_output(self.buf, self.file)
+      call airline#extensions#po#shorten()
+    endif
+  endfunction
 
+  function! airline#async#nvim_get_mq_async(cmd, file)
+    let config = {
+    \ 'buf': '',
+    \ 'file': a:file,
+    \ 'cwd': fnamemodify(a:file, ':p:h'),
+    \ 'on_stdout': function('s:nvim_mq_job_handler'),
+    \ 'on_exit': function('s:nvim_mq_job_handler')
+    \ }
+    if g:airline#init#is_windows && &shell =~ 'cmd'
+      let cmd = a:cmd
+    else
+      let cmd = ['sh', '-c', a:cmd]
+    endif
+
+    if has_key(s:mq_jobs, a:file)
+      call remove(s:mq_jobs, a:file)
+    endif
+    let id = jobstart(cmd, config)
+    let s:mq_jobs[a:file] = id
+  endfunction
+
+  function! airline#async#nvim_get_msgfmt_stat(cmd, file)
+    let config = {
+    \ 'buf': '',
+    \ 'file': a:file,
+    \ 'cwd': fnamemodify(a:file, ':p:h'),
+    \ 'on_stdout': function('s:nvim_po_job_handler'),
+    \ 'on_exit': function('s:nvim_po_job_handler')
+    \ }
+    if g:airline#init#is_windows && &shell =~ 'cmd'
+      let cmd = a:cmd
+    else
+      let cmd = ['sh', '-c', a:cmd]
+    endif
+
+    if has_key(s:po_jobs, a:file)
+      call remove(s:po_jobs, a:file)
+    endif
+    let id = jobstart(cmd, config)
+    let s:po_jobs[a:file] = id
+  endfunction
+
+endif
+
+" Should work in either Vim pre 8 or Nvim
 function! airline#async#nvim_vcs_untracked(cfg, file, vcs)
   let config = {
   \ 'buf': '',
@@ -187,46 +235,4 @@ function! airline#async#nvim_vcs_untracked(cfg, file, vcs)
     call s:untracked_output(config, output)
     call airline#extensions#branch#update_untracked_config(a:file, a:vcs)
   endif
-endfunction
-
-function! airline#async#nvim_get_mq_async(cmd, file)
-  let config = {
-  \ 'buf': '',
-  \ 'file': a:file,
-  \ 'cwd': fnamemodify(a:file, ':p:h'),
-  \ 'on_stdout': function('s:nvim_mq_job_handler'),
-  \ 'on_exit': function('s:nvim_mq_job_handler')
-  \ }
-  if g:airline#init#is_windows && &shell =~ 'cmd'
-    let cmd = a:cmd
-  else
-    let cmd = ['sh', '-c', a:cmd]
-  endif
-
-  if has_key(s:mq_jobs, a:file)
-    call remove(s:mq_jobs, a:file)
-  endif
-  let id = jobstart(cmd, config)
-  let s:mq_jobs[a:file] = id
-endfunction
-
-function! airline#async#nvim_get_msgfmt_stat(cmd, file)
-  let config = {
-  \ 'buf': '',
-  \ 'file': a:file,
-  \ 'cwd': fnamemodify(a:file, ':p:h'),
-  \ 'on_stdout': function('s:nvim_po_job_handler'),
-  \ 'on_exit': function('s:nvim_po_job_handler')
-  \ }
-  if g:airline#init#is_windows && &shell =~ 'cmd'
-    let cmd = a:cmd
-  else
-    let cmd = ['sh', '-c', a:cmd]
-  endif
-
-  if has_key(s:po_jobs, a:file)
-    call remove(s:po_jobs, a:file)
-  endif
-  let id = jobstart(cmd, config)
-  let s:po_jobs[a:file] = id
 endfunction
