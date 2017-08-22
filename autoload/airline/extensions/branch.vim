@@ -191,8 +191,10 @@ function! s:update_untracked()
       " result of the previous call, i.e. the head string is not updated. It
       " doesn't happen often in practice, so we let it be.
       call s:get_vcs_untracked_async(l:config, l:file)
+    elseif has('nvim')
+      call airline#util#system(l:config, l:file)
     else
-      let output = airline#util#system(l:config.cmd . shellescape(l:file))
+      let output = airline#util#system(l:config, l:file)
       if output =~? ('^' . l:config.untracked_mark)
         let l:config.untracked[l:file] = get(g:, 'airline#extensions#branch#notexists', g:airline_symbols.notexists)
       else

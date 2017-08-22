@@ -94,20 +94,31 @@ if has('nvim')
   function! s:system_job_handler(job_id, data, event) dict
     if a:event == 'stdout'
       let self.buf .=  join(a:data)
+    else " on_exit handler
+      if self.buf =~? ('^' . self.cfg['untracked_mark'])
+        let self.cfg.untracked[self.file] = get(g:, 'airline#extensions#branch#notexists', g:airline_symbols.notexists)
+      else
+        let self.cfg.untracked[self.file] = ''
+      endif
     endif
   endfunction
 
-  function! airline#util#system(cmd)
+  function! airline#util#system(cfg, file)
     let l:config = {
     \ 'buf': '',
+    \ 'cfg': a:cfg,
+    \ 'file': a:file,
+    \ 'cwd': fnamemodify(a:file, ':p:h'),
     \ 'on_stdout': function('s:system_job_handler'),
+    \ 'on_exit': function('s:system_job_handler')
     \ }
-    let l:id = jobstart(a:cmd, l:config)
+    let cmd = a:cfg.cmd . shellescape(a:file)
+    let l:id = jobstart(cmd, l:config)
     if l:id < 1
-      return system(a:cmd)
+      return system(cmd)
+    else
+      return ''
     endif
-    call jobwait([l:id])
-    return l:config.buf
   endfunction
 else
   function! airline#util#system(cmd)
