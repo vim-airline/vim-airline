@@ -122,16 +122,32 @@ function! s:update_hg_branch(...)
   " path argument is not actually used, so we don't actually care about a:1
   " it is just needed, because update_git_branch needs it.
   if s:has_lawrencium
+    let cmd='LC_ALL=C hg qtop'
     let stl=lawrencium#statusline()
-    if !empty(stl) && g:airline#init#async && get(b:, 'airline_do_mq_check', 1)
-      call s:get_mq_async('LC_ALL=C hg qtop', expand('%:p'))
+    if !empty(stl) && get(b:, 'airline_do_mq_check', 1)
+      if g:airline#init#async
+        call airline#async#get_mq_async(cmd, expand('%:p'))
+      elseif has("nvim")
+        call airline#async#nvim_get_mq_async(cmd, expand('%:p'))
+      else
+        let output=system(cmd)
+        if output is# 'no patches applied' ||
+          \ output =~# "unknown command 'qtop'"
+          let b:mq=''
+        else
+          unlet! b:airline_head
+          let b:mq = output
+        endif
+      endif
     endif
-    if exists("s:mq") && !empty(s:mq)
+    " do not do mq check anymore
+    let b:airline_do_mq_check = 0
+    if exists("b:mq") && !empty(b:mq)
       if stl is# 'default'
         " Shorten default a bit
         let stl='def'
       endif
-      let stl.=' ['.s:mq.']'
+      let stl.=' ['.b:mq.']'
     endif
     let s:vcs_config['mercurial'].branch = stl
   else
@@ -151,7 +167,7 @@ function! s:update_branch()
   endfor
 endfunction
 
-function! s:update_untracked_in_buffer_config(file, vcs)
+function! airline#extensions#branch#update_untracked_config(file, vcs)
   if !has_key(s:vcs_config[a:vcs].untracked, a:file)
     return
   elseif s:vcs_config[a:vcs].untracked[a:file] != b:buffer_vcs_config[a:vcs].untracked
@@ -161,132 +177,42 @@ function! s:update_untracked_in_buffer_config(file, vcs)
 endfunction
 
 function! s:update_untracked()
-  let l:file = expand("%:p")
-  if empty(l:file) || isdirectory(l:file)
+  let file = expand("%:p")
+  if empty(file) || isdirectory(file)
     return
   endif
 
-  let l:needs_update = 1
+  let needs_update = 1
   for vcs in keys(s:vcs_config)
-    if l:file =~ s:vcs_config[vcs].exclude
+    if file =~ s:vcs_config[vcs].exclude
       " Skip check for files that live in the exclude directory
-      let l:needs_update = 0
+      let needs_update = 0
     endif
-    if has_key(s:vcs_config[vcs].untracked, l:file)
-      let l:needs_update = 0
-      call s:update_untracked_in_buffer_config(l:file, vcs)
+    if has_key(s:vcs_config[vcs].untracked, file)
+      let needs_update = 0
+      call airline#extensions#branch#update_untracked_config(file, vcs)
     endif
   endfor
 
-  if !l:needs_update
+  if !needs_update
     return
   endif
 
   for vcs in keys(s:vcs_config)
-    let l:config = s:vcs_config[vcs]
+    let config = s:vcs_config[vcs]
     if g:airline#init#async
       " Note that asynchronous update updates s:vcs_config only, and only
       " s:update_untracked updates b:buffer_vcs_config. If s:vcs_config is
       " invalidated again before s:update_untracked is called, then we lose the
       " result of the previous call, i.e. the head string is not updated. It
       " doesn't happen often in practice, so we let it be.
-      call s:get_vcs_untracked_async(l:config, l:file)
-    elseif has('nvim')
-      call airline#util#system(l:config, l:file)
+      call airline#async#vim_vcs_untracked(config, file)
     else
-      let output = airline#util#system(l:config, l:file)
-      if output =~? ('^' . l:config.untracked_mark)
-        let l:config.untracked[l:file] = get(g:, 'airline#extensions#branch#notexists', g:airline_symbols.notexists)
-      else
-        let l:config.untracked[l:file] = ''
-      endif
-      call s:update_untracked_in_buffer_config(l:file, vcs)
+      " nvim async or vim without job-feature
+      call airline#async#nvim_vcs_untracked(config, file, vcs)
     endif
   endfor
 endfunction
-
-if g:airline#init#async
-  let s:jobs = {}
-
-  function! s:on_stdout(channel, msg) dict abort
-    let self.buf .= a:msg
-  endfunction
-
-  function! s:on_exit(channel) dict abort
-    if self.buf =~? ('^' . self.config['untracked_mark'])
-      let self.config.untracked[self.file] = get(g:, 'airline#extensions#branch#notexists', g:airline_symbols.notexists)
-    else
-      let self.config.untracked[self.file] = ''
-    endif
-    " b:buffer_vcs_config will be updated on next call of update_untracked if
-    " needed
-    if has_key(s:jobs, self.file)
-      call remove(s:jobs, self.file)
-    endif
-  endfunction
-
-  function! s:get_vcs_untracked_async(config, file)
-    if g:airline#init#is_windows && &shell =~ 'cmd'
-      let cmd = a:config['cmd'] . shellescape(a:file)
-    else
-      let cmd = ['sh', '-c', a:config['cmd'] . shellescape(a:file)]
-    endif
-
-    let options = {'config': a:config, 'buf': '', 'file': a:file}
-    if has_key(s:jobs, a:file)
-      if job_status(get(s:jobs, a:file)) == 'run'
-        return
-      elseif has_key(s:jobs, a:file)
-        call remove(s:jobs, a:file)
-      endif
-    endif
-    let id = job_start(cmd, {
-          \ 'err_io':   'out',
-          \ 'out_cb':   function('s:on_stdout', options),
-          \ 'close_cb': function('s:on_exit', options)})
-    let s:jobs[a:file] = id
-  endfu
-
-  function! s:on_exit_mq(channel) dict abort
-    if !empty(self.buf)
-      if self.buf is# 'no patches applied' ||
-        \ self.buf =~# "unknown command 'qtop'"
-        let self.buf = ''
-      elseif exists("s:mq") && s:mq isnot# self.buf
-        " make sure, statusline is updated
-        unlet! b:airline_head
-      endif
-      let s:mq = self.buf
-      " do not do mq check anymore
-      let b:airline_do_mq_check = 0
-    endif
-    if has_key(s:jobs, self.file)
-      call remove(s:jobs, self.file)
-    endif
-  endfunction
-
-  function! s:get_mq_async(cmd, file)
-    if g:airline#init#is_windows && &shell =~ 'cmd'
-      let cmd = a:cmd
-    else
-      let cmd = ['sh', '-c', a:cmd]
-    endif
-
-    let options = {'cmd': a:cmd, 'buf': '', 'file': a:file}
-    if has_key(s:jobs, a:file)
-      if job_status(get(s:jobs, a:file)) == 'run'
-        return
-      elseif has_key(s:jobs, a:file)
-        call remove(s:jobs, a:file)
-      endif
-    endif
-    let id = job_start(cmd, {
-          \ 'err_io':   'out',
-          \ 'out_cb':   function('s:on_stdout', options),
-          \ 'close_cb': function('s:on_exit_mq', options)})
-    let s:jobs[a:file] = id
-  endfu
-endif
 
 function! airline#extensions#branch#head()
   if !exists('b:buffer_vcs_config')
@@ -301,24 +227,24 @@ function! airline#extensions#branch#head()
   endif
 
   let b:airline_head = ''
-  let l:vcs_priority = get(g:, "airline#extensions#branch#vcs_priority", ["git", "mercurial"])
+  let vcs_priority = get(g:, "airline#extensions#branch#vcs_priority", ["git", "mercurial"])
 
-  let l:heads = {}
-  for vcs in l:vcs_priority
+  let heads = {}
+  for vcs in vcs_priority
     if !empty(b:buffer_vcs_config[vcs].branch)
-      let l:heads[vcs] = b:buffer_vcs_config[vcs].branch
+      let heads[vcs] = b:buffer_vcs_config[vcs].branch
     endif
   endfor
 
-  for vcs in keys(l:heads)
+  for vcs in keys(heads)
     if !empty(b:airline_head)
       let b:airline_head .= ' | '
     endif
-    let b:airline_head .= (len(l:heads) > 1 ? s:vcs_config[l:vcs].exe .':' : '') . s:format_name(l:heads[l:vcs])
+    let b:airline_head .= (len(heads) > 1 ? s:vcs_config[vcs].exe .':' : '') . s:format_name(heads[vcs])
     let b:airline_head .= b:buffer_vcs_config[vcs].untracked
   endfor
 
-  if empty(l:heads)
+  if empty(heads)
     if s:has_vcscommand
       call VCSCommandEnableBufferSetup()
       if exists('b:VCSCommandBufferInfo')
@@ -334,7 +260,7 @@ function! airline#extensions#branch#head()
     endif
   endif
 
-  if has_key(l:heads, 'git') && !s:check_in_path()
+  if has_key(heads, 'git') && !s:check_in_path()
     let b:airline_head = ''
   endif
   let minwidth = empty(get(b:, 'airline_hunks', '')) ? 14 : 7
@@ -393,12 +319,12 @@ function! s:reset_untracked_cache(shellcmdpost)
     endif
   endif
 
-  let l:file = expand("%:p")
+  let file = expand("%:p")
   for vcs in keys(s:vcs_config)
     " Dump the value of the cache for the current file. Partially mitigates the
     " issue of cache invalidation happening before a call to
     " s:update_untracked()
-    call s:update_untracked_in_buffer_config(l:file, l:vcs)
+    call airline#extensions#branch#update_untracked_config(file, vcs)
     let s:vcs_config[vcs].untracked = {}
   endfor
 endfunction
