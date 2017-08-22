@@ -157,6 +157,8 @@ elseif has("nvim")
   function! s:nvim_po_job_handler(job_id, data, event) dict
     if a:event == 'stdout'
       let self.buf .=  join(a:data)
+    elseif a:event == 'stderr'
+      let self.buf .=  join(a:data)
     else " on_exit handler
       call s:po_output(self.buf, self.file)
       call airline#extensions#po#shorten()
@@ -190,12 +192,14 @@ elseif has("nvim")
     \ 'file': a:file,
     \ 'cwd': fnamemodify(a:file, ':p:h'),
     \ 'on_stdout': function('s:nvim_po_job_handler'),
+    \ 'on_stderr': function('s:nvim_po_job_handler'),
     \ 'on_exit': function('s:nvim_po_job_handler')
     \ }
     if g:airline#init#is_windows && &shell =~ 'cmd'
-      let cmd = a:cmd
+      " no msgfmt on windows?
+      return
     else
-      let cmd = ['sh', '-c', a:cmd]
+      let cmd = ['sh', '-c', a:cmd. shellescape(a:file)]
     endif
 
     if has_key(s:po_jobs, a:file)
