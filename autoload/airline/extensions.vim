@@ -153,6 +153,11 @@ function! airline#extensions#load()
     call add(loaded_ext, 'netrw')
   endif
 
+  if has("terminal")
+    call airline#extensions#term#init(s:ext)
+    call add(loaded_ext, 'term')
+  endif
+
   if get(g:, 'airline#extensions#ycm#enabled', 0)
     call airline#extensions#ycm#init(s:ext)
     call add(loaded_ext, 'ycm')
