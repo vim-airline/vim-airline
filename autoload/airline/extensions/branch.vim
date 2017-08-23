@@ -138,9 +138,10 @@ function! s:update_hg_branch(path)
 endfunction
 
 function! s:update_branch()
-  let l:path = exists("*fnamemodify") ? fnamemodify(resolve(@%), ":p:h") : expand("%:p:h")
+  let b:airline_fname_path = get(b:, 'airline_fname_path',
+        \ exists("*fnamemodify") ? fnamemodify(resolve(@%), ":p:h") : expand("%:p:h"))
   for vcs in keys(s:vcs_config)
-    call {s:vcs_config[vcs].update_branch}(l:path)
+    call {s:vcs_config[vcs].update_branch}(b:airline_fname_path)
     if b:buffer_vcs_config[vcs].branch != s:vcs_config[vcs].branch
       let b:buffer_vcs_config[vcs].branch = s:vcs_config[vcs].branch
       unlet! b:airline_head
