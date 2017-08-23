@@ -125,7 +125,7 @@ function! s:update_hg_branch(...)
     let cmd='LC_ALL=C hg qtop'
     let stl=lawrencium#statusline()
     if !empty(stl) && get(b:, 'airline_do_mq_check', 1)
-      if g:airline#init#async
+      if g:airline#init#vim_async
         call airline#async#get_mq_async(cmd, expand('%:p'))
       elseif has("nvim")
         call airline#async#nvim_get_mq_async(cmd, expand('%:p'))
@@ -200,7 +200,7 @@ function! s:update_untracked()
 
   for vcs in keys(s:vcs_config)
     let config = s:vcs_config[vcs]
-    if g:airline#init#async
+    if g:airline#init#vim_async
       " Note that asynchronous update updates s:vcs_config only, and only
       " s:update_untracked updates b:buffer_vcs_config. If s:vcs_config is
       " invalidated again before s:update_untracked is called, then we lose the
@@ -308,7 +308,7 @@ endfunction
 
 function! s:reset_untracked_cache(shellcmdpost)
   " shellcmdpost - whether function was called as a result of ShellCmdPost hook
-  if !g:airline#init#async && !has('nvim')
+  if !g:airline#init#vim_async && !has('nvim')
     if a:shellcmdpost
       " Clear cache only if there was no error or the script uses an
       " asynchronous interface. Otherwise, cache clearing would overwrite

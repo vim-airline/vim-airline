@@ -25,7 +25,7 @@ function! airline#extensions#po#stats()
   endif
 
   let cmd = 'msgfmt --statistics -o /dev/null -- '
-  if g:airline#init#async
+  if g:airline#init#vim_async
     call airline#async#get_msgfmt_stat(cmd, expand('%:p'))
   elseif has("nvim")
     call airline#async#nvim_get_msgfmt_stat(cmd, expand('%:p'))
