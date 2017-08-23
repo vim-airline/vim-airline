@@ -29,7 +29,8 @@ let s:airline_tagbar_last_lookup_time = 0
 let s:airline_tagbar_last_lookup_val = ''
 function! airline#extensions#tagbar#currenttag()
   if get(w:, 'airline_active', 0)
-    if s:airline_tagbar_last_lookup_time != localtime()
+    " function tagbar#currenttag does not exist, if filetype is not enabled
+    if s:airline_tagbar_last_lookup_time != localtime() && exists("*tagbar#currenttag")
       let s:airline_tagbar_last_lookup_val = tagbar#currenttag('%s', '', s:flags)
       let s:airline_tagbar_last_lookup_time = localtime()
     endif
