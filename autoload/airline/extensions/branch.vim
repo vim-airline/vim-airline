@@ -123,7 +123,7 @@ function! s:update_hg_branch(...)
   " it is just needed, because update_git_branch needs it.
   if s:has_lawrencium
     let stl=lawrencium#statusline()
-    if !empty(stl) && g:airline#init#async && !get(b:, 'airline_mq_disabled', 0)
+    if !empty(stl) && g:airline#init#async && get(b:, 'airline_do_mq_check', 1)
       call s:get_mq_async('LC_ALL=C hg qtop', expand('%:p'))
     endif
     if exists("s:mq") && !empty(s:mq)
@@ -250,14 +250,13 @@ if g:airline#init#async
       if self.buf is# 'no patches applied' ||
         \ self.buf =~# "unknown command 'qtop'"
         let self.buf = ''
-        if self.buf =~# "unknown command 'qtop'"
-          let b:airline_mq_disabled = 1
-        endif
       elseif exists("s:mq") && s:mq isnot# self.buf
         " make sure, statusline is updated
         unlet! b:airline_head
       endif
       let s:mq = self.buf
+      " do not do mq check anymore
+      let b:airline_do_mq_check = 0
     endif
     if has_key(s:jobs, self.file)
       call remove(s:jobs, self.file)
@@ -406,8 +405,8 @@ function! airline#extensions#branch#init(ext)
   call airline#parts#define_function('branch', 'airline#extensions#branch#get_head')
 
   autocmd BufReadPost * unlet! b:airline_file_in_root
-  autocmd ShellCmdPost,CmdwinLeave * unlet! b:airline_head b:airline_mq_disabled b:airline_fname_path
-  autocmd User AirlineBeforeRefresh unlet! b:airline_head b:airline_mq_disabled b:airline_fname_path
+  autocmd ShellCmdPost,CmdwinLeave * unlet! b:airline_head b:airline_do_mq_check b:airline_fname_path
+  autocmd User AirlineBeforeRefresh unlet! b:airline_head b:airline_do_mq_check b:airline_fname_path
   autocmd BufWritePost * call s:reset_untracked_cache(0)
   autocmd ShellCmdPost * call s:reset_untracked_cache(1)
 endfunction
