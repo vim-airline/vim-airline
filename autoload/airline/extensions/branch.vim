@@ -118,7 +118,9 @@ function! s:update_git_branch(path)
   let s:vcs_config['git'].branch = name
 endfunction
 
-function! s:update_hg_branch(path)
+function! s:update_hg_branch(...)
+  " path argument is not actually used, so we don't actually care about a:1
+  " it is just needed, because update_git_branch needs it.
   if s:has_lawrencium
     let stl=lawrencium#statusline()
     if !empty(stl) && g:airline#init#async && !get(b:, 'airline_mq_disabled', 0)
