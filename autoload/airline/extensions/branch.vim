@@ -121,7 +121,7 @@ endfunction
 function! s:update_hg_branch(path)
   if s:has_lawrencium
     let stl=lawrencium#statusline()
-    if !empty(stl) && g:airline#init#async
+    if !empty(stl) && g:airline#init#async && !get(b:, 'airline_mq_disabled', 0)
       call s:get_mq_async('LC_ALL=C hg qtop', expand('%:p'))
     endif
     if exists("s:mq") && !empty(s:mq)
@@ -248,6 +248,9 @@ if g:airline#init#async
       if self.buf is# 'no patches applied' ||
         \ self.buf =~# "unknown command 'qtop'"
         let self.buf = ''
+        if self.buf =~# "unknown command 'qtop'"
+          let b:airline_mq_disabled = 1
+        endif
       elseif exists("s:mq") && s:mq isnot# self.buf
         " make sure, statusline is updated
         unlet! b:airline_head
