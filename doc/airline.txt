@@ -700,12 +700,15 @@ with the middle mouse button to delete that buffer.
   nmap <leader>- <Plug>AirlineSelectPrevTab
   nmap <leader>+ <Plug>AirlineSelectNextTab
 
-  Note: Mappings will be ignored within a NERDTree buffer.
+  Note: Mappings will be ignored within "g:keymap_ignored_filetypes".
 
   Note: In buffer_idx_mode these mappings won't change the
   current tab, but switch to the buffer visible in that tab.
   Use |gt| for switching tabs.
   In tabmode, those mappings will switch to the specified tab.
+
+* define the set of filetypes which are ignored selectTab keymappings
+  let g:airline#extensions#tabline#keymap_ignored_filetypes = ['vimfiler', 'nerdtree']
 
 * change the display format of the buffer index >
   let g:airline#extensions#tabline#buffer_idx_format = {

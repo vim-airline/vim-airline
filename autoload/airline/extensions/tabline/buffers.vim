@@ -6,6 +6,7 @@ scriptencoding utf-8
 let s:buffer_idx_mode = get(g:, 'airline#extensions#tabline#buffer_idx_mode', 0)
 let s:show_tab_type = get(g:, 'airline#extensions#tabline#show_tab_type', 1)
 let s:buffers_label = get(g:, 'airline#extensions#tabline#buffers_label', 'buffers')
+let s:keymap_ignored_filetypes = get(g:, 'airline#extensions#tabline#keymap_ignored_filetypes', ['vimfiler', 'nerdtree'])
 let s:spc = g:airline_symbols.space
 
 let s:current_bufnr = -1
@@ -160,8 +161,8 @@ function! s:get_visible_buffers()
 endfunction
 
 function! s:select_tab(buf_index)
-  " no-op when called in the NERDTree buffer
-  if exists('t:NERDTreeBufName') && bufname('%') == t:NERDTreeBufName
+  " no-op when called in 'keymap_ignored_filetypes'
+  if count(s:keymap_ignored_filetypes, &ft)
     return
   endif
 
