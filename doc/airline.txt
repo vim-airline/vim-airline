@@ -700,7 +700,7 @@ with the middle mouse button to delete that buffer.
   nmap <leader>- <Plug>AirlineSelectPrevTab
   nmap <leader>+ <Plug>AirlineSelectNextTab
 
-  Note: Mappings will be ignored within "g:keymap_ignored_filetypes".
+  Note: Mappings will be ignored within "g:airline#extensions#tabline#keymap_ignored_filetypes".
 
   Note: In buffer_idx_mode these mappings won't change the
   current tab, but switch to the buffer visible in that tab.
