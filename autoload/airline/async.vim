@@ -215,16 +215,17 @@ endif
 function! airline#async#nvim_vcs_untracked(cfg, file, vcs)
   let cmd = a:cfg.cmd . shellescape(a:file)
   let id = -1
+  let config = {
+  \ 'buf': '',
+  \ 'vcs': a:vcs,
+  \ 'cfg': a:cfg,
+  \ 'file': a:file,
+  \ 'cwd': fnamemodify(a:file, ':p:h')
+  \ }
   if has("nvim")
-    let config = {
-    \ 'buf': '',
-    \ 'vcs': a:vcs,
-    \ 'cfg': a:cfg,
-    \ 'file': a:file,
-    \ 'cwd': fnamemodify(a:file, ':p:h'),
+    call extend(config, {
     \ 'on_stdout': function('s:nvim_untracked_job_handler'),
-    \ 'on_exit': function('s:nvim_untracked_job_handler')
-    \ }
+    \ 'on_exit': function('s:nvim_untracked_job_handler')})
     if has_key(s:untracked_jobs, config.file)
       " still running
       return
