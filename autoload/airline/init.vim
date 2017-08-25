@@ -18,7 +18,7 @@ function! airline#init#bootstrap()
 
   let g:airline#init#bootstrapping = 1
 
-  let g:airline#init#async = (v:version >= 800 && has('job'))
+  let g:airline#init#vim_async = (v:version >= 800 && has('job'))
   let g:airline#init#is_windows = has('win32') || has('win64')
 
   call s:check_defined('g:airline_detect_modified', 1)
@@ -149,6 +149,7 @@ function! airline#init#bootstrap()
         \ 'neomake_warning_count', 'ale_error_count', 'ale_warning_count'])
   call airline#parts#define_text('capslock', '')
   call airline#parts#define_text('xkblayout', '')
+  call airline#parts#define_text('keymap', '')
 
   unlet g:airline#init#bootstrapping
 endfunction
@@ -162,7 +163,7 @@ endfunction
 function! airline#init#sections()
   let spc = g:airline_symbols.space
   if !exists('g:airline_section_a')
-    let g:airline_section_a = airline#section#create_left(['mode', 'crypt', 'paste', 'spell', 'capslock', 'xkblayout', 'iminsert'])
+    let g:airline_section_a = airline#section#create_left(['mode', 'crypt', 'paste', 'keymap', 'spell', 'capslock', 'xkblayout', 'iminsert'])
   endif
   if !exists('g:airline_section_b')
     let g:airline_section_b = airline#section#create(['hunks', 'branch'])
