@@ -11,11 +11,14 @@ endif
 " that implements its own insert/normal mode so we have to handle changing the
 " highlight
 function! airline#extensions#denite#check_denite_mode(bufnr)
-  let l:mode = split(denite#get_status_mode(), ' ')
-  let l:mode = tolower(l:mode[1])
-  if !exists('b:denite_mode_cache') || l:mode != b:denite_mode_cache
-    call airline#highlighter#highlight([l:mode], a:bufnr)
-    let b:denite_mode_cache = l:mode
+  if &filetype != 'denite'
+    return ''
+  endif
+  let mode = split(denite#get_status_mode(), ' ')
+  let mode = tolower(mode[1])
+  if !exists('b:denite_mode_cache') || mode != b:denite_mode_cache
+    call airline#highlighter#highlight([mode], a:bufnr)
+    let b:denite_mode_cache = mode
   endif
   return ''
 endfunction
