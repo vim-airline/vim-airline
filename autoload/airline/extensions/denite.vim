@@ -35,13 +35,5 @@ endfunction
 function! airline#extensions#denite#init(ext)
   call denite#custom#option('_', 'statusline', 0)
   call a:ext.add_statusline_func('airline#extensions#denite#apply')
-
-  " airline#extensions#denite#apply normally gets called only after the
-  " denite window gets closed, so we have to call airline#update_statusline
-  " ourselves to make sure it's applied when the window is opened.
-  augroup airline_denite
-    autocmd!
-    autocmd FileType denite call airline#update_statusline()
-  augroup END
 endfunction
 
