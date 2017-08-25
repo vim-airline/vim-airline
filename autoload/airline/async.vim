@@ -213,19 +213,18 @@ endif
 
 " Should work in either Vim pre 8 or Nvim
 function! airline#async#nvim_vcs_untracked(cfg, file, vcs)
-  let config = {
-  \ 'buf': '',
-  \ 'vcs': a:vcs,
-  \ 'cfg': a:cfg,
-  \ 'file': a:file,
-  \ 'cwd': fnamemodify(a:file, ':p:h'),
-  \ 'on_stdout': function('s:nvim_untracked_job_handler'),
-  \ 'on_exit': function('s:nvim_untracked_job_handler')
-  \ }
   let cmd = a:cfg.cmd . shellescape(a:file)
-  if !has("nvim")
-    let id = -1
-  else
+  let id = -1
+  if has("nvim")
+    let config = {
+    \ 'buf': '',
+    \ 'vcs': a:vcs,
+    \ 'cfg': a:cfg,
+    \ 'file': a:file,
+    \ 'cwd': fnamemodify(a:file, ':p:h'),
+    \ 'on_stdout': function('s:nvim_untracked_job_handler'),
+    \ 'on_exit': function('s:nvim_untracked_job_handler')
+    \ }
     if has_key(s:untracked_jobs, config.file)
       " still running
       return
