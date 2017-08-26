@@ -42,6 +42,13 @@ function! s:po_output(buf, file)
   endif
 endfunction
 
+function! s:valid_dir(dir)
+  if empty(a:dir) || !isdirectory(a:dir)
+    return getcwd()
+  endif
+  return a:dir
+endfunction
+
 if v:version >= 800 && has("job")
   " Vim 8.0 with Job feature
 
@@ -166,14 +173,10 @@ elseif has("nvim")
   endfunction
 
   function! airline#async#nvim_get_mq_async(cmd, file)
-    let cwd = fnamemodify(a:file, ':p:h')
-    if empty(cwd) || !isdirectory(cwd)
-      let cwd = getcwd()
-    endif
     let config = {
     \ 'buf': '',
     \ 'file': a:file,
-    \ 'cwd': cwd,
+    \ 'cwd': s:valid_dir(fnamemodify(a:file, ':p:h'))
     \ 'on_stdout': function('s:nvim_mq_job_handler'),
     \ 'on_exit': function('s:nvim_mq_job_handler')
     \ }
@@ -191,14 +194,10 @@ elseif has("nvim")
   endfunction
 
   function! airline#async#nvim_get_msgfmt_stat(cmd, file)
-    let cwd = fnamemodify(a:file, ':p:h')
-    if empty(cwd) || !isdirectory(cwd)
-      let cwd = getcwd()
-    endif
     let config = {
     \ 'buf': '',
     \ 'file': a:file,
-    \ 'cwd': cwd,
+    \ 'cwd': s:valid_dir(fnamemodify(a:file, ':p:h'))
     \ 'on_stdout': function('s:nvim_po_job_handler'),
     \ 'on_stderr': function('s:nvim_po_job_handler'),
     \ 'on_exit': function('s:nvim_po_job_handler')
@@ -223,16 +222,12 @@ endif
 function! airline#async#nvim_vcs_untracked(cfg, file, vcs)
   let cmd = a:cfg.cmd . shellescape(a:file)
   let id = -1
-  let cwd = fnamemodify(a:file, ':p:h')
-  if empty(cwd) || !isdirectory(cwd)
-    let cwd = getcwd()
-  endif
   let config = {
   \ 'buf': '',
   \ 'vcs': a:vcs,
   \ 'cfg': a:cfg,
   \ 'file': a:file,
-  \ 'cwd': cwd
+  \ 'cwd': s:valid_dir(fnamemodify(a:file, ':p:h'))
   \ }
   if has("nvim")
     call extend(config, {
