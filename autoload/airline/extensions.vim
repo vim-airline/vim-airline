@@ -300,6 +300,11 @@ function! airline#extensions#load()
     call add(loaded_ext, 'xkblayout')
   endif
 
+  if (get(g:, 'airline#extensions#keymap#enabled', 1) && has('keymap'))
+    call airline#extensions#keymap#init(s:ext)
+    call add(loaded_ext, 'keymap')
+  endif
+
   if (get(g:, 'airline#extensions#windowswap#enabled', 1) && get(g:, 'loaded_windowswap', 0))
     call airline#extensions#windowswap#init(s:ext)
     call add(loaded_ext, 'windowswap')
