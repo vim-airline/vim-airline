@@ -1,18 +1,14 @@
-" MIT License. Copyright (c) 2017 Doron Behar.
+" MIT License. Copyright (c) 2013-2017 Doron Behar, C.Brabandt
+" vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
 
 if !has('keymap')
-	finish
+  finish
 endif
 
 function! airline#extensions#keymap#status()
-	if &keymap != ''
-		let s:keymap2print = g:airline_symbols.keymap . ' ' . &keymap
-	else
-		let s:keymap2print = ''
-	endif
-	return printf('%s', s:keymap2print)
+  return ('%s', (&keymap ? (g:airline_symbols.keymap . ' '. &keymap) : ''))
 endfunction
 
 function! airline#extensions#keymap#init(ext)
