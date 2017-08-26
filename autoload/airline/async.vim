@@ -242,7 +242,10 @@ function! airline#async#nvim_vcs_untracked(cfg, file, vcs)
       " still running
       return
     endif
-    let id = jobstart(cmd, config)
+    try
+      let id = jobstart(cmd, config)
+    catch /^Vim(let):E475: Invalid argument: expected valid directory$/
+    endtry
     let s:untracked_jobs[a:file] = id
   endif
   " vim without job feature or nvim jobstart failed
