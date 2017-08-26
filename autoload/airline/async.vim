@@ -166,10 +166,14 @@ elseif has("nvim")
   endfunction
 
   function! airline#async#nvim_get_mq_async(cmd, file)
+    let cwd = fnamemodify(a:file, ':p:h')
+    if empty(cwd) || !isdirectory(cwd)
+      let cwd = getcwd()
+    endif
     let config = {
     \ 'buf': '',
     \ 'file': a:file,
-    \ 'cwd': fnamemodify(a:file, ':p:h'),
+    \ 'cwd': cwd,
     \ 'on_stdout': function('s:nvim_mq_job_handler'),
     \ 'on_exit': function('s:nvim_mq_job_handler')
     \ }
@@ -187,10 +191,14 @@ elseif has("nvim")
   endfunction
 
   function! airline#async#nvim_get_msgfmt_stat(cmd, file)
+    let cwd = fnamemodify(a:file, ':p:h')
+    if empty(cwd) || !isdirectory(cwd)
+      let cwd = getcwd()
+    endif
     let config = {
     \ 'buf': '',
     \ 'file': a:file,
-    \ 'cwd': fnamemodify(a:file, ':p:h'),
+    \ 'cwd': cwd,
     \ 'on_stdout': function('s:nvim_po_job_handler'),
     \ 'on_stderr': function('s:nvim_po_job_handler'),
     \ 'on_exit': function('s:nvim_po_job_handler')
@@ -215,12 +223,16 @@ endif
 function! airline#async#nvim_vcs_untracked(cfg, file, vcs)
   let cmd = a:cfg.cmd . shellescape(a:file)
   let id = -1
+  let cwd = fnamemodify(a:file, ':p:h')
+  if empty(cwd) || !isdirectory(cwd)
+    let cwd = getcwd()
+  endif
   let config = {
   \ 'buf': '',
   \ 'vcs': a:vcs,
   \ 'cfg': a:cfg,
   \ 'file': a:file,
-  \ 'cwd': fnamemodify(a:file, ':p:h')
+  \ 'cwd': cwd
   \ }
   if has("nvim")
     call extend(config, {
