@@ -8,7 +8,7 @@ if !has('keymap')
 endif
 
 function! airline#extensions#keymap#status()
-  return printf('%s', (&keymap ? (g:airline_symbols.keymap . ' '. &keymap) : ''))
+  return printf('%s', (!empty(&keymap) ? (g:airline_symbols.keymap . ' '. &keymap) : ''))
 endfunction
 
 function! airline#extensions#keymap#init(ext)

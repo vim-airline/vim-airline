@@ -69,7 +69,8 @@ function! airline#init#bootstrap()
           \ 'paste': 'PASTE',
           \ 'spell': 'SPELL',
           \ 'modified': '+',
-          \ 'space': ' '
+          \ 'space': ' ',
+          \ 'keymap': 'Keymap:'
           \  }, 'keep')
 
   if get(g:, 'airline_powerline_fonts', 0)
