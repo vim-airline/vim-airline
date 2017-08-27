@@ -861,9 +861,10 @@ vim-xkblayout
   let g:airline#extensions#xkblayout#enabled = 1
 
 * define path to the backend switcher library
-  Linux (Install https://github.com/ierton/xkb-switch):
+  Linux (Install https://github.com/ierton/xkb-switch): >
    let g:XkbSwitchLib = '/usr/local/lib/libxkbswitch.so'
-  macOS (Install https://github.com/vovkasm/input-source-switcher):
+<
+  macOS (Install https://github.com/vovkasm/input-source-switcher): >
    let g:XkbSwitchLib = '/usr/local/lib/libInputSourceSwitcher.dylib'
 
 -------------------------------------                     *airline-keymap*
