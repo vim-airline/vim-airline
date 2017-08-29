@@ -15,16 +15,16 @@ function! s:untracked_output(dict, buf)
 endfunction
 
 function! s:mq_output(buf, file)
-  let buf=''
+  let buf=a:buf
   if !empty(a:buf)
     if a:buf is# 'no patches applied' ||
       \ a:buf =~# "unknown command 'qtop'"
       let buf = ''
-    elseif exists("b:mq") && b:mq isnot# a:buf
+    elseif exists("b:mq") && b:mq isnot# buf
       " make sure, statusline is updated
       unlet! b:airline_head
     endif
-    let b:mq = a:buf
+    let b:mq = buf
   endif
   if has_key(s:mq_jobs, a:file)
     call remove(s:mq_jobs, a:file)
