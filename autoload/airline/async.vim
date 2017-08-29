@@ -154,7 +154,7 @@ elseif has("nvim")
   endfunction
 
   function! s:nvim_mq_job_handler(job_id, data, event) dict
-    if a:event == 'stdout'
+    if a:event == 'stdout' || a:event == 'stderr'
       let self.buf .=  join(a:data)
     else " on_exit handler
       call s:mq_output(self.buf, self.file)
@@ -162,9 +162,7 @@ elseif has("nvim")
   endfunction
 
   function! s:nvim_po_job_handler(job_id, data, event) dict
-    if a:event == 'stdout'
-      let self.buf .=  join(a:data)
-    elseif a:event == 'stderr'
+    if a:event == 'stdout' || a:event == 'stderr'
       let self.buf .=  join(a:data)
     else " on_exit handler
       call s:po_output(self.buf, self.file)
@@ -178,6 +176,7 @@ elseif has("nvim")
     \ 'file': a:file,
     \ 'cwd': s:valid_dir(fnamemodify(a:file, ':p:h')),
     \ 'on_stdout': function('s:nvim_mq_job_handler'),
+    \ 'on_stderr': function('s:nvim_mq_job_handler'),
     \ 'on_exit': function('s:nvim_mq_job_handler')
     \ }
     if g:airline#init#is_windows && &shell =~ 'cmd'
