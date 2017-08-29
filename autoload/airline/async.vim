@@ -176,7 +176,7 @@ elseif has("nvim")
     let config = {
     \ 'buf': '',
     \ 'file': a:file,
-    \ 'cwd': s:valid_dir(fnamemodify(a:file, ':p:h'))
+    \ 'cwd': s:valid_dir(fnamemodify(a:file, ':p:h')),
     \ 'on_stdout': function('s:nvim_mq_job_handler'),
     \ 'on_exit': function('s:nvim_mq_job_handler')
     \ }
@@ -197,7 +197,7 @@ elseif has("nvim")
     let config = {
     \ 'buf': '',
     \ 'file': a:file,
-    \ 'cwd': s:valid_dir(fnamemodify(a:file, ':p:h'))
+    \ 'cwd': s:valid_dir(fnamemodify(a:file, ':p:h')),
     \ 'on_stdout': function('s:nvim_po_job_handler'),
     \ 'on_stderr': function('s:nvim_po_job_handler'),
     \ 'on_exit': function('s:nvim_po_job_handler')
