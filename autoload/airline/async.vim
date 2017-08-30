@@ -142,10 +142,14 @@ if v:version >= 800 && has("job")
 elseif has("nvim")
   " NVim specific functions
 
-  function! s:nvim_untracked_job_handler(job_id, data, event) dict
-    if a:event == 'stdout'
+  function! s:nvim_output_handler(job_id, data, event) dict
+    if a:event == 'stdout' || a:event == 'stderr'
       let self.buf .=  join(a:data)
-    else " on_exit handler
+    endif
+  endfunction
+
+  function! s:nvim_untracked_job_handler(job_id, data, event) dict
+    if a:event == 'exit'
       call s:untracked_output(self, self.buf)
       if has_key(s:untracked_jobs, self.file)
         call remove(s:untracked_jobs, self.file)
@@ -154,17 +158,13 @@ elseif has("nvim")
   endfunction
 
   function! s:nvim_mq_job_handler(job_id, data, event) dict
-    if a:event == 'stdout' || a:event == 'stderr'
-      let self.buf .=  join(a:data)
-    else " on_exit handler
+    if a:event == 'exit'
       call s:mq_output(self.buf, self.file)
     endif
   endfunction
 
   function! s:nvim_po_job_handler(job_id, data, event) dict
-    if a:event == 'stdout' || a:event == 'stderr'
-      let self.buf .=  join(a:data)
-    else " on_exit handler
+    if a:event == 'exit'
       call s:po_output(self.buf, self.file)
       call airline#extensions#po#shorten()
     endif
@@ -175,8 +175,8 @@ elseif has("nvim")
     \ 'buf': '',
     \ 'file': a:file,
     \ 'cwd': s:valid_dir(fnamemodify(a:file, ':p:h')),
-    \ 'on_stdout': function('s:nvim_mq_job_handler'),
-    \ 'on_stderr': function('s:nvim_mq_job_handler'),
+    \ 'on_stdout': function('s:nvim_output_handler'),
+    \ 'on_stderr': function('s:nvim_output_handler'),
     \ 'on_exit': function('s:nvim_mq_job_handler')
     \ }
     if g:airline#init#is_windows && &shell =~ 'cmd'
@@ -197,8 +197,8 @@ elseif has("nvim")
     \ 'buf': '',
     \ 'file': a:file,
     \ 'cwd': s:valid_dir(fnamemodify(a:file, ':p:h')),
-    \ 'on_stdout': function('s:nvim_po_job_handler'),
-    \ 'on_stderr': function('s:nvim_po_job_handler'),
+    \ 'on_stdout': function('s:nvim_output_handler'),
+    \ 'on_stderr': function('s:nvim_output_handler'),
     \ 'on_exit': function('s:nvim_po_job_handler')
     \ }
     if g:airline#init#is_windows && &shell =~ 'cmd'
@@ -230,7 +230,7 @@ function! airline#async#nvim_vcs_untracked(cfg, file, vcs)
   \ }
   if has("nvim")
     call extend(config, {
-    \ 'on_stdout': function('s:nvim_untracked_job_handler'),
+    \ 'on_stdout': function('s:nvim_output_handler'),
     \ 'on_exit': function('s:nvim_untracked_job_handler')})
     if has_key(s:untracked_jobs, config.file)
       " still running
