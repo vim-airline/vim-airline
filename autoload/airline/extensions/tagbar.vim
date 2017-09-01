@@ -9,6 +9,7 @@ endif
 
 let s:flags = get(g:, 'airline#extensions#tagbar#flags', '')
 let s:spc = g:airline_symbols.space
+let s:init=0
 
 " Arguments: current, sort, fname
 function! airline#extensions#tagbar#get_status(...)
@@ -29,6 +30,16 @@ let s:airline_tagbar_last_lookup_time = 0
 let s:airline_tagbar_last_lookup_val = ''
 function! airline#extensions#tagbar#currenttag()
   if get(w:, 'airline_active', 0)
+    if !s:init
+      try
+        " try to load the plugin, if filetypes are disabled,
+        " this will cause an error, so try only once
+        let a=tagbar#currenttag('%', '', '')
+      catch
+      endtry
+      unlet! a
+      let s:init=1
+    endif
     " function tagbar#currenttag does not exist, if filetype is not enabled
     if s:airline_tagbar_last_lookup_time != localtime() && exists("*tagbar#currenttag")
       let s:airline_tagbar_last_lookup_val = tagbar#currenttag('%s', '', s:flags)
