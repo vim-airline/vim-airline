@@ -86,7 +86,7 @@ function! airline#parts#iminsert()
 endfunction
 
 function! airline#parts#readonly()
-  if &readonly && &modifiable && !filereadable(bufname('%'))
+  if &readonly && !filereadable(bufname('%'))
     return '[noperm]'
   else
     return &readonly ? g:airline_symbols.readonly : ''
