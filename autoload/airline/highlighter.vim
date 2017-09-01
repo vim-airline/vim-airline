@@ -62,7 +62,12 @@ function! airline#highlighter#get_highlight(group, ...)
           \ ? synIDattr(synIDtrans(hlID(a:group)), 'reverse', 'gui')
           \ : synIDattr(synIDtrans(hlID(a:group)), 'reverse', 'cterm')
           \|| synIDattr(synIDtrans(hlID(a:group)), 'reverse', 'term')
-    let res = reverse ? s:get_array(bg, fg, a:000) : s:get_array(fg, bg, a:000)
+    let bold = synIDattr(synIDtrans(hlID(a:group)), 'bold')
+    let opts = a:000
+    if bold
+      let opts = ['bold']
+    endif
+    let res = reverse ? s:get_array(bg, fg, opts) : s:get_array(fg, bg, opts)
   endif
   let s:hl_groups[a:group] = res
   return res
