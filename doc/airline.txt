@@ -1254,6 +1254,9 @@ A. Themes have been extracted into the vim-airlines-themes repository. Simply
    clone https://github.com/vim-airline/vim-airline-themes and everything
    should work again.
 
+Q. Performance is bad
+A. Check the question at the wiki:
+   https://github.com/vim-airline/vim-airline/wiki/FAQ#i-have-a-performance-problem
 
 Solutions to other common problems can be found in the Wiki:
 <https://github.com/vim-airline/vim-airline/wiki/FAQ>
