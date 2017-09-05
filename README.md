@@ -162,12 +162,9 @@ This plugin follows the standard runtime path structure, and as such it can be i
 | [minpac][54] | `call minpac#add('vim-airline/vim-airline')` |
 | manual | copy all of the files into your `~/.vim` directory |
 
-# Configuration
+# Documentation
 
 `:help airline`
-
-The default setting of 'laststatus' is for the statusline to not appear until a split is created. If you want it to appear all the time, add the following to your vimrc:
-`set laststatus=2`
 
 # Integrating with powerline fonts
 
