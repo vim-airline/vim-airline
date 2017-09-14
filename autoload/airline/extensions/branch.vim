@@ -130,7 +130,8 @@ function! s:update_hg_branch(...)
       elseif has("nvim")
         call airline#async#nvim_get_mq_async(cmd, expand('%:p'))
       else
-        let output=system(cmd)
+        " remove \n at the end of the command
+        let output=system(cmd)[0:-2]
         if output is# 'no patches applied' ||
           \ output =~# "unknown command 'qtop'"
           let b:mq=''
