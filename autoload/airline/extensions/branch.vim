@@ -132,7 +132,7 @@ function! s:update_hg_branch(...)
       else
         " remove \n at the end of the command
         let output=system(cmd)[0:-2]
-        if output is# 'no patches applied' ||
+        if output is# 'no patches applied ' ||
           \ output =~# "unknown command 'qtop'"
           let b:mq=''
         else
