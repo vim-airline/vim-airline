@@ -17,7 +17,7 @@ endfunction
 function! s:mq_output(buf, file)
   let buf=a:buf
   if !empty(a:buf)
-    if a:buf is# 'no patches applied' ||
+    if a:buf is# 'no patches applied ' ||
       \ a:buf =~# "unknown command 'qtop'"
       let buf = ''
     elseif exists("b:mq") && b:mq isnot# buf
