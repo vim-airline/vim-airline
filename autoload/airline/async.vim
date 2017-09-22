@@ -14,11 +14,13 @@ function! s:untracked_output(dict, buf)
   endif
 endfunction
 
+" also called from branch extension (for non-async vims)
 function! airline#async#mq_output(buf, file)
   let buf=a:buf
   if !empty(a:buf)
     if a:buf =~# 'no patches applied' ||
-      \ a:buf =~# "unknown command 'qtop'"
+      \ a:buf =~# "unknown command 'qtop'" ||
+      \ a:buf =~# "abort"
       let buf = ''
     elseif exists("b:mq") && b:mq isnot# buf
       " make sure, statusline is updated
