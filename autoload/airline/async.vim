@@ -14,10 +14,10 @@ function! s:untracked_output(dict, buf)
   endif
 endfunction
 
-function! s:mq_output(buf, file)
+function! airline#async#mq_output(buf, file)
   let buf=a:buf
   if !empty(a:buf)
-    if a:buf is# 'no patches applied ' ||
+    if a:buf =~# 'no patches applied' ||
       \ a:buf =~# "unknown command 'qtop'"
       let buf = ''
     elseif exists("b:mq") && b:mq isnot# buf
@@ -57,7 +57,7 @@ if v:version >= 800 && has("job")
   endfunction
 
   function! s:on_exit_mq(channel) dict abort
-    call s:mq_output(self.buf, self.file)
+    call airline#async#mq_output(self.buf, self.file)
   endfunction
 
   function! s:on_exit_untracked(channel) dict abort
@@ -159,7 +159,7 @@ elseif has("nvim")
 
   function! s:nvim_mq_job_handler(job_id, data, event) dict
     if a:event == 'exit'
-      call s:mq_output(self.buf, self.file)
+      call airline#async#mq_output(self.buf, self.file)
     endif
   endfunction
 

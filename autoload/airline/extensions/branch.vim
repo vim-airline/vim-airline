@@ -124,21 +124,16 @@ function! s:update_hg_branch(...)
   if s:has_lawrencium
     let cmd='LC_ALL=C hg qtop'
     let stl=lawrencium#statusline()
+    let file=expand('%:p')
     if !empty(stl) && get(b:, 'airline_do_mq_check', 1)
       if g:airline#init#vim_async
-        call airline#async#get_mq_async(cmd, expand('%:p'))
+        call airline#async#get_mq_async(cmd, file)
       elseif has("nvim")
-        call airline#async#nvim_get_mq_async(cmd, expand('%:p'))
+        call airline#async#nvim_get_mq_async(cmd, file)
       else
         " remove \n at the end of the command
         let output=system(cmd)[0:-2]
-        if output is# 'no patches applied ' ||
-          \ output =~# "unknown command 'qtop'"
-          let b:mq=''
-        else
-          unlet! b:airline_head
-          let b:mq = output
-        endif
+        call airline#async#mq_output(output, file)
       endif
     endif
     " do not do mq check anymore
