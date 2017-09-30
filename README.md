@@ -1,7 +1,7 @@
 # vim-airline [![Build Status](https://travis-ci.org/vim-airline/vim-airline.png)](https://travis-ci.org/vim-airline/vim-airline)
 
 Lean &amp; mean status/tabline for vim that's light as air.
-
+![img](https://i.hizliresim.com/WGEZaY.png)
 ![img](https://github.com/vim-airline/vim-airline/wiki/screenshots/demo.gif)
 
 # Features
