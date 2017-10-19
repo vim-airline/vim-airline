@@ -63,6 +63,9 @@ function! s:update_tabline()
     return
   endif
   doautocmd User BufMRUChange
+  " sometimes, the tabline is not correctly updated see #1580
+  " so force redraw here
+  let &tabline = &tabline
 endfunction
 
 function! airline#extensions#tabline#load_theme(palette)
