@@ -1036,7 +1036,7 @@ Before is a list of parts that are predefined by vim-airline.
 * `file`           displays the filename and modified indicator
 * `path`           displays the filename (absolute path) and modifier indicator
 * `linenr`         displays the current line number
-* `maxlinenr`      dispalys the number of lines in the buffer
+* `maxlinenr`      displays the number of lines in the buffer
 * `ffenc`          displays the file format and encoding
 
 And the following are defined for their respective extensions:
