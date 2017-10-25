@@ -4,6 +4,8 @@
 scriptencoding utf-8
 
 function! airline#extensions#wordcount#formatters#default#format()
+  let fmt = get(g:, 'airline#extensions#wordcount#formatter#default#fmt', '%s words')
+  let fmt_short = get(g:, 'airline#extensions#wordcount#formatter#default#fmt_short', fmt == '%s words' ? '%sW' : fmt)
   let words = string(s:wordcount())
   if empty(words)
     return
@@ -15,9 +17,9 @@ function! airline#extensions#wordcount#formatters#default#format()
       " Format number according to locale, e.g. German: 1.245 or English: 1,245
       let words = substitute(words, '\d\@<=\(\(\d\{3\}\)\+\)$', separator.'&', 'g')
     endif
-    let result = printf("%s%s", words, " words"). result
+    let result = printf(fmt, words). result
   else
-    let result = printf("%s%s", words, "W"). result
+    let result = printf(fmt_short, words). result
   endif
   return result
 endfunction
