@@ -465,7 +465,7 @@ syntastic <https://github.com/vim-syntastic/syntastic>
 
 * syntastic warning >
   let airline#extensions#syntastic#warning_symbol = 'W:'
-< 
+<
 * syntastic statusline warning format (see |syntastic_stl_format|) >
   let airline#extensions#syntastic#stl_format_err = '%W{[%w(#%fw)]}'
 <
@@ -559,14 +559,18 @@ eclim <https://eclim.org>
   " create a file in the dir autoload/airline/extensions/wordcount/formatters/
   " called foo.vim
   " this example needs at least Vim > 7.4.1042
-  function! airline#extensions#wordcount#formatters#foo#format()
+  function! airline#extensions#wordcount#formatters#foo#format(format,fmt)
     return (wordcount()['words'] == 0 ? 'NONE' :
         \ wordcount()['words'] > 100 ? 'okay' : 'not enough')
   endfunction
   let g:airline#extensions#wordline#formatter = 'foo'
 
-* defines how to display the wordcount statistics: >
-  let g:airline#extensions#wordcount#format = '%d words'
+* defines how to display the wordcount statistics for the default formatter: >
+  " Defaults are below.  If fmt_short isn't defined, fmt is used.
+  " '%s' will be substituted by the word count
+  " fmt_short is displayed when window width is less than 80
+  let g:airline#extensions#wordcount#formatter#default#fmt = '%s words'
+  let g:airline#extensions#wordcount#formatter#default#fmt_short = '%sW'
 <
 -------------------------------------                   *airline-whitespace*
 * enable/disable detection of whitespace errors. >
@@ -949,7 +953,7 @@ State indicators:
 * the current tex file is the main project file (nothing is shown by default) >
   let g:airline#extensions#vimtex#main = ""
 
-* the current tex file is a subfile of the project 
+* the current tex file is a subfile of the project
   and the compilation is set for the main file >
   let g:airline#extensions#vimtex#sub_main = "m"
 
