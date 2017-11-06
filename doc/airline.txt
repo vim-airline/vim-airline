@@ -741,7 +741,7 @@ with the middle mouse button to delete that buffer.
   let g:airline#extensions#tabline#formatter = 'foo'
 <
 
-  Note: the following variables are only used by the 'default' formatter.
+  Note: the following variables are used by the 'default' formatter.
   When no disambiguation is needed, both 'unique_tail_improved' and
   'unique_tail' delegate formatting to 'default', so these variables also
   control rendering of unique filenames when using these formatters.
@@ -765,6 +765,12 @@ with the middle mouse button to delete that buffer.
   " there is another file of the same name, in which it will display it along
   " with the containing parent directory.
   let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+      " The following variables are also used by `unique_tail` formatter.
+      " the meanings are the same as the ones in default formatter.
+
+      let g:airline#extensions#tabline#fnamemod = ':p:.'
+      let g:airline#extensions#tabline#fnamecollapse = 1
 
   " The `unique_tail_improved` - another algorithm, that will smartly uniquify
   " buffers names with similar filename, suppressing common parts of paths.
