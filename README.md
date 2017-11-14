@@ -34,7 +34,7 @@ The statusline is the colored line at the bottom, which contains the sections
 (possibly in different colors):
 
 section|meaning (example)
---------------------------
+-------|------------------
   A    | displays the mode + additional flags like crypt/spell/paste (INSERT)
   B    | VCS information (branch, hunk summary) (master)
   C    | filename + read-only flag (~/.vim/vimrc RO)
