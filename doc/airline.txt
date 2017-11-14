@@ -32,9 +32,8 @@ INTRODUCTION                                                 *airline-intro*
 vim-airline is a fast and lightweight alternative to powerline, written
 in 100% vimscript with no outside dependencies.
 
-When the plugin is correctly loaded, and Vim is configured for drawing a
-'statusline' (set 'laststatus' to 2, to always display the airline
-statusline) Vim will draw a nice statusline at the bottom of each window.
+When the plugin is correctly loaded, Vim will draw a nice statusline at the
+bottom of each window.
 
 That line consists of several sections, each one displaying some piece of
 information. By default (without configuration) this line will look like this: >
