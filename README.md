@@ -44,12 +44,16 @@ section|meaning (example)
  [...] | additional sections (warning/errors/statistics) from external plugins (e.g. YCM, syntastic, ...)
 
 The information in Section Z looks like this:
-percentage % ☰ current line/number of lines ln : column
-So this: `10% ☰ 10/100 ln : 20`  means:
-    `10%`     - 10 percent
-    `☰ 10`    - current line 10
-    `/100 ln` - of 100 lines
-    `: 20`    - current column 20
+
+`10% ☰ 10/100 ln : 20`
+
+This means:
+```
+10%     - 10 percent down the top of the file
+☰ 10    - current line 10
+/100 ln - of 100 lines
+: 20    - current column 20
+```
 
 For a better look, those sections can be colored differently, depending on various conditions
 (e.g. the mode or whether the current file is 'modified')
