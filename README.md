@@ -214,6 +214,7 @@ This plugin follows the standard runtime path structure, and as such it can be i
 | [VAM][22] | `call vam#ActivateAddons([ 'vim-airline' ])` |
 | [Dein][52] | `call dein#add('vim-airline/vim-airline')` |
 | [minpac][54] | `call minpac#add('vim-airline/vim-airline')` |
+| pack feature (native Vim 8 package feature)| `git clone https://github.com/vim-airline/vim-airline ~/.vim/pack/dist/start/vim-airline`<br/>Remember to run `:helptags` to generate help tags |
 | manual | copy all of the files into your `~/.vim` directory |
 
 # Documentation
