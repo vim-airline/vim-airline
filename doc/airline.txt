@@ -987,6 +987,12 @@ ale <https://github.com/w0rp/ale>
 * ale warning >
   let airline#extensions#ale#warning_symbol = 'W:'
 <
+* ale open_lnum_symbol >
+  let airline#extensions#ale#open_lnum_symbol = '(L'
+<
+* ale close_lnum_symbol >
+  let airline#extensions#ale#close_lnum_symbol = ')'
+<
 -------------------------------------                    *airline-neomake*
 neomake <https://github.com/neomake/neomake>
 
