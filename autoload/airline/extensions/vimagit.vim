@@ -13,14 +13,18 @@ function! airline#extensions#vimagit#init(ext)
 endfunction
 
 function! airline#extensions#vimagit#get_mode()
-	if ( b:magit_current_commit_mode == '' )
-		return "STAGING"
-	elseif ( b:magit_current_commit_mode == 'CC' )
-		return "COMMIT"
-	elseif ( b:magit_current_commit_mode == 'CA' )
-		return "AMEND"
-	else
-		return "???"
+  if ( exists("*magit#get_current_mode") )
+    return magit#get_current_mode()
+  else
+    if ( b:magit_current_commit_mode == '' )
+      return "STAGING"
+    elseif ( b:magit_current_commit_mode == 'CC' )
+      return "COMMIT"
+    elseif ( b:magit_current_commit_mode == 'CA' )
+      return "AMEND"
+    else
+      return "???"
+    endif
 endfunction
 
 function! airline#extensions#vimagit#apply(...)
