@@ -81,7 +81,9 @@ else
   endfunction
 endif
 
-let s:git_dirs = {}
+
+" Fugitive special revisions. call '0' "staging" ?
+let s:names = {'0': 'index', '1': 'ancestor', '2':'target', '3':'merged'}
 
 function! s:update_git_branch()
   if !s:has_fugitive
@@ -90,6 +92,22 @@ function! s:update_git_branch()
   endif
 
   let name = fugitive#head(7)
+
+  try
+    let commit = fugitive#buffer().commit()
+
+    if has_key(s:names, commit)
+      let name = get(s:names, commit)."(".name.")"
+    elseif !empty(commit)
+      let ref = fugitive#repo().git_chomp('describe', '--all', '--exact-match', commit)
+      if ref !~ "^fatal: no tag exactly matches"
+        let name = s:format_name(substitute(ref, '\v\C^%(heads/|remotes/|tags/)=','',''))."(".name.")"
+      else
+        let name = commit[:6]."(".name.")"
+      endif
+    endif
+  catch
+  endtry
 
   let s:vcs_config['git'].branch = name
 endfunction
