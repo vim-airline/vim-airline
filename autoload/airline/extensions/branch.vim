@@ -83,44 +83,18 @@ endif
 
 let s:git_dirs = {}
 
-function! s:update_git_branch(path)
+function! s:update_git_branch()
   if !s:has_fugitive
     let s:vcs_config['git'].branch = ''
     return
   endif
 
   let name = fugitive#head(7)
-  if empty(name)
-    if has_key(s:git_dirs, a:path)
-      let s:vcs_config['git'].branch = s:git_dirs[a:path]
-      return
-    endif
 
-    let dir = fugitive#extract_git_dir(a:path)
-    if empty(dir)
-      let name = ''
-    else
-      try
-        let line = join(readfile(dir . '/HEAD'))
-        if strpart(line, 0, 16) == 'ref: refs/heads/'
-          let name = strpart(line, 16)
-        else
-          " raw commit hash
-          let name = strpart(line, 0, 7)
-        endif
-      catch
-        let name = ''
-      endtry
-    endif
-  endif
-
-  let s:git_dirs[a:path] = name
   let s:vcs_config['git'].branch = name
 endfunction
 
-function! s:update_hg_branch(...)
-  " path argument is not actually used, so we don't actually care about a:1
-  " it is just needed, because update_git_branch needs it.
+function! s:update_hg_branch()
   if s:has_lawrencium
     let cmd='LC_ALL=C hg qtop'
     let stl=lawrencium#statusline()
@@ -152,10 +126,8 @@ function! s:update_hg_branch(...)
 endfunction
 
 function! s:update_branch()
-  let b:airline_fname_path = get(b:, 'airline_fname_path',
-        \ exists("*fnamemodify") ? fnamemodify(resolve(@%), ":p:h") : expand("%:p:h"))
   for vcs in keys(s:vcs_config)
-    call {s:vcs_config[vcs].update_branch}(b:airline_fname_path)
+    call {s:vcs_config[vcs].update_branch}()
     if b:buffer_vcs_config[vcs].branch != s:vcs_config[vcs].branch
       let b:buffer_vcs_config[vcs].branch = s:vcs_config[vcs].branch
       unlet! b:airline_head
@@ -329,8 +301,8 @@ function! airline#extensions#branch#init(ext)
   call airline#parts#define_function('branch', 'airline#extensions#branch#get_head')
 
   autocmd BufReadPost * unlet! b:airline_file_in_root
-  autocmd ShellCmdPost,CmdwinLeave * unlet! b:airline_head b:airline_do_mq_check b:airline_fname_path
-  autocmd User AirlineBeforeRefresh unlet! b:airline_head b:airline_do_mq_check b:airline_fname_path
+  autocmd ShellCmdPost,CmdwinLeave * unlet! b:airline_head b:airline_do_mq_check
+  autocmd User AirlineBeforeRefresh unlet! b:airline_head b:airline_do_mq_check
   autocmd BufWritePost * call s:reset_untracked_cache(0)
   autocmd ShellCmdPost * call s:reset_untracked_cache(1)
 endfunction
