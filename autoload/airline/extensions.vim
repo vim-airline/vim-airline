@@ -229,6 +229,12 @@ function! airline#extensions#load()
     call add(loaded_ext, 'bufferline')
   endif
 
+  if get(g:, 'airline#extensions#fugitiveline#enabled', 1)
+        \ && exists('*fugitive#head')
+    call airline#extensions#fugitiveline#init(s:ext)
+    call add(loaded_ext, 'fugitiveline')
+  endif
+
   if (get(g:, 'airline#extensions#virtualenv#enabled', 1) && (exists(':VirtualEnvList') || isdirectory($VIRTUAL_ENV)))
     call airline#extensions#virtualenv#init(s:ext)
     call add(loaded_ext, 'virtualenv')

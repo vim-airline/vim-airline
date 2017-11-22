@@ -400,6 +400,13 @@ vim-bufferline <https://github.com/bling/vim-bufferline>
 * determine whether bufferline will overwrite customization variables >
   let g:airline#extensions#bufferline#overwrite_variables = 1
 <
+-------------------------------------                   *airline-fugitiveline*
+This extension hides the fugitive://**// part of the buffer names, to only
+show the file name as if it were in the current working tree.
+
+* enable/disable bufferline integration >
+  let g:airline#extensions#fugitiveline#enabled = 1
+<
 -------------------------------------                       *airline-branch*
 
 vim-airline will display the branch-indicator together with the branch name in
