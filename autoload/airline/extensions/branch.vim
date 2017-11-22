@@ -84,6 +84,7 @@ endif
 
 " Fugitive special revisions. call '0' "staging" ?
 let s:names = {'0': 'index', '1': 'ancestor', '2':'target', '3':'merged'}
+let s:sha1size = get(g:, 'airline#extensions#branch#sha1_len', 7)
 
 function! s:update_git_branch()
   if !s:has_fugitive
@@ -91,7 +92,7 @@ function! s:update_git_branch()
     return
   endif
 
-  let name = fugitive#head(7)
+  let name = fugitive#head(s:sha1size)
 
   try
     let commit = fugitive#buffer().commit()
@@ -103,7 +104,7 @@ function! s:update_git_branch()
       if ref !~ "^fatal: no tag exactly matches"
         let name = s:format_name(substitute(ref, '\v\C^%(heads/|remotes/|tags/)=','',''))."(".name.")"
       else
-        let name = commit[:6]."(".name.")"
+        let name = commit[0:s:sha1size-1]."(".name.")"
       endif
     endif
   catch
