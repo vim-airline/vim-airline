@@ -453,6 +453,9 @@ notexists symbol will be displayed after the branch name.
     return '[' . a:name . ']'
   endfunction
 <
+* truncate sha1 commits at this number of characters  >
+  let g:airline#extensions#branch#sha1_len = 10
+<
 -------------------------------------                    *airline-syntastic*
 syntastic <https://github.com/vim-syntastic/syntastic>
 
