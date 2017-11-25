@@ -809,7 +809,7 @@ with the middle mouse button to delete that buffer.
   let g:airline#extensions#tabline#close_symbol = 'X'
 
 * configure pattern to be ignored on BufAdd autocommand >
-  " fixes unneccessary redraw, when e.g. opening Gundo window
+  " fixes unnecessary redraw, when e.g. opening Gundo window
   let airline#extensions#tabline#ignore_bufadd_pat =
             \ '\c\vgundo|undotree|vimfiler|tagbar|nerd_tree'
 
