@@ -64,7 +64,7 @@ function! airline#extensions#whitespace#check()
         let regexp = get(g:, 'airline#extensions#whitespace#trailing_regexp', '\s$')
         let trailing = search(regexp, 'nw')
       catch
-        echomsg 'airline#whitespace: error occured evaluating '. regexp
+        echomsg 'airline#whitespace: error occurred evaluating '. regexp
         echomsg v:exception
         return ''
       endtry
