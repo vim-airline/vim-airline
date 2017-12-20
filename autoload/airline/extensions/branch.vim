@@ -275,7 +275,7 @@ endfunction
 
 function! s:check_in_path()
   if !exists('b:airline_file_in_root')
-    let root = get(b:, 'git_dir', get(b:, 'mercurial_dir', ''))
+    let root = fnamemodify(fnamemodify(get(b:, 'git_dir', get(b:, 'mercurial_dir', '')), ':.'), ':p:h')
     let bufferpath = resolve(fnamemodify(expand('%'), ':p'))
 
     if !filereadable(root) "not a file
