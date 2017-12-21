@@ -81,46 +81,39 @@ else
   endfunction
 endif
 
-let s:git_dirs = {}
 
-function! s:update_git_branch(path)
+" Fugitive special revisions. call '0' "staging" ?
+let s:names = {'0': 'index', '1': 'ancestor', '2':'target', '3':'merged'}
+let s:sha1size = get(g:, 'airline#extensions#branch#sha1_len', 7)
+
+function! s:update_git_branch()
   if !s:has_fugitive
     let s:vcs_config['git'].branch = ''
     return
   endif
 
-  let name = fugitive#head(7)
-  if empty(name)
-    if has_key(s:git_dirs, a:path)
-      let s:vcs_config['git'].branch = s:git_dirs[a:path]
-      return
-    endif
+  let name = fugitive#head(s:sha1size)
 
-    let dir = fugitive#extract_git_dir(a:path)
-    if empty(dir)
-      let name = ''
-    else
-      try
-        let line = join(readfile(dir . '/HEAD'))
-        if strpart(line, 0, 16) == 'ref: refs/heads/'
-          let name = strpart(line, 16)
-        else
-          " raw commit hash
-          let name = strpart(line, 0, 7)
-        endif
-      catch
-        let name = ''
-      endtry
-    endif
-  endif
+  try
+    let commit = fugitive#buffer().commit()
 
-  let s:git_dirs[a:path] = name
+    if has_key(s:names, commit)
+      let name = get(s:names, commit)."(".name.")"
+    elseif !empty(commit)
+      let ref = fugitive#repo().git_chomp('describe', '--all', '--exact-match', commit)
+      if ref !~ "^fatal: no tag exactly matches"
+        let name = s:format_name(substitute(ref, '\v\C^%(heads/|remotes/|tags/)=','',''))."(".name.")"
+      else
+        let name = commit[0:s:sha1size-1]."(".name.")"
+      endif
+    endif
+  catch
+  endtry
+
   let s:vcs_config['git'].branch = name
 endfunction
 
-function! s:update_hg_branch(...)
-  " path argument is not actually used, so we don't actually care about a:1
-  " it is just needed, because update_git_branch needs it.
+function! s:update_hg_branch()
   if s:has_lawrencium
     let cmd='LC_ALL=C hg qtop'
     let stl=lawrencium#statusline()
@@ -152,10 +145,8 @@ function! s:update_hg_branch(...)
 endfunction
 
 function! s:update_branch()
-  let b:airline_fname_path = get(b:, 'airline_fname_path',
-        \ exists("*fnamemodify") ? fnamemodify(resolve(@%), ":p:h") : expand("%:p:h"))
   for vcs in keys(s:vcs_config)
-    call {s:vcs_config[vcs].update_branch}(b:airline_fname_path)
+    call {s:vcs_config[vcs].update_branch}()
     if b:buffer_vcs_config[vcs].branch != s:vcs_config[vcs].branch
       let b:buffer_vcs_config[vcs].branch = s:vcs_config[vcs].branch
       unlet! b:airline_head
@@ -256,9 +247,6 @@ function! airline#extensions#branch#head()
     endif
   endif
 
-  if has_key(heads, 'git') && !s:check_in_path()
-    let b:airline_head = ''
-  endif
   let minwidth = empty(get(b:, 'airline_hunks', '')) ? 14 : 7
   let b:airline_head = airline#util#shorten(b:airline_head, 120, minwidth)
   return b:airline_head
@@ -271,35 +259,6 @@ function! airline#extensions#branch#get_head()
   return empty(head)
         \ ? empty_message
         \ : printf('%s%s', empty(symbol) ? '' : symbol.(g:airline_symbols.space), head)
-endfunction
-
-function! s:check_in_path()
-  if !exists('b:airline_file_in_root')
-    let root = get(b:, 'git_dir', get(b:, 'mercurial_dir', ''))
-    let bufferpath = resolve(fnamemodify(expand('%'), ':p'))
-
-    if !filereadable(root) "not a file
-      " if .git is a directory, it's the old submodule format
-      if match(root, '\.git$') >= 0
-        let root = expand(fnamemodify(root, ':h'))
-      else
-        " else it's the newer format, and we need to guesstimate
-        " 1) check for worktrees
-        if match(root, 'worktrees') > -1
-          " worktree can be anywhere, so simply assume true here
-          return 1
-        endif
-        " 2) check for submodules
-        let pattern = '\.git[\\/]\(modules\)[\\/]'
-        if match(root, pattern) >= 0
-          let root = substitute(root, pattern, '', '')
-        endif
-      endif
-    endif
-
-    let b:airline_file_in_root = stridx(bufferpath, root) > -1
-  endif
-  return b:airline_file_in_root
 endfunction
 
 function! s:reset_untracked_cache(shellcmdpost)
@@ -328,9 +287,8 @@ endfunction
 function! airline#extensions#branch#init(ext)
   call airline#parts#define_function('branch', 'airline#extensions#branch#get_head')
 
-  autocmd BufReadPost * unlet! b:airline_file_in_root
-  autocmd ShellCmdPost,CmdwinLeave * unlet! b:airline_head b:airline_do_mq_check b:airline_fname_path
-  autocmd User AirlineBeforeRefresh unlet! b:airline_head b:airline_do_mq_check b:airline_fname_path
+  autocmd ShellCmdPost,CmdwinLeave * unlet! b:airline_head b:airline_do_mq_check
+  autocmd User AirlineBeforeRefresh unlet! b:airline_head b:airline_do_mq_check
   autocmd BufWritePost * call s:reset_untracked_cache(0)
   autocmd ShellCmdPost * call s:reset_untracked_cache(1)
 endfunction
