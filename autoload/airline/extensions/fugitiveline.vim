@@ -15,15 +15,21 @@ else
 endif
 
 function! airline#extensions#fugitiveline#bufname()
+  if exists('b:fugitive_name')
+    return b:fugitive_name
+  endif
+
+  let b:fugitive_name = fnamemodify(bufname('%'), s:fmod)
+
   try
     let buffer = fugitive#buffer()
     if buffer.type('blob')
-      return fnamemodify(buffer.repo().translate(buffer.path()), s:fmod)
+      let b:fugitive_name = fnamemodify(buffer.repo().translate(buffer.path()), s:fmod)
     endif
   catch
   endtry
 
-  return fnamemodify(bufname('%'), s:fmod)
+  return b:fugitive_name
 endfunction
 
 function! airline#extensions#fugitiveline#init(ext)
@@ -33,5 +39,7 @@ function! airline#extensions#fugitiveline#init(ext)
   else
     call airline#parts#define_raw('file', '%<%{airline#extensions#fugitiveline#bufname()}%m')
   endif
+  autocmd ShellCmdPost,CmdwinLeave * unlet! b:fugitive_name
+  autocmd User AirlineBeforeRefresh unlet! b:fugitive_name
 endfunction
 
