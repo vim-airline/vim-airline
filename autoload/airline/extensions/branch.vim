@@ -83,7 +83,7 @@ endif
 
 
 " Fugitive special revisions. call '0' "staging" ?
-let s:names = {'0': 'index', '1': 'ancestor', '2':'target', '3':'merged'}
+let s:names = {'0': 'index', '1': 'orig', '2':'fetch', '3':'merge'}
 let s:sha1size = get(g:, 'airline#extensions#branch#sha1_len', 7)
 
 function! s:update_git_branch()
