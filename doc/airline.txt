@@ -522,7 +522,7 @@ vimagit <https://github.com/jreybert/vimagit>
   let g:airline#extensions#vimagit#enabled = 1
 <
 -------------------------------------                        *airline-ctrlp*
-ctrlp <https://github.com/kien/ctrlp.vim>
+ctrlp <https://github.com/ctrlpvim/ctrlp.vim>
 
 * configure which mode colors should ctrlp window use (takes effect
   only if the active airline theme doesn't define ctrlp colors) >
