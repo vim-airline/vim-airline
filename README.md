@@ -116,6 +116,26 @@ Separators can be configured independently for the tabline, so here is how you c
     let g:airline#extensions#tabline#left_sep = ' '
     let g:airline#extensions#tabline#left_alt_sep = '|'
 
+In addition, you can also choose which path formatter airline uses. This affects how file paths are
+displayed in each individual tab as well as the current buffer indicator in the upper right.
+To do so, set the `formatter` field with:
+
+    let g:airline#extensions#tabline#formatter = 'default'
+
+Here is a complete list of formatters with screenshots:
+
+#### `default`
+![image](https://user-images.githubusercontent.com/2652762/34422844-1d005efa-ebe6-11e7-8053-c784c0da7ba7.png)
+
+#### `jsformatter`
+![image](https://user-images.githubusercontent.com/2652762/34422843-1cf6a4d2-ebe6-11e7-810a-07e6eb08de24.png)
+
+#### `unique_tail`
+![image](https://user-images.githubusercontent.com/2652762/34422841-1ce5b4ec-ebe6-11e7-86e9-3d45c876068b.png)
+
+#### `unique_tail_improved`
+![image](https://user-images.githubusercontent.com/2652762/34422842-1cee23f2-ebe6-11e7-962d-97e068873077.png)
+
 ## Seamless integration
 
 vim-airline integrates with a variety of plugins out of the box.  These extensions will be lazily loaded if and only if you have the other plugins installed (and of course you can turn them off).
