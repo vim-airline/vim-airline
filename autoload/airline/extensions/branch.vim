@@ -26,8 +26,9 @@ let s:vcs_config = {
 \    'exe': 'git',
 \    'cmd': 'git status --porcelain -- ',
 \    'untracked_mark': '??',
-\    'update_branch': 's:update_git_branch',
 \    'exclude': '\.git',
+\    'update_branch': 's:update_git_branch',
+\    'display_branch': 's:display_git_branch',
 \    'branch': '',
 \    'untracked': {},
 \  },
@@ -37,6 +38,7 @@ let s:vcs_config = {
 \    'untracked_mark': '?',
 \    'exclude': '\.hg',
 \    'update_branch': 's:update_hg_branch',
+\    'display_branch': 's:display_hg_branch',
 \    'branch': '',
 \    'untracked': {},
 \  },
@@ -83,7 +85,7 @@ endif
 
 
 " Fugitive special revisions. call '0' "staging" ?
-let s:names = {'0': 'index', '1': 'ancestor', '2':'target', '3':'merged'}
+let s:names = {'0': 'index', '1': 'orig', '2':'fetch', '3':'merge'}
 let s:sha1size = get(g:, 'airline#extensions#branch#sha1_len', 7)
 
 function! s:update_git_branch()
@@ -92,8 +94,11 @@ function! s:update_git_branch()
     return
   endif
 
-  let name = fugitive#head(s:sha1size)
+  let s:vcs_config['git'].branch = fugitive#head(s:sha1size)
+endfunction
 
+function! s:display_git_branch()
+  let name = b:buffer_vcs_config['git'].branch
   try
     let commit = fugitive#buffer().commit()
 
@@ -110,7 +115,7 @@ function! s:update_git_branch()
   catch
   endtry
 
-  let s:vcs_config['git'].branch = name
+  return name
 endfunction
 
 function! s:update_hg_branch()
@@ -142,6 +147,10 @@ function! s:update_hg_branch()
   else
     let s:vcs_config['mercurial'].branch = ''
   endif
+endfunction
+
+function! s:display_hg_branch()
+  return b:buffer_vcs_config['mercurial'].branch
 endfunction
 
 function! s:update_branch()
@@ -216,18 +225,21 @@ function! airline#extensions#branch#head()
   let b:airline_head = ''
   let vcs_priority = get(g:, "airline#extensions#branch#vcs_priority", ["git", "mercurial"])
 
-  let heads = {}
+  let heads = []
   for vcs in vcs_priority
     if !empty(b:buffer_vcs_config[vcs].branch)
-      let heads[vcs] = b:buffer_vcs_config[vcs].branch
+      let heads += [vcs]
     endif
   endfor
 
-  for vcs in keys(heads)
+  for vcs in heads
     if !empty(b:airline_head)
       let b:airline_head .= ' | '
     endif
-    let b:airline_head .= (len(heads) > 1 ? s:vcs_config[vcs].exe .':' : '') . s:format_name(heads[vcs])
+    if len(heads) > 1
+      let b:airline_head .= s:vcs_config[vcs].exe .':'
+    endif
+    let b:airline_head .= s:format_name({s:vcs_config[vcs].display_branch}())
     let b:airline_head .= b:buffer_vcs_config[vcs].untracked
   endfor
 
