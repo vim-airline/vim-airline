@@ -105,7 +105,11 @@ function! airline#extensions#tabline#ctrlspace#get()
   let tab_label = get(g:, 'airline#extensions#tabline#tabs_label', 'tabs')
   let switch_buffers_and_tabs = get(g:, 'airline#extensions#tabline#switch_buffers_and_tabs', 0)
 
-  call airline#extensions#tabline#tabs#map_keys()
+  try
+    call airline#extensions#tabline#tabs#map_keys()
+  catch
+    " no-op
+  endtry
   let s:tab_list = ctrlspace#api#TabList()
   for tab in s:tab_list
     if tab.current
