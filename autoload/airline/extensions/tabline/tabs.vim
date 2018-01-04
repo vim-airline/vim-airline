@@ -42,6 +42,10 @@ function! airline#extensions#tabline#tabs#get()
   let tab_nr_type = get(g:, 'airline#extensions#tabline#tab_nr_type', 0)
   let b = airline#extensions#tabline#new_builder()
 
+  if get(g:, 'airline#extensions#tabline#show_tab_type', 1)
+    call b.add_section_spaced('airline_tab', 
+          \ get(g:, 'airline#extensions#tabline#buffers_label', '[buffers]'))
+  endif
   for i in range(1, tabpagenr('$'))
     if i == curtab
       let group = 'airline_tabsel'
@@ -85,9 +89,10 @@ function! airline#extensions#tabline#tabs#get()
       let group = airline#extensions#tabline#group_of_bufnr(buffers, nr) . "_right"
       call b.add_section_spaced(group, '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)')
     endfor
-  elseif get(g:, 'airline#extensions#tabline#show_tab_type', 1) == 1
-    call b.add_section_spaced('airline_tabtype',
-          \get(g:, 'airline#extensions#tabline#tabs_label', 'tabs'))
+  endif
+  if get(g:, 'airline#extensions#tabline#show_tab_type', 1) == 1
+    call b.add_section_spaced('airline_tab',
+          \ get(g:, 'airline#extensions#tabline#tabs_label', '[tabs]'))
   endif
 
   let s:current_bufnr = curbuf
