@@ -34,6 +34,7 @@ function! airline#add_inactive_statusline_func(name)
 endfunction
 
 function! airline#load_theme()
+  let g:airline_theme = get(g:, 'airline_theme', 'dark')
   if exists('*airline#themes#{g:airline_theme}#refresh')
     call airline#themes#{g:airline_theme}#refresh()
   endif
