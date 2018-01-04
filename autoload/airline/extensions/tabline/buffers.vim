@@ -3,7 +3,6 @@
 
 scriptencoding utf-8
 
-let s:show_tab_type = get(g:, 'airline#extensions#tabline#show_tab_type', 1)
 let s:buffers_label = get(g:, 'airline#extensions#tabline#buffers_label', 'buffers')
 let s:keymap_ignored_filetypes = get(g:, 'airline#extensions#tabline#keymap_ignored_filetypes', ['vimfiler', 'nerdtree'])
 let s:spc = g:airline_symbols.space
@@ -80,6 +79,7 @@ function! airline#extensions#tabline#buffers#get()
     if has("tablineat")
       call b.add_raw('%'.nr.'@airline#extensions#tabline#buffers#clickbuf@')
     endif
+
     if get(g:, 'airline#extensions#tabline#buffer_idx_mode', 1)
       if len(s:number_map) > 0
         call b.add_section(group, s:spc . get(s:number_map, index, '') . '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)' . s:spc)
@@ -90,6 +90,7 @@ function! airline#extensions#tabline#buffers#get()
     else
       call b.add_section(group, s:spc.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.s:spc)
     endif
+
     if has("tablineat")
       call b.add_raw('%X')
     endif
@@ -98,9 +99,10 @@ function! airline#extensions#tabline#buffers#get()
   call b.add_section('airline_tabfill', '')
   call b.split()
   call b.add_section('airline_tabfill', '')
-  if s:show_tab_type
+  if get(g:, 'airline#extensions#tabline#show_tab_type', 1)
     call b.add_section_spaced('airline_tabtype', s:buffers_label)
   endif
+
   if tabpagenr('$') > 1
     call b.add_section_spaced('airline_tabmod', printf('%s %d/%d', "tab", tabpagenr(), tabpagenr('$')))
   endif
