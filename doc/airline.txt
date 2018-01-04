@@ -692,6 +692,9 @@ with the middle mouse button to delete that buffer.
 * enable/disable displaying tab type (e.g. [buffers]/[tabs]) >
   let g:airline#extensions#tabline#show_tab_type = 1
 
+* show buffer label at first position: >
+  let g:airline#extensions#tabline#buf_label_first = 1
+
 * rename label for buffers (default: 'buffers') (c) >
   let g:airline#extensions#tabline#buffers_label = 'b'
 
