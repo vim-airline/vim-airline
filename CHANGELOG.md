@@ -6,24 +6,24 @@ This is the Changelog for the vim-airline project.
 
 ## [0.9] - unreleased
 - Changes
-  - Airline does now set `laststatus=2` if needed.
-  - Reload on Resize and SessionLoad events
+  - Look of default Airline Symbols has been improved [#1397](https://github.com/vim-airline/vim-airline/issues/1397)
+  - Airline does now set `laststatus=2` if needed
+  - Syntastic extension now displays warnings and errors separately
+  - Updates on Resize and SessionLoad events
   - Add `maxlinenr` symbol to `airline_section_z`
   - Add quickfix title to inactive windows
-  - Look of default Airline Symbols has been improved [#1397](https://github.com/vim-airline/vim-airline/issues/1397)
-  - Syntastic extension now displays warnings and errors separately
 - Improvements
-  - Allow to skip empty sections by setting `g:airline_skip_empty_sections` variable
   - Many performance improvements (using caching and async feature when possible)
-  - Improvements to the documentation
-  - More configuration for the tabline extension (with clickable buffers for Neovim)
-  - Collapse more aggressively on smaller window sizes
-  - Make use of improved Vim Script API, if available (e.g. getwininfo())
-  - Make airline aware of git worktrees
-  - Allows for configurable fileformat output if `g:airline#parts#ffenc#skip_expected_string` is set
   - Cache changes to highlighting groups if `g:airline_highlighting_cache = 1` is set
+  - Allow to skip empty sections by setting `g:airline_skip_empty_sections` variable
+  - Make use of improved Vim Script API, if available (e.g. getwininfo())
   - Support for Vims terminal feature (very experimental since it hasn't been stabilized yet)
+  - More configuration for the tabline extension (with clickable buffers for Neovim)
+  - Works better on smaller window sizes
+  - Make airline aware of git worktrees
   - Improvements to the fugitive extension [#1603](https://github.com/vim-airline/vim-airline/issues/1603)
+  - Allows for configurable fileformat output if `g:airline#parts#ffenc#skip_expected_string` is set
+  - Improvements to the documentation
 - New features
   - Full async support for Vim 8 and Neovim
   - Extensions:
@@ -47,7 +47,6 @@ This is the Changelog for the vim-airline project.
     - Customizable wordcount formatter [#1584](https://github.com/vim-airline/vim-airline/issues/1584)
   - Add User autocommand for Theme changing [#1226](https://github.com/vim-airline/vim-airline/issues/1226)
   - Shows mercurial mq status if hg mq extension is enabled
-
 
 ## [0.8] - 2016-03-09
 - Changes
