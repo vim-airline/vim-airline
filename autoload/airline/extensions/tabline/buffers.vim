@@ -3,8 +3,6 @@
 
 scriptencoding utf-8
 
-let s:buffers_label = get(g:, 'airline#extensions#tabline#buffers_label', 'buffers')
-let s:keymap_ignored_filetypes = get(g:, 'airline#extensions#tabline#keymap_ignored_filetypes', ['vimfiler', 'nerdtree'])
 let s:spc = g:airline_symbols.space
 
 let s:current_bufnr = -1
@@ -100,7 +98,8 @@ function! airline#extensions#tabline#buffers#get()
   call b.split()
   call b.add_section('airline_tabfill', '')
   if get(g:, 'airline#extensions#tabline#show_tab_type', 1)
-    call b.add_section_spaced('airline_tabtype', s:buffers_label)
+    call b.add_section_spaced('airline_tabtype', 
+          \ get(g:, 'airline#extensions#tabline#buffers_label', 'buffers'))
   endif
 
   if tabpagenr('$') > 1
@@ -167,7 +166,8 @@ endfunction
 
 function! s:select_tab(buf_index)
   " no-op when called in 'keymap_ignored_filetypes'
-  if count(s:keymap_ignored_filetypes, &ft)
+  if count(get(g:, 'airline#extensions#tabline#keymap_ignored_filetypes', 
+        \ ['vimfiler', 'nerdtree']), &ft)
     return
   endif
 
