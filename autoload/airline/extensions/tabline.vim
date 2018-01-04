@@ -71,6 +71,7 @@ function! airline#extensions#tabline#load_theme(palette)
     return
   endif
   let colors    = get(a:palette, 'tabline', {})
+  let tablabel  = get(colors, 'airline_tablabel', a:palette.normal.airline_b)
   " Theme for tabs on the left
   let tab     = get(colors, 'airline_tab', a:palette.normal.airline_b)
   let tabsel  = get(colors, 'airline_tabsel', a:palette.normal.airline_a)
@@ -84,6 +85,7 @@ function! airline#extensions#tabline#load_theme(palette)
     "Fall back to normal airline_c if modified airline_c isn't present
     let tabmodu = get(colors, 'airline_tabmod_unsel', a:palette.normal.airline_c)
   endif
+  call airline#highlighter#exec('airline_tablabel', tablabel)
   call airline#highlighter#exec('airline_tab', tab)
   call airline#highlighter#exec('airline_tabsel', tabsel)
   call airline#highlighter#exec('airline_tabtype', tabtype)
@@ -204,7 +206,7 @@ endfunction
 
 function! airline#extensions#tabline#add_label(dict, type)
   if get(g:, 'airline#extensions#tabline#show_tab_type', 1)
-    call a:dict.add_section_spaced('airline_tab', 
+    call a:dict.add_section_spaced('airline_tablabel', 
           \ get(g:, 'airline#extensions#tabline#'.a:type.'_label', '['.a:type.']'))
   endif
 endfunction
