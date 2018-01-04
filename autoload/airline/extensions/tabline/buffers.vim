@@ -98,8 +98,8 @@ function! airline#extensions#tabline#buffers#get()
   call b.split()
   call b.add_section('airline_tabfill', '')
   if get(g:, 'airline#extensions#tabline#show_tab_type', 1)
-    call b.add_section_spaced('airline_tabtype', 
-          \ get(g:, 'airline#extensions#tabline#buffers_label', 'buffers'))
+    call b.add_section_spaced('airline_tab', 
+          \ get(g:, 'airline#extensions#tabline#buffers_label', '[buffers]'))
   endif
 
   if tabpagenr('$') > 1

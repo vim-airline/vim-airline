@@ -652,7 +652,7 @@ are supported!
 
 * enable/disable displaying open splits per tab (only when tabs are opened). >
   let g:airline#extensions#tabline#show_splits = 1
-    *
+
 * switch position of buffers and tabs on splited tabline (c)
   (only supported for ctrlspace plugin). >
   let g:airline#extensions#tabline#switch_buffers_and_tabs = 0
@@ -689,11 +689,8 @@ with the middle mouse button to delete that buffer.
 * enable/disable displaying tab number in tabs mode. >
   let g:airline#extensions#tabline#show_tab_nr = 1
 
-* enable/disable displaying tab type (far right) >
+* enable/disable displaying tab type (e.g. [buffers]/[tabs]) >
   let g:airline#extensions#tabline#show_tab_type = 1
-<
-  Note: The tab-type will only be displayed in tab-mode,
-  if there are no splits shown. (See: g:airline#extensions#tabline#show_splits)
 
 * rename label for buffers (default: 'buffers') (c) >
   let g:airline#extensions#tabline#buffers_label = 'b'
