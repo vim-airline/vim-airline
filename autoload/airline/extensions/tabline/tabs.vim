@@ -36,7 +36,11 @@ endfunction
 function! airline#extensions#tabline#tabs#get()
   let curbuf = bufnr('%')
   let curtab = tabpagenr()
-  call airline#extensions#tabline#tabs#map_keys()
+  try
+    call airline#extensions#tabline#tabs#map_keys()
+  catch
+    " no-op
+  endtry
   if curbuf == s:current_bufnr && curtab == s:current_tabnr
     if !g:airline_detect_modified || getbufvar(curbuf, '&modified') == s:current_modified
       return s:current_tabline
