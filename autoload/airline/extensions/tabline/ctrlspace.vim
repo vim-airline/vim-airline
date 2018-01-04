@@ -158,7 +158,7 @@ function! airline#extensions#tabline#ctrlspace#get()
     else
       " add by tenfy(tenfyzhong@qq.com)
       " if current buffer no in the buffer list, does't update tabline
-      if airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_tab, cur_buf, 0) == 0
+      if airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_tab, cur_buf, 1) == 0
         return s:current_tabline
       endif
       call builder.add_section_spaced('airline_tabtype', buffer_label)
