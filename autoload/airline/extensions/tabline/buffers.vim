@@ -3,7 +3,7 @@
 
 scriptencoding utf-8
 
-let s:buffer_idx_mode = get(g:, 'airline#extensions#tabline#buffer_idx_mode', 0)
+let s:buffer_idx_mode = get(g:, 'airline#extensions#tabline#buffer_idx_mode', 1)
 let s:show_tab_type = get(g:, 'airline#extensions#tabline#show_tab_type', 1)
 let s:buffers_label = get(g:, 'airline#extensions#tabline#buffers_label', 'buffers')
 let s:keymap_ignored_filetypes = get(g:, 'airline#extensions#tabline#keymap_ignored_filetypes', ['vimfiler', 'nerdtree'])
@@ -50,7 +50,11 @@ function! airline#extensions#tabline#buffers#invalidate()
 endfunction
 
 function! airline#extensions#tabline#buffers#get()
-  call <sid>map_keys()
+  try
+    call <sid>map_keys()
+  catch
+    " no-op
+  endtry
   let cur = bufnr('%')
   if cur == s:current_bufnr
     if !g:airline_detect_modified || getbufvar(cur, '&modified') == s:current_modified
