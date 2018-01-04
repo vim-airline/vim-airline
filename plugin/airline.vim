@@ -95,6 +95,8 @@ function! s:airline_toggle()
       autocmd CmdwinLeave * call airline#remove_statusline_func('airline#cmdwinenter')
 
       autocmd GUIEnter,ColorScheme * call <sid>on_colorscheme_changed()
+      " Refresh airline for :syntax off
+      autocmd SourcePre *nosyntax.vim call <sid>airline_refresh()
       autocmd VimEnter,WinEnter,BufWinEnter,FileType,BufUnload *
             \ call <sid>on_window_changed()
       if exists('#CompleteDone')
