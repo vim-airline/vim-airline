@@ -97,10 +97,7 @@ function! airline#extensions#tabline#buffers#get()
   call b.add_section('airline_tabfill', '')
   call b.split()
   call b.add_section('airline_tabfill', '')
-  if get(g:, 'airline#extensions#tabline#show_tab_type', 1)
-    call b.add_section_spaced('airline_tab', 
-          \ get(g:, 'airline#extensions#tabline#buffers_label', '[buffers]'))
-  endif
+  call airline#extensions#tabline#add_label(b, 'buffers')
 
   if tabpagenr('$') > 1
     call b.add_section_spaced('airline_tabmod', printf('%s %d/%d', "tab", tabpagenr(), tabpagenr('$')))
