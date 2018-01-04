@@ -10,7 +10,7 @@ This is the Changelog for the vim-airline project.
   - Reload on Resize and SessionLoad events
   - Add `maxlinenr` symbol to `airline_section_z`
   - Add quickfix title to inactive windows
-  - Look of default Airline Symbols has been improved #1397
+  - Look of default Airline Symbols has been improved [#1397](https://github.com/vim-airline/vim-airline/issues/1397)
   - Syntastic extension now displays warnings and errors separately
 - Improvements
   - Allow to skip empty sections by setting `g:airline_skip_empty_sections` variable
@@ -23,7 +23,7 @@ This is the Changelog for the vim-airline project.
   - Allows for configurable fileformat output if `g:airline#parts#ffenc#skip_expected_string` is set
   - Cache changes to highlighting groups if `g:airline_highlighting_cache = 1` is set
   - Support for Vims terminal feature (very experimental since it hasn't been stabilized yet)
-  - Improvements to the fugitive extension #1603
+  - Improvements to the fugitive extension [#1603](https://github.com/vim-airline/vim-airline/issues/1603)
 - New features
   - Full async support for Vim 8 and Neovim
   - Extensions:
@@ -42,10 +42,10 @@ This is the Changelog for the vim-airline project.
     - spell (can also display Spell language)
     - keymap
   - Formatters:
-    - Formatters for JavaScript #1617
-    - Tabline: Allow for custom formatter for `tab_nr_type` #1418
-    - Customizable wordcount formatter #1584
-  - Add User autocommand for Theme changing #1226
+    - Formatters for JavaScript [#1617](https://github.com/vim-airline/vim-airline/issues/1617)
+    - Tabline: Allow for custom formatter for `tab_nr_type` [#1418](https://github.com/vim-airline/vim-airline/issues/1418)
+    - Customizable wordcount formatter [#1584](https://github.com/vim-airline/vim-airline/issues/1584)
+  - Add User autocommand for Theme changing [#1226](https://github.com/vim-airline/vim-airline/issues/1226)
   - Shows mercurial mq status if hg mq extension is enabled
 
 
