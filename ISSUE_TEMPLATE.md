@@ -3,6 +3,7 @@
 - vim: ????
 - vim-airline: ????
 - OS: ????
+- Architecture: ??
 - Have you reproduced with a minimal vimrc: ???
 - What is your airline configuration: ???
 if you are using terminal:
@@ -12,10 +13,10 @@ if you are using terminal:
 if you are using Neovim:
 - does it happen in Vim: ???
 
-#### actual behavior
+#### actual behaviour
 
 ????
 
-#### expected behavior
+#### expected behaviour
 
 ????
