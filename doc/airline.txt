@@ -685,6 +685,10 @@ with the middle mouse button to delete that buffer.
   let g:airline#extensions#tabline#tab_nr_type = 0 " # of splits (default)
   let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
   let g:airline#extensions#tabline#tab_nr_type = 2 " splits and tab number
+  let g:airline#extensions#tabline#tabnr_formatter = 'tabnr'
+
+  Note: last option can be used to specify a different formatter for
+  displaying the numbers. By default tabline/formatter/tabnr.vim is used
 <
 * enable/disable displaying tab number in tabs mode. >
   let g:airline#extensions#tabline#show_tab_nr = 1
