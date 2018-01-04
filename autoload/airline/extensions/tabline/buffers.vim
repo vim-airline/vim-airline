@@ -111,6 +111,12 @@ endfunction
 function! s:get_visible_buffers()
   let buffers = airline#extensions#tabline#buflist#list()
   let cur = bufnr('%')
+  if get(g:, 'airline#extensions#tabline#current_first', 0)
+    if index(buffers, cur) > -1
+      call remove(buffers, index(buffers, cur))
+    endif
+    let buffers = [cur] + buffers
+  endif
 
   let total_width = 0
   let max_width = 0

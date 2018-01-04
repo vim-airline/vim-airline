@@ -698,6 +698,10 @@ with the middle mouse button to delete that buffer.
 * rename label for tabs (default: 'tabs') (c) >
   let g:airline#extensions#tabline#tabs_label = 't'
 
+* always show current tabpage/buffer first >
+  let airline#extensions#tabline#current_first = 1
+<  default: 0
+
 * enable/disable displaying index of the buffer.
 
   When enabled, numbers will be displayed in the tabline and mappings will be
