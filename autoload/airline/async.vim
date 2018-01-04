@@ -53,6 +53,8 @@ endfunction
 
 if v:version >= 800 && has("job")
   " Vim 8.0 with Job feature
+  " TODO: Check if we need the cwd option for the job_start() functions
+  "       (only works starting with Vim 8.0.0902)
 
   function! s:on_stdout(channel, msg) dict abort
     let self.buf .= a:msg
