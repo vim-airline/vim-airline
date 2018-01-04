@@ -62,7 +62,7 @@ function! airline#extensions#tabline#buffers#get()
     endif
   endif
 
-  let l:index = 1
+  let index = 1
   let b = airline#extensions#tabline#new_builder()
   let tab_bufs = tabpagebuflist(tabpagenr())
   for nr in s:get_visible_buffers()
@@ -83,11 +83,11 @@ function! airline#extensions#tabline#buffers#get()
     endif
     if s:buffer_idx_mode
       if len(s:number_map) > 0
-        call b.add_section(group, s:spc . get(s:number_map, l:index, '') . '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)' . s:spc)
+        call b.add_section(group, s:spc . get(s:number_map, index, '') . '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)' . s:spc)
       else
-        call b.add_section(group, '['.l:index.s:spc.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.']')
+        call b.add_section(group, '['.index.s:spc.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.']')
       endif
-      let l:index = l:index + 1
+      let index += 1
     else
       call b.add_section(group, s:spc.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.s:spc)
     endif
