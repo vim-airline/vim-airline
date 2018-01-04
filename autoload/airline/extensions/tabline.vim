@@ -72,42 +72,42 @@ function! airline#extensions#tabline#load_theme(palette)
   endif
   let colors    = get(a:palette, 'tabline', {})
   " Theme for tabs on the left
-  let l:tab     = get(colors, 'airline_tab', a:palette.normal.airline_b)
-  let l:tabsel  = get(colors, 'airline_tabsel', a:palette.normal.airline_a)
-  let l:tabtype = get(colors, 'airline_tabtype', a:palette.visual.airline_a)
-  let l:tabfill = get(colors, 'airline_tabfill', a:palette.normal.airline_c)
-  let l:tabmod  = get(colors, 'airline_tabmod', a:palette.insert.airline_a)
-  let l:tabhid  = get(colors, 'airline_tabhid', a:palette.normal.airline_c)
+  let tab     = get(colors, 'airline_tab', a:palette.normal.airline_b)
+  let tabsel  = get(colors, 'airline_tabsel', a:palette.normal.airline_a)
+  let tabtype = get(colors, 'airline_tabtype', a:palette.visual.airline_a)
+  let tabfill = get(colors, 'airline_tabfill', a:palette.normal.airline_c)
+  let tabmod  = get(colors, 'airline_tabmod', a:palette.insert.airline_a)
+  let tabhid  = get(colors, 'airline_tabhid', a:palette.normal.airline_c)
   if has_key(a:palette, 'normal_modified') && has_key(a:palette.normal_modified, 'airline_c')
-    let l:tabmodu = get(colors, 'airline_tabmod_unsel', a:palette.normal_modified.airline_c)
+    let tabmodu = get(colors, 'airline_tabmod_unsel', a:palette.normal_modified.airline_c)
   else
     "Fall back to normal airline_c if modified airline_c isn't present
-    let l:tabmodu = get(colors, 'airline_tabmod_unsel', a:palette.normal.airline_c)
+    let tabmodu = get(colors, 'airline_tabmod_unsel', a:palette.normal.airline_c)
   endif
-  call airline#highlighter#exec('airline_tab', l:tab)
-  call airline#highlighter#exec('airline_tabsel', l:tabsel)
-  call airline#highlighter#exec('airline_tabtype', l:tabtype)
-  call airline#highlighter#exec('airline_tabfill', l:tabfill)
-  call airline#highlighter#exec('airline_tabmod', l:tabmod)
-  call airline#highlighter#exec('airline_tabmod_unsel', l:tabmodu)
-  call airline#highlighter#exec('airline_tabhid', l:tabhid)
+  call airline#highlighter#exec('airline_tab', tab)
+  call airline#highlighter#exec('airline_tabsel', tabsel)
+  call airline#highlighter#exec('airline_tabtype', tabtype)
+  call airline#highlighter#exec('airline_tabfill', tabfill)
+  call airline#highlighter#exec('airline_tabmod', tabmod)
+  call airline#highlighter#exec('airline_tabmod_unsel', tabmodu)
+  call airline#highlighter#exec('airline_tabhid', tabhid)
 
   " Theme for tabs on the right
-  let l:tabsel_right  = get(colors, 'airline_tabsel_right', a:palette.normal.airline_a)
-  let l:tab_right     = get(colors, 'airline_tab_right',    a:palette.inactive.airline_c)
-  let l:tabmod_right  = get(colors, 'airline_tabmod_right', a:palette.insert.airline_a)
-  let l:tabhid_right  = get(colors, 'airline_tabhid_right', a:palette.normal.airline_c)
+  let tabsel_right  = get(colors, 'airline_tabsel_right', a:palette.normal.airline_a)
+  let tab_right     = get(colors, 'airline_tab_right',    a:palette.inactive.airline_c)
+  let tabmod_right  = get(colors, 'airline_tabmod_right', a:palette.insert.airline_a)
+  let tabhid_right  = get(colors, 'airline_tabhid_right', a:palette.normal.airline_c)
   if has_key(a:palette, 'normal_modified') && has_key(a:palette.normal_modified, 'airline_c')
-    let l:tabmodu_right = get(colors, 'airline_tabmod_unsel_right', a:palette.normal_modified.airline_c)
+    let tabmodu_right = get(colors, 'airline_tabmod_unsel_right', a:palette.normal_modified.airline_c)
   else
     "Fall back to normal airline_c if modified airline_c isn't present
-    let l:tabmodu_right = get(colors, 'airline_tabmod_unsel_right', a:palette.normal.airline_c)
+    let tabmodu_right = get(colors, 'airline_tabmod_unsel_right', a:palette.normal.airline_c)
   endif
-  call airline#highlighter#exec('airline_tab_right',    l:tab_right)
-  call airline#highlighter#exec('airline_tabsel_right', l:tabsel_right)
-  call airline#highlighter#exec('airline_tabmod_right', l:tabmod_right)
-  call airline#highlighter#exec('airline_tabhid_right', l:tabhid_right)
-  call airline#highlighter#exec('airline_tabmod_unsel_right', l:tabmodu_right)
+  call airline#highlighter#exec('airline_tab_right',    tab_right)
+  call airline#highlighter#exec('airline_tabsel_right', tabsel_right)
+  call airline#highlighter#exec('airline_tabmod_right', tabmod_right)
+  call airline#highlighter#exec('airline_tabhid_right', tabhid_right)
+  call airline#highlighter#exec('airline_tabmod_unsel_right', tabmodu_right)
 endfunction
 
 let s:current_tabcnt = -1
