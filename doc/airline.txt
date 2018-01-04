@@ -659,11 +659,18 @@ are supported!
 <
 * enable/disable displaying buffers with a single tab. (c) >
   let g:airline#extensions#tabline#show_buffers = 1
-<
 
 Note: If you are using neovim (has('tablineat') = 1), then you can click
 on the tabline with the left mouse button to switch to that buffer, and
 with the middle mouse button to delete that buffer.
+
+* if you want to show the current active buffer like this:
+  ----------------------
+  buffer <buffer> buffer `
+>
+ let g:airline#extensions#tabline#alt_sep = 1
+< Only makes sense, if g:airline_right_sep is not empty.
+ default: 0
 
 * enable/disable displaying tabs, regardless of number. (c) >
   let g:airline#extensions#tabline#show_tabs = 1
@@ -684,7 +691,7 @@ with the middle mouse button to delete that buffer.
 
 * enable/disable displaying tab type (far right) >
   let g:airline#extensions#tabline#show_tab_type = 1
-
+<
   Note: The tab-type will only be displayed in tab-mode,
   if there are no splits shown. (See: g:airline#extensions#tabline#show_splits)
 
@@ -712,7 +719,7 @@ with the middle mouse button to delete that buffer.
   nmap <leader>9 <Plug>AirlineSelectTab9
   nmap <leader>- <Plug>AirlineSelectPrevTab
   nmap <leader>+ <Plug>AirlineSelectNextTab
-
+<
   Note: Mappings will be ignored within "g:airline#extensions#tabline#keymap_ignored_filetypes".
 
   Note: In buffer_idx_mode these mappings won't change the
@@ -720,7 +727,7 @@ with the middle mouse button to delete that buffer.
   Use |gt| for switching tabs.
   In tabmode, those mappings will switch to the specified tab.
 
-* define the set of filetypes which are ignored selectTab keymappings
+* define the set of filetypes which are ignored selectTab keymappings >
   let g:airline#extensions#tabline#keymap_ignored_filetypes = ['vimfiler', 'nerdtree']
 
 * change the display format of the buffer index >
@@ -821,7 +828,6 @@ Note: Enabling this extension will modify 'showtabline' and 'guioptions'.
   let airline#extensions#tabline#disable_refresh = 0
 
 * preserve windows when closing a buffer from the bufferline (default: 0) >
-
   let airline#extensions#tabline#middle_click_preserves_windows = 1
 <
 -------------------------------------                     *airline-tmuxline*

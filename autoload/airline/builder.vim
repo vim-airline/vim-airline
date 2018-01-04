@@ -118,9 +118,16 @@ endfunction
 function! s:get_transitioned_seperator(self, prev_group, group, side)
   let line = ''
   call airline#highlighter#add_separator(a:prev_group, a:group, a:side)
-  let line .= '%#'.a:prev_group.'_to_'.a:group.'#'
-  let line .= a:side ? a:self._context.left_sep : a:self._context.right_sep
-  let line .= '%#'.a:group.'#'
+  if get(a:self._context, 'tabline', 0) && get(g:, 'airline#extensions#tabline#alt_sep', 0) && a:group ==# 'airline_tabsel' && a:side
+    call airline#highlighter#add_separator(a:prev_group, a:group, 0)
+    let line .= '%#'.a:prev_group.'_to_'.a:group.'#'
+    let line .=  a:self._context.right_sep.'%#'.a:group.'#'
+  else
+    call airline#highlighter#add_separator(a:prev_group, a:group, a:side)
+    let line .= '%#'.a:prev_group.'_to_'.a:group.'#'
+    let line .= a:side ? a:self._context.left_sep : a:self._context.right_sep
+    let line .= '%#'.a:group.'#'
+  endif
   return line
 endfunction
 
