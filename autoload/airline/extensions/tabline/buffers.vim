@@ -61,6 +61,14 @@ function! airline#extensions#tabline#buffers#get()
   let index = 1
   let b = airline#extensions#tabline#new_builder()
   let tab_bufs = tabpagebuflist(tabpagenr())
+  let show_buf_label_first = 0
+
+  if get(g:, 'airline#extensions#tabline#buf_label_first', 0)
+    let show_buf_label_first = 1
+  endif
+  if show_buf_label_first
+    call airline#extensions#tabline#add_label(b, 'buffers')
+  endif
   for nr in s:get_visible_buffers()
     if nr < 0
       call b.add_raw('%#airline_tabhid#...')
@@ -97,7 +105,9 @@ function! airline#extensions#tabline#buffers#get()
   call b.add_section('airline_tabfill', '')
   call b.split()
   call b.add_section('airline_tabfill', '')
-  call airline#extensions#tabline#add_label(b, 'buffers')
+  if !show_buf_label_first
+    call airline#extensions#tabline#add_label(b, 'buffers')
+  endif
 
   if tabpagenr('$') > 1
     call b.add_section_spaced('airline_tabmod', printf('%s %d/%d', "tab", tabpagenr(), tabpagenr('$')))
