@@ -3,10 +3,6 @@
 
 scriptencoding utf-8
 
-let s:formatter = get(g:, 'airline#extensions#tabline#formatter', 'default')
-let s:show_buffers = get(g:, 'airline#extensions#tabline#show_buffers', 1)
-let s:show_tabs = get(g:, 'airline#extensions#tabline#show_tabs', 1)
-let s:ignore_bufadd_pat = get(g:, 'airline#extensions#tabline#ignore_bufadd_pat', '\c\vgundo|undotree|vimfiler|tagbar|nerd_tree')
 
 let s:taboo = get(g:, 'airline#extensions#taboo#enabled', 1) && get(g:, 'loaded_taboo', 0)
 if s:taboo
@@ -52,13 +48,15 @@ function! s:update_tabline()
     return
   endif
   let match = expand('<afile>')
+  let ignore_bufadd_pat = get(g:, 'airline#extensions#tabline#ignore_bufadd_pat',
+        \ '\c\vgundo|undotree|vimfiler|tagbar|nerd_tree')
   if pumvisible()
     return
   elseif !get(g:, 'airline#extensions#tabline#enabled', 0)
     return
   " return, if buffer matches ignore pattern or is directory (netrw)
   elseif empty(match)
-        \ || match(match, s:ignore_bufadd_pat) > -1
+        \ || match(match, ignore_bufadd_pat) > -1
         \ || isdirectory(expand("<afile>"))
     return
   endif
@@ -113,7 +111,11 @@ function! airline#extensions#tabline#load_theme(palette)
 endfunction
 
 let s:current_tabcnt = -1
+
 function! airline#extensions#tabline#get()
+  let show_buffers = get(g:, 'airline#extensions#tabline#show_buffers', 1)
+  let show_tabs = get(g:, 'airline#extensions#tabline#show_tabs', 1)
+
   let curtabcnt = tabpagenr('$')
   if curtabcnt != s:current_tabcnt
     let s:current_tabcnt = curtabcnt
@@ -127,7 +129,7 @@ function! airline#extensions#tabline#get()
   endif
   if s:ctrlspace
     return airline#extensions#tabline#ctrlspace#get()
-  elseif s:show_buffers && curtabcnt == 1 || !s:show_tabs
+  elseif show_buffers && curtabcnt == 1 || !show_tabs
     return airline#extensions#tabline#buffers#get()
   else
     return airline#extensions#tabline#tabs#get()
@@ -158,7 +160,8 @@ endfunction
 
 function! airline#extensions#tabline#get_buffer_name(nr, ...)
   let buffers = a:0 ? a:1 : airline#extensions#tabline#buflist#list()
-  return airline#extensions#tabline#formatters#{s:formatter}#format(a:nr, buffers)
+  let formatter = get(g:, 'airline#extensions#tabline#formatter', 'default')
+  return airline#extensions#tabline#formatters#{formatter}#format(a:nr, buffers)
 endfunction
 
 function! airline#extensions#tabline#new_builder()
