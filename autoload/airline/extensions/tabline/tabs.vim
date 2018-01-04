@@ -43,7 +43,15 @@ function! airline#extensions#tabline#tabs#get()
   let b = airline#extensions#tabline#new_builder()
 
   call airline#extensions#tabline#add_label(b, 'tabs')
-  for i in range(1, tabpagenr('$'))
+  " always have current tabpage first
+  let tablist = range(1, tabpagenr('$'))
+  if get(g:, 'airline#extensions#tabline#current_first', 0)
+    if index(tablist, curtab) > -1
+      call remove(tablist, index(tablist, curtab))
+    endif
+    let tablist = [curtab] + tablist
+  endif
+  for i in tablist
     if i == curtab
       let group = 'airline_tabsel'
       if g:airline_detect_modified
