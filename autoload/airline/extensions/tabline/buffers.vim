@@ -3,7 +3,6 @@
 
 scriptencoding utf-8
 
-let s:buffer_idx_mode = get(g:, 'airline#extensions#tabline#buffer_idx_mode', 1)
 let s:show_tab_type = get(g:, 'airline#extensions#tabline#show_tab_type', 1)
 let s:buffers_label = get(g:, 'airline#extensions#tabline#buffers_label', 'buffers')
 let s:keymap_ignored_filetypes = get(g:, 'airline#extensions#tabline#keymap_ignored_filetypes', ['vimfiler', 'nerdtree'])
@@ -81,7 +80,7 @@ function! airline#extensions#tabline#buffers#get()
     if has("tablineat")
       call b.add_raw('%'.nr.'@airline#extensions#tabline#buffers#clickbuf@')
     endif
-    if s:buffer_idx_mode
+    if get(g:, 'airline#extensions#tabline#buffer_idx_mode', 1)
       if len(s:number_map) > 0
         call b.add_section(group, s:spc . get(s:number_map, index, '') . '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)' . s:spc)
       else
@@ -190,7 +189,7 @@ function! s:jump_to_tab(offset)
 endfunction
 
 function! s:map_keys()
-  if s:buffer_idx_mode
+  if get(g:, 'airline#extensions#tabline#buffer_idx_mode', 1)
     noremap <silent> <Plug>AirlineSelectTab1 :call <SID>select_tab(0)<CR>
     noremap <silent> <Plug>AirlineSelectTab2 :call <SID>select_tab(1)<CR>
     noremap <silent> <Plug>AirlineSelectTab3 :call <SID>select_tab(2)<CR>
