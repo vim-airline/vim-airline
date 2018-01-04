@@ -68,13 +68,7 @@ function! airline#extensions#tabline#tabs#get()
     let val = '%('
 
     if get(g:, 'airline#extensions#tabline#show_tab_nr', 1)
-      if tab_nr_type == 0
-        let val .= (g:airline_symbols.space).'%{len(tabpagebuflist('.i.'))}'
-      elseif tab_nr_type == 1
-        let val .= (g:airline_symbols.space).i
-      else "== 2
-        let val .= (g:airline_symbols.space).i.'.%{len(tabpagebuflist('.i.'))}'
-      endif
+      let val .= airline#extensions#tabline#tabs#tabnr_formatter(tab_nr_type, i)
     endif
     call b.add_section(group, val.'%'.i.'T %{airline#extensions#tabline#title('.i.')} %)')
   endfor
@@ -120,4 +114,9 @@ function! airline#extensions#tabline#tabs#map_keys()
   " tabn {count} goes to count tab does not go {count} tab pages forward!
   noremap <silent> <Plug>AirlineSelectNextTab :<C-U>exe repeat(':tabn\|', v:count1)<cr>
   let s:airline_tabline_map_key = 1
+endfunction
+
+function! airline#extensions#tabline#tabs#tabnr_formatter(nr, i)
+  let formatter = get(g:, 'airline#extensions#tabline#tabnr_formatter', 'tabnr')
+  return airline#extensions#tabline#formatters#{formatter}#format(a:nr, a:i)
 endfunction
