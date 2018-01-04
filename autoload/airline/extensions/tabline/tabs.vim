@@ -42,7 +42,7 @@ function! airline#extensions#tabline#tabs#get()
   let tab_nr_type = get(g:, 'airline#extensions#tabline#tab_nr_type', 0)
   let b = airline#extensions#tabline#new_builder()
 
-  call airline#extensions#tabline#add_label(b, 'buffers')
+  call airline#extensions#tabline#add_label(b, 'tabs')
   for i in range(1, tabpagenr('$'))
     if i == curtab
       let group = 'airline_tabsel'
@@ -87,7 +87,7 @@ function! airline#extensions#tabline#tabs#get()
       call b.add_section_spaced(group, '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)')
     endfor
   endif
-  call airline#extensions#tabline#add_label(b, 'tabs')
+  call airline#extensions#tabline#add_label(b, 'buffers')
 
   let s:current_bufnr = curbuf
   let s:current_tabnr = curtab
