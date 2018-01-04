@@ -88,8 +88,8 @@ function! airline#extensions#tabline#tabs#get()
       let group = airline#extensions#tabline#group_of_bufnr(buffers, nr) . "_right"
       call b.add_section_spaced(group, '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)')
     endfor
+    call airline#extensions#tabline#add_label(b, 'buffers')
   endif
-  call airline#extensions#tabline#add_label(b, 'buffers')
 
   let s:current_bufnr = curbuf
   let s:current_tabnr = curtab
