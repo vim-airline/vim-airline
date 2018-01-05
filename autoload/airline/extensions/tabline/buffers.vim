@@ -88,13 +88,13 @@ function! airline#extensions#tabline#buffers#get()
 
     if get(g:, 'airline#extensions#tabline#buffer_idx_mode', 1)
       if len(s:number_map) > 0
-        call b.add_section(group, s:spc . get(s:number_map, index, '') . '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)' . s:spc)
+        call b.add_section(group, get(s:number_map, index, '') . '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)' . s:spc)
       else
         call b.add_section(group, '['.index.s:spc.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.']')
       endif
       let index += 1
     else
-      call b.add_section(group, s:spc.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.s:spc)
+      call b.add_section(group, '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.s:spc)
     endif
 
     if has("tablineat")
