@@ -1,6 +1,8 @@
 " MIT License. Copyright (c) 2013-2017 C.Brabandt
 " vim: et ts=2 sts=2 sw=2
 
+scriptencoding utf-8
+
 let s:untracked_jobs = {}
 let s:mq_jobs        = {}
 let s:po_jobs        = {}

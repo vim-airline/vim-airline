@@ -18,7 +18,9 @@
 " DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 " TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 " OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-"
+
+scriptencoding utf-8
+
 let s:is_win = has('win32') || has('win64')
 let s:is_iTerm = exists('$TERM_PROGRAM') && $TERM_PROGRAM =~# 'iTerm.app'
 let s:is_AppleTerminal = exists('$TERM_PROGRAM') && $TERM_PROGRAM =~# 'Apple_Terminal'
