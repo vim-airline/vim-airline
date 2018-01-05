@@ -332,7 +332,7 @@ function! airline#extensions#load()
    call add(loaded_ext, 'vimtex')
   endif
 
-  if (get(g:, 'airline#extensions#cursormode#enabled', 1))
+  if (get(g:, 'airline#extensions#cursormode#enabled', 0))
     call airline#extensions#cursormode#init(s:ext)
     call add(loaded_ext, 'cursormode')
   endif

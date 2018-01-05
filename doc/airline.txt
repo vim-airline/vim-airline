@@ -1035,6 +1035,9 @@ cursormode <https://github.com/vheon/vim-cursormode>
 Displays cursor in different colors depending on the current mode (only works
 in terminals iTerm, AppleTerm and xterm)
 
+* enable cursormode integration >
+  let g:airline#extensions#cursormode#enabled = 1
+
 ==============================================================================
 ADVANCED CUSTOMIZATION                      *airline-advanced-customization*
 
