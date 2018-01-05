@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2016 Jerome Reybert
+" MIT License. Copyright (c) 2016-2018 Jerome Reybert et al.
 " vim: et ts=2 sts=2 sw=2
 
 " This plugin replace the whole section_a when in vimagit buffer

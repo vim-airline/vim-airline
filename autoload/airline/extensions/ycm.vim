@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2015 Evgeny Firsov.
+" MIT License. Copyright (c) 2015-2018 Evgeny Firsov et al.
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
@@ -35,4 +35,3 @@ function! airline#extensions#ycm#get_warning_count()
 
   return ''
 endfunction
-

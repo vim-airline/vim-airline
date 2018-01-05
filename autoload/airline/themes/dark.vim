@@ -1,3 +1,6 @@
+" MIT License. Copyright (c) 2013-2018 Bailey Ling et al.
+" vim: et ts=2 sts=2 sw=2 tw=80
+
 scriptencoding utf-8
 
 " Airline themes are generated based on the following concepts:
@@ -151,4 +154,3 @@ if get(g:, 'loaded_ctrlp', 0)
         \ [ '#5f00af' , '#ffffff' , 55  , 231 , 'bold' ])
 endif
 
-" vim: tw=80

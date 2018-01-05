@@ -1,3 +1,7 @@
+" MIT License. Copyright (c) 2013-2018 Bailey Ling et al.
+" vim: et ts=2 sts=2 sw=2
+
+" This plugin replace the whole section_a when in vimagit buffer
 scriptencoding utf-8
 
 let s:spc = g:airline_symbols.space
@@ -78,4 +82,3 @@ function! airline#extensions#vimtex#get_scope()
   endif
   return l:status
 endfunction
-
