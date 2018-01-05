@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2017 Cimbali.
+" MIT License. Copyright (c) 2017-2018 Cimbali et al
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
@@ -42,4 +42,3 @@ function! airline#extensions#fugitiveline#init(ext)
   autocmd ShellCmdPost,CmdwinLeave * unlet! b:fugitive_name
   autocmd User AirlineBeforeRefresh unlet! b:fugitive_name
 endfunction
-

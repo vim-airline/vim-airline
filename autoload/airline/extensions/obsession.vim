@@ -1,3 +1,4 @@
+" MIT License. Copyright (c) 2013-2018 Bailey Ling et al.
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
@@ -19,4 +20,3 @@ endfunction
 function! airline#extensions#obsession#get_status()
   return ObsessionStatus((g:airline#extensions#obsession#indicator_text . s:spc), '')
 endfunction
-

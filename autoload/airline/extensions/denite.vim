@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2017 Thomas Dy
+" MIT License. Copyright (c) 2017-2018 Thomas Dy et al.
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
@@ -39,4 +39,3 @@ function! airline#extensions#denite#init(ext)
   call denite#custom#option('_', 'statusline', 0)
   call a:ext.add_statusline_func('airline#extensions#denite#apply')
 endfunction
-

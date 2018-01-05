@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2013-2017 Doron Behar, C.Brabandt
+" MIT License. Copyright (c) 2013-2018 Doron Behar, C.Brabandt et al.
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8

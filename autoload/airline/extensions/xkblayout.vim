@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2017 YoungHoon Rhiu.
+" MIT License. Copyright (c) 2017-2018 YoungHoon Rhiu et al.
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
@@ -22,4 +22,3 @@ endfunction
 function! airline#extensions#xkblayout#init(ext)
   call airline#parts#define_function('xkblayout', 'airline#extensions#xkblayout#status')
 endfunction
-
