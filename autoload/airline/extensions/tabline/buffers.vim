@@ -86,7 +86,7 @@ function! airline#extensions#tabline#buffers#get()
       call b.add_raw('%'.nr.'@airline#extensions#tabline#buffers#clickbuf@')
     endif
 
-    if get(g:, 'airline#extensions#tabline#buffer_idx_mode', 1)
+    if get(g:, 'airline#extensions#tabline#buffer_idx_mode', 0)
       if len(s:number_map) > 0
         call b.add_section(group, get(s:number_map, index, '') . '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)' . s:spc)
       else
