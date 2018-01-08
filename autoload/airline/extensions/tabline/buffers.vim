@@ -69,6 +69,7 @@ function! airline#extensions#tabline#buffers#get()
   if show_buf_label_first
     call airline#extensions#tabline#add_label(b, 'buffers')
   endif
+  let pgroup = ''
   for nr in s:get_visible_buffers()
     if nr < 0
       call b.add_raw('%#airline_tabhid#...')
@@ -86,20 +87,23 @@ function! airline#extensions#tabline#buffers#get()
       call b.add_raw('%'.nr.'@airline#extensions#tabline#buffers#clickbuf@')
     endif
 
+    let space= (pgroup == group ? s:spc: '')
+
     if get(g:, 'airline#extensions#tabline#buffer_idx_mode', 0)
       if len(s:number_map) > 0
-        call b.add_section(group, get(s:number_map, index, '') . '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)' . s:spc)
+        call b.add_section(group, space. get(s:number_map, index, '') . '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)' . s:spc)
       else
         call b.add_section(group, '['.index.s:spc.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.']')
       endif
       let index += 1
     else
-      call b.add_section(group, '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.s:spc)
+      call b.add_section(group, space.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.s:spc)
     endif
 
     if has("tablineat")
       call b.add_raw('%X')
     endif
+    let pgroup=group
   endfor
 
   call b.add_section('airline_tabfill', '')
