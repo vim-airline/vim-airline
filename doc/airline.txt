@@ -306,7 +306,7 @@ section.
   variable names                default contents
   ----------------------------------------------------------------------------
   let g:airline_section_a       (mode, crypt, paste, spell, iminsert)
-  let g:airline_section_b       (hunks, branch)
+  let g:airline_section_b       (hunks, branch)[*]
   let g:airline_section_c       (bufferline or filename)
   let g:airline_section_gutter  (readonly, csv)
   let g:airline_section_x       (tagbar, filetype, virtualenv)
@@ -315,6 +315,9 @@ section.
   let g:airline_section_error   (ycm_error_count, syntastic-err, eclim)
   let g:airline_section_warning (ycm_warning_count, syntastic-warn, whitespace)
 
+  " [*] This section needs at least the fugitive extension or else
+  "     it will remain empty
+  "
   " here is an example of how you could replace the branch indicator with
   " the current working directory (limited to 10 characters),
   " followed by the filename.
