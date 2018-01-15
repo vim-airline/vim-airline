@@ -4,7 +4,7 @@ This is the Changelog for the vim-airline project.
 
 ## [Unreleased]
 
-## [0.9] - unreleased
+## [0.9] - 2018-01-15
 - Changes
   - Look of default Airline Symbols has been improved [#1397](https://github.com/vim-airline/vim-airline/issues/1397)
   - Airline does now set `laststatus=2` if needed
@@ -153,8 +153,8 @@ This is the Changelog for the vim-airline project.
   - integration with other plugins: netrw, unite, nerdtree, undotree, gundo, tagbar, minibufexplr, ctrlp
   - support for themes: 8 included
 
-[Unreleased]: https://github.com/vim-airline/vim-airline/compare/v0.8...HEAD
-[0.9]: https://github.com/vim-airline/vim-airline/compare/v0.8...HEAD
+[Unreleased]: https://github.com/vim-airline/vim-airline/compare/v0.9...HEAD
+[0.9]: https://github.com/vim-airline/vim-airline/compare/v0.8...v0.9
 [0.8]: https://github.com/vim-airline/vim-airline/compare/v0.7...v0.8
 [0.7]: https://github.com/vim-airline/vim-airline/compare/v0.6...v0.7
 [0.6]: https://github.com/vim-airline/vim-airline/compare/v0.5...v0.6
