@@ -40,8 +40,12 @@ endfunction
 let s:iTerm_escape_template = '\033]Pl%s\033\\'
 let s:xterm_escape_template = '\033]12;%s\007'
 
+function! s:get_mode()
+  return call(get(g:, 'cursormode_mode_func', 'mode'), [])
+endfunction
+
 function! airline#extensions#cursormode#set(...)
-  let mode = mode()
+  let mode = s:get_mode()
   if mode !=# s:last_mode
     let s:last_mode = mode
   call s:set_cursor_color_for(mode)
