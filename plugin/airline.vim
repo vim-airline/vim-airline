@@ -96,7 +96,8 @@ function! s:airline_toggle()
 
       autocmd GUIEnter,ColorScheme * call <sid>on_colorscheme_changed()
       " Refresh airline for :syntax off
-      autocmd SourcePre */syntax/*syntax.vim call <sid>airline_refresh()
+      autocmd SourcePre */syntax/syntax.vim
+            \ call airline#extensions#tabline#buffers#invalidate()
       autocmd VimEnter,WinEnter,BufWinEnter,FileType,BufUnload *
             \ call <sid>on_window_changed()
       if exists('#CompleteDone')
