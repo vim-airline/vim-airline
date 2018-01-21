@@ -1035,11 +1035,27 @@ neomake <https://github.com/neomake/neomake>
 -------------------------------------                    *airline-cursormode*
 cursormode <https://github.com/vheon/vim-cursormode>
 
-Displays cursor in different colors depending on the current mode (only works
-in terminals iTerm, AppleTerm and xterm)
+Built-in extension to displays cursor in different colors depending on the
+current mode (only works in terminals iTerm, AppleTerm and xterm)
 
 * enable cursormode integration >
   let g:airline#extensions#cursormode#enabled = 1
+
+* mode function. Return value is used as key for the color mapping. Default is
+  |mode()|
+  `let g:cursormode_mode_func = 'mode'`
+
+* color mapping. Keys come from `g:cursormode_mode_func` (background value can
+  be appended)
+  `let g:cursormode_color_map = {`
+    `\   "nlight": '#000000',`
+    `\   "ndark": '#BBBBBB',`
+    `\   "i": g:airline#themes#{g:airline_theme}#palette.insert.airline_a[1],`
+    `\   "R": g:airline#themes#{g:airline_theme}#palette.replace.airline_a[1],`
+    `\   "v": g:airline#themes#{g:airline_theme}#palette.visual.airline_a[1],`
+    `\   "V": g:airline#themes#{g:airline_theme}#palette.visual.airline_a[1],`
+    `\   "\<C-V>": g:airline#themes#{g:airline_theme}#palette.visual.airline_a[1],`
+    `\ }`
 
 ==============================================================================
 ADVANCED CUSTOMIZATION                      *airline-advanced-customization*
