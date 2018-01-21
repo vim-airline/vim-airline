@@ -3,8 +3,13 @@
 
 scriptencoding utf-8
 
-let g:airline#extensions#quickfix#quickfix_text = 'Quickfix'
-let g:airline#extensions#quickfix#location_text = 'Location'
+if !exists('g:airline#extensions#quickfix#quickfix_text')
+  let g:airline#extensions#quickfix#quickfix_text = 'Quickfix'
+endif
+
+if !exists('g:airline#extensions#quickfix#location_text')
+  let g:airline#extensions#quickfix#location_text = 'Location'
+endif
 
 function! airline#extensions#quickfix#apply(...)
   if &buftype == 'quickfix'
