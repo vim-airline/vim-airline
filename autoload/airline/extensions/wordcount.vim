@@ -20,12 +20,12 @@ function! s:wordcount_update()
       if get(b:, 'airline_wordcount_cache', '') is# '' ||
             \ b:airline_wordcount_cache isnot# get(b:, 'airline_wordcount', '') ||
             \ get(b:, 'airline_change_tick', 0) != b:changedtick || 
-            \ get(b:, 'airline_winwidth', 0) != winwidth(0)
+            \ get(b:, 'airline_winwidth', 0) != airline#util#cur_window_statusline_width()
         " cache data
         let b:airline_wordcount = airline#extensions#wordcount#formatters#{s:formatter}#format()
         let b:airline_wordcount_cache = b:airline_wordcount
         let b:airline_change_tick = b:changedtick
-        let b:airline_winwidth = winwidth(0)
+        let b:airline_winwidth = airline#util#cur_window_statusline_width()
       endif
     endif
   endif

@@ -11,7 +11,7 @@ function! airline#extensions#wordcount#formatters#default#format()
     return
   endif
   let result = g:airline_symbols.space . g:airline_right_alt_sep . g:airline_symbols.space
-  if winwidth(0) >= 80
+  if airline#util#cur_window_statusline_width() >= 80
     let separator = s:get_decimal_group()
     if words > 999 && !empty(separator)
       " Format number according to locale, e.g. German: 1.245 or English: 1,245

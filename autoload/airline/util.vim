@@ -9,8 +9,17 @@ scriptencoding utf-8
 call airline#init#bootstrap()
 let s:spc = g:airline_symbols.space
 
+function! airline#util#cur_window_statusline_width()
+  if get(g:, 'airline_statusline_ontop', 0)
+    return &columns
+  else
+    return winwidth(0)
+  endif
+endfunction
+
+
 function! airline#util#shorten(text, winwidth, minwidth, ...)
-  if winwidth(0) < a:winwidth && len(split(a:text, '\zs')) > a:minwidth
+  if airline#util#cur_window_statusline_width() < a:winwidth && len(split(a:text, '\zs')) > a:minwidth
     if get(a:000, 0, 0)
       " shorten from tail
       return '…'.matchstr(a:text, '.\{'.a:minwidth.'}$')
@@ -24,14 +33,14 @@ function! airline#util#shorten(text, winwidth, minwidth, ...)
 endfunction
 
 function! airline#util#wrap(text, minwidth)
-  if a:minwidth > 0 && winwidth(0) < a:minwidth
+  if a:minwidth > 0 && airline#util#cur_window_statusline_width() < a:minwidth
     return ''
   endif
   return a:text
 endfunction
 
 function! airline#util#append(text, minwidth)
-  if a:minwidth > 0 && winwidth(0) < a:minwidth
+  if a:minwidth > 0 && airline#util#cur_window_statusline_width() < a:minwidth
     return ''
   endif
   let prefix = s:spc == "\ua0" ? s:spc : s:spc.s:spc
@@ -45,7 +54,7 @@ function! airline#util#warning(msg)
 endfunction
 
 function! airline#util#prepend(text, minwidth)
-  if a:minwidth > 0 && winwidth(0) < a:minwidth
+  if a:minwidth > 0 && airline#util#cur_window_statusline_width() < a:minwidth
     return ''
   endif
   return empty(a:text) ? '' : a:text.s:spc.g:airline_right_alt_sep.s:spc

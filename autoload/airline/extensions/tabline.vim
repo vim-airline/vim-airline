@@ -34,6 +34,10 @@ endfunction
 
 function! s:toggle_on()
   call airline#extensions#tabline#autoshow#on()
+  if get(g:, 'airline_statusline_ontop', 0)
+    let &tabline='%!airline#statusline('.winnr().')'
+    return
+  endif
   call airline#extensions#tabline#tabs#on()
   call airline#extensions#tabline#buffers#on()
   if s:ctrlspace

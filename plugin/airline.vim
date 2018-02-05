@@ -108,6 +108,17 @@ function! s:airline_toggle()
       autocmd BufWritePost */autoload/airline/themes/*.vim
             \ exec 'source '.split(globpath(&rtp, 'autoload/airline/themes/'.g:airline_theme.'.vim', 1), "\n")[0]
             \ | call airline#load_theme()
+
+
+      if get(g:, 'airline_statusline_ontop', 0)
+        " Have to set a property equal to itself to get airline to re-eval.
+        autocmd InsertLeave * :let &tabline=&tabline
+        autocmd CursorMoved * :let &tabline=&tabline
+        autocmd CursorMovedI * :let &tabline=&tabline
+        autocmd InsertEnter * :let &tabline=&tabline
+      endif
+
+      
     augroup END
 
     if &laststatus < 2

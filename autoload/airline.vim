@@ -130,13 +130,31 @@ function! s:invoke_funcrefs(context, funcrefs)
   if err == 1
     let a:context.line = builder.build()
     let s:contexts[a:context.winnr] = a:context
-    call setwinvar(a:context.winnr, '&statusline', '%!airline#statusline('.a:context.winnr.')')
+    if get(g:, 'airline_statusline_ontop', 0)
+      call setwinvar(a:context.winnr, '&tabline', '%!airline#statusline('.a:context.winnr.')')
+      " call setwinvar(a:context.winnr, '&statusline', '%!airline#statusline('.a:context.winnr. ')')
+     "  call setwinvar(a:context.winnr, '&statusline', '%!wintabs#ui#get_statusline('.a:context.winnr.')')
+     " call setwinvar(a:context.winnr, '&statusline', '%{airline#set_tabline()}%#Normal#'.
+     "       \ repeat(' ', winwidth(0)))
+      
+    else
+      call setwinvar(a:context.winnr, '&statusline', '%!airline#statusline('.a:context.winnr.')')
+    endif
   endif
 endfunction
+
+" function! airline#set_tabline()
+"   let &tabline=&tabline
+"   return ''
+" endfunction
 
 function! airline#statusline(winnr)
   if has_key(s:contexts, a:winnr)
     return '%{airline#check_mode('.a:winnr.')}'.s:contexts[a:winnr].line
+    " return '%{airline#check_mode('.a:winnr.')}'.
+    "       \ (get(g:, 'airline_statusline_ontop', 0) ?
+    "       \ '%{airline#set_tabline()}' : '').
+    "       \ s:contexts[a:winnr].line
   endif
 
   " in rare circumstances this happens...see #276
