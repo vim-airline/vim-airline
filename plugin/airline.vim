@@ -112,10 +112,12 @@ function! s:airline_toggle()
 
       if get(g:, 'airline_statusline_ontop', 0)
         " Have to set a property equal to itself to get airline to re-eval.
-        autocmd InsertLeave * :let &tabline=&tabline
-        autocmd CursorMoved * :let &tabline=&tabline
-        autocmd CursorMovedI * :let &tabline=&tabline
-        autocmd InsertEnter * :let &tabline=&tabline
+        " Setting `let &tabline=&tabline` destroys the cursor position so we
+        " need something less invasive.
+        autocmd InsertLeave * :let &ro=&ro
+        autocmd CursorMoved * :let &ro=&ro
+        autocmd CursorMovedI * :let &ro=&ro
+        autocmd InsertEnter * :let &ro=&ro
       endif
 
       
