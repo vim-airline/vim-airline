@@ -87,7 +87,11 @@ function! airline#extensions#tabline#buffers#get()
       call b.add_raw('%'.nr.'@airline#extensions#tabline#buffers#clickbuf@')
     endif
 
-    let space= (pgroup == group ? s:spc : '')
+    if get(g:, 'airline_powerline_fonts', 0)
+      let space = s:spc
+    else
+      let space= (pgroup == group ? s:spc : '')
+    endif
 
     if get(g:, 'airline#extensions#tabline#buffer_idx_mode', 0)
       if len(s:number_map) > 0
