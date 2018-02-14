@@ -885,6 +885,12 @@ NrrwRgn <https://github.com/chrisbra/NrrwRgn>
 * enable/disable NrrwRgn integration >
   let g:airline#extensions#nrrwrgn#enabled = 1
 
+-------------------------------------                     *airline-gutentags*
+vim-gutentags <https://github.com/ludovicchabant/vim-gutentags>
+
+* enable/disable vim-gutentags integration >
+  let g:airline#extensions#gutentags#enabled = 1
+
 -------------------------------------                     *airline-capslock*
 vim-capslock <https://github.com/tpope/vim-capslock>
 

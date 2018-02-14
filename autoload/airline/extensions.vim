@@ -307,6 +307,11 @@ function! airline#extensions#load()
     call add(loaded_ext, 'capslock')
   endif
 
+  if (get(g:, 'airline#extensions#gutentags#enabled', 1) && get(g:, 'loaded_gutentags', 0))
+    call airline#extensions#gutentags#init(s:ext)
+    call add(loaded_ext, 'gutentags')
+  endif
+
   if (get(g:, 'airline#extensions#xkblayout#enabled', 1) && exists('g:XkbSwitchLib'))
     call airline#extensions#xkblayout#init(s:ext)
     call add(loaded_ext, 'xkblayout')
