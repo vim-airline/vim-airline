@@ -206,7 +206,7 @@ endfunction
 
 function! airline#extensions#tabline#add_label(dict, type)
   if get(g:, 'airline#extensions#tabline#show_tab_type', 1)
-    call a:dict.add_section_spaced('airline_tablabel', 
-          \ get(g:, 'airline#extensions#tabline#'.a:type.'_label', '['.a:type.']'))
+    call a:dict.add_section_spaced('airline_tablabel',
+          \ get(g:, 'airline#extensions#tabline#'.a:type.'_label', a:type))
   endif
 endfunction
