@@ -3,7 +3,14 @@
 
 scriptencoding utf-8
 
-let s:spc = g:airline_symbols.space
+let s:spc = get(g:, 'airline#extensions#tabline#pad_with_spaces', 1)
+      \ ? g:airline_symbols.space
+      \ : ''
+
+let s:ellipsis = get(g:, 'airline#extensions#tabline#ellipsis', '...')
+
+let s:buffers_label = get(g:, 'airline#extensions#tabline#buffers_label', 'buffers')
+let s:show_tab_type = get(g:, 'airline#extensions#tabline#show_tab_type', 1)
 
 let s:current_bufnr = -1
 let s:current_modified = 0
@@ -72,7 +79,7 @@ function! airline#extensions#tabline#buffers#get()
   let pgroup = ''
   for nr in s:get_visible_buffers()
     if nr < 0
-      call b.add_raw('%#airline_tabhid#...')
+      call b.add_raw('%#airline_tabhid#'.s:ellipsis)
       continue
     endif
 
@@ -126,6 +133,15 @@ function! airline#extensions#tabline#buffers#get()
   return s:current_tabline
 endfunction
 
+" Compatibility wrapper for strchars, in case current vim version does not have it natively
+function! s:strchars(str)
+  if exists('*strchars')
+    return strchars(a:str)
+  else
+    return strlen(substitute(a:str, '.', 'a', 'g'))
+  endif
+endfunction
+
 function! s:get_visible_buffers()
   let buffers = airline#extensions#tabline#buflist#list()
   let cur = bufnr('%')
@@ -136,51 +152,86 @@ function! s:get_visible_buffers()
     let buffers = [cur] + buffers
   endif
 
+  " calculate widths for basic components of the buffer list
+  let len_spc = s:strchars(s:spc)
+  let len_divider = 1 " Should always be a single symbold
+  let len_ellipsis = s:strchars(s:ellipsis)
+  let len_buf_lbl = s:show_tab_type ? s:strchars(s:buffers_label) + (2*len_spc) + len_divider : 0
+
+  " calculate widths for the various buffer names
   let total_width = 0
   let max_width = 0
-
+  let widths = []
   for nr in buffers
-    let width = len(airline#extensions#tabline#get_buffer_name(nr)) + 4
+    let width = s:strchars(airline#extensions#tabline#get_buffer_name(nr)) + len_divider + (2*len_spc)
+    call add(widths, width)
+
     let total_width += width
     let max_width = max([max_width, width])
   endfor
 
   " only show current and surrounding buffers if there are too many buffers
   let position  = index(buffers, cur)
-  let vimwidth = &columns
-  if total_width > vimwidth && position > -1
+  let vimwidth = &columns - len_buf_lbl
+  if total_width > vimwidth
     let buf_count = len(buffers)
 
-    " determine how many buffers to show based on the longest buffer width,
-    " use one on the right side and put the rest on the left
-    let buf_max   = vimwidth / max_width
-    let buf_right = 1
-    let buf_left  = max([0, buf_max - buf_right])
-
-    let start = max([0, position - buf_left])
-    let end   = min([buf_count, position + buf_right])
-
-    " fill up available space on the right
-    if position < buf_left
-      let end += (buf_left - position)
+    " If no buffer is selected, we draw using the previous position
+    if position == -1 && exists('s:previous_buffer_position')
+      let position = s:previous_buffer_position
     endif
 
-    " fill up available space on the left
-    if end > buf_count - 1 - buf_right
-      let start -= max([0, buf_right - (buf_count - 1 - position)])
+    " clamp position to 0..buf_count-1, just in case
+    if position >= buf_count
+      let position = buf_count-1
+    elseif position < 0
+      let position = 0
     endif
 
-    let buffers = eval('buffers[' . start . ':' . end . ']')
+    " Build up buffers list
+    let new_width = widths[position]
+    let new_buffers = [buffers[position]]
+    let left_pos = position-1
+    let right_pos = position+1
 
-    if start > 0
-      call insert(buffers, -1, 0)
+    let do_break = 0
+    while !do_break
+      let do_break = 1
+
+      " Buffer after
+      if right_pos < buf_count
+        let ellipsis_width = (right_pos == buf_count-1 ? len_ellipsis : 0)
+        if new_width + widths[right_pos] < vimwidth - ellipsis_width
+          let new_width += widths[right_pos]
+          call add(new_buffers, buffers[right_pos])
+          let right_pos += 1
+          let do_break = 0
+        endif
+      endif
+
+      " Buffer before
+      if left_pos >= 0
+        let ellipsis_width = (left_pos == 0 ? len_ellipsis : 0)
+        if new_width + widths[left_pos] < vimwidth - ellipsis_width
+          let new_width += widths[left_pos]
+          call insert(new_buffers, buffers[left_pos], 0)
+          let left_pos -= 1
+          let do_break = 0
+        endif
+      endif
+    endwhile
+
+    if left_pos >= 0
+      call insert(new_buffers, -1, 0)
+    endif
+    if right_pos < buf_count
+      call add(new_buffers, -1)
     endif
 
-    if end < buf_count - 1
-      call add(buffers, -1)
-    endif
+    let buffers = new_buffers
   endif
 
+  let s:previous_buffer_position = position
   let s:current_visible_buffers = buffers
   return buffers
 endfunction
