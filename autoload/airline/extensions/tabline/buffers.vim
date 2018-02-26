@@ -154,9 +154,12 @@ function! s:get_visible_buffers()
 
   " calculate widths for basic components of the buffer list
   let len_spc = s:strchars(s:spc)
-  let len_divider = 1 " Should always be a single symbold
+  let len_divider = 1 " Should always be a single symbol (REVISIT: Is this really always the case?)
   let len_ellipsis = s:strchars(s:ellipsis)
-  let len_buf_lbl = s:show_tab_type ? s:strchars(s:buffers_label) + (2*len_spc) + len_divider : 0
+
+  " show_tab_type=1 adds '< buffers ' to the right of the tabline
+  " Otherwise, there is 1 extra space after the last divider (always ' ' independent of s:spc)
+  let len_extra = s:show_tab_type ? s:strchars(s:buffers_label) + (2*len_spc) + len_divider : 1
 
   " calculate widths for the various buffer names
   let total_width = 0
@@ -172,7 +175,7 @@ function! s:get_visible_buffers()
 
   " only show current and surrounding buffers if there are too many buffers
   let position  = index(buffers, cur)
-  let vimwidth = &columns - len_buf_lbl
+  let vimwidth = &columns - len_extra
   if total_width > vimwidth
     let buf_count = len(buffers)
 
@@ -189,38 +192,51 @@ function! s:get_visible_buffers()
     endif
 
     " Build up buffers list
+    " The current buffer always goes into the list, and there's always one space after the last divider
     let new_width = widths[position]
     let new_buffers = [buffers[position]]
     let left_pos = position-1
     let right_pos = position+1
 
+    " Add buffers to tabline alternating right->left->right->... while buffers fit
+    " Note: When no more buffers are added to the list, we add one ellipsis to each incomplete side.
+    "       This effectively reduces the available width as long as either side is incomplete.
     let do_break = 0
     while !do_break
       let do_break = 1
 
       " Buffer after
-      if right_pos < buf_count
-        let ellipsis_width = (right_pos == buf_count-1 ? len_ellipsis : 0)
-        if new_width + widths[right_pos] < vimwidth - ellipsis_width
+      if right_pos < buf_count " buf_count := no more buffers to the right
+
+        " ellipsis if this is not the last buffer + ellipsis if there are buffers remaining to the left
+        let worst_case_ellipsis_width = ((right_pos < buf_count-1) + (left_pos >= 0)) * len_ellipsis
+
+        if new_width + widths[right_pos] < vimwidth - worst_case_ellipsis_width
           let new_width += widths[right_pos]
           call add(new_buffers, buffers[right_pos])
           let right_pos += 1
           let do_break = 0
         endif
+
       endif
 
       " Buffer before
-      if left_pos >= 0
-        let ellipsis_width = (left_pos == 0 ? len_ellipsis : 0)
-        if new_width + widths[left_pos] < vimwidth - ellipsis_width
+      if left_pos >= 0 " -1 := no more buffers to the left
+
+        " ellipsis if there are buffers remaining to the right + ellipsis if this is not the first buffer
+        let worst_case_ellipsis_width = ((right_pos < buf_count) + (left_pos > 0)) * len_ellipsis
+
+        if new_width + widths[left_pos] < vimwidth - worst_case_ellipsis_width
           let new_width += widths[left_pos]
           call insert(new_buffers, buffers[left_pos], 0)
           let left_pos -= 1
           let do_break = 0
         endif
+
       endif
     endwhile
 
+    " Add ellipsis
     if left_pos >= 0
       call insert(new_buffers, -1, 0)
     endif
