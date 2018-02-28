@@ -79,7 +79,7 @@ function! airline#extensions#tabline#buffers#get()
   let pgroup = ''
   for nr in s:get_visible_buffers()
     if nr < 0
-      call b.add_raw('%#airline_tabhid#'.s:ellipsis)
+      call b.add_section('airline_tabhid', s:ellipsis)
       continue
     endif
 
@@ -155,7 +155,7 @@ function! s:get_visible_buffers()
   " calculate widths for basic components of the buffer list
   let len_spc = s:strchars(s:spc)
   let len_divider = 1 " Should always be a single symbol (REVISIT: Is this really always the case?)
-  let len_ellipsis = s:strchars(s:ellipsis)
+  let len_ellipsis = s:strchars(s:ellipsis) + len_divider
 
   " show_tab_type=1 adds '< buffers ' to the right of the tabline
   " Otherwise, there is 1 extra space after the last divider (always ' ' independent of s:spc)
