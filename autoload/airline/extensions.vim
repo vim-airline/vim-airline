@@ -231,6 +231,7 @@ function! airline#extensions#load()
 
   if get(g:, 'airline#extensions#fugitiveline#enabled', 1)
         \ && exists('*fugitive#head')
+        \ && index(loaded_ext, 'bufferline') == -1
     call airline#extensions#fugitiveline#init(s:ext)
     call add(loaded_ext, 'fugitiveline')
   endif

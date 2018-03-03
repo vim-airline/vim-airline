@@ -406,6 +406,7 @@ vim-bufferline <https://github.com/bling/vim-bufferline>
 -------------------------------------                   *airline-fugitiveline*
 This extension hides the fugitive://**// part of the buffer names, to only
 show the file name as if it were in the current working tree.
+It is deactivated by default if *airline-bufferline* is activated.
 
 * enable/disable bufferline integration >
   let g:airline#extensions#fugitiveline#enabled = 1
