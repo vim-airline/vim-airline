@@ -22,7 +22,7 @@ function! airline#extensions#tabline#buflist#list()
   fun! s:ExcludePaths(nr)
     let bpath = fnamemodify(bufname(a:nr), ":p")
     for f in s:exclude_paths
-      if bpath =~# fnamemodify(f, ":p") | return 1 | endif
+      if bpath =~# f | return 1 | endif
     endfor
   endfun
 
