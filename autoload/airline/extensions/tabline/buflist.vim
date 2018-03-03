@@ -12,10 +12,27 @@ function! airline#extensions#tabline#buflist#list()
     return s:current_buffer_list
   endif
 
-  let excludes = get(g:, 'airline#extensions#tabline#excludes', [])
-  let exclude_preview = get(g:, 'airline#extensions#tabline#exclude_preview', 1)
+  let s:exclude_buffers = get(g:, 'airline#extensions#tabline#exclude_buffers', [])
+  let s:exclude_paths = get(g:, 'airline#extensions#tabline#exclude_paths', [])
+  let s:exclude_preview = get(g:, 'airline#extensions#tabline#exclude_preview', 1)
 
   let list = (exists('g:did_bufmru') && g:did_bufmru) ? BufMRUList() : range(1, bufnr("$"))
+
+  " paths in excludes list
+  fun! s:ExcludePaths(nr)
+    let bpath = fnamemodify(bufname(a:nr), ":p")
+    for f in s:exclude_paths
+      if bpath =~ fnamemodify(f, ":p") | return 1 | endif
+    endfor
+  endfun
+
+  " other types to exclude
+  fun! s:ExcludeOther(nr)
+    if (getbufvar(a:nr, 'current_syntax') == 'qf') ||
+          \  (s:exclude_preview && getbufvar(a:nr, '&bufhidden') == 'wipe'
+          \  && getbufvar(a:nr, '&buftype') == 'nofile')
+      return 1 | endif
+  endfun
 
   let buffers = []
   " If this is too slow, we can switch to a different algorithm.
@@ -24,16 +41,24 @@ function! airline#extensions#tabline#buflist#list()
   for nr in list
     if buflisted(nr)
       " Do not add to the bufferlist, if either
-      " 1) buffername matches exclude pattern
-      " 2) buffer is a quickfix buffer
-      " 3) exclude preview windows (if 'bufhidden' == wipe
-      "    and 'buftype' == nofile
-      if (!empty(excludes) && match(bufname(nr), join(excludes, '\|')) > -1) ||
-            \ (getbufvar(nr, 'current_syntax') == 'qf') ||
-            \  (exclude_preview && getbufvar(nr, '&bufhidden') == 'wipe'
-            \  && getbufvar(nr, '&buftype') == 'nofile')
+      " 1) bufnr is exclude_buffers list
+      " 2) buffername matches one of exclude_paths patterns
+      " 3) buffer is a quickfix buffer
+      " 4) when excluding preview windows:
+      "     'bufhidden' == wipe
+      "     'buftype' == nofile
+
+      " check buffer numbers first
+      if index(s:exclude_buffers, nr) >= 0
+        continue
+        " check paths second
+      elseif !empty(s:exclude_paths) && s:ExcludePaths(nr)
+        continue
+        " check other types last
+      elseif s:ExcludeOther(nr)
         continue
       endif
+
       call add(buffers, nr)
     endif
   endfor
