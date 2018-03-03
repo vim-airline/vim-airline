@@ -13,7 +13,7 @@ function! airline#extensions#tabline#buflist#list()
   endif
 
   let s:exclude_buffers = get(g:, 'airline#extensions#tabline#exclude_buffers', [])
-  let s:exclude_paths = get(g:, 'airline#extensions#tabline#exclude_paths', [])
+  let s:exclude_paths = get(g:, 'airline#extensions#tabline#excludes', [])
   let s:exclude_preview = get(g:, 'airline#extensions#tabline#exclude_preview', 1)
 
   let list = (exists('g:did_bufmru') && g:did_bufmru) ? BufMRUList() : range(1, bufnr("$"))
@@ -22,7 +22,7 @@ function! airline#extensions#tabline#buflist#list()
   fun! s:ExcludePaths(nr)
     let bpath = fnamemodify(bufname(a:nr), ":p")
     for f in s:exclude_paths
-      if bpath =~ fnamemodify(f, ":p") | return 1 | endif
+      if bpath =~# fnamemodify(f, ":p") | return 1 | endif
     endfor
   endfun
 
