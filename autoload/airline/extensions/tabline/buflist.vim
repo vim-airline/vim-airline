@@ -7,32 +7,32 @@ function! airline#extensions#tabline#buflist#invalidate()
   unlet! s:current_buffer_list
 endfunction
 
+" paths in excludes list
+function! s:ExcludePaths(nr, exclude_paths)
+  let bpath = fnamemodify(bufname(a:nr), ":p")
+  for f in a:exclude_paths
+    if bpath =~# f | return 1 | endif
+  endfor
+endfunction
+
+" other types to exclude
+function! s:ExcludeOther(nr, exclude_preview)
+  if (getbufvar(a:nr, 'current_syntax') == 'qf') ||
+        \  (a:exclude_preview && getbufvar(a:nr, '&bufhidden') == 'wipe'
+        \  && getbufvar(a:nr, '&buftype') == 'nofile')
+    return 1 | endif
+endfunction
+
 function! airline#extensions#tabline#buflist#list()
   if exists('s:current_buffer_list')
     return s:current_buffer_list
   endif
 
-  let s:exclude_buffers = get(g:, 'airline#extensions#tabline#exclude_buffers', [])
-  let s:exclude_paths = get(g:, 'airline#extensions#tabline#excludes', [])
-  let s:exclude_preview = get(g:, 'airline#extensions#tabline#exclude_preview', 1)
+  let exclude_buffers = get(g:, 'airline#extensions#tabline#exclude_buffers', [])
+  let exclude_paths = get(g:, 'airline#extensions#tabline#excludes', [])
+  let exclude_preview = get(g:, 'airline#extensions#tabline#exclude_preview', 1)
 
   let list = (exists('g:did_bufmru') && g:did_bufmru) ? BufMRUList() : range(1, bufnr("$"))
-
-  " paths in excludes list
-  fun! s:ExcludePaths(nr)
-    let bpath = fnamemodify(bufname(a:nr), ":p")
-    for f in s:exclude_paths
-      if bpath =~# f | return 1 | endif
-    endfor
-  endfun
-
-  " other types to exclude
-  fun! s:ExcludeOther(nr)
-    if (getbufvar(a:nr, 'current_syntax') == 'qf') ||
-          \  (s:exclude_preview && getbufvar(a:nr, '&bufhidden') == 'wipe'
-          \  && getbufvar(a:nr, '&buftype') == 'nofile')
-      return 1 | endif
-  endfun
 
   let buffers = []
   " If this is too slow, we can switch to a different algorithm.
@@ -49,13 +49,13 @@ function! airline#extensions#tabline#buflist#list()
       "     'buftype' == nofile
 
       " check buffer numbers first
-      if index(s:exclude_buffers, nr) >= 0
+      if index(exclude_buffers, nr) >= 0
         continue
         " check paths second
-      elseif !empty(s:exclude_paths) && s:ExcludePaths(nr)
+      elseif !empty(exclude_paths) && s:ExcludePaths(nr, exclude_paths)
         continue
         " check other types last
-      elseif s:ExcludeOther(nr)
+      elseif s:ExcludeOther(nr, exclude_preview)
         continue
       endif
 
