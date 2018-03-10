@@ -105,7 +105,7 @@ function! airline#extensions#tabline#tabs#get()
   call airline#extensions#tabline#add_label(b, 'tabs')
   for i in s:get_visible_tabs()
     if i < 0
-      call b.add_raw('%#airline_tabhid#...')
+      call b.add_raw('%#airline_tab#...')
       continue
     endif
     if i == curtab
