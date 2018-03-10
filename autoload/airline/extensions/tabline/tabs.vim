@@ -25,7 +25,7 @@ function! airline#extensions#tabline#tabs#invalidate()
   let s:current_bufnr = -1
 endfunction
 
-function! s:get_tabs()
+function! s:get_visible_tabs()
   let tablist = range(1, tabpagenr('$'))
   let curbuf = bufnr('%')
 
@@ -36,6 +36,52 @@ function! s:get_tabs()
     endif
     let tablist = [curtab] + tablist
   endif
+
+  let total_width = 0
+  let max_width = 0
+
+  for nr in tablist
+    let width = len(airline#extensions#tabline#title(nr)) + 4
+    let total_width += width
+    let max_width = max([max_width, width])
+  endfor
+
+  " only show current and surrounding tabs if there are too many tabs
+  let position  = index(tablist, curbuf)
+  let vimwidth = &columns
+  if total_width > vimwidth && position > -1
+    let tab_count = len(tablist)
+
+    " determine how many tabs to show based on the longest tab width,
+    " use one on the right side and put the rest on the left
+    let tab_max   = vimwidth / max_width
+    let tab_right = 1
+    let tab_left  = max([0, tab_max - tab_right])
+
+    let start = max([0, position - tab_left])
+    let end   = min([tab_count, position + tab_right])
+
+    " fill up available space on the right
+    if position < tab_left
+      let end += (tab_left - position)
+    endif
+
+    " fill up available space on the left
+    if end > tab_count - 1 - tab_right
+      let start -= max([0, tab_right - (tab_count - 1 - position)])
+    endif
+
+    let tablist = eval('tablist[' . start . ':' . end . ']')
+
+    if start > 0
+      call insert(tablist, -1, 0)
+    endif
+
+    if end < tab_count - 1
+      call add(tablist, -1)
+    endif
+  endif
+
   return tablist
 endfunction
 
@@ -57,7 +103,11 @@ function! airline#extensions#tabline#tabs#get()
   let b = airline#extensions#tabline#new_builder()
 
   call airline#extensions#tabline#add_label(b, 'tabs')
-  for i in s:get_tabs()
+  for i in s:get_visible_tabs()
+    if i < 0
+      call b.add_raw('%#airline_tabhid#...')
+      continue
+    endif
     if i == curtab
       let group = 'airline_tabsel'
       if g:airline_detect_modified
