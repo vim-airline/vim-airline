@@ -25,7 +25,7 @@ function! airline#extensions#tabline#tabs#invalidate()
   let s:current_bufnr = -1
 endfunction
 
-function! s:get_visible_tabs(width)
+function! s:get_visible_tabs(width, titles)
   let tablist = range(1, tabpagenr('$'))
   let curbuf = bufnr('%')
 
@@ -40,8 +40,8 @@ function! s:get_visible_tabs(width)
   let total_width = 0
   let max_width = 0
 
-  for nr in tablist
-    let width = len(airline#extensions#tabline#title(nr)) + 4
+  for title in a:titles
+    let width = strlen(s:evaluate_tabline(title)) + 1
     let total_width += width
     let max_width = max([max_width, width])
   endfor
@@ -136,7 +136,18 @@ function! airline#extensions#tabline#tabs#get()
 
   let b_tabline = s:evaluate_tabline(b.build())
 
-  for i in s:get_visible_tabs(&columns - strlen(b_tabline))
+  let tab_titles = []
+  for i in range(1, tabpagenr('$'))
+    let val = '%('
+
+    if get(g:, 'airline#extensions#tabline#show_tab_nr', 1)
+      let val .= airline#extensions#tabline#tabs#tabnr_formatter(tab_nr_type, i)
+    endif
+
+    call add(tab_titles, val.'%'.i.'T %{airline#extensions#tabline#title('.i.')} %)')
+  endfor
+
+  for i in s:get_visible_tabs(&columns - strlen(b_tabline), tab_titles)
     if i < 0
       call b.insert_raw('%#airline_tab#...', tabs_position)
       let tabs_position += 1
@@ -155,12 +166,8 @@ function! airline#extensions#tabline#tabs#get()
     else
       let group = 'airline_tab'
     endif
-    let val = '%('
 
-    if get(g:, 'airline#extensions#tabline#show_tab_nr', 1)
-      let val .= airline#extensions#tabline#tabs#tabnr_formatter(tab_nr_type, i)
-    endif
-    call b.insert_section(group, val.'%'.i.'T %{airline#extensions#tabline#title('.i.')} %)', tabs_position)
+    call b.insert_section(group, get(tab_titles, i-1, ''), tabs_position)
     let tabs_position += 1
   endfor
 
