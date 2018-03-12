@@ -84,6 +84,17 @@ function! s:get_visible_tabs(width)
   return tablist
 endfunction
 
+function! s:evaluate_tabline(tabline)
+  let tabline = a:tabline
+  let tabline = substitute(tabline, '%{\([^}]\+\)}', '\=eval(submatch(1))', 'g')
+  let tabline = substitute(tabline, '%#[^#]\+#', '', 'g')
+  let tabline = substitute(tabline, '%(\([^)]\+\))', '\1', 'g')
+  let tabline = substitute(tabline, '%\d\+[TX]', '', 'g')
+  let tabline = substitute(tabline, '%=', '', 'g')
+  let tabline = substitute(tabline, '%\d*\*', '', 'g')
+  return tabline
+endfunction
+
 function! airline#extensions#tabline#tabs#get()
   let curbuf = bufnr('%')
   let curtab = tabpagenr()
@@ -123,13 +134,7 @@ function! airline#extensions#tabline#tabs#get()
     call airline#extensions#tabline#add_label(b, 'buffers')
   endif
 
-  let b_tabline = b.build()
-  let b_tabline = substitute(b_tabline, '%{\([^}]\+\)}', '\=eval(submatch(1))', 'g')
-  let b_tabline = substitute(b_tabline, '%#[^#]\+#', '', 'g')
-  let b_tabline = substitute(b_tabline, '%(\([^)]\+\))', '\1', 'g')
-  let b_tabline = substitute(b_tabline, '%\d\+[TX]', '', 'g')
-  let b_tabline = substitute(b_tabline, '%=', '', 'g')
-  let b_tabline = substitute(b_tabline, '%\d*\*', '', 'g')
+  let b_tabline = s:evaluate_tabline(b.build())
 
   for i in s:get_visible_tabs(&columns - strlen(b_tabline))
     if i < 0
