@@ -22,6 +22,18 @@ function! s:prototype.add_raw(text) dict
   call add(self._sections, ['', a:text])
 endfunction
 
+function! s:prototype.insert_section(group, contents, position) dict
+  call insert(self._sections, [a:group, a:contents], a:position)
+endfunction
+
+function! s:prototype.insert_raw(text, position) dict
+  call insert(self._sections, ['', a:text], a:position)
+endfunction
+
+function! s:prototype.get_position() dict
+  return len(self._sections)
+endfunction
+
 function! s:get_prev_group(sections, i)
   let x = a:i - 1
   while x >= 0

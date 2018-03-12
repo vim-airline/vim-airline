@@ -102,9 +102,31 @@ function! airline#extensions#tabline#tabs#get()
   let b = airline#extensions#tabline#new_builder()
 
   call airline#extensions#tabline#add_label(b, 'tabs')
+
+  let tabs_position = b.get_position()
+
+  call b.add_section('airline_tabfill', '')
+  call b.split()
+  call b.add_section('airline_tabfill', '')
+
+  if get(g:, 'airline#extensions#tabline#show_close_button', 1)
+    call b.add_section('airline_tab_right', ' %999X'.
+          \ get(g:, 'airline#extensions#tabline#close_symbol', 'X').' ')
+  endif
+
+  if get(g:, 'airline#extensions#tabline#show_splits', 1) == 1
+    let buffers = tabpagebuflist(curtab)
+    for nr in buffers
+      let group = airline#extensions#tabline#group_of_bufnr(buffers, nr) . "_right"
+      call b.add_section_spaced(group, '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)')
+    endfor
+    call airline#extensions#tabline#add_label(b, 'buffers')
+  endif
+
   for i in s:get_visible_tabs(&columns)
     if i < 0
-      call b.add_raw('%#airline_tab#...')
+      call b.insert_raw('%#airline_tab#...', tabs_position)
+      let tabs_position += 1
       continue
     endif
     if i == curtab
@@ -125,26 +147,9 @@ function! airline#extensions#tabline#tabs#get()
     if get(g:, 'airline#extensions#tabline#show_tab_nr', 1)
       let val .= airline#extensions#tabline#tabs#tabnr_formatter(tab_nr_type, i)
     endif
-    call b.add_section(group, val.'%'.i.'T %{airline#extensions#tabline#title('.i.')} %)')
+    call b.insert_section(group, val.'%'.i.'T %{airline#extensions#tabline#title('.i.')} %)', tabs_position)
+    let tabs_position += 1
   endfor
-
-  call b.add_section('airline_tabfill', '')
-  call b.split()
-  call b.add_section('airline_tabfill', '')
-
-  if get(g:, 'airline#extensions#tabline#show_close_button', 1)
-    call b.add_section('airline_tab_right', ' %999X'.
-          \ get(g:, 'airline#extensions#tabline#close_symbol', 'X').' ')
-  endif
-
-  if get(g:, 'airline#extensions#tabline#show_splits', 1) == 1
-    let buffers = tabpagebuflist(curtab)
-    for nr in buffers
-      let group = airline#extensions#tabline#group_of_bufnr(buffers, nr) . "_right"
-      call b.add_section_spaced(group, '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)')
-    endfor
-    call airline#extensions#tabline#add_label(b, 'buffers')
-  endif
 
   let s:current_bufnr = curbuf
   let s:current_tabnr = curtab
