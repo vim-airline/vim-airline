@@ -123,7 +123,15 @@ function! airline#extensions#tabline#tabs#get()
     call airline#extensions#tabline#add_label(b, 'buffers')
   endif
 
-  for i in s:get_visible_tabs(&columns)
+  let b_tabline = b.build()
+  let b_tabline = substitute(b_tabline, '%{\([^}]\+\)}', '\=eval(submatch(1))', 'g')
+  let b_tabline = substitute(b_tabline, '%#[^#]\+#', '', 'g')
+  let b_tabline = substitute(b_tabline, '%(\([^)]\+\))', '\1', 'g')
+  let b_tabline = substitute(b_tabline, '%\d\+[TX]', '', 'g')
+  let b_tabline = substitute(b_tabline, '%=', '', 'g')
+  let b_tabline = substitute(b_tabline, '%\d*\*', '', 'g')
+
+  for i in s:get_visible_tabs(&columns - strlen(b_tabline))
     if i < 0
       call b.insert_raw('%#airline_tab#...', tabs_position)
       let tabs_position += 1
