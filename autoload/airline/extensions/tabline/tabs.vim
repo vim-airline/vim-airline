@@ -46,14 +46,17 @@ function! s:get_visible_tabs(width, titles)
     let max_width = max([max_width, width])
   endfor
 
+  " leave space for end ellipsis (...) and the left/right split (2 spaces)
+  let tab_columns = a:width - 8
+
   " only show current and surrounding tabs if there are too many tabs
   let position  = index(tablist, curbuf)
-  if total_width > a:width && position > -1
+  if total_width > tab_columns && position > -1
     let tab_count = len(tablist)
 
     " determine how many tabs to show based on the longest tab width,
     " use one on the right side and put the rest on the left
-    let tab_max   = a:width / max_width
+    let tab_max   = tab_columns / max_width
     let tab_right = 1
     let tab_left  = max([0, tab_max - tab_right])
 
