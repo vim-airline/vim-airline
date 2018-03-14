@@ -64,7 +64,7 @@ function! airline#extensions#tabline#tabs#get()
   catch
     " no-op
   endtry
-  if curbuf == s:current_bufnr && curtab == s:current_tabnr
+  if curbuf == s:current_bufnr && curtab == s:current_tabnr && &columns == s:column_width
     if !g:airline_detect_modified || getbufvar(curbuf, '&modified') == s:current_modified
       return s:current_tabline
     endif
@@ -170,6 +170,7 @@ function! airline#extensions#tabline#tabs#get()
 
   let s:current_bufnr = curbuf
   let s:current_tabnr = curtab
+  let s:column_width = &columns
   let s:current_tabline = b.build()
   return s:current_tabline
 endfunction
