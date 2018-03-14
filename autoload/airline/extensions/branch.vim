@@ -113,7 +113,7 @@ function! s:display_git_branch()
       if ref !~ "^fatal: no tag exactly matches"
         let name = s:format_name(substitute(ref, '\v\C^%(heads/|remotes/|tags/)=','',''))."(".name.")"
       else
-        let name = commit[0:s:sha1size-1]."(".name.")"
+        let name = matchstr(commit, '.\{'.s:sha1size.'}')."(".name.")"
       endif
     endif
   catch
