@@ -98,6 +98,16 @@ function! s:evaluate_tabline(tabline)
   return tabline
 endfunction
 
+function! s:get_title(tab_nr_type, i)
+  let val = '%('
+
+  if get(g:, 'airline#extensions#tabline#show_tab_nr', 1)
+    let val .= airline#extensions#tabline#tabs#tabnr_formatter(a:tab_nr_type, a:i)
+  endif
+
+  return val.'%'.a:i.'T %{airline#extensions#tabline#title('.a:i.')} %)'
+endfunction
+
 function! airline#extensions#tabline#tabs#get()
   let curbuf = bufnr('%')
   let curtab = tabpagenr()
@@ -141,13 +151,7 @@ function! airline#extensions#tabline#tabs#get()
 
   let tab_titles = []
   for i in range(1, tabpagenr('$'))
-    let val = '%('
-
-    if get(g:, 'airline#extensions#tabline#show_tab_nr', 1)
-      let val .= airline#extensions#tabline#tabs#tabnr_formatter(tab_nr_type, i)
-    endif
-
-    call add(tab_titles, val.'%'.i.'T %{airline#extensions#tabline#title('.i.')} %)')
+    call add(tab_titles, s:get_title(tab_nr_type, i))
   endfor
 
   for i in s:get_visible_tabs(&columns - strlen(b_tabline), tab_titles)
