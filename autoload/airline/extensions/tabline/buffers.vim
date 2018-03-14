@@ -3,15 +3,6 @@
 
 scriptencoding utf-8
 
-let s:spc = get(g:, 'airline#extensions#tabline#pad_with_spaces', 1)
-      \ ? g:airline_symbols.space
-      \ : ''
-
-let s:ellipsis = get(g:, 'airline#extensions#tabline#ellipsis', '...')
-
-let s:buffers_label = get(g:, 'airline#extensions#tabline#buffers_label', 'buffers')
-let s:show_tab_type = get(g:, 'airline#extensions#tabline#show_tab_type', 1)
-
 let s:current_bufnr = -1
 let s:current_modified = 0
 let s:current_tabline = ''
@@ -73,13 +64,17 @@ function! airline#extensions#tabline#buffers#get()
   if get(g:, 'airline#extensions#tabline#buf_label_first', 0)
     let show_buf_label_first = 1
   endif
+
+  let spc = get(g:, 'airline#extensions#tabline#spaces_around_buffer_name', 1) ? g:airline_symbols.space : ''
+  let ellipsis = get(g:, 'airline#extensions#tabline#ellipsis', '...')
+
   if show_buf_label_first
     call airline#extensions#tabline#add_label(b, 'buffers')
   endif
   let pgroup = ''
   for nr in s:get_visible_buffers()
     if nr < 0
-      call b.add_section('airline_tabhid', s:ellipsis)
+      call b.add_section('airline_tabhid', ellipsis)
       continue
     endif
 
@@ -95,20 +90,20 @@ function! airline#extensions#tabline#buffers#get()
     endif
 
     if get(g:, 'airline_powerline_fonts', 0)
-      let space = s:spc
+      let space = spc
     else
-      let space= (pgroup == group ? s:spc : '')
+      let space= (pgroup == group ? spc : '')
     endif
 
     if get(g:, 'airline#extensions#tabline#buffer_idx_mode', 0)
       if len(s:number_map) > 0
-        call b.add_section(group, space. get(s:number_map, index, '') . '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)' . s:spc)
+        call b.add_section(group, space. get(s:number_map, index, '') . '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)' . spc)
       else
-        call b.add_section(group, '['.index.s:spc.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.']')
+        call b.add_section(group, '['.index.spc.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.']')
       endif
       let index += 1
     else
-      call b.add_section(group, space.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.s:spc)
+      call b.add_section(group, space.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.spc)
     endif
 
     if has("tablineat")
@@ -153,13 +148,14 @@ function! s:get_visible_buffers()
   endif
 
   " calculate widths for basic components of the buffer list
-  let len_spc = s:strchars(s:spc)
+  let len_spc = get(g:, 'airline#extensions#tabline#spaces_around_buffer_name', 1) ? s:strchars(g:airline_symbols.space) : 0
+  let len_buffers_label = s:strchars(get(g:, 'airline#extensions#tabline#buffers_label', 'buffers'))
   let len_divider = 1 " Should always be a single symbol (REVISIT: Is this really always the case?)
-  let len_ellipsis = s:strchars(s:ellipsis) + len_divider
+  let len_ellipsis = s:strchars(get(g:, 'airline#extensions#tabline#ellipsis', '...')) + len_divider
 
   " show_tab_type=1 adds '< buffers ' to the right of the tabline
-  " Otherwise, there is 1 extra space after the last divider (always ' ' independent of s:spc)
-  let len_extra = s:show_tab_type ? s:strchars(s:buffers_label) + (2*len_spc) + len_divider : 1
+  " Otherwise, there is 1 extra space after the last divider (always ' ' independent of spc)
+  let len_extra = get(g:, 'airline#extensions#tabline#show_tab_type', 1) ? buffers_label + (2*len_spc) + len_divider : 1
 
   " calculate widths for the various buffer names
   let total_width = 0
