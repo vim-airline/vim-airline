@@ -29,7 +29,7 @@ function! s:evaluate_tabline(tabline)
   let tabline = a:tabline
   let tabline = substitute(tabline, '%{\([^}]\+\)}', '\=eval(submatch(1))', 'g')
   let tabline = substitute(tabline, '%#[^#]\+#', '', 'g')
-  let tabline = substitute(tabline, '%(\([^)]\+\))', '\1', 'g')
+  let tabline = substitute(tabline, '%(\([^)]\+\)%)', '\1', 'g')
   let tabline = substitute(tabline, '%\d\+[TX]', '', 'g')
   let tabline = substitute(tabline, '%=', '  ', 'g')
   let tabline = substitute(tabline, '%\d*\*', '', 'g')
