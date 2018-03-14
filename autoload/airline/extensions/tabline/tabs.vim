@@ -46,6 +46,16 @@ function! s:get_title(tab_nr_type, i)
   return val.'%'.a:i.'T %{airline#extensions#tabline#title('.a:i.')} %)'
 endfunction
 
+" Compatibility wrapper for strchars, in case this vim version does not
+" have it natively
+function! s:strchars(str)
+  if exists('*strchars')
+    return strchars(a:str)
+  else
+    return strlen(substitute(a:str, '.', 'a', 'g'))
+  endif
+endfunction
+
 function! airline#extensions#tabline#tabs#get()
   let curbuf = bufnr('%')
   let curtab = tabpagenr()
@@ -91,14 +101,14 @@ function! airline#extensions#tabline#tabs#get()
   let right_tab = curtab + 1
   let left_position = tabs_position
   let right_position = tabs_position + 1
-  let remaining_space = &columns - strlen(s:evaluate_tabline(b.build()))
+  let remaining_space = &columns - s:strchars(s:evaluate_tabline(b.build()))
 
   let skipped_tabs_marker = get(g:, 'airline#extensions#tabline#skipped_tabs_marker', '...')
-  let remaining_space -= 4 + 2 * strlen(s:evaluate_tabline(skipped_tabs_marker))
+  let remaining_space -= 4 + 2 * s:strchars(s:evaluate_tabline(skipped_tabs_marker))
 
   " Add the current tab
   let tab_title = s:get_title(tab_nr_type, curtab)
-  let remaining_space -= strlen(s:evaluate_tabline(tab_title)) + 1
+  let remaining_space -= s:strchars(s:evaluate_tabline(tab_title)) + 1
   let group = 'airline_tabsel'
   if g:airline_detect_modified
     for bi in tabpagebuflist(curtab)
@@ -118,7 +128,7 @@ function! airline#extensions#tabline#tabs#get()
   " Add the tab to the right
   if right_tab <= num_tabs
     let tab_title = s:get_title(tab_nr_type, right_tab)
-    let remaining_space -= strlen(s:evaluate_tabline(tab_title)) + 1
+    let remaining_space -= s:strchars(s:evaluate_tabline(tab_title)) + 1
     call b.insert_section('airline_tab', tab_title, right_position)
     let right_position += 1
     let right_tab += 1
@@ -127,7 +137,7 @@ function! airline#extensions#tabline#tabs#get()
   while remaining_space > 0
     if left_tab > 0
       let tab_title = s:get_title(tab_nr_type, left_tab)
-      let remaining_space -= strlen(s:evaluate_tabline(tab_title)) + 1
+      let remaining_space -= s:strchars(s:evaluate_tabline(tab_title)) + 1
       if remaining_space >= 0
         call b.insert_section('airline_tab', tab_title, left_position)
         let right_position += 1
@@ -135,7 +145,7 @@ function! airline#extensions#tabline#tabs#get()
       endif
     elseif right_tab <= num_tabs
       let tab_title = s:get_title(tab_nr_type, right_tab)
-      let remaining_space -= strlen(s:evaluate_tabline(tab_title)) + 1
+      let remaining_space -= s:strchars(s:evaluate_tabline(tab_title)) + 1
       if remaining_space >= 0
         call b.insert_section('airline_tab', tab_title, right_position)
         let right_position += 1
