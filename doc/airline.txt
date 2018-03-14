@@ -709,6 +709,9 @@ with the middle mouse button to delete that buffer.
 * rename label for tabs (default: 'tabs') (c) >
   let g:airline#extensions#tabline#tabs_label = 't'
 
+* change the symbol for skipped tabs/buffers (default '...') >
+  let g:airline#extensions#tabline#skipped_tabs_marker = '…'
+
 * always show current tabpage/buffer first >
   let airline#extensions#tabline#current_first = 1
 <  default: 0

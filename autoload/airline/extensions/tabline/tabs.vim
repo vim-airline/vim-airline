@@ -31,7 +31,7 @@ function! s:evaluate_tabline(tabline)
   let tabline = substitute(tabline, '%#[^#]\+#', '', 'g')
   let tabline = substitute(tabline, '%(\([^)]\+\))', '\1', 'g')
   let tabline = substitute(tabline, '%\d\+[TX]', '', 'g')
-  let tabline = substitute(tabline, '%=', '', 'g')
+  let tabline = substitute(tabline, '%=', '  ', 'g')
   let tabline = substitute(tabline, '%\d*\*', '', 'g')
   return tabline
 endfunction
@@ -91,7 +91,10 @@ function! airline#extensions#tabline#tabs#get()
   let right_tab = curtab + 1
   let left_position = tabs_position
   let right_position = tabs_position + 1
-  let remaining_space = &columns - strlen(s:evaluate_tabline(b.build())) - 8
+  let remaining_space = &columns - strlen(s:evaluate_tabline(b.build()))
+
+  let skipped_tabs_marker = get(g:, 'airline#extensions#tabline#skipped_tabs_marker', '...')
+  let remaining_space -= 4 + 2 * strlen(s:evaluate_tabline(skipped_tabs_marker))
 
   " Add the current tab
   let tab_title = s:get_title(tab_nr_type, curtab)
@@ -147,12 +150,12 @@ function! airline#extensions#tabline#tabs#get()
     if get(g:, 'airline#extensions#tabline#current_first', 0)
       let left_position -= 1
     endif
-    call b.insert_raw('%#airline_tab#...', left_position)
+    call b.insert_raw('%#airline_tab#'.skipped_tabs_marker, left_position)
     let right_position += 1
   endif
 
   if right_tab <= num_tabs
-    call b.insert_raw('%#airline_tab#...', right_position)
+    call b.insert_raw('%#airline_tab#'.skipped_tabs_marker, right_position)
   endif
 
   let s:current_bufnr = curbuf
