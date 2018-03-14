@@ -25,68 +25,6 @@ function! airline#extensions#tabline#tabs#invalidate()
   let s:current_bufnr = -1
 endfunction
 
-function! s:get_visible_tabs(width, titles)
-  let tablist = range(1, tabpagenr('$'))
-  let curbuf = bufnr('%')
-
-  if get(g:, 'airline#extensions#tabline#current_first', 0)
-    " always have current tabpage first
-    if index(tablist, curtab) > -1
-      call remove(tablist, index(tablist, curtab))
-    endif
-    let tablist = [curtab] + tablist
-  endif
-
-  let total_width = 0
-  let max_width = 0
-
-  for title in a:titles
-    let width = strlen(s:evaluate_tabline(title)) + 1
-    let total_width += width
-    let max_width = max([max_width, width])
-  endfor
-
-  " leave space for end ellipsis (...) and the left/right split (2 spaces)
-  let tab_columns = a:width - 8
-
-  " only show current and surrounding tabs if there are too many tabs
-  let position  = index(tablist, curbuf)
-  if total_width > tab_columns && position > -1
-    let tab_count = len(tablist)
-
-    " determine how many tabs to show based on the longest tab width,
-    " use one on the right side and put the rest on the left
-    let tab_max   = tab_columns / max_width
-    let tab_right = 1
-    let tab_left  = max([0, tab_max - tab_right])
-
-    let start = max([0, position - tab_left])
-    let end   = min([tab_count, position + tab_right])
-
-    " fill up available space on the right
-    if position < tab_left
-      let end += (tab_left - position)
-    endif
-
-    " fill up available space on the left
-    if end > tab_count - 1 - tab_right
-      let start -= max([0, tab_right - (tab_count - 1 - position)])
-    endif
-
-    let tablist = eval('tablist[' . start . ':' . end . ']')
-
-    if start > 0
-      call insert(tablist, -1, 0)
-    endif
-
-    if end < tab_count - 1
-      call add(tablist, -1)
-    endif
-  endif
-
-  return tablist
-endfunction
-
 function! s:evaluate_tabline(tabline)
   let tabline = a:tabline
   let tabline = substitute(tabline, '%{\([^}]\+\)}', '\=eval(submatch(1))', 'g')
@@ -148,35 +86,74 @@ function! airline#extensions#tabline#tabs#get()
   endif
 
   let b_tabline = s:evaluate_tabline(b.build())
+  let num_tabs = tabpagenr('$')
+  let left_tab = curtab - 1
+  let right_tab = curtab + 1
+  let left_position = tabs_position
+  let right_position = tabs_position + 1
+  let remaining_space = &columns - strlen(s:evaluate_tabline(b.build())) - 8
 
-  let tab_titles = []
-  for i in range(1, tabpagenr('$'))
-    call add(tab_titles, s:get_title(tab_nr_type, i))
-  endfor
-
-  for i in s:get_visible_tabs(&columns - strlen(b_tabline), tab_titles)
-    if i < 0
-      call b.insert_raw('%#airline_tab#...', tabs_position)
-      let tabs_position += 1
-      continue
-    endif
-    if i == curtab
-      let group = 'airline_tabsel'
-      if g:airline_detect_modified
-        for bi in tabpagebuflist(i)
-          if getbufvar(bi, '&modified')
-            let group = 'airline_tabmod'
-          endif
-        endfor
+  " Add the current tab
+  let tab_title = s:get_title(tab_nr_type, curtab)
+  let remaining_space -= strlen(s:evaluate_tabline(tab_title)) + 1
+  let group = 'airline_tabsel'
+  if g:airline_detect_modified
+    for bi in tabpagebuflist(curtab)
+      if getbufvar(bi, '&modified')
+        let group = 'airline_tabmod'
       endif
-      let s:current_modified = (group == 'airline_tabmod') ? 1 : 0
-    else
-      let group = 'airline_tab'
-    endif
+    endfor
+  endif
+  let s:current_modified = (group == 'airline_tabmod') ? 1 : 0
+  call b.insert_section(group, tab_title, left_position)
 
-    call b.insert_section(group, get(tab_titles, i-1, ''), tabs_position)
-    let tabs_position += 1
-  endfor
+  if get(g:, 'airline#extensions#tabline#current_first', 0)
+    " always have current tabpage first
+    let left_position += 1
+  endif
+
+  " Add the tab to the right
+  if right_tab <= num_tabs
+    let tab_title = s:get_title(tab_nr_type, right_tab)
+    let remaining_space -= strlen(s:evaluate_tabline(tab_title)) + 1
+    call b.insert_section('airline_tab', tab_title, right_position)
+    let right_position += 1
+    let right_tab += 1
+  endif
+
+  while remaining_space > 0
+    if left_tab > 0
+      let tab_title = s:get_title(tab_nr_type, left_tab)
+      let remaining_space -= strlen(s:evaluate_tabline(tab_title)) + 1
+      if remaining_space >= 0
+        call b.insert_section('airline_tab', tab_title, left_position)
+        let right_position += 1
+        let left_tab -= 1
+      endif
+    elseif right_tab <= num_tabs
+      let tab_title = s:get_title(tab_nr_type, right_tab)
+      let remaining_space -= strlen(s:evaluate_tabline(tab_title)) + 1
+      if remaining_space >= 0
+        call b.insert_section('airline_tab', tab_title, right_position)
+        let right_position += 1
+        let right_tab += 1
+      endif
+    else
+      break
+    endif
+  endwhile
+
+  if left_tab > 0
+    if get(g:, 'airline#extensions#tabline#current_first', 0)
+      let left_position -= 1
+    endif
+    call b.insert_raw('%#airline_tab#...', left_position)
+    let right_position += 1
+  endif
+
+  if right_tab <= num_tabs
+    call b.insert_raw('%#airline_tab#...', right_position)
+  endif
 
   let s:current_bufnr = curbuf
   let s:current_tabnr = curtab
