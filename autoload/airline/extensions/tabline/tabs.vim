@@ -43,26 +43,6 @@ function! airline#extensions#tabline#tabs#get()
 
   call airline#extensions#tabline#add_label(b, 'tabs')
 
-  let tabs_position = b.get_position()
-
-  call b.add_section('airline_tabfill', '')
-  call b.split()
-  call b.add_section('airline_tabfill', '')
-
-  if get(g:, 'airline#extensions#tabline#show_close_button', 1)
-    call b.add_section('airline_tab_right', ' %999X'.
-          \ get(g:, 'airline#extensions#tabline#close_symbol', 'X').' ')
-  endif
-
-  if get(g:, 'airline#extensions#tabline#show_splits', 1) == 1
-    let buffers = tabpagebuflist(curtab)
-    for nr in buffers
-      let group = airline#extensions#tabline#group_of_bufnr(buffers, nr) . "_right"
-      call b.add_section_spaced(group, '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)')
-    endfor
-    call airline#extensions#tabline#add_label(b, 'buffers')
-  endif
-
   function! b.get_group(i) dict
     let curtab = tabpagenr()
     let group = 'airline_tab'
@@ -90,7 +70,25 @@ function! airline#extensions#tabline#tabs#get()
     return val.'%'.a:i.'T %{airline#extensions#tabline#title('.a:i.')} %)'
   endfunction
 
-  call b.insert_tabs(tabs_position, curtab)
+  call b.insert_tabs(curtab)
+
+  call b.add_section('airline_tabfill', '')
+  call b.split()
+  call b.add_section('airline_tabfill', '')
+
+  if get(g:, 'airline#extensions#tabline#show_close_button', 1)
+    call b.add_section('airline_tab_right', ' %999X'.
+          \ get(g:, 'airline#extensions#tabline#close_symbol', 'X').' ')
+  endif
+
+  if get(g:, 'airline#extensions#tabline#show_splits', 1) == 1
+    let buffers = tabpagebuflist(curtab)
+    for nr in buffers
+      let group = airline#extensions#tabline#group_of_bufnr(buffers, nr) . "_right"
+      call b.add_section_spaced(group, '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)')
+    endfor
+    call airline#extensions#tabline#add_label(b, 'buffers')
+  endif
 
   let s:current_bufnr = curbuf
   let s:current_tabnr = curtab
