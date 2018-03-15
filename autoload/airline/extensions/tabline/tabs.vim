@@ -36,6 +36,23 @@ function! s:evaluate_tabline(tabline)
   return tabline
 endfunction
 
+function! s:get_group(i)
+  let curtab = tabpagenr()
+  let group = 'airline_tab'
+  if a:i == curtab
+    let group = 'airline_tabsel'
+    if g:airline_detect_modified
+      for bi in tabpagebuflist(curtab)
+        if getbufvar(bi, '&modified')
+          let group = 'airline_tabmod'
+        endif
+      endfor
+    endif
+    let s:current_modified = (group == 'airline_tabmod') ? 1 : 0
+  endif
+  return group
+endfunction
+
 function! s:get_title(tab_nr_type, i)
   let val = '%('
 
@@ -116,16 +133,7 @@ function! airline#extensions#tabline#tabs#get()
   " There are always two left_seps (either side of the selected tab) and all
   " other seperators are left_alt_seps.
   let remaining_space -= 2 * left_sep_size - left_alt_sep_size
-  let group = 'airline_tabsel'
-  if g:airline_detect_modified
-    for bi in tabpagebuflist(curtab)
-      if getbufvar(bi, '&modified')
-        let group = 'airline_tabmod'
-      endif
-    endfor
-  endif
-  let s:current_modified = (group == 'airline_tabmod') ? 1 : 0
-  call b.insert_section(group, tab_title, left_position)
+  call b.insert_section(s:get_group(curtab), tab_title, left_position)
 
   if get(g:, 'airline#extensions#tabline#current_first', 0)
     " always have current tabpage first
@@ -136,7 +144,7 @@ function! airline#extensions#tabline#tabs#get()
   if right_tab <= num_tabs
     let tab_title = s:get_title(tab_nr_type, right_tab)
     let remaining_space -= s:strchars(s:evaluate_tabline(tab_title)) + left_alt_sep_size
-    call b.insert_section('airline_tab', tab_title, right_position)
+    call b.insert_section(s:get_group(right_tab), tab_title, right_position)
     let right_position += 1
     let right_tab += 1
   endif
@@ -146,7 +154,7 @@ function! airline#extensions#tabline#tabs#get()
       let tab_title = s:get_title(tab_nr_type, left_tab)
       let remaining_space -= s:strchars(s:evaluate_tabline(tab_title)) + left_alt_sep_size
       if remaining_space >= 0
-        call b.insert_section('airline_tab', tab_title, left_position)
+        call b.insert_section(s:get_group(left_tab), tab_title, left_position)
         let right_position += 1
         let left_tab -= 1
       endif
@@ -154,7 +162,7 @@ function! airline#extensions#tabline#tabs#get()
       let tab_title = s:get_title(tab_nr_type, right_tab)
       let remaining_space -= s:strchars(s:evaluate_tabline(tab_title)) + left_alt_sep_size
       if remaining_space >= 0
-        call b.insert_section('airline_tab', tab_title, right_position)
+        call b.insert_section(s:get_group(right_tab), tab_title, right_position)
         let right_position += 1
         let right_tab += 1
       endif
