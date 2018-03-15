@@ -36,33 +36,6 @@ function! s:evaluate_tabline(tabline)
   return tabline
 endfunction
 
-function! s:get_group(i)
-  let curtab = tabpagenr()
-  let group = 'airline_tab'
-  if a:i == curtab
-    let group = 'airline_tabsel'
-    if g:airline_detect_modified
-      for bi in tabpagebuflist(curtab)
-        if getbufvar(bi, '&modified')
-          let group = 'airline_tabmod'
-        endif
-      endfor
-    endif
-    let s:current_modified = (group == 'airline_tabmod') ? 1 : 0
-  endif
-  return group
-endfunction
-
-function! s:get_title(tab_nr_type, i)
-  let val = '%('
-
-  if get(g:, 'airline#extensions#tabline#show_tab_nr', 1)
-    let val .= airline#extensions#tabline#tabs#tabnr_formatter(a:tab_nr_type, a:i)
-  endif
-
-  return val.'%'.a:i.'T %{airline#extensions#tabline#title('.a:i.')} %)'
-endfunction
-
 " Compatibility wrapper for strchars, in case this vim version does not
 " have it natively
 function! s:strchars(str)
@@ -111,6 +84,33 @@ function! airline#extensions#tabline#tabs#get()
     call airline#extensions#tabline#add_label(b, 'buffers')
   endif
 
+  function! b.get_group(i) dict
+    let curtab = tabpagenr()
+    let group = 'airline_tab'
+    if a:i == curtab
+      let group = 'airline_tabsel'
+      if g:airline_detect_modified
+        for bi in tabpagebuflist(curtab)
+          if getbufvar(bi, '&modified')
+            let group = 'airline_tabmod'
+          endif
+        endfor
+      endif
+      let s:current_modified = (group == 'airline_tabmod') ? 1 : 0
+    endif
+    return group
+  endfunction
+
+  function! b.get_title(tab_nr_type, i) dict
+    let val = '%('
+
+    if get(g:, 'airline#extensions#tabline#show_tab_nr', 1)
+      let val .= airline#extensions#tabline#tabs#tabnr_formatter(a:tab_nr_type, a:i)
+    endif
+
+    return val.'%'.a:i.'T %{airline#extensions#tabline#title('.a:i.')} %)'
+  endfunction
+
   function! b.insert_tabs(tabs_position, curtab) dict
     let tab_nr_type = get(g:, 'airline#extensions#tabline#tab_nr_type', 0)
     let num_tabs = tabpagenr('$')
@@ -129,12 +129,12 @@ function! airline#extensions#tabline#tabs#get()
     let remaining_space -= 2 * skipped_tabs_marker_size + left_sep_size + left_alt_sep_size
 
     " Add the current tab
-    let tab_title = s:get_title(tab_nr_type, a:curtab)
+    let tab_title = self.get_title(tab_nr_type, a:curtab)
     let remaining_space -= s:strchars(s:evaluate_tabline(tab_title))
     " There are always two left_seps (either side of the selected tab) and all
     " other seperators are left_alt_seps.
     let remaining_space -= 2 * left_sep_size - left_alt_sep_size
-    call self.insert_section(s:get_group(a:curtab), tab_title, left_position)
+    call self.insert_section(self.get_group(a:curtab), tab_title, left_position)
 
     if get(g:, 'airline#extensions#tabline#current_first', 0)
       " always have current tabpage first
@@ -143,27 +143,27 @@ function! airline#extensions#tabline#tabs#get()
 
     " Add the tab to the right
     if right_tab <= num_tabs
-      let tab_title = s:get_title(tab_nr_type, right_tab)
+      let tab_title = self.get_title(tab_nr_type, right_tab)
       let remaining_space -= s:strchars(s:evaluate_tabline(tab_title)) + left_alt_sep_size
-      call self.insert_section(s:get_group(right_tab), tab_title, right_position)
+      call self.insert_section(self.get_group(right_tab), tab_title, right_position)
       let right_position += 1
       let right_tab += 1
     endif
 
     while remaining_space > 0
       if left_tab > 0
-        let tab_title = s:get_title(tab_nr_type, left_tab)
+        let tab_title = self.get_title(tab_nr_type, left_tab)
         let remaining_space -= s:strchars(s:evaluate_tabline(tab_title)) + left_alt_sep_size
         if remaining_space >= 0
-          call self.insert_section(s:get_group(left_tab), tab_title, left_position)
+          call self.insert_section(self.get_group(left_tab), tab_title, left_position)
           let right_position += 1
           let left_tab -= 1
         endif
       elseif right_tab <= num_tabs
-        let tab_title = s:get_title(tab_nr_type, right_tab)
+        let tab_title = self.get_title(tab_nr_type, right_tab)
         let remaining_space -= s:strchars(s:evaluate_tabline(tab_title)) + left_alt_sep_size
         if remaining_space >= 0
-          call self.insert_section(s:get_group(right_tab), tab_title, right_position)
+          call self.insert_section(self.get_group(right_tab), tab_title, right_position)
           let right_position += 1
           let right_tab += 1
         endif
