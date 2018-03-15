@@ -125,7 +125,8 @@ function! airline#extensions#tabline#buffers#get()
     endif
   endfunction
 
-  call b.insert_tabs(index(b.buffers, cur), 0, len(b.buffers) - 1)
+  let last_buffer = len(b.buffers) - 1
+  call b.insert_tabs(index(b.buffers, cur), 0, last_buffer)
 
   call b.add_section('airline_tabfill', '')
   call b.split()
@@ -140,66 +141,14 @@ function! airline#extensions#tabline#buffers#get()
 
   let s:current_bufnr = cur
   let s:current_tabline = b.build()
+  let s:current_visible_buffers = copy(b.buffers)
+  if b._right_tab <= last_buffer
+    call remove(s:current_visible_buffers, b._right_tab, last_buffer)
+  endif
+  if b._left_tab > 0
+    call remove(s:current_visible_buffers, 0, b._left_tab)
+  endif
   return s:current_tabline
-endfunction
-
-function! s:get_visible_buffers()
-  let buffers = airline#extensions#tabline#buflist#list()
-  let cur = bufnr('%')
-  if get(g:, 'airline#extensions#tabline#current_first', 0)
-    if index(buffers, cur) > -1
-      call remove(buffers, index(buffers, cur))
-    endif
-    let buffers = [cur] + buffers
-  endif
-
-  let total_width = 0
-  let max_width = 0
-
-  for nr in buffers
-    let width = len(airline#extensions#tabline#get_buffer_name(nr)) + 4
-    let total_width += width
-    let max_width = max([max_width, width])
-  endfor
-
-  " only show current and surrounding buffers if there are too many buffers
-  let position  = index(buffers, cur)
-  let vimwidth = &columns
-  if total_width > vimwidth && position > -1
-    let buf_count = len(buffers)
-
-    " determine how many buffers to show based on the longest buffer width,
-    " use one on the right side and put the rest on the left
-    let buf_max   = vimwidth / max_width
-    let buf_right = 1
-    let buf_left  = max([0, buf_max - buf_right])
-
-    let start = max([0, position - buf_left])
-    let end   = min([buf_count, position + buf_right])
-
-    " fill up available space on the right
-    if position < buf_left
-      let end += (buf_left - position)
-    endif
-
-    " fill up available space on the left
-    if end > buf_count - 1 - buf_right
-      let start -= max([0, buf_right - (buf_count - 1 - position)])
-    endif
-
-    let buffers = eval('buffers[' . start . ':' . end . ']')
-
-    if start > 0
-      call insert(buffers, -1, 0)
-    endif
-
-    if end < buf_count - 1
-      call add(buffers, -1)
-    endif
-  endif
-
-  let s:current_visible_buffers = buffers
-  return buffers
 endfunction
 
 function! s:select_tab(buf_index)
