@@ -60,11 +60,12 @@ function! airline#extensions#tabline#tabs#get()
     return group
   endfunction
 
-  function! b.get_title(tab_nr_type, i) dict
+  function! b.get_title(i) dict
     let val = '%('
 
     if get(g:, 'airline#extensions#tabline#show_tab_nr', 1)
-      let val .= airline#extensions#tabline#tabs#tabnr_formatter(a:tab_nr_type, a:i)
+      let tab_nr_type = get(g:, 'airline#extensions#tabline#tab_nr_type', 0)
+      let val .= airline#extensions#tabline#tabs#tabnr_formatter(tab_nr_type, a:i)
     endif
 
     return val.'%'.a:i.'T %{airline#extensions#tabline#title('.a:i.')} %)'

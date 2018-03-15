@@ -12,8 +12,8 @@ function! s:prototype.insert_tabs(curtab) dict
   let self._right_position = self._left_position
 endfunction
 
-function! s:prototype.try_insert_tab(tab, pos, tab_nr_type, sep_size, force) dict
-  let tab_title = self.get_title(a:tab_nr_type, a:tab)
+function! s:prototype.try_insert_tab(tab, pos, sep_size, force) dict
+  let tab_title = self.get_title(a:tab)
   let self._remaining_space -= s:strchars(s:evaluate_tabline(tab_title)) + a:sep_size
   if a:force || self._remaining_space >= 0
     call self.insert_section(self.get_group(a:tab), tab_title, a:pos)
@@ -25,7 +25,6 @@ endfunction
 
 function! s:prototype.build() dict
   if has_key(self, '_left_position')
-    let tab_nr_type = get(g:, 'airline#extensions#tabline#tab_nr_type', 0)
     let num_tabs = tabpagenr('$')
     let self._remaining_space = &columns - s:strchars(s:evaluate_tabline(self._build()))
 
@@ -43,7 +42,7 @@ function! s:prototype.build() dict
 
     " Add the current tab
     let self._left_tab -=
-      \ self.try_insert_tab(self._left_tab, self._left_position, tab_nr_type, left_sep_size, 1)
+      \ self.try_insert_tab(self._left_tab, self._left_position, left_sep_size, 1)
 
     if get(g:, 'airline#extensions#tabline#current_first', 0)
       " always have current tabpage first
@@ -53,16 +52,16 @@ function! s:prototype.build() dict
     " Add the tab to the right
     if self._right_tab <= num_tabs
       let self._right_tab +=
-      \ self.try_insert_tab(self._right_tab, self._right_position, tab_nr_type, left_alt_sep_size, 1)
+      \ self.try_insert_tab(self._right_tab, self._right_position, left_alt_sep_size, 1)
     endif
 
     while self._remaining_space > 0
       if self._left_tab > 0
         let self._left_tab -=
-          \ self.try_insert_tab(self._left_tab, self._left_position, tab_nr_type, left_alt_sep_size, 0)
+          \ self.try_insert_tab(self._left_tab, self._left_position, left_alt_sep_size, 0)
       elseif self._right_tab <= num_tabs
         let self._right_tab +=
-          \ self.try_insert_tab(self._right_tab, self._right_position, tab_nr_type, left_alt_sep_size, 0)
+          \ self.try_insert_tab(self._right_tab, self._right_position, left_alt_sep_size, 0)
       else
         break
       endif
