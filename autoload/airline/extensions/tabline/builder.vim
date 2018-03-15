@@ -44,6 +44,8 @@ function! s:prototype.build() dict
   if has_key(self, '_left_position')
     let self._remaining_space = &columns - s:strchars(s:evaluate_tabline(self._build()))
 
+    let center_active = get(g:, 'airline#extensions#tabline#center_active', 0)
+
     let left_sep_size = s:strchars(s:evaluate_tabline(self._context.left_sep))
     let left_alt_sep_size = s:strchars(s:evaluate_tabline(self._context.left_alt_sep))
 
@@ -66,19 +68,24 @@ function! s:prototype.build() dict
     endif
 
     " Add the tab to the right
-    if self._right_tab <= self._last_tab
+    if !center_active && self._right_tab <= self._last_tab
       let self._right_tab +=
       \ self.try_insert_tab(self._right_tab, self._right_position, left_alt_sep_size, 1)
     endif
 
     while self._remaining_space > 0
+      let done = 0
       if self._left_tab >= self._first_tab
         let self._left_tab -=
           \ self.try_insert_tab(self._left_tab, self._left_position, left_alt_sep_size, 0)
-      elseif self._right_tab <= self._last_tab
+        let done = 1
+      endif
+      if self._right_tab <= self._last_tab && (center_active || !done)
         let self._right_tab +=
           \ self.try_insert_tab(self._right_tab, self._right_position, left_alt_sep_size, 0)
-      else
+        let done = 1
+      endif
+      if !done
         break
       endif
     endwhile
