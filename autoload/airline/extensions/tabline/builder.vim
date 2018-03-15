@@ -91,6 +91,9 @@ function! s:evaluate_tabline(tabline)
   let tabline = substitute(tabline, '%\d\+[TX]', '', 'g')
   let tabline = substitute(tabline, '%=', '', 'g')
   let tabline = substitute(tabline, '%\d*\*', '', 'g')
+  if has('tablineat')
+    let tabline = substitute(tabline, '%@[^@]\+@', '', 'g')
+  endif
   return tabline
 endfunction
 
