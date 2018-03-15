@@ -31,7 +31,7 @@ function! s:evaluate_tabline(tabline)
   let tabline = substitute(tabline, '%#[^#]\+#', '', 'g')
   let tabline = substitute(tabline, '%(\([^)]\+\)%)', '\1', 'g')
   let tabline = substitute(tabline, '%\d\+[TX]', '', 'g')
-  let tabline = substitute(tabline, '%=', '  ', 'g')
+  let tabline = substitute(tabline, '%=', '', 'g')
   let tabline = substitute(tabline, '%\d*\*', '', 'g')
   return tabline
 endfunction
