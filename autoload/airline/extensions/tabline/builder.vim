@@ -87,17 +87,19 @@ function! s:prototype.build() dict
       if get(g:, 'airline#extensions#tabline#current_first', 0)
         let self._left_position -= 1
       endif
-      call self.insert_raw('%#airline_tab#'.skipped_tabs_marker, self._left_position)
+      call self.insert_raw('%#'.self.overflow_group.'#'.skipped_tabs_marker, self._left_position)
       let self._right_position += 1
     endif
 
     if self._right_tab <= self._last_tab
-      call self.insert_raw('%#airline_tab#'.skipped_tabs_marker, self._right_position)
+      call self.insert_raw('%#'.self.overflow_group.'#'.skipped_tabs_marker, self._right_position)
     endif
   endif
 
   return self._build()
 endfunction
+
+let s:prototype.overflow_group = 'airline_tab'
 
 function! s:evaluate_tabline(tabline)
   let tabline = a:tabline

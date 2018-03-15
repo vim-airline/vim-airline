@@ -69,24 +69,45 @@ function! airline#extensions#tabline#buffers#get()
   if show_buf_label_first
     call airline#extensions#tabline#add_label(b, 'buffers')
   endif
-  let pgroup = ''
-  for nr in s:get_visible_buffers()
-    if nr < 0
-      call b.add_raw('%#airline_tabhid#...')
-      continue
+
+  let b.tab_bufs = tabpagebuflist(tabpagenr())
+
+  let b.overflow_group = 'airline_tabhid'
+  let b.buffers = airline#extensions#tabline#buflist#list()
+  if get(g:, 'airline#extensions#tabline#current_first', 0)
+    if index(b.buffers, cur) > -1
+      call remove(b.buffers, index(b.buffers, cur))
     endif
+    let b.buffers = [cur] + b.buffers
+  endif
 
-    let group = airline#extensions#tabline#group_of_bufnr(tab_bufs, nr)
-
-    if nr == cur
+  function! b.get_group(i) dict
+    let bufnum = get(self.buffers, a:i, -1)
+    if bufnum == -1
+      return ''
+    endif
+    let group = airline#extensions#tabline#group_of_bufnr(self.tab_bufs, bufnum)
+    if bufnum == bufnr('%')
       let s:current_modified = (group == 'airline_tabmod') ? 1 : 0
     endif
+    return group
+  endfunction
 
-    " Neovim feature: Have clickable buffers
-    if has("tablineat")
-      call b.add_raw('%'.nr.'@airline#extensions#tabline#buffers#clickbuf@')
-    endif
+  if has("tablineat")
+    function! b.get_pretitle(i) dict
+      let bufnum = get(self.buffers, a:i, -1)
+      return '%'.bufnum.'@airline#extensions#tabline#buffers#clickbuf@'
+    endfunction
 
+    function b.get_posttitle(i) dict
+      return '%X'
+    endfunction
+  endif
+
+  function! b.get_title(i) dict
+    let bufnum = get(self.buffers, a:i, -1)
+    let group = self.get_group(a:i)
+    let pgroup = self.get_group(a:i - 1)
     if get(g:, 'airline_powerline_fonts', 0)
       let space = s:spc
     else
@@ -95,20 +116,16 @@ function! airline#extensions#tabline#buffers#get()
 
     if get(g:, 'airline#extensions#tabline#buffer_idx_mode', 0)
       if len(s:number_map) > 0
-        call b.add_section(group, space. get(s:number_map, index, '') . '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)' . s:spc)
+        return space. get(s:number_map, a:i, '') . '%(%{airline#extensions#tabline#get_buffer_name('.bufnum.')}%)' . s:spc
       else
-        call b.add_section(group, '['.index.s:spc.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.']')
+        return '['.a:i.s:spc.'%(%{airline#extensions#tabline#get_buffer_name('.bufnum.')}%)'.']'
       endif
-      let index += 1
     else
-      call b.add_section(group, space.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.s:spc)
+      return space.'%(%{airline#extensions#tabline#get_buffer_name('.bufnum.')}%)'.s:spc
     endif
+  endfunction
 
-    if has("tablineat")
-      call b.add_raw('%X')
-    endif
-    let pgroup=group
-  endfor
+  call b.insert_tabs(index(b.buffers, cur), 0, len(b.buffers) - 1)
 
   call b.add_section('airline_tabfill', '')
   call b.split()
