@@ -95,7 +95,6 @@ function! airline#extensions#tabline#tabs#get()
     call airline#extensions#tabline#add_label(b, 'buffers')
   endif
 
-  let b_tabline = s:evaluate_tabline(b.build())
   let num_tabs = tabpagenr('$')
   let left_tab = curtab - 1
   let right_tab = curtab + 1
