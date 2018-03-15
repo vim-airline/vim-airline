@@ -52,7 +52,7 @@ function! airline#extensions#tabline#buffers#get()
     " no-op
   endtry
   let cur = bufnr('%')
-  if cur == s:current_bufnr
+  if cur == s:current_bufnr && &columns == s:column_width
     if !g:airline_detect_modified || getbufvar(cur, '&modified') == s:current_modified
       return s:current_tabline
     endif
@@ -140,6 +140,7 @@ function! airline#extensions#tabline#buffers#get()
   endif
 
   let s:current_bufnr = cur
+  let s:column_width = &columns
   let s:current_tabline = b.build()
   let s:current_visible_buffers = copy(b.buffers)
   if b._right_tab <= last_buffer
