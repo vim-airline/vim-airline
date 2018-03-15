@@ -17,8 +17,23 @@ function! s:prototype.try_insert_tab(tab, pos, sep_size, force) dict
   let tab_title = self.get_title(a:tab)
   let self._remaining_space -= s:strchars(s:evaluate_tabline(tab_title)) + a:sep_size
   if a:force || self._remaining_space >= 0
-    call self.insert_section(self.get_group(a:tab), tab_title, a:pos)
+    let pos = a:pos
+    if has_key(self, "get_pretitle")
+      call self.insert_raw(self.get_pretitle(a:tab), pos)
+      let self._right_position += 1
+      let pos += 1
+    endif
+
+    call self.insert_section(self.get_group(a:tab), tab_title, pos)
     let self._right_position += 1
+    let pos += 1
+
+    if has_key(self, "get_posttitle")
+      call self.insert_raw(self.get_posttitle(a:tab), pos)
+      let self._right_position += 1
+      let pos += 1
+    endif
+
     return 1
   endif
   return 0
