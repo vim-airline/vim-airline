@@ -7,12 +7,29 @@ function! airline#extensions#tabline#buflist#invalidate()
   unlet! s:current_buffer_list
 endfunction
 
+" paths in excludes list
+function! s:ExcludePaths(nr, exclude_paths)
+  let bpath = fnamemodify(bufname(a:nr), ":p")
+  for f in a:exclude_paths
+    if bpath =~# f | return 1 | endif
+  endfor
+endfunction
+
+" other types to exclude
+function! s:ExcludeOther(nr, exclude_preview)
+  if (getbufvar(a:nr, 'current_syntax') == 'qf') ||
+        \  (a:exclude_preview && getbufvar(a:nr, '&bufhidden') == 'wipe'
+        \  && getbufvar(a:nr, '&buftype') == 'nofile')
+    return 1 | endif
+endfunction
+
 function! airline#extensions#tabline#buflist#list()
   if exists('s:current_buffer_list')
     return s:current_buffer_list
   endif
 
-  let excludes = get(g:, 'airline#extensions#tabline#excludes', [])
+  let exclude_buffers = get(g:, 'airline#extensions#tabline#exclude_buffers', [])
+  let exclude_paths = get(g:, 'airline#extensions#tabline#excludes', [])
   let exclude_preview = get(g:, 'airline#extensions#tabline#exclude_preview', 1)
 
   let list = (exists('g:did_bufmru') && g:did_bufmru) ? BufMRUList() : range(1, bufnr("$"))
@@ -24,16 +41,24 @@ function! airline#extensions#tabline#buflist#list()
   for nr in list
     if buflisted(nr)
       " Do not add to the bufferlist, if either
-      " 1) buffername matches exclude pattern
-      " 2) buffer is a quickfix buffer
-      " 3) exclude preview windows (if 'bufhidden' == wipe
-      "    and 'buftype' == nofile
-      if (!empty(excludes) && match(bufname(nr), join(excludes, '\|')) > -1) ||
-            \ (getbufvar(nr, 'current_syntax') == 'qf') ||
-            \  (exclude_preview && getbufvar(nr, '&bufhidden') == 'wipe'
-            \  && getbufvar(nr, '&buftype') == 'nofile')
+      " 1) bufnr is exclude_buffers list
+      " 2) buffername matches one of exclude_paths patterns
+      " 3) buffer is a quickfix buffer
+      " 4) when excluding preview windows:
+      "     'bufhidden' == wipe
+      "     'buftype' == nofile
+
+      " check buffer numbers first
+      if index(exclude_buffers, nr) >= 0
+        continue
+        " check paths second
+      elseif !empty(exclude_paths) && s:ExcludePaths(nr, exclude_paths)
+        continue
+        " check other types last
+      elseif s:ExcludeOther(nr, exclude_preview)
         continue
       endif
+
       call add(buffers, nr)
     endif
   endfor
