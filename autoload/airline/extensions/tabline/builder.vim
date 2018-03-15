@@ -5,8 +5,9 @@ scriptencoding utf-8
 
 let s:prototype = {}
 
-function! s:prototype.insert_tabs(curtab, numtabs) dict
-  let self._num_tabs = a:numtabs
+function! s:prototype.insert_tabs(curtab, first_tab, last_tab) dict
+  let self._first_tab = a:first_tab
+  let self._last_tab = a:last_tab
   let self._left_tab = a:curtab
   let self._right_tab = a:curtab + 1
   let self._left_position = self.get_position()
@@ -65,16 +66,16 @@ function! s:prototype.build() dict
     endif
 
     " Add the tab to the right
-    if self._right_tab <= self._num_tabs
+    if self._right_tab <= self._last_tab
       let self._right_tab +=
       \ self.try_insert_tab(self._right_tab, self._right_position, left_alt_sep_size, 1)
     endif
 
     while self._remaining_space > 0
-      if self._left_tab > 0
+      if self._left_tab >= self._first_tab
         let self._left_tab -=
           \ self.try_insert_tab(self._left_tab, self._left_position, left_alt_sep_size, 0)
-      elseif self._right_tab <= self._num_tabs
+      elseif self._right_tab <= self._last_tab
         let self._right_tab +=
           \ self.try_insert_tab(self._right_tab, self._right_position, left_alt_sep_size, 0)
       else
@@ -82,7 +83,7 @@ function! s:prototype.build() dict
       endif
     endwhile
 
-    if self._left_tab > 0
+    if self._left_tab >= self._first_tab
       if get(g:, 'airline#extensions#tabline#current_first', 0)
         let self._left_position -= 1
       endif
@@ -90,7 +91,7 @@ function! s:prototype.build() dict
       let self._right_position += 1
     endif
 
-    if self._right_tab <= self._num_tabs
+    if self._right_tab <= self._last_tab
       call self.insert_raw('%#airline_tab#'.skipped_tabs_marker, self._right_position)
     endif
   endif
