@@ -104,7 +104,7 @@ function! airline#extensions#tabline#tabs#get()
   let remaining_space = &columns - s:strchars(s:evaluate_tabline(b.build()))
 
   let skipped_tabs_marker = get(g:, 'airline#extensions#tabline#overflow_marker', g:airline_symbols.ellipsis)
-  let remaining_space -= 4 + 2 * s:strchars(s:evaluate_tabline(skipped_tabs_marker))
+  let remaining_space -= 2 * s:strchars(s:evaluate_tabline(skipped_tabs_marker))
 
   " Add the current tab
   let tab_title = s:get_title(tab_nr_type, curtab)
