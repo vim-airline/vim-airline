@@ -6,19 +6,16 @@ scriptencoding utf-8
 let s:prototype = {}
 
 function! s:prototype.insert_tabs(curtab) dict
-  let self._tabs_position = self.get_position()
-  let self._curtab = a:curtab
+  let self._left_tab = a:curtab
+  let self._right_tab = a:curtab + 1
+  let self._left_position = self.get_position()
+  let self._right_position = self._left_position
 endfunction
 
 function! s:prototype.build() dict
-  if has_key(self, "_tabs_position")
+  if has_key(self, '_left_position')
     let tab_nr_type = get(g:, 'airline#extensions#tabline#tab_nr_type', 0)
     let num_tabs = tabpagenr('$')
-    let curtab = self._curtab
-    let self._left_tab = curtab - 1
-    let self._right_tab = curtab + 1
-    let self._left_position = self._tabs_position
-    let self._right_position = self._tabs_position + 1
     let remaining_space = &columns - s:strchars(s:evaluate_tabline(self._build()))
 
     let left_sep_size = s:strchars(s:evaluate_tabline(self._context.left_sep))
@@ -30,12 +27,14 @@ function! s:prototype.build() dict
     let remaining_space -= 2 * skipped_tabs_marker_size + left_sep_size + left_alt_sep_size
 
     " Add the current tab
-    let tab_title = self.get_title(tab_nr_type, curtab)
+    let tab_title = self.get_title(tab_nr_type, self._left_tab)
     let remaining_space -= s:strchars(s:evaluate_tabline(tab_title))
     " There are always two left_seps (either side of the selected tab) and all
     " other seperators are left_alt_seps.
     let remaining_space -= 2 * left_sep_size - left_alt_sep_size
-    call self.insert_section(self.get_group(curtab), tab_title, self._left_position)
+    call self.insert_section(self.get_group(self._left_tab), tab_title, self._left_position)
+    let self._right_position += 1
+    let self._left_tab -= 1
 
     if get(g:, 'airline#extensions#tabline#current_first', 0)
       " always have current tabpage first
