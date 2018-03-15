@@ -87,7 +87,6 @@ function! airline#extensions#tabline#tabs#get()
     endif
   endif
 
-  let tab_nr_type = get(g:, 'airline#extensions#tabline#tab_nr_type', 0)
   let b = airline#extensions#tabline#new_builder()
 
   call airline#extensions#tabline#add_label(b, 'tabs')
@@ -112,76 +111,80 @@ function! airline#extensions#tabline#tabs#get()
     call airline#extensions#tabline#add_label(b, 'buffers')
   endif
 
-  let num_tabs = tabpagenr('$')
-  let left_tab = curtab - 1
-  let right_tab = curtab + 1
-  let left_position = tabs_position
-  let right_position = tabs_position + 1
-  let remaining_space = &columns - s:strchars(s:evaluate_tabline(b.build()))
+  function! b.insert_tabs(tabs_position, curtab) dict
+    let tab_nr_type = get(g:, 'airline#extensions#tabline#tab_nr_type', 0)
+    let num_tabs = tabpagenr('$')
+    let left_tab = a:curtab - 1
+    let right_tab = a:curtab + 1
+    let left_position = a:tabs_position
+    let right_position = a:tabs_position + 1
+    let remaining_space = &columns - s:strchars(s:evaluate_tabline(self.build()))
 
-  let left_sep_size = s:strchars(s:evaluate_tabline(b._context.left_sep))
-  let left_alt_sep_size = s:strchars(s:evaluate_tabline(b._context.left_alt_sep))
+    let left_sep_size = s:strchars(s:evaluate_tabline(self._context.left_sep))
+    let left_alt_sep_size = s:strchars(s:evaluate_tabline(self._context.left_alt_sep))
 
-  let skipped_tabs_marker = get(g:, 'airline#extensions#tabline#overflow_marker', g:airline_symbols.ellipsis)
-  let skipped_tabs_marker_size = s:strchars(s:evaluate_tabline(skipped_tabs_marker))
-  " The left marker will have left_alt_sep, and the right will have left_sep.
-  let remaining_space -= 2 * skipped_tabs_marker_size + left_sep_size + left_alt_sep_size
+    let skipped_tabs_marker = get(g:, 'airline#extensions#tabline#overflow_marker', g:airline_symbols.ellipsis)
+    let skipped_tabs_marker_size = s:strchars(s:evaluate_tabline(skipped_tabs_marker))
+    " The left marker will have left_alt_sep, and the right will have left_sep.
+    let remaining_space -= 2 * skipped_tabs_marker_size + left_sep_size + left_alt_sep_size
 
-  " Add the current tab
-  let tab_title = s:get_title(tab_nr_type, curtab)
-  let remaining_space -= s:strchars(s:evaluate_tabline(tab_title))
-  " There are always two left_seps (either side of the selected tab) and all
-  " other seperators are left_alt_seps.
-  let remaining_space -= 2 * left_sep_size - left_alt_sep_size
-  call b.insert_section(s:get_group(curtab), tab_title, left_position)
+    " Add the current tab
+    let tab_title = s:get_title(tab_nr_type, a:curtab)
+    let remaining_space -= s:strchars(s:evaluate_tabline(tab_title))
+    " There are always two left_seps (either side of the selected tab) and all
+    " other seperators are left_alt_seps.
+    let remaining_space -= 2 * left_sep_size - left_alt_sep_size
+    call self.insert_section(s:get_group(a:curtab), tab_title, left_position)
 
-  if get(g:, 'airline#extensions#tabline#current_first', 0)
-    " always have current tabpage first
-    let left_position += 1
-  endif
+    if get(g:, 'airline#extensions#tabline#current_first', 0)
+      " always have current tabpage first
+      let left_position += 1
+    endif
 
-  " Add the tab to the right
-  if right_tab <= num_tabs
-    let tab_title = s:get_title(tab_nr_type, right_tab)
-    let remaining_space -= s:strchars(s:evaluate_tabline(tab_title)) + left_alt_sep_size
-    call b.insert_section(s:get_group(right_tab), tab_title, right_position)
-    let right_position += 1
-    let right_tab += 1
-  endif
-
-  while remaining_space > 0
-    if left_tab > 0
-      let tab_title = s:get_title(tab_nr_type, left_tab)
-      let remaining_space -= s:strchars(s:evaluate_tabline(tab_title)) + left_alt_sep_size
-      if remaining_space >= 0
-        call b.insert_section(s:get_group(left_tab), tab_title, left_position)
-        let right_position += 1
-        let left_tab -= 1
-      endif
-    elseif right_tab <= num_tabs
+    " Add the tab to the right
+    if right_tab <= num_tabs
       let tab_title = s:get_title(tab_nr_type, right_tab)
       let remaining_space -= s:strchars(s:evaluate_tabline(tab_title)) + left_alt_sep_size
-      if remaining_space >= 0
-        call b.insert_section(s:get_group(right_tab), tab_title, right_position)
-        let right_position += 1
-        let right_tab += 1
+      call self.insert_section(s:get_group(right_tab), tab_title, right_position)
+      let right_position += 1
+      let right_tab += 1
+    endif
+
+    while remaining_space > 0
+      if left_tab > 0
+        let tab_title = s:get_title(tab_nr_type, left_tab)
+        let remaining_space -= s:strchars(s:evaluate_tabline(tab_title)) + left_alt_sep_size
+        if remaining_space >= 0
+          call self.insert_section(s:get_group(left_tab), tab_title, left_position)
+          let right_position += 1
+          let left_tab -= 1
+        endif
+      elseif right_tab <= num_tabs
+        let tab_title = s:get_title(tab_nr_type, right_tab)
+        let remaining_space -= s:strchars(s:evaluate_tabline(tab_title)) + left_alt_sep_size
+        if remaining_space >= 0
+          call self.insert_section(s:get_group(right_tab), tab_title, right_position)
+          let right_position += 1
+          let right_tab += 1
+        endif
+      else
+        break
       endif
-    else
-      break
-    endif
-  endwhile
+    endwhile
 
-  if left_tab > 0
-    if get(g:, 'airline#extensions#tabline#current_first', 0)
-      let left_position -= 1
+    if left_tab > 0
+      if get(g:, 'airline#extensions#tabline#current_first', 0)
+        let left_position -= 1
+      endif
+      call self.insert_raw('%#airline_tab#'.skipped_tabs_marker, left_position)
+      let right_position += 1
     endif
-    call b.insert_raw('%#airline_tab#'.skipped_tabs_marker, left_position)
-    let right_position += 1
-  endif
 
-  if right_tab <= num_tabs
-    call b.insert_raw('%#airline_tab#'.skipped_tabs_marker, right_position)
-  endif
+    if right_tab <= num_tabs
+      call self.insert_raw('%#airline_tab#'.skipped_tabs_marker, right_position)
+    endif
+  endfunction
+  call b.insert_tabs(tabs_position, curtab)
 
   let s:current_bufnr = curbuf
   let s:current_tabnr = curtab
