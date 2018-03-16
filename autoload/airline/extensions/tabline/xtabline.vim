@@ -20,13 +20,12 @@ function! airline#extensions#tabline#xtabline#init()
     let s:most_recent = -1
     let s:xtabline_filtering = 1
 
-    let t:excluded = get(g:, 'airline#extensions#tabline#exclude_buffers', [])
-    let t:accepted = []
+    let t:xtl_excluded = get(g:, 'airline#extensions#tabline#exclude_buffers', [])
+    let t:xtl_accepted = []
 
     let g:xtabline_bufevent_update = get(g:, 'xtabline_bufevent_update', 1)
     let g:xtabline_include_previews = get(g:, 'xtabline_include_previews', 1)
 
-    let g:xtabline_autodelete_empty_buffers = get(g:, 'xtabline_autodelete_empty_buffers', 0)
     let g:xtabline_alt_action = get(g:, 'xtabline_alt_action', "buffer #")
 
 
@@ -175,13 +174,13 @@ function! airline#extensions#tabline#xtabline#filter_buffers(...)
     """Filter buffers so that only the ones within the tab's cwd will show up.
 
     " 'accepted' is a list of buffer numbers, for quick access.
-    " 'excludes' is a list of paths, it will be used by Airline to hide buffers."""
+    " 'excluded' is a list of buffer numbers, it will be used by Airline to hide buffers."""
 
     if !s:xtabline_filtering | return | endif
 
     let g:airline#extensions#tabline#exclude_buffers = []
-    let t:excluded = g:airline#extensions#tabline#exclude_buffers
-    let t:accepted = []
+    let t:xtl_excluded = g:airline#extensions#tabline#exclude_buffers
+    let t:xtl_accepted = [] | let accepted = t:xtl_accepted
     let previews = g:xtabline_include_previews
 
     " bufnr(0) is the alternate buffer
@@ -194,15 +193,11 @@ function! airline#extensions#tabline#xtabline#filter_buffers(...)
 
         " confront with the cwd
         if !previews && path =~ "^".getcwd()
-            call add(t:accepted, buf)
+            call add(accepted, buf)
         elseif previews && path =~ getcwd()
-            call add(t:accepted, buf)
-        elseif bufname(buf) != ''
-            call add(t:excluded, buf)
-        elseif a:000 == [] && g:xtabline_autodelete_empty_buffers
-            " delete temporary and empty buffers. This will happen
-            " only when the function is called without arguments.
-            execute "silent! bdelete ".buf
+            call add(accepted, buf)
+        else
+            call add(t:xtl_excluded, buf)
         endif
     endfor
 
@@ -215,25 +210,28 @@ function! airline#extensions#tabline#xtabline#next_buffer(nr)
     """Switch to next visible buffer."""
 
     if ( s:NotEnoughBuffers() || !s:xtabline_filtering ) | return | endif
+    let accepted = t:xtl_accepted
 
-    let ix = index(t:accepted, bufnr("%"))
+    let ix = index(accepted, bufnr("%"))
     let target = ix + a:nr
-    let total = len(t:accepted)
+    let total = len(accepted)
 
-    if target >= total
-        " over last buffer
-        let s:most_recent = target - total
-
-    elseif ix == -1
+    if ix == -1
         " not in index, go back to most recent or back to first
-        if s:most_recent == -1 || index(t:accepted, s:most_recent) == -1
+        if s:most_recent == -1 || s:most_recent >= total
             let s:most_recent = 0
         endif
+
+    elseif target >= total
+        " over last buffer
+        while target >= total | let target -= total | endwhile
+        let s:most_recent = target
+
     else
         let s:most_recent = target
     endif
 
-    return ":buffer " . t:accepted[s:most_recent] . "\<cr>"
+    return ":buffer " . accepted[s:most_recent] . "\<cr>"
 endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -242,25 +240,28 @@ function! airline#extensions#tabline#xtabline#prev_buffer(nr)
     """Switch to previous visible buffer."""
 
     if ( s:NotEnoughBuffers() || !s:xtabline_filtering ) | return | endif
+    let accepted = t:xtl_accepted
 
-    let ix = index(t:accepted, bufnr("%"))
+    let ix = index(accepted, bufnr("%"))
     let target = ix - a:nr
-    let total = len(t:accepted)
+    let total = len(accepted)
 
-    if target < 0
-        " before first buffer
-        let s:most_recent = total + target
-
-    elseif ix == -1
+    if ix == -1
         " not in index, go back to most recent or back to first
-        if s:most_recent == -1 || index(t:accepted, s:most_recent) == -1
+        if s:most_recent == -1 || s:most_recent >= total
             let s:most_recent = 0
         endif
+
+    elseif target < 0
+        " before first buffer
+        while target < 0 | let target += total | endwhile
+        let s:most_recent = target
+
     else
         let s:most_recent = target
     endif
 
-    return ":buffer " . t:accepted[s:most_recent] . "\<cr>"
+    return ":buffer " . accepted[s:most_recent] . "\<cr>"
 endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -269,12 +270,13 @@ function! airline#extensions#tabline#xtabline#select_buffer(nr)
     """Switch to visible buffer in the tabline with [count]."""
 
     if ( a:nr == 0 || !s:xtabline_filtering ) | execute g:xtabline_alt_action | return | endif
+    let accepted = t:xtl_accepted
 
-    if (a:nr > len(t:accepted)) || s:NotEnoughBuffers() || t:accepted[a:nr - 1] == bufnr("%")
+    if (a:nr > len(accepted)) || s:NotEnoughBuffers() || accepted[a:nr - 1] == bufnr("%")
         return
     else
         let g:xtabline_changing_buffer = 1
-        execute "buffer ".t:accepted[a:nr - 1]
+        execute "buffer ".accepted[a:nr - 1]
     endif
 endfunction
 
@@ -283,7 +285,7 @@ endfunction
 function! s:TabBuffers()
     """Return a list of buffers names for this tab."""
 
-    return map(copy(t:accepted), 'bufname(v:val)')
+    return map(copy(t:xtl_accepted), 'bufname(v:val)')
 endfunction
 
 
@@ -294,10 +296,10 @@ endfunction
 function! s:NotEnoughBuffers()
     """Just return if there aren't enough buffers."""
 
-    if len(t:accepted) < 2
-        if index(t:accepted, bufnr("%")) == -1
+    if len(t:xtl_accepted) < 2
+        if index(t:xtl_accepted, bufnr("%")) == -1
             return
-        elseif !len(t:accepted)
+        elseif !len(t:xtl_accepted)
             echo "No available buffers for this tab."
         else
             echo "No other available buffers for this tab."
