@@ -36,6 +36,8 @@ function! s:prototype.try_insert_tab(tab, pos, sep_size, force) dict
     endif
 
     return 1
+  else
+    let self._remaining_space += s:strchars(s:evaluate_tabline(tab_title)) + a:sep_size
   endif
   return 0
 endfunction
@@ -76,14 +78,12 @@ function! s:prototype.build() dict
     while self._remaining_space > 0
       let done = 0
       if self._left_tab >= self._first_tab
-        let self._left_tab -=
-          \ self.try_insert_tab(self._left_tab, self._left_position, left_alt_sep_size, 0)
-        let done = 1
+        let done = self.try_insert_tab(self._left_tab, self._left_position, left_alt_sep_size, 0)
+        let self._left_tab -= done
       endif
       if self._right_tab <= self._last_tab && (center_active || !done)
-        let self._right_tab +=
-          \ self.try_insert_tab(self._right_tab, self._right_position, left_alt_sep_size, 0)
-        let done = 1
+        let done = self.try_insert_tab(self._right_tab, self._right_position, left_alt_sep_size, 0)
+        let self._right_tab += done
       endif
       if !done
         break
