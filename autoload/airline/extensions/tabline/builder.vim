@@ -65,10 +65,10 @@ function! s:prototype.build() dict
     let sep_size = s:strchars(s:evaluate_tabline(self._context.left_sep))
     let alt_sep_size = s:strchars(s:evaluate_tabline(self._context.left_alt_sep))
 
-    let skipped_tabs_marker = get(g:, 'airline#extensions#tabline#overflow_marker', g:airline_symbols.ellipsis)
-    let skipped_tabs_marker_size = s:strchars(s:evaluate_tabline(skipped_tabs_marker))
+    let overflow_marker = get(g:, 'airline#extensions#tabline#overflow_marker', g:airline_symbols.ellipsis)
+    let overflow_marker_size = s:strchars(s:evaluate_tabline(overflow_marker))
     " Allow space for the markers before we begin filling in titles.
-    let self._remaining_space -= 2 * skipped_tabs_marker_size
+    let self._remaining_space -= 2 * overflow_marker_size
 
     let outer_left_group = airline#builder#get_prev_group(self._sections, self._left_position)
     let outer_right_group = airline#builder#get_next_group(self._sections, self._right_position)
@@ -125,12 +125,12 @@ function! s:prototype.build() dict
       if get(g:, 'airline#extensions#tabline#current_first', 0)
         let self._left_position -= 1
       endif
-      call self.insert_raw('%#'.self.overflow_group.'#'.skipped_tabs_marker, self._left_position)
+      call self.insert_raw('%#'.self.overflow_group.'#'.overflow_marker, self._left_position)
       let self._right_position += 1
     endif
 
     if self._right_tab <= self._last_tab
-      call self.insert_raw('%#'.self.overflow_group.'#'.skipped_tabs_marker, self._right_position)
+      call self.insert_raw('%#'.self.overflow_group.'#'.overflow_marker, self._right_position)
     endif
   endif
 
