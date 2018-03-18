@@ -14,7 +14,7 @@ function! s:prototype.insert_tabs(curtab, first_tab, last_tab) dict
   let self._right_position = self._left_position
 endfunction
 
-function! s:prototype.try_insert_tab(tab, pos, sep_size, force) dict
+function! s:prototype.try_insert_tab(tab, group, pos, sep_size, force) dict
   let tab_title = self.get_title(a:tab)
   let self._remaining_space -= s:strchars(s:evaluate_tabline(tab_title)) + a:sep_size
   if a:force || self._remaining_space >= 0
@@ -25,7 +25,7 @@ function! s:prototype.try_insert_tab(tab, pos, sep_size, force) dict
       let pos += 1
     endif
 
-    call self.insert_section(self.get_group(a:tab), tab_title, pos)
+    call self.insert_section(a:group, tab_title, pos)
     let self._right_position += 1
     let pos += 1
 
@@ -42,6 +42,20 @@ function! s:prototype.try_insert_tab(tab, pos, sep_size, force) dict
   return 0
 endfunction
 
+function! s:get_separator_change(new_group, old_group, end_group, sep_size, alt_sep_size)
+  let sep_change = 0
+  if !empty(a:end_group)
+    let sep_change += airline#builder#should_change_group(a:new_group, a:end_group) ? a:sep_size : a:alt_sep_size
+  endif
+  if !empty(a:old_group)
+    let sep_change += airline#builder#should_change_group(a:new_group, a:old_group) ? a:sep_size : a:alt_sep_size
+    if !empty(a:end_group)
+      let sep_change -= airline#builder#should_change_group(a:old_group, a:end_group) ? a:sep_size : a:alt_sep_size
+    endif
+  endif
+  return sep_change
+endfunction
+
 function! s:prototype.build() dict
   if has_key(self, '_left_position')
     let self._remaining_space = &columns - s:strchars(s:evaluate_tabline(self._build()))
@@ -53,16 +67,21 @@ function! s:prototype.build() dict
 
     let skipped_tabs_marker = get(g:, 'airline#extensions#tabline#overflow_marker', g:airline_symbols.ellipsis)
     let skipped_tabs_marker_size = s:strchars(s:evaluate_tabline(skipped_tabs_marker))
-    " The left marker will have left_alt_sep, and the right will have left_sep.
-    let self._remaining_space -= 2 * skipped_tabs_marker_size + left_sep_size + left_alt_sep_size
-    "
-    " There are always two left_seps (either side of the selected tab) and all
-    " other seperators are left_alt_seps.
-    let self._remaining_space -= left_sep_size - left_alt_sep_size
+    " Allow space for the markers before we begin filling in titles.
+    let self._remaining_space -= 2 * skipped_tabs_marker_size
+
+    let outer_left_group = airline#builder#get_prev_group(self._sections, self._left_position)
+    let outer_right_group = airline#builder#get_next_group(self._sections, self._right_position)
 
     " Add the current tab
+    let group = self.get_group(self._left_tab)
+    let sep_change =
+      \ s:get_separator_change(group, "", outer_left_group, left_sep_size, left_alt_sep_size) +
+      \ s:get_separator_change(group, "", outer_right_group, left_sep_size, left_alt_sep_size)
+    let last_left_group = group
+    let last_right_group = group
     let self._left_tab -=
-      \ self.try_insert_tab(self._left_tab, self._left_position, left_sep_size, 1)
+      \ self.try_insert_tab(self._left_tab, group, self._left_position, sep_change, 1)
 
     if get(g:, 'airline#extensions#tabline#current_first', 0)
       " always have current tabpage first
@@ -71,18 +90,30 @@ function! s:prototype.build() dict
 
     " Add the tab to the right
     if !center_active && self._right_tab <= self._last_tab
+      let group = self.get_group(self._right_tab)
+      let sep_change =
+        \ s:get_separator_change(group, last_right_group, outer_right_group, left_sep_size, left_alt_sep_size)
+      let last_right_group = group
       let self._right_tab +=
-      \ self.try_insert_tab(self._right_tab, self._right_position, left_alt_sep_size, 1)
+      \ self.try_insert_tab(self._right_tab, group, self._right_position, sep_change, 1)
     endif
 
     while self._remaining_space > 0
       let done = 0
       if self._left_tab >= self._first_tab
-        let done = self.try_insert_tab(self._left_tab, self._left_position, left_alt_sep_size, 0)
+        let group = self.get_group(self._left_tab)
+        let sep_change =
+          \ s:get_separator_change(group, last_left_group, outer_left_group, left_sep_size, left_alt_sep_size)
+        let last_left_group = group
+        let done = self.try_insert_tab(self._left_tab, group, self._left_position, sep_change, 0)
         let self._left_tab -= done
       endif
       if self._right_tab <= self._last_tab && (center_active || !done)
-        let done = self.try_insert_tab(self._right_tab, self._right_position, left_alt_sep_size, 0)
+        let group = self.get_group(self._right_tab)
+        let sep_change =
+          \ s:get_separator_change(group, last_right_group, outer_right_group, left_sep_size, left_alt_sep_size)
+        let last_right_group = group
+        let done = self.try_insert_tab(self._right_tab, group, self._right_position, sep_change, 0)
         let self._right_tab += done
       endif
       if !done
