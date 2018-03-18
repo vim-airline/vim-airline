@@ -62,8 +62,8 @@ function! s:prototype.build() dict
 
     let center_active = get(g:, 'airline#extensions#tabline#center_active', 0)
 
-    let left_sep_size = s:strchars(s:evaluate_tabline(self._context.left_sep))
-    let left_alt_sep_size = s:strchars(s:evaluate_tabline(self._context.left_alt_sep))
+    let sep_size = s:strchars(s:evaluate_tabline(self._context.left_sep))
+    let alt_sep_size = s:strchars(s:evaluate_tabline(self._context.left_alt_sep))
 
     let skipped_tabs_marker = get(g:, 'airline#extensions#tabline#overflow_marker', g:airline_symbols.ellipsis)
     let skipped_tabs_marker_size = s:strchars(s:evaluate_tabline(skipped_tabs_marker))
@@ -76,8 +76,8 @@ function! s:prototype.build() dict
     " Add the current tab
     let group = self.get_group(self._left_tab)
     let sep_change =
-      \ s:get_separator_change(group, "", outer_left_group, left_sep_size, left_alt_sep_size) +
-      \ s:get_separator_change(group, "", outer_right_group, left_sep_size, left_alt_sep_size)
+      \ s:get_separator_change(group, "", outer_left_group, sep_size, alt_sep_size) +
+      \ s:get_separator_change(group, "", outer_right_group, sep_size, alt_sep_size)
     let last_left_group = group
     let last_right_group = group
     let self._left_tab -=
@@ -92,7 +92,7 @@ function! s:prototype.build() dict
     if !center_active && self._right_tab <= self._last_tab
       let group = self.get_group(self._right_tab)
       let sep_change =
-        \ s:get_separator_change(group, last_right_group, outer_right_group, left_sep_size, left_alt_sep_size)
+        \ s:get_separator_change(group, last_right_group, outer_right_group, sep_size, alt_sep_size)
       let last_right_group = group
       let self._right_tab +=
       \ self.try_insert_tab(self._right_tab, group, self._right_position, sep_change, 1)
@@ -103,7 +103,7 @@ function! s:prototype.build() dict
       if self._left_tab >= self._first_tab
         let group = self.get_group(self._left_tab)
         let sep_change =
-          \ s:get_separator_change(group, last_left_group, outer_left_group, left_sep_size, left_alt_sep_size)
+          \ s:get_separator_change(group, last_left_group, outer_left_group, sep_size, alt_sep_size)
         let last_left_group = group
         let done = self.try_insert_tab(self._left_tab, group, self._left_position, sep_change, 0)
         let self._left_tab -= done
@@ -111,7 +111,7 @@ function! s:prototype.build() dict
       if self._right_tab <= self._last_tab && (center_active || !done)
         let group = self.get_group(self._right_tab)
         let sep_change =
-          \ s:get_separator_change(group, last_right_group, outer_right_group, left_sep_size, left_alt_sep_size)
+          \ s:get_separator_change(group, last_right_group, outer_right_group, sep_size, alt_sep_size)
         let last_right_group = group
         let done = self.try_insert_tab(self._right_tab, group, self._right_position, sep_change, 0)
         let self._right_tab += done
