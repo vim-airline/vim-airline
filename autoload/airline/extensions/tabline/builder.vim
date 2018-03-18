@@ -78,8 +78,8 @@ function! s:prototype.build() dict
     let sep_change =
       \ s:get_separator_change(group, "", outer_left_group, sep_size, alt_sep_size) +
       \ s:get_separator_change(group, "", outer_right_group, sep_size, alt_sep_size)
-    let last_left_group = group
-    let last_right_group = group
+    let left_group = group
+    let right_group = group
     let self._left_tab -=
       \ self.try_insert_tab(self._left_tab, group, self._left_position, sep_change, 1)
 
@@ -92,8 +92,8 @@ function! s:prototype.build() dict
     if !center_active && self._right_tab <= self._last_tab
       let group = self.get_group(self._right_tab)
       let sep_change =
-        \ s:get_separator_change(group, last_right_group, outer_right_group, sep_size, alt_sep_size)
-      let last_right_group = group
+        \ s:get_separator_change(group, right_group, outer_right_group, sep_size, alt_sep_size)
+      let right_group = group
       let self._right_tab +=
       \ self.try_insert_tab(self._right_tab, group, self._right_position, sep_change, 1)
     endif
@@ -103,16 +103,16 @@ function! s:prototype.build() dict
       if self._left_tab >= self._first_tab
         let group = self.get_group(self._left_tab)
         let sep_change =
-          \ s:get_separator_change(group, last_left_group, outer_left_group, sep_size, alt_sep_size)
-        let last_left_group = group
+          \ s:get_separator_change(group, left_group, outer_left_group, sep_size, alt_sep_size)
+        let left_group = group
         let done = self.try_insert_tab(self._left_tab, group, self._left_position, sep_change, 0)
         let self._left_tab -= done
       endif
       if self._right_tab <= self._last_tab && (center_active || !done)
         let group = self.get_group(self._right_tab)
         let sep_change =
-          \ s:get_separator_change(group, last_right_group, outer_right_group, sep_size, alt_sep_size)
-        let last_right_group = group
+          \ s:get_separator_change(group, right_group, outer_right_group, sep_size, alt_sep_size)
+        let right_group = group
         let done = self.try_insert_tab(self._right_tab, group, self._right_position, sep_change, 0)
         let self._right_tab += done
       endif
