@@ -22,17 +22,18 @@ function! s:gui2cui(rgb, fallback)
   return airline#msdos#round_msdos_colors(rgb)
 endfunction
 
-function! s:get_syn(group, what)
+function! s:get_syn(group, what, ...)
   if !exists("g:airline_gui_mode")
     let g:airline_gui_mode = airline#init#gui_mode()
   endif
+  let mode = a:0 ? 'cterm' : g:airline_gui_mode
   let color = ''
   if hlexists(a:group)
-    let color = synIDattr(synIDtrans(hlID(a:group)), a:what, g:airline_gui_mode)
+    let color = synIDattr(synIDtrans(hlID(a:group)), a:what, mode)
   endif
   if empty(color) || color == -1
     " should always exists
-    let color = synIDattr(synIDtrans(hlID('Normal')), a:what, g:airline_gui_mode)
+    let color = synIDattr(synIDtrans(hlID('Normal')), a:what, mode)
     " however, just in case
     if empty(color) || color == -1
       let color = 'NONE'
@@ -48,6 +49,11 @@ function! s:get_array(fg, bg, opts)
         \ : [ '', '', a:fg, a:bg, opts ]
 endfunction
 
+function! s:get_array_full(fg, bg, ctermfg, ctermbg, opts)
+  let opts=empty(a:opts) ? '' : join(a:opts, ',')
+  return [ a:fg, a:bg, a:ctermfg, a:ctermbg, opts ]
+endfunction
+
 function! airline#highlighter#reset_hlcache()
   let s:hl_groups = {}
 endfunction
@@ -56,8 +62,8 @@ function! airline#highlighter#get_highlight(group, ...)
   if get(g:, 'airline_highlighting_cache', 0) && has_key(s:hl_groups, a:group)
     return s:hl_groups[a:group]
   else
-    let fg = s:get_syn(a:group, 'fg')
-    let bg = s:get_syn(a:group, 'bg')
+    let [fg, bg] = [s:get_syn(a:group, 'fg'), s:get_syn(a:group, 'bg')]
+    let [ctermfg, ctermbg] = [s:get_syn(a:group, 'fg', 1), s:get_syn(a:group, 'bg', 1)]
     let reverse = g:airline_gui_mode ==# 'gui'
           \ ? synIDattr(synIDtrans(hlID(a:group)), 'reverse', 'gui')
           \ : synIDattr(synIDtrans(hlID(a:group)), 'reverse', 'cterm')
@@ -67,7 +73,9 @@ function! airline#highlighter#get_highlight(group, ...)
     if bold
       let opts = ['bold']
     endif
-    let res = reverse ? s:get_array(bg, fg, opts) : s:get_array(fg, bg, opts)
+    let res = reverse ?
+          \  s:get_array_full(bg, fg, ctermbg, ctermfg, opts) :
+          \  s:get_array_full(fg, bg, ctermfg, ctermbg, opts)
   endif
   let s:hl_groups[a:group] = res
   return res
@@ -165,8 +173,8 @@ function! s:exec_separator(dict, from, to, inverse, suffix)
   if pumvisible()
     return
   endif
-  let l:from = airline#themes#get_highlight(a:from.a:suffix)
-  let l:to = airline#themes#get_highlight(a:to.a:suffix)
+  let l:from = airline#highlighter#get_highlight(a:from.a:suffix)
+  let l:to   = airline#highlighter#get_highlight(a:to.a:suffix)
   let group = a:from.'_to_'.a:to.a:suffix
   if a:inverse
     let colors = [ l:from[1], l:to[1], l:from[3], l:to[3] ]
