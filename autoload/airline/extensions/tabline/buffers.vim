@@ -143,11 +143,11 @@ function! airline#extensions#tabline#buffers#get()
   let s:column_width = &columns
   let s:current_tabline = b.build()
   let s:current_visible_buffers = copy(b.buffers)
-  if b._right_tab <= last_buffer
-    call remove(s:current_visible_buffers, b._right_tab, last_buffer)
+  if b._right_title <= last_buffer
+    call remove(s:current_visible_buffers, b._right_title, last_buffer)
   endif
-  if b._left_tab > 0
-    call remove(s:current_visible_buffers, 0, b._left_tab)
+  if b._left_title > 0
+    call remove(s:current_visible_buffers, 0, b._left_title)
   endif
   return s:current_tabline
 endfunction
