@@ -827,6 +827,10 @@ with the middle mouse button to delete that buffer.
 * configure symbol used to represent close button >
   let g:airline#extensions#tabline#close_symbol = 'X'
 
+* configure symbol used to represent an ellipsis
+  (for example, when the tabline is not wide enough to fit everything)
+  let g:airline#extensions#tabline#ellipsis = '...'
+
 * configure pattern to be ignored on BufAdd autocommand >
   " fixes unnecessary redraw, when e.g. opening Gundo window
   let airline#extensions#tabline#ignore_bufadd_pat =
@@ -841,7 +845,12 @@ Note: Enabling this extension will modify 'showtabline' and 'guioptions'.
 
 * preserve windows when closing a buffer from the bufferline (default: 0) >
   let airline#extensions#tabline#middle_click_preserves_windows = 1
-<
+
+* add spaces around buffer names (' <bufname> ' instead of '<bufname>')
+  useful when using powerline symbols, since the spaces are no longer
+  necessary as separators.
+  let g:airline#extensions#tabline#spaces_around_buffer_name = 1
+
 -------------------------------------                     *airline-tmuxline*
 tmuxline <https://github.com/edkolev/tmuxline.vim>
 
