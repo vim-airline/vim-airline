@@ -70,7 +70,8 @@ function! airline#init#bootstrap()
           \ 'spell': 'SPELL',
           \ 'modified': '+',
           \ 'space': ' ',
-          \ 'keymap': 'Keymap:'
+          \ 'keymap': 'Keymap:',
+          \ 'ellipsis': '...'
           \  }, 'keep')
 
   if get(g:, 'airline_powerline_fonts', 0)

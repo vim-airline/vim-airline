@@ -25,6 +25,37 @@ function! airline#extensions#tabline#tabs#invalidate()
   let s:current_bufnr = -1
 endfunction
 
+function! s:evaluate_tabline(tabline)
+  let tabline = a:tabline
+  let tabline = substitute(tabline, '%{\([^}]\+\)}', '\=eval(submatch(1))', 'g')
+  let tabline = substitute(tabline, '%#[^#]\+#', '', 'g')
+  let tabline = substitute(tabline, '%(\([^)]\+\)%)', '\1', 'g')
+  let tabline = substitute(tabline, '%\d\+[TX]', '', 'g')
+  let tabline = substitute(tabline, '%=', '', 'g')
+  let tabline = substitute(tabline, '%\d*\*', '', 'g')
+  return tabline
+endfunction
+
+function! s:get_title(tab_nr_type, i)
+  let val = '%('
+
+  if get(g:, 'airline#extensions#tabline#show_tab_nr', 1)
+    let val .= airline#extensions#tabline#tabs#tabnr_formatter(a:tab_nr_type, a:i)
+  endif
+
+  return val.'%'.a:i.'T %{airline#extensions#tabline#title('.a:i.')} %)'
+endfunction
+
+" Compatibility wrapper for strchars, in case this vim version does not
+" have it natively
+function! s:strchars(str)
+  if exists('*strchars')
+    return strchars(a:str)
+  else
+    return strlen(substitute(a:str, '.', 'a', 'g'))
+  endif
+endfunction
+
 function! airline#extensions#tabline#tabs#get()
   let curbuf = bufnr('%')
   let curtab = tabpagenr()
@@ -33,7 +64,7 @@ function! airline#extensions#tabline#tabs#get()
   catch
     " no-op
   endtry
-  if curbuf == s:current_bufnr && curtab == s:current_tabnr
+  if curbuf == s:current_bufnr && curtab == s:current_tabnr && &columns == s:column_width
     if !g:airline_detect_modified || getbufvar(curbuf, '&modified') == s:current_modified
       return s:current_tabline
     endif
@@ -43,35 +74,8 @@ function! airline#extensions#tabline#tabs#get()
   let b = airline#extensions#tabline#new_builder()
 
   call airline#extensions#tabline#add_label(b, 'tabs')
-  " always have current tabpage first
-  let tablist = range(1, tabpagenr('$'))
-  if get(g:, 'airline#extensions#tabline#current_first', 0)
-    if index(tablist, curtab) > -1
-      call remove(tablist, index(tablist, curtab))
-    endif
-    let tablist = [curtab] + tablist
-  endif
-  for i in tablist
-    if i == curtab
-      let group = 'airline_tabsel'
-      if g:airline_detect_modified
-        for bi in tabpagebuflist(i)
-          if getbufvar(bi, '&modified')
-            let group = 'airline_tabmod'
-          endif
-        endfor
-      endif
-      let s:current_modified = (group == 'airline_tabmod') ? 1 : 0
-    else
-      let group = 'airline_tab'
-    endif
-    let val = '%('
 
-    if get(g:, 'airline#extensions#tabline#show_tab_nr', 1)
-      let val .= airline#extensions#tabline#tabs#tabnr_formatter(tab_nr_type, i)
-    endif
-    call b.add_section(group, val.'%'.i.'T %{airline#extensions#tabline#title('.i.')} %)')
-  endfor
+  let tabs_position = b.get_position()
 
   call b.add_section('airline_tabfill', '')
   call b.split()
@@ -93,8 +97,89 @@ function! airline#extensions#tabline#tabs#get()
     endif
   endif
 
+  let num_tabs = tabpagenr('$')
+  let left_tab = curtab - 1
+  let right_tab = curtab + 1
+  let left_position = tabs_position
+  let right_position = tabs_position + 1
+  let remaining_space = &columns - s:strchars(s:evaluate_tabline(b.build()))
+
+  let left_sep_size = s:strchars(s:evaluate_tabline(b._context.left_sep))
+  let left_alt_sep_size = s:strchars(s:evaluate_tabline(b._context.left_alt_sep))
+
+  let skipped_tabs_marker = get(g:, 'airline#extensions#tabline#overflow_marker', g:airline_symbols.ellipsis)
+  let skipped_tabs_marker_size = s:strchars(s:evaluate_tabline(skipped_tabs_marker))
+  " The left marker will have left_alt_sep, and the right will have left_sep.
+  let remaining_space -= 2 * skipped_tabs_marker_size + left_sep_size + left_alt_sep_size
+
+  " Add the current tab
+  let tab_title = s:get_title(tab_nr_type, curtab)
+  let remaining_space -= s:strchars(s:evaluate_tabline(tab_title))
+  " There are always two left_seps (either side of the selected tab) and all
+  " other seperators are left_alt_seps.
+  let remaining_space -= 2 * left_sep_size - left_alt_sep_size
+  let group = 'airline_tabsel'
+  if g:airline_detect_modified
+    for bi in tabpagebuflist(curtab)
+      if getbufvar(bi, '&modified')
+        let group = 'airline_tabmod'
+      endif
+    endfor
+  endif
+  let s:current_modified = (group == 'airline_tabmod') ? 1 : 0
+  call b.insert_section(group, tab_title, left_position)
+
+  if get(g:, 'airline#extensions#tabline#current_first', 0)
+    " always have current tabpage first
+    let left_position += 1
+  endif
+
+  " Add the tab to the right
+  if right_tab <= num_tabs
+    let tab_title = s:get_title(tab_nr_type, right_tab)
+    let remaining_space -= s:strchars(s:evaluate_tabline(tab_title)) + left_alt_sep_size
+    call b.insert_section('airline_tab', tab_title, right_position)
+    let right_position += 1
+    let right_tab += 1
+  endif
+
+  while remaining_space > 0
+    if left_tab > 0
+      let tab_title = s:get_title(tab_nr_type, left_tab)
+      let remaining_space -= s:strchars(s:evaluate_tabline(tab_title)) + left_alt_sep_size
+      if remaining_space >= 0
+        call b.insert_section('airline_tab', tab_title, left_position)
+        let right_position += 1
+        let left_tab -= 1
+      endif
+    elseif right_tab <= num_tabs
+      let tab_title = s:get_title(tab_nr_type, right_tab)
+      let remaining_space -= s:strchars(s:evaluate_tabline(tab_title)) + left_alt_sep_size
+      if remaining_space >= 0
+        call b.insert_section('airline_tab', tab_title, right_position)
+        let right_position += 1
+        let right_tab += 1
+      endif
+    else
+      break
+    endif
+  endwhile
+
+  if left_tab > 0
+    if get(g:, 'airline#extensions#tabline#current_first', 0)
+      let left_position -= 1
+    endif
+    call b.insert_raw('%#airline_tab#'.skipped_tabs_marker, left_position)
+    let right_position += 1
+  endif
+
+  if right_tab <= num_tabs
+    call b.insert_raw('%#airline_tab#'.skipped_tabs_marker, right_position)
+  endif
+
   let s:current_bufnr = curbuf
   let s:current_tabnr = curtab
+  let s:column_width = &columns
   let s:current_tabline = b.build()
   return s:current_tabline
 endfunction
