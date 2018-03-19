@@ -71,7 +71,7 @@ function! airline#extensions#tabline#tabs#get()
     return val.'%'.a:i.'T %{airline#extensions#tabline#title('.a:i.')} %)'
   endfunction
 
-  call b.insert_tabs(curtab, 1, tabpagenr('$'))
+  call b.insert_titles(curtab, 1, tabpagenr('$'))
 
   call b.add_section('airline_tabfill', '')
   call b.split()

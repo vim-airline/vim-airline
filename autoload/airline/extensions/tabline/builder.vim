@@ -5,7 +5,7 @@ scriptencoding utf-8
 
 let s:prototype = {}
 
-function! s:prototype.insert_tabs(curtab, first_tab, last_tab) dict
+function! s:prototype.insert_titles(curtab, first_tab, last_tab) dict
   let self._first_tab = a:first_tab
   let self._last_tab = a:last_tab
   let self._left_tab = a:curtab
@@ -14,7 +14,7 @@ function! s:prototype.insert_tabs(curtab, first_tab, last_tab) dict
   let self._right_position = self._left_position
 endfunction
 
-function! s:prototype.try_insert_tab(tab, group, pos, sep_size, force) dict
+function! s:prototype.try_insert_title(tab, group, pos, sep_size, force) dict
   let tab_title = self.get_title(a:tab)
   let self._remaining_space -= s:strchars(s:evaluate_tabline(tab_title)) + a:sep_size
   if a:force || self._remaining_space >= 0
@@ -81,7 +81,7 @@ function! s:prototype.build() dict
     let left_group = group
     let right_group = group
     let self._left_tab -=
-      \ self.try_insert_tab(self._left_tab, group, self._left_position, sep_change, 1)
+      \ self.try_insert_title(self._left_tab, group, self._left_position, sep_change, 1)
 
     if get(g:, 'airline#extensions#tabline#current_first', 0)
       " always have current tabpage first
@@ -95,7 +95,7 @@ function! s:prototype.build() dict
         \ s:get_separator_change(group, right_group, outer_right_group, sep_size, alt_sep_size)
       let right_group = group
       let self._right_tab +=
-      \ self.try_insert_tab(self._right_tab, group, self._right_position, sep_change, 1)
+      \ self.try_insert_title(self._right_tab, group, self._right_position, sep_change, 1)
     endif
 
     while self._remaining_space > 0
@@ -105,7 +105,7 @@ function! s:prototype.build() dict
         let sep_change =
           \ s:get_separator_change(group, left_group, outer_left_group, sep_size, alt_sep_size)
         let left_group = group
-        let done = self.try_insert_tab(self._left_tab, group, self._left_position, sep_change, 0)
+        let done = self.try_insert_title(self._left_tab, group, self._left_position, sep_change, 0)
         let self._left_tab -= done
       endif
       if self._right_tab <= self._last_tab && (center_active || !done)
@@ -113,7 +113,7 @@ function! s:prototype.build() dict
         let sep_change =
           \ s:get_separator_change(group, right_group, outer_right_group, sep_size, alt_sep_size)
         let right_group = group
-        let done = self.try_insert_tab(self._right_tab, group, self._right_position, sep_change, 0)
+        let done = self.try_insert_title(self._right_tab, group, self._right_position, sep_change, 0)
         let self._right_tab += done
       endif
       if !done
