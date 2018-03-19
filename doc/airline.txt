@@ -1020,6 +1020,9 @@ ale <https://github.com/w0rp/ale>
 <
 * ale warning >
   let airline#extensions#ale#warning_symbol = 'W:'
+
+* ale show_line_numbers >
+  let airline#extensions#ale#show_line_numbers = 1
 <
 * ale open_lnum_symbol >
   let airline#extensions#ale#open_lnum_symbol = '(L'
