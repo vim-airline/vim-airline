@@ -5,15 +5,39 @@ scriptencoding utf-8
 
 let s:prototype = {}
 
+" Set the point in the tabline where the builder should insert the titles.
+"
+" Subsequent calls will overwrite the previous ones, so only the last call
+" determines to location to insert titles.
+"
+" NOTE: The titles are not inserted until |build| is called, so that the
+" remaining contents of the tabline can be taken into account.
+"
+" Callers should define at least |get_title| and |get_group| on the host
+" object before calling |build|.
 function! s:prototype.insert_titles(current, first, last) dict
-  let self._first_title = a:first
-  let self._last_title = a:last
-  let self._left_title = a:current
-  let self._right_title = a:current + 1
-  let self._left_position = self.get_position()
-  let self._right_position = self._left_position
+  let self._first_title = a:first " lowest index
+  let self._last_title = a:last " highest index
+  let self._left_title = a:current " next index to add on the left
+  let self._right_title = a:current + 1 " next index to add on the right
+  let self._left_position = self.get_position() " left end of titles
+  let self._right_position = self._left_position " right end of the titles
 endfunction
 
+" Insert a title for entry number |index|, of group |group| at position |pos|,
+" if there is space for it. Returns 1 if it is inserted, 0 otherwise
+"
+" |force| inserts the title even if there isn't enough space left for it.
+" |sep_size| adjusts the size change that the title is considered to take up,
+"            to account for changes to the separators
+"
+" The title is defined by |get_title| on the hosting object, called with
+" |index| as its only argument.
+" |get_pretitle| and |get_posttitle| may be defined on the host object to
+" insert some formatting before or after the title. These should be 0-width.
+"
+" This method updates |_right_position| and |_remaining_space| on the host
+" object, if the title is inserted.
 function! s:prototype.try_insert_title(index, group, pos, sep_size, force) dict
   let title = self.get_title(a:index)
   let self._remaining_space -= s:tabline_evaluated_length(title) + a:sep_size
@@ -42,20 +66,30 @@ function! s:prototype.try_insert_title(index, group, pos, sep_size, force) dict
   return 0
 endfunction
 
+" Compute the size of the change in tabs caused by separators
+"
+" This should be kept up-to-date with |s:get_transitioned_seperator| and
+" |s:get_separator| in autoload/airline/builder.vim
 function! s:get_separator_change(new_group, old_group, end_group, sep_size, alt_sep_size)
   let sep_change = 0
-  if !empty(a:end_group)
+  if !empty(a:end_group) " Separator between title and the end
     let sep_change += airline#builder#should_change_group(a:new_group, a:end_group) ? a:sep_size : a:alt_sep_size
   endif
-  if !empty(a:old_group)
+  if !empty(a:old_group) " Separator between the title and the one adjacent
     let sep_change += airline#builder#should_change_group(a:new_group, a:old_group) ? a:sep_size : a:alt_sep_size
-    if !empty(a:end_group)
+    if !empty(a:end_group) " Remove mis-predicted separator
       let sep_change -= airline#builder#should_change_group(a:old_group, a:end_group) ? a:sep_size : a:alt_sep_size
     endif
   endif
   return sep_change
 endfunction
 
+" This replaces the build function of the |airline#builder#new| object, to
+" insert titles as specified by the last call to |insert_titles| before
+" passing to the original build function.
+"
+" Callers should define at least |get_title| and |get_group| on the host
+" object if |insert_titles| has been called on it.
 function! s:prototype.build() dict
   if has_key(self, '_left_position')
     let self._remaining_space = &columns - s:tabline_evaluated_length(self._build())
@@ -88,8 +122,8 @@ function! s:prototype.build() dict
       let self._left_position += 1
     endif
 
-    " Add the title to the right
     if !center_active && self._right_title <= self._last_title
+      " Add the title to the right
       let group = self.get_group(self._right_title)
       let sep_change =
         \ s:get_separator_change(group, right_group, outer_right_group, sep_size, alt_sep_size)
@@ -101,6 +135,7 @@ function! s:prototype.build() dict
     while self._remaining_space > 0
       let done = 0
       if self._left_title >= self._first_title
+        " Insert next title to the left
         let group = self.get_group(self._left_title)
         let sep_change =
           \ s:get_separator_change(group, left_group, outer_left_group, sep_size, alt_sep_size)
@@ -108,7 +143,10 @@ function! s:prototype.build() dict
         let done = self.try_insert_title(self._left_title, group, self._left_position, sep_change, 0)
         let self._left_title -= done
       endif
+      " If center_active is set, this |if| operates as an independent |if|,
+      " otherwise as an |elif|.
       if self._right_title <= self._last_title && (center_active || !done)
+        " Insert next title to the right
         let group = self.get_group(self._right_title)
         let sep_change =
           \ s:get_separator_change(group, right_group, outer_right_group, sep_size, alt_sep_size)
@@ -139,6 +177,9 @@ endfunction
 
 let s:prototype.overflow_group = 'airline_tab'
 
+" Extract the text content a tabline will render. (Incomplete).
+"
+" See :help 'statusline' for the list of fields.
 function! s:evaluate_tabline(tabline)
   let tabline = a:tabline
   let tabline = substitute(tabline, '%{\([^}]\+\)}', '\=eval(submatch(1))', 'g')
