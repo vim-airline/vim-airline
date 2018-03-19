@@ -16,7 +16,7 @@ endfunction
 
 function! s:prototype.try_insert_title(index, group, pos, sep_size, force) dict
   let title = self.get_title(a:index)
-  let self._remaining_space -= airline#util#strchars(s:evaluate_tabline(title)) + a:sep_size
+  let self._remaining_space -= s:tabline_evaluated_length(title) + a:sep_size
   if a:force || self._remaining_space >= 0
     let pos = a:pos
     if has_key(self, "get_pretitle")
@@ -37,7 +37,7 @@ function! s:prototype.try_insert_title(index, group, pos, sep_size, force) dict
 
     return 1
   else
-    let self._remaining_space += airline#util#strchars(s:evaluate_tabline(title)) + a:sep_size
+    let self._remaining_space += s:tabline_evaluated_length(title) + a:sep_size
   endif
   return 0
 endfunction
@@ -58,15 +58,15 @@ endfunction
 
 function! s:prototype.build() dict
   if has_key(self, '_left_position')
-    let self._remaining_space = &columns - airline#util#strchars(s:evaluate_tabline(self._build()))
+    let self._remaining_space = &columns - s:tabline_evaluated_length(self._build())
 
     let center_active = get(g:, 'airline#extensions#tabline#center_active', 0)
 
-    let sep_size = airline#util#strchars(s:evaluate_tabline(self._context.left_sep))
-    let alt_sep_size = airline#util#strchars(s:evaluate_tabline(self._context.left_alt_sep))
+    let sep_size = s:tabline_evaluated_length(self._context.left_sep)
+    let alt_sep_size = s:tabline_evaluated_length(self._context.left_alt_sep)
 
     let overflow_marker = get(g:, 'airline#extensions#tabline#overflow_marker', g:airline_symbols.ellipsis)
-    let overflow_marker_size = airline#util#strchars(s:evaluate_tabline(overflow_marker))
+    let overflow_marker_size = s:tabline_evaluated_length(overflow_marker)
     " Allow space for the markers before we begin filling in titles.
     let self._remaining_space -= 2 * overflow_marker_size
 
@@ -151,6 +151,10 @@ function! s:evaluate_tabline(tabline)
     let tabline = substitute(tabline, '%@[^@]\+@', '', 'g')
   endif
   return tabline
+endfunction
+
+function! s:tabline_evaluated_length(tabline)
+  return airline#util#strchars(s:evaluate_tabline(a:tabline))
 endfunction
 
 function! airline#extensions#tabline#builder#new(context)
