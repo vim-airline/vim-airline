@@ -242,7 +242,12 @@ function! airline#async#nvim_vcs_untracked(cfg, file, vcs)
       " still running
       return
     endif
+    try
     let id = jobstart(cmd, config)
+    catch
+      " catch-all, jobstart() failed, fall back to system()
+      let id=-1
+    endtry
     let s:untracked_jobs[a:file] = id
   endif
   " vim without job feature or nvim jobstart failed
