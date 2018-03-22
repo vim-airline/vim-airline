@@ -66,19 +66,23 @@ function! s:prototype.try_insert_title(index, group, pos, sep_size, force) dict
   return 0
 endfunction
 
-" Compute the size of the change in tabs caused by separators
+function! s:get_separator_change(new_group, old_group, end_group, sep_size, alt_sep_size)
+  return s:get_separator_change_with_end(a:new_group, a:old_group, a:end_group, a:end_group, a:sep_size, a:alt_sep_size)
+endfunction
+
+" Compute the change in size of the tabline caused by separators
 "
 " This should be kept up-to-date with |s:get_transitioned_seperator| and
 " |s:get_separator| in autoload/airline/builder.vim
-function! s:get_separator_change(new_group, old_group, end_group, sep_size, alt_sep_size)
+function! s:get_separator_change_with_end(new_group, old_group, new_end_group, old_end_group, sep_size, alt_sep_size)
   let sep_change = 0
-  if !empty(a:end_group) " Separator between title and the end
-    let sep_change += airline#builder#should_change_group(a:new_group, a:end_group) ? a:sep_size : a:alt_sep_size
+  if !empty(a:new_end_group) " Separator between title and the end
+    let sep_change += airline#builder#should_change_group(a:new_group, a:new_end_group) ? a:sep_size : a:alt_sep_size
   endif
   if !empty(a:old_group) " Separator between the title and the one adjacent
     let sep_change += airline#builder#should_change_group(a:new_group, a:old_group) ? a:sep_size : a:alt_sep_size
-    if !empty(a:end_group) " Remove mis-predicted separator
-      let sep_change -= airline#builder#should_change_group(a:old_group, a:end_group) ? a:sep_size : a:alt_sep_size
+    if !empty(a:old_end_group) " Remove mis-predicted separator
+      let sep_change -= airline#builder#should_change_group(a:old_group, a:old_end_group) ? a:sep_size : a:alt_sep_size
     endif
   endif
   return sep_change
