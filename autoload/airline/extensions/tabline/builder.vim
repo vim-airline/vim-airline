@@ -103,19 +103,33 @@ function! s:prototype.build() dict
     let sep_size = s:tabline_evaluated_length(self._context.left_sep)
     let alt_sep_size = s:tabline_evaluated_length(self._context.left_alt_sep)
 
-    let overflow_marker = get(g:, 'airline#extensions#tabline#overflow_marker', g:airline_symbols.ellipsis)
-    let overflow_marker_size = s:tabline_evaluated_length(overflow_marker)
-    " Allow space for the markers before we begin filling in titles.
-    let self._remaining_space -= 2 * overflow_marker_size
-
     let outer_left_group = airline#builder#get_prev_group(self._sections, self._left_position)
     let outer_right_group = airline#builder#get_next_group(self._sections, self._right_position)
 
+    let overflow_marker = get(g:, 'airline#extensions#tabline#overflow_marker', g:airline_symbols.ellipsis)
+    let overflow_marker_size = s:tabline_evaluated_length(overflow_marker)
+    " Allow space for the markers before we begin filling in titles.
+    if self._left_title > self._first_title
+      let self._remaining_space -= overflow_marker_size +
+        \ s:get_separator_change(self.overflow_group, "", outer_left_group, sep_size, alt_sep_size)
+    endif
+    if self._left_title < self._last_title
+      let self._remaining_space -= overflow_marker_size +
+        \ s:get_separator_change(self.overflow_group, "", outer_right_group, sep_size, alt_sep_size)
+    endif
+
     " Add the current title
     let group = self.get_group(self._left_title)
-    let sep_change =
-      \ s:get_separator_change(group, "", outer_left_group, sep_size, alt_sep_size) +
-      \ s:get_separator_change(group, "", outer_right_group, sep_size, alt_sep_size)
+    if self._left_title == self._first_title
+      let sep_change = s:get_separator_change(group, "", outer_left_group, sep_size, alt_sep_size)
+    else
+      let sep_change = s:get_separator_change(group, "", self.overflow_group, sep_size, alt_sep_size)
+    endif
+    if self._left_title == self._last_title
+      let sep_change += s:get_separator_change(group, "", outer_right_group, sep_size, alt_sep_size)
+    else
+      let sep_change += s:get_separator_change(group, "", self.overflow_group, sep_size, alt_sep_size)
+    endif
     let left_group = group
     let right_group = group
     let self._left_title -=
@@ -129,8 +143,11 @@ function! s:prototype.build() dict
     if !center_active && self._right_title <= self._last_title
       " Add the title to the right
       let group = self.get_group(self._right_title)
-      let sep_change =
-        \ s:get_separator_change(group, right_group, outer_right_group, sep_size, alt_sep_size)
+      if self._right_title == self._last_title
+        let sep_change = s:get_separator_change_with_end(group, right_group, outer_right_group, self.overflow_group, sep_size, alt_sep_size) - overflow_marker_size
+      else
+        let sep_change = s:get_separator_change(group, right_group, self.overflow_group, sep_size, alt_sep_size)
+      endif
       let right_group = group
       let self._right_title +=
       \ self.try_insert_title(self._right_title, group, self._right_position, sep_change, 1)
@@ -141,8 +158,11 @@ function! s:prototype.build() dict
       if self._left_title >= self._first_title
         " Insert next title to the left
         let group = self.get_group(self._left_title)
-        let sep_change =
-          \ s:get_separator_change(group, left_group, outer_left_group, sep_size, alt_sep_size)
+        if self._left_title == self._first_title
+          let sep_change = s:get_separator_change_with_end(group, left_group, outer_left_group, self.overflow_group, sep_size, alt_sep_size) - overflow_marker_size
+        else
+          let sep_change = s:get_separator_change(group, left_group, self.overflow_group, sep_size, alt_sep_size)
+        endif
         let left_group = group
         let done = self.try_insert_title(self._left_title, group, self._left_position, sep_change, 0)
         let self._left_title -= done
@@ -152,8 +172,11 @@ function! s:prototype.build() dict
       if self._right_title <= self._last_title && (center_active || !done)
         " Insert next title to the right
         let group = self.get_group(self._right_title)
-        let sep_change =
-          \ s:get_separator_change(group, right_group, outer_right_group, sep_size, alt_sep_size)
+        if self._right_title == self._last_title
+          let sep_change = s:get_separator_change_with_end(group, right_group, outer_right_group, self.overflow_group, sep_size, alt_sep_size) - overflow_marker_size
+        else
+          let sep_change = s:get_separator_change(group, right_group, self.overflow_group, sep_size, alt_sep_size)
+        endif
         let right_group = group
         let done = self.try_insert_title(self._right_title, group, self._right_position, sep_change, 0)
         let self._right_title += done
@@ -167,12 +190,12 @@ function! s:prototype.build() dict
       if get(g:, 'airline#extensions#tabline#current_first', 0)
         let self._left_position -= 1
       endif
-      call self.insert_raw('%#'.self.overflow_group.'#'.overflow_marker, self._left_position)
+      call self.insert_section(self.overflow_group, overflow_marker, self._left_position)
       let self._right_position += 1
     endif
 
     if self._right_title <= self._last_title
-      call self.insert_raw('%#'.self.overflow_group.'#'.overflow_marker, self._right_position)
+      call self.insert_section(self.overflow_group, overflow_marker, self._right_position)
     endif
   endif
 
