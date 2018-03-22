@@ -40,8 +40,8 @@ endfunction
 " object, if the title is inserted.
 function! s:prototype.try_insert_title(index, group, pos, sep_size, force) dict
   let title = self.get_title(a:index)
-  let self._remaining_space -= s:tabline_evaluated_length(title) + a:sep_size
-  if a:force || self._remaining_space >= 0
+  let title_size = s:tabline_evaluated_length(title) + a:sep_size
+  if a:force || self._remaining_space >= title_size
     let pos = a:pos
     if has_key(self, "get_pretitle")
       call self.insert_raw(self.get_pretitle(a:index), pos)
@@ -59,9 +59,8 @@ function! s:prototype.try_insert_title(index, group, pos, sep_size, force) dict
       let pos += 1
     endif
 
+    let self._remaining_space -= title_size
     return 1
-  else
-    let self._remaining_space += s:tabline_evaluated_length(title) + a:sep_size
   endif
   return 0
 endfunction
