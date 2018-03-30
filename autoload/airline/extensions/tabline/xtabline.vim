@@ -23,7 +23,6 @@ function! airline#extensions#tabline#xtabline#init()
     let t:xtl_excluded = get(g:, 'airline#extensions#tabline#exclude_buffers', [])
     let t:xtl_accepted = []
 
-    let g:xtabline_bufevent_update = get(g:, 'xtabline_bufevent_update', 1)
     let g:xtabline_include_previews = get(g:, 'xtabline_include_previews', 1)
 
     let g:xtabline_alt_action = get(g:, 'xtabline_alt_action', "buffer #")
@@ -42,7 +41,7 @@ function! airline#extensions#tabline#xtabline#init()
         autocmd TabClosed * call s:Do('close')
 
         autocmd BufEnter  * let g:xtabline_changing_buffer = 0
-        autocmd BufAdd,BufDelete,BufWrite * call s:OnBufEvent()
+        autocmd BufAdd,BufDelete,BufWrite * call airline#extensions#tabline#xtabline#filter_buffers()
     augroup END
 
 
@@ -170,7 +169,7 @@ endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-function! airline#extensions#tabline#xtabline#filter_buffers(...)
+function! airline#extensions#tabline#xtabline#filter_buffers()
     """Filter buffers so that only the ones within the tab's cwd will show up.
 
     " 'accepted' is a list of buffer numbers, for quick access.
@@ -334,10 +333,6 @@ function! s:InitCwds()
     let s:state = 1
     let t:cwd = getcwd()
     call airline#extensions#tabline#xtabline#filter_buffers()
-endfunction
-
-function! s:OnBufEvent()
-    if g:xtabline_bufevent_update | call airline#extensions#tabline#xtabline#filter_buffers(1) | endif
 endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
