@@ -94,7 +94,7 @@ endfunction
 " Callers should define at least |get_title| and |get_group| on the host
 " object if |insert_titles| has been called on it.
 function! s:prototype.build() dict
-  if has_key(self, '_left_position')
+  if has_key(self, '_left_position') && self._first_title <= self._last_title
     let self._remaining_space = &columns - s:tabline_evaluated_length(self._build())
 
     let center_active = get(g:, 'airline#extensions#tabline#center_active', 0)
