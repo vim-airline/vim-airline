@@ -86,3 +86,13 @@ else
     return 0
   endfunction
 endif
+
+" Compatibility wrapper for strchars, in case this vim version does not
+" have it natively
+function! airline#util#strchars(str)
+  if exists('*strchars')
+    return strchars(a:str)
+  else
+    return strlen(substitute(a:str, '.', 'a', 'g'))
+  endif
+endfunction

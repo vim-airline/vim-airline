@@ -22,7 +22,19 @@ function! s:prototype.add_raw(text) dict
   call add(self._sections, ['', a:text])
 endfunction
 
-function! s:get_prev_group(sections, i)
+function! s:prototype.insert_section(group, contents, position) dict
+  call insert(self._sections, [a:group, a:contents], a:position)
+endfunction
+
+function! s:prototype.insert_raw(text, position) dict
+  call insert(self._sections, ['', a:text], a:position)
+endfunction
+
+function! s:prototype.get_position() dict
+  return len(self._sections)
+endfunction
+
+function! airline#builder#get_prev_group(sections, i)
   let x = a:i - 1
   while x >= 0
     let group = a:sections[x][0]
@@ -30,6 +42,19 @@ function! s:get_prev_group(sections, i)
       return group
     endif
     let x = x - 1
+  endwhile
+  return ''
+endfunction
+
+function! airline#builder#get_next_group(sections, i)
+  let x = a:i + 1
+  let l = len(a:sections)
+  while x < l
+    let group = a:sections[x][0]
+    if group != '' && group != '|'
+      return group
+    endif
+    let x = x + 1
   endwhile
   return ''
 endfunction
@@ -48,7 +73,7 @@ function! s:prototype.build() dict
     let group = section[0]
     let contents = section[1]
     let pgroup = prev_group
-    let prev_group = s:get_prev_group(self._sections, i)
+    let prev_group = airline#builder#get_prev_group(self._sections, i)
     if group ==# 'airline_c' && &buftype ==# 'terminal' && self._context.active
       let group = 'airline_term'
     elseif group ==# 'airline_c' && !self._context.active && has_key(self._context, 'bufnr')
@@ -102,7 +127,7 @@ function! s:prototype.build() dict
   return line
 endfunction
 
-function! s:should_change_group(group1, group2)
+function! airline#builder#should_change_group(group1, group2)
   if a:group1 == a:group2
     return 0
   endif
@@ -132,7 +157,7 @@ function! s:get_transitioned_seperator(self, prev_group, group, side)
 endfunction
 
 function! s:get_seperator(self, prev_group, group, side)
-  if s:should_change_group(a:prev_group, a:group)
+  if airline#builder#should_change_group(a:prev_group, a:group)
     return s:get_transitioned_seperator(a:self, a:prev_group, a:group, a:side)
   else
     return a:side ? a:self._context.left_alt_sep : a:self._context.right_alt_sep

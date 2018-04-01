@@ -181,7 +181,7 @@ function! airline#extensions#tabline#new_builder()
     let builder_context.left_alt_sep = get(g:, 'airline#extensions#tabline#left_alt_sep' , '|')
   endif
 
-  return airline#builder#new(builder_context)
+  return airline#extensions#tabline#builder#new(builder_context)
 endfunction
 
 function! airline#extensions#tabline#group_of_bufnr(tab_bufs, bufnr)

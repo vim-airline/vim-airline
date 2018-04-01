@@ -33,45 +33,45 @@ function! airline#extensions#tabline#tabs#get()
   catch
     " no-op
   endtry
-  if curbuf == s:current_bufnr && curtab == s:current_tabnr
+  if curbuf == s:current_bufnr && curtab == s:current_tabnr && &columns == s:column_width
     if !g:airline_detect_modified || getbufvar(curbuf, '&modified') == s:current_modified
       return s:current_tabline
     endif
   endif
 
-  let tab_nr_type = get(g:, 'airline#extensions#tabline#tab_nr_type', 0)
   let b = airline#extensions#tabline#new_builder()
 
   call airline#extensions#tabline#add_label(b, 'tabs')
-  " always have current tabpage first
-  let tablist = range(1, tabpagenr('$'))
-  if get(g:, 'airline#extensions#tabline#current_first', 0)
-    if index(tablist, curtab) > -1
-      call remove(tablist, index(tablist, curtab))
-    endif
-    let tablist = [curtab] + tablist
-  endif
-  for i in tablist
-    if i == curtab
+
+  function! b.get_group(i) dict
+    let curtab = tabpagenr()
+    let group = 'airline_tab'
+    if a:i == curtab
       let group = 'airline_tabsel'
       if g:airline_detect_modified
-        for bi in tabpagebuflist(i)
+        for bi in tabpagebuflist(curtab)
           if getbufvar(bi, '&modified')
             let group = 'airline_tabmod'
           endif
         endfor
       endif
       let s:current_modified = (group == 'airline_tabmod') ? 1 : 0
-    else
-      let group = 'airline_tab'
     endif
+    return group
+  endfunction
+
+  function! b.get_title(i) dict
     let val = '%('
 
     if get(g:, 'airline#extensions#tabline#show_tab_nr', 1)
-      let val .= airline#extensions#tabline#tabs#tabnr_formatter(tab_nr_type, i)
+      let tab_nr_type = get(g:, 'airline#extensions#tabline#tab_nr_type', 0)
+      let val .= airline#extensions#tabline#tabs#tabnr_formatter(tab_nr_type, a:i)
     endif
-    call b.add_section(group, val.'%'.i.'T %{airline#extensions#tabline#title('.i.')} %)')
-  endfor
+
+    return val.'%'.a:i.'T %{airline#extensions#tabline#title('.a:i.')} %)'
+  endfunction
+
+  call b.insert_titles(curtab, 1, tabpagenr('$'))
 
   call b.add_section('airline_tabfill', '')
   call b.split()
@@ -95,6 +95,7 @@ function! airline#extensions#tabline#tabs#get()
 
   let s:current_bufnr = curbuf
   let s:current_tabnr = curtab
+  let s:column_width = &columns
   let s:current_tabline = b.build()
   return s:current_tabline
 endfunction

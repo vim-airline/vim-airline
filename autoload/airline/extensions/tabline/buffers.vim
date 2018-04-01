@@ -52,7 +52,7 @@ function! airline#extensions#tabline#buffers#get()
     " no-op
   endtry
   let cur = bufnr('%')
-  if cur == s:current_bufnr
+  if cur == s:current_bufnr && &columns == s:column_width
     if !g:airline_detect_modified || getbufvar(cur, '&modified') == s:current_modified
       return s:current_tabline
     endif
@@ -69,24 +69,45 @@ function! airline#extensions#tabline#buffers#get()
   if show_buf_label_first
     call airline#extensions#tabline#add_label(b, 'buffers')
   endif
-  let pgroup = ''
-  for nr in s:get_visible_buffers()
-    if nr < 0
-      call b.add_raw('%#airline_tabhid#...')
-      continue
+
+  let b.tab_bufs = tabpagebuflist(tabpagenr())
+
+  let b.overflow_group = 'airline_tabhid'
+  let b.buffers = airline#extensions#tabline#buflist#list()
+  if get(g:, 'airline#extensions#tabline#current_first', 0)
+    if index(b.buffers, cur) > -1
+      call remove(b.buffers, index(b.buffers, cur))
     endif
+    let b.buffers = [cur] + b.buffers
+  endif
 
-    let group = airline#extensions#tabline#group_of_bufnr(tab_bufs, nr)
-
-    if nr == cur
+  function! b.get_group(i) dict
+    let bufnum = get(self.buffers, a:i, -1)
+    if bufnum == -1
+      return ''
+    endif
+    let group = airline#extensions#tabline#group_of_bufnr(self.tab_bufs, bufnum)
+    if bufnum == bufnr('%')
       let s:current_modified = (group == 'airline_tabmod') ? 1 : 0
     endif
+    return group
+  endfunction
 
-    " Neovim feature: Have clickable buffers
-    if has("tablineat")
-      call b.add_raw('%'.nr.'@airline#extensions#tabline#buffers#clickbuf@')
-    endif
+  if has("tablineat")
+    function! b.get_pretitle(i) dict
+      let bufnum = get(self.buffers, a:i, -1)
+      return '%'.bufnum.'@airline#extensions#tabline#buffers#clickbuf@'
+    endfunction
 
+    function b.get_posttitle(i) dict
+      return '%X'
+    endfunction
+  endif
+
+  function! b.get_title(i) dict
+    let bufnum = get(self.buffers, a:i, -1)
+    let group = self.get_group(a:i)
+    let pgroup = self.get_group(a:i - 1)
     if get(g:, 'airline_powerline_fonts', 0)
       let space = s:spc
     else
@@ -95,20 +116,18 @@ function! airline#extensions#tabline#buffers#get()
 
     if get(g:, 'airline#extensions#tabline#buffer_idx_mode', 0)
       if len(s:number_map) > 0
-        call b.add_section(group, space. get(s:number_map, index, '') . '%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)' . s:spc)
+        return space. get(s:number_map, a:i, '') . '%(%{airline#extensions#tabline#get_buffer_name('.bufnum.')}%)' . s:spc
       else
-        call b.add_section(group, '['.index.s:spc.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.']')
+        return '['.a:i.s:spc.'%(%{airline#extensions#tabline#get_buffer_name('.bufnum.')}%)'.']'
       endif
-      let index += 1
     else
-      call b.add_section(group, space.'%(%{airline#extensions#tabline#get_buffer_name('.nr.')}%)'.s:spc)
+      return space.'%(%{airline#extensions#tabline#get_buffer_name('.bufnum.')}%)'.s:spc
     endif
+  endfunction
 
-    if has("tablineat")
-      call b.add_raw('%X')
-    endif
-    let pgroup=group
-  endfor
+  let current_buffer = max([index(b.buffers, cur), 0])
+  let last_buffer = len(b.buffers) - 1
+  call b.insert_titles(current_buffer, 0, last_buffer)
 
   call b.add_section('airline_tabfill', '')
   call b.split()
@@ -122,67 +141,16 @@ function! airline#extensions#tabline#buffers#get()
   endif
 
   let s:current_bufnr = cur
+  let s:column_width = &columns
   let s:current_tabline = b.build()
+  let s:current_visible_buffers = copy(b.buffers)
+  if b._right_title <= last_buffer
+    call remove(s:current_visible_buffers, b._right_title, last_buffer)
+  endif
+  if b._left_title > 0
+    call remove(s:current_visible_buffers, 0, b._left_title)
+  endif
   return s:current_tabline
-endfunction
-
-function! s:get_visible_buffers()
-  let buffers = airline#extensions#tabline#buflist#list()
-  let cur = bufnr('%')
-  if get(g:, 'airline#extensions#tabline#current_first', 0)
-    if index(buffers, cur) > -1
-      call remove(buffers, index(buffers, cur))
-    endif
-    let buffers = [cur] + buffers
-  endif
-
-  let total_width = 0
-  let max_width = 0
-
-  for nr in buffers
-    let width = len(airline#extensions#tabline#get_buffer_name(nr)) + 4
-    let total_width += width
-    let max_width = max([max_width, width])
-  endfor
-
-  " only show current and surrounding buffers if there are too many buffers
-  let position  = index(buffers, cur)
-  let vimwidth = &columns
-  if total_width > vimwidth && position > -1
-    let buf_count = len(buffers)
-
-    " determine how many buffers to show based on the longest buffer width,
-    " use one on the right side and put the rest on the left
-    let buf_max   = vimwidth / max_width
-    let buf_right = 1
-    let buf_left  = max([0, buf_max - buf_right])
-
-    let start = max([0, position - buf_left])
-    let end   = min([buf_count, position + buf_right])
-
-    " fill up available space on the right
-    if position < buf_left
-      let end += (buf_left - position)
-    endif
-
-    " fill up available space on the left
-    if end > buf_count - 1 - buf_right
-      let start -= max([0, buf_right - (buf_count - 1 - position)])
-    endif
-
-    let buffers = eval('buffers[' . start . ':' . end . ']')
-
-    if start > 0
-      call insert(buffers, -1, 0)
-    endif
-
-    if end < buf_count - 1
-      call add(buffers, -1)
-    endif
-  endif
-
-  let s:current_visible_buffers = buffers
-  return buffers
 endfunction
 
 function! s:select_tab(buf_index)
