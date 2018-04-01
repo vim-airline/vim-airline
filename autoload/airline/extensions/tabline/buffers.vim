@@ -125,8 +125,9 @@ function! airline#extensions#tabline#buffers#get()
     endif
   endfunction
 
+  let current_buffer = max([index(b.buffers, cur), 0])
   let last_buffer = len(b.buffers) - 1
-  call b.insert_titles(index(b.buffers, cur), 0, last_buffer)
+  call b.insert_titles(current_buffer, 0, last_buffer)
 
   call b.add_section('airline_tabfill', '')
   call b.split()
