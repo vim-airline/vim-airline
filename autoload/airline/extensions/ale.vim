@@ -5,6 +5,7 @@ scriptencoding utf-8
 
 let s:error_symbol = get(g:, 'airline#extensions#ale#error_symbol', 'E:')
 let s:warning_symbol = get(g:, 'airline#extensions#ale#warning_symbol', 'W:')
+let s:show_line_numbers = get(g:, 'airline#extensions#ale#show_line_numbers', 1)
 
 function! s:airline_ale_count(cnt, symbol)
   return a:cnt ? a:symbol. a:cnt : ''
@@ -52,7 +53,11 @@ function! airline#extensions#ale#get(type)
     let num = is_err ? counts[0] : counts[1]
   endif
 
-  return s:airline_ale_count(num, symbol) . <sid>airline_ale_get_line_number(num, a:type)
+  if s:show_line_numbers == 1
+    return s:airline_ale_count(num, symbol) . <sid>airline_ale_get_line_number(num, a:type)
+  else
+    return s:airline_ale_count(num, symbol)
+  endif
 endfunction
 
 function! airline#extensions#ale#get_warning()
