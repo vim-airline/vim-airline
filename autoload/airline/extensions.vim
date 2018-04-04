@@ -28,7 +28,7 @@ else
 endif
 
 let s:filetype_overrides = {
-			\ 'nerdtree': [ s:nerdStatusLine, '' ],
+      \ 'nerdtree': [ s:nerdStatusLine, '' ],
       \ 'gundo': [ 'Gundo', '' ],
       \ 'vimfiler': [ 'vimfiler', '%{vimfiler#get_status_string()}' ],
       \ 'minibufexpl': [ 'MiniBufExplorer', '' ],
