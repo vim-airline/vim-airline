@@ -21,8 +21,14 @@ endfunction
 
 let s:script_path = tolower(resolve(expand('<sfile>:p:h')))
 
+if exists('g:NERDTreeStatusline')
+  let s:nerdStatusLine = g:NERDTreeStatusline
+else
+  let s:nerdStatusLine = 'NERD'
+endif
+
 let s:filetype_overrides = {
-      \ 'nerdtree': [ 'NERD', '' ],
+			\ 'nerdtree': [ s:nerdStatusLine, '' ],
       \ 'gundo': [ 'Gundo', '' ],
       \ 'vimfiler': [ 'vimfiler', '%{vimfiler#get_status_string()}' ],
       \ 'minibufexpl': [ 'MiniBufExplorer', '' ],
