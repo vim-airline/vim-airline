@@ -403,6 +403,12 @@ vim-bufferline <https://github.com/bling/vim-bufferline>
 * determine whether bufferline will overwrite customization variables >
   let g:airline#extensions#bufferline#overwrite_variables = 1
 <
+-------------------------------------                   *airline-nerdtree*
+NerdTree <https://github.com/scrooloose/nerdtree.git>
+
+Airline displays the Nerdtree specific statusline (which can be configured using
+the |'NerdTreeStatusline'|variable.
+
 -------------------------------------                   *airline-fugitiveline*
 This extension hides the fugitive://**// part of the buffer names, to only
 show the file name as if it were in the current working tree.
