@@ -158,9 +158,7 @@ function! airline#init#bootstrap()
 endfunction
 
 function! airline#init#gui_mode()
-  return ((has('nvim') && exists('$NVIM_TUI_ENABLE_TRUE_COLOR') && !exists("+termguicolors"))
-        \ || has('gui_running') || (has("termtruecolor") && &guicolors == 1) || (has("termguicolors") && &termguicolors == 1)) ?
-        \ 'gui' : 'cterm'
+  return has('gui_running') || (has("termguicolors") && &termguicolors == 1) ?  'gui' : 'cterm'
 endfunction
 
 function! airline#init#sections()
