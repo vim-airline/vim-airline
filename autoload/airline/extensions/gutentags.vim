@@ -8,7 +8,8 @@ if !get(g:, 'loaded_gutentags', 0)
 endif
 
 function! airline#extensions#gutentags#status()
-  return gutentags#statusline() =~# '^TAGS' ? 'Gen. tags' : ''
+  let msg = gutentags#statusline()
+  return empty(msg) ? '' :  'Gen. ' . msg
 endfunction
 
 function! airline#extensions#gutentags#init(ext)
