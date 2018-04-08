@@ -172,6 +172,11 @@ function! airline#extensions#load()
     call add(loaded_ext, 'ctrlp')
   endif
 
+  if get(g:, 'loaded_localsearch', 0)
+    call airline#extensions#localsearch#init(s:ext)
+    call add(loaded_ext, 'localsearch')
+  endif
+
   if get(g:, 'CtrlSpaceLoaded', 0)
     call airline#extensions#ctrlspace#init(s:ext)
     call add(loaded_ext, 'ctrlspace')
