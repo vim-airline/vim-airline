@@ -465,6 +465,23 @@ notexists symbol will be displayed after the branch name.
 <
 * truncate sha1 commits at this number of characters  >
   let g:airline#extensions#branch#sha1_len = 10
+
+* customize branch name retrieval for any version control system >
+  let g:airline#extensions#branch#custom_head = 'GetScmBranch'
+  function! GetScmBranch()
+    if !exists('b:perforce_client')
+      let b:perforce_client = system('p4 client -o | grep Client')
+      " Invalidate cache to prevent stale data when switching clients. Use a
+      " buffer-unique group name to prevent clearing autocmds for other
+      " buffers.
+      exec 'augroup perforce_client-'. bufnr("%")
+          au!
+          autocmd BufWinLeave <buffer> silent! unlet! b:perforce_client
+      augroup END
+    endif
+    return b:perforce_client
+  endfunction
+
 <
 -------------------------------------                    *airline-syntastic*
 syntastic <https://github.com/vim-syntastic/syntastic>

@@ -3,13 +3,18 @@
 
 scriptencoding utf-8
 
-let s:has_fugitive = exists('*fugitive#head')
-let s:has_lawrencium = exists('*lawrencium#statusline')
-let s:has_vcscommand = get(g:, 'airline#extensions#branch#use_vcscommand', 0) && exists('*VCSCommandGetStatusLine')
-
-if !s:has_fugitive && !s:has_lawrencium && !s:has_vcscommand
-  finish
-endif
+function! s:has_fugitive()
+  return exists('*fugitive#head')
+endfunction
+function! s:has_lawrencium()
+  return exists('*lawrencium#statusline')
+endfunction
+function! s:has_vcscommand()
+  return get(g:, 'airline#extensions#branch#use_vcscommand', 0) && exists('*VCSCommandGetStatusLine')
+endfunction
+function! s:has_custom_scm()
+  return !empty(get(g:, 'airline#extensions#branch#custom_head', ''))
+endfunction
 
 " s:vcs_config contains static configuration of VCSes and their status relative
 " to the active file.
@@ -89,7 +94,7 @@ let s:names = {'0': 'index', '1': 'orig', '2':'fetch', '3':'merge'}
 let s:sha1size = get(g:, 'airline#extensions#branch#sha1_len', 7)
 
 function! s:update_git_branch()
-  if !s:has_fugitive
+  if !s:has_fugitive()
     let s:vcs_config['git'].branch = ''
     return
   endif
@@ -123,7 +128,7 @@ function! s:display_git_branch()
 endfunction
 
 function! s:update_hg_branch()
-  if s:has_lawrencium
+  if s:has_lawrencium()
     let cmd='LC_ALL=C hg qtop'
     let stl=lawrencium#statusline()
     let file=expand('%:p')
@@ -248,11 +253,20 @@ function! airline#extensions#branch#head()
   endfor
 
   if empty(heads)
-    if s:has_vcscommand
+    if s:has_vcscommand()
       call VCSCommandEnableBufferSetup()
       if exists('b:VCSCommandBufferInfo')
         let b:airline_head = s:format_name(get(b:VCSCommandBufferInfo, 0, ''))
       endif
+    endif
+  endif
+
+  if empty(heads)
+    if s:has_custom_scm()
+      try
+        let Fn = function(g:airline#extensions#branch#custom_head)
+        let b:airline_head = Fn()
+      endtry
     endif
   endif
 
