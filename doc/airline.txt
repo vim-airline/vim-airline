@@ -1029,7 +1029,7 @@ State indicators:
 * single compilation is running >
   let g:airline#extensions#vimtex#compiled = "c₁"
 
-* continuousr compilation is running >
+* continuous compilation is running >
   let g:airline#extensions#vimtex#continuous = "c"
 
 * viewer is opened >
@@ -1068,6 +1068,12 @@ neomake <https://github.com/neomake/neomake>
 * neomake warning >
   let airline#extensions#neomake#warning_symbol = 'W:'
 <
+-------------------------------------                    *airline-localsearch*
+localsearch <https://github.com/mox-mox/localsearch>
+
+* enable/disable localsearch indicator integration >
+  let g:airline#extensions#localsearch#enabled = 1
+
 -------------------------------------                    *airline-cursormode*
 cursormode <https://github.com/vheon/vim-cursormode>
 
