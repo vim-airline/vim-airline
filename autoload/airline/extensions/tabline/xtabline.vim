@@ -64,13 +64,13 @@ function! airline#extensions#tabline#xtabline#maps()
 
         fun! s:mapkeys(keys, plug)
             if empty(mapcheck(a:keys)) && !hasmapto(a:plug)
-                execute 'map <unique> '.a:keys.' '.a:plug
+                execute 'map '.a:keys.' '.a:plug
             endif
         endfun
 
         call s:mapkeys('<F5>','<Plug>XTablineToggleTabs')
         call s:mapkeys('<leader><F5>','<Plug>XTablineToggleBuffers')
-        call s:mapkeys('<leader>l','<Plug>XTablineSelectBuffer')
+        call s:mapkeys('<BS>','<Plug>XTablineSelectBuffer')
         call s:mapkeys(']l','<Plug>XTablineNextBuffer')
         call s:mapkeys('[l','<Plug>XTablinePrevBuffer')
         call s:mapkeys('<leader>tr','<Plug>XTablineReopen')
@@ -106,7 +106,6 @@ function! airline#extensions#tabline#xtabline#maps()
         nnoremap <unique> <script> <Plug>XTablineCdDown3   :cd %:p:h:h:h:h<cr>:doautocmd BufAdd<cr>:pwd<cr>
         nnoremap <unique> <script> <Plug>XTablineCdHome    :cd ~<cr>:doautocmd BufAdd<cr>:pwd<cr>
     endif
-
 endfunction
 
 
@@ -173,7 +172,7 @@ function! airline#extensions#tabline#xtabline#filter_buffers()
     """Filter buffers so that only the ones within the tab's cwd will show up.
 
     " 'accepted' is a list of buffer numbers, for quick access.
-    " 'excluded' is a list of buffer numbers, it will be used by Airline to hide buffers."""
+    " 'excluded' is a list of buffer numbers, it will be used by Airline to hide buffers.
 
     if !s:xtabline_filtering | return | endif
 
@@ -330,8 +329,9 @@ function! s:InitCwds()
     while len(g:xtab_cwds) < tabpagenr("$")
         call add(g:xtab_cwds, getcwd())
     endwhile
-    let s:state = 1
-    let t:cwd = getcwd()
+    let s:state    = 1
+    let t:cwd      = getcwd()
+    let s:last_tab = 0
     call airline#extensions#tabline#xtabline#filter_buffers()
 endfunction
 
@@ -374,6 +374,7 @@ function! s:Do(action)
 
         let t:cwd = getcwd()
         let g:xtab_cwds[tabpagenr()-1] = t:cwd
+        let s:last_tab = tabpagenr() - 1
 
         if !exists('t:name') | let t:name = t:cwd | endif
         let s:most_recent_tab = {'cwd': t:cwd, 'name': t:name, 'buffers': s:TabBuffers()}
@@ -383,11 +384,7 @@ function! s:Do(action)
     elseif arg == 'close'
 
         let s:most_recently_closed_tab = copy(s:most_recent_tab)
-
-        if tabpagenr() == tabpagenr("$")
-            call remove(g:xtab_cwds, tabpagenr())
-        else
-            call remove(g:xtab_cwds, tabpagenr()-1) | endif
+        call remove(g:xtab_cwds, s:last_tab)
     endif
 
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
