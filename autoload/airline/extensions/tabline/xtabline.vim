@@ -64,12 +64,12 @@ function! airline#extensions#tabline#xtabline#maps()
 
         fun! s:mapkeys(keys, plug)
             if empty(mapcheck(a:keys)) && !hasmapto(a:plug)
-                execute 'map '.a:keys.' '.a:plug
+                silent! execute 'nmap <unique> '.a:keys.' '.a:plug
             endif
         endfun
 
         call s:mapkeys('<F5>','<Plug>XTablineToggleTabs')
-        call s:mapkeys('<leader><F5>','<Plug>XTablineToggleBuffers')
+        call s:mapkeys('<leader><F5>','<Plug>XTablineToggleFiltering')
         call s:mapkeys('<BS>','<Plug>XTablineSelectBuffer')
         call s:mapkeys(']l','<Plug>XTablineNextBuffer')
         call s:mapkeys('[l','<Plug>XTablinePrevBuffer')
@@ -79,8 +79,8 @@ function! airline#extensions#tabline#xtabline#maps()
     nnoremap <unique> <script> <Plug>XTablineToggleTabs <SID>ToggleTabs
     nnoremap <silent> <SID>ToggleTabs :call airline#extensions#tabline#xtabline#toggle_tabs()<cr>
 
-    nnoremap <unique> <script> <Plug>XTablineToggleBuffers <SID>ToggleBuffers
-    nnoremap <silent> <SID>ToggleBuffers :call airline#extensions#tabline#xtabline#toggle_buffers()<cr>
+    nnoremap <unique> <script> <Plug>XTablineToggleFiltering <SID>ToggleFiltering
+    nnoremap <silent> <SID>ToggleFiltering :call airline#extensions#tabline#xtabline#toggle_buffers()<cr>
 
     nnoremap <unique> <script> <Plug>XTablineSelectBuffer <SID>SelectBuffer
     nnoremap <silent> <expr> <SID>SelectBuffer g:xtabline_changing_buffer ? "\<C-c>" : ":<C-u>call airline#extensions#tabline#xtabline#select_buffer(v:count)\<cr>"
