@@ -868,6 +868,72 @@ Note: Enabling this extension will modify 'showtabline' and 'guioptions'.
 * preserve windows when closing a buffer from the bufferline (default: 0) >
   let airline#extensions#tabline#middle_click_preserves_windows = 1
 <
+-------------------------------------                     *airline-xtabline*
+xtabline <https://github.com/mg979/vim-xtabline>
+
+This is a simplified and stand-alone version of the original extension.
+The bigger version adds fzf commands, session management, tab bookmarks, and
+features that you may not need. They both require |vim-airline| anyway.
+
+Main features and default mappings of this extension are:
+
+* tab cwd persistance, also across sessions if vim-obsession is being used.
+
+* buffer filtering in the tabline: only buffers whose path is within the tab
+  cwd will be shown in the tabline.
+
+* toggle tabs/buffer view on the tabline, toggle buffer filtering:
+>
+  nmap <F5>          <Plug>XTablineToggleTabs
+  nmap <leader><F5>  <Plug>XTablineToggleFiltering
+
+* reopen last closed tab, restoring its cwd and buffers:
+>
+  nmap <leader>tr    <Plug>XTablineReopen <SID>ReopenLastTab
+
+* switch among filtered buffers (accepts count):
+>
+  nmap ]l            <Plug>XTablineNextBuffer
+  nmap [l            <Plug>XTablinePrevBuffer
+
+* go to N buffer (a count must be provided):
+>
+  nmap <BS>          <Plug>XTablineSelectBuffer
+
+* alternative command if count is not provided:
+>
+  let g:xtabline_alt_action = "buffer #"
+
+-----------------------------------------------------------------------------
+
+You may also set these options:
+
+* exclude fugitive logs and files that share part of the real buffer path:
+>
+  let g:xtabline_include_previews = 0           (default 1)
+
+* activate fast cwd selection mappings:
+>
+  let g:xtabline_cd_commands = 1                (default 0)
+
+* default mappings for them are:
+>
+  map <leader>cdc       <Plug>XTablineCdCurrent
+  map <leader>cdd       <Plug>XTablineCdDown1
+  map <leader>cd2       <Plug>XTablineCdDown2
+  map <leader>cd3       <Plug>XTablineCdDown3
+  map <leader>cdh       <Plug>XTablineCdHome
+
+Note: if you don't use these mappings and change the cwd, the tabline won't
+be updated automatically. Either re-enter the tab or press <F5> two times.
+
+* here are some easier mappings to change tab buffer:
+>
+  nnoremap <silent> <expr> <Right> v:count?
+          \ airline#extensions#tabline#xtabline#next_buffer(v:count) : "\<Right>"
+  nnoremap <silent> <expr> <Left>  v:count?
+          \ airline#extensions#tabline#xtabline#prev_buffer(v:count) : "\<Left>"
+
 -------------------------------------                     *airline-tmuxline*
 tmuxline <https://github.com/edkolev/tmuxline.vim>
 
