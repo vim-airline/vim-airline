@@ -999,6 +999,15 @@ vim-xkblayout
 * enable/disable vim-xkblayout extension >
   let g:airline#extensions#xkblayout#enabled = 1
 
+* redefine keyboard layout short codes to shown in status >
+  let g:airline#extensions#xkblayout#short_codes = {'Russian-Phonetic': 'RU', 'ABC': 'EN'}
+<
+  'RU' instead of system 'Russian-Phonetic',
+  'EN' instead of system 'ABC'.
+
+  Default: >
+  let g:airline#extensions#xkblayout#short_codes = {'2SetKorean': 'KR', 'Chinese': 'CN', 'Japanese': 'JP'}
+
 * define path to the backend switcher library
   Linux (Install https://github.com/ierton/xkb-switch): >
    let g:XkbSwitchLib = '/usr/local/lib/libxkbswitch.so'
