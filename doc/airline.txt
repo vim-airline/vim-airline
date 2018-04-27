@@ -670,6 +670,14 @@ eclim <https://eclim.org>
   " then whitespace checking will be disabled for that buffer; for example:
   " let b:airline_whitespace_disabled = 1
 <
+* disable specific whitespace checks for individual filetypes >
+  " The global variable g:airline#extensions#whitespace#skip_indent_check_ft
+  " defines what whitespaces checks to skip per filetype.
+  " the list can contain any of the available checks,
+  " (see above at g:airline#extensions#whitespace#checks)
+  " To disable mixed-indent-file for go files use:
+  let g:airline#extensions#whitespace#skip_indent_check_ft = {'go': ['mixed-indent-file']}
+<  
 -------------------------------------                      *airline-tabline*
 Note: If you're using the ctrlspace tabline only the option marked with (c)
 are supported!

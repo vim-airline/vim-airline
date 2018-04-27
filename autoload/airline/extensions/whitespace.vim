@@ -10,7 +10,7 @@ let s:symbol = get(g:, 'airline#extensions#whitespace#symbol', g:airline_symbols
 let s:default_checks = ['indent', 'trailing', 'mixed-indent-file']
 
 let s:enabled = get(g:, 'airline#extensions#whitespace#enabled', 1)
-let s:skip_check_ft = {'make': ['indent', 'mixed-indent-file'] }
+let s:skip_check_ft = {'make': ['indent', 'mixed-indent-file']}
 
 function! s:check_mixed_indent()
   let indent_algo = get(g:, 'airline#extensions#whitespace#mixed_indent_algo', 0)
@@ -53,6 +53,8 @@ function! airline#extensions#whitespace#check()
           \ || get(b:, 'airline_whitespace_disabled', 0)
     return ''
   endif
+  let skip_check_ft = extend(s:skip_check_ft,
+        \ get(g:, 'airline#extensions#whitespace#skip_indent_check_ft', {}), 'force')
 
   if !exists('b:airline_whitespace_check')
     let b:airline_whitespace_check = ''
@@ -72,13 +74,13 @@ function! airline#extensions#whitespace#check()
 
     let mixed = 0
     let check = 'indent'
-    if index(checks, check) > -1 && index(get(s:skip_check_ft, &ft, []), check) < 0
+    if index(checks, check) > -1 && index(get(skip_check_ft, &ft, []), check) < 0
       let mixed = s:check_mixed_indent()
     endif
 
     let mixed_file = ''
     let check = 'mixed-indent-file'
-    if index(checks, check) > -1 && index(get(s:skip_check_ft, &ft, []), check) < 0
+    if index(checks, check) > -1 && index(get(skip_check_ft, &ft, []), check) < 0
       let mixed_file = s:check_mixed_indent_file()
     endif
 
