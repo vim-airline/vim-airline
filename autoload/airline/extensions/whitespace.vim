@@ -61,7 +61,8 @@ function! airline#extensions#whitespace#check()
     let checks = get(b:, 'airline_whitespace_checks', get(g:, 'airline#extensions#whitespace#checks', s:default_checks))
 
     let trailing = 0
-    if index(checks, 'trailing') > -1
+    let check = 'trailing'
+    if index(checks, check) > -1 && index(get(skip_check_ft, &ft, []), check) < 0
       try
         let regexp = get(g:, 'airline#extensions#whitespace#trailing_regexp', '\s$')
         let trailing = search(regexp, 'nw')
