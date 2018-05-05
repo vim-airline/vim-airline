@@ -3,7 +3,8 @@
 
 scriptencoding utf-8
 
-if !get(g:, 'loaded_signify', 0) && !get(g:, 'loaded_gitgutter', 0) && !get(g:, 'loaded_changes', 0) && !get(g:, 'loaded_quickfixsigns', 0)
+let s:enabled = get(g:, 'airline#extensions#hunks#enabled', 1)
+if !s:enabled || !get(g:, 'loaded_signify', 0) && !get(g:, 'loaded_gitgutter', 0) && !get(g:, 'loaded_changes', 0) && !get(g:, 'loaded_quickfixsigns', 0)
   finish
 endif
 
