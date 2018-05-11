@@ -96,3 +96,10 @@ function! airline#util#strchars(str)
     return strlen(substitute(a:str, '.', 'a', 'g'))
   endif
 endfunction
+
+function! airline#util#ignore_buf(name)
+  let pat = '\c\v'. get(g:, 'airline#ignore_bufadd_pat', '').
+        \ get(g:, 'airline#extensions#tabline#ignore_bufadd_pat', 
+        \ 'gundo|undotree|vimfiler|tagbar|nerd_tree|startify')
+  return match(a:name, pat) > -1
+endfunction
