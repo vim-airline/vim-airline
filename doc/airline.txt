@@ -324,7 +324,7 @@ section.
   let g:airline_section_b = '%-0.10{getcwd()}'
   let g:airline_section_c = '%t'
 <
-                                                |airline#ignore_bufadd_pat|
+                                                *airline#ignore_bufadd_pat*
 Determines a pattern to ignore a buffer name for various things (e.g. the
 tabline extension) or the read-only check. Default is
 `g:airline#extensions#tabline#ignore_bufadd_pat` (see below) or
