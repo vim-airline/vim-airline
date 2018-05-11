@@ -86,6 +86,11 @@ function! airline#parts#iminsert()
 endfunction
 
 function! airline#parts#readonly()
+  " only consider regular buffers (e.g. ones that represent actual files, 
+  " but not special ones like e.g. NERDTree)
+  if !empty(&buftype)
+    return ''
+  endif
   if &readonly && !filereadable(bufname('%'))
     return '[noperm]'
   else
