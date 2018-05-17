@@ -509,7 +509,7 @@ syntastic <https://github.com/vim-syntastic/syntastic>
   let airline#extensions#syntastic#warning_symbol = 'W:'
 <
 * syntastic statusline warning format (see |syntastic_stl_format|) >
-  let airline#extensions#syntastic#stl_format_err = '%W{[%w(#%fw)]}'
+  let airline#extensions#syntastic#stl_format_warn = '%W{[%w(#%fw)]}'
 <
 -------------------------------------                       *airline-tagbar*
 tagbar <https://github.com/majutsushi/tagbar>
