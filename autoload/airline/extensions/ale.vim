@@ -33,7 +33,7 @@ function! s:airline_ale_get_line_number(cnt, type) abort
 endfunction
 
 function! airline#extensions#ale#get(type)
-  if !exists(':ALELint')
+  if !get(g:, 'loaded_ale_dont_use_this_in_other_plugins_please', 0)
     return ''
   endif
 
