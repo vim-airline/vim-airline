@@ -25,10 +25,8 @@ function! airline#extensions#tabline#ctrlspace#invalidate()
   let s:current_tabnr = -1
 endfunction
 
-function! airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_tab, cur_buf, pos)
-  let pos_extension = (a:pos == 0)
-        \ ? ''
-        \ : '_right'
+function! airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_tab, cur_buf, pull_right)
+  let pos_extension = (a:pull_right ? '_right' : '')
 
   let s:buffer_list = ctrlspace#api#BufferList(a:cur_tab)
   " add by tenfy(tenfyzhong@qq.com)
@@ -71,10 +69,8 @@ function! airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_t
   return 1
 endfunction
 
-function! airline#extensions#tabline#ctrlspace#add_tab_section(builder, pos)
-  let pos_extension = (a:pos == 0)
-        \ ? ''
-        \ : '_right'
+function! airline#extensions#tabline#ctrlspace#add_tab_section(builder, pull_right)
+  let pos_extension = (a:pull_right ? '_right' : '')
 
   for tab in s:tab_list
     if tab.current
