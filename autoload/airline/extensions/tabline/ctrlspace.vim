@@ -26,16 +26,14 @@ function! airline#extensions#tabline#ctrlspace#invalidate()
 endfunction
 
 function! airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_tab, cur_buf, pos)
-  if a:pos == 0
-    let pos_extension = ''
-  else
-    let pos_extension = '_right'
-  endif
+  let pos_extension = (a:pos == 0)
+        \ ? ''
+        \ : '_right'
 
   let s:buffer_list = ctrlspace#api#BufferList(a:cur_tab)
   " add by tenfy(tenfyzhong@qq.com)
   " if the current buffer no in the buffer list
-  " return false and no redraw tabline. 
+  " return false and no redraw tabline.
   " Fixes #1515. if there a BufEnter autocmd execute redraw. The tabline may no update.
   let bufnr_list = map(copy(s:buffer_list), 'v:val["index"]')
   if index(bufnr_list, a:cur_buf) == -1
@@ -74,11 +72,9 @@ function! airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_t
 endfunction
 
 function! airline#extensions#tabline#ctrlspace#add_tab_section(builder, pos)
-  if a:pos == 0
-    let pos_extension = ''
-  else
-    let pos_extension = '_right'
-  endif
+  let pos_extension = (a:pos == 0)
+        \ ? ''
+        \ : '_right'
 
   for tab in s:tab_list
     if tab.current
