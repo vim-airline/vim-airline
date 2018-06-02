@@ -39,29 +39,29 @@ function! airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_t
   endif
 
   for buffer in s:buffer_list
-      if a:cur_buf == buffer.index
-        if buffer.modified
-          let group = 'airline_tabmod'.pos_extension
-        else
-          let group = 'airline_tabsel'.pos_extension
-        endif
+    if a:cur_buf == buffer.index
+      if buffer.modified
+        let group = 'airline_tabmod'.pos_extension
       else
-        if buffer.modified
-          let group = 'airline_tabmod_unsel'.pos_extension
-        elseif buffer.visible
-          let group = 'airline_tab'.pos_extension
-        else
-          let group = 'airline_tabhid'.pos_extension
-        endif
+        let group = 'airline_tabsel'.pos_extension
       endif
-
-      let buf_name = '%(%{airline#extensions#tabline#get_buffer_name('.buffer.index.')}%)'
-
-      if has("tablineat")
-        let buf_name = '%'.buffer.index.'@airline#extensions#tabline#buffers#clickbuf@'.buf_name.'%X'
+    else
+      if buffer.modified
+        let group = 'airline_tabmod_unsel'.pos_extension
+      elseif buffer.visible
+        let group = 'airline_tab'.pos_extension
+      else
+        let group = 'airline_tabhid'.pos_extension
       endif
+    endif
 
-      call a:builder.add_section_spaced(group, buf_name)
+    let buf_name = '%(%{airline#extensions#tabline#get_buffer_name('.buffer.index.')}%)'
+
+    if has("tablineat")
+      let buf_name = '%'.buffer.index.'@airline#extensions#tabline#buffers#clickbuf@'.buf_name.'%X'
+    endif
+
+    call a:builder.add_section_spaced(group, buf_name)
   endfor
   " add by tenfy(tenfyzhong@qq.com)
   " if the selected buffer was updated
@@ -117,13 +117,13 @@ function! airline#extensions#tabline#ctrlspace#get()
 
   " Add left tabline content
   if get(g:, 'airline#extensions#tabline#show_buffers', 1) == 0
-      call airline#extensions#tabline#ctrlspace#add_tab_section(builder, 0)
+    call airline#extensions#tabline#ctrlspace#add_tab_section(builder, 0)
   elseif get(g:, 'airline#extensions#tabline#show_tabs', 1) == 0
-      " add by tenfy(tenfyzhong@qq.com)
-      " if current buffer no in the buffer list, does't update tabline
-      if airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_tab, cur_buf, 0) == 0
-        return s:current_tabline
-      endif
+    " add by tenfy(tenfyzhong@qq.com)
+    " if current buffer no in the buffer list, does't update tabline
+    if airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_tab, cur_buf, 0) == 0
+      return s:current_tabline
+    endif
   else
     if switch_buffers_and_tabs == 0
       call builder.add_section_spaced('airline_tabtype', buffer_label)
@@ -144,9 +144,9 @@ function! airline#extensions#tabline#ctrlspace#get()
 
   " Add right tabline content
   if get(g:, 'airline#extensions#tabline#show_buffers', 1) == 0
-      call builder.add_section_spaced('airline_tabtype', tab_label)
+    call builder.add_section_spaced('airline_tabtype', tab_label)
   elseif get(g:, 'airline#extensions#tabline#show_tabs', 1) == 0
-      call builder.add_section_spaced('airline_tabtype', buffer_label)
+    call builder.add_section_spaced('airline_tabtype', buffer_label)
   else
     if switch_buffers_and_tabs == 0
       call airline#extensions#tabline#ctrlspace#add_tab_section(builder, 1)
