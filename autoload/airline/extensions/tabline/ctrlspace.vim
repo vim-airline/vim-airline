@@ -34,7 +34,7 @@ function! airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_t
   " return false and no redraw tabline.
   " Fixes #1515. if there a BufEnter autocmd execute redraw. The tabline may no update.
   let bufnr_list = map(copy(s:buffer_list), 'v:val["index"]')
-  if index(bufnr_list, a:cur_buf) == -1
+  if index(bufnr_list, a:cur_buf) == -1 && a:cur_tab == s:current_tabnr
     return 0
   endif
 
