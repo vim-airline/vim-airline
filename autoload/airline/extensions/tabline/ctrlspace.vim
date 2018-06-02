@@ -99,9 +99,8 @@ function! airline#extensions#tabline#ctrlspace#get()
 
   try
     call airline#extensions#tabline#tabs#map_keys()
-  catch
-    " no-op
   endtry
+
   let s:tab_list = ctrlspace#api#TabList()
   for tab in s:tab_list
     if tab.current
