@@ -18,7 +18,9 @@ function! airline#extensions#tabline#formatters#default#format(bufnr, buffers)
     let _ .= '[No Name]'
   else
     if s:fnamecollapse
-      let _ .= substitute(fnamemodify(name, fmod), '\v\w\zs.{-}\ze(\\|/)', '', 'g')
+      " Does not handle non-ascii characters like Cyrillic: 'D/Учёба/t.c'
+      "let _ .= substitute(fnamemodify(name, fmod), '\v\w\zs.{-}\ze(\\|/)', '', 'g')
+      let _ .= pathshorten(fnamemodify(name, fmod))
     else
       let _ .= fnamemodify(name, fmod)
     endif
