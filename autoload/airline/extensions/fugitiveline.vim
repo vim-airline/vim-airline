@@ -3,7 +3,7 @@
 
 scriptencoding utf-8
 
-if !exists('*fugitive#head')
+if !airline#util#has_fugitive()
   finish
 endif
 

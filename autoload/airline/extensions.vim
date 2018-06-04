@@ -221,9 +221,11 @@ function! airline#extensions#load()
     let s:filetype_regex_overrides['^int-'] = ['vimshell','%{substitute(&ft, "int-", "", "")}']
   endif
 
-  if get(g:, 'airline#extensions#branch#enabled', 1)
-        \ && (exists('*fugitive#head') || exists('*lawrencium#statusline') ||
-        \     (get(g:, 'airline#extensions#branch#use_vcscommand', 0) && exists('*VCSCommandGetStatusLine')))
+  if get(g:, 'airline#extensions#branch#enabled', 1) && (
+          \ airline#util#has_fugitive() ||
+          \ airline#util#has_lawrencium() ||
+          \ airline#util#has_vcscommand() ||
+          \ airline#util#has_custom_scm())
     call airline#extensions#branch#init(s:ext)
     call add(loaded_ext, 'branch')
   endif
@@ -235,7 +237,7 @@ function! airline#extensions#load()
   endif
 
   if get(g:, 'airline#extensions#fugitiveline#enabled', 1)
-        \ && exists('*fugitive#head')
+        \ && airline#util#has_fugitive()
         \ && index(loaded_ext, 'bufferline') == -1
     call airline#extensions#fugitiveline#init(s:ext)
     call add(loaded_ext, 'fugitiveline')
