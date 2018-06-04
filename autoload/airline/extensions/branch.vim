@@ -86,7 +86,8 @@ function! s:update_git_branch()
     return
   endif
 
-  let s:vcs_config['git'].branch = fugitive#head(s:sha1size)
+  let s:vcs_config['git'].branch = exists("*FugitiveHead") ?
+        \ FugitiveHead(s:sha1size) : fugitive#head(s:sha1size)
   if s:vcs_config['git'].branch is# 'master' && winwidth(0) < 81
     " Shorten default a bit
     let s:vcs_config['git'].branch='mas'
