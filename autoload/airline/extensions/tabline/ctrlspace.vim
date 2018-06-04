@@ -6,6 +6,7 @@ scriptencoding utf-8
 let s:current_bufnr = -1
 let s:current_tabnr = -1
 let s:current_tabline = ''
+let s:highlight_groups = ['hid', 0, '', 'sel', 'mod_unsel', 0, 'mod_unsel', 'mod']
 
 function! airline#extensions#tabline#ctrlspace#off()
   augroup airline_tabline_ctrlspace
@@ -25,47 +26,31 @@ function! airline#extensions#tabline#ctrlspace#invalidate()
   let s:current_tabnr = -1
 endfunction
 
-function! airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_tab, cur_buf, pos)
-  if a:pos == 0
-    let pos_extension = ''
-  else
-    let pos_extension = '_right'
-  endif
+function! airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_tab, cur_buf, pull_right)
+  let pos_extension = (a:pull_right ? '_right' : '')
+  let buffer_list = ctrlspace#api#BufferList(a:cur_tab)
 
-  let s:buffer_list = ctrlspace#api#BufferList(a:cur_tab)
   " add by tenfy(tenfyzhong@qq.com)
   " if the current buffer no in the buffer list
-  " return false and no redraw tabline. 
+  " return false and no redraw tabline.
   " Fixes #1515. if there a BufEnter autocmd execute redraw. The tabline may no update.
-  let bufnr_list = map(copy(s:buffer_list), 'v:val["index"]')
-  if index(bufnr_list, a:cur_buf) == -1
+  let bufnr_list = map(copy(buffer_list), 'v:val["index"]')
+  if index(bufnr_list, a:cur_buf) == -1 && a:cur_tab == s:current_tabnr
     return 0
   endif
 
-  for buffer in s:buffer_list
-      if a:cur_buf == buffer.index
-        if buffer.modified
-          let group = 'airline_tabmod'.pos_extension
-        else
-          let group = 'airline_tabsel'.pos_extension
-        endif
-      else
-        if buffer.modified
-          let group = 'airline_tabmod_unsel'.pos_extension
-        elseif buffer.visible
-          let group = 'airline_tab'.pos_extension
-        else
-          let group = 'airline_tabhid'.pos_extension
-        endif
-      endif
+  for buffer in buffer_list
+    let group = 'airline_tab'
+          \ .s:highlight_groups[(4 * buffer.modified) + (2 * buffer.visible) + (a:cur_buf == buffer.index)]
+          \ .pos_extension
 
-      let buf_name = '%(%{airline#extensions#tabline#get_buffer_name('.buffer.index.')}%)'
+    let buf_name = '%(%{airline#extensions#tabline#get_buffer_name('.buffer.index.')}%)'
 
-      if has("tablineat")
-        let buf_name = '%'.buffer.index.'@airline#extensions#tabline#buffers#clickbuf@'.buf_name.'%X'
-      endif
+    if has("tablineat")
+      let buf_name = '%'.buffer.index.'@airline#extensions#tabline#buffers#clickbuf@'.buf_name.'%X'
+    endif
 
-      call a:builder.add_section_spaced(group, buf_name)
+    call a:builder.add_section_spaced(group, buf_name)
   endfor
   " add by tenfy(tenfyzhong@qq.com)
   " if the selected buffer was updated
@@ -73,27 +58,14 @@ function! airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_t
   return 1
 endfunction
 
-function! airline#extensions#tabline#ctrlspace#add_tab_section(builder, pos)
-  if a:pos == 0
-    let pos_extension = ''
-  else
-    let pos_extension = '_right'
-  endif
+function! airline#extensions#tabline#ctrlspace#add_tab_section(builder, pull_right)
+  let pos_extension = (a:pull_right ? '_right' : '')
+  let tab_list = ctrlspace#api#TabList()
 
-  for tab in s:tab_list
-    if tab.current
-      if tab.modified
-        let group = 'airline_tabmod'.pos_extension
-      else
-        let group = 'airline_tabsel'.pos_extension
-      endif
-    else
-      if tab.modified
-        let group = 'airline_tabmod_unsel'.pos_extension
-      else
-        let group = 'airline_tabhid'.pos_extension
-      endif
-    endif
+  for tab in tab_list
+    let group = 'airline_tab'
+          \ .s:highlight_groups[(4 * tab.modified) + (3 * tab.current)]
+          \ .pos_extension
 
     call a:builder.add_section_spaced(group, '%'.tab.index.'T'.tab.title.ctrlspace#api#TabBuffersNumber(tab.index).'%T')
   endfor
@@ -107,15 +79,9 @@ function! airline#extensions#tabline#ctrlspace#get()
 
   try
     call airline#extensions#tabline#tabs#map_keys()
-  catch
-    " no-op
   endtry
-  let s:tab_list = ctrlspace#api#TabList()
-  for tab in s:tab_list
-    if tab.current
-      let cur_tab = tab.index
-    endif
-  endfor
+
+  let cur_tab = tabpagenr()
 
   if cur_buf == s:current_bufnr && cur_tab == s:current_tabnr
     return s:current_tabline
@@ -123,51 +89,56 @@ function! airline#extensions#tabline#ctrlspace#get()
 
   let builder = airline#extensions#tabline#new_builder()
 
+  let show_buffers = get(g:, 'airline#extensions#tabline#show_buffers', 1)
+  let show_tabs = get(g:, 'airline#extensions#tabline#show_tabs', 1)
+
+  let AppendBuffers = function('airline#extensions#tabline#ctrlspace#add_buffer_section', [builder, cur_tab, cur_buf])
+  let AppendTabs = function('airline#extensions#tabline#ctrlspace#add_tab_section', [builder])
+  let AppendLabel = function(builder.add_section_spaced, ['airline_tabtype'], builder)
+
+  " <= 1: |{Tabs}                      <tab|
+  " == 2: |{Buffers}               <buffers|
+  " == 3: |buffers> {Buffers}  {Tabs} <tabs|
+  let showing_mode = (2 * show_buffers) + (show_tabs)
+  let ignore_update = 0
+
   " Add left tabline content
-  if get(g:, 'airline#extensions#tabline#show_buffers', 1) == 0
-      call airline#extensions#tabline#ctrlspace#add_tab_section(builder, 0)
-  elseif get(g:, 'airline#extensions#tabline#show_tabs', 1) == 0
-      " add by tenfy(tenfyzhong@qq.com)
-      " if current buffer no in the buffer list, does't update tabline
-      if airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_tab, cur_buf, 0) == 0
-        return s:current_tabline
-      endif
+  if showing_mode <= 1 " Tabs only mode
+    call AppendTabs(0)
+  elseif showing_mode == 2 " Buffers only mode
+    let ignore_update = !AppendBuffers(0)
   else
-    if switch_buffers_and_tabs == 0
-      call builder.add_section_spaced('airline_tabtype', buffer_label)
-      " add by tenfy(tenfyzhong@qq.com)
-      " if current buffer no in the buffer list, does't update tabline
-      if airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_tab, cur_buf, 0) == 0
-        return s:current_tabline
-      endif
+    if !switch_buffers_and_tabs
+      call AppendLabel(buffer_label)
+      let ignore_update = !AppendBuffers(0)
     else
-      call builder.add_section_spaced('airline_tabtype', tab_label)
-      call airline#extensions#tabline#ctrlspace#add_tab_section(builder, 0)
+      call AppendLabel(tab_label)
+      call AppendTabs(0)
     endif
   endif
+
+  if ignore_update | return s:current_tabline | endif
 
   call builder.add_section('airline_tabfill', '')
   call builder.split()
   call builder.add_section('airline_tabfill', '')
 
   " Add right tabline content
-  if get(g:, 'airline#extensions#tabline#show_buffers', 1) == 0
-      call builder.add_section_spaced('airline_tabtype', tab_label)
-  elseif get(g:, 'airline#extensions#tabline#show_tabs', 1) == 0
-      call builder.add_section_spaced('airline_tabtype', buffer_label)
+  if showing_mode <= 1 " Tabs only mode
+    call AppendLabel(tab_label)
+  elseif showing_mode == 2 " Buffers only mode
+    call AppendLabel(buffer_label)
   else
-    if switch_buffers_and_tabs == 0
-      call airline#extensions#tabline#ctrlspace#add_tab_section(builder, 1)
-      call builder.add_section_spaced('airline_tabtype', tab_label)
+    if !switch_buffers_and_tabs
+      call AppendTabs(1)
+      call AppendLabel(tab_label)
     else
-      " add by tenfy(tenfyzhong@qq.com)
-      " if current buffer no in the buffer list, does't update tabline
-      if airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_tab, cur_buf, 1) == 0
-        return s:current_tabline
-      endif
-      call builder.add_section_spaced('airline_tabtype', buffer_label)
+      let ignore_update = AppendBuffers(1)
+      call AppendLabel(buffer_label)
     endif
   endif
+
+  if ignore_update | return s:current_tabline | endif
 
   let s:current_bufnr = cur_buf
   let s:current_tabnr = cur_tab
