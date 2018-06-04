@@ -45,8 +45,7 @@ function! airline#themes#patch(palette)
       let a:palette[mode]['airline_error'] = [ '#000000', '#990000', 232, 160 ]
     endif
     if !has_key(a:palette[mode], 'airline_term')
-      "let a:palette[mode]['airline_term'] = [ '#9cffd3', '#202020', 85, 232]
-      let a:palette[mode]['airline_term'] = airline#highlighter#get_highlight('airline_c')
+      let a:palette[mode]['airline_term'] = [ '#9cffd3', '#202020', 85, 232]
     endif
   endfor
 

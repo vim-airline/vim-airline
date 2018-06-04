@@ -184,6 +184,7 @@ values):
       \ 's'  : 'S',
       \ 'S'  : 'S',
       \ '' : 'S',
+      \ 't'  : 'T',
       \ }
 <
 * define the set of filename match queries which excludes a window from having

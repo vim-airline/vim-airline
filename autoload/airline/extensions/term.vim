@@ -7,9 +7,10 @@ function! airline#extensions#term#apply(...)
   if &buftype == 'terminal'
     let spc = g:airline_symbols.space
 
-    call a:1.add_section('airline_a', spc.'TERMINAL'.spc)
+    let name=get(g:airline_mode_map, 't', 't')
+    call a:1.add_section('airline_a', spc.name.spc)
     call a:1.add_section('airline_b', '')
-    call a:1.add_section('airline_c', spc.'%f')
+    call a:1.add_section('airline_term', spc.'%f')
     call a:1.split()
     call a:1.add_section('airline_y', '')
     call a:1.add_section('airline_z', spc.airline#section#create_right(['linenr', 'maxlinenr']))
