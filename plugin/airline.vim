@@ -100,7 +100,6 @@ function! s:airline_toggle()
         autocmd OptionSet termguicolors call <sid>on_colorscheme_changed()
       endif
       if exists("##TerminalOpen")
-        " Make sure that g_airline_gui_mode is refreshed
         autocmd TerminalOpen * call <sid>on_colorscheme_changed()
       endif
       " Refresh airline for :syntax off
