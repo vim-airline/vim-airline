@@ -4,6 +4,7 @@
 scriptencoding utf-8
 
 let s:current_bufnr = -1
+let s:current_modified = 0
 let s:current_tabnr = -1
 let s:current_tabline = ''
 let s:highlight_groups = ['hid', 0, '', 'sel', 'mod_unsel', 0, 'mod_unsel', 'mod']
@@ -39,6 +40,8 @@ function! airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_t
     return 0
   endif
 
+  let s:current_modified = getbufvar(a:cur_buf, '&modified')
+
   for buffer in buffer_list
     let group = 'airline_tab'
           \ .s:highlight_groups[(4 * buffer.modified) + (2 * buffer.visible) + (a:cur_buf == buffer.index)]
@@ -52,6 +55,7 @@ function! airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_t
 
     call a:builder.add_section_spaced(group, buf_name)
   endfor
+
   " add by tenfy(tenfyzhong@qq.com)
   " if the selected buffer was updated
   " return true
@@ -84,7 +88,9 @@ function! airline#extensions#tabline#ctrlspace#get()
   let cur_tab = tabpagenr()
 
   if cur_buf == s:current_bufnr && cur_tab == s:current_tabnr
-    return s:current_tabline
+    if !g:airline_detect_modified || getbufvar(cur_buf, '&modified') == s:current_modified
+      return s:current_tabline
+    endif
   endif
 
   let builder = airline#extensions#tabline#new_builder()
