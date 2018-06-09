@@ -107,7 +107,7 @@ function! s:airline_toggle()
             \ call airline#extensions#tabline#buffers#invalidate()
       autocmd VimEnter,WinEnter,BufWinEnter,FileType,BufUnload *
             \ call <sid>on_window_changed()
-      if exists('#CompleteDone')
+      if exists('##CompleteDone')
         autocmd CompleteDone * call <sid>on_window_changed()
       endif
 
