@@ -98,7 +98,7 @@ function! airline#extensions#tabline#buffers#get()
       return '%'.bufnum.'@airline#extensions#tabline#buffers#clickbuf@'
     endfunction
 
-    function b.get_posttitle(i) dict
+    function! b.get_posttitle(i) dict
       return '%X'
     endfunction
   endif
