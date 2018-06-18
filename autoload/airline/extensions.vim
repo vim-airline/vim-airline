@@ -56,9 +56,7 @@ function! airline#extensions#apply_left_override(section1, section2)
   let w:airline_render_right = 0
 endfunction
 
-let s:active_winnr = -1
 function! airline#extensions#apply(...)
-  let s:active_winnr = winnr()
 
   if s:is_excluded_window()
     return -1
@@ -113,16 +111,8 @@ function! airline#extensions#load_theme()
   call airline#util#exec_funcrefs(s:ext._theme_funcrefs, g:airline#themes#{g:airline_theme}#palette)
 endfunction
 
-function! s:sync_active_winnr()
-  if exists('#airline') && winnr() != s:active_winnr
-    call airline#update_statusline()
-  endif
-endfunction
-
 function! airline#extensions#load()
   let loaded_ext = []
-  " non-trivial number of external plugins use eventignore=all, so we need to account for that
-  autocmd CursorMoved * call <sid>sync_active_winnr()
 
   if exists('g:airline_extensions')
     for ext in g:airline_extensions
