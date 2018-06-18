@@ -666,7 +666,7 @@ eclim <https://eclim.org>
 
 * configure, which filetypes have special treatment of /* */ comments,
   matters for mix-indent-file algorithm: >
-  let airline#extensions#c_like_langs = ['c', 'cpp', 'cuda', 'go', 'javascript', 'ld', 'php']
+  let airline#extensions#c_like_langs = ['arduino', 'c', 'cpp', 'cuda', 'go', 'javascript', 'ld', 'php']
 <
 * disable whitespace checking for an individual buffer >
   " Checking is enabled by default because b:airline_whitespace_disabled

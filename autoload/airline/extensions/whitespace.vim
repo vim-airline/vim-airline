@@ -31,7 +31,7 @@ endfunction
 
 function! s:check_mixed_indent_file()
   let c_like_langs = get(g:, 'airline#extensions#c_like_langs',
-        \ [ 'c', 'cpp', 'cuda', 'go', 'javascript', 'ld', 'php' ])
+        \ [ 'arduino', 'c', 'cpp', 'cuda', 'go', 'javascript', 'ld', 'php' ])
   if index(c_like_langs, &ft) > -1
     " for C-like languages: allow /** */ comment style with one space before the '*'
     let head_spc = '\v(^ +\*@!)'
