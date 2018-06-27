@@ -20,7 +20,7 @@ function! airline#extensions#fugitiveline#bufname()
     try
       let buffer = fugitive#buffer()
       if buffer.type('blob')
-        let b:fugitive_name = buffer.repo().translate(buffer.path())
+        let b:fugitive_name = buffer.repo().translate(buffer.path('/'))
       endif
     catch
     endtry
