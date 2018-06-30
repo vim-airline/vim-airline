@@ -54,42 +54,74 @@ if s:formatter !=# 'default'
 endif
 
 " update {{{1
-function! s:wordcount_update()
-  if empty(bufname(''))
-    return
-  endif
-  if match(&ft, get(g:, 'airline#extensions#wordcount#filetypes')) > -1
-    let l:mode = mode()
-    if l:mode ==# 'v' || l:mode ==# 'V' || l:mode ==# 's' || l:mode ==# 'S'
-      let b:airline_wordcount = s:format_wordcount('visual_words')
+if exists('##TextChanged')
+  let s:supported_autocmds = 'TextChanged,TextChangedI'
+
+  function! s:update_wordcount()
+    let b:airline_wordcount = s:format_wordcount('words')
+  endfunction
+else
+  let s:supported_autocmds = 'CursorMoved,CursorMovedI'
+
+  " without TextChanged a check is performed on every cursor movement, so
+  " cache for performance
+  function! s:update_wordcount()
+    if get(b:, 'airline_wordcount_cache', '') is# '' ||
+          \ get(b:, 'airline_change_tick', 0) != b:changedtick ||
+          \ get(b:, 'airline_winwidth', 0) != winwidth(0)
+      let b:airline_wordcount = s:format_wordcount('words')
+      let b:airline_wordcount_cache = b:airline_wordcount
       let b:airline_change_tick = b:changedtick
-    else
-      if get(b:, 'airline_wordcount_cache', '') is# '' ||
-            \ b:airline_wordcount_cache isnot# get(b:, 'airline_wordcount', '') ||
-            \ get(b:, 'airline_change_tick', 0) != b:changedtick || 
-            \ get(b:, 'airline_winwidth', 0) != winwidth(0)
-        " cache data
-        let b:airline_wordcount = s:format_wordcount('words')
-        let b:airline_wordcount_cache = b:airline_wordcount
-        let b:airline_change_tick = b:changedtick
-        let b:airline_winwidth = winwidth(0)
-      endif
+      let b:airline_winwidth = winwidth(0)
     endif
-  endif
+  endfunction
+endif
+
+" public {{{1
+" s:visual tracks visual mode
+function airline#extensions#wordcount#get()
+  return s:visual
+        \ ? s:format_wordcount('visual_words')
+        \ : get(b:, 'airline_wordcount', '')
 endfunction
 
 " autocmds & airline functions {{{1
+function s:modify_autocmds()
+    if !exists('#airline_wordcount#BufEnter#')
+      execute 'autocmd! airline_wordcount BufEnter,'.s:supported_autocmds
+            \  .' <buffer> nested call s:update_wordcount()'
+      " ensure we have a starting wordcount
+      call s:update_wordcount()
+    else
+     execute 'autocmd! airline_wordcount BufEnter,'.'s:supported_autocmds'
+    endif
+endfunction
+
 " default filetypes
-let g:airline#extensions#wordcount#filetypes = get(g:, 'airline#extensions#wordcount#filetypes',
-      \ '\vhelp|markdown|rst|org|text|asciidoc|tex|mail')
+let s:filetypes = ['help', 'markdown', 'rst', 'org', 'text', 'asciidoc', 'tex', 'mail']
 
 function! airline#extensions#wordcount#apply(...)
-  if match(&ft, get(g:, 'airline#extensions#wordcount#filetypes')) > -1
-    call airline#extensions#prepend_to_section('z', '%{get(b:, "airline_wordcount", "")}')
+  let filetypes = get(g:, 'airline#extensions#wordcount#filetypes', s:filetypes)
+
+  " filetypes used to be a regex-matching string, so check both
+  if type(filetypes) == v:t_list
+        \    && (index(filetypes, &filetype) > -1 || empty(filetypes))
+        \ || type(filetypes) == v:t_string && match(&ft, filetypes) > -1
+    " redo autocommands if filetype has changed
+    if filetypes isnot s:filetypes || did_filetype()
+      call s:modify_autocmds()
+      let s:filetypes = filetypes
+    endif
+
+    call airline#extensions#prepend_to_section(
+          \ 'z', '%{airline#extensions#wordcount#get()}')
   endif
 endfunction
 
 function! airline#extensions#wordcount#init(ext)
+  augroup airline_wordcount
+    autocmd! User AirlineModeChanged nested
+          \ let s:visual = (mode() ==? 'v' || mode() ==? 's')
+  augroup END
   call a:ext.add_statusline_func('airline#extensions#wordcount#apply')
-  autocmd BufReadPost,CursorMoved,CursorMovedI * call s:wordcount_update()
 endfunction
