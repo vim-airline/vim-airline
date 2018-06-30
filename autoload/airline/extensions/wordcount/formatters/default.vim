@@ -3,57 +3,28 @@
 
 scriptencoding utf-8
 
-function! airline#extensions#wordcount#formatters#default#format()
-  let fmt = get(g:, 'airline#extensions#wordcount#formatter#default#fmt', '%s words')
-  let fmt_short = get(g:, 'airline#extensions#wordcount#formatter#default#fmt_short', fmt == '%s words' ? '%sW' : fmt)
-  let words = string(s:wordcount())
-  if empty(words)
+let s:fmt = get(g:, 'airline#extensions#wordcount#formatter#default#fmt', '%s words')
+let s:fmt_short = get(g:, 'airline#extensions#wordcount#formatter#default#fmt_short', s:fmt == '%s words' ? '%sW' : s:fmt)
+
+function! airline#extensions#wordcount#formatters#default#transform(text)
+  if empty(a:text)
     return
   endif
+
   let result = g:airline_symbols.space . g:airline_right_alt_sep . g:airline_symbols.space
   if winwidth(0) >= 80
     let separator = s:get_decimal_group()
-    if words > 999 && !empty(separator)
+    if a:text > 999 && !empty(separator)
       " Format number according to locale, e.g. German: 1.245 or English: 1,245
-      let words = substitute(words, '\d\@<=\(\(\d\{3\}\)\+\)$', separator.'&', 'g')
+      let text = substitute(a:text, '\d\@<=\(\(\d\{3\}\)\+\)$', separator.'&', 'g')
+    else
+      let text = a:text
     endif
-    let result = printf(fmt, words). result
+    let result = printf(s:fmt, a:text). result
   else
-    let result = printf(fmt_short, words). result
+    let result = printf(s:fmt_short, a:text). result
   endif
   return result
-endfunction
-
-function! s:wordcount()
-  if exists("*wordcount")
-    let l:mode = mode()
-    if l:mode ==# 'v' || l:mode ==# 'V' || l:mode ==# 's' || l:mode ==# 'S'
-      let l:visual_words = wordcount()['visual_words']
-      if l:visual_words != ''
-        return l:visual_words
-      else
-        return 0
-      endif
-    else
-      return wordcount()['words']
-    endif
-  elseif mode() =~? 's'
-    return
-  else
-    let old_status = v:statusmsg
-    let position = getpos(".")
-    exe "silent normal! g\<c-g>"
-    let stat = v:statusmsg
-    call setpos('.', position)
-    let v:statusmsg = old_status
-
-    let parts = split(stat)
-    if len(parts) > 11
-      return str2nr(parts[11])
-    else
-      return
-    endif
-  endif
 endfunction
 
 function! s:get_decimal_group()
@@ -64,3 +35,4 @@ function! s:get_decimal_group()
   endif
   return ''
 endfunction
+
