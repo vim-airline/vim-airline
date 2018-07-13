@@ -35,9 +35,8 @@ endfunction
 function! airline#extensions#tabline#buffers#on()
   augroup airline_tabline_buffers
     autocmd!
-    autocmd BufDelete * call airline#extensions#tabline#buffers#invalidate()
-    autocmd User BufMRUChange call airline#extensions#tabline#buflist#invalidate()
-    autocmd User BufMRUChange call airline#extensions#tabline#buffers#invalidate()
+    autocmd BufDelete * call airline#extensions#tabline#buflist#clean()
+    autocmd User BufMRUChange call airline#extensions#tabline#buflist#clean()
   augroup END
 endfunction
 

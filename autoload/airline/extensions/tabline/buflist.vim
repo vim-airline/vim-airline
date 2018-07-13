@@ -7,6 +7,11 @@ function! airline#extensions#tabline#buflist#invalidate()
   unlet! s:current_buffer_list
 endfunction
 
+function! airline#extensions#tabline#buflist#clean()
+  call airline#extensions#tabline#buflist#invalidate()
+  call airline#extensions#tabline#buffers#invalidate()
+endfunction
+
 " paths in excludes list
 function! s:ExcludePaths(nr, exclude_paths)
   let bpath = fnamemodify(bufname(a:nr), ":p")
