@@ -101,9 +101,6 @@ function! airline#extensions#tabline#tabs#get()
 endfunction
 
 function! airline#extensions#tabline#tabs#map_keys()
-  if exists("s:airline_tabline_map_key")
-    return
-  endif
   noremap <silent> <Plug>AirlineSelectTab1 :1tabn<CR>
   noremap <silent> <Plug>AirlineSelectTab2 :2tabn<CR>
   noremap <silent> <Plug>AirlineSelectTab3 :3tabn<CR>
@@ -116,7 +113,6 @@ function! airline#extensions#tabline#tabs#map_keys()
   noremap <silent> <Plug>AirlineSelectPrevTab gT
   " tabn {count} goes to count tab does not go {count} tab pages forward!
   noremap <silent> <Plug>AirlineSelectNextTab :<C-U>exe repeat(':tabn\|', v:count1)<cr>
-  let s:airline_tabline_map_key = 1
 endfunction
 
 function! airline#extensions#tabline#tabs#tabnr_formatter(nr, i)
