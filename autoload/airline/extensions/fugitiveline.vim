@@ -18,8 +18,8 @@ function! airline#extensions#fugitiveline#bufname()
   if !exists('b:fugitive_name')
     let b:fugitive_name = ''
     try
-      if bufname('%') =~? '^fugitive:' && exists('*FugitivePath')
-        let b:fugitive_name = FugitivePath()
+      if bufname('%') =~? '^fugitive:' && exists('*FugitiveReal')
+        let b:fugitive_name = FugitiveReal(bufname('%'))
       elseif exists('b:git_dir')
         let buffer = fugitive#buffer()
         if buffer.type('blob')
