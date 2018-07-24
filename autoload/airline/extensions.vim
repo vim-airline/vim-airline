@@ -309,6 +309,11 @@ function! airline#extensions#load()
     call add(loaded_ext, 'gutentags')
   endif
 
+  if (get(g:, 'airline#extensions#grepper#enabled', 1) && get(g:, 'loaded_grepper', 0))
+    call airline#extensions#grepper#init(s:ext)
+    call add(loaded_ext, 'grepper')
+  endif
+
   if (get(g:, 'airline#extensions#xkblayout#enabled', 1) && exists('g:XkbSwitchLib'))
     call airline#extensions#xkblayout#init(s:ext)
     call add(loaded_ext, 'xkblayout')

@@ -34,7 +34,7 @@ describe 'init sections'
   end
 
   it 'section x should be filetype'
-    Expect g:airline_section_x == '%{airline#util#prepend("",0)}%{airline#util#wrap(airline#parts#filetype(),0)}'
+    Expect g:airline_section_x == '%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#wrap(airline#parts#filetype(),0)}'
   end
 
   it 'section y should be fenc and ff'
