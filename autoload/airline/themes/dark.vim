@@ -130,6 +130,12 @@ let g:airline#themes#dark#palette.inactive_modified = {
       \ 'airline_c': [ '#875faf' , '' , 97 , '' , '' ] ,
       \ }
 
+" For commandline mode, we use the colors from normal mode, except the mode
+" indicator should be colored differently, e.g. blue on light green
+let s:airline_a_commandline = [ '#0000ff' , '#0cff00' , 63  , 40 ]
+let s:airline_b_commandline = [ '#ffffff' , '#444444' , 255 , 238 ]
+let s:airline_c_commandline = [ '#9cffd3' , '#202020' , 85  , 234 ]
+let g:airline#themes#dark#palette.commandline = airline#themes#generate_color_map(s:airline_a_commandline, s:airline_b_commandline, s:airline_c_commandline)
 
 " Accents are used to give parts within a section a slightly different look or
 " color. Here we are defining a "red" accent, which is used by the 'readonly'
