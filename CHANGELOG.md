@@ -4,6 +4,10 @@ This is the Changelog for the vim-airline project.
 
 ## [Unreleased]
 
+- New features
+  - Extensions:
+    - [LanguageClient](https://github.com/autozimu/LanguageClient-neovim)
+
 ## [0.9] - 2018-01-15
 - Changes
   - Look of default Airline Symbols has been improved [#1397](https://github.com/vim-airline/vim-airline/issues/1397)
