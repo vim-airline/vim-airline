@@ -334,10 +334,12 @@ function! airline#extensions#load()
     call add(loaded_ext, 'obsession')
   endif
 
-  runtime autoload/vimtex.vim
-  if (get(g:, 'airline#extensions#vimtex#enabled', 1)) && exists('*vimtex#init')
-   call airline#extensions#vimtex#init(s:ext)
-   call add(loaded_ext, 'vimtex')
+  if get(g:, 'airline#extensions#vimtex#enabled', 1)
+    runtime autoload/vimtex.vim
+    if exists('*vimtex#init')
+      call airline#extensions#vimtex#init(s:ext)
+      call add(loaded_ext, 'vimtex')
+    endif
   endif
 
   if (get(g:, 'airline#extensions#cursormode#enabled', 0))
