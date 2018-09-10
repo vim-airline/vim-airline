@@ -185,6 +185,9 @@ vim-airline integrates with a variety of plugins out of the box.  These extensio
 #### [localsearch][54]
 ![image](https://raw.githubusercontent.com/mox-mox/vim-localsearch/master/vim-airline-localsearch-indicator.png)
 
+#### [LanguageClient][57]
+![image](https://user-images.githubusercontent.com/9622/45275524-52f45c00-b48b-11e8-8b83-a66240b10747.gif)
+
 ## Extras
 
 vim-airline also supplies some supplementary stand-alone extensions.  In addition to the tabline extension mentioned earlier, there is also:
@@ -340,3 +343,4 @@ MIT License. Copyright (c) 2013-2017 Bailey Ling & Contributors.
 [54]: https://github.com/mox-mox/vim-localsearch
 [55]: https://github.com/k-takata/minpac/
 [56]: https://github.com/vim-airline/vim-airline-themes/blob/master/autoload/airline/themes/dark_minimal.vim
+[57]: https://github.com/autozimu/LanguageClient-neovim

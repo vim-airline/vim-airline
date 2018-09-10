@@ -313,8 +313,10 @@ section.
   let g:airline_section_x       (tagbar, filetype, virtualenv)
   let g:airline_section_y       (fileencoding, fileformat)
   let g:airline_section_z       (percentage, line number, column number)
-  let g:airline_section_error   (ycm_error_count, syntastic-err, eclim)
-  let g:airline_section_warning (ycm_warning_count, syntastic-warn, whitespace)
+  let g:airline_section_error   (ycm_error_count, syntastic-err, eclim,
+                                 languageclient_error_count)
+  let g:airline_section_warning (ycm_warning_count, syntastic-warn,
+                                 languageclient_warning_count, whitespace)
 
   " [*] This section needs at least the fugitive extension or else
   "     it will remain empty
@@ -1199,6 +1201,27 @@ current mode (only works in terminals iTerm, AppleTerm and xterm)
     `\   "\<C-V>": g:airline#themes#{g:airline_theme}#palette.visual.airline_a[1],`
     `\ }`
 
+-------------------------------------                    *airline-languageclient*
+LanguageClient <https://github.com/autozimu/LanguageClient-neovim>
+
+* enable/disable LanguageClient integration >
+  let g:airline#extensions#languageclient#enabled = 1
+
+* languageclient error_symbol >
+  let airline#extensions#languageclient#error_symbol = 'E:'
+<
+* languageclient warning_symbol >
+  let airline#extensions#languageclient#warning_symbol = 'W:'
+
+* languageclient show_line_numbers >
+  let airline#extensions#languageclient#show_line_numbers = 1
+<
+* languageclient open_lnum_symbol >
+  let airline#extensions#languageclient#open_lnum_symbol = '(L'
+<
+* languageclient close_lnum_symbol >
+  let airline#extensions#languageclient#close_lnum_symbol = ')'
+
 ==============================================================================
 ADVANCED CUSTOMIZATION                      *airline-advanced-customization*
 
@@ -1251,9 +1274,10 @@ Before is a list of parts that are predefined by vim-airline.
 And the following are defined for their respective extensions:
 
 `ale_error_count` `ale_warning_count` `branch` `eclim` `hunks`
-`neomake_error_count` `neomake_warning_count` `obsession`
-`syntastic-warn` `syntastic-err` `tagbar` `whitespace`
-`windowswap` `ycm_error_count` `ycm_warning_count`
+`languageclient_error_count` `languageclient_warning_count`
+`neomake_error_count` `neomake_warning_count` `obsession` `syntastic-warn`
+`syntastic-err` `tagbar` `whitespace` `windowswap` `ycm_error_count`
+`ycm_warning_count`
 
 -------------------------------------                      *airline-accents*
 Accents can be defined on any part, like so: >
