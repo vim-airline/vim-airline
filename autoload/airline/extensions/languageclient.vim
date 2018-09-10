@@ -65,21 +65,21 @@ function! airline#extensions#languageclient#get(type)
   let is_err = a:type == s:severity_error
   let symbol = is_err ? s:error_symbol : s:warning_symbol
 
-  let count = 0
+  let cnt = 0
   for d in s:diagnostics_for_buffer()
     if d.severity == a:type
-      let count += 1
+      let cnt += 1
     endif
   endfor
 
-  if count == 0
+  if cnt == 0
     return ''
   endif
 
   if s:show_line_numbers == 1
-    return s:airline_languageclient_count(count, symbol) . <sid>airline_languageclient_get_line_number(a:type)
+    return s:airline_languageclient_count(cnt, symbol) . <sid>airline_languageclient_get_line_number(a:type)
   else
-    return s:airline_languageclient_count(count, symbol)
+    return s:airline_languageclient_count(cnt, symbol)
   endif
 endfunction
 
