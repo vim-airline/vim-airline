@@ -151,7 +151,7 @@ function! airline#check_mode(winnr)
     if l:m[0] ==# "i"
       let l:mode = ['insert']
     elseif l:m ==# "Rv"
-      let l:mode =['virtual replace']
+      let l:mode =['replace']
     elseif l:m[0] ==# "R"
       let l:mode = ['replace']
     elseif l:m[0] =~# '\v(v|V||s|S|)'
