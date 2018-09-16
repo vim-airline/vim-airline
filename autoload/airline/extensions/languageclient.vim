@@ -45,7 +45,7 @@ endfunction
 function! s:airline_languageclient_get_line_number(type) abort
   let linenumber_of_first_problem = 0
   for d in s:diagnostics_for_buffer()
-    if d.severity == a:type
+    if has_key(d, 'severity') && d.severity == a:type
       let linenumber_of_first_problem = d.range.start.line
       break
     endif
