@@ -147,16 +147,18 @@ function! airline#check_mode(winnr)
   let context = s:contexts[a:winnr]
 
   if get(w:, 'airline_active', 1)
-    let l:m = mode()
-    if l:m ==# "i"
+    let l:m = mode(1)
+    if l:m[0] ==# "i"
       let l:mode = ['insert']
-    elseif l:m ==# "R"
+    elseif l:m ==# "Rv"
+      let l:mode =['virtual replace']
+    elseif l:m[0] ==# "R"
       let l:mode = ['replace']
-    elseif l:m =~# '\v(v|V||s|S|)'
+    elseif l:m[0] =~# '\v(v|V||s|S|)'
       let l:mode = ['visual']
     elseif l:m ==# "t"
       let l:mode = ['terminal']
-    elseif l:m ==# "c"
+    elseif l:m[0] ==# "c"
       let l:mode = ['commandline']
     else
       let l:mode = ['normal']

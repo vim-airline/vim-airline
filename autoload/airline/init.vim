@@ -47,6 +47,7 @@ function! airline#init#bootstrap()
         \ 'S'  : 'S-LINE',
         \ '' : 'S-BLOCK',
         \ 't'  : 'TERMINAL',
+        \ 'Rv' : 'V REPLACE',
         \ }, 'keep')
 
   call s:check_defined('g:airline_theme_map', {})
