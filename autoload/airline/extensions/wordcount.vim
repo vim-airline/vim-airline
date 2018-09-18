@@ -65,51 +65,36 @@ function! s:update_wordcount(force_update)
   endif
 endfunction
 
-if exists('##TextChanged')
-  let s:supported_autocmds = 'TextChanged,TextChangedI'
-
-  function! s:on_check()
-    call s:update_wordcount(0)
-  endfunction
-else
-  let s:supported_autocmds = 'CursorMoved,CursorMovedI'
-
-  " without TextChanged, use "b:changedtick" to track changes
-  function! s:on_check()
-    if get(b:, 'airline_change_tick', -1) != b:changedtick
-      let b:airline_change_tick = b:changedtick
-      call s:update_wordcount(0)
-    endif
-  endfunction
-endif
-
-" public {{{1
 let s:visual_active = 0  " Boolean: for when to get visual wordcount
 function airline#extensions#wordcount#get()
-  return s:visual_active
-        \ ? s:format_wordcount(s:get_wordcount(1))
-        \ : b:airline_wordcount
+  if s:visual_active
+    return s:format_wordcount(s:get_wordcount(1))
+  else
+    if b:airline_changedtick != b:changedtick
+      call s:update_wordcount(0)
+      let b:airline_changedtick = b:changedtick
+    endif
+    return b:airline_wordcount
+  endif
 endfunction
 
-" autocmds & airline functions {{{1
+" airline functions {{{1
 " default filetypes:
 let s:filetypes = ['help', 'markdown', 'rst', 'org', 'text', 'asciidoc', 'tex', 'mail']
 function! airline#extensions#wordcount#apply(...)
   let filetypes = get(g:, 'airline#extensions#wordcount#filetypes', s:filetypes)
 
-  " check if autocmd updates are neccessary
+  " Check if filetype needs testing
   if did_filetype() || filetypes isnot s:filetypes
     let s:filetypes = filetypes
 
     " Select test based on type of "filetypes": new=list, old=string
     if type(filetypes) == v:t_list
           \ ? index(filetypes, &filetype) > -1 || index(filetypes, 'all') > -1
-          \ : match(&ft, filetypes) > -1
-      execute 'autocmd! airline_wordcount BufEnter,'.s:supported_autocmds
-            \  .' <buffer> nested call s:on_check()'
-      call s:update_wordcount(1) " force update ensures initial worcount exists
-    elseif exists('b:airline_wordcount') " cleanup
-      autocmd! airline_wordcount * <buffer>
+          \ : match(&filetype, filetypes) > -1
+      let b:airline_changedtick = -1
+      call s:update_wordcount(1) " force update: ensures initial worcount exists
+    elseif exists('b:airline_wordcount') " cleanup when filetype is removed
       unlet b:airline_wordcount
     endif
   endif
