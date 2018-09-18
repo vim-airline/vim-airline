@@ -3,8 +3,14 @@
 
 scriptencoding utf-8
 
-let s:fmt = get(g:, 'airline#extensions#wordcount#formatter#default#fmt', '%s words')
-let s:fmt_short = get(g:, 'airline#extensions#wordcount#formatter#default#fmt_short', s:fmt == '%s words' ? '%sW' : s:fmt)
+function s:update_fmt(...)
+  let s:fmt = get(g:, 'airline#extensions#wordcount#formatter#default#fmt', '%s words')
+  let s:fmt_short = get(g:, 'airline#extensions#wordcount#formatter#default#fmt_short', s:fmt == '%s words' ? '%sW' : s:fmt)
+endfunction
+
+" Reload format when statusline is rebuilt
+call s:update_fmt()
+call airline#add_statusline_funcref(function('s:update_fmt'))
 
 if match(get(v:, 'lang', ''), '\v\cC|en') > -1
   let s:decimal_group = ','
