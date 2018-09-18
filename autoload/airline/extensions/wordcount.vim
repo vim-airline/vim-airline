@@ -11,7 +11,7 @@ if exists('*wordcount')
 else
   function! s:get_wordcount(type)
     " index to retrieve from whitespace-separated output of g_CTRL-G
-    " 11 - words, 5 - visual words (in visual mode)
+    " 11 : words, 5 : visual words (in visual mode)
     let idx = (a:type == 'words') ? 11 : 5
 
     let save_status = v:statusmsg
@@ -31,7 +31,7 @@ let s:formatter = get(g:, 'airline#extensions#wordcount#formatter', 'default')
 
 " wrapper function for compatibility; redefined below for old-style formatters
 function! s:format_wordcount(type)
-  return airline#extensions#wordcount#formatters#{s:formatter}#transform(
+  return airline#extensions#wordcount#formatters#{s:formatter}#to_string(
         \ s:get_wordcount(a:type))
 endfunction
 
@@ -39,7 +39,7 @@ endfunction
 " fall back to default
 if s:formatter !=# 'default'
   execute 'runtime! autoload/airline/extensions/wordcount/formatters/'.s:formatter
-  if !exists('*airline#extensions#wordcount#formatters#{s:formatter}#transform')
+  if !exists('*airline#extensions#wordcount#formatters#{s:formatter}#to_string')
     if !exists('*airline#extensions#wordcount#formatters#{s:formatter}#format')
       let s:formatter = 'default'
     else
