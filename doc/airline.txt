@@ -333,6 +333,10 @@ tabline extension) or the read-only check. Default is
 `g:airline#extensions#tabline#ignore_bufadd_pat` (see below) or
 `'gundo|undotree|vimfiler|tagbar|nerd_tree|startify'` if it is unset.
 
+                                *airline#extensions#tabline#exclude_buffers*
+Buffer numbers to be excluded from showing in the tabline (similar to
+|airline#ignore_bufadd_pat|.
+
 ==============================================================================
 EXTENSIONS                                              *airline-extensions*
 
