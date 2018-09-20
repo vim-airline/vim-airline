@@ -89,7 +89,7 @@ function! airline#extensions#wordcount#apply(...)
     let s:filetypes = filetypes
 
     " Select test based on type of "filetypes": new=list, old=string
-    if type(filetypes) == v:t_list
+    if type(filetypes) == get(v:, 't_list', type([]))
           \ ? index(filetypes, &filetype) > -1 || index(filetypes, 'all') > -1
           \ : match(&filetype, filetypes) > -1
       let b:airline_changedtick = -1
