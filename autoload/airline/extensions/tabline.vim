@@ -48,8 +48,6 @@ function! s:update_tabline()
     return
   endif
   let match = expand('<afile>')
-  let ignore_bufadd_pat = get(g:, 'airline#extensions#tabline#ignore_bufadd_pat',
-        \ '\c\vgundo|undotree|vimfiler|tagbar|nerd_tree|startify')
   if pumvisible()
     return
   elseif !get(g:, 'airline#extensions#tabline#enabled', 0)

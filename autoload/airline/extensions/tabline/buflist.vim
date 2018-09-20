@@ -36,6 +36,7 @@ function! airline#extensions#tabline#buflist#list()
   let exclude_buffers = get(g:, 'airline#extensions#tabline#exclude_buffers', [])
   let exclude_paths = get(g:, 'airline#extensions#tabline#excludes', [])
   let exclude_preview = get(g:, 'airline#extensions#tabline#exclude_preview', 1)
+  let exclude_types = get(g:, 'g:airline#extensions#tabline#ignore_bufadd_pat', [])
 
   let list = (exists('g:did_bufmru') && g:did_bufmru) ? BufMRUList() : range(1, bufnr("$"))
 
@@ -52,14 +53,18 @@ function! airline#extensions#tabline#buflist#list()
       " 4) when excluding preview windows:
       "     'bufhidden' == wipe
       "     'buftype' == nofile
+      " 5) ignore buffers matching airline#extensions#tabline#ignore_bufadd_pat
 
       " check buffer numbers first
       if index(exclude_buffers, nr) >= 0
         continue
-        " check paths second
+      " check paths second
       elseif !empty(exclude_paths) && s:ExcludePaths(nr, exclude_paths)
         continue
-        " check other types last
+      " ignore buffers matching airline#extensions#tabline#ignore_bufadd_pat
+      elseif airline#util#ignore_buf(bufname(nr))
+        continue
+      " check other types last
       elseif s:ExcludeOther(nr, exclude_preview)
         continue
       endif
