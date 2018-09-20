@@ -36,7 +36,6 @@ function! airline#extensions#tabline#buflist#list()
   let exclude_buffers = get(g:, 'airline#extensions#tabline#exclude_buffers', [])
   let exclude_paths = get(g:, 'airline#extensions#tabline#excludes', [])
   let exclude_preview = get(g:, 'airline#extensions#tabline#exclude_preview', 1)
-  let exclude_types = get(g:, 'g:airline#extensions#tabline#ignore_bufadd_pat', [])
 
   let list = (exists('g:did_bufmru') && g:did_bufmru) ? BufMRUList() : range(1, bufnr("$"))
 
