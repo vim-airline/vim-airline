@@ -36,8 +36,12 @@ function! airline#init#bootstrap()
   call s:check_defined('g:airline_mode_map', {})
   call extend(g:airline_mode_map, {
         \ '__' : '------',
-        \ 'n'  : 'NORMAL',
         \ 'i'  : 'INSERT',
+        \ 'ic' : 'INSERT COMPL',
+        \ 'ix' : 'INSERT COMPL',
+        \ 'n'  : 'NORMAL',
+        \ 'ni' : '(INSERT)',
+        \ 'no' : 'OP PENDING',
         \ 'R'  : 'REPLACE',
         \ 'v'  : 'VISUAL',
         \ 'V'  : 'V-LINE',
