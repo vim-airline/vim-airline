@@ -592,14 +592,16 @@ eclim <https://eclim.org>
   let g:airline#extensions#eclim#enabled = 1
 
 -------------------------------------                    *airline-wordcount*
+display the word count of the document or visual selection
+
 * enable/disable word counting. >
   let g:airline#extensions#wordcount#enabled = 1
 <
-* regex of filetypes to enable word counting. >
+* set list of filetypes for which word counting is enabled: >
   " the default value matches filetypes typically used for documentation
   " such as markdown and help files.
-  let g:airline#extensions#wordcount#filetypes = ...
-  (default: markdown,rst,org,help,text,tex,mail)
+  let g:airline#extensions#wordcount#filetypes =
+    \ ['help', 'markdown', 'rst', 'org', 'text', 'asciidoc', 'tex', 'mail']
 
 * defines the name of a formatter for word count will be displayed: >
   " The default will try to guess LC_NUMERIC and format number accordingly
@@ -607,14 +609,14 @@ eclim <https://eclim.org>
   let g:airline#extensions#wordcount#formatter = 'default'
 
   " here is how you can define a 'foo' formatter:
-  " create a file in the dir autoload/airline/extensions/wordcount/formatters/
-  " called foo.vim
-  " this example needs at least Vim > 7.4.1042
-  function! airline#extensions#wordcount#formatters#foo#format(format,fmt)
-    return (wordcount()['words'] == 0 ? 'NONE' :
-        \ wordcount()['words'] > 100 ? 'okay' : 'not enough')
+  " create a file in autoload/airline/extensions/wordcount/formatters/
+  " called foo.vim, which defines the following function signature:
+  function! airline#extensions#wordcount#formatters#foo#to_string(wordcount)
+    return a:wordcount == 0 ? 'NONE' :
+        \ a:wordcount > 100 ? 'okay' : 'not enough')
   endfunction
   let g:airline#extensions#wordline#formatter = 'foo'
+  " The function is passed the word count of the document or visual selection
 
 * defines how to display the wordcount statistics for the default formatter: >
   " Defaults are below.  If fmt_short isn't defined, fmt is used.
