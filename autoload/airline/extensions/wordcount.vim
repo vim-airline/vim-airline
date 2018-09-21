@@ -26,7 +26,7 @@ else
 
     let parts = split(substitute(stat, ';', '', 'g'))
     if len(parts) > idx
-      return parts[idx]
+      return str2nr(parts[idx])
     endif
   endfunction
 endif
