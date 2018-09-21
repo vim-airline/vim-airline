@@ -16,13 +16,13 @@ else
     let idx = a:visual_mode_active ? 5 : 11
 
     let save_status = v:statusmsg
-    execute "silent normal! g\<cn-g>"
+    execute "silent normal! g\<c-g>"
     let stat = v:statusmsg
     let v:statusmsg = save_status
 
     let parts = split(stat)
     if len(parts) > idx
-      return parts[idx]
+      return str2nr(parts[idx])
     endif
   endfunction
 endif
