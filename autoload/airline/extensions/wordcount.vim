@@ -7,7 +7,11 @@ scriptencoding utf-8
 if exists('*wordcount')
   function! s:get_wordcount(visual_mode_active)
     let query = a:visual_mode_active ? 'visual_words' : 'words'
-    return string(wordcount()[query])
+    let result = wordcount()
+    if has_key(result, query)
+      return string(result[query])
+    endif
+    return ''
   endfunction
 else
   function! s:get_wordcount(visual_mode_active)
