@@ -12,7 +12,7 @@ if exists('*wordcount')
 else  " Pull wordcount from the g_ctrl-g stats
   function! s:get_wordcount(visual_mode_active)
     let pattern = a:visual_mode_active
-          \ ? '\d\+\ze Words;'
+          \ ? 'Lines; \zs\d\+\ze of \d\+ Words;'
           \ : 'Word \d\+ of \zs\d\+'
 
     let save_status = v:statusmsg
