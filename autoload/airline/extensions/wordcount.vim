@@ -7,27 +7,26 @@ scriptencoding utf-8
 if exists('*wordcount')
   function! s:get_wordcount(visual_mode_active)
     let query = a:visual_mode_active ? 'visual_words' : 'words'
-    let result = wordcount()
-    if has_key(result, query)
-      return string(result[query])
-    endif
-    return ''
+    return get(wordcount(), query, 0)
   endfunction
-else
+else  " Pull wordcount from the g_ctrl-g stats
   function! s:get_wordcount(visual_mode_active)
-    " index to retrieve from whitespace-separated output of g_CTRL-G
-    " 11 : words, 5 : visual words (in visual mode)
-    let idx = a:visual_mode_active ? 5 : 11
+    let pattern = a:visual_mode_active
+          \ ? 'Lines; \zs\d\+\ze of \d\+ Words;'
+          \ : 'Word \d\+ of \zs\d\+'
 
     let save_status = v:statusmsg
-    execute "silent normal! g\<c-g>"
-    let stat = v:statusmsg
+    if !a:visual_mode_active && col('.') == col('$')
+      let save_pos = getpos('.')
+      execute "silent normal! g\<c-g>"
+      call setpos('.', save_pos)
+    else
+      execute "silent normal! g\<c-g>"
+    endif
+    let stats = v:statusmsg
     let v:statusmsg = save_status
 
-    let parts = split(substitute(stat, ';', '', 'g'))
-    if len(parts) > idx
-      return parts[idx]
-    endif
+    return str2nr(matchstr(stats, pattern))
   endfunction
 endif
 

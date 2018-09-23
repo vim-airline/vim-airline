@@ -592,16 +592,15 @@ eclim <https://eclim.org>
   let g:airline#extensions#eclim#enabled = 1
 
 -------------------------------------                    *airline-wordcount*
-display the word count of the document or visual selection
-
-* enable/disable word counting. >
+* enable/disable word counting of the document/visual selection >
   let g:airline#extensions#wordcount#enabled = 1
 <
 * set list of filetypes for which word counting is enabled: >
-  " the default value matches filetypes typically used for documentation
+  " The default value matches filetypes typically used for documentation
   " such as markdown and help files.
   let g:airline#extensions#wordcount#filetypes =
     \ ['help', 'markdown', 'rst', 'org', 'text', 'asciidoc', 'tex', 'mail']
+  " Use ['all'] to enable for all filetypes.
 
 * defines the name of a formatter for word count will be displayed: >
   " The default will try to guess LC_NUMERIC and format number accordingly

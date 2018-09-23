@@ -3,16 +3,16 @@
 
 scriptencoding utf-8
 
-function! s:update_fmt(...)
+function! airline#extensions#wordcount#formatters#default#update_fmt(...)
   let s:fmt = get(g:, 'airline#extensions#wordcount#formatter#default#fmt', '%s words')
   let s:fmt_short = get(g:, 'airline#extensions#wordcount#formatter#default#fmt_short', s:fmt == '%s words' ? '%sW' : s:fmt)
 endfunction
 
 " Reload format when statusline is rebuilt
-call s:update_fmt()
-if index(g:airline_statusline_funcrefs, function('s:update_fmt')) == -1
+call airline#extensions#wordcount#formatters#default#update_fmt()
+if index(g:airline_statusline_funcrefs, function('airline#extensions#wordcount#formatters#default#update_fmt')) == -1
   " only add it, if not already done
-  call airline#add_statusline_funcref(function('s:update_fmt'))
+  call airline#add_statusline_funcref(function('airline#extensions#wordcount#formatters#default#update_fmt'))
 endif
 
 if match(get(v:, 'lang', ''), '\v\cC|en') > -1
@@ -24,10 +24,6 @@ else
 endif
 
 function! airline#extensions#wordcount#formatters#default#to_string(wordcount)
-  if empty(a:wordcount)
-    return
-  endif
-
   if winwidth(0) >= 80
     if a:wordcount > 999
       " Format number according to locale, e.g. German: 1.245 or English: 1,245
@@ -41,4 +37,3 @@ function! airline#extensions#wordcount#formatters#default#to_string(wordcount)
   endif
   return str . g:airline_symbols.space . g:airline_right_alt_sep . g:airline_symbols.space
 endfunction
-
