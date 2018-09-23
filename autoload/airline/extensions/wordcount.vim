@@ -12,8 +12,8 @@ if exists('*wordcount')
 else  " Pull wordcount from the g_ctrl-g stats
   function! s:get_wordcount(visual_mode_active)
     let pattern = a:visual_mode_active
-          \ ? 'Lines; \zs\d\+\ze of \d\+ Words;'
-          \ : 'Word \d\+ of \zs\d\+'
+          \ ? '^.\D*\d\+\D\+\d\+\D\+\zs\d\+'
+          \ : '^.\D*\%(\d\+\D\+\)\{5}\zs\d\+'
 
     let save_status = v:statusmsg
     if !a:visual_mode_active && col('.') == col('$')
