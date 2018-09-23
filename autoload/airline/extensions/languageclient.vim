@@ -67,7 +67,7 @@ function! airline#extensions#languageclient#get(type)
 
   let cnt = 0
   for d in s:diagnostics_for_buffer()
-    if d.severity == a:type
+    if has_key(d, 'severity') && d.severity == a:type
       let cnt += 1
     endif
   endfor
