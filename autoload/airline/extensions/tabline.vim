@@ -57,7 +57,7 @@ function! s:update_tabline()
         \ || isdirectory(expand("<afile>"))
     return
   endif
-  doautocmd User BufMRUChange
+  call airline#util#doautocmd('BufMRUChange')
   " sometimes, the tabline is not correctly updated see #1580
   " so force redraw here
   let &tabline = &tabline

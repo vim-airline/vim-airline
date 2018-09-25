@@ -32,7 +32,7 @@ function! s:init()
     silent call s:on_colorscheme_changed()
   endif
 
-  silent doautocmd User AirlineAfterInit
+  call airline#util#doautocmd('AirlineAfterInit')
 endfunction
 
 let s:active_winnr = -1
@@ -86,7 +86,7 @@ function! s:airline_toggle()
     endif
     call airline#highlighter#reset_hlcache()
 
-    silent doautocmd User AirlineToggledOff
+    call airline#util#doautocmd('AirlineToggledOff')
   else
     let s:stl = &statusline
     augroup airline
@@ -133,7 +133,7 @@ function! s:airline_toggle()
       call s:on_window_changed()
     endif
 
-    silent doautocmd User AirlineToggledOn
+    call airline#util#doautocmd('AirlineToggledOn')
   endif
 endfunction
 
@@ -155,11 +155,7 @@ function! s:airline_refresh()
     " disabled
     return
   endif
-  let nomodeline=''
-  if v:version > 703 || v:version == 703 && has("patch438")
-    let nomodeline = '<nomodeline>'
-  endif
-  exe printf("silent doautocmd %s User AirlineBeforeRefresh", nomodeline)
+  call airline#util#doautocmd('AirlineBeforeRefresh')
   call airline#highlighter#reset_hlcache()
   call airline#load_theme()
   call airline#update_statusline()

@@ -100,11 +100,11 @@ function! airline#extensions#tabline#xtabline#maps()
         map <unique> <leader>cd2 <Plug>XTablineCdDown2
         map <unique> <leader>cd3 <Plug>XTablineCdDown3
         map <unique> <leader>cdh <Plug>XTablineCdHome
-        nnoremap <unique> <script> <Plug>XTablineCdCurrent :cd %:p:h<cr>:doautocmd BufAdd<cr>:pwd<cr>
-        nnoremap <unique> <script> <Plug>XTablineCdDown1   :cd %:p:h:h<cr>:doautocmd BufAdd<cr>:pwd<cr>
-        nnoremap <unique> <script> <Plug>XTablineCdDown2   :cd %:p:h:h:h<cr>:doautocmd BufAdd<cr>:pwd<cr>
-        nnoremap <unique> <script> <Plug>XTablineCdDown3   :cd %:p:h:h:h:h<cr>:doautocmd BufAdd<cr>:pwd<cr>
-        nnoremap <unique> <script> <Plug>XTablineCdHome    :cd ~<cr>:doautocmd BufAdd<cr>:pwd<cr>
+        nnoremap <unique> <script> <Plug>XTablineCdCurrent :cd %:p:h<cr>:call airline#util#doautocmd('BufAdd')<cr>:pwd<cr>
+        nnoremap <unique> <script> <Plug>XTablineCdDown1   :cd %:p:h:h<cr>:call airline#util#doautocmd('BufAdd')<cr>:pwd<cr>
+        nnoremap <unique> <script> <Plug>XTablineCdDown2   :cd %:p:h:h:h<cr>:call airline#util#doautocmd('BufAdd')<cr>:pwd<cr>
+        nnoremap <unique> <script> <Plug>XTablineCdDown3   :cd %:p:h:h:h:h<cr>:call airline#util#doautocmd('BufAdd')<cr>:pwd<cr>
+        nnoremap <unique> <script> <Plug>XTablineCdHome    :cd ~<cr>:call airline#util#doautocmd('BufAdd')<cr>:pwd<cr>
     endif
 endfunction
 

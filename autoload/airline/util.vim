@@ -8,6 +8,7 @@ scriptencoding utf-8
 
 call airline#init#bootstrap()
 let s:spc = g:airline_symbols.space
+let s:nomodeline = (v:version > 703 || (v:version == 703 && has("patch438"))) ? '<nomodeline>' : ''
 
 function! airline#util#shorten(text, winwidth, minwidth, ...)
   if winwidth(0) < a:winwidth && len(split(a:text, '\zs')) > a:minwidth
@@ -119,3 +120,7 @@ endfunction
 function! airline#util#has_custom_scm()
   return !empty(get(g:, 'airline#extensions#branch#custom_head', ''))
 endfunction
+
+function! airline#util#doautocmd(event)
+  exe printf("silent doautocmd %s User %s", s:nomodeline, a:event)
+endfu
