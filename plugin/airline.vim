@@ -105,6 +105,8 @@ function! s:airline_toggle()
       if exists("##TerminalOpen")
         autocmd TerminalOpen * call <sid>on_colorscheme_changed()
       endif
+      " Set all statuslines to inactive
+      autocmd FocusLost * call airline#update_statusline_inactive(range(1, winnr('$')))
       " Refresh airline for :syntax off
       autocmd SourcePre */syntax/syntax.vim
             \ call airline#extensions#tabline#buffers#invalidate()
@@ -119,7 +121,7 @@ function! s:airline_toggle()
             \ |   call <sid>on_window_changed()
             \ | endif
 
-      autocmd VimResized * unlet! w:airline_lastmode | :call <sid>airline_refresh()
+      autocmd VimResized,FocusGained * unlet! w:airline_lastmode | :call <sid>airline_refresh()
       autocmd TabEnter * :unlet! w:airline_lastmode | let w:airline_active=1
       autocmd BufWritePost */autoload/airline/themes/*.vim
             \ exec 'source '.split(globpath(&rtp, 'autoload/airline/themes/'.g:airline_theme.'.vim', 1), "\n")[0]
