@@ -74,6 +74,7 @@ function! airline#extensions#ale#init(ext)
   augroup airline_ale
     autocmd!
     autocmd CursorHold,BufWritePost * call <sid>ale_refresh()
+    autocmd User ALEJobStarted,ALELintPost call <sid>ale_refresh()
   augroup END
 endfunction
 
