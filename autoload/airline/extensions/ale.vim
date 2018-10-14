@@ -3,10 +3,6 @@
 
 scriptencoding utf-8
 
-let s:error_symbol = get(g:, 'airline#extensions#ale#error_symbol', 'E:')
-let s:warning_symbol = get(g:, 'airline#extensions#ale#warning_symbol', 'W:')
-let s:show_line_numbers = get(g:, 'airline#extensions#ale#show_line_numbers', 1)
-
 function! s:airline_ale_count(cnt, symbol)
   return a:cnt ? a:symbol. a:cnt : ''
 endfunction
@@ -37,13 +33,20 @@ function! airline#extensions#ale#get(type)
     return ''
   endif
 
-  let is_err = a:type ==# 'error'
-  let symbol = is_err ? s:error_symbol : s:warning_symbol
+  let error_symbol = get(g:, 'airline#extensions#ale#error_symbol', 'E:')
+  let warning_symbol = get(g:, 'airline#extensions#ale#warning_symbol', 'W:')
+  let checking_symbol = get(g:, 'airline#extensions#ale#checking_symbol', '...')
+  let show_line_numbers = get(g:, 'airline#extensions#ale#show_line_numbers', 1)
 
   let is_err = a:type ==# 'error'
+
+  if ale#engine#IsCheckingBuffer(bufnr('')) == 1
+    return is_err ? '' : checking_symbol
+  endif
+
+  let symbol = is_err ? error_symbol : warning_symbol
+
   let counts = ale#statusline#Count(bufnr(''))
-  let symbol = is_err ? s:error_symbol : s:warning_symbol
-
   if type(counts) == type({}) && has_key(counts, 'error')
     " Use the current Dictionary format.
     let errors = counts.error + counts.style_error
@@ -53,7 +56,7 @@ function! airline#extensions#ale#get(type)
     let num = is_err ? counts[0] : counts[1]
   endif
 
-  if s:show_line_numbers == 1
+  if show_line_numbers == 1
     return s:airline_ale_count(num, symbol) . <sid>airline_ale_get_line_number(num, a:type)
   else
     return s:airline_ale_count(num, symbol)
