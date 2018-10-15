@@ -106,7 +106,9 @@ function! s:airline_toggle()
         autocmd TerminalOpen * call <sid>on_colorscheme_changed()
       endif
       " Set all statuslines to inactive
-      autocmd FocusLost * call airline#update_statusline_inactive(range(1, winnr('$')))
+      autocmd FocusLost * if get(g:, 'airline_focuslost_inactive', 0)|
+            \ call airline#update_statusline_inactive(range(1, winnr('$')))|
+            \ endif
       " Refresh airline for :syntax off
       autocmd SourcePre */syntax/syntax.vim
             \ call airline#extensions#tabline#buffers#invalidate()

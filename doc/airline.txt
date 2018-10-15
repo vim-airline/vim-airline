@@ -183,13 +183,13 @@ values):
       \ 'no' : 'N',
       \ 'R'  : 'R',
       \ 'Rv' : 'R',
-      \ 'v'  : 'V',
-      \ 'V'  : 'V',
-      \ '' : 'V',
       \ 's'  : 'S',
       \ 'S'  : 'S',
       \ '' : 'S',
       \ 't'  : 'T',
+      \ 'v'  : 'V',
+      \ 'V'  : 'V',
+      \ '' : 'V',
       \ }
 <
 * define the set of filename match queries which excludes a window from having
@@ -206,7 +206,7 @@ values):
   let g:airline_exclude_preview = 0
 <
 * disable the Airline customization for selective windows (this is a
-  window-local variable so you can disable it for only some windows) >
+  window-local variable so you can disable it per-window) >
   let w:airline_disabled = 1
 
 * Do not draw separators for empty sections (only for the active window) >
@@ -219,6 +219,9 @@ values):
 * Caches the changes to the highlighting groups, should therefore be faster.
   Set this to one, if you experience a sluggish Vim: >
   let g:airline_highlighting_cache = 0
+<
+* disable airline on FocusLost autocommand (e.g. when Vim loses focus): >
+  let g:airline_focuslost_inactive = 1
 <
 ==============================================================================
 COMMANDS                                                  *airline-commands*
