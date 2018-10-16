@@ -153,6 +153,9 @@ function! airline#statusline(winnr)
 endfunction
 
 function! airline#check_mode(winnr)
+  if !has_key(s:contexts, a:winnr)
+    return ''
+  endif
   let context = s:contexts[a:winnr]
 
   if get(w:, 'airline_active', 1)
