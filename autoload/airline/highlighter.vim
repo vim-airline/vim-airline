@@ -53,7 +53,7 @@ function! airline#highlighter#reset_hlcache()
 endfunction
 
 function! airline#highlighter#get_highlight(group, ...)
-  let reverse = g:airline_gui_mode ==# 'gui'
+  let reverse = get(g:, 'airline_gui_mode', '') ==# 'gui'
       \ ? synIDattr(synIDtrans(hlID(a:group)), 'reverse', 'gui')
       \ : synIDattr(synIDtrans(hlID(a:group)), 'reverse', 'cterm')
       \|| synIDattr(synIDtrans(hlID(a:group)), 'reverse', 'term')
