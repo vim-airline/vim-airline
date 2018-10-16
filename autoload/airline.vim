@@ -115,6 +115,14 @@ function! airline#update_statusline()
   call s:invoke_funcrefs(context, g:airline_statusline_funcrefs)
 endfunction
 
+function! airline#update_statusline_focuslost()
+  if get(g:, 'airline_focuslost_inactive', 0)
+    let bufnr=bufnr('%')
+    call airline#highlighter#highlight_modified_inactive(bufnr)
+    call airline#highlighter#highlight(['inactive'], bufnr)
+    call airline#update_statusline_inactive(range(1, winnr('$')))
+  endif
+endfunction
 function! airline#update_statusline_inactive(range)
   if airline#util#getwinvar(winnr(), 'airline_disabled', 0)
     return

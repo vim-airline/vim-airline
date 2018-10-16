@@ -223,11 +223,6 @@ function! airline#highlighter#highlight(modes, ...)
   let mapped = map(a:modes, 'v:val == a:modes[0] ? v:val : a:modes[0]."_".v:val')
   let suffix = a:modes[0] == 'inactive' ? '_inactive' : ''
   for mode in mapped
-    if mode == 'inactive' && winnr('$') == 1
-      " there exist no inactive windows, don't need to create all those
-      " highlighting groups
-      continue
-    endif
     if exists('g:airline#themes#{g:airline_theme}#palette[mode]')
       let dict = g:airline#themes#{g:airline_theme}#palette[mode]
       for kvp in items(dict)
