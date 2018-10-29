@@ -752,6 +752,9 @@ with the middle mouse button to delete that buffer.
 * enable/disable displaying tab number in tabs mode. >
   let g:airline#extensions#tabline#show_tab_nr = 1
 
+* enable/disable displaying tab number in tabs mode for ctrlspace. (c) >
+  let g:airline#extensions#tabline#ctrlspace_show_tab_nr = 0
+
 * enable/disable displaying tab type (e.g. [buffers]/[tabs]) >
   let g:airline#extensions#tabline#show_tab_type = 1
 
