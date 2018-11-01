@@ -18,8 +18,10 @@ function! airline#extensions#po#shorten()
     let untranslated = ''
     let messages = ''
     " Shorten [120 translated, 50 fuzzy, 4 untranslated] to [120T/50F/4U]
-    if b:airline_po_stats =~ 'untranslated\|fuzzy'
+    if b:airline_po_stats =~ 'fuzzy'
       let fuzzy = substitute(b:airline_po_stats, '.*\(\d\+\) fuzzy.*', '\1F', '')
+    endif
+    if b:airline_po_stats =~ 'untranslated'
       let untranslated = substitute(b:airline_po_stats, '.*\(\d\+\) untranslated.*', '\1U', '')
     endif
     let messages = substitute(b:airline_po_stats, '\(\d\+\) translated.*', '\1T', '')
