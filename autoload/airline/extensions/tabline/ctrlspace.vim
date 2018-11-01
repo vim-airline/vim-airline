@@ -71,7 +71,11 @@ function! airline#extensions#tabline#ctrlspace#add_tab_section(builder, pull_rig
           \ .s:highlight_groups[(4 * tab.modified) + (3 * tab.current)]
           \ .pos_extension
 
-    call a:builder.add_section_spaced(group, '%'.tab.index.'T'.tab.title.ctrlspace#api#TabBuffersNumber(tab.index).'%T')
+    if get(g:, 'airline#extensions#tabline#ctrlspace_show_tab_nr', 0) == 0
+      call a:builder.add_section_spaced(group, '%'.tab.index.'T'.tab.title.ctrlspace#api#TabBuffersNumber(tab.index).'%T')
+    else
+      call a:builder.add_section_spaced(group, '%'.(tab.index).'T'.(tab.index).(g:airline_symbols.space).(tab.title).ctrlspace#api#TabBuffersNumber(tab.index).'%T')
+    endif
   endfor
 endfunction
 
