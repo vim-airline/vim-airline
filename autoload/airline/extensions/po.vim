@@ -33,11 +33,21 @@ function! airline#extensions#po#shorten()
   let b:airline_po_stats = '['.b:airline_po_stats. ']'
 endfunction
 
+function! airline#extensions#po#on_winenter()
+  " only reset cache, if the window size changed
+  if get(b:, 'airline_winwidth', 0) != winwidth(0)
+    let b:airline_winwidth = winwidth(0)
+    " needs re-formatting
+    unlet! b:airline_po_stats
+  endif
+endfunction
+
 function! airline#extensions#po#apply(...)
   if &ft ==# 'po'
     call airline#extensions#prepend_to_section('z', '%{airline#extensions#po#stats()}')
     " Also reset the cache variable, if a window has been split, e.g. the winwidth changed
-    autocmd airline BufWritePost,WinEnter * unlet! b:airline_po_stats
+    autocmd airline BufWritePost * unlet! b:airline_po_stats
+    autocmd airline WinEnter * call airline#extensions#po#on_winenter()
   endif
 endfunction
 
