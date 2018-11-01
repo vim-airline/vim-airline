@@ -37,7 +37,7 @@ endfunction
 
 function! s:po_output(buf, file)
   if !empty(a:buf)
-    let b:airline_po_stats = printf("[%s]", a:buf)
+    let b:airline_po_stats = printf("%s", a:buf)
   else
     let b:airline_po_stats = ''
   endif

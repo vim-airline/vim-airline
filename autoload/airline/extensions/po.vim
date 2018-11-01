@@ -4,18 +4,38 @@
 scriptencoding utf-8
 
 function! airline#extensions#po#shorten()
+  " Format and shorte the output of msgfmt
+  let b:airline_po_stats = substitute(get(b:, 'airline_po_stats', ''), ' \(message\|translation\)s*\.*', '', 'g')
+  let b:airline_po_stats = substitute(b:airline_po_stats, ', ', '/', 'g')
   if exists("g:airline#extensions#po#displayed_limit")
     let w:displayed_po_limit = g:airline#extensions#po#displayed_limit
     if len(b:airline_po_stats) > w:displayed_po_limit - 1
       let b:airline_po_stats = b:airline_po_stats[0:(w:displayed_po_limit - 2)].(&encoding==?'utf-8' ? '…' : '.'). ']'
     endif
   endif
+  if strlen(get(b:, 'airline_po_stats', '')) >= 30 && winwidth(0) < 150
+    let fuzzy = ''
+    let untranslated = ''
+    let messages = ''
+    " Shorten [120 translated, 50 fuzzy, 4 untranslated] to [120T/50F/4U]
+    if b:airline_po_stats =~ 'untranslated\|fuzzy'
+      let fuzzy = substitute(b:airline_po_stats, '.*\(\d\+\) fuzzy.*', '\1F', '')
+      let untranslated = substitute(b:airline_po_stats, '.*\(\d\+\) untranslated.*', '\1U', '')
+    endif
+    let messages = substitute(b:airline_po_stats, '\(\d\+\) translated.*', '\1T', '')
+    let b:airline_po_stats = printf('%s%s%s', fuzzy, (empty(fuzzy) || empty(untranslated) ? '' : '/'), untranslated)
+    if strlen(b:airline_po_stats) < 8
+      let b:airline_po_stats = messages. (!empty(b:airline_po_stats) ? '/':''). b:airline_po_stats
+    endif
+  endif
+  let b:airline_po_stats = '['.b:airline_po_stats. ']'
 endfunction
 
 function! airline#extensions#po#apply(...)
   if &ft ==# 'po'
     call airline#extensions#prepend_to_section('z', '%{airline#extensions#po#stats()}')
-    autocmd airline BufWritePost * unlet! b:airline_po_stats
+    " Also reset the cache variable, if a window has been split, e.g. the winwidth changed
+    autocmd airline BufWritePost,WinEnter * unlet! b:airline_po_stats
   endif
 endfunction
 
@@ -35,8 +55,7 @@ function! airline#extensions#po#stats()
       return ''
     endif
     try
-      let b:airline_po_stats = '['. split(airline_po_stats, '\n')[0]. ']'
-      let b:airline_po_stats = substitute(b:airline_po_stats, ' \(message\|translation\)s*\.*', '', 'g')
+      let b:airline_po_stats = split(airline_po_stats, '\n')[0]
     catch
       let b:airline_po_stats = ''
     endtry
