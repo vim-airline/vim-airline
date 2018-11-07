@@ -7,6 +7,7 @@ if &cp || v:version < 702 || (exists('g:loaded_airline') && g:loaded_airline)
   finish
 endif
 let g:loaded_airline = 1
+let s:has_timers = has("timers")
 
 let s:airline_initialized = 0
 function! s:init()
@@ -121,7 +122,16 @@ function! s:airline_toggle()
             \ |   call <sid>on_window_changed()
             \ | endif
 
-      autocmd VimResized,FocusGained * unlet! w:airline_lastmode | :call <sid>airline_refresh()
+      autocmd VimResized * unlet! w:airline_lastmode | :call <sid>airline_refresh()
+      if s:has_timers
+        " do not trigger FocusGained on startup, it might erase the intro
+        " screen (see #1817)
+        let Handler=funcref('<sid>FocusGainedHandler')
+        let s:timer=timer_start(5000, Handler)
+      else
+        autocmd FocusGained * unlet! w:airline_lastmode | :call <sid>airline_refresh()
+      endif
+
       autocmd TabEnter * :unlet! w:airline_lastmode | let w:airline_active=1
       autocmd BufWritePost */autoload/airline/themes/*.vim
             \ exec 'source '.split(globpath(&rtp, 'autoload/airline/themes/'.g:airline_theme.'.vim', 1), "\n")[0]
@@ -162,6 +172,14 @@ function! s:airline_refresh()
   call airline#load_theme()
   call airline#update_statusline()
 endfunction
+
+function! s:FocusGainedHandler(timer)
+  if exists("s:timer") && a:timer == s:timer
+    augroup airline
+      au FocusGained * unlet! w:airline_lastmode | :call <sid>airline_refresh()
+    augroup END
+  endif
+endfu
 
 command! -bar -nargs=? -complete=customlist,<sid>get_airline_themes AirlineTheme call <sid>airline_theme(<f-args>)
 command! -bar AirlineToggleWhitespace call airline#extensions#whitespace#toggle()
