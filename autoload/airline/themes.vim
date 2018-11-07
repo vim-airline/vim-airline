@@ -38,6 +38,9 @@ endfunction
 
 function! airline#themes#patch(palette)
   for mode in keys(a:palette)
+    if mode == 'accents'
+      continue
+    endif
     if !has_key(a:palette[mode], 'airline_warning')
       let a:palette[mode]['airline_warning'] = [ '#000000', '#df5f00', 232, 166 ]
     endif
