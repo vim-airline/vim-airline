@@ -22,6 +22,18 @@ function! s:gui2cui(rgb, fallback)
   return airline#msdos#round_msdos_colors(rgb)
 endfunction
 
+function! s:group_not_done(list, name)
+  if index(a:list, a:name) == -1
+    call add(a:list, a:name)
+    return 1
+  else
+    if &vbs
+      echomsg printf("airline: group: %s already done, skipping", a:name)
+    endif
+    return 0
+  endif
+endfu
+
 function! s:get_syn(group, what)
   if !exists("g:airline_gui_mode")
     let g:airline_gui_mode = airline#init#gui_mode()
@@ -223,7 +235,11 @@ function! airline#highlighter#highlight(modes, ...)
   " draw the base mode, followed by any overrides
   let mapped = map(a:modes, 'v:val == a:modes[0] ? v:val : a:modes[0]."_".v:val')
   let suffix = a:modes[0] == 'inactive' ? '_inactive' : ''
-  for mode in mapped
+  let airline_grouplist=[]
+  " mapped might be something like ['normal', 'normal_modified']
+  " if a group is in both modes available, only define the second
+  " that is how this was done previously overwrite the previous definition
+  for mode in reverse(mapped)
     if exists('g:airline#themes#{g:airline_theme}#palette[mode]')
       let dict = g:airline#themes#{g:airline_theme}#palette[mode]
       for kvp in items(dict)
@@ -232,7 +248,9 @@ function! airline#highlighter#highlight(modes, ...)
         if name is# 'airline_c' && !empty(bufnr) && suffix is# '_inactive'
           let name = 'airline_c'.bufnr
         endif
-        call airline#highlighter#exec(name.suffix, mode_colors)
+        if s:group_not_done(airline_grouplist, name.suffix)
+          call airline#highlighter#exec(name.suffix, mode_colors)
+        endif
 
         for accent in keys(s:accents)
           if !has_key(p.accents, accent)
@@ -250,10 +268,16 @@ function! airline#highlighter#highlight(modes, ...)
           else
             call add(colors, get(p.accents[accent], 4, ''))
           endif
-          call airline#highlighter#exec(name.suffix.'_'.accent, colors)
+          if s:group_not_done(airline_grouplist, name.suffix.'_'.accent)
+            call airline#highlighter#exec(name.suffix.'_'.accent, colors)
+          endif
         endfor
       endfor
 
+      if empty(s:separators)
+        " nothing to be done
+        continue
+      endif
       " TODO: optimize this
       for sep in items(s:separators)
         call <sid>exec_separator(dict, sep[1][0], sep[1][1], sep[1][2], suffix)
