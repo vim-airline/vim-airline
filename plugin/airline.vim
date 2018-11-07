@@ -123,9 +123,10 @@ function! s:airline_toggle()
             \ | endif
 
       autocmd VimResized * unlet! w:airline_lastmode | :call <sid>airline_refresh()
-      if s:has_timers
+      if s:has_timers  && (v:version > 704 || (v:version == 704 && has("patch2137")))
         " do not trigger FocusGained on startup, it might erase the intro
         " screen (see #1817)
+        " needs funcref() which comes with 7.4.2137
         let Handler=funcref('<sid>FocusGainedHandler')
         let s:timer=timer_start(5000, Handler)
       else
