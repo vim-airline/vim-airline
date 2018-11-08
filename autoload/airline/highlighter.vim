@@ -256,7 +256,7 @@ function! airline#highlighter#highlight(modes, ...)
         " in the current tabpage
         if name[0:8] is# 'airline_c'
           let bnr = matchstr(name, 'airline_c\zs\d\+') + 0
-          if index(buffers_in_tabpage, bnr) == -1
+          if bnr > 0 && index(buffers_in_tabpage, bnr) == -1
             continue
           endif
         endif
