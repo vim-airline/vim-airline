@@ -142,6 +142,9 @@ values):
   only the filename of that buffer.  >
   let g:airline_inactive_collapse=1
 <
+* Use alternative seperators for the statusline of inactive windows >
+  let g:airline_inactive_alt_sep=1 
+<
 * themes are automatically selected based on the matching colorscheme. this
   can be overridden by defining a value. >
   let g:airline_theme='dark'

@@ -146,6 +146,11 @@ function! airline#update_statusline_inactive(range)
     endif
     call setwinvar(nr, 'airline_active', 0)
     let context = { 'winnr': nr, 'active': 0, 'bufnr': winbufnr(nr) }
+    if get(g:, 'airline_inactive_alt_sep', 0)
+      call extend(context, {
+            \ 'left_sep': g:airline_left_alt_sep,
+            \ 'right_sep': g:airline_right_alt_sep }, 'keep')
+    endif
     call s:invoke_funcrefs(context, s:inactive_funcrefs)
   endfor
 endfunction
