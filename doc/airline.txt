@@ -1367,6 +1367,7 @@ to override only certain parts of the statusline by only defining window-local
 variables for a subset of all sections.
 
 -------------------------------------                  *add_statusline_func*
+                                                *add_inactive_statusline_func*
 The following is an example of how you can extend vim-airline to support a
 new plugin. >
   function! MyPlugin(...)
@@ -1381,6 +1382,9 @@ new plugin. >
 <
 Notice that only the left side of the statusline is overwritten. This means
 the right side (the line/column numbers, etc) will be intact.
+
+To have the function act only on statuslines of inactive functions, use
+`airline#add_inactive_statusline_func('MyPlugin')`
 
 -------------------------------------               *remove_statusline_func*
 You can also remove a function as well, which is useful for when you want a
