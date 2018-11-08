@@ -235,7 +235,11 @@ function! airline#highlighter#highlight(modes, ...)
   " draw the base mode, followed by any overrides
   let mapped = map(a:modes, 'v:val == a:modes[0] ? v:val : a:modes[0]."_".v:val')
   let suffix = a:modes[0] == 'inactive' ? '_inactive' : ''
-  let airline_grouplist=[]
+  let airline_grouplist = []
+  let buffers_in_tabpage = sort(tabpagebuflist())
+  if exists("*uniq")
+    let buffers_in_tabpage = uniq(buffers_in_tabpage)
+  endif
   " mapped might be something like ['normal', 'normal_modified']
   " if a group is in both modes available, only define the second
   " that is how this was done previously overwrite the previous definition
@@ -247,6 +251,14 @@ function! airline#highlighter#highlight(modes, ...)
         let name = kvp[0]
         if name is# 'airline_c' && !empty(bufnr) && suffix is# '_inactive'
           let name = 'airline_c'.bufnr
+        endif
+        " do not re-create highlighting for buffers that are no longer visible
+        " in the current tabpage
+        if name[0:8] is# 'airline_c'
+          let bnr = matchstr(name, 'airline_c\\zs\d\+') + 0
+          if index(buffers_in_tabpage, bnr) == -1
+            continue
+          endif
         endif
         if s:group_not_done(airline_grouplist, name.suffix)
           call airline#highlighter#exec(name.suffix, mode_colors)
