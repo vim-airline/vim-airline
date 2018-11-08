@@ -254,7 +254,7 @@ function! airline#highlighter#highlight(modes, ...)
         endif
         " do not re-create highlighting for buffers that are no longer visible
         " in the current tabpage
-        if name[0:8] is# 'airline_c'
+        if name =~# 'airline_c\d\+'
           let bnr = matchstr(name, 'airline_c\zs\d\+') + 0
           if bnr > 0 && index(buffers_in_tabpage, bnr) == -1
             continue
