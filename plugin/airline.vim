@@ -7,7 +7,6 @@ if &cp || v:version < 702 || (exists('g:loaded_airline') && g:loaded_airline)
   finish
 endif
 let g:loaded_airline = 1
-let s:has_timers = has("timers")
 
 let s:airline_initialized = 0
 function! s:init()
@@ -123,10 +122,9 @@ function! s:airline_toggle()
             \ | endif
 
       autocmd VimResized * unlet! w:airline_lastmode | :call <sid>airline_refresh()
-      if s:has_timers  && (v:version > 704 || (v:version == 704 && has("patch2137")))
-        " do not trigger FocusGained on startup, it might erase the intro
-        " screen (see #1817)
-        " needs funcref() which comes with 7.4.2137
+      if exists('*timer_start') && exists('*funcref')
+        " do not trigger FocusGained on startup, it might erase the intro screen (see #1817)
+        " needs funcref() (needs 7.4.2137) and timers (7.4.1578)
         let Handler=funcref('<sid>FocusGainedHandler')
         let s:timer=timer_start(5000, Handler)
       else
