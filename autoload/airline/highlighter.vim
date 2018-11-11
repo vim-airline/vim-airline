@@ -34,10 +34,6 @@ function! s:group_not_done(list, name)
   endif
 endfu
 
-function! s:separator_name(from, to, suffix)
-  return a:from.'_to_'.a:to.a:suffix
-endfu
-
 function! s:get_syn(group, what)
   if !exists("g:airline_gui_mode")
     let g:airline_gui_mode = airline#init#gui_mode()
@@ -182,7 +178,7 @@ function! s:exec_separator(dict, from, to, inverse, suffix)
   if pumvisible()
     return
   endif
-  let group = s:separator_name(a:from, a:to, a:suffix)
+  let group = a:from.'_to_'.a:to.a:suffix
   let l:from = airline#themes#get_highlight(a:from.a:suffix)
   let l:to = airline#themes#get_highlight(a:to.a:suffix)
   if a:inverse
@@ -294,10 +290,12 @@ function! airline#highlighter#highlight(modes, ...)
         " nothing to be done
         continue
       endif
+      " TODO: optimize this
       for sep in items(s:separators)
-        if s:group_not_done(airline_grouplist, s:separator_name(sep[1][0], sep[1][1], suffix))
-          call <sid>exec_separator(dict, sep[1][0], sep[1][1], sep[1][2], suffix)
-        endif
+        " we cannot check, that the group already exists, else the separators
+        " might not be correctly defined. But perhaps we can skip above groups
+        " that match the '_to_' name, because they would be redefined here...
+        call <sid>exec_separator(dict, sep[1][0], sep[1][1], sep[1][2], suffix)
       endfor
     endif
   endfor
