@@ -259,6 +259,9 @@ function! airline#highlighter#highlight(modes, ...)
           if bnr > 0 && index(buffers_in_tabpage, bnr) == -1
             continue
           endif
+        elseif name =~# '_to_'
+          " group will be redefined below at exec_separator
+          continue
         endif
         if s:group_not_done(airline_grouplist, name.suffix)
           call airline#highlighter#exec(name.suffix, mode_colors)
