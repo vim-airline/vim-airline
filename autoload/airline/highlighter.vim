@@ -121,11 +121,7 @@ function! airline#highlighter#exec(group, colors)
   endif
   let colors = s:CheckDefined(colors)
   if old_hi != new_hi || !s:hl_group_exists(a:group)
-    let cmd = printf('hi %s %s %s %s %s %s %s %s',
-        \ a:group, s:Get(colors, 0, 'guifg='), s:Get(colors, 1, 'guibg='),
-        \ s:Get(colors, 2, 'ctermfg='), s:Get(colors, 3, 'ctermbg='),
-        \ s:Get(colors, 4, 'gui='), s:Get(colors, 4, 'cterm='),
-        \ s:Get(colors, 4, 'term='))
+    let cmd = printf('hi %s%s', a:group, s:GetHiCmd(colors))
     exe cmd
     if has_key(s:hl_groups, a:group)
       let s:hl_groups[a:group] = colors
@@ -165,13 +161,29 @@ function! s:CheckDefined(colors)
   return a:colors[0:1] + [fg, bg] + [a:colors[4]]
 endfunction
 
-function! s:Get(dict, key, prefix)
-  let res=get(a:dict, a:key, '')
-  if res is ''
-    return ''
-  else
-    return a:prefix. res
-  endif
+function! s:GetHiCmd(list)
+  " a:list needs to have 5 items!
+  let res = ''
+  let i = -1
+  while i < 5
+    let i += 1
+    let item = get(a:list, i, '')
+    if item is ''
+      continue
+    endif
+    if i == 0
+      let res .= ' guifg='.item
+    elseif i == 1
+      let res .= ' guibg='.item
+    elseif i == 2
+      let res .= ' ctermfg='.item
+    elseif i == 3
+      let res .= ' ctermbg='.item
+    elseif i == 4
+      let res .= printf(' gui=%s cterm=%s term=%s', item, item, item)
+    endif
+  endwhile
+  return res
 endfunction
 
 function! s:exec_separator(dict, from, to, inverse, suffix)
