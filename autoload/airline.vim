@@ -19,7 +19,7 @@ endfunction
 
 function! airline#add_statusline_funcref(function)
   if index(g:airline_statusline_funcrefs, a:function) >= 0
-    call airline#util#warning(printf('The airline statusline funcref "%s" has already been added.', string(a:function)))
+    call airline#util#warning('The airline statusline funcref %s has already been added.', string(a:function))
     return
   endif
   call add(g:airline_statusline_funcrefs, a:function)
@@ -67,8 +67,8 @@ function! airline#switch_theme(name)
       let err = 1
     else
       exe "ru autoload/airline/themes/". a:name. ".vim"
+      let g:airline_theme = a:name
     endif
-    let g:airline_theme = a:name
   catch
     call airline#util#warning(printf('There is an error in theme "%s".', a:name))
     if &vbs
@@ -98,7 +98,7 @@ endfunction
 function! airline#switch_matching_theme()
   if exists('g:colors_name')
     let existing = g:airline_theme
-    let theme = tr(tolower(g:colors_name), '-', '_')
+    let theme = substitute(tolower(g:colors_name), '-', '_', 'g')
     try
       call airline#switch_theme(theme)
       return 1
