@@ -167,6 +167,9 @@ function! s:GetHiCmd(list)
   let i = -1
   while i < 5
     let i += 1
+    if i == 5
+      break
+    endif
     let item = get(a:list, i, '')
     if item is ''
       continue
