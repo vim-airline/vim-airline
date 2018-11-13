@@ -57,19 +57,35 @@ endfunction
 
 " Load an airline theme
 function! airline#switch_theme(name)
+  " get all available themes
+  let themes = airline#util#themes('')
+  let err = 0
   try
-    let palette = g:airline#themes#{a:name}#palette "also lazy loads the theme
+    if index(themes, a:name) == -1
+      " Theme not available
+      call airline#util#warning(printf('The specified theme "%s" cannot be found.', a:name))
+      let err = 1
+    else
+      exe "ru autoload/airline/themes/". a:name. ".vim"
+    endif
     let g:airline_theme = a:name
   catch
-    echohl WarningMsg | echo 'The specified theme cannot be found.' | echohl NONE
+    call airline#util#warning(printf('There is an error in theme "%s".', a:name))
+    if &vbs
+      call airline#util#warning(v:exception)
+    endif
+    let err = 1
+  endtry
+
+  if err
     if exists('g:airline_theme')
       return
     else
       let g:airline_theme = 'dark'
     endif
-  endtry
+  endif
 
-  let w:airline_lastmode = ''
+  unlet! w:airline_lastmode
   call airline#load_theme()
 
   call airline#util#doautocmd('AirlineAfterTheme')
