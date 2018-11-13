@@ -271,8 +271,12 @@ function! airline#highlighter#highlight(modes, ...)
           if bnr > 0 && index(buffers_in_tabpage, bnr) == -1
             continue
           endif
-        elseif name =~# '_to_'
+        elseif (empty(suffix) && name =~# '_to_') ||
+              \ (name[0:10] is# 'airline_tab' && !empty(suffix))
           " group will be redefined below at exec_separator
+          " (except for _inactive groups)
+          " or is not needed for tabline with '_inactive' suffix
+          " since active flag is 1 for builder)
           continue
         endif
         if s:group_not_done(airline_grouplist, name.suffix)
