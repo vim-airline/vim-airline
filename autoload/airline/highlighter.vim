@@ -165,11 +165,8 @@ function! s:GetHiCmd(list)
   " a:list needs to have 5 items!
   let res = ''
   let i = -1
-  while i < 5
+  while i < 4
     let i += 1
-    if i == 5
-      break
-    endif
     let item = get(a:list, i, '')
     if item is ''
       continue
