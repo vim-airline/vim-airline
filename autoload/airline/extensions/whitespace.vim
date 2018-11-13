@@ -67,7 +67,7 @@ function! airline#extensions#whitespace#check()
         let regexp = get(g:, 'airline#extensions#whitespace#trailing_regexp', '\s$')
         let trailing = search(regexp, 'nw')
       catch
-        echomsg 'airline#whitespace: error occurred evaluating '. regexp
+        call airline#util#warning(printf('Whitespace: error occurred evaluating "%s"', regexp))
         echomsg v:exception
         return ''
       endtry
@@ -140,7 +140,7 @@ function! airline#extensions#whitespace#toggle()
       call airline#update_statusline()
     endif
   endif
-  echo 'Whitespace checking: '.(s:enabled ? 'Enabled' : 'Disabled')
+  call airline#util#warning(printf('Whitespace checking: %s',(s:enabled ? 'Enabled' : 'Disabled')))
 endfunction
 
 function! airline#extensions#whitespace#disable()
