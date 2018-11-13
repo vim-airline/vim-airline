@@ -86,14 +86,12 @@ function! airline#switch_matching_theme()
     let existing = g:airline_theme
     let theme = substitute(tolower(g:colors_name), '-', '_', 'g')
     try
-      let palette = g:airline#themes#{theme}#palette
       call airline#switch_theme(theme)
       return 1
     catch
       for map in items(g:airline_theme_map)
         if match(g:colors_name, map[0]) > -1
           try
-            let palette = g:airline#themes#{map[1]}#palette
             call airline#switch_theme(map[1])
           catch
             call airline#switch_theme(existing)
