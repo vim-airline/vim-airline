@@ -123,4 +123,4 @@ endfunction
 
 function! airline#util#doautocmd(event)
   exe printf("silent doautocmd %s User %s", s:nomodeline, a:event)
-endfu
+endfunction
