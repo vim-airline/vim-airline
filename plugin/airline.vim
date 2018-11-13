@@ -146,8 +146,7 @@ function! s:airline_toggle()
 endfunction
 
 function! s:get_airline_themes(a, l, p)
-  let files = split(globpath(&rtp, 'autoload/airline/themes/'.a:a.'*'), "\n")
-  return map(files, 'fnamemodify(v:val, ":t:r")')
+  return airline#util#themes(a:a)
 endfunction
 
 function! s:airline_theme(...)

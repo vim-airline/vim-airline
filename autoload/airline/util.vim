@@ -124,3 +124,8 @@ endfunction
 function! airline#util#doautocmd(event)
   exe printf("silent doautocmd %s User %s", s:nomodeline, a:event)
 endfunction
+
+function! airline#util#themes(match)
+  let files = split(globpath(&rtp, 'autoload/airline/themes/'.a:match.'*'), "\n")
+  return map(files, 'fnamemodify(v:val, ":t:r")')
+endfunction
