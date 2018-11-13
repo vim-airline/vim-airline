@@ -116,14 +116,14 @@ endfunction
 function! airline#extensions#tabline#xtabline#toggle_tabs()
     """Toggle between tabs/buffers tabline."""
 
-    if tabpagenr("$") == 1 | echo "There is only one tab." | return | endif
+    if tabpagenr("$") == 1 | call airline#util#warning("There is only one tab.") | return | endif
 
     if g:airline#extensions#tabline#show_tabs
         let g:airline#extensions#tabline#show_tabs = 0
-        echo "Showing buffers"
+        call airline#util#warning("Showing buffers")
     else
         let g:airline#extensions#tabline#show_tabs = 1
-        echo "Showing tabs"
+        call airline#util#warning("Showing tabs")
     endif
 
     doautocmd BufAdd
@@ -137,12 +137,12 @@ function! airline#extensions#tabline#xtabline#toggle_buffers()
     if s:xtabline_filtering
         let s:xtabline_filtering = 0
         let g:airline#extensions#tabline#exclude_buffers = []
-        echo "Buffer filtering turned off"
+        call airline#util#warning("Buffer filtering turned off")
         doautocmd BufAdd
     else
         let s:xtabline_filtering = 1
         call airline#extensions#tabline#xtabline#filter_buffers()
-        echo "Buffer filtering turned on"
+        call airline#util#warning("Buffer filtering turned on")
         doautocmd BufAdd
     endif
 endfunction
@@ -153,7 +153,9 @@ function! airline#extensions#tabline#xtabline#reopen_last_tab()
     """Reopen the last closed tab."""
 
     if !exists('s:most_recently_closed_tab')
-        echo "No recent tabs." | return | endif
+        call airline#util#warning("No recent tabs.")
+        return
+    endif
 
     let tab = s:most_recently_closed_tab
     tabnew
@@ -298,9 +300,9 @@ function! s:NotEnoughBuffers()
         if index(t:xtl_accepted, bufnr("%")) == -1
             return
         elseif !len(t:xtl_accepted)
-            echo "No available buffers for this tab."
+            call airline#util#warning("No available buffers for this tab.")
         else
-            echo "No other available buffers for this tab."
+            call airline#util#warning("No other available buffers for this tab.")
         endif
         return 1
     endif
