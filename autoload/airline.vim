@@ -19,7 +19,7 @@ endfunction
 
 function! airline#add_statusline_funcref(function)
   if index(g:airline_statusline_funcrefs, a:function) >= 0
-    call airline#util#warning('The airline statusline funcref %s has already been added.', string(a:function))
+    call airline#util#warning(printf('The airline statusline funcref "%s" has already been added.', string(a:function)))
     return
   endif
   call add(g:airline_statusline_funcrefs, a:function)
