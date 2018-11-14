@@ -151,7 +151,10 @@ endfunction
 
 function! s:airline_theme(...)
   if a:0
-    call airline#switch_theme(a:1)
+    try
+      call airline#switch_theme(a:1)
+    catch " discard error
+    endtry
   else
     echo g:airline_theme
   endif

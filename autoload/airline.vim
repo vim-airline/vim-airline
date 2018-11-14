@@ -56,20 +56,25 @@ function! airline#load_theme()
 endfunction
 
 " Load an airline theme
-function! airline#switch_theme(name)
+function! airline#switch_theme(name, ...)
+  let silent = get(a:000, '0', 0)
   " get all available themes
   let themes = airline#util#themes('')
   let err = 0
   try
     if index(themes, a:name) == -1
       " Theme not available
-      call airline#util#warning(printf('The specified theme "%s" cannot be found.', a:name))
+      if !silent
+        call airline#util#warning(printf('The specified theme "%s" cannot be found.', a:name))
+      endif
+      throw "not-found"
       let err = 1
     else
       exe "ru autoload/airline/themes/". a:name. ".vim"
       let g:airline_theme = a:name
     endif
-  catch
+  catch /^Vim/
+    " catch only Vim errors, not "not-found"
     call airline#util#warning(printf('There is an error in theme "%s".', a:name))
     if &vbs
       call airline#util#warning(v:exception)
@@ -100,13 +105,13 @@ function! airline#switch_matching_theme()
     let existing = g:airline_theme
     let theme = tr(tolower(g:colors_name), '-', '_')
     try
-      call airline#switch_theme(theme)
+      call airline#switch_theme(theme, 1)
       return 1
     catch
       for map in items(g:airline_theme_map)
         if match(g:colors_name, map[0]) > -1
           try
-            call airline#switch_theme(map[1])
+            call airline#switch_theme(map[1], 1)
           catch
             call airline#switch_theme(existing)
           endtry
