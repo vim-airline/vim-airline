@@ -301,7 +301,7 @@ function! airline#extensions#load()
 
   if get(g:, 'airline#extensions#unicode#enabled', 1) && exists(':UnicodeTable') == 2
       call airline#extensions#unicode#init(s:ext)
-    call add(loaded_ext, 'nrrwrgn')
+    call add(loaded_ext, 'unicode')
   endif
 
   if (get(g:, 'airline#extensions#capslock#enabled', 1) && exists('*CapsLockStatusline'))
