@@ -784,7 +784,7 @@ with the middle mouse button to delete that buffer.
 * enable/disable displaying index of the buffer.
 
   When enabled, numbers will be displayed in the tabline and mappings will be
-  exposed to allow you to select a buffer directly.  Up to 9 mappings will be
+  exposed to allow you to select a buffer directly. Up to 11 mappings will be
   exposed. >
 
   let g:airline#extensions#tabline#buffer_idx_mode = 1
@@ -800,6 +800,9 @@ with the middle mouse button to delete that buffer.
   nmap <leader>- <Plug>AirlineSelectPrevTab
   nmap <leader>+ <Plug>AirlineSelectNextTab
 <
+  The <Plug>AirlineSelect<Prev/Next>Tab mapping handles counts as well,
+  so one can handle arbirtrarily number of buffers/tabs.
+
   Note: Mappings will be ignored within "g:airline#extensions#tabline#keymap_ignored_filetypes".
 
   Note: In buffer_idx_mode these mappings won't change the
