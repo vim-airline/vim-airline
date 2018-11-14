@@ -179,10 +179,25 @@ function! s:FocusGainedHandler(timer)
   endif
 endfu
 
+function! s:airline_extensions()
+  let loaded = airline#extensions#get_loaded_extensions()
+  let files = split(globpath(&rtp, "autoload/airline/extensions/*.vim"), "\n")
+  call map(files, 'fnamemodify(v:val, ":t:r")')
+  if !empty(files)
+    echohl Title
+    echo printf("%-15s\t%s", "Extension", "Status")
+    echohl Normal
+  endif
+  for ext in sort(files)
+    echo printf("%-15s\t%sloaded", ext, (index(loaded, ext) == -1 ? 'not ' : ''))
+  endfor
+endfunction
+
 command! -bar -nargs=? -complete=customlist,<sid>get_airline_themes AirlineTheme call <sid>airline_theme(<f-args>)
 command! -bar AirlineToggleWhitespace call airline#extensions#whitespace#toggle()
-command! -bar AirlineToggle call s:airline_toggle()
+command! -bar AirlineToggle  call s:airline_toggle()
 command! -bar AirlineRefresh call s:airline_refresh()
+command! AirlineExtensions   call s:airline_extensions()
 
 call airline#init#bootstrap()
 call s:airline_toggle()

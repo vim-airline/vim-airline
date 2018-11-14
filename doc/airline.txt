@@ -241,6 +241,9 @@ COMMANDS                                                  *airline-commands*
 :AirlineRefresh                                            *:AirlineRefresh*
   Refreshes all highlight groups and redraws the statusline.
 
+:AirlineExtensions                                       *:AirlineExtensions*
+  Shows the status of all available airline extensions.
+
 ==============================================================================
 AUTOCOMMANDS                                          *airline-autocommands*
 

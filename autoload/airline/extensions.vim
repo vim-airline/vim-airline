@@ -3,6 +3,7 @@
 
 scriptencoding utf-8
 
+let s:loaded_ext = []
 let s:ext = {}
 let s:ext._theme_funcrefs = []
 
@@ -112,7 +113,7 @@ function! airline#extensions#load_theme()
 endfunction
 
 function! airline#extensions#load()
-  let loaded_ext = []
+  let s:loaded_ext = []
 
   if exists('g:airline_extensions')
     for ext in g:airline_extensions
@@ -126,31 +127,31 @@ function! airline#extensions#load()
   endif
 
   call airline#extensions#quickfix#init(s:ext)
-  call add(loaded_ext, 'quickfix')
+  call add(s:loaded_ext, 'quickfix')
 
   if get(g:, 'loaded_unite', 0)
     call airline#extensions#unite#init(s:ext)
-    call add(loaded_ext, 'unite')
+    call add(s:loaded_ext, 'unite')
   endif
 
   if get(g:, 'loaded_denite', 0)
     call airline#extensions#denite#init(s:ext)
-    call add(loaded_ext, 'denite')
+    call add(s:loaded_ext, 'denite')
   endif
 
   if exists(':NetrwSettings')
     call airline#extensions#netrw#init(s:ext)
-    call add(loaded_ext, 'netrw')
+    call add(s:loaded_ext, 'netrw')
   endif
 
   if has("terminal")
     call airline#extensions#term#init(s:ext)
-    call add(loaded_ext, 'term')
+    call add(s:loaded_ext, 'term')
   endif
 
   if get(g:, 'airline#extensions#ycm#enabled', 0)
     call airline#extensions#ycm#init(s:ext)
-    call add(loaded_ext, 'ycm')
+    call add(s:loaded_ext, 'ycm')
   endif
 
   if get(g:, 'loaded_vimfiler', 0)
@@ -159,51 +160,51 @@ function! airline#extensions#load()
 
   if get(g:, 'loaded_ctrlp', 0)
     call airline#extensions#ctrlp#init(s:ext)
-    call add(loaded_ext, 'ctrlp')
+    call add(s:loaded_ext, 'ctrlp')
   endif
 
   if get(g:, 'loaded_localsearch', 0)
     call airline#extensions#localsearch#init(s:ext)
-    call add(loaded_ext, 'localsearch')
+    call add(s:loaded_ext, 'localsearch')
   endif
 
   if get(g:, 'CtrlSpaceLoaded', 0)
     call airline#extensions#ctrlspace#init(s:ext)
-    call add(loaded_ext, 'ctrlspace')
+    call add(s:loaded_ext, 'ctrlspace')
   endif
 
   if get(g:, 'command_t_loaded', 0)
     call airline#extensions#commandt#init(s:ext)
-    call add(loaded_ext, 'commandt')
+    call add(s:loaded_ext, 'commandt')
   endif
 
   if exists(':UndotreeToggle')
     call airline#extensions#undotree#init(s:ext)
-    call add(loaded_ext, 'undotree')
+    call add(s:loaded_ext, 'undotree')
   endif
 
   if get(g:, 'airline#extensions#hunks#enabled', 1)
         \ && (exists('g:loaded_signify') || exists('g:loaded_gitgutter') || exists('g:loaded_changes') || exists('g:loaded_quickfixsigns'))
     call airline#extensions#hunks#init(s:ext)
-    call add(loaded_ext, 'hunks')
+    call add(s:loaded_ext, 'hunks')
   endif
 
   if get(g:, 'airline#extensions#vimagit#enabled', 1)
         \ && (exists('g:loaded_magit'))
     call airline#extensions#vimagit#init(s:ext)
-    call add(loaded_ext, 'vimagit')
+    call add(s:loaded_ext, 'vimagit')
   endif
 
   if get(g:, 'airline#extensions#tagbar#enabled', 1)
         \ && exists(':TagbarToggle')
     call airline#extensions#tagbar#init(s:ext)
-    call add(loaded_ext, 'tagbar')
+    call add(s:loaded_ext, 'tagbar')
   endif
 
   if get(g:, 'airline#extensions#csv#enabled', 1)
         \ && (get(g:, 'loaded_csv', 0) || exists(':Table'))
     call airline#extensions#csv#init(s:ext)
-    call add(loaded_ext, 'csv')
+    call add(s:loaded_ext, 'csv')
   endif
 
   if exists(':VimShell')
@@ -217,139 +218,139 @@ function! airline#extensions#load()
           \ airline#util#has_vcscommand() ||
           \ airline#util#has_custom_scm())
     call airline#extensions#branch#init(s:ext)
-    call add(loaded_ext, 'branch')
+    call add(s:loaded_ext, 'branch')
   endif
 
   if get(g:, 'airline#extensions#bufferline#enabled', 1)
         \ && exists('*bufferline#get_status_string')
     call airline#extensions#bufferline#init(s:ext)
-    call add(loaded_ext, 'bufferline')
+    call add(s:loaded_ext, 'bufferline')
   endif
 
   if get(g:, 'airline#extensions#fugitiveline#enabled', 1)
         \ && airline#util#has_fugitive()
-        \ && index(loaded_ext, 'bufferline') == -1
+        \ && index(s:loaded_ext, 'bufferline') == -1
     call airline#extensions#fugitiveline#init(s:ext)
-    call add(loaded_ext, 'fugitiveline')
+    call add(s:loaded_ext, 'fugitiveline')
   endif
 
   if (get(g:, 'airline#extensions#virtualenv#enabled', 1) && (exists(':VirtualEnvList') || isdirectory($VIRTUAL_ENV)))
     call airline#extensions#virtualenv#init(s:ext)
-    call add(loaded_ext, 'virtualenv')
+    call add(s:loaded_ext, 'virtualenv')
   endif
 
   if (get(g:, 'airline#extensions#eclim#enabled', 1) && exists(':ProjectCreate'))
     call airline#extensions#eclim#init(s:ext)
-    call add(loaded_ext, 'eclim')
+    call add(s:loaded_ext, 'eclim')
   endif
 
   if get(g:, 'airline#extensions#syntastic#enabled', 1)
         \ && exists(':SyntasticCheck')
     call airline#extensions#syntastic#init(s:ext)
-    call add(loaded_ext, 'syntastic')
+    call add(s:loaded_ext, 'syntastic')
   endif
 
   if (get(g:, 'airline#extensions#ale#enabled', 1) && exists(':ALELint'))
     call airline#extensions#ale#init(s:ext)
-    call add(loaded_ext, 'ale')
+    call add(s:loaded_ext, 'ale')
   endif
 
   if (get(g:, 'airline#extensions#languageclient#enabled', 1) && exists(':LanguageClientStart'))
     call airline#extensions#languageclient#init(s:ext)
-    call add(loaded_ext, 'languageclient')
+    call add(s:loaded_ext, 'languageclient')
   endif
 
   if get(g:, 'airline#extensions#whitespace#enabled', 1)
     call airline#extensions#whitespace#init(s:ext)
-    call add(loaded_ext, 'whitespace')
+    call add(s:loaded_ext, 'whitespace')
   endif
 
   if (get(g:, 'airline#extensions#neomake#enabled', 1) && exists(':Neomake'))
     call airline#extensions#neomake#init(s:ext)
-    call add(loaded_ext, 'neomake')
+    call add(s:loaded_ext, 'neomake')
   endif
 
   if get(g:, 'airline#extensions#po#enabled', 1) && executable('msgfmt')
     call airline#extensions#po#init(s:ext)
-    call add(loaded_ext, 'po')
+    call add(s:loaded_ext, 'po')
   endif
 
   if get(g:, 'airline#extensions#wordcount#enabled', 1)
     call airline#extensions#wordcount#init(s:ext)
-    call add(loaded_ext, 'wordcount')
+    call add(s:loaded_ext, 'wordcount')
   endif
 
   if get(g:, 'airline#extensions#tabline#enabled', 0)
     call airline#extensions#tabline#init(s:ext)
-    call add(loaded_ext, 'tabline')
+    call add(s:loaded_ext, 'tabline')
   endif
 
   if get(g:, 'airline#extensions#tmuxline#enabled', 1) && exists(':Tmuxline')
     call airline#extensions#tmuxline#init(s:ext)
-    call add(loaded_ext, 'tmuxline')
+    call add(s:loaded_ext, 'tmuxline')
   endif
 
   if get(g:, 'airline#extensions#promptline#enabled', 1) && exists(':PromptlineSnapshot') && len(get(g:, 'airline#extensions#promptline#snapshot_file', ''))
     call airline#extensions#promptline#init(s:ext)
-    call add(loaded_ext, 'promptline')
+    call add(s:loaded_ext, 'promptline')
   endif
 
   if get(g:, 'airline#extensions#nrrwrgn#enabled', 1) && exists(':NR') == 2
       call airline#extensions#nrrwrgn#init(s:ext)
-    call add(loaded_ext, 'nrrwrgn')
+    call add(s:loaded_ext, 'nrrwrgn')
   endif
 
   if get(g:, 'airline#extensions#unicode#enabled', 1) && exists(':UnicodeTable') == 2
       call airline#extensions#unicode#init(s:ext)
-    call add(loaded_ext, 'unicode')
+    call add(s:loaded_ext, 'unicode')
   endif
 
   if (get(g:, 'airline#extensions#capslock#enabled', 1) && exists('*CapsLockStatusline'))
     call airline#extensions#capslock#init(s:ext)
-    call add(loaded_ext, 'capslock')
+    call add(s:loaded_ext, 'capslock')
   endif
 
   if (get(g:, 'airline#extensions#gutentags#enabled', 1) && get(g:, 'loaded_gutentags', 0))
     call airline#extensions#gutentags#init(s:ext)
-    call add(loaded_ext, 'gutentags')
+    call add(s:loaded_ext, 'gutentags')
   endif
 
   if (get(g:, 'airline#extensions#grepper#enabled', 1) && get(g:, 'loaded_grepper', 0))
     call airline#extensions#grepper#init(s:ext)
-    call add(loaded_ext, 'grepper')
+    call add(s:loaded_ext, 'grepper')
   endif
 
   if (get(g:, 'airline#extensions#xkblayout#enabled', 1) && exists('g:XkbSwitchLib'))
     call airline#extensions#xkblayout#init(s:ext)
-    call add(loaded_ext, 'xkblayout')
+    call add(s:loaded_ext, 'xkblayout')
   endif
 
   if (get(g:, 'airline#extensions#keymap#enabled', 1) && has('keymap'))
     call airline#extensions#keymap#init(s:ext)
-    call add(loaded_ext, 'keymap')
+    call add(s:loaded_ext, 'keymap')
   endif
 
   if (get(g:, 'airline#extensions#windowswap#enabled', 1) && get(g:, 'loaded_windowswap', 0))
     call airline#extensions#windowswap#init(s:ext)
-    call add(loaded_ext, 'windowswap')
+    call add(s:loaded_ext, 'windowswap')
   endif
 
   if (get(g:, 'airline#extensions#obsession#enabled', 1) && exists('*ObsessionStatus'))
     call airline#extensions#obsession#init(s:ext)
-    call add(loaded_ext, 'obsession')
+    call add(s:loaded_ext, 'obsession')
   endif
 
   if get(g:, 'airline#extensions#vimtex#enabled', 1)
     runtime autoload/vimtex.vim
     if exists('*vimtex#init')
       call airline#extensions#vimtex#init(s:ext)
-      call add(loaded_ext, 'vimtex')
+      call add(s:loaded_ext, 'vimtex')
     endif
   endif
 
   if (get(g:, 'airline#extensions#cursormode#enabled', 0))
     call airline#extensions#cursormode#init(s:ext)
-    call add(loaded_ext, 'cursormode')
+    call add(s:loaded_ext, 'cursormode')
   endif
 
   if !get(g:, 'airline#extensions#disable_rtp_load', 0)
@@ -362,7 +363,7 @@ function! airline#extensions#load()
             \ && stridx(tolower(fnamemodify(file, ':p')), s:script_path) < 0
         let name = fnamemodify(file, ':t:r')
         if !get(g:, 'airline#extensions#'.name.'#enabled', 1) ||
-            \ index(loaded_ext, name) > -1
+            \ index(s:loaded_ext, name) > -1
           continue
         endif
         try
@@ -372,4 +373,8 @@ function! airline#extensions#load()
       endif
     endfor
   endif
+endfunction
+
+function! airline#extensions#get_loaded_extensions()
+  return s:loaded_ext
 endfunction
