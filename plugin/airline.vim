@@ -128,6 +128,7 @@ function! s:airline_toggle()
         autocmd FocusGained * unlet! w:airline_lastmode | :call <sid>airline_refresh()
       endif
 
+      autocmd TerminalOpen * :call airline#load_theme() " reload current theme for Terminal, forces the terminal extension to be loaded
       autocmd TabEnter * :unlet! w:airline_lastmode | let w:airline_active=1
       autocmd BufWritePost */autoload/airline/themes/*.vim
             \ exec 'source '.split(globpath(&rtp, 'autoload/airline/themes/'.g:airline_theme.'.vim', 1), "\n")[0]
