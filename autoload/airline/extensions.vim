@@ -70,6 +70,11 @@ function! airline#extensions#apply(...)
     let w:airline_render_right = 1
   endif
 
+  if &buftype == 'terminal'
+    let w:airline_section_x = ''
+    let w:airline_section_y = ''
+  endif
+
   if &previewwindow
     let w:airline_section_a = 'Preview'
     let w:airline_section_b = ''
