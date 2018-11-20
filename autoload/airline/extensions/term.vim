@@ -18,6 +18,15 @@ function! airline#extensions#term#apply(...)
   endif
 endfunction
 
+function! airline#extensions#term#inactive_apply(...)
+  if getbufvar(a:2.bufnr, '&buftype') == 'terminal'
+    let spc = g:airline_symbols.space
+    call a:1.add_section('airline_a', spc.'TERMINAL'.spc)
+    call a:1.add_section('airline_b', spc.'%f')
+    return 1
+  endif
+endfunction
+
 function! s:termname()
   let bufname = bufname('%')
   if has('nvim')
@@ -30,4 +39,5 @@ endfunction
 
 function! airline#extensions#term#init(ext)
   call a:ext.add_statusline_func('airline#extensions#term#apply')
+  call a:ext.add_inactive_statusline_func('airline#extensions#term#inactive_apply')
 endfunction
