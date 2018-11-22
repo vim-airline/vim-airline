@@ -128,10 +128,10 @@ function! s:airline_toggle()
         autocmd FocusGained * unlet! w:airline_lastmode | :call <sid>airline_refresh()
       endif
 
-      if exists("##TerminalOpen") || exists('##TermOpen')
-        let event = (has('nvim') ? 'TermOpen' : 'TerminalOpen')
-        " reload current theme for Terminal, forces the terminal extension to be loaded 
-        exe 'autocmd' event '* :call airline#load_theme()'
+      if exists("##TerminalOpen")
+        " Using the same function with the TermOpen autocommand
+        " breaks for Neovim see #1828, looks like a neovim bug.
+        autocmd TerminalOpen * :call airline#load_theme() " reload current theme for Terminal, forces the terminal extension to be loaded
       endif
       autocmd TabEnter * :unlet! w:airline_lastmode | let w:airline_active=1
       autocmd BufWritePost */autoload/airline/themes/*.vim
