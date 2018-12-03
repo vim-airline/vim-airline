@@ -56,6 +56,7 @@ function! airline#init#bootstrap()
 
   call s:check_defined('g:airline_theme_map', {})
   call extend(g:airline_theme_map, {
+        \ 'default': 'dark',
         \ '\CTomorrow': 'tomorrow',
         \ 'base16': 'base16',
         \ 'mo[l|n]okai': 'molokai',
