@@ -73,11 +73,11 @@ function airline#extensions#wordcount#get()
   if s:visual_active
     return s:format_wordcount(s:get_wordcount(1))
   else
-    if b:airline_changedtick != b:changedtick
+    if get(b:, 'airline_changedtick', 0) != b:changedtick
       call s:update_wordcount(0)
       let b:airline_changedtick = b:changedtick
     endif
-    return b:airline_wordcount
+    return get(b:, 'airline_wordcount', '')
   endif
 endfunction
 
