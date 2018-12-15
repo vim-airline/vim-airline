@@ -70,4 +70,3 @@ describe 'themes'
     Expect map.airline_z[0] == 6
   end
 end
-

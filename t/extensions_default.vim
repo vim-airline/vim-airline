@@ -28,4 +28,3 @@ describe 'default'
     wincmd c
   end
 end
-

@@ -18,4 +18,3 @@ describe 'highlighter'
     Expect hlID('airline_c_red') != 0
   end
 end
-

@@ -86,4 +86,3 @@ describe 'init parts'
     Expect g:airline_section_z =~ 'bar'
   end
 end
-

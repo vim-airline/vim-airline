@@ -1548,6 +1548,6 @@ Contributions and pull requests are welcome.
 ==============================================================================
 LICENSE                                                    *airline-license*
 
-MIT License.  Copyright © 2013-2017 Bailey Ling, Christian Brabandt
+MIT License.  Copyright © 2013-2018 Bailey Ling, Christian Brabandt et al.
 
  vim:tw=78:ts=8:ft=help:norl:

@@ -105,4 +105,3 @@ describe 'inactive builder'
     Expect stl == '%#Normal_inactive#hello%#foo_inactive#fooworld'
   end
 end
-

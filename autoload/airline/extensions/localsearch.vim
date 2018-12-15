@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2018 mox
+" MIT License. Copyright (c) 2018 mox et al.
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8

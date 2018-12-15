@@ -84,4 +84,3 @@ describe 'airline'
     Expect airline#statusline(1) =~ 'airline#check_mode'
   end
 end
-

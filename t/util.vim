@@ -51,4 +51,3 @@ describe 'util'
     Expect airline#util#wrap('foo', 99999) == ''
   end
 end
-

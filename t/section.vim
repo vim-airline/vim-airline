@@ -78,4 +78,3 @@ describe 'section'
     Expect s == '%{airline#util#prepend(airline#parts#ffenc(),0)}%{strftime("%H:%M")}'
   end
 end
-

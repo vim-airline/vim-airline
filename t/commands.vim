@@ -32,4 +32,3 @@ describe 'commands'
     Expect exists(':AirlineRefresh') to_be_true
   end
 end
-
