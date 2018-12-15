@@ -4,9 +4,31 @@ This is the Changelog for the vim-airline project.
 
 ## [Unreleased]
 
+## [0.10] - 2018-12-15
 - New features
   - Extensions:
     - [LanguageClient](https://github.com/autozimu/LanguageClient-neovim)
+    - [vim-gutentags](https://github.com/ludovicchabant/vim-gutentags)
+    - [vim-localsearch](https://github.com/mox-mox/vim-localsearch)
+    - [xtabline](https://github.com/mg979/vim-xtabline)
+    - [vim-grepper](https://github.com/mhinz/vim-grepper)
+  - Add custom AirlineModeChanged autocommand, allowing to call user defined commands
+    whenever airline displays a different mode
+  - New :AirlineExtensions command, to show which extensions have been loaded
+  - Detect several new modes (e.g. completion, virtual replace, etc)
+- Improvements
+  - Various performance improvements, should Vim keep responsive, even when
+    many highlighting groups need to be re-created
+  - Rework tabline extension
+  - Refactor [vim-ctrlspace](https://github.com/szw/vim-ctrlspace) extension
+  - Refactor the wordcount extension
+  - Reworked the po extension
+  - Allow to disable line numbers for the [Ale Extension](https://github.com/w0rp/ale)
+  - [fugitive](https://github.com/tpope/vim-fugitive) plugin has been refactored
+    causing adjustments for vim-airline, also uses Fugitives new API calls
+  - some improvements to Vims terminal mode
+  - Allow to use alternative seperators for inactive windows (#1236)
+  - Statusline can be set to inactive, whenever Vim loses focus (using FocusLost autocommand)
 
 ## [0.9] - 2018-01-15
 - Changes
