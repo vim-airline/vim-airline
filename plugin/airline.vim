@@ -88,6 +88,7 @@ function! s:airline_toggle()
 
     call airline#util#doautocmd('AirlineToggledOff')
   else
+    call s:init()
     let s:stl = &statusline
     augroup airline
       autocmd!
