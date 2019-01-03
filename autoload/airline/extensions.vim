@@ -29,6 +29,7 @@ let s:filetype_overrides = {
       \ 'minibufexpl': [ 'MiniBufExplorer', '' ],
       \ 'startify': [ 'startify', '' ],
       \ 'vim-plug': [ 'Plugins', '' ],
+      \ 'nnn': [ 'nnn', '' ],
       \ }
 
 let s:filetype_regex_overrides = {}
