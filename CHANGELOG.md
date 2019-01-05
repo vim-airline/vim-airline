@@ -3,6 +3,9 @@
 This is the Changelog for the vim-airline project.
 
 ## [Unreleased]
+- New features
+  - Extensions:
+    - [Defx](https://github.com/Shougo/defx.nvim) support
 
 ## [0.10] - 2018-12-15
 - New features
