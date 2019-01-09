@@ -60,7 +60,11 @@ function! s:update_tabline()
   call airline#util#doautocmd('BufMRUChange')
   " sometimes, the tabline is not correctly updated see #1580
   " so force redraw here
-  let &tabline = &tabline
+  if exists(":redtawtabline") == 2
+    redrawtabline
+  else
+    let &tabline = &tabline
+  endif
 endfunction
 
 function! airline#extensions#tabline#load_theme(palette)
