@@ -218,7 +218,7 @@ function! airline#extensions#load()
   endif
 
   if exists(':Defx')
-    let s:filetype_overrides['defx'] = ['defx', "%{printf('%s', b:defx.paths[0][-15:])}"]
+    let s:filetype_overrides['defx'] = ['defx', '%{b:defx.paths[0]}']
   endif
 
   if get(g:, 'airline#extensions#branch#enabled', 1) && (
