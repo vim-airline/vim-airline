@@ -217,6 +217,10 @@ function! airline#extensions#load()
     let s:filetype_regex_overrides['^int-'] = ['vimshell','%{substitute(&ft, "int-", "", "")}']
   endif
 
+  if exists(':Defx')
+    let s:filetype_overrides['defx'] = ['defx', '%{b:defx.paths[0]}']
+  endif
+
   if get(g:, 'airline#extensions#branch#enabled', 1) && (
           \ airline#util#has_fugitive() ||
           \ airline#util#has_lawrencium() ||
