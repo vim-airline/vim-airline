@@ -111,7 +111,7 @@ endfunction
 
 augroup airline#extensions#cursormode
   autocmd!
-  autocmd VimLeave * call s:set_cursor_color_for(g:cursormode_exit_mode)
+  autocmd VimLeave * nested call s:set_cursor_color_for(g:cursormode_exit_mode)
   " autocmd VimEnter * call airline#extensions#cursormode#activate()
   autocmd Colorscheme * call airline#extensions#cursormode#activate()
 augroup END
