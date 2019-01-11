@@ -963,7 +963,8 @@ Note: Enabling this extension will modify 'showtabline' and 'guioptions'.
    won't update airline on |:badd| commands) >
   let airline#extensions#tabline#disable_refresh = 0
 
-* preserve windows when closing a buffer from the bufferline (default: 0) >
+* preserve windows when closing a buffer from the bufferline (neovim specific,
+  only works with buffers and not real tabs, default: 0) >
   let airline#extensions#tabline#middle_click_preserves_windows = 1
 <
 -------------------------------------                        *airline-taboo*

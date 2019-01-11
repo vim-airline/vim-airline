@@ -207,7 +207,7 @@ function! airline#extensions#tabline#buffers#clickbuf(minwid, clicks, button, mo
       elseif a:button is# 'm'
         " middle button - delete buffer
 
-        if get(g:, 'airline#extensions#tabline#middle_click_preserves_windows', 0) == 0
+        if get(g:, 'airline#extensions#tabline#middle_click_preserves_windows', 0) == 0 || winnr('$') == 1
           " just simply delete the clicked buffer. This will cause windows
           " associated with the clicked buffer to be closed.
           silent execute 'bdelete' a:minwid
