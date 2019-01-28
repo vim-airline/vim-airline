@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2013-2018 Bjorn Neergaard, w0rp, hallettj et al.
+" MIT License. Copyright (c) 2013-2018 Bjorn Neergaard, hallettj et al.
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
