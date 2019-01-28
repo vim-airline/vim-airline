@@ -7,7 +7,11 @@ function! s:airline_ale_count(cnt, symbol)
   return a:cnt ? a:symbol. a:cnt : ''
 endfunction
 
-function! s:airline_ale_get_line_number(cnt, type) abort
+function! s:legacy_airline_ale_get_line_number(cnt, type) abort
+  " Before ALE introduced the FirstProblem API function, this is how
+  " airline would get the line numbers:
+  " 1. Get the whole loclist; 2. Filter it for the desired problem type.
+  " 3. Return the line number of the first element in the filtered list.
   if a:cnt == 0
     return ''
   endif
@@ -26,6 +30,43 @@ function! s:airline_ale_get_line_number(cnt, type) abort
   let close_lnum_symbol = get(g:, 'airline#extensions#ale#close_lnum_symbol', ')')
 
   return open_lnum_symbol . problems[0].lnum . close_lnum_symbol
+endfunction
+
+function! s:new_airline_ale_get_line_number(cnt, type) abort
+  " The FirstProblem call in ALE is a far more efficient way
+  " of obtaining line number data. If the installed ALE supports
+  " it, we should use this method of getting line data.
+  if a:cnt == 0
+    return ''
+  endif
+  let l:buffer = bufnr('')
+
+  " Try to get the first error from ALE.
+  let l:result = ale#statusline#FirstProblem(l:buffer, a:type)
+  if empty(l:result)
+    " If there are no errors then try and check for style errors.
+    let l:result =  ale#statusline#FirstProblem(l:buffer, 'style_' . a:type)
+  endif
+
+  if empty(l:result)
+      return ''
+  endif
+
+  let l:open_lnum_symbol  =
+    \ get(g:, 'airline#extensions#ale#open_lnum_symbol', '(L')
+  let l:close_lnum_symbol =
+    \ get(g:, 'airline#extensions#ale#close_lnum_symbol', ')')
+
+  return open_lnum_symbol . l:result.lnum . close_lnum_symbol
+endfunction
+
+function! s:airline_ale_get_line_number(cnt, type) abort
+  " Use the new ALE statusline API function if it is available.
+  if exists("*ale#statusline#FirstProblem")
+    return s:new_airline_ale_get_line_number(a:cnt, a:type)
+  endif
+
+  return s:legacy_airline_ale_get_line_number(a:cnt, a:type)
 endfunction
 
 function! airline#extensions#ale#get(type)
