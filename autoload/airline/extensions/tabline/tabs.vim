@@ -121,7 +121,7 @@ endfunction
 function! airline#extensions#tabline#tabs#tabnr_formatter(nr, i) abort
   let formatter = get(g:, 'airline#extensions#tabline#tabnr_formatter', 'tabnr')
   try
-    return airline#extensions#formatters#{formatter}#format(a:nr, a:i)
+    return airline#extensions#tabline#formatters#{formatter}#format(a:nr, a:i)
   catch /^Vim\%((\a\+)\)\=:E117/	" catch E117, unknown function
     " Function not found
     return call(formatter, [a:nr, a:i])
