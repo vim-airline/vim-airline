@@ -358,7 +358,7 @@ The "!" prevents terminal buffers to appear in the tabline.
 
                                 *airline#extensions#tabline#exclude_buffers*
 Buffer numbers to be excluded from showing in the tabline (similar to
-|airline#ignore_bufadd_pat|.
+|airline#ignore_bufadd_pat|).
 
 ==============================================================================
 EXTENSIONS                                              *airline-extensions*

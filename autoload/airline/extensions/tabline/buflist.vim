@@ -14,7 +14,11 @@ endfunction
 
 " paths in excludes list
 function! s:ExcludePaths(nr, exclude_paths)
-  let bpath = fnamemodify(bufname(a:nr), ":p")
+  let bname = bufname(a:nr)
+  if empty(bname)
+    return 0
+  endif
+  let bpath = fnamemodify(bname, ":p")
   for f in a:exclude_paths
     if bpath =~# f | return 1 | endif
   endfor
