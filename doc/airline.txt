@@ -867,14 +867,19 @@ with the middle mouse button to delete that buffer.
   The <Plug>AirlineSelect<Prev/Next>Tab mapping handles counts as well,
   so one can handle arbirtrarily number of buffers/tabs.
 
-  Note: Mappings will be ignored within "g:airline#extensions#tabline#keymap_ignored_filetypes".
+  Note: Mappings will be ignored for filetypes that match
+  `g:airline#extensions#tabline#keymap_ignored_filetypes`.
 
   Note: In buffer_idx_mode these mappings won't change the
-  current tab, but switch to the buffer visible in that tab.
+  current tab, but switch to the buffer `visible` in the current tab.
+  If you want to switch to a buffer, that is not visible use the
+  `AirlineSelectPrev/NextTab` mapping (it supports using a count).
   Use |gt| for switching tabs.
-  In tabmode, those mappings will switch to the specified tab.
+  In tabmode, those mappings will be exposed as well and will switch
+  to the specified tab.
 
-* define the set of filetypes which are ignored selectTab keymappings >
+* define the set of filetypes which are ignored for the selectTab
+  keymappings: >
   let g:airline#extensions#tabline#keymap_ignored_filetypes = ['vimfiler', 'nerdtree']
 
 * change the display format of the buffer index >
