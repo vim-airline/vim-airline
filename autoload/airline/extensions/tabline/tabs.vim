@@ -118,7 +118,15 @@ function! airline#extensions#tabline#tabs#map_keys()
   noremap <silent> <Plug>AirlineSelectNextTab :<C-U>exe repeat(':tabn\|', v:count1)<cr>
 endfunction
 
-function! airline#extensions#tabline#tabs#tabnr_formatter(nr, i)
+function! airline#extensions#tabline#tabs#tabnr_formatter(nr, i) abort
   let formatter = get(g:, 'airline#extensions#tabline#tabnr_formatter', 'tabnr')
-  return airline#extensions#tabline#formatters#{formatter}#format(a:nr, a:i)
+  try
+    return airline#extensions#formatters#{formatter}#format(a:nr, a:i)
+  catch /^Vim\%((\a\+)\)\=:E117/	" catch E117, unknown function
+    " Function not found
+    return call(formatter, [a:nr, a:i])
+  catch
+    " something went wrong, return an empty string
+    return ""
+  endtry
 endfunction
