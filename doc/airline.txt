@@ -599,6 +599,9 @@ It is deactivated by default if |airline-bufferline| is activated.
 * enable/disable bufferline integration >
   let g:airline#extensions#fugitiveline#enabled = 1
 <
+If enabled, the buffer that comes from fugitive, will have added a trailing
+"[git]" to be able do distinguish between fugitive and non-fugitive buffers.
+
 -------------------------------------                     *airline-grepper*
 vim-grepper <https://github.com/mhinz/vim-grepper>
 
