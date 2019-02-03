@@ -33,9 +33,11 @@ function! airline#extensions#tabline#buffers#off()
 endfunction
 
 function! airline#extensions#tabline#buffers#on()
+  let terminal_event = has("nvim") ? 'TermOpen' : 'TerminalOpen'
   augroup airline_tabline_buffers
     autocmd!
     autocmd BufDelete * call airline#extensions#tabline#buflist#clean()
+    exe 'autocmd '. terminal_event. ' * call airline#extensions#tabline#buflist#clean()'
     autocmd User BufMRUChange call airline#extensions#tabline#buflist#clean()
   augroup END
 endfunction
