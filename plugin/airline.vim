@@ -57,6 +57,19 @@ function! s:on_window_changed()
   call airline#update_statusline()
 endfunction
 
+function! s:on_cursor_moved()
+  if winnr() != s:active_winnr
+    call <sid>on_window_changed()
+  endif
+  call <sid>update_tabline()
+endfunction
+
+function! s:update_tabline()
+  if get(g:, 'airline_statusline_ontop', 0)
+    call airline#extensions#tabline#redraw()
+  endif
+endfunction
+
 function! s:on_colorscheme_changed()
   call s:init()
   unlet! g:airline#highlighter#normal_fg_hi
@@ -84,11 +97,15 @@ function! s:airline_toggle()
     if exists("s:stl")
       let &stl = s:stl
     endif
+    if exists("s:tal")
+      let [&tal, &showtabline] = s:tal
+    endif
     call airline#highlighter#reset_hlcache()
 
     call airline#util#doautocmd('AirlineToggledOff')
   else
     let s:stl = &statusline
+    let s:tal = [&tabline, &showtabline]
     augroup airline
       autocmd!
 
@@ -113,10 +130,7 @@ function! s:airline_toggle()
         autocmd CompleteDone * call <sid>on_window_changed()
       endif
       " non-trivial number of external plugins use eventignore=all, so we need to account for that
-      autocmd CursorMoved *
-            \   if winnr() != s:active_winnr
-            \ |   call <sid>on_window_changed()
-            \ | endif
+      autocmd CursorMoved * call <sid>on_cursor_moved()
 
       autocmd VimResized * unlet! w:airline_lastmode | :call <sid>airline_refresh()
       if exists('*timer_start') && exists('*funcref')
@@ -137,6 +151,11 @@ function! s:airline_toggle()
       autocmd BufWritePost */autoload/airline/themes/*.vim
             \ exec 'source '.split(globpath(&rtp, 'autoload/airline/themes/'.g:airline_theme.'.vim', 1), "\n")[0]
             \ | call airline#load_theme()
+
+      if get(g:, 'airline_statusline_ontop', 0)
+        " Force update of tabline more often
+        autocmd InsertEnter,InsertLeave,CursorMovedI * :call <sid>update_tabline()
+      endif
     augroup END
 
     if &laststatus < 2
@@ -174,6 +193,7 @@ function! s:airline_refresh()
   call airline#highlighter#reset_hlcache()
   call airline#load_theme()
   call airline#update_statusline()
+  call s:update_tabline()
 endfunction
 
 function! s:FocusGainedHandler(timer)

@@ -180,7 +180,8 @@ function! s:invoke_funcrefs(context, funcrefs)
   if err == 1
     let a:context.line = builder.build()
     let s:contexts[a:context.winnr] = a:context
-    call setwinvar(a:context.winnr, '&statusline', '%!airline#statusline('.a:context.winnr.')')
+    let option = get(g:, 'airline_statusline_ontop', 0) ? '&tabline' : '&statusline'
+    call setwinvar(a:context.winnr, option, '%!airline#statusline('.a:context.winnr.')')
   endif
 endfunction
 
@@ -190,7 +191,6 @@ function! airline#statusline(winnr)
   if has_key(s:contexts, a:winnr)
     return '%{airline#check_mode('.a:winnr.')}'.s:contexts[a:winnr].line
   endif
-
   " in rare circumstances this happens...see #276
   return ''
 endfunction

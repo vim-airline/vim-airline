@@ -228,10 +228,19 @@ values):
 <
 * configure the fileformat output
   By default, it will display something like 'utf-8[unix]', however, you can
-  skip displaying it, if the output matches a configured string. To do so,
-  set >
+  skip displaying it, if the output matches a configured string. To do so, set >
   let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 <
+* Display the statusline in the tabline (first top line): >
+  let g:airline_statusline_ontop = 1
+< 
+  Setting this option, allows to use the statusline option to be used by
+  a custom function or another plugin, since airline won't change it.
+
+  Note: This setting is experimental and works on a best effort approach.
+  Updating the statusline might not always happen as fast as needed, but that
+  is a limitation, that comes from Vim. airline tries to force an update if
+  needed, but it might not always work as expected.
 ==============================================================================
 COMMANDS                                                  *airline-commands*
 

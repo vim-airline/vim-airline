@@ -24,9 +24,7 @@ function! airline#extensions#tabline#autoshow#on()
   augroup airline_tabline_autoshow
     autocmd!
     if s:buf_min_count <= 0 && s:tab_min_count <= 1
-      if &lines > 3
-        set showtabline=2
-      endif
+      call airline#extensions#tabline#enable()
     else
       if s:show_buffers == 1
         autocmd BufEnter  * call <sid>show_tabline(s:buf_min_count, len(airline#extensions#tabline#buflist#list()))

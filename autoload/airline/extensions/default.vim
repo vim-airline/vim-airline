@@ -19,7 +19,7 @@ let s:layout = get(g:, 'airline#extensions#default#layout', [
 
 function! s:get_section(winnr, key, ...)
   if has_key(s:section_truncate_width, a:key)
-    if winwidth(a:winnr) < s:section_truncate_width[a:key]
+    if airline#util#winwidth(a:winnr) < s:section_truncate_width[a:key]
       return ''
     endif
   endif

@@ -66,7 +66,7 @@ function! airline#extensions#hunks#get_hunks()
   " Cache values, so that it isn't called too often
   if exists("b:airline_hunks") &&
     \ get(b:,  'airline_changenr', 0) == b:changedtick &&
-    \ winwidth(0) == get(s:, 'airline_winwidth', 0) &&
+    \ airline#util#winwidth() == get(s:, 'airline_winwidth', 0) &&
     \ get(b:, 'source_func', '') isnot# 's:get_hunks_signify' &&
     \ get(b:, 'source_func', '') isnot# 's:get_hunks_gitgutter' &&
     \ get(b:, 'source_func', '') isnot# 's:get_hunks_empty' &&
@@ -77,14 +77,14 @@ function! airline#extensions#hunks#get_hunks()
   let string = ''
   if !empty(hunks)
     for i in [0, 1, 2]
-      if (s:non_zero_only == 0 && winwidth(0) > 100) || hunks[i] > 0
+      if (s:non_zero_only == 0 && airline#util#winwidth() > 100) || hunks[i] > 0
         let string .= printf('%s%s ', s:hunk_symbols[i], hunks[i])
       endif
     endfor
   endif
   let b:airline_hunks = string
   let b:airline_changenr = b:changedtick
-  let s:airline_winwidth = winwidth(0)
+  let s:airline_winwidth = airline#util#winwidth()
   return string
 endfunction
 

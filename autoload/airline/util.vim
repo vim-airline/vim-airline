@@ -1,17 +1,26 @@
 " MIT License. Copyright (c) 2013-2018 Bailey Ling et al.
 " vim: et ts=2 sts=2 sw=2
 
-" TODO: Try to cache winwidth(0) function
-" e.g. store winwidth per window and access that, only update it, if the size
-" actually changed.
 scriptencoding utf-8
 
 call airline#init#bootstrap()
 let s:spc = g:airline_symbols.space
 let s:nomodeline = (v:version > 703 || (v:version == 703 && has("patch438"))) ? '<nomodeline>' : ''
 
+" TODO: Try to cache winwidth(0) function
+" e.g. store winwidth per window and access that, only update it, if the size
+" actually changed.
+function! airline#util#winwidth(...)
+  let nr = get(a:000, 0, 0)
+  if get(g:, 'airline_statusline_ontop', 0)
+    return &columns
+  else
+    return winwidth(nr)
+  endif
+endfunction
+
 function! airline#util#shorten(text, winwidth, minwidth, ...)
-  if winwidth(0) < a:winwidth && len(split(a:text, '\zs')) > a:minwidth
+  if airline#util#winwidth() < a:winwidth && len(split(a:text, '\zs')) > a:minwidth
     if get(a:000, 0, 0)
       " shorten from tail
       return '…'.matchstr(a:text, '.\{'.a:minwidth.'}$')
@@ -25,14 +34,14 @@ function! airline#util#shorten(text, winwidth, minwidth, ...)
 endfunction
 
 function! airline#util#wrap(text, minwidth)
-  if a:minwidth > 0 && winwidth(0) < a:minwidth
+  if a:minwidth > 0 && airline#util#winwidth() < a:minwidth
     return ''
   endif
   return a:text
 endfunction
 
 function! airline#util#append(text, minwidth)
-  if a:minwidth > 0 && winwidth(0) < a:minwidth
+  if a:minwidth > 0 && airline#util#winwidth() < a:minwidth
     return ''
   endif
   let prefix = s:spc == "\ua0" ? s:spc : s:spc.s:spc
@@ -46,7 +55,7 @@ function! airline#util#warning(msg)
 endfunction
 
 function! airline#util#prepend(text, minwidth)
-  if a:minwidth > 0 && winwidth(0) < a:minwidth
+  if a:minwidth > 0 && airline#util#winwidth() < a:minwidth
     return ''
   endif
   return empty(a:text) ? '' : a:text.s:spc.g:airline_right_alt_sep.s:spc

@@ -13,7 +13,7 @@ function! airline#extensions#po#shorten()
       let b:airline_po_stats = b:airline_po_stats[0:(w:displayed_po_limit - 2)].(&encoding==?'utf-8' ? '…' : '.'). ']'
     endif
   endif
-  if strlen(get(b:, 'airline_po_stats', '')) >= 30 && winwidth(0) < 150
+  if strlen(get(b:, 'airline_po_stats', '')) >= 30 && airline#util#winwidth() < 150
     let fuzzy = ''
     let untranslated = ''
     let messages = ''
@@ -35,8 +35,8 @@ endfunction
 
 function! airline#extensions#po#on_winenter()
   " only reset cache, if the window size changed
-  if get(b:, 'airline_winwidth', 0) != winwidth(0)
-    let b:airline_winwidth = winwidth(0)
+  if get(b:, 'airline_winwidth', 0) != airline#util#winwidth()
+    let b:airline_winwidth = airline#util#winwidth()
     " needs re-formatting
     unlet! b:airline_po_stats
   endif

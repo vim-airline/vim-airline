@@ -6,6 +6,9 @@ This is the Changelog for the vim-airline project.
 - New features
   - Extensions:
     - [Defx](https://github.com/Shougo/defx.nvim) support
+  - Improvements
+    - The statusline can be configured to be shown on top (in the tabline)
+      Set the `g:airline_statusline_ontop` to enable this experimental feature.
 
 ## [0.10] - 2018-12-15
 - New features

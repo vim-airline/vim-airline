@@ -19,7 +19,7 @@ function! airline#extensions#nrrwrgn#apply(...)
       let dict=nrrwrgn#NrrwRgnStatus()
       let vmode = { 'v': 'Char ', 'V': 'Line ', '': 'Block '}
       let mode = dict.visual ? vmode[dict.visual] : vmode['V']
-      let winwidth = winwidth(0)
+      let winwidth = airline#util#winwidth()
       if winwidth < 80
         let mode = mode[0]
       endif
