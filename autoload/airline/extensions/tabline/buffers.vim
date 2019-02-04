@@ -164,14 +164,19 @@ function! s:select_tab(buf_index)
     return
   endif
 
-  let idx = a:buf_index
-  if s:current_visible_buffers[0] == -1
-    let idx = idx + 1
-  endif
-
-  let buf = get(s:current_visible_buffers, idx, 0)
-  if buf != 0
-    exec 'b!' . buf
+  let buf = index(s:current_visible_buffers, a:buf_index)
+  if buf >= 0
+    try
+      exec 'b!' . s:current_visible_buffers[buf]
+    catch /^Vim\%((\a\+)\)\=:E939/
+      " buffer 0 does not exist
+    catch /^Vim\%((\a\+)\)\=:E86/
+      " should not happen hopefully ;)
+      call airline#util#warning(printf("Buffer Number %d does not exist", a:buf_index))
+    catch
+      " catch all, something broken... :|
+      call airline#util#warning("Exception not handled: ". v:exception)
+    endtry
   endif
 endfunction
 
@@ -185,17 +190,19 @@ endfunction
 
 function! s:map_keys()
   if get(g:, 'airline#extensions#tabline#buffer_idx_mode', 1)
-    noremap <silent> <Plug>AirlineSelectTab1 :call <SID>select_tab(0)<CR>
-    noremap <silent> <Plug>AirlineSelectTab2 :call <SID>select_tab(1)<CR>
-    noremap <silent> <Plug>AirlineSelectTab3 :call <SID>select_tab(2)<CR>
-    noremap <silent> <Plug>AirlineSelectTab4 :call <SID>select_tab(3)<CR>
-    noremap <silent> <Plug>AirlineSelectTab5 :call <SID>select_tab(4)<CR>
-    noremap <silent> <Plug>AirlineSelectTab6 :call <SID>select_tab(5)<CR>
-    noremap <silent> <Plug>AirlineSelectTab7 :call <SID>select_tab(6)<CR>
-    noremap <silent> <Plug>AirlineSelectTab8 :call <SID>select_tab(7)<CR>
-    noremap <silent> <Plug>AirlineSelectTab9 :call <SID>select_tab(8)<CR>
+    noremap <silent> <Plug>AirlineSelectTab1 :call <SID>select_tab(1)<CR>
+    noremap <silent> <Plug>AirlineSelectTab2 :call <SID>select_tab(2)<CR>
+    noremap <silent> <Plug>AirlineSelectTab3 :call <SID>select_tab(3)<CR>
+    noremap <silent> <Plug>AirlineSelectTab4 :call <SID>select_tab(4)<CR>
+    noremap <silent> <Plug>AirlineSelectTab5 :call <SID>select_tab(5)<CR>
+    noremap <silent> <Plug>AirlineSelectTab6 :call <SID>select_tab(6)<CR>
+    noremap <silent> <Plug>AirlineSelectTab7 :call <SID>select_tab(7)<CR>
+    noremap <silent> <Plug>AirlineSelectTab8 :call <SID>select_tab(8)<CR>
+    noremap <silent> <Plug>AirlineSelectTab9 :call <SID>select_tab(9)<CR>
     noremap <silent> <Plug>AirlineSelectPrevTab :<C-u>call <SID>jump_to_tab(-v:count1)<CR>
     noremap <silent> <Plug>AirlineSelectNextTab :<C-u>call <SID>jump_to_tab(v:count1)<CR>
+    " Enable this for debugging
+    " com! AirlineBufferList :echo map(copy(s:current_visible_buffers), {i,k -> k.": ".bufname(k)})
   endif
 endfunction
 
