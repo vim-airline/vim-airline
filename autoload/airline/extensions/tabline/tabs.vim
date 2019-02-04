@@ -104,15 +104,9 @@ function! airline#extensions#tabline#tabs#map_keys()
   if maparg('<Plug>AirlineSelectTab1', 'n') is# ':1tabn<CR>'
     return
   endif
-  noremap <silent> <Plug>AirlineSelectTab1 :1tabn<CR>
-  noremap <silent> <Plug>AirlineSelectTab2 :2tabn<CR>
-  noremap <silent> <Plug>AirlineSelectTab3 :3tabn<CR>
-  noremap <silent> <Plug>AirlineSelectTab4 :4tabn<CR>
-  noremap <silent> <Plug>AirlineSelectTab5 :5tabn<CR>
-  noremap <silent> <Plug>AirlineSelectTab6 :6tabn<CR>
-  noremap <silent> <Plug>AirlineSelectTab7 :7tabn<CR>
-  noremap <silent> <Plug>AirlineSelectTab8 :8tabn<CR>
-  noremap <silent> <Plug>AirlineSelectTab9 :9tabn<CR>
+  for i in range(1, 9)
+    exe printf('noremap <silent> <Plug>AirlineSelectTab%d :%dtabn<CR>', i, i)
+  endfor
   noremap <silent> <Plug>AirlineSelectPrevTab gT
   " tabn {count} goes to count tab does not go {count} tab pages forward!
   noremap <silent> <Plug>AirlineSelectNextTab :<C-U>exe repeat(':tabn\|', v:count1)<cr>

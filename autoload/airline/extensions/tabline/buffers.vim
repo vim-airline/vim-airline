@@ -190,15 +190,9 @@ endfunction
 
 function! s:map_keys()
   if get(g:, 'airline#extensions#tabline#buffer_idx_mode', 1)
-    noremap <silent> <Plug>AirlineSelectTab1 :call <SID>select_tab(1)<CR>
-    noremap <silent> <Plug>AirlineSelectTab2 :call <SID>select_tab(2)<CR>
-    noremap <silent> <Plug>AirlineSelectTab3 :call <SID>select_tab(3)<CR>
-    noremap <silent> <Plug>AirlineSelectTab4 :call <SID>select_tab(4)<CR>
-    noremap <silent> <Plug>AirlineSelectTab5 :call <SID>select_tab(5)<CR>
-    noremap <silent> <Plug>AirlineSelectTab6 :call <SID>select_tab(6)<CR>
-    noremap <silent> <Plug>AirlineSelectTab7 :call <SID>select_tab(7)<CR>
-    noremap <silent> <Plug>AirlineSelectTab8 :call <SID>select_tab(8)<CR>
-    noremap <silent> <Plug>AirlineSelectTab9 :call <SID>select_tab(9)<CR>
+    for i in range(1, 9)
+      exe printf('noremap <silent> <Plug>AirlineSelectTab%d :call <SID>select_tab(%d)<CR>', i, i)
+    endfor
     noremap <silent> <Plug>AirlineSelectPrevTab :<C-u>call <SID>jump_to_tab(-v:count1)<CR>
     noremap <silent> <Plug>AirlineSelectNextTab :<C-u>call <SID>jump_to_tab(v:count1)<CR>
     " Enable this for debugging
