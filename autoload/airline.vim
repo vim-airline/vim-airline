@@ -195,7 +195,7 @@ function! airline#statusline(winnr)
   return ''
 endfunction
 
-" Check if mode as changed
+" Check if mode has changed
 function! airline#check_mode(winnr)
   if !has_key(s:contexts, a:winnr)
     return ''
