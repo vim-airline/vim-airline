@@ -241,6 +241,9 @@ values):
   Updating the statusline might not always happen as fast as needed, but that
   is a limitation, that comes from Vim. airline tries to force an update if
   needed, but it might not always work as expected.
+  To force updating the tabline on mode changes, call `airline#check_mode()`
+  in your custom statusline setting, so `:set stl=%!airline#check_mode(winnr())`
+  will correctly update the tabline on mode changes.
 ==============================================================================
 COMMANDS                                                  *airline-commands*
 
