@@ -265,3 +265,9 @@ function! airline#check_mode(winnr)
 
   return ''
 endfunction
+
+function! airline#update_tabline()
+  if get(g:, 'airline_statusline_ontop', 0)
+    call airline#extensions#tabline#redraw()
+  endif
+endfunction

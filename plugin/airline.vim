@@ -59,15 +59,9 @@ endfunction
 
 function! s:on_cursor_moved()
   if winnr() != s:active_winnr
-    call <sid>on_window_changed()
+    call s:on_window_changed()
   endif
-  call <sid>update_tabline()
-endfunction
-
-function! s:update_tabline()
-  if get(g:, 'airline_statusline_ontop', 0)
-    call airline#extensions#tabline#redraw()
-  endif
+  call airline#update_tabline()
 endfunction
 
 function! s:on_colorscheme_changed()
@@ -154,7 +148,7 @@ function! s:airline_toggle()
 
       if get(g:, 'airline_statusline_ontop', 0)
         " Force update of tabline more often
-        autocmd InsertEnter,InsertLeave,CursorMovedI * :call <sid>update_tabline()
+        autocmd InsertEnter,InsertLeave,CursorMovedI * :call airline#update_tabline()
       endif
     augroup END
 
@@ -193,7 +187,7 @@ function! s:airline_refresh()
   call airline#highlighter#reset_hlcache()
   call airline#load_theme()
   call airline#update_statusline()
-  call s:update_tabline()
+  call airline#update_tabline()
 endfunction
 
 function! s:FocusGainedHandler(timer)
