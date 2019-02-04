@@ -195,11 +195,11 @@ vim-airline also supplies some supplementary stand-alone extensions.  In additio
 #### whitespace
 ![image](https://f.cloud.github.com/assets/306502/962401/2a75385e-04ef-11e3-935c-e3b9f0e954cc.png)
 
+### statusline on top
 The statusline can alternatively by drawn on top, making room for other plugins to use the statusline:
 The example shows a custom statusline setting, that imitates Vims default statusline, while allowing
 to call custom functions.  Use `:let g:airline_statusline_ontop=1` to enable it.
 
-### statusline on top
 ![image](https://i.imgur.com/tW1lMRU.png)
 
 ## Configurable and extensible
