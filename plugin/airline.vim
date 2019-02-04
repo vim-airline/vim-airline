@@ -145,6 +145,7 @@ function! s:airline_toggle()
       autocmd BufWritePost */autoload/airline/themes/*.vim
             \ exec 'source '.split(globpath(&rtp, 'autoload/airline/themes/'.g:airline_theme.'.vim', 1), "\n")[0]
             \ | call airline#load_theme()
+      autocmd User AirlineModeChanged nested call airline#mode_changed()
 
       if get(g:, 'airline_statusline_ontop', 0)
         " Force update of tabline more often

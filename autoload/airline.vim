@@ -271,3 +271,11 @@ function! airline#update_tabline()
     call airline#extensions#tabline#redraw()
   endif
 endfunction
+
+function! airline#mode_changed()
+  " airline#visual_active
+  " Boolean: for when to get visual wordcount
+  " needed for the wordcount extension
+  let g:airline#visual_active = (mode() =~? '[vs]')
+  call airline#update_tabline()
+endfunction
