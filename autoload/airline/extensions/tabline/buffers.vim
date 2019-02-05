@@ -173,6 +173,9 @@ function! s:select_tab(buf_index)
     catch /^Vim\%((\a\+)\)\=:E86/
       " should not happen hopefully ;)
       call airline#util#warning(printf("Buffer Number %d does not exist", a:buf_index))
+    catch /^Vim\%((\a\+)\)\=:E518/
+      " invalid modeline
+      call airline#util#warning("Invalid modeline: ". v:exception)
     catch
       " catch all, something broken... :|
       call airline#util#warning("Exception not handled: ". v:exception)
