@@ -148,12 +148,13 @@ function! airline#extensions#tabline#buffers#get()
   let s:column_width = &columns
   let s:current_tabline = b.build()
   let s:current_visible_buffers = copy(b.buffers)
-  if b._right_title <= last_buffer
-    call remove(s:current_visible_buffers, b._right_title, last_buffer)
-  endif
-  if b._left_title > 0
-    call remove(s:current_visible_buffers, 0, b._left_title)
-  endif
+  " Do not remove from s:current_visible_buffers, this breaks s:select_tab()
+  "if b._right_title <= last_buffer
+  "  call remove(s:current_visible_buffers, b._right_title, last_buffer)
+  "endif
+  "if b._left_title > 0
+  "  call remove(s:current_visible_buffers, 0, b._left_title)
+  "endif
   return s:current_tabline
 endfunction
 
@@ -163,24 +164,15 @@ function! s:select_tab(buf_index)
         \ ['vimfiler', 'nerdtree']), &ft)
     return
   endif
-
-  let buf = index(s:current_visible_buffers, a:buf_index)
-  if buf >= 0
-    try
-      exec 'b!' . s:current_visible_buffers[buf]
-    catch /^Vim\%((\a\+)\)\=:E939/
-      " buffer 0 does not exist
-    catch /^Vim\%((\a\+)\)\=:E86/
-      " should not happen hopefully ;)
-      call airline#util#warning(printf("Buffer Number %d does not exist", a:buf_index))
-    catch /^Vim\%((\a\+)\)\=:E518/
-      " invalid modeline
-      call airline#util#warning("Invalid modeline: ". v:exception)
-    catch
-      " catch all, something broken... :|
-      call airline#util#warning("Exception not handled: ". v:exception)
-    endtry
+  let idx = a:buf_index
+  if s:current_visible_buffers[0] == -1
+    let idx = idx + 1
   endif
+
+  let buf = get(s:current_visible_buffers, idx, 0)
+  if buf != 0
+     exec 'b!' . buf
+   endif
 endfunction
 
 function! s:jump_to_tab(offset)
@@ -194,7 +186,7 @@ endfunction
 function! s:map_keys()
   if get(g:, 'airline#extensions#tabline#buffer_idx_mode', 1)
     for i in range(1, 9)
-      exe printf('noremap <silent> <Plug>AirlineSelectTab%d :call <SID>select_tab(%d)<CR>', i, i)
+      exe printf('noremap <silent> <Plug>AirlineSelectTab%d :call <SID>select_tab(%d)<CR>', i, i-1)
     endfor
     noremap <silent> <Plug>AirlineSelectPrevTab :<C-u>call <SID>jump_to_tab(-v:count1)<CR>
     noremap <silent> <Plug>AirlineSelectNextTab :<C-u>call <SID>jump_to_tab(v:count1)<CR>
