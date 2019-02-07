@@ -120,7 +120,7 @@ function! airline#extensions#tabline#buffers#get()
 
     if get(g:, 'airline#extensions#tabline#buffer_idx_mode', 0)
       if len(s:number_map) > 0
-        return space. get(s:number_map, a:i+1, '') . '%(%{airline#extensions#tabline#get_buffer_name('.bufnum.')}%)' . s:spc
+        return space. s:get_number(a:i) . '%(%{airline#extensions#tabline#get_buffer_name('.bufnum.')}%)' . s:spc
       else
         return '['.(a:i+1).s:spc.'%(%{airline#extensions#tabline#get_buffer_name('.bufnum.')}%)'.']'
       endif
@@ -158,6 +158,18 @@ function! airline#extensions#tabline#buffers#get()
   return s:current_tabline
 endfunction
 
+function! s:get_number(index)
+  if len(s:number_map) == 0
+    return a:index
+  endif
+  let bidx_mode = get(g:, 'airline#extensions#tabline#buffer_idx_mode', 0)
+  if bidx_mode > 1
+    return join(map(split(a:index+10, '\zs'), 'get(s:number_map, v:val, "")'), '')
+  else
+    return get(s:number_map, a:index+1, '')
+  endif
+endfunction
+
 function! s:select_tab(buf_index)
   " no-op when called in 'keymap_ignored_filetypes'
   if count(get(g:, 'airline#extensions#tabline#keymap_ignored_filetypes', 
@@ -184,10 +196,17 @@ function! s:jump_to_tab(offset)
 endfunction
 
 function! s:map_keys()
-  if get(g:, 'airline#extensions#tabline#buffer_idx_mode', 1)
-    for i in range(1, 9)
-      exe printf('noremap <silent> <Plug>AirlineSelectTab%d :call <SID>select_tab(%d)<CR>', i, i-1)
-    endfor
+  let bidx_mode = get(g:, 'airline#extensions#tabline#buffer_idx_mode', 1)
+  if bidx_mode > 0
+    if bidx_mode == 1
+      for i in range(1, 9)
+        exe printf('noremap <silent> <Plug>AirlineSelectTab%d :call <SID>select_tab(%d)<CR>', i, i-1)
+      endfor
+    else
+      for i in range(10, 99)
+        exe printf('noremap <silent> <Plug>AirlineSelectTab%d :call <SID>select_tab(%d)<CR>', i, i-10)
+      endfor
+    endif
     noremap <silent> <Plug>AirlineSelectPrevTab :<C-u>call <SID>jump_to_tab(-v:count1)<CR>
     noremap <silent> <Plug>AirlineSelectNextTab :<C-u>call <SID>jump_to_tab(v:count1)<CR>
     " Enable this for debugging
