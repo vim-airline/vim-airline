@@ -859,9 +859,10 @@ with the middle mouse button to delete that buffer.
 
 * enable/disable displaying index of the buffer.
 
-  When enabled, numbers will be displayed in the tabline and mappings will be
-  exposed to allow you to select a buffer directly. Up to 11 mappings will be
-  exposed. >
+  `buffer_idx_mode` allows 2 different modes to access buffers from the
+  tabline. When enabled, numbers will be displayed in the tabline and mappings
+  will be exposed to allow you to select a buffer directly.
+  In default mode, when the variable is 1 Up to 11 mappings will be exposed: >
 
   let g:airline#extensions#tabline#buffer_idx_mode = 1
   nmap <leader>1 <Plug>AirlineSelectTab1
@@ -875,6 +876,18 @@ with the middle mouse button to delete that buffer.
   nmap <leader>9 <Plug>AirlineSelectTab9
   nmap <leader>- <Plug>AirlineSelectPrevTab
   nmap <leader>+ <Plug>AirlineSelectNextTab
+<
+  In mode 2, (when the variable is 2) 89 mappings will be exposed
+  (Note: To avoid ambiguity, there won't be <Plug>AirlineSelectTab1
+  - <Plug>AirlineSelectTab9 maps): >
+
+  let g:airline#extensions#tabline#buffer_idx_mode = 2
+  nmap <Leader>10 <Plug>AirlineSelectTab10
+  nmap <Leader>11 <Plug>AirlineSelectTab11
+  nmap <Leader>12 <Plug>AirlineSelectTab12
+  nmap <Leader>13 <Plug>AirlineSelectTab13
+  ...
+  nmap <Leader>99 <Plug>AirlineSelectTab99
 <
   The <Plug>AirlineSelect<Prev/Next>Tab mapping handles counts as well,
   so one can handle arbirtrarily number of buffers/tabs.

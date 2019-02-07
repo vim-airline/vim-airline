@@ -9,6 +9,8 @@ This is the Changelog for the vim-airline project.
   - Improvements
     - The statusline can be configured to be shown on top (in the tabline)
       Set the `g:airline_statusline_ontop` to enable this experimental feature.
+    - If `buffer_idx_mode=2`, up to 89 mappings will be exposed to access more
+      buffers directly (issue #1823)
 
 ## [0.10] - 2018-12-15
 - New features

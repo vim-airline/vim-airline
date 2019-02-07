@@ -104,9 +104,16 @@ function! airline#extensions#tabline#tabs#map_keys()
   if maparg('<Plug>AirlineSelectTab1', 'n') is# ':1tabn<CR>'
     return
   endif
-  for i in range(1, 9)
-    exe printf('noremap <silent> <Plug>AirlineSelectTab%d :%dtabn<CR>', i, i)
-  endfor
+  let bidx_mode = get(g:, 'airline#extensions#tabline#buffer_idx_mode', 1)
+  if bidx_mode == 1
+    for i in range(1, 9)
+      exe printf('noremap <silent> <Plug>AirlineSelectTab%d :%dtabn<CR>', i, i)
+    endfor
+  else
+      for i in range(10, 99)
+        exe printf('noremap <silent> <Plug>AirlineSelectTab%d :%dtabn<CR>', i, i-9)
+      endfor
+    endif
   noremap <silent> <Plug>AirlineSelectPrevTab gT
   " tabn {count} goes to count tab does not go {count} tab pages forward!
   noremap <silent> <Plug>AirlineSelectNextTab :<C-U>exe repeat(':tabn\|', v:count1)<cr>
