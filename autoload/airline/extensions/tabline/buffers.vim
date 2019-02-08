@@ -164,7 +164,7 @@ function! s:get_number(index)
   endif
   let bidx_mode = get(g:, 'airline#extensions#tabline#buffer_idx_mode', 0)
   if bidx_mode > 1
-    return join(map(split(a:index+10, '\zs'), 'get(s:number_map, v:val, "")'), '')
+    return join(map(split(a:index+11, '\zs'), 'get(s:number_map, v:val, "")'), '')
   else
     return get(s:number_map, a:index+1, '')
   endif
@@ -203,8 +203,8 @@ function! s:map_keys()
         exe printf('noremap <silent> <Plug>AirlineSelectTab%d :call <SID>select_tab(%d)<CR>', i, i-1)
       endfor
     else
-      for i in range(10, 99)
-        exe printf('noremap <silent> <Plug>AirlineSelectTab%d :call <SID>select_tab(%d)<CR>', i, i-10)
+      for i in range(11, 99)
+        exe printf('noremap <silent> <Plug>AirlineSelectTab%d :call <SID>select_tab(%d)<CR>', i, i-11)
       endfor
     endif
     noremap <silent> <Plug>AirlineSelectPrevTab :<C-u>call <SID>jump_to_tab(-v:count1)<CR>

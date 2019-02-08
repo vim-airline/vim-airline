@@ -110,8 +110,8 @@ function! airline#extensions#tabline#tabs#map_keys()
       exe printf('noremap <silent> <Plug>AirlineSelectTab%d :%dtabn<CR>', i, i)
     endfor
   else
-      for i in range(10, 99)
-        exe printf('noremap <silent> <Plug>AirlineSelectTab%d :%dtabn<CR>', i, i-9)
+      for i in range(11, 99)
+        exe printf('noremap <silent> <Plug>AirlineSelectTab%d :%dtabn<CR>', i, i-10)
       endfor
     endif
   noremap <silent> <Plug>AirlineSelectPrevTab gT
