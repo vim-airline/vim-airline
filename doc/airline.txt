@@ -632,6 +632,10 @@ vim-signify <https://github.com/mhinz/vim-signify>
 changesPlugin <https://github.com/chrisbra/changesPlugin>
 quickfixsigns <https://github.com/tomtom/quickfixsigns_vim>
 
+You can use `airline#extensions#hunks#get_raw_hunks()` to get the full hunks,
+without shortening. This allows for advanced customization, or a quick way of
+querying how many changes you got. It will return something like '+4 ~2 -1'.
+
 * enable/disable showing a summary of changed hunks under source control. >
   let g:airline#extensions#hunks#enabled = 1
 <
