@@ -75,9 +75,10 @@ function! airline#extensions#hunks#get_hunks()
   endif
   let hunks = s:get_hunks()
   let string = ''
+  let winwidth = get(airline#parts#get('hunks'), 'minwidth', 100)
   if !empty(hunks)
     for i in [0, 1, 2]
-      if (s:non_zero_only == 0 && airline#util#winwidth() > 100) || hunks[i] > 0
+      if (s:non_zero_only == 0 && airline#util#winwidth() > winwidth) || hunks[i] > 0
         let string .= printf('%s%s ', s:hunk_symbols[i], hunks[i])
       endif
     endfor

@@ -266,8 +266,9 @@ function! airline#extensions#branch#head()
     endif
   endif
 
+  let winwidth = get(airline#parts#get('branch'), 'minwidth', 120)
   let minwidth = empty(get(b:, 'airline_hunks', '')) ? 14 : 7
-  let b:airline_head = airline#util#shorten(b:airline_head, 120, minwidth)
+  let b:airline_head = airline#util#shorten(b:airline_head, winwidth, minwidth)
   return b:airline_head
 endfunction
 
