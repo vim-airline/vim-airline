@@ -151,8 +151,14 @@ function! airline#init#bootstrap()
         \ 'raw': '/%L%{g:airline_symbols.maxlinenr}',
         \ 'accent': 'bold'})
   call airline#parts#define_function('ffenc', 'airline#parts#ffenc')
-  call airline#parts#define_empty(['hunks', 'branch', 'obsession', 'tagbar',
-        \ 'syntastic-warn', 'syntastic-err', 'eclim', 'whitespace','windowswap',
+  call airline#parts#define('hunks', {
+        \ 'raw': '',
+        \ 'minwidth': 100})
+  call airline#parts#define('branch', {
+        \ 'raw': '',
+        \ 'minwidth': 120})
+  call airline#parts#define_empty(['obsession', 'tagbar', 'syntastic-warn',
+        \ 'syntastic-err', 'eclim', 'whitespace','windowswap',
         \ 'ycm_error_count', 'ycm_warning_count', 'neomake_error_count',
         \ 'neomake_warning_count', 'ale_error_count', 'ale_warning_count',
         \ 'languageclient_error_count', 'languageclient_warning_count'])

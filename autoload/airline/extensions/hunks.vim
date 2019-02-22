@@ -42,7 +42,7 @@ function! s:get_hunks_empty()
   return ''
 endfunction
 
-function! s:get_hunks()
+function! airline#extensions#hunks#get_raw_hunks()
   if !exists('b:source_func') || get(b:, 'source_func', '') is# 's:get_hunks_empty'
     if get(g:, 'loaded_signify') && sy#buffer_is_active()
       let b:source_func = 's:get_hunks_signify'
@@ -73,11 +73,12 @@ function! airline#extensions#hunks#get_hunks()
     \ get(b:, 'source_func', '') isnot# 's:get_hunks_changes'
     return b:airline_hunks
   endif
-  let hunks = s:get_hunks()
+  let hunks = airline#extensions#hunks#get_raw_hunks()
   let string = ''
+  let winwidth = get(airline#parts#get('hunks'), 'minwidth', 100)
   if !empty(hunks)
     for i in [0, 1, 2]
-      if (s:non_zero_only == 0 && airline#util#winwidth() > 100) || hunks[i] > 0
+      if (s:non_zero_only == 0 && airline#util#winwidth() > winwidth) || hunks[i] > 0
         let string .= printf('%s%s ', s:hunk_symbols[i], hunks[i])
       endif
     endfor

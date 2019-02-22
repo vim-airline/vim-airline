@@ -266,13 +266,14 @@ function! airline#extensions#branch#head()
     endif
   endif
 
-  let minwidth = empty(get(b:, 'airline_hunks', '')) ? 14 : 7
-  let b:airline_head = airline#util#shorten(b:airline_head, 120, minwidth)
   return b:airline_head
 endfunction
 
 function! airline#extensions#branch#get_head()
   let head = airline#extensions#branch#head()
+  let winwidth = get(airline#parts#get('branch'), 'minwidth', 120)
+  let minwidth = empty(get(b:, 'airline_hunks', '')) ? 14 : 7
+  let head = airline#util#shorten(head, winwidth, minwidth)
   let empty_message = get(g:, 'airline#extensions#branch#empty_message', '')
   let symbol = get(g:, 'airline#extensions#branch#symbol', g:airline_symbols.branch)
   return empty(head)

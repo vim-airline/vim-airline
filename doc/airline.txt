@@ -143,7 +143,7 @@ values):
   let g:airline_inactive_collapse=1
 <
 * Use alternative seperators for the statusline of inactive windows >
-  let g:airline_inactive_alt_sep=1 
+  let g:airline_inactive_alt_sep=1
 <
 * themes are automatically selected based on the matching colorscheme. this
   can be overridden by defining a value. >
@@ -233,7 +233,7 @@ values):
 <
 * Display the statusline in the tabline (first top line): >
   let g:airline_statusline_ontop = 1
-< 
+<
   Setting this option, allows to use the statusline option to be used by
   a custom function or another plugin, since airline won't change it.
 
@@ -632,6 +632,10 @@ vim-signify <https://github.com/mhinz/vim-signify>
 changesPlugin <https://github.com/chrisbra/changesPlugin>
 quickfixsigns <https://github.com/tomtom/quickfixsigns_vim>
 
+You can use `airline#extensions#hunks#get_raw_hunks()` to get the full hunks,
+without shortening. This allows for advanced customization, or a quick way of
+querying how many changes you got. It will return something like '+4 ~2 -1'.
+
 * enable/disable showing a summary of changed hunks under source control. >
   let g:airline#extensions#hunks#enabled = 1
 <
@@ -824,7 +828,7 @@ with the middle mouse button to delete that buffer.
 
   Note: last option can be used to specify a different formatter for
   displaying the numbers. By default tabline/formatter/tabnr.vim is used
-  The argument of that setting should either be a filename that exists 
+  The argument of that setting should either be a filename that exists
   autoload/airline/extensions/tabline/formatter/ (without .vim extension)
   and needs to provide a format() function. Alternatively you can use a
   custom function name, that is defined e.g. in your .vimrc file. In any
@@ -1157,7 +1161,7 @@ virtualenv <https://github.com/jmcantrell/vim-virtualenv>
   " (see above at g:airline#extensions#whitespace#checks)
   " To disable mixed-indent-file for go files use:
   let g:airline#extensions#whitespace#skip_indent_check_ft = {'go': ['mixed-indent-file']}
-<  
+<
 -------------------------------------                   *airline-windowswap*
 vim-windowswap <https://github.com/wesQ3/vim-windowswap>
 
