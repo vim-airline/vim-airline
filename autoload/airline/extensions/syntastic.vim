@@ -22,9 +22,9 @@ function! airline#extensions#syntastic#get(type)
   let _backup = get(g:, 'syntastic_stl_format', '')
   let is_err = (a:type  is# 'error')
   if is_err
-    let g:syntastic_stl_format = get(g:, 'airline#extensions#syntastic#stl_format_err', '%E{[%e(#%fe)]}')
+    let g:syntastic_stl_format = get(g:, 'airline#extensions#syntastic#stl_format_err', '%E{[%fe(#%e)]}')
   else
-    let g:syntastic_stl_format = get(g:, 'airline#extensions#syntastic#stl_format_warn', '%W{[%w(#%fw)]}')
+    let g:syntastic_stl_format = get(g:, 'airline#extensions#syntastic#stl_format_warn', '%W{[%fw(#%w)]}')
   endif
   let cnt = SyntasticStatuslineFlag()
   if !empty(_backup)
