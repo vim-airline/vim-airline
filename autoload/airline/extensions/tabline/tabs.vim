@@ -93,6 +93,10 @@ function! airline#extensions#tabline#tabs#get()
     endif
   endif
 
+  if tabpagenr('$') > 1
+    call b.add_section_spaced('airline_tabmod', printf('%s %d/%d', "tab", tabpagenr(), tabpagenr('$')))
+  endif
+
   let s:current_bufnr = curbuf
   let s:current_tabnr = curtab
   let s:column_width = &columns
