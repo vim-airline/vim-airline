@@ -92,6 +92,7 @@ function! airline#extensions#tabline#tabs#get()
       call airline#extensions#tabline#add_label(b, 'buffers')
     endif
   endif
+  call airline#extensions#tabline#add_tab_label(b)
 
   let s:current_bufnr = curbuf
   let s:current_tabnr = curtab

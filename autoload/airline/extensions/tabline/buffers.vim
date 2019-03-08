@@ -140,9 +140,7 @@ function! airline#extensions#tabline#buffers#get()
     call airline#extensions#tabline#add_label(b, 'buffers')
   endif
 
-  if tabpagenr('$') > 1
-    call b.add_section_spaced('airline_tabmod', printf('%s %d/%d', "tab", tabpagenr(), tabpagenr('$')))
-  endif
+  call airline#extensions#tabline#add_tab_label(b)
 
   let s:current_bufnr = cur
   let s:column_width = &columns

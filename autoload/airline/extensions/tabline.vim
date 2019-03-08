@@ -229,3 +229,9 @@ function! airline#extensions#tabline#add_label(dict, type)
           \ get(g:, 'airline#extensions#tabline#'.a:type.'_label', a:type))
   endif
 endfunction
+
+function! airline#extensions#tabline#add_tab_label(dict)
+  if tabpagenr('$') > 1
+    call a:dict.add_section_spaced('airline_tabmod', printf('%s %d/%d', "tab", tabpagenr(), tabpagenr('$')))
+  endif
+endfunction
