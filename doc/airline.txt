@@ -813,6 +813,9 @@ with the middle mouse button to delete that buffer.
 
 * enable/disable displaying tabs, regardless of number. (c) >
   let g:airline#extensions#tabline#show_tabs = 1
+
+* enable/disable displaying number of tabs in the right side (c) >
+  let g:airline#extensions#tabline#show_tab_count = 1
 <
 * configure filename match rules to exclude from the tabline. >
   let g:airline#extensions#tabline#excludes = []
