@@ -82,13 +82,14 @@ endfunction
 
 " airline functions {{{1
 " default filetypes:
-let s:filetypes = ['help', 'markdown', 'rst', 'org', 'text', 'asciidoc', 'tex', 'mail']
 function! airline#extensions#wordcount#apply(...)
-  let filetypes = get(g:, 'airline#extensions#wordcount#filetypes', s:filetypes)
+  let filetypes = get(g:, 'airline#extensions#wordcount#filetypes', 
+    \ ['asciidoc', 'help', 'mail', 'markdown', 'org', 'rst', 'tex', 'text'])
+  " export current filetypes settings to global namespace
+  let g:airline#extensions#wordcount#filetypes = filetypes
 
   " Check if filetype needs testing
-  if did_filetype() || filetypes isnot s:filetypes
-    let s:filetypes = filetypes
+  if did_filetype()
 
     " Select test based on type of "filetypes": new=list, old=string
     if type(filetypes) == get(v:, 't_list', type([]))

@@ -1180,9 +1180,9 @@ vim-windowswap <https://github.com/wesQ3/vim-windowswap>
 <
 * set list of filetypes for which word counting is enabled: >
   " The default value matches filetypes typically used for documentation
-  " such as markdown and help files.
+  " such as markdown and help files. Default is:
   let g:airline#extensions#wordcount#filetypes =
-    \ ['help', 'markdown', 'rst', 'org', 'text', 'asciidoc', 'tex', 'mail']
+    \ ['asciidoc', 'help', 'mail', 'markdown', 'org', 'rst', 'tex', 'text'])
   " Use ['all'] to enable for all filetypes.
 
 * defines the name of a formatter for word count will be displayed: >
