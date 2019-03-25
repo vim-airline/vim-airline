@@ -7,13 +7,9 @@ if !airline#util#has_fugitive()
   finish
 endif
 
-
-let s:has_autochdir = exists("+autochdir") && &autochdir
-if s:has_autochdir
-  let s:fmod = ':p'
-else
-  let s:fmod = ':.'
-endif
+function! s:ModifierFlags()
+  return (exists("+autochdir") && &autochdir) ? ':p' : ':.'
+endfunction
 
 function! airline#extensions#fugitiveline#bufname()
   if !exists('b:fugitive_name')
@@ -31,15 +27,16 @@ function! airline#extensions#fugitiveline#bufname()
     endtry
   endif
 
+  let fmod = s:ModifierFlags()
   if empty(b:fugitive_name)
-    return fnamemodify(bufname('%'), s:fmod)
+    return fnamemodify(bufname('%'), fmod)
   else
-    return fnamemodify(b:fugitive_name, s:fmod). " [git]"
+    return fnamemodify(b:fugitive_name, fmod). " [git]"
   endif
 endfunction
 
 function! airline#extensions#fugitiveline#init(ext)
-  if s:has_autochdir
+  if exists("+autochdir") && &autochdir
     " if 'acd' is set, vim-airline uses the path section, so we need to redefine this here as well
     call airline#parts#define_raw('path', '%<%{airline#extensions#fugitiveline#bufname()}%m')
   else
