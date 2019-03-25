@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2015-2018 Evgeny Firsov et al.
+" MIT License. Copyright (c) 2015-2019 Evgeny Firsov et al.
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8

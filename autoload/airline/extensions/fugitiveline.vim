@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2017-2018 Cimbali et al
+" MIT License. Copyright (c) 2017-2019 Cimbali et al
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8

@@ -1,7 +1,7 @@
-" MIT License. Copyright (c) 2016-2018 Jerome Reybert et al.
+" MIT License. Copyright (c) 2016-2019 Jerome Reybert et al.
 " vim: et ts=2 sts=2 sw=2
 
-" This plugin replace the whole section_a when in vimagit buffer
+" This plugin replaces the whole section_a when in vimagit buffer
 scriptencoding utf-8
 
 if !get(g:, 'loaded_magit', 0)

@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2013-2018 Bjorn Neergaard, hallettj et al.
+" MIT License. Copyright (c) 2013-2019 Bjorn Neergaard, hallettj et al.
 " This comes from the Languageclient plugin:
 " https://github.com/autozimu/LanguageClient-neovim
 " vim: et ts=2 sts=2 sw=2
