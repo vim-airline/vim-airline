@@ -229,6 +229,8 @@ function! s:rand(max) abort
   if has("reltime")
     let timerstr=reltimestr(reltime())
     let number=split(timerstr, '\.')[1]+0
+  elseif has("win32") && &shell =~ 'cmd'
+    let number=system("echo %random%")+0
   else
     " best effort, bash and zsh provide $RANDOM
     " cmd.exe on windows provides %random%, but expand()
