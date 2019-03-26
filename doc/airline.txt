@@ -261,6 +261,7 @@ COMMANDS                                                  *airline-commands*
 
 :AirlineExtensions                                       *:AirlineExtensions*
   Shows the status of all available airline extensions.
+  Extern means, the extensions does not come bundled with Airline.
 
 ==============================================================================
 AUTOCOMMANDS                                          *airline-autocommands*

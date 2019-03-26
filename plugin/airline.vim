@@ -205,11 +205,13 @@ function! s:airline_extensions()
   call map(files, 'fnamemodify(v:val, ":t:r")')
   if !empty(files)
     echohl Title
-    echo printf("%-15s\t%s", "Extension", "Status")
+    echo printf("%-15s\t%s\t%s", "Extension", "Extern", "Status")
     echohl Normal
   endif
   for ext in sort(files)
-    echo printf("%-15s\t%sloaded", ext, (index(loaded, ext) == -1 ? 'not ' : ''))
+    let indx=match(loaded, '^'.ext.'\*\?$')
+    let external = (indx > -1 && loaded[indx] =~ '\*$')
+    echo printf("%-15s\t%s\t%sloaded", ext, external, indx == -1 ? 'not ' : '')
   endfor
 endfunction
 

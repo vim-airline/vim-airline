@@ -377,6 +377,8 @@ function! airline#extensions#load()
         endif
         try
           call airline#extensions#{name}#init(s:ext)
+          " mark as external
+          call add(s:loaded_ext, name.'*')
         catch
         endtry
       endif
