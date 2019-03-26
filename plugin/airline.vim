@@ -22,7 +22,7 @@ function! s:init()
   if s:theme_in_vimrc
     try
       if g:airline_theme is# 'random'
-        let g:airline_theme=s:RandomTheme()
+        let g:airline_theme=s:random_theme()
       endif
       let palette = g:airline#themes#{g:airline_theme}#palette
     catch
@@ -176,7 +176,7 @@ function! s:airline_theme(...)
     try
       let theme = a:1
       if  theme is# 'random'
-        let theme = s:RandomTheme()
+        let theme = s:random_theme()
       endif
       call airline#switch_theme(theme)
     catch " discard error
@@ -225,7 +225,7 @@ function! s:airline_extensions()
   endfor
 endfunction
 
-function! s:Rand(max) abort
+function! s:rand(max) abort
   if has("reltime")
     let timerstr=reltimestr(reltime())
     let number=split(timerstr, '\.')[1]+0
@@ -239,9 +239,9 @@ function! s:Rand(max) abort
   return number % a:max
 endfunction
 
-function! s:RandomTheme() abort
+function! s:random_theme() abort
   let themes=airline#util#themes('')
-  return themes[s:Rand(len(themes))]
+  return themes[s:rand(len(themes))]
 endfunction
 
 command! -bar -nargs=? -complete=customlist,<sid>get_airline_themes AirlineTheme call <sid>airline_theme(<f-args>)
