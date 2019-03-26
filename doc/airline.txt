@@ -249,6 +249,7 @@ COMMANDS                                                  *airline-commands*
 
 :AirlineTheme {theme-name}                                   *:AirlineTheme*
   Displays or changes the current theme.
+  Note: `random` will switch to a random theme.
 
 :AirlineToggleWhitespace                          *:AirlineToggleWhitespace*
   Toggles whitespace detection.

@@ -21,6 +21,9 @@ function! s:init()
   let s:theme_in_vimrc = exists('g:airline_theme')
   if s:theme_in_vimrc
     try
+      if g:airline_theme is# 'random'
+        let g:airline_theme=s:RandomTheme()
+      endif
       let palette = g:airline#themes#{g:airline_theme}#palette
     catch
       call airline#util#warning(printf('Could not resolve airline theme "%s". Themes have been migrated to github.com/vim-airline/vim-airline-themes.', g:airline_theme))
@@ -171,9 +174,16 @@ endfunction
 function! s:airline_theme(...)
   if a:0
     try
-      call airline#switch_theme(a:1)
+      let theme = a:1
+      if  theme is# 'random'
+        let theme = s:RandomTheme()
+      endif
+      call airline#switch_theme(theme)
     catch " discard error
     endtry
+    if a:1 is# 'random'
+      echo g:airline_theme
+    endif
   else
     echo g:airline_theme
   endif
@@ -213,6 +223,25 @@ function! s:airline_extensions()
     let external = (indx > -1 && loaded[indx] =~ '\*$')
     echo printf("%-15s\t%s\t%sloaded", ext, external, indx == -1 ? 'not ' : '')
   endfor
+endfunction
+
+function! s:Rand(max) abort
+  if has("reltime")
+    let timerstr=reltimestr(reltime())
+    let number=split(timerstr, '\.')[1]+0
+  else
+    " best effort, bash and zsh provide $RANDOM
+    " cmd.exe on windows provides %random%, but expand()
+    " does not seem to be able to expand this correctly.
+    " In the worst case, this always returns zero
+    let number=expand("$RANDOM")+0
+  endif
+  return number % a:max
+endfunction
+
+function! s:RandomTheme() abort
+  let themes=airline#util#themes('')
+  return themes[s:Rand(len(themes))]
 endfunction
 
 command! -bar -nargs=? -complete=customlist,<sid>get_airline_themes AirlineTheme call <sid>airline_theme(<f-args>)

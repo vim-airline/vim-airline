@@ -135,6 +135,6 @@ function! airline#util#doautocmd(event)
 endfunction
 
 function! airline#util#themes(match)
-  let files = split(globpath(&rtp, 'autoload/airline/themes/'.a:match.'*'), "\n")
-  return map(files, 'fnamemodify(v:val, ":t:r")')
+  let files = split(globpath(&rtp, 'autoload/airline/themes/'.a:match.'*.vim'), "\n")
+  return sort(map(files, 'fnamemodify(v:val, ":t:r")') + ['random'])
 endfunction

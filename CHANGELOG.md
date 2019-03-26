@@ -11,6 +11,8 @@ This is the Changelog for the vim-airline project.
       Set the `g:airline_statusline_ontop` to enable this experimental feature.
     - If `buffer_idx_mode=2`, up to 89 mappings will be exposed to access more
       buffers directly (issue #1823)
+    - Allow to use `random` as special theme name, which will switch to a random
+      airline theme (at least if a random number can be generated :()
 
 ## [0.10] - 2018-12-15
 - New features
