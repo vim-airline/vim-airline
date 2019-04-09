@@ -41,7 +41,7 @@ endfunction
 " check user-defined formatter exists with appropriate functions, otherwise
 " fall back to default
 if s:formatter !=# 'default'
-  execute 'runtime! autoload/airline/extensions/wordcount/formatters/'.s:formatter
+  execute 'runtime! autoload/airline/extensions/wordcount/formatters/'.s:formatter.'.vim'
   if !exists('*airline#extensions#wordcount#formatters#{s:formatter}#to_string')
     if !exists('*airline#extensions#wordcount#formatters#{s:formatter}#format')
       let s:formatter = 'default'
