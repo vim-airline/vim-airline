@@ -976,7 +976,15 @@ with the middle mouse button to delete that buffer.
   " The `unique_tail_improved` - another algorithm, that will smartly uniquify
   " buffers names with similar filename, suppressing common parts of paths.
   let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-<
+
+  " The `short_path` - is a simple formatter, that will show the
+  filename, with its extension, and the first parent directory only.
+
+  e.g.
+     /home/user/project/subdir/file.ext -> subdir/file.ext
+
+  let g:airline#extensions#tabline#formatter = 'short_path'
+
 * configure the minimum number of buffers needed to show the tabline. >
   let g:airline#extensions#tabline#buffer_min_count = 0
 <
