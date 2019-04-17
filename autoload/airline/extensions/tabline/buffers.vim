@@ -69,7 +69,7 @@ function! airline#extensions#tabline#buffers#get()
     let show_buf_label_first = 1
   endif
   if show_buf_label_first
-    call airline#extensions#tabline#add_label(b, 'buffers')
+    call airline#extensions#tabline#add_label(b, 'buffers', 0)
   endif
 
   let b.tab_bufs = tabpagebuflist(tabpagenr())
@@ -137,7 +137,7 @@ function! airline#extensions#tabline#buffers#get()
   call b.split()
   call b.add_section('airline_tabfill', '')
   if !show_buf_label_first
-    call airline#extensions#tabline#add_label(b, 'buffers')
+    call airline#extensions#tabline#add_label(b, 'buffers', 1)
   endif
 
   call airline#extensions#tabline#add_tab_label(b)

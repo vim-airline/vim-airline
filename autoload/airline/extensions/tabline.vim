@@ -113,6 +113,8 @@ function! airline#extensions#tabline#load_theme(palette)
   call airline#highlighter#exec('airline_tabhid', tabhid)
 
   " Theme for tabs on the right
+  " label on the right
+  let tablabel_r  = get(colors, 'airline_tablabel', a:palette.normal.airline_b)
   let tabsel_right  = get(colors, 'airline_tabsel_right', a:palette.normal.airline_a)
   let tab_right     = get(colors, 'airline_tab_right',    a:palette.inactive.airline_c)
   let tabmod_right  = get(colors, 'airline_tabmod_right', a:palette.insert.airline_a)
@@ -123,6 +125,7 @@ function! airline#extensions#tabline#load_theme(palette)
     "Fall back to normal airline_c if modified airline_c isn't present
     let tabmodu_right = get(colors, 'airline_tabmod_unsel_right', a:palette.normal.airline_c)
   endif
+  call airline#highlighter#exec('airline_tablabel_right', tablabel_r)
   call airline#highlighter#exec('airline_tab_right',    tab_right)
   call airline#highlighter#exec('airline_tabsel_right', tabsel_right)
   call airline#highlighter#exec('airline_tabmod_right', tabmod_right)
@@ -222,9 +225,10 @@ function! airline#extensions#tabline#group_of_bufnr(tab_bufs, bufnr)
   return group
 endfunction
 
-function! airline#extensions#tabline#add_label(dict, type)
+function! airline#extensions#tabline#add_label(dict, type, right)
   if get(g:, 'airline#extensions#tabline#show_tab_type', 1)
-    call a:dict.add_section_spaced('airline_tablabel',
+    call a:dict.add_section_spaced('airline_tablabel'.
+          \ (a:right ? '_right' : ''),
           \ get(g:, 'airline#extensions#tabline#'.a:type.'_label', a:type))
   endif
 endfunction
