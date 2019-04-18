@@ -33,7 +33,11 @@ function! s:termname()
     return matchstr(bufname, 'term.*:\zs.*')
   else
     " get rid of leading '!'
-    return bufname[1:]
+    if bufname[0] is# '!'
+      return bufname[1:]
+    else
+      return bufname
+    endif
   endif
 endfunction
 
