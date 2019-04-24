@@ -101,7 +101,7 @@ endfunction
 function! s:display_git_branch()
   let name = b:buffer_vcs_config['git'].branch
   try
-    let commit = fugitive#buffer().commit()
+    let commit = matchstr(FugitiveParse()[0], '^\x\+')
 
     if has_key(s:names, commit)
       let name = get(s:names, commit)."(".name.")"
