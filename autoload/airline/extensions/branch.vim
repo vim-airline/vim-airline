@@ -279,7 +279,6 @@ function! airline#extensions#branch#get_head()
   let minwidth = empty(get(b:, 'airline_hunks', '')) ? 14 : 7
   let head = airline#util#shorten(head, winwidth, minwidth)
   let symbol = get(g:, 'airline#extensions#branch#symbol', g:airline_symbols.branch)
-  let dirty  = get(b:, 'airline_branch_dirty', '')
   return empty(head)
         \ ? get(g:, 'airline#extensions#branch#empty_message', '')
         \ : printf('%s%s', empty(symbol) ? '' : symbol.(g:airline_symbols.space), head)
