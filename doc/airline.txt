@@ -319,6 +319,7 @@ its contents. >
   let g:airline_symbols.readonly = ''
   let g:airline_symbols.linenr = '☰'
   let g:airline_symbols.maxlinenr = ''
+  let g:airline_symbols.dirty=⚡
 
   " old vim-powerline symbols
   let g:airline_left_sep = '⮀'
@@ -434,7 +435,8 @@ lawrencium   <https://bitbucket.org/ludovicchabant/vim-lawrencium>
 vcscommand   <http://www.vim.org/scripts/script.php?script_id=90>
 
 If a file is edited, that is not yet in the repository, the
-notexists symbol will be displayed after the branch name.
+notexists symbol will be displayed after the branch name. If the repository is
+not clean, the dirty symbol will be displayed after the branch name.
 
 * enable/disable fugitive/lawrencium integration >
   let g:airline#extensions#branch#enabled = 1

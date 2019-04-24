@@ -13,6 +13,8 @@ This is the Changelog for the vim-airline project.
       buffers directly (issue #1823)
     - Allow to use `random` as special theme name, which will switch to a random
       airline theme (at least if a random number can be generated :()
+    - The branch extensions now also displays whether the repository is in a clean state
+      (will append a ! or ⚡if the repository is considered dirty).
 
 ## [0.10] - 2018-12-15
 - New features

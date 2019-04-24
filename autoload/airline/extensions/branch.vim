@@ -17,6 +17,7 @@ let s:vcs_config = {
 \  'git': {
 \    'exe': 'git',
 \    'cmd': 'git status --porcelain -- ',
+\    'dirty': 'git status --porcelain',
 \    'untracked_mark': '??',
 \    'exclude': '\.git',
 \    'update_branch': 's:update_git_branch',
@@ -27,6 +28,7 @@ let s:vcs_config = {
 \  'mercurial': {
 \    'exe': 'hg',
 \    'cmd': 'hg status -u -- ',
+\    'dirty': 'hg status -muard',
 \    'untracked_mark': '?',
 \    'exclude': '\.hg',
 \    'update_branch': 's:update_hg_branch',
@@ -51,6 +53,7 @@ function! s:init_buffer()
     let b:buffer_vcs_config[vcs] = {
           \     'branch': '',
           \     'untracked': '',
+          \     'dirty': 0,
           \   }
   endfor
   unlet! b:airline_head
@@ -200,6 +203,8 @@ function! s:update_untracked()
     " result of the previous call, i.e. the head string is not updated. It
     " doesn't happen often in practice, so we let it be.
     call airline#async#vcs_untracked(config, file, vcs)
+    " Check clean state of repo
+    call airline#async#vcs_clean(config.dirty, file, vcs)
   endfor
 endfunction
 
@@ -233,7 +238,11 @@ function! airline#extensions#branch#head()
       let b:airline_head .= s:vcs_config[vcs].exe .':'
     endif
     let b:airline_head .= s:format_name({s:vcs_config[vcs].display_branch}())
-    let b:airline_head .= b:buffer_vcs_config[vcs].untracked
+    let additional = b:buffer_vcs_config[vcs].untracked
+    if empty(additional) && b:buffer_vcs_config[vcs].dirty
+      let additional = g:airline_symbols['dirty']
+    endif
+    let b:airline_head .= additional
   endfor
 
   if empty(heads)
@@ -269,10 +278,10 @@ function! airline#extensions#branch#get_head()
   let winwidth = get(airline#parts#get('branch'), 'minwidth', 120)
   let minwidth = empty(get(b:, 'airline_hunks', '')) ? 14 : 7
   let head = airline#util#shorten(head, winwidth, minwidth)
-  let empty_message = get(g:, 'airline#extensions#branch#empty_message', '')
   let symbol = get(g:, 'airline#extensions#branch#symbol', g:airline_symbols.branch)
+  let dirty  = get(b:, 'airline_branch_dirty', '')
   return empty(head)
-        \ ? empty_message
+        \ ? get(g:, 'airline#extensions#branch#empty_message', '')
         \ : printf('%s%s', empty(symbol) ? '' : symbol.(g:airline_symbols.space), head)
 endfunction
 
