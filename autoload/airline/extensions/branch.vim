@@ -194,17 +194,12 @@ function! s:update_untracked()
 
   for vcs in keys(s:vcs_config)
     let config = s:vcs_config[vcs]
-    if g:airline#init#vim_async
-      " Note that asynchronous update updates s:vcs_config only, and only
-      " s:update_untracked updates b:buffer_vcs_config. If s:vcs_config is
-      " invalidated again before s:update_untracked is called, then we lose the
-      " result of the previous call, i.e. the head string is not updated. It
-      " doesn't happen often in practice, so we let it be.
-      noa call airline#async#vim_vcs_untracked(config, file)
-    else
-      " nvim async or vim without job-feature
-      noa call airline#async#nvim_vcs_untracked(config, file, vcs)
-    endif
+    " Note that asynchronous update updates s:vcs_config only, and only
+    " s:update_untracked updates b:buffer_vcs_config. If s:vcs_config is
+    " invalidated again before s:update_untracked is called, then we lose the
+    " result of the previous call, i.e. the head string is not updated. It
+    " doesn't happen often in practice, so we let it be.
+    call airline#async#vcs_untracked(config, file, vcs)
   endfor
 endfunction
 

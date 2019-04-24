@@ -123,6 +123,16 @@ if v:version >= 800 && has("job")
     let s:po_jobs[a:file] = id
   endfunction
 
+  function! airline#async#vcs_untracked(config, file, vcs)
+    if g:airline#init#vim_async
+      " Vim 8 with async support
+      noa call airline#async#vim_vcs_untracked(a:config, a:file)
+    else
+      " nvim async or vim without job-feature
+      noa call airline#async#nvim_vcs_untracked(a:config, a:file, a:vcs)
+    endif
+  endfunction
+
   function! airline#async#vim_vcs_untracked(config, file)
     if g:airline#init#is_windows && &shell =~ 'cmd'
       let cmd = a:config['cmd'] . shellescape(a:file)
