@@ -53,6 +53,16 @@ function! s:valid_dir(dir)
   return a:dir
 endfunction
 
+function! airline#async#vcs_untracked(config, file, vcs)
+  if g:airline#init#vim_async
+    " Vim 8 with async support
+    noa call airline#async#vim_vcs_untracked(a:config, a:file)
+  else
+    " nvim async or vim without job-feature
+    noa call airline#async#nvim_vcs_untracked(a:config, a:file, a:vcs)
+  endif
+endfunction
+
 if v:version >= 800 && has("job")
   " Vim 8.0 with Job feature
   " TODO: Check if we need the cwd option for the job_start() functions
@@ -121,16 +131,6 @@ if v:version >= 800 && has("job")
           \ 'out_cb':   function('s:on_stdout', options),
           \ 'close_cb': function('s:on_exit_po', options)})
     let s:po_jobs[a:file] = id
-  endfunction
-
-  function! airline#async#vcs_untracked(config, file, vcs)
-    if g:airline#init#vim_async
-      " Vim 8 with async support
-      noa call airline#async#vim_vcs_untracked(a:config, a:file)
-    else
-      " nvim async or vim without job-feature
-      noa call airline#async#nvim_vcs_untracked(a:config, a:file, a:vcs)
-    endif
   endfunction
 
   function! airline#async#vim_vcs_untracked(config, file)
