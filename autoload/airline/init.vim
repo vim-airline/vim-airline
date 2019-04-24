@@ -158,7 +158,7 @@ function! airline#init#bootstrap()
         \ 'minwidth': 100})
   call airline#parts#define('branch', {
         \ 'raw': '',
-        \ 'minwidth': 120})
+        \ 'minwidth': 80})
   call airline#parts#define_empty(['obsession', 'tagbar', 'syntastic-warn',
         \ 'syntastic-err', 'eclim', 'whitespace','windowswap',
         \ 'ycm_error_count', 'ycm_warning_count', 'neomake_error_count',
@@ -202,7 +202,7 @@ function! airline#init#sections()
     let g:airline_section_y = airline#section#create_right(['ffenc'])
   endif
   if !exists('g:airline_section_z')
-    if airline#util#winwidth() > 80
+    if airline#util#winwidth() > 79
       let g:airline_section_z = airline#section#create(['windowswap', 'obsession', '%3p%%'.spc, 'linenr', 'maxlinenr', spc.':%3v'])
     else
       let g:airline_section_z = airline#section#create(['%3p%%'.spc, 'linenr',  ':%3v'])

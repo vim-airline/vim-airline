@@ -438,6 +438,9 @@ If a file is edited, that is not yet in the repository, the
 notexists symbol will be displayed after the branch name. If the repository is
 not clean, the dirty symbol will be displayed after the branch name.
 
+Note: the branch extension will be disabled for windows smaller than 80
+characters.
+
 * enable/disable fugitive/lawrencium integration >
   let g:airline#extensions#branch#enabled = 1
 <
