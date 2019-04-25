@@ -67,9 +67,9 @@ endfunction
 function! s:on_exit_clean(...) dict abort
   let buf=self.buf
   if !empty(buf)
-    let var=getbufvar(self.file, 'buffer_vcs_config', {})
+    let var=getbufvar(fnameescape(self.file), 'buffer_vcs_config', {})
     let var[self.vcs].dirty=1
-    call setbufvar(self.file, 'buffer_vcs_config', var)
+    call setbufvar(fnameescape(self.file), 'buffer_vcs_config', var)
     unlet! b:airline_head
   endif
   if has_key(get(s:clean_jobs, 'self.vcs', {}), self.file)
