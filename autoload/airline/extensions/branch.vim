@@ -17,7 +17,7 @@ let s:vcs_config = {
 \  'git': {
 \    'exe': 'git',
 \    'cmd': 'git status --porcelain -- ',
-\    'dirty': 'git status -uno --porcelain',
+\    'dirty': 'git status -uno --porcelain --ignore-submodules',
 \    'untracked_mark': '??',
 \    'exclude': '\.git',
 \    'update_branch': 's:update_git_branch',
