@@ -175,7 +175,7 @@ endfunction
 
 function! s:update_untracked()
   let file = expand("%:p")
-  if empty(file) || isdirectory(file)
+  if empty(file) || isdirectory(file) || !empty(&buftype)
     return
   endif
 
