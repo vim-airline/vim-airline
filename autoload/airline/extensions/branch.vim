@@ -17,7 +17,7 @@ let s:vcs_config = {
 \  'git': {
 \    'exe': 'git',
 \    'cmd': 'git status --porcelain -- ',
-\    'dirty': 'git status --porcelain',
+\    'dirty': 'git status -uno --porcelain',
 \    'untracked_mark': '??',
 \    'exclude': '\.git',
 \    'update_branch': 's:update_git_branch',
@@ -28,7 +28,7 @@ let s:vcs_config = {
 \  'mercurial': {
 \    'exe': 'hg',
 \    'cmd': 'hg status -u -- ',
-\    'dirty': 'hg status -muard',
+\    'dirty': 'hg status -mard',
 \    'untracked_mark': '?',
 \    'exclude': '\.hg',
 \    'update_branch': 's:update_hg_branch',
