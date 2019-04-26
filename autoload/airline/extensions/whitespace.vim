@@ -51,8 +51,7 @@ function! s:conflict_marker()
   " Checks for git conflict markers
   let annotation = '\%([0-9A-Za-z_.:]\+\)\?'
   let pattern = '^\%(\%(<\{7} '.annotation. '\)\|\%(=\{7\}\)\|\%(>\{7\} '.annotation.'\)\)$'
-  let result = search(pattern, 'nw')
-  return result
+  return search(pattern, 'nw')
 endfunction
 
 function! airline#extensions#whitespace#check()
@@ -128,7 +127,7 @@ function! airline#extensions#whitespace#check()
           let mixed_indent_file_fmt = get(g:, 'airline#extensions#whitespace#mixed_indent_file_format', '[%s]mix-indent-file')
           let b:airline_whitespace_check .= space.printf(mixed_indent_file_fmt, mixed_file)
         endif
-        if !empty(conflicts)
+        if conflicts != 0
           let conflicts_fmt = get(g:, 'airline#extensions#whitespace#conflicts_format', '[%s]conflicts')
           let b:airline_whitespace_check .= space.printf(conflicts_fmt, conflicts)
         endif
