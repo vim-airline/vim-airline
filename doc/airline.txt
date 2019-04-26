@@ -340,6 +340,11 @@ entirely.  If you want to disable only certain parts of a section you can try
 using variables defined in the |airline-configuration| or |airline-extensions|
 section.
                                                     |airline-default-sections|
+The following table describes what sections are available by default, and
+which extensions/functions make use of it. Note: using `g:` (global) variable
+prefix means, those variables are defined for all windows. You can use `w:`
+(window local variables) instead to make this apply only to a particular
+window.
 >
   variable names                default contents
   ----------------------------------------------------------------------------
