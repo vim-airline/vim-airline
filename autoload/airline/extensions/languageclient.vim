@@ -22,7 +22,7 @@ let s:diagnostics = {}
 
 function! s:languageclient_refresh()
   if get(g:, 'airline_skip_empty_sections', 0)
-    exe ':AirlineRefresh'
+    exe ':AirlineRefresh!'
   endif
 endfunction
 

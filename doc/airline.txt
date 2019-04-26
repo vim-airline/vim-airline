@@ -257,8 +257,9 @@ COMMANDS                                                  *airline-commands*
 :AirlineToggle                                              *:AirlineToggle*
   Toggles between the standard 'statusline' and airline.
 
-:AirlineRefresh                                            *:AirlineRefresh*
-  Refreshes all highlight groups and redraws the statusline.
+:AirlineRefresh[!]                                            *:AirlineRefresh*
+  Refreshes all highlight groups and redraws the statusline. With the '!'
+  attribute, skips refreshing the highlighting groups.
 
 :AirlineExtensions                                       *:AirlineExtensions*
   Shows the status of all available airline extensions.
