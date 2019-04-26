@@ -15,6 +15,11 @@ This is the Changelog for the vim-airline project.
       airline theme (at least if a random number can be generated :()
     - The branch extensions now also displays whether the repository is in a clean state
       (will append a ! or ⚡if the repository is considered dirty).
+    - The whitespace extensions will also check for conflict markers
+    - `:AirlineRefresh` command now takes an additional `!` attribute, that **skips** 
+      recreating the highlighting groups (which might have a serious performance
+      impact if done very often, as might be the case when the configuration variable 
+      `airline_skip_empty_sections` is active).
 
 ## [0.10] - 2018-12-15
 - New features
