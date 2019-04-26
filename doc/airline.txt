@@ -1145,10 +1145,11 @@ virtualenv <https://github.com/jmcantrell/vim-virtualenv>
   " long:   overlong lines
   " trailing: trailing whitespace
   " mixed-indent-file: different indentation in different lines
-  let g:airline#extensions#whitespace#checks = [ 'indent', 'trailing', 'long', 'mixed-indent-file' ]
+  " conflicts: checks for conflict markers
+  let g:airline#extensions#whitespace#checks = [ 'indent', 'trailing', 'long', 'mixed-indent-file', 'conflicts' ]
 
   " this can also be configured for an individual buffer
-  let b:airline_whitespace_checks = [ 'indent', 'trailing', 'long', 'mixed-indent-file' ]
+  let b:airline_whitespace_checks = [ 'indent', 'trailing', 'long', 'mixed-indent-file', 'conflicts ]
 <
 * configure the maximum number of lines where whitespace checking is enabled. >
   let g:airline#extensions#whitespace#max_lines = 20000
@@ -1161,6 +1162,7 @@ virtualenv <https://github.com/jmcantrell/vim-virtualenv>
   let g:airline#extensions#whitespace#mixed_indent_format = 'mixed-indent[%s]'
   let g:airline#extensions#whitespace#long_format = 'long[%s]'
   let g:airline#extensions#whitespace#mixed_indent_file_format = 'mix-indent-file[%s]'
+  let g:airline#extensions#whitespace#conflicts_format = 'conflicts[%s]'
 
 * configure custom trailing whitespace regexp rule >
   let g:airline#extensions#whitespace#trailing_regexp = '\s$'
