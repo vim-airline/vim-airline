@@ -23,12 +23,15 @@ endfunction
 let s:script_path = tolower(resolve(expand('<sfile>:p:h')))
 
 let s:filetype_overrides = {
+      \ 'defx':  ['defx', '%{b:defx.paths[0]}'],
       \ 'gundo': [ 'Gundo', '' ],
+      \ 'help':  [ 'Help', '%f' ],
       \ 'minibufexpl': [ 'MiniBufExplorer', '' ],
       \ 'nerdtree': [ get(g:, 'NERDTreeStatusline', 'NERD'), '' ],
       \ 'startify': [ 'startify', '' ],
       \ 'vim-plug': [ 'Plugins', '' ],
       \ 'vimfiler': [ 'vimfiler', '%{vimfiler#get_status_string()}' ],
+      \ 'vimshell': ['vimshell','%{vimshell#get_status_string()}'],
       \ }
 
 let s:filetype_regex_overrides = {}
@@ -58,16 +61,11 @@ function! airline#extensions#apply_left_override(section1, section2)
 endfunction
 
 function! airline#extensions#apply(...)
+  let filetype_overrides = get(s:, 'filetype_overrides', {})
+  call extend(filetype_overrides, get(g:, 'airline_filetype_overrides', {}), 'force')
 
   if s:is_excluded_window()
     return -1
-  endif
-
-  if &buftype == 'help'
-    call airline#extensions#apply_left_override('Help', '%f')
-    let w:airline_section_x = ''
-    let w:airline_section_y = ''
-    let w:airline_render_right = 1
   endif
 
   if &buftype == 'terminal'
@@ -81,9 +79,18 @@ function! airline#extensions#apply(...)
     let w:airline_section_c = bufname(winbufnr(winnr()))
   endif
 
-  if has_key(s:filetype_overrides, &ft)
-    let args = s:filetype_overrides[&ft]
+  if has_key(filetype_overrides, &ft) &&
+        \ ((&filetype == 'help' && &buftype == 'help') || &filetype !~ 'help')
+    " for help files only override it, if the buftype is also of type 'help',
+    " else it would trigger when editing Vim help files
+    let args = filetype_overrides[&ft]
     call airline#extensions#apply_left_override(args[0], args[1])
+  endif
+
+  if &buftype == 'help'
+    let w:airline_section_x = ''
+    let w:airline_section_y = ''
+    let w:airline_render_right = 1
   endif
 
   for item in items(s:filetype_regex_overrides)
@@ -213,12 +220,7 @@ function! airline#extensions#load()
   endif
 
   if exists(':VimShell')
-    let s:filetype_overrides['vimshell'] = ['vimshell','%{vimshell#get_status_string()}']
     let s:filetype_regex_overrides['^int-'] = ['vimshell','%{substitute(&ft, "int-", "", "")}']
-  endif
-
-  if exists(':Defx')
-    let s:filetype_overrides['defx'] = ['defx', '%{b:defx.paths[0]}']
   endif
 
   if get(g:, 'airline#extensions#branch#enabled', 1) && (
