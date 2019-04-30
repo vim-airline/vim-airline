@@ -128,6 +128,7 @@ function! airline#init#bootstrap()
           \ 'branch': '',
           \ 'notexists': '?',
           \ 'crypt': 'cr',
+          \ 'dirty': '!',
           \ }, 'keep')
   endif
 
