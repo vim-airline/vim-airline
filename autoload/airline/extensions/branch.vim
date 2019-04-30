@@ -239,7 +239,9 @@ function! airline#extensions#branch#head()
     endif
     let b:airline_head .= s:format_name({s:vcs_config[vcs].display_branch}())
     let additional = b:buffer_vcs_config[vcs].untracked
-    if empty(additional) && b:buffer_vcs_config[vcs].dirty
+    if empty(additional) &&
+          \ has_key(b:buffer_vcs_config[vcs], 'dirty') &&
+          \ b:buffer_vcs_config[vcs].dirty
       let additional = g:airline_symbols['dirty']
     endif
     let b:airline_head .= additional
