@@ -66,9 +66,11 @@ endfunction
 
 function! s:set_clean_variables(file, vcs)
   let var=getbufvar(fnameescape(a:file), 'buffer_vcs_config', {})
-  let var[a:vcs].dirty=1
-  call setbufvar(fnameescape(a:file), 'buffer_vcs_config', var)
-  unlet! b:airline_head
+  if has_key(var, a:vcs) && has_key(var[a:vcs], 'dirty')
+    let var[a:vcs].dirty=1
+    call setbufvar(fnameescape(a:file), 'buffer_vcs_config', var)
+    unlet! b:airline_head
+  endif
 endfunction
 
 function! s:on_exit_clean(...) dict abort
