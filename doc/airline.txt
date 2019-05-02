@@ -514,6 +514,16 @@ characters.
     endif
     return b:perforce_client
   endfunction
+>
+* configure additional vcs checks to run
+  By default, vim-airline will check if the current edited file is untracked
+  in the repository. If so, it will append the `g:airline_symbols.notexists`
+  symbol to the branch name.
+  In addition, it will check if the repository is clean, else it will append
+  the `g:airline_symbols.dirty` symbol to the branch name (if the current file
+  is not untracked). Configure, by setting the following variable: >
+
+  let g:airline#extensions#branch#vcs_checks = ['untracked', 'dirty']
 <
 -------------------------------------                   *airline-bufferline*
 vim-bufferline <https://github.com/bling/vim-bufferline>
