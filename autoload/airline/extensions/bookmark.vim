@@ -1,6 +1,13 @@
 "
 " MIT License. Copyright (c) 2019 Bjoern Petri <bjoern.petri@sundevil.de>
 "
+
+scriptencoding utf-8
+
+if !exists(':BookmarkToggle')
+  finish
+endif
+
 function! airline#extensions#bookmark#currentbookmark()
   if get(w:, 'airline_active', 0)
 	let file = expand("%:p")

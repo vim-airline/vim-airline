@@ -214,6 +214,7 @@ function! airline#extensions#load()
   endif
 
   if get(g:, 'airline#extensions#bookmark#enabled', 1)
+        \ && exists(':BookmarkToggle')
     call airline#extensions#bookmark#init(s:ext)
     call add(s:loaded_ext, 'bookmark')
   endif
