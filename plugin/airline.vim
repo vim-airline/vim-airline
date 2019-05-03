@@ -223,15 +223,22 @@ function! s:airline_extensions()
   let loaded = airline#extensions#get_loaded_extensions()
   let files = split(globpath(&rtp, "autoload/airline/extensions/*.vim"), "\n")
   call map(files, 'fnamemodify(v:val, ":t:r")')
-  if !empty(files)
-    echohl Title
-    echo printf("%-15s\t%s\t%s", "Extension", "Extern", "Status")
-    echohl Normal
+  if empty(files)
+    echo "No extensions loaded"
+    return
   endif
+  echohl Title
+  echo printf("%-15s\t%s\t%s", "Extension", "Extern", "Status")
+  echohl Normal
+  let set=[]
   for ext in sort(files)
+    if index(set, ext) > -1
+      continue
+    endif
     let indx=match(loaded, '^'.ext.'\*\?$')
     let external = (indx > -1 && loaded[indx] =~ '\*$')
     echo printf("%-15s\t%s\t%sloaded", ext, external, indx == -1 ? 'not ' : '')
+    call add(set, ext)
   endfor
 endfunction
 
