@@ -213,6 +213,11 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'tagbar')
   endif
 
+  if get(g:, 'airline#extensions#bookmark#enabled', 1)
+    call airline#extensions#bookmark#init(s:ext)
+    call add(s:loaded_ext, 'bookmark')
+  endif
+
   if get(g:, 'airline#extensions#csv#enabled', 1)
         \ && (get(g:, 'loaded_csv', 0) || exists(':Table'))
     call airline#extensions#csv#init(s:ext)
