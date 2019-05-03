@@ -165,6 +165,7 @@ function! airline#init#bootstrap()
         \ 'ycm_error_count', 'ycm_warning_count', 'neomake_error_count',
         \ 'neomake_warning_count', 'ale_error_count', 'ale_warning_count',
         \ 'languageclient_error_count', 'languageclient_warning_count'])
+  call airline#parts#define_text('bookmark', '')
   call airline#parts#define_text('capslock', '')
   call airline#parts#define_text('gutentags', '')
   call airline#parts#define_text('grepper', '')
@@ -197,7 +198,7 @@ function! airline#init#sections()
     let g:airline_section_gutter = airline#section#create(['%='])
   endif
   if !exists('g:airline_section_x')
-    let g:airline_section_x = airline#section#create_right(['tagbar', 'gutentags', 'grepper', 'filetype'])
+    let g:airline_section_x = airline#section#create_right(['bookmark', 'tagbar', 'gutentags', 'grepper', 'filetype'])
   endif
   if !exists('g:airline_section_y')
     let g:airline_section_y = airline#section#create_right(['ffenc'])

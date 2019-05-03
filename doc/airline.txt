@@ -446,7 +446,13 @@ ale <https://github.com/w0rp/ale>
 <
 * ale close_lnum_symbol >
   let airline#extensions#ale#close_lnum_symbol = ')'
-<
+
+-------------------------------------                       *airline-bookmark*
+vim-bookmark <https://github.com/MattesGroeger/vim-bookmarks>
+
+* enable/disable bookmark integration >
+  let g:airline#extensions#bookmark#enabled = 1
+
 -------------------------------------                       *airline-branch*
 vim-airline will display the branch-indicator together with the branch name in
 the statusline, if one of the following plugins is installed:
