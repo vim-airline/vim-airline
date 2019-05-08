@@ -197,6 +197,13 @@ function! s:update_untracked()
   endif
 
   for vcs in keys(s:vcs_config)
+    " only check, for git, if fugitive is installed
+    " and for 'hg' if lawrencium is installed, else skip
+    if vcs is# 'git' && !airline#util#has_fugitive()
+      continue
+    elseif vcs is# 'mercurial' && !airline#util#has_lawrencium()
+      continue
+    endif
     let config = s:vcs_config[vcs]
     " Note that asynchronous update updates s:vcs_config only, and only
     " s:update_untracked updates b:buffer_vcs_config. If s:vcs_config is
