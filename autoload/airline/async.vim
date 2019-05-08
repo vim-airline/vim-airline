@@ -64,10 +64,10 @@ function! airline#async#vcs_untracked(config, file, vcs)
   endif
 endfunction
 
-function! s:set_clean_variables(file, vcs)
+function! s:set_clean_variables(file, vcs, val)
   let var=getbufvar(fnameescape(a:file), 'buffer_vcs_config', {})
   if has_key(var, a:vcs) && has_key(var[a:vcs], 'dirty')
-    let var[a:vcs].dirty=1
+    let var[a:vcs].dirty=a:val
     call setbufvar(fnameescape(a:file), 'buffer_vcs_config', var)
     unlet! b:airline_head
   endif
@@ -82,9 +82,7 @@ endfunction
 
 function! s:on_exit_clean(...) dict abort
   let buf=self.buf
-  if !empty(buf)
-    call s:set_clean_variables(self.file, self.vcs)
-  endif
+  call s:set_clean_variables(self.file, self.vcs, !empty(buf))
   if has_key(get(s:clean_jobs, self.vcs, {}), self.file)
     call remove(s:clean_jobs[self.vcs], self.file)
   endif
@@ -365,7 +363,5 @@ function! airline#async#vim7_vcs_clean(cmd, file, vcs)
     let cmd = a:cmd .' 2>/dev/null'
   endif
   let output=system(cmd)
-  if !empty(output)
-    call s:set_clean_variables(a:file, a:vcs)
-  endif
+  call s:set_clean_variables(a:file, a:vcs, !empty(output))
 endfunction
