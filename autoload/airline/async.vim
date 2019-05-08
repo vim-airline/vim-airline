@@ -358,7 +358,13 @@ endfunction
 
 function! airline#async#vim7_vcs_clean(cmd, file, vcs)
   " Vim pre 8, fallback using system()
-  let output=system(a:cmd)
+  " don't want to to see error messages
+  if g:airline#init#is_windows && &shell =~ 'cmd'
+    let cmd = a:cmd .' 2>nul'
+  else
+    let cmd = a:cmd .' 2>/dev/null'
+  endif
+  let output=system(cmd)
   if !empty(output)
     call s:set_clean_variables(a:file, a:vcs)
   endif
