@@ -14,7 +14,17 @@ function! airline#extensions#denite#check_denite_mode(bufnr)
   if &filetype != 'denite'
     return ''
   endif
-  let mode = split(denite#get_status_mode(), ' ')
+  if exists('*get_status_mode')
+    let denite_ver = 2
+  else
+    let denite_ver = 3
+  endif
+
+  if denite_ver == 3
+    let mode = split(denite#get_status("mode"), ' ')
+  else
+    let mode = split(denite#get_status_mode(), ' ')
+  endif
   let mode = tolower(get(mode, 1, ''))
   if !exists('b:denite_mode_cache') || mode != b:denite_mode_cache
     call airline#highlighter#highlight([mode], a:bufnr)
@@ -25,12 +35,26 @@ endfunction
 
 function! airline#extensions#denite#apply(...)
   if &ft == 'denite'
+
+    if exists('*get_status_mode')
+      let denite_ver = 2
+    else
+      let denite_ver = 3
+    endif
+
     let w:airline_skip_empty_sections = 0
     call a:1.add_section('airline_a', ' Denite %{airline#extensions#denite#check_denite_mode('.a:2['bufnr'].')}')
-    call a:1.add_section('airline_c', ' %{denite#get_status_sources()}')
-    call a:1.split()
-    call a:1.add_section('airline_y', ' %{denite#get_status_path()} ')
-    call a:1.add_section('airline_z', ' %{denite#get_status_linenr()} ')
+    if denite_ver == 3
+      call a:1.add_section('airline_c', ' %{denite#get_status("sources")}')
+      call a:1.split()
+      call a:1.add_section('airline_y', ' %{denite#get_status("path")} ')
+      call a:1.add_section('airline_z', ' %{denite#get_status("linenr")} ')
+    else
+      call a:1.add_section('airline_c', ' %{denite#get_status_sources()}')
+      call a:1.split()
+      call a:1.add_section('airline_y', ' %{denite#get_status_path()} ')
+      call a:1.add_section('airline_z', ' %{denite#get_status_linenr()} ')
+    endif
     return 1
   endif
 endfunction
