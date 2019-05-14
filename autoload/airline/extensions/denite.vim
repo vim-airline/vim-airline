@@ -7,7 +7,7 @@ if !get(g:, 'loaded_denite', 0)
   finish
 endif
 
-let s:denite_ver = (exists('*get_status_mode') ? 2 : 3)
+let s:denite_ver = (exists('*denite#get_status_mode') ? 2 : 3)
 " Denite does not use vim's built-in modal editing but has a custom prompt
 " that implements its own insert/normal mode so we have to handle changing the
 " highlight
