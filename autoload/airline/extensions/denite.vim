@@ -12,7 +12,7 @@ let s:denite_ver = (exists('*denite#get_status_mode') ? 2 : 3)
 " that implements its own insert/normal mode so we have to handle changing the
 " highlight
 function! airline#extensions#denite#check_denite_mode(bufnr)
-  if &filetype != 'denite'
+  if &filetype !=# 'denite' || &filetype !=# 'denite-filter'
     return ''
   endif
 
@@ -30,7 +30,7 @@ function! airline#extensions#denite#check_denite_mode(bufnr)
 endfunction
 
 function! airline#extensions#denite#apply(...)
-  if &ft == 'denite'
+  if &filetype ==# 'denite' || &filetype ==# 'denite-filter'
     let w:airline_skip_empty_sections = 0
     call a:1.add_section('airline_a', ' Denite %{airline#extensions#denite#check_denite_mode('.a:2['bufnr'].')}')
     if s:denite_ver == 3
