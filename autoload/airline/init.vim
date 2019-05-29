@@ -164,7 +164,8 @@ function! airline#init#bootstrap()
         \ 'syntastic-err', 'eclim', 'whitespace','windowswap',
         \ 'ycm_error_count', 'ycm_warning_count', 'neomake_error_count',
         \ 'neomake_warning_count', 'ale_error_count', 'ale_warning_count',
-        \ 'languageclient_error_count', 'languageclient_warning_count'])
+        \ 'languageclient_error_count', 'languageclient_warning_count',
+        \ 'coc_warning_count', 'coc_error_count'])
   call airline#parts#define_text('bookmark', '')
   call airline#parts#define_text('capslock', '')
   call airline#parts#define_text('gutentags', '')

@@ -1,3 +1,4 @@
+scriptencoding utf-8
 
 let s:error_symbol = get(g:, 'airline#extensions#coc#error_symbol', 'E:')
 let s:warning_symbol = get(g:, 'airline#extensions#coc#warning_symbol', 'W:')
@@ -11,6 +12,9 @@ function! airline#extensions#coc#get_error()
 endfunction
 
 function! airline#extensions#coc#get(type)
+  if !exists(":CocCommand")
+    return ''
+  endif
   let _backup = get(g:, 'coc_stl_format', '')
   let is_err = (a:type  is# 'error')
   if is_err
