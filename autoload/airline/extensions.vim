@@ -272,6 +272,11 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'ale')
   endif
 
+  if (get(g:, 'airline#extensions#coc#enabled', 1) && exists(':CocCommand'))
+    call airline#extensions#coc#init(s:ext)
+    call add(s:loaded_ext, 'coc')
+  endif
+
   if (get(g:, 'airline#extensions#languageclient#enabled', 1) && exists(':LanguageClientStart'))
     call airline#extensions#languageclient#init(s:ext)
     call add(s:loaded_ext, 'languageclient')
