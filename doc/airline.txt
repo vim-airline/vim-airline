@@ -546,6 +546,24 @@ vim-capslock <https://github.com/tpope/vim-capslock>
 * enable/disable vim-capslock integration >
   let g:airline#extensions#capslock#enabled = 1
 
+-------------------------------------                    *airline-coc*
+coc <https://github.com/neoclide/coc>
+
+* enable/disable coc integration >
+  let g:airline#extensions#coc#enabled = 1
+<
+* change error symbol: >
+  let airline#extensions#coc#error_symbol = 'E:'
+<
+* change warning symbol: >
+  let airline#extensions#coc#warning_symbol = 'W:'
+<
+* change error format: >
+  let airline#extensions#coc#stl_format_err = '%E{[%e(#%fe)]}'
+<
+* change warning format: >
+  let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
+
 -------------------------------------                          *airline-csv*
 csv.vim <https://github.com/chrisbra/csv.vim>
 
