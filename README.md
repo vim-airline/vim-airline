@@ -331,7 +331,7 @@ If you are interested in becoming a maintainer (we always welcome more maintaine
 [35]: https://github.com/edkolev/tmuxline.vim
 [36]: https://github.com/edkolev/promptline.vim
 [37]: https://github.com/gcmt/taboo.vim
-[38]: https://github.com/szw/vim-ctrlspace
+[38]: https://github.com/vim-ctrlspace/vim-ctrlspace
 [39]: https://github.com/tomtom/quickfixsigns_vim
 [40]: https://github.com/junegunn/vim-plug
 [41]: https://github.com/bling
