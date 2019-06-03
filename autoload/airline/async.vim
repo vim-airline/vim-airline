@@ -185,7 +185,10 @@ if v:version >= 800 && has("job")
       if job_status(get(jobs, a:file)) == 'run'
         return
       elseif has_key(jobs, a:file)
-        call remove(jobs, a:file)
+        " still running
+        return
+        " jobs dict should be cleaned on exit, so not needed here
+        " call remove(jobs, a:file)
       endif
     endif
     let id = job_start(cmd, {
@@ -312,7 +315,10 @@ elseif has("nvim")
       let s:clean_jobs[a:vcs] = {}
     endif
     if has_key(s:clean_jobs[a:vcs], a:file)
-      call remove(s:clean_jobs[a:vcs], a:file)
+      " still running
+      return
+      " jobs dict should be cleaned on exit, so not needed here
+      " call remove(s:clean_jobs[a:vcs], a:file)
     endif
     let id = jobstart(cmd, config)
     call s:set_clean_jobs_variable(a:vcs, a:file, id)
