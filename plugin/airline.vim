@@ -45,7 +45,7 @@ function! s:init()
 endfunction
 
 let s:active_winnr = -1
-function! s:on_window_changed()
+function! s:on_window_changed(event)
   let s:active_winnr = winnr()
 
   if pumvisible() && (!&previewwindow || g:airline_exclude_preview)
@@ -68,7 +68,7 @@ endfunction
 
 function! s:on_cursor_moved()
   if winnr() != s:active_winnr
-    call s:on_window_changed()
+    call s:on_window_changed('CursorMoved')
   endif
   call airline#update_tabline()
 endfunction
@@ -114,7 +114,7 @@ function! s:airline_toggle()
 
       autocmd CmdwinEnter *
             \ call airline#add_statusline_func('airline#cmdwinenter')
-            \ | call <sid>on_window_changed()
+            \ | call <sid>on_window_changed('CmdwinEnter')
       autocmd CmdwinLeave * call airline#remove_statusline_func('airline#cmdwinenter')
 
       autocmd GUIEnter,ColorScheme * call <sid>on_colorscheme_changed()
@@ -127,10 +127,13 @@ function! s:airline_toggle()
       " Refresh airline for :syntax off
       autocmd SourcePre */syntax/syntax.vim
             \ call airline#extensions#tabline#buffers#invalidate()
-      autocmd VimEnter,WinEnter,BufWinEnter,FileType,BufUnload *
-            \ call <sid>on_window_changed()
+      autocmd VimEnter * call <sid>on_window_changed('VimEnter')
+      autocmd WinEnter * call <sid>on_window_changed('WinEnter')
+      autocmd FileType * call <sid>on_window_changed('FileType')
+      autocmd BufWinEnter * call <sid>on_window_changed('BufWinEnter')
+      autocmd BufUnload * call <sid>on_window_changed('BufUnload')
       if exists('##CompleteDone')
-        autocmd CompleteDone * call <sid>on_window_changed()
+        autocmd CompleteDone * call <sid>on_window_changed('CompleteDone')
       endif
       " non-trivial number of external plugins use eventignore=all, so we need to account for that
       autocmd CursorMoved * call <sid>on_cursor_moved()
@@ -166,7 +169,7 @@ function! s:airline_toggle()
       set laststatus=2
     endif
     if s:airline_initialized
-      call s:on_window_changed()
+      call s:on_window_changed('Init')
     endif
 
     call airline#util#doautocmd('AirlineToggledOn')
