@@ -1,4 +1,4 @@
-# vim-airline [![Build Status](https://travis-ci.org/vim-airline/vim-airline.png)](https://travis-ci.org/vim-airline/vim-airline)
+# vim-airline [![Build Status](https://travis-ci.org/vim-airline/vim-airline.png)](https://travis-ci.org/vim-airline/vim-airline)[![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/chrisbra)
 
 Lean &amp; mean status/tabline for vim that's light as air.
 
