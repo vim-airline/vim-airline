@@ -176,24 +176,26 @@ values):
 
   " or copy paste the following into your vimrc for shortform text
   let g:airline_mode_map = {
-      \ '__' : '-',
-      \ 'c'  : 'C',
-      \ 'i'  : 'I',
-      \ 'ic' : 'I',
-      \ 'ix' : 'I',
-      \ 'n'  : 'N',
-      \ 'ni' : 'N',
-      \ 'no' : 'N',
-      \ 'R'  : 'R',
-      \ 'Rv' : 'R',
-      \ 's'  : 'S',
-      \ 'S'  : 'S',
-      \ '' : 'S',
-      \ 't'  : 'T',
-      \ 'v'  : 'V',
-      \ 'V'  : 'V',
-      \ '' : 'V',
+      \ '__'     : '-',
+      \ 'c'      : 'C',
+      \ 'i'      : 'I',
+      \ 'ic'     : 'I',
+      \ 'ix'     : 'I',
+      \ 'n'      : 'N',
+      \ 'multi'  : 'M',
+      \ 'ni'     : 'N',
+      \ 'no'     : 'N',
+      \ 'R'      : 'R',
+      \ 'Rv'     : 'R',
+      \ 's'      : 'S',
+      \ 'S'      : 'S',
+      \ ''     : 'S',
+      \ 't'      : 'T',
+      \ 'v'      : 'V',
+      \ 'V'      : 'V',
+      \ ''     : 'V',
       \ }
+   Note: 'multi' is for displaying the multiple cursor mode
 <
 * define the set of filename match queries which excludes a window from having
   its statusline modified >

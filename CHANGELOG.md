@@ -20,6 +20,7 @@ This is the Changelog for the vim-airline project.
       recreating the highlighting groups (which might have a serious performance
       impact if done very often, as might be the case when the configuration variable 
       `airline_skip_empty_sections` is active).
+    - airline can now also detect multiple cursor mode (issue #1933)
 
 ## [0.10] - 2018-12-15
 - New features

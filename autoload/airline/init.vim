@@ -40,6 +40,7 @@ function! airline#init#bootstrap()
         \ 'i'  : 'INSERT',
         \ 'ic' : 'INSERT COMPL',
         \ 'ix' : 'INSERT COMPL',
+        \ 'multi' : 'MULTI',
         \ 'n'  : 'NORMAL',
         \ 'ni' : '(INSERT)',
         \ 'no' : 'OP PENDING',

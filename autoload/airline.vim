@@ -226,7 +226,11 @@ function! airline#check_mode(winnr)
     else
       let l:mode = ['normal']
     endif
-    if index(['Rv', 'no', 'ni', 'ix', 'ic'], l:m) == -1
+    if exists("*VMInfos") && !empty(VMInfos())
+      " Vim plugin Multiple Cursors https://github.com/mg979/vim-visual-multi
+      let l:m = 'multi'
+    endif
+    if index(['Rv', 'no', 'ni', 'ix', 'ic', 'multi'], l:m) == -1
       let l:m = l:m[0]
     endif
     let w:airline_current_mode = get(g:airline_mode_map, l:m, l:m)
