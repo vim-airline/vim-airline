@@ -52,9 +52,10 @@ function! s:on_window_changed(event)
     return
   endif
   " work around a neovim bug: do not trigger on floating windows
-  if exists("*nvim_win_get_config") && !empty(nvim_win_get_config(0).relative)
-    return
-  endif
+  " Disabled, Bug is fixed in Neovim, TODO: should be removed soon
+  " if exists("*nvim_win_get_config") && !empty(nvim_win_get_config(0).relative)
+  "  return
+  " endif
   " Handle each window only once, since we might come here several times for
   " different autocommands.
   let l:key = [bufnr('%'), s:active_winnr, winnr('$'), tabpagenr(), &ft]
