@@ -4,7 +4,7 @@
 scriptencoding utf-8
 
 function! airline#extensions#term#apply(...)
-  if &buftype == 'terminal'
+  if &buftype == 'terminal' || bufname('%')[0] == '!'
     let spc = g:airline_symbols.space
 
     let name=get(g:airline_mode_map, 't', 't')
