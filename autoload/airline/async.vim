@@ -69,8 +69,10 @@ function! s:set_clean_variables(file, vcs, val)
   if has_key(var, a:vcs) && has_key(var[a:vcs], 'dirty') &&
         \ type(getbufvar(fnameescape(a:file), 'buffer_vcs_config')) == type({})
     let var[a:vcs].dirty=a:val
-    call setbufvar(fnameescape(a:file), 'buffer_vcs_config', var)
-    unlet! b:airline_head
+    if bufexists(a:file)
+      call setbufvar(fnameescape(a:file), 'buffer_vcs_config', var)
+      unlet! b:airline_head
+    endif
   endif
 endfunction
 
