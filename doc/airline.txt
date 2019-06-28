@@ -1092,6 +1092,12 @@ taboo.vim <https://github.com/gcmt/taboo.vim>
 * enable/disable taboo.vim integration >
   let g:airline#extensions#taboo#enabled = 1
 <
+-------------------------------------                        *airline-tabws*
+vim-tabws <https://github.com/s1341/vim-tabws>
+
+* enable/disable tabws integration >
+  let g:airline#extensions#tabws#enabled = 1
+<
 -------------------------------------                       *airline-tagbar*
 tagbar <https://github.com/majutsushi/tagbar>
 
