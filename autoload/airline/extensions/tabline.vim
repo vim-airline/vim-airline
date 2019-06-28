@@ -9,6 +9,7 @@ if s:taboo
 endif
 
 let s:ctrlspace = get(g:, 'CtrlSpaceLoaded', 0)
+let s:tabws = get(g:, 'tabws_loaded', 0)
 
 function! airline#extensions#tabline#init(ext)
   if has('gui_running')
@@ -29,6 +30,9 @@ function! s:toggle_off()
   if s:ctrlspace
     call airline#extensions#tabline#ctrlspace#off()
   endif
+  if s:tabws
+    call airline#extensions#tabline#tabws#off()
+  endif
 endfunction
 
 function! s:toggle_on()
@@ -42,6 +46,9 @@ function! s:toggle_on()
   call airline#extensions#tabline#buffers#on()
   if s:ctrlspace
     call airline#extensions#tabline#ctrlspace#on()
+  endif
+  if s:tabws
+    call airline#extensions#tabline#tabws#on()
   endif
 
   set tabline=%!airline#extensions#tabline#get()
@@ -145,6 +152,7 @@ function! airline#extensions#tabline#get()
     call airline#extensions#tabline#tabs#invalidate()
     call airline#extensions#tabline#buffers#invalidate()
     call airline#extensions#tabline#ctrlspace#invalidate()
+    call airline#extensions#tabline#tabws#invalidate()
   endif
 
   if !exists('#airline#BufAdd#*')
@@ -152,6 +160,8 @@ function! airline#extensions#tabline#get()
   endif
   if s:ctrlspace
     return airline#extensions#tabline#ctrlspace#get()
+  elseif s:tabws
+    return airline#extensions#tabline#tabws#get()
   elseif show_buffers && curtabcnt == 1 || !show_tabs
     return airline#extensions#tabline#buffers#get()
   else
