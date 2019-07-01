@@ -213,6 +213,11 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'tagbar')
   endif
 
+  if get(g:, 'airline#extensions#vista#enabled', 1)
+    call airline#extensions#vista#init(s:ext)
+    call add(s:loaded_ext, 'vista')
+  endif
+
   if get(g:, 'airline#extensions#bookmark#enabled', 1)
         \ && exists(':BookmarkToggle')
     call airline#extensions#bookmark#init(s:ext)
