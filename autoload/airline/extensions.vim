@@ -214,7 +214,6 @@ function! airline#extensions#load()
   endif
 
   if get(g:, 'airline#extensions#vista#enabled', 1)
-    echom "here"
     call airline#extensions#vista#init(s:ext)
     call add(s:loaded_ext, 'vista')
   endif
