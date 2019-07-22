@@ -10,7 +10,6 @@ endif
 
 let s:ctrlspace = get(g:, 'CtrlSpaceLoaded', 0)
 let s:tabws = get(g:, 'tabws_loaded', 0)
-echom "tabws loaded: " . s:tabws
 
 function! airline#extensions#tabline#init(ext)
   if has('gui_running')
@@ -49,7 +48,6 @@ function! s:toggle_on()
     call airline#extensions#tabline#ctrlspace#on()
   endif
   if s:tabws
-    echom "turning on tabws tabline extension"
     call airline#extensions#tabline#tabws#on()
   endif
 
