@@ -549,7 +549,7 @@ vim-capslock <https://github.com/tpope/vim-capslock>
   let g:airline#extensions#capslock#enabled = 1
 
 -------------------------------------                    *airline-coc*
-coc <https://github.com/neoclide/coc>
+coc <https://github.com/neoclide/coc.nvim>
 
 * enable/disable coc integration >
   let g:airline#extensions#coc#enabled = 1
