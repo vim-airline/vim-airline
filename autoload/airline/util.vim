@@ -107,6 +107,15 @@ function! airline#util#strchars(str)
   endif
 endfunction
 
+function! airline#util#strcharpart(...)
+  if exists('*strcharpart')
+    return call('strcharpart',  a:000)
+  else
+    " does not handle multibyte chars :(
+    return a:1[(a:2):(a:3)]
+  endif
+endfunction
+
 function! airline#util#ignore_buf(name)
   let pat = '\c\v'. get(g:, 'airline#ignore_bufadd_pat', '').
         \ get(g:, 'airline#extensions#tabline#ignore_bufadd_pat', 
