@@ -23,6 +23,10 @@ function! airline#extensions#term#inactive_apply(...)
     let spc = g:airline_symbols.space
     call a:1.add_section('airline_a', spc.'TERMINAL'.spc)
     call a:1.add_section('airline_b', spc.'%f')
+    let neoterm_id = getbufvar(a:2.bufnr, 'neoterm_id')
+    if neoterm_id != ''
+      call a:1.add_section('airline_c', spc.'neoterm_'.neoterm_id.spc)
+    endif
     return 1
   endif
 endfunction
