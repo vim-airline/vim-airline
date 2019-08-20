@@ -3,12 +3,16 @@
 
 scriptencoding utf-8
 
+let name=get(g:airline_mode_map, 't', 't')
+call airline#parts#define_function('tmode', 'airline#extensions#term#termmode')
+call airline#parts#define('terminal', {'text': name, 'accent': 'bold'})
+let s:section_a = airline#section#create_left(['terminal', 'tmode'])
+
 function! airline#extensions#term#apply(...)
   if &buftype == 'terminal' || bufname('%')[0] == '!'
     let spc = g:airline_symbols.space
 
-    let name=get(g:airline_mode_map, 't', 't')
-    call a:1.add_section('airline_a', spc.name.spc)
+    call a:1.add_section('airline_a', spc.s:section_a.spc)
     call a:1.add_section('airline_b', '')
     call a:1.add_section('airline_term', spc.s:termname())
     call a:1.split()
@@ -29,6 +33,14 @@ function! airline#extensions#term#inactive_apply(...)
     endif
     return 1
   endif
+endfunction
+
+function! airline#extensions#term#termmode()
+  let mode=airline#parts#mode()[0]
+  if mode ==? 'T'
+    let mode=''
+  endif
+  return mode
 endfunction
 
 function! s:termname()
