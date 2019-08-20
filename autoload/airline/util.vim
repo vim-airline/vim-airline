@@ -4,6 +4,9 @@
 scriptencoding utf-8
 
 call airline#init#bootstrap()
+
+" couple of static variables. Those should not change within a session, thus
+" can be initialized here as "static"
 let s:spc = g:airline_symbols.space
 let s:nomodeline = (v:version > 703 || (v:version == 703 && has("patch438"))) ? '<nomodeline>' : ''
 
