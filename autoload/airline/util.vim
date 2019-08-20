@@ -136,7 +136,10 @@ function! airline#util#has_fugitive()
 endfunction
 
 function! airline#util#has_lawrencium()
-  return exists('*lawrencium#statusline')
+  if !exists("s:has_lawrencium")
+    let s:has_lawrencium  = exists('*lawrencium#statusline')
+  endif
+  return s:has_lawrencium
 endfunction
 
 function! airline#util#has_vcscommand()
