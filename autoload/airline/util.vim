@@ -143,7 +143,10 @@ function! airline#util#has_lawrencium()
 endfunction
 
 function! airline#util#has_vcscommand()
-  return get(g:, 'airline#extensions#branch#use_vcscommand', 0) && exists('*VCSCommandGetStatusLine')
+  if !exists("s:has_vcscommand")
+    let s:has_vcscommand = exists('*VCSCommandGetStatusLine')
+  endif
+  return get(g:, 'airline#extensions#branch#use_vcscommand', 0) && s:has_vcscommand
 endfunction
 
 function! airline#util#has_custom_scm()
