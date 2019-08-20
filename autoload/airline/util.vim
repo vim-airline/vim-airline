@@ -9,6 +9,7 @@ call airline#init#bootstrap()
 " can be initialized here as "static"
 let s:spc = g:airline_symbols.space
 let s:nomodeline = (v:version > 703 || (v:version == 703 && has("patch438"))) ? '<nomodeline>' : ''
+let s:has_strchars = exists('*strchars')
 
 " TODO: Try to cache winwidth(0) function
 " e.g. store winwidth per window and access that, only update it, if the size
@@ -103,7 +104,7 @@ endif
 " Compatibility wrapper for strchars, in case this vim version does not
 " have it natively
 function! airline#util#strchars(str)
-  if exists('*strchars')
+  if s:has_strchars
     return strchars(a:str)
   else
     return strlen(substitute(a:str, '.', 'a', 'g'))
