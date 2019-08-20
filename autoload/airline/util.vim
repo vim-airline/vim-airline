@@ -129,7 +129,10 @@ function! airline#util#ignore_buf(name)
 endfunction
 
 function! airline#util#has_fugitive()
-  return exists('*fugitive#head') || exists('*FugitiveHead')
+  if !exists("s:has_fugitive")
+    let s:has_fugitive = exists('*fugitive#head') || exists('*FugitiveHead')
+  endif
+  return s:has_fugitive
 endfunction
 
 function! airline#util#has_lawrencium()
