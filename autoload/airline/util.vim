@@ -10,6 +10,7 @@ call airline#init#bootstrap()
 let s:spc = g:airline_symbols.space
 let s:nomodeline = (v:version > 703 || (v:version == 703 && has("patch438"))) ? '<nomodeline>' : ''
 let s:has_strchars = exists('*strchars')
+let s:has_strcharpart = exists('*strcharpart')
 
 " TODO: Try to cache winwidth(0) function
 " e.g. store winwidth per window and access that, only update it, if the size
@@ -112,7 +113,7 @@ function! airline#util#strchars(str)
 endfunction
 
 function! airline#util#strcharpart(...)
-  if exists('*strcharpart')
+  if s:has_strcharpart
     return call('strcharpart',  a:000)
   else
     " does not handle multibyte chars :(
