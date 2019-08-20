@@ -6,6 +6,9 @@ scriptencoding utf-8
 " get wordcount {{{1
 if exists('*wordcount')
   function! s:get_wordcount(visual_mode_active)
+    if get(g:, 'actual_curbuf', '') != bufnr('')
+      return
+    endif
     let query = a:visual_mode_active ? 'visual_words' : 'words'
     return get(wordcount(), query, 0)
   endfunction
