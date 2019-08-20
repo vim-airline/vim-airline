@@ -3,9 +3,8 @@
 
 scriptencoding utf-8
 
-let name=get(g:airline_mode_map, 't', 't')
 call airline#parts#define_function('tmode', 'airline#extensions#term#termmode')
-call airline#parts#define('terminal', {'text': name, 'accent': 'bold'})
+call airline#parts#define('terminal', {'text': get(g:airline_mode_map, 't', 't'), 'accent': 'bold'})
 let s:section_a = airline#section#create_left(['terminal', 'tmode'])
 
 function! airline#extensions#term#apply(...)
@@ -36,8 +35,9 @@ function! airline#extensions#term#inactive_apply(...)
 endfunction
 
 function! airline#extensions#term#termmode()
-  let mode=airline#parts#mode()[0]
+  let mode = airline#parts#mode()[0]
   if mode ==? 'T'
+    " don't need to output T, statusline already says "TERMINAL"
     let mode=''
   endif
   return mode
