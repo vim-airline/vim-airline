@@ -282,7 +282,7 @@ function! airline#extensions#branch#head()
     if strwidth(b:airline_head) > w:displayed_head_limit - 1
       let b:airline_head =
             \ airline#util#strcharpart(b:airline_head, 0, w:displayed_head_limit - 1)
-            \ ..(&encoding ==? 'utf-8' ?  '…' : '.')
+            \ . (&encoding ==? 'utf-8' ?  '…' : '.')
     endif
   endif
 
