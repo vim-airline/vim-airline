@@ -678,6 +678,12 @@ It is deactivated by default if |airline-bufferline| is activated.
 If enabled, the buffer that comes from fugitive, will have added a trailing
 "[git]" to be able do distinguish between fugitive and non-fugitive buffers.
 
+-------------------------------------                     *airline-gina*
+gina.vim <https://github.com/lambdalisue/gina.vim>
+
+Airline displays the gina.vim specific statusline.
+(for details, see the help of gina.vim)
+
 -------------------------------------                     *airline-grepper*
 vim-grepper <https://github.com/mhinz/vim-grepper>
 

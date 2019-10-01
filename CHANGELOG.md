@@ -7,6 +7,7 @@ This is the Changelog for the vim-airline project.
   - Extensions:
     - [Coc](https://github.com/neoclide/coc.nvim) support
     - [Defx](https://github.com/Shougo/defx.nvim) support
+    - [gina](https://github.com/lambdalisue/gina.vim) support
     - [vim-bookmark](https://github.com/MattesGroeger/vim-bookmarks) support
     - [vista.vim](https://github.com/liuchengxu/vista.vim) support
 - Improvements
