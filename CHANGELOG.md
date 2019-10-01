@@ -6,11 +6,12 @@ This is the Changelog for the vim-airline project.
 - New features
   - Extensions:
     - [Defx](https://github.com/Shougo/defx.nvim) support
+    - [gina](https://github.com/lambdalisue/gina.vim) support
   - Improvements
     - The statusline can be configured to be shown on top (in the tabline)
       Set the `g:airline_statusline_ontop` to enable this experimental feature.
     - If `buffer_idx_mode=2`, up to 89 mappings will be exposed to access more
-      buffers directly (issue #1823)
+      buffers directly (issue [#1823](https://github.com/vim-airline/vim-airline/issues/1823))
     - Allow to use `random` as special theme name, which will switch to a random
       airline theme (at least if a random number can be generated :()
     - The branch extensions now also displays whether the repository is in a clean state
@@ -20,7 +21,7 @@ This is the Changelog for the vim-airline project.
       recreating the highlighting groups (which might have a serious performance
       impact if done very often, as might be the case when the configuration variable 
       `airline_skip_empty_sections` is active).
-    - airline can now also detect multiple cursor mode (issue #1933)
+    - airline can now also detect multiple cursor mode (issue [#1933](https://github.com/vim-airline/vim-airline/issues/1933))
 
 ## [0.10] - 2018-12-15
 - New features
@@ -45,7 +46,7 @@ This is the Changelog for the vim-airline project.
   - [fugitive](https://github.com/tpope/vim-fugitive) plugin has been refactored
     causing adjustments for vim-airline, also uses Fugitives new API calls
   - some improvements to Vims terminal mode
-  - Allow to use alternative seperators for inactive windows (#1236)
+  - Allow to use alternative seperators for inactive windows ([#1236](https://github.com/vim-airline/vim-airline/issues/1236))
   - Statusline can be set to inactive, whenever Vim loses focus (using FocusLost autocommand)
 
 ## [0.9] - 2018-01-15
@@ -198,6 +199,7 @@ This is the Changelog for the vim-airline project.
   - support for themes: 8 included
 
 [Unreleased]: https://github.com/vim-airline/vim-airline/compare/v0.10...HEAD
+[0.10]: https://github.com/vim-airline/vim-airline/compare/v0.9...v0.10
 [0.9]: https://github.com/vim-airline/vim-airline/compare/v0.8...v0.9
 [0.8]: https://github.com/vim-airline/vim-airline/compare/v0.7...v0.8
 [0.7]: https://github.com/vim-airline/vim-airline/compare/v0.6...v0.7
