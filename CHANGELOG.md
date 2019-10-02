@@ -2,25 +2,35 @@
 
 This is the Changelog for the vim-airline project.
 
-## [Unreleased]
+## [0.11] - Unreleased
 - New features
   - Extensions:
+    - [Coc](https://github.com/neoclide/coc.nvim) support
     - [Defx](https://github.com/Shougo/defx.nvim) support
-  - Improvements
-    - The statusline can be configured to be shown on top (in the tabline)
-      Set the `g:airline_statusline_ontop` to enable this experimental feature.
-    - If `buffer_idx_mode=2`, up to 89 mappings will be exposed to access more
-      buffers directly (issue [#1823](https://github.com/vim-airline/vim-airline/issues/1823))
-    - Allow to use `random` as special theme name, which will switch to a random
-      airline theme (at least if a random number can be generated :()
-    - The branch extensions now also displays whether the repository is in a clean state
-      (will append a ! or ⚡if the repository is considered dirty).
-    - The whitespace extensions will also check for conflict markers
-    - `:AirlineRefresh` command now takes an additional `!` attribute, that **skips** 
-      recreating the highlighting groups (which might have a serious performance
-      impact if done very often, as might be the case when the configuration variable 
-      `airline_skip_empty_sections` is active).
-    - airline can now also detect multiple cursor mode (issue [#1933](https://github.com/vim-airline/vim-airline/issues/1933))
+    - [vim-bookmark](https://github.com/MattesGroeger/vim-bookmarks) support
+    - [vista.vim](https://github.com/liuchengxu/vista.vim) support
+- Improvements
+  - The statusline can be configured to be shown on top (in the tabline)
+    Set the `g:airline_statusline_ontop` to enable this experimental feature.
+  - If `buffer_idx_mode=2`, up to 89 mappings will be exposed to access more
+    buffers directly (issue [#1823](https://github.com/vim-airline/vim-airline/issues/1823))
+  - Allow to use `random` as special theme name, which will switch to a random
+    airline theme (at least if a random number can be generated :()
+  - The branch extensions now also displays whether the repository is in a clean state
+    (will append a ! or ⚡if the repository is considered dirty).
+  - The whitespace extensions will also check for conflict markers
+  - `:AirlineRefresh` command now takes an additional `!` attribute, that **skips** 
+    recreating the highlighting groups (which might have a serious performance
+    impact if done very often, as might be the case when the configuration variable 
+    `airline_skip_empty_sections` is active).
+  - airline can now also detect multiple cursor mode (issue [#1933](https://github.com/vim-airline/vim-airline/issues/1933))
+  - expose hunks output using the function `airline#extensions#hunks#get_raw_hunks()` to the outside [#1877](https://github.com/vim-airline/vim-airline/pull/1877)
+  - expose wordcount affected filetype list to the public using the `airline#extensions#wordcount#filetypes` variable [#1887](https://github.com/vim-airline/vim-airline/pull/1887)
+  - for the `:AirlineExtension` command, indicate whether the extension has been loaded from an external source [#1890](https://github.com/vim-airline/vim-airline/issues/1890)
+  - correctly load custom wordcount formatters [#1896](https://github.com/vim-airline/vim-airline/issues/1896)
+  - add a new short_path formatter for the tabline [#1898](https://github.com/vim-airline/vim-airline/pull/1898)
+  - several improvements to the branch, denite and tabline extension, as well as the async code for Vim and Neovim
+  - the term extension supports [neoterm](https://github.com/kassio/neoterm) vim plugin
 
 ## [0.10] - 2018-12-15
 - New features
@@ -198,6 +208,7 @@ This is the Changelog for the vim-airline project.
   - support for themes: 8 included
 
 [Unreleased]: https://github.com/vim-airline/vim-airline/compare/v0.10...HEAD
+[0.11]: https://github.com/vim-airline/vim-airline/compare/v0.10...HEAD
 [0.10]: https://github.com/vim-airline/vim-airline/compare/v0.9...v0.10
 [0.9]: https://github.com/vim-airline/vim-airline/compare/v0.8...v0.9
 [0.8]: https://github.com/vim-airline/vim-airline/compare/v0.7...v0.8
