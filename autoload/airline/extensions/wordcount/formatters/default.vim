@@ -24,7 +24,7 @@ else
 endif
 
 function! airline#extensions#wordcount#formatters#default#to_string(wordcount)
-  if airline#util#winwidth() >= 80
+  if airline#util#winwidth() > 85
     if a:wordcount > 999
       " Format number according to locale, e.g. German: 1.245 or English: 1,245
       let wordcount = substitute(a:wordcount, '\d\@<=\(\(\d\{3\}\)\+\)$', s:decimal_group.'&', 'g')
