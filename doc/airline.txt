@@ -1439,7 +1439,7 @@ same `foo` part.
 Note: Look at the source code and tests for the full API.
 
 -------------------------------------             *airline-predefined-parts*
-Before is a list of parts that are predefined by vim-airline.
+The following list of parts are predefined by vim-airline.
 
 * `mode`           displays the current mode
 * `iminsert`       displays the current insert method
