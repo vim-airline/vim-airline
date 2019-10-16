@@ -1098,6 +1098,13 @@ taboo.vim <https://github.com/gcmt/taboo.vim>
 * enable/disable taboo.vim integration >
   let g:airline#extensions#taboo#enabled = 1
 <
+-------------------------------------                        *airline-term*
+Vim-Airline comes with a small extension for the styling the builtin
+|terminal|. This requires Nvim or a Vim compiled with terminal support.
+
+* enable/disable terminal integration >
+  let g:airline#extensions#term#enabled = 1
+
 -------------------------------------                        *airline-tabws*
 vim-tabws <https://github.com/s1341/vim-tabws>
 

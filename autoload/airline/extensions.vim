@@ -163,7 +163,8 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'netrw')
   endif
 
-  if has("terminal") || has('nvim')
+  if (has("terminal") || has('nvim')) &&
+        \ get(g:, 'airline#extensions#term#enabled', 1)
     call airline#extensions#term#init(s:ext)
     call add(s:loaded_ext, 'term')
   endif
