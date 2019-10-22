@@ -34,7 +34,7 @@ let s:filetype_overrides = {
       \ 'vimshell': ['vimshell','%{vimshell#get_status_string()}'],
       \ }
 
-if exists(':Gina')
+if exists(':Gina') && has('patch-7.4.1898')
   let s:filetype_overrides['gina-status'] = ['gina', '%{gina#component#repo#preset()}' ]
   let s:filetype_overrides['diff'] = ['gina', '%{gina#component#repo#preset()}' ]
   let s:filetype_overrides['gina-log'] = ['gina', '%{gina#component#repo#preset()}' ]
