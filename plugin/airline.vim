@@ -72,7 +72,7 @@ function! s:on_window_changed(event)
 endfunction
 
 function! s:on_cursor_moved()
-  if winnr() != s:active_winnr
+  if winnr() != s:active_winnr || !exists('w:airline_active')
     call s:on_window_changed('CursorMoved')
   endif
   call airline#update_tabline()
