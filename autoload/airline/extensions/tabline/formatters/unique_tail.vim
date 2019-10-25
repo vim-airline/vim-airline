@@ -10,7 +10,7 @@ function! airline#extensions#tabline#formatters#unique_tail#format(bufnr, buffer
   for nr in a:buffers
     let name = bufname(nr)
     if empty(name)
-      let map[nr] = '[No Name]'
+      let map[nr] = airline#extensions#tabline#formatters#default#wrap_name(nr, '[No Name]')
     else
       let tail = fnamemodify(name, ':s?/\+$??:t')
       if has_key(tails, tail)
