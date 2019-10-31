@@ -429,7 +429,7 @@ installed as well, otherwise it will remain disabled. See the output of the
 |:AirlineExtensions| command.
 
 -------------------------------------                    *airline-ale*
-ale <https://github.com/w0rp/ale>
+ale <https://github.com/dense-analysis/ale>
 
 * enable/disable ale integration >
   let g:airline#extensions#ale#enabled = 1
