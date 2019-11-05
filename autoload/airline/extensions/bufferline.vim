@@ -7,10 +7,8 @@ if !exists('*bufferline#get_status_string')
   finish
 endif
 
-let s:overwrite = get(g:, 'airline#extensions#bufferline#overwrite_variables', 1)
-
 function! airline#extensions#bufferline#init(ext)
-  if s:overwrite
+  if get(g:, 'airline#extensions#bufferline#overwrite_variables', 1)
     highlight bufferline_selected gui=bold cterm=bold term=bold
     highlight link bufferline_selected_inactive airline_c_inactive
     let g:bufferline_inactive_highlight = 'airline_c'
