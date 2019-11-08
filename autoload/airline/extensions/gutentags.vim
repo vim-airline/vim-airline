@@ -1,4 +1,5 @@
 " MIT License. Copyright (c) 2014-2019 Mathias Andersson et al.
+" Plugin: https://github.com/ludovicchabant/vim-gutentags
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8

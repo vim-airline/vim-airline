@@ -1,4 +1,5 @@
 " MIT Licsense.
+" Plugin: https://github.com/vheon/vim-cursormode
 " Copyright (C) 2014 Andrea Cedraro <a.cedraro@gmail.com>,
 " Copyright (C) 2017 Eduardo Suarez-Santana <e.suarezsantana@gmail.com>
 

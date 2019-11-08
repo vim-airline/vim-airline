@@ -1,5 +1,6 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " xTabline - Reduced version for vim-airline
+" Plugin: https://github.com/mg979/vim-xtabline
 " MIT License Copyright (C) 2018-2019 Gianmaria Bajo <mg1979.git@gmail.com>
 " tabpagecd:
 " expanded version by mg979

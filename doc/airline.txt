@@ -6,6 +6,7 @@
             \ V /| | | | | | |_____| (_| | | |  | | | | | |  __/            ~
              \_/ |_|_| |_| |_|      \__,_|_|_|  |_|_|_| |_|\___|            ~
                                                                            ~
+Version: 0.11
 =============================================================================
 CONTENTS                                                  *airline-contents*
 
@@ -570,6 +571,11 @@ coc <https://github.com/neoclide/coc.nvim>
 * change warning format: >
   let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
 
+-------------------------------------                    *airline-commandt*
+command-t <https://github.com/wincent/command-t>
+
+No configuration available.
+
 -------------------------------------                          *airline-csv*
 csv.vim <https://github.com/chrisbra/csv.vim>
 
@@ -664,6 +670,11 @@ you can use.
   Try setting this to zero, if you notice bleeding color artifacts >
   let airline#extensions#default#section_use_groupitems = 1
 <
+-------------------------------------                      *airline-denite*
+Denite <https://github.com/Shougo/denite.nvim>
+
+No configuration available.
+
 -------------------------------------                        *airline-eclim*
 eclim <https://eclim.org>
 
@@ -1149,6 +1160,21 @@ tmuxline <https://github.com/edkolev/tmuxline.vim>
   airline#extensions#tmuxline#snapshot_file =
    \  "~/.tmux-statusline-colors.conf"
 <
+-------------------------------------                     *airline-undotree*
+Undotree <https://github.com/mbbill/undotree>
+
+No configuration available.
+
+-------------------------------------                     *airline-unicode*
+Unicode <https://github.com/chrisbra/unicode.vim>
+
+No configuration available.
+
+-------------------------------------                     *airline-unite*
+Unite <https://github.com/Shougo/unite.vim>
+
+No configuration available.
+
 -------------------------------------                     *airline-vimagit*
 vimagit <https://github.com/jreybert/vimagit>
 

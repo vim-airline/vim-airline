@@ -1,4 +1,5 @@
 " MIT License. Copyright (c) 2016-2019 Kevin Sapper et al.
+" Plugin: https://github.com/szw/vim-ctrlspace
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8

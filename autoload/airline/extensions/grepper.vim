@@ -1,7 +1,6 @@
 " MIT License. Copyright (c) 2014-2019 Mathias Andersson et al.
+" Plugin: https://github.com/mhinz/vim-grepper
 " vim: et ts=2 sts=2 sw=2
-
-" Heavily derived from the Gutentags extension
 
 scriptencoding utf-8
 

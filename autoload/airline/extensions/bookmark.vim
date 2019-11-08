@@ -1,6 +1,6 @@
-"
 " MIT License. Copyright (c) 2019 Bjoern Petri <bjoern.petri@sundevil.de>
-"
+" Plugin: https://github.com/MattesGroeger/vim-bookmarks
+" vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
 

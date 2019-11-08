@@ -1,4 +1,5 @@
 " MIT License. Copyright (c) 2018-2019 mox et al.
+" Plugin: https://github.com/mox-mox/localsearch
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8

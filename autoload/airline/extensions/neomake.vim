@@ -1,4 +1,5 @@
 " MIT License. Copyright (c) 2013-2019 Bailey Ling et al.
+" Plugin: https://github.com/neomake/neomake
 " vim: et ts=2 sts=2 sw=2
 
 if !exists(':Neomake')

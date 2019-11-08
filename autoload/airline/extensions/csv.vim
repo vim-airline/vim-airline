@@ -1,4 +1,5 @@
 " MIT License. Copyright (c) 2013-2019 Bailey Ling, Christian Brabandt et al.
+" Plugin: https://github.com/chrisbra/csv.vim
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
