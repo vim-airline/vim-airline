@@ -24,6 +24,7 @@ let s:script_path = tolower(resolve(expand('<sfile>:p:h')))
 
 let s:filetype_overrides = {
       \ 'defx':  ['defx', '%{b:defx.paths[0]}'],
+      \ 'fugitive': ['fugitive', '%{airline#util#wrap(airline#extensions#branch#get_head(),80)}'],
       \ 'gundo': [ 'Gundo', '' ],
       \ 'help':  [ 'Help', '%f' ],
       \ 'minibufexpl': [ 'MiniBufExplorer', '' ],
