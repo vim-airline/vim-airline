@@ -785,6 +785,10 @@ Airline displays the Nerdtree specific statusline (which can be configured
 using the |'NerdTreeStatusline'| variable (for details, see the help of
 NerdTree)
 
+* enable/disable nerdtree's statusline integration >
+  let g:airline#extensions#nerdtree_status = 1
+<  default: 1
+
 -------------------------------------                      *airline-nrrwrgn*
 NrrwRgn <https://github.com/chrisbra/NrrwRgn>
 
