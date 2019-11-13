@@ -28,7 +28,6 @@ let s:filetype_overrides = {
       \ 'gundo': [ 'Gundo', '' ],
       \ 'help':  [ 'Help', '%f' ],
       \ 'minibufexpl': [ 'MiniBufExplorer', '' ],
-      \ 'nerdtree': [ get(g:, 'NERDTreeStatusline', 'NERD'), '' ],
       \ 'startify': [ 'startify', '' ],
       \ 'vim-plug': [ 'Plugins', '' ],
       \ 'vimfiler': [ 'vimfiler', '%{vimfiler#get_status_string()}' ],
@@ -41,6 +40,12 @@ if exists(':Gina') && (v:version > 704 || (v:version == 704 && has("patch1898"))
   let s:filetype_overrides['diff'] = ['gina', '%{gina#component#repo#preset()}' ]
   let s:filetype_overrides['gina-log'] = ['gina', '%{gina#component#repo#preset()}' ]
   let s:filetype_overrides['gina-tag'] = ['gina', '%{gina#component#repo#preset()}' ]
+endif
+
+if get(g:, 'airline#extensions#nerdtree_statusline', 1)
+  let s:filetype_overrides['nerdtree'] = [ get(g:, 'NERDTreeStatusline', 'NERD'), '' ]
+else
+  let s:filetype_overrides['nerdtree'] = ['NERDtree', '']
 endif
 
 let s:filetype_regex_overrides = {}
