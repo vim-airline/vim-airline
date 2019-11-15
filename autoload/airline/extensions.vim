@@ -45,7 +45,7 @@ endif
 if get(g:, 'airline#extensions#nerdtree_statusline', 1)
   let s:filetype_overrides['nerdtree'] = [ get(g:, 'NERDTreeStatusline', 'NERD'), '' ]
 else
-  let s:filetype_overrides['nerdtree'] = ['NERDtree', '']
+  let s:filetype_overrides['nerdtree'] = ['NERDTree', '']
 endif
 
 let s:filetype_regex_overrides = {}
