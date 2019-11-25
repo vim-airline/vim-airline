@@ -46,16 +46,16 @@ endfunction
 
 let s:active_winnr = -1
 function! s:on_window_changed(event)
-  let s:active_winnr = winnr()
-
-  if pumvisible() && (!&previewwindow || g:airline_exclude_preview)
+  " don't trigger for Vim popup windows
+  if &buftype is# 'popup'
     return
   endif
-  " work around a neovim bug: do not trigger on floating windows
-  " Disabled, Bug is fixed in Neovim, TODO: should be removed soon
-  " if exists("*nvim_win_get_config") && !empty(nvim_win_get_config(0).relative)
-  "  return
-  " endif
+
+  if pumvisible() && (!&previewwindow || g:airline_exclude_preview)
+    " do not trigger for previewwindows
+    return
+  endif
+  let s:active_winnr = winnr()
   " Handle each window only once, since we might come here several times for
   " different autocommands.
   let l:key = [bufnr('%'), s:active_winnr, winnr('$'), tabpagenr(), &ft]
