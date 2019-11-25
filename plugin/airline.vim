@@ -251,7 +251,10 @@ function! s:airline_extensions()
 endfunction
 
 function! s:rand(max) abort
-  if has("reltime")
+  if exists("*rand")
+    " Needs Vim 8.1.2342
+    let number=rand()
+  elseif has("reltime")
     let timerstr=reltimestr(reltime())
     let number=split(timerstr, '\.')[1]+0
   elseif has("win32") && &shell =~ 'cmd'
