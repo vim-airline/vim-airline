@@ -59,7 +59,11 @@ function! airline#init#bootstrap()
   call extend(g:airline_theme_map, {
         \ 'default': 'dark',
         \ '\CTomorrow': 'tomorrow',
+        \ 'base16': 'base16',
         \ 'mo[l|n]okai': 'molokai',
+        \ 'wombat': 'wombat',
+        \ 'zenburn': 'zenburn',
+        \ 'solarized': 'solarized',
         \ 'flattened': 'solarized',
         \ '\CNeoSolarized': 'solarized',
         \ }, 'keep')
