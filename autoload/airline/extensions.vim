@@ -40,6 +40,7 @@ if exists(':Gina') && (v:version > 704 || (v:version == 704 && has("patch1898"))
   let s:filetype_overrides['diff'] = ['gina', '%{gina#component#repo#preset()}' ]
   let s:filetype_overrides['gina-log'] = ['gina', '%{gina#component#repo#preset()}' ]
   let s:filetype_overrides['gina-tag'] = ['gina', '%{gina#component#repo#preset()}' ]
+  let s:filetype_overrides['gina-branch'] = ['gina', '%{gina#component#repo#branch()}' ]
 endif
 
 if get(g:, 'airline#extensions#nerdtree_statusline', 1)
