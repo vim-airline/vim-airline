@@ -293,7 +293,7 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'ale')
   endif
 
-  if (get(g:, 'airline#extensions#coc#enabled', 1) && exists(':CocCommand'))
+  if (get(g:, 'airline#extensions#coc#enabled', 1) && exists(':CocCommand')) && v:version >= 800
     call airline#extensions#coc#init(s:ext)
     call add(s:loaded_ext, 'coc')
   endif
