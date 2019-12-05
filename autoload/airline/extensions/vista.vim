@@ -12,4 +12,5 @@ endfunction
 
 function! airline#extensions#vista#init(ext)
   call airline#parts#define_function('vista', 'airline#extensions#vista#currenttag')
+  autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 endfunction
