@@ -1227,7 +1227,7 @@ virtualenv <https://github.com/jmcantrell/vim-virtualenv>
   let g:airline#extensions#virtualenv#enabled = 1
 <
 -------------------------------------                   *airline-vista*
-vista.vim <https://github.com/liuchngxu/vista.vim>
+vista.vim <https://github.com/liuchengxu/vista.vim>
 
 * enable/disable vista integration >
   let g:airline#extensions#vista#enabled = 1
