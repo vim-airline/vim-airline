@@ -85,17 +85,26 @@ let s:names = {'0': 'index', '1': 'orig', '2':'fetch', '3':'merge'}
 let s:sha1size = get(g:, 'airline#extensions#branch#sha1_len', 7)
 
 function! s:update_git_branch()
-  if !airline#util#has_fugitive()
+  if !airline#util#has_fugitive() && !airline#util#has_gina()
     let s:vcs_config['git'].branch = ''
     return
   endif
-
-  let s:vcs_config['git'].branch = exists("*FugitiveHead") ?
-        \ FugitiveHead(s:sha1size) : fugitive#head(s:sha1size)
-  if s:vcs_config['git'].branch is# 'master' &&
-        \ airline#util#winwidth() < 81
-    " Shorten default a bit
-    let s:vcs_config['git'].branch='mas'
+  if airline#util#has_fugitive()
+    let s:vcs_config['git'].branch = exists("*FugitiveHead") ?
+          \ FugitiveHead(s:sha1size) : fugitive#head(s:sha1size)
+    if s:vcs_config['git'].branch is# 'master' &&
+          \ airline#util#winwidth() < 81
+      " Shorten default a bit
+      let s:vcs_config['git'].branch='mas'
+    endif
+  else
+    let g:gina#component#repo#commit_length = s:sha1size
+    let s:vcs_config['git'].branch = gina#component#repo#branch()
+    if s:vcs_config['git'].branch is# 'master' &&
+          \ airline#util#winwidth() < 81
+      " Shorten default a bit
+      let s:vcs_config['git'].branch='mas'
+    endif
   endif
 endfunction
 
@@ -200,7 +209,7 @@ function! s:update_untracked()
   for vcs in keys(s:vcs_config)
     " only check, for git, if fugitive is installed
     " and for 'hg' if lawrencium is installed, else skip
-    if vcs is# 'git' && !airline#util#has_fugitive()
+    if vcs is# 'git' && (!airline#util#has_fugitive())
       continue
     elseif vcs is# 'mercurial' && !airline#util#has_lawrencium()
       continue
