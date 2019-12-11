@@ -31,5 +31,5 @@ endfunction
 
 function! airline#extensions#netrw#sortstring()
   let order = (get(g:, 'netrw_sort_direction', 'n') =~ 'n') ? '+' : '-'
-  return g:netrw_sort_by . (g:airline_symbols.space) . '[' . order . ']'
+  return get(g:, 'netrw_sort_by', '') . (g:airline_symbols.space) . '[' . order . ']'
 endfunction
