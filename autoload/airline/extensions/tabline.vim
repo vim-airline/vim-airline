@@ -64,8 +64,7 @@ function! s:update_tabline()
   elseif !get(g:, 'airline#extensions#tabline#enabled', 0)
     return
   " return, if buffer matches ignore pattern or is directory (netrw)
-  elseif empty(match) || airline#util#ignore_buf(match)
-        \ || isdirectory(expand("<afile>"))
+  elseif empty(match) || airline#util#ignore_buf(match) || isdirectory(match)
     return
   endif
   call airline#util#doautocmd('BufMRUChange')
