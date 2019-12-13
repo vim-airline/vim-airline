@@ -1,5 +1,5 @@
 " MIT License. Copyright (c) 2019 s1341 (github@shmarya.net)
-" Plugin: https://github.com/liuchngxu/vista.vim
+" Plugin: https://github.com/liuchengxu/vista.vim
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8

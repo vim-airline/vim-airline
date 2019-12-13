@@ -44,6 +44,14 @@ function! s:init()
   call airline#util#doautocmd('AirlineAfterInit')
 endfunction
 
+function! s:do_vim_enter()
+  " Needed for the Vista extension #2009
+  if get(g:, 'airline#extensions#vista#enabled', 1) && exists(':Vista')
+    call vista#RunForNearestMethodOrFunction()
+  endif
+  call <sid>on_window_changed('VimEnter')
+endfunction
+
 let s:active_winnr = -1
 function! s:on_window_changed(event)
   " don't trigger for Vim popup windows
@@ -132,7 +140,7 @@ function! s:airline_toggle()
       " Refresh airline for :syntax off
       autocmd SourcePre */syntax/syntax.vim
             \ call airline#extensions#tabline#buffers#invalidate()
-      autocmd VimEnter * call <sid>on_window_changed('VimEnter')
+      autocmd VimEnter * call <sid>do_vim_enter()
       autocmd WinEnter * call <sid>on_window_changed('WinEnter')
       autocmd FileType * call <sid>on_window_changed('FileType')
       autocmd BufWinEnter * call <sid>on_window_changed('BufWinEnter')
