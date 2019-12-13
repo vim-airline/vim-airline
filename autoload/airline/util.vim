@@ -135,6 +135,14 @@ function! airline#util#has_fugitive()
   return s:has_fugitive
 endfunction
 
+function! airline#util#has_gina()
+  if !exists("s:has_gina")
+    let s:has_gina = exists(':Gina')
+  endif
+  return s:has_gina
+endfunction
+
+
 function! airline#util#has_lawrencium()
   if !exists("s:has_lawrencium")
     let s:has_lawrencium  = exists('*lawrencium#statusline')

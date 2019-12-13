@@ -255,6 +255,7 @@ function! airline#extensions#load()
 
   if get(g:, 'airline#extensions#branch#enabled', 1) && (
           \ airline#util#has_fugitive() ||
+          \ airline#util#has_gina() ||
           \ airline#util#has_lawrencium() ||
           \ airline#util#has_vcscommand() ||
           \ airline#util#has_custom_scm())

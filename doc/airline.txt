@@ -474,6 +474,7 @@ vim-airline will display the branch-indicator together with the branch name
 in the statusline, if one of the following plugins is installed:
 
 fugitive.vim <https://github.com/tpope/vim-fugitive>
+gina.vim     <https://github.com/lambdalisue/gina.vim>
 lawrencium   <https://bitbucket.org/ludovicchabant/vim-lawrencium>
 vcscommand   <http://www.vim.org/scripts/script.php?script_id=90>
 
