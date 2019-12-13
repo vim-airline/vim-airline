@@ -125,7 +125,7 @@ endfunction
 
 " Update the statusline
 function! airline#update_statusline()
-  if airline#util#getwinvar(winnr(), 'airline_disabled', 0)
+  if airline#util#stl_disabled()
     return
   endif
   let range = filter(range(1, winnr('$')), 'v:val != winnr()')
@@ -154,7 +154,7 @@ endfunction
 
 " Function to draw inactive statuslines for inactive windows
 function! airline#update_statusline_inactive(range)
-  if airline#util#getwinvar(winnr(), 'airline_disabled', 0)
+  if airline#util#stl_disabled()
     return
   endif
   for nr in a:range

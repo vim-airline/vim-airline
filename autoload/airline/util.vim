@@ -161,3 +161,12 @@ function! airline#util#themes(match)
   let files = split(globpath(&rtp, 'autoload/airline/themes/'.a:match.'*.vim'), "\n")
   return sort(map(files, 'fnamemodify(v:val, ":t:r")') + ['random'])
 endfunction
+
+function! airline#util#stl_disabled()
+  " setting the statusline is disabled,
+  " either globally or per window
+  " w:airline_disabled is deprecated!
+  return get(g:, 'airline_disable_statusline', 0) ||
+   \ airline#util#getwinvar(winnr(), 'airline_disable_statusline', 0) ||
+   \ airline#util#getwinvar(winnr(), 'airline_disabled', 0)
+endfunction

@@ -228,10 +228,19 @@ values):
   heavily) >
   let g:airline_exclude_preview = 0
 <
-* disable the Airline customization for selected windows (this is a
+* disable the Airline statusline customization for selected windows (this is a
   window-local variable so you can disable it per-window) >
-  let w:airline_disabled = 1
+  let w:airline_disable_statusline = 1
+<
+  Old deprecated name: `w:airline_disabled`
 
+  See also the following option, for disabling setting the statusline globally
+* Disable setting the statusline option: >
+  let g:airline_disable_statusline = 1
+
+< This setting disables setting the 'statusline' option. This allows to use
+ e.g. the tabline extension (|airline-tabline|) but keep the 'statusline'
+ option totally configurable by a custom configuration.
 * Do not draw separators for empty sections (only for the active window) >
   let g:airline_skip_empty_sections = 1
 <
