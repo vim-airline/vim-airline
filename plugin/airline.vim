@@ -1,6 +1,9 @@
 " MIT License. Copyright (c) 2013-2019 Bailey Ling, Christian Brabandt et al.
 " vim: et ts=2 sts=2 sw=2
 
+let s:save_cpo = &cpo
+set cpo&vim
+
 scriptencoding utf-8
 
 if &cp || v:version < 702 || (exists('g:loaded_airline') && g:loaded_airline)
@@ -292,3 +295,6 @@ command! AirlineExtensions   call s:airline_extensions()
 
 call airline#init#bootstrap()
 call s:airline_toggle()
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
