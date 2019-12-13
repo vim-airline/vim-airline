@@ -54,8 +54,13 @@ function! s:toggle_on()
   set tabline=%!airline#extensions#tabline#get()
 endfunction
 
-function! s:update_tabline()
+function! s:update_tabline(forceit)
   if get(g:, 'airline#extensions#tabline#disable_refresh', 0)
+    return
+  endif
+  " loading a session file
+  " On SessionLoadPost, g:SessionLoad variable is still set :/
+  if !a:forceit && get(g:, 'SessionLoad', 0)
     return
   endif
   let match = expand('<afile>')
@@ -155,7 +160,10 @@ function! airline#extensions#tabline#get()
   endif
 
   if !exists('#airline#BufAdd#*')
-    autocmd airline BufAdd * call <sid>update_tabline()
+    autocmd airline BufAdd * call <sid>update_tabline(0)
+  endif
+  if !exists('#airline#SessionLoadPost*')
+    autocmd airline SessionLoadPost * call <sid>update_tabline(1)
   endif
   if s:ctrlspace
     return airline#extensions#tabline#ctrlspace#get()
