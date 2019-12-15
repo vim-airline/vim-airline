@@ -98,8 +98,11 @@ function! s:update_git_branch()
       let s:vcs_config['git'].branch='mas'
     endif
   else
-    let g:gina#component#repo#commit_length = s:sha1size
-    let s:vcs_config['git'].branch = gina#component#repo#branch()
+    try
+      let g:gina#component#repo#commit_length = s:sha1size
+      let s:vcs_config['git'].branch = gina#component#repo#branch()
+    catch
+    endtry
     if s:vcs_config['git'].branch is# 'master' &&
           \ airline#util#winwidth() < 81
       " Shorten default a bit
