@@ -162,7 +162,7 @@ function! airline#extensions#tabline#get()
   if !exists('#airline#BufAdd#*')
     autocmd airline BufAdd * call <sid>update_tabline(0)
   endif
-  if !exists('#airline#SessionLoadPost*')
+  if !exists('#airline#SessionLoadPost')
     autocmd airline SessionLoadPost * call <sid>update_tabline(1)
   endif
   if s:ctrlspace
