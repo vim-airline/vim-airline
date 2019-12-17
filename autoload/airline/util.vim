@@ -137,7 +137,7 @@ endfunction
 
 function! airline#util#has_gina()
   if !exists("s:has_gina")
-    let s:has_gina = exists(':Gina')
+    let s:has_gina = (exists(':Gina') && v:version >= 800)
   endif
   return s:has_gina
 endfunction
