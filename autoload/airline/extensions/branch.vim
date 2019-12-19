@@ -212,7 +212,7 @@ function! s:update_untracked()
   for vcs in keys(s:vcs_config)
     " only check, for git, if fugitive is installed
     " and for 'hg' if lawrencium is installed, else skip
-    if vcs is# 'git' && (!airline#util#has_fugitive())
+    if vcs is# 'git' && (!airline#util#has_fugitive() && !airline#util#has_gina())
       continue
     elseif vcs is# 'mercurial' && !airline#util#has_lawrencium()
       continue
