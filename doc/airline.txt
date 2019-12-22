@@ -234,9 +234,14 @@ values):
 <
   Old deprecated name: `w:airline_disabled`
 
-  See also the following option, for disabling setting the statusline globally
+  See also the following options, for disabling setting the statusline
+  globally or per-buffer
 * Disable setting the statusline option: >
+  " disable globally
   let g:airline_disable_statusline = 1
+
+  " disable per-buffer
+  let b:airline_disable_statusline = 1
 
 < This setting disables setting the 'statusline' option. This allows to use
  e.g. the tabline extension (|airline-tabline|) but keep the 'statusline'
