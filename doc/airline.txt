@@ -975,7 +975,7 @@ with the middle mouse button to delete that buffer.
 
 * enable/disable displaying index of the buffer.
 
-  `buffer_idx_mode` allows 2 different modes to access buffers from the
+  `buffer_idx_mode` allows 3 different modes to access buffers from the
   tabline. When enabled, numbers will be displayed in the tabline and
   mappings will be exposed to allow you to select a buffer directly.
   In default mode, when the variable is 1 Up to 11 mappings will be
@@ -994,9 +994,7 @@ with the middle mouse button to delete that buffer.
   nmap <leader>- <Plug>AirlineSelectPrevTab
   nmap <leader>+ <Plug>AirlineSelectNextTab
 <
-  In mode 2, (when the variable is 2) 89 mappings will be exposed
-  (Note: To avoid ambiguity, there won't be <Plug>AirlineSelectTab1
-  - <Plug>AirlineSelectTab9 maps): >
+  In mode 2, (when the variable is 2) 89 mappings will be exposed: >
 
   let g:airline#extensions#tabline#buffer_idx_mode = 2
   nmap <Leader>10 <Plug>AirlineSelectTab10
@@ -1008,6 +1006,22 @@ with the middle mouse button to delete that buffer.
 <
   The <Plug>AirlineSelect<Prev/Next>Tab mapping handles counts as well,
   so one can handle arbirtrarily number of buffers/tabs.
+
+  Mode 3 is exactly the same as mode 2, except the indexing start at 01,
+  exposing 99 mappings: >
+
+  let g:airline#extensions#tabline#buffer_idx_mode = 3
+  nmap <Leader>01 <Plug>AirlineSelectTab01
+  nmap <Leader>02 <Plug>AirlineSelectTab02
+  nmap <Leader>03 <Plug>AirlineSelectTab03
+  ...
+  nmap <Leader>99 <Plug>AirlineSelectTab99
+<
+  This matches that of the numbering scheme of |:buffers|, letting
+  `<Plug>AirlineSelectTab67` to reference buffer 67.
+
+  Note: To avoid ambiguity, there won't be <Plug>AirlineSelectTab1
+  - <Plug>AirlineSelectTab9 maps in mode 2 and 3.
 
   Note: Mappings will be ignored for filetypes that match
   `g:airline#extensions#tabline#keymap_ignored_filetypes`.
