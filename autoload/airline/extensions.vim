@@ -32,6 +32,7 @@ let s:filetype_overrides = {
       \ 'vim-plug': [ 'Plugins', '' ],
       \ 'vimfiler': [ 'vimfiler', '%{vimfiler#get_status_string()}' ],
       \ 'vimshell': ['vimshell','%{vimshell#get_status_string()}'],
+      \ 'vaffle' : [ 'Vaffle', '' ],
       \ }
 
 if airline#util#has_gina() && get(g:, 'airline#extensions#gina_status', 1)
