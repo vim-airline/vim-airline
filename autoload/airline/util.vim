@@ -67,6 +67,17 @@ function! airline#util#prepend(text, minwidth)
 endfunction
 
 if v:version >= 704
+  function! airline#util#getbufvar(bufnr, key, def)
+    return getbufvar(a:bufnr, a:key, a:def)
+  endfunction
+else
+  function! airline#util#getbufvar(bufnr, key, def)
+    let bufvals = getbufvar(a:bufnr, '')
+    return get(bufvals, a:key, a:def)
+  endfunction
+endif
+
+if v:version >= 704
   function! airline#util#getwinvar(winnr, key, def)
     return getwinvar(a:winnr, a:key, a:def)
   endfunction
@@ -172,9 +183,10 @@ endfunction
 
 function! airline#util#stl_disabled(winnr)
   " setting the statusline is disabled,
-  " either globally or per window
+  " either globally, per window, or per buffer
   " w:airline_disabled is deprecated!
   return get(g:, 'airline_disable_statusline', 0) ||
    \ airline#util#getwinvar(a:winnr, 'airline_disable_statusline', 0) ||
-   \ airline#util#getwinvar(a:winnr, 'airline_disabled', 0)
+   \ airline#util#getwinvar(a:winnr, 'airline_disabled', 0) ||
+   \ airline#util#getbufvar(winbufnr(a:winnr), 'airline_disable_statusline', 0)
 endfunction
