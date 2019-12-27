@@ -181,7 +181,7 @@ function! s:airline_toggle()
       endif
     augroup END
 
-    if !airline#util#stl_disabled()
+    if !airline#util#stl_disabled(winnr())
       if &laststatus < 2
         set laststatus=2
       endif
