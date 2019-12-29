@@ -838,6 +838,12 @@ files with the 'filetype' "po".
 * truncate width names to a fixed length >
   let g:airline#extensions#po#displayed_limit = 0
 
+-------------------------------------                   *airline-poetv*
+poetv <https://github.com/petobens/poet-v>
+
+* enable/disable poetv integration >
+  let g:airline#extensions#poetv#enabled = 1
+<
 -------------------------------------                   *airline-promptline*
 promptline <https://github.com/edkolev/promptline.vim>
 
