@@ -282,6 +282,11 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'virtualenv')
   endif
 
+  if (get(g:, 'airline#extensions#poetv#enabled', 1) && (exists(':PoetvActivate') || isdirectory($VIRTUAL_ENV)))
+    call airline#extensions#poetv#init(s:ext)
+    call add(s:loaded_ext, 'poetv')
+  endif
+
   if (get(g:, 'airline#extensions#eclim#enabled', 1) && exists(':ProjectCreate'))
     call airline#extensions#eclim#init(s:ext)
     call add(s:loaded_ext, 'eclim')
