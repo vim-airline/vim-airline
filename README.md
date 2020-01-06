@@ -16,7 +16,7 @@ information. By default (without configuration) this line will look like this:
 |~                                                                            |
 |~                     VIM - Vi IMproved                                      |
 |~                                                                            |
-|~                       version 8.0                                          |
+|~                       version 8.2                                          |
 |~                    by Bram Moolenaar et al.                                |
 |~           Vim is open source and freely distributable                      |
 |~                                                                            |
@@ -292,7 +292,7 @@ If you are interested in becoming a maintainer (we always welcome more maintaine
 
 # License
 
-[MIT License][58]. Copyright (c) 2013-2019 Bailey Ling & Contributors.
+[MIT License][58]. Copyright (c) 2013-2020 Bailey Ling & Contributors.
 
 [1]: https://github.com/Lokaltog/vim-powerline
 [2]: https://github.com/Lokaltog/powerline
