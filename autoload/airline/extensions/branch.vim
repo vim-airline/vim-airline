@@ -1,5 +1,5 @@
-" MIT License. Copyright (c) 2013-2019 Bailey Ling et al.
-" Plugin: fugitive, lawrencium and vcscommand
+" MIT License. Copyright (c) 2013-2020 Bailey Ling et al.
+" Plugin: fugitive, gina, lawrencium and vcscommand
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
