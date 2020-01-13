@@ -91,7 +91,7 @@ function! airline#extensions#apply(...)
     let w:airline_section_y = ''
   endif
 
-  if &previewwindow
+  if &previewwindow && empty(get(w:, 'airline_section_a', ''))
     let w:airline_section_a = 'Preview'
     let w:airline_section_b = ''
     let w:airline_section_c = bufname(winbufnr(winnr()))
