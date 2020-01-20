@@ -282,7 +282,7 @@ function! airline#highlighter#highlight(modes, ...)
         endif
 
         if !has_key(p, 'accents') 
-          " work arout a brocken installation
+          " work around a broken installation
           " shouldn't actually happen, p should always contain accents
           continue
         endif
