@@ -281,6 +281,12 @@ function! airline#highlighter#highlight(modes, ...)
           call airline#highlighter#exec(name.suffix, mode_colors)
         endif
 
+        if !has_key(p, 'accents') 
+          " work arout a brocken installation
+          " shouldn't actually happen, p should always contain accents
+          continue
+        endif
+
         for accent in keys(s:accents)
           if !has_key(p.accents, accent)
             continue
