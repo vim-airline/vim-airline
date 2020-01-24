@@ -277,12 +277,18 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'fugitiveline')
   endif
 
-  if (get(g:, 'airline#extensions#virtualenv#enabled', 1) && (exists(':VirtualEnvList') || isdirectory($VIRTUAL_ENV)))
+  " NOTE: This means that if both virtualenv and poetv are enabled and
+  " available, poetv silently takes precedence and the virtualenv
+  " extension won't be initialized. Since both extensions currently just
+  " add a virtualenv identifier section to the airline, this seems
+  " acceptable.
+  if (get(g:, 'airline#extensions#poetv#enabled', 1) && (exists(':PoetvActivate')))
+    call airline#extensions#poetv#init(s:ext)
+    call add(s:loaded_ext, 'poetv')
+  elseif (get(g:, 'airline#extensions#virtualenv#enabled', 1) && (exists(':VirtualEnvList')))
     call airline#extensions#virtualenv#init(s:ext)
     call add(s:loaded_ext, 'virtualenv')
-  endif
-
-  if (get(g:, 'airline#extensions#poetv#enabled', 1) && (exists(':PoetvActivate') || isdirectory($VIRTUAL_ENV)))
+  elseif (isdirectory($VIRTUAL_ENV))
     call airline#extensions#poetv#init(s:ext)
     call add(s:loaded_ext, 'poetv')
   endif
