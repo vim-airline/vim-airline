@@ -24,6 +24,7 @@ env:
   - VIM_VERSION=8.1.0000
   - VIM_VERSION=8.0.0000
   - VIM_VERSION=7.4
+  - VIM_VERSION=7.3
 
 script:
   - export PATH=$HOME/vim-$VIM_VERSION/bin:$PATH
