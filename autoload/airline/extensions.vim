@@ -151,7 +151,9 @@ function! airline#extensions#load()
         call airline#extensions#{ext}#init(s:ext)
       catch /^Vim\%((\a\+)\)\=:E117/	" E117, function does not exist
         call airline#util#warning("Extension '".ext."' not installed, ignoring!")
+        continue
       endtry
+      call add(s:loaded_ext, ext)
     endfor
     return
   endif
