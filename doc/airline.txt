@@ -798,7 +798,7 @@ neomake <https://github.com/neomake/neomake>
   let airline#extensions#neomake#warning_symbol = 'W:'
 <
 -------------------------------------                   *airline-nerdtree*
-NerdTree <https://github.com/scrooloose/nerdtree.git>
+NerdTree <https://github.com/preservim/nerdtree.git>
 
 Airline displays the Nerdtree specific statusline (which can be configured
 using the |'NerdTreeStatusline'| variable (for details, see the help of

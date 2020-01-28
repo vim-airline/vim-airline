@@ -311,7 +311,7 @@ If you are interested in becoming a maintainer (we always welcome more maintaine
 [15]: https://github.com/techlivezheng/vim-plugin-minibufexpl
 [16]: https://github.com/sjl/gundo.vim
 [17]: https://github.com/mbbill/undotree
-[18]: https://github.com/scrooloose/nerdtree
+[18]: https://github.com/preservim/nerdtree
 [19]: https://github.com/majutsushi/tagbar
 [20]: https://powerline.readthedocs.org/en/master/installation.html#patched-fonts
 [21]: https://bitbucket.org/ludovicchabant/vim-lawrencium
