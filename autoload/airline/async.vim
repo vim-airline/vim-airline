@@ -131,7 +131,7 @@ if v:version >= 800 && has("job")
   endfunction
 
   function! airline#async#get_mq_async(cmd, file)
-    if g:airline#init#is_windows && &shell =~ 'cmd'
+    if g:airline#init#is_windows && &shell =~ 'cmd\|powershell'
       let cmd = a:cmd
     else
       let cmd = ['sh', '-c', a:cmd]
@@ -176,7 +176,7 @@ if v:version >= 800 && has("job")
   endfunction
 
   function! airline#async#vim_vcs_clean(cmd, file, vcs)
-    if g:airline#init#is_windows && &shell =~ 'cmd'
+    if g:airline#init#is_windows && &shell =~ 'cmd\|powershell'
       let cmd = a:cmd
     else
       let cmd = ['sh', '-c', a:cmd]
@@ -202,7 +202,7 @@ if v:version >= 800 && has("job")
   endfunction
 
   function! airline#async#vim_vcs_untracked(config, file)
-    if g:airline#init#is_windows && &shell =~ 'cmd'
+    if g:airline#init#is_windows && &shell =~ 'cmd\|powershell'
       let cmd = a:config['cmd'] . shellescape(a:file)
     else
       let cmd = ['sh', '-c', a:config['cmd'] . shellescape(a:file)]
@@ -263,7 +263,7 @@ elseif has("nvim")
     \ 'on_stderr': function('s:nvim_output_handler'),
     \ 'on_exit': function('s:nvim_mq_job_handler')
     \ }
-    if g:airline#init#is_windows && &shell =~ 'cmd'
+    if g:airline#init#is_windows && &shell =~ 'cmd\|powershell'
       let cmd = a:cmd
     else
       let cmd = ['sh', '-c', a:cmd]
@@ -285,7 +285,7 @@ elseif has("nvim")
     \ 'on_stderr': function('s:nvim_output_handler'),
     \ 'on_exit': function('s:nvim_po_job_handler')
     \ }
-    if g:airline#init#is_windows && &shell =~ 'cmd'
+    if g:airline#init#is_windows && &shell =~ 'cmd\|powershell'
       " no msgfmt on windows?
       return
     else
@@ -308,7 +308,7 @@ elseif has("nvim")
     \ 'on_stdout': function('s:nvim_output_handler'),
     \ 'on_stderr': function('s:nvim_output_handler'),
     \ 'on_exit': function('s:on_exit_clean')}
-    if g:airline#init#is_windows && &shell =~ 'cmd'
+    if g:airline#init#is_windows && &shell =~ 'cmd\|powershell'
       let cmd = a:cmd
     else
       let cmd = ['sh', '-c', a:cmd]
@@ -367,7 +367,7 @@ endfunction
 function! airline#async#vim7_vcs_clean(cmd, file, vcs)
   " Vim pre 8, fallback using system()
   " don't want to to see error messages
-  if g:airline#init#is_windows && &shell =~ 'cmd'
+  if g:airline#init#is_windows && &shell =~ 'cmd\|powershell'
     let cmd = a:cmd .' 2>nul'
   else
     let cmd = a:cmd .' 2>/dev/null'
