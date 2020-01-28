@@ -82,6 +82,13 @@ function! s:on_window_changed(event)
   call airline#update_statusline()
 endfunction
 
+function! s:on_focus_gained()
+  if airline#util#focusgained_disabled()
+    return
+  endif
+  unlet! w:airline_lastmode | :call <sid>airline_refresh(1)
+endfunction
+
 function! s:on_cursor_moved()
   if winnr() != s:active_winnr || !exists('w:airline_active')
     call s:on_window_changed('CursorMoved')
@@ -154,14 +161,14 @@ function! s:airline_toggle()
       " non-trivial number of external plugins use eventignore=all, so we need to account for that
       autocmd CursorMoved * call <sid>on_cursor_moved()
 
-      autocmd VimResized * unlet! w:airline_lastmode | :call <sid>airline_refresh()
+      autocmd VimResized * call <sid>on_focus_gained()
       if exists('*timer_start') && exists('*funcref')
         " do not trigger FocusGained on startup, it might erase the intro screen (see #1817)
         " needs funcref() (needs 7.4.2137) and timers (7.4.1578)
         let Handler=funcref('<sid>FocusGainedHandler')
         let s:timer=timer_start(5000, Handler)
       else
-        autocmd FocusGained * unlet! w:airline_lastmode | :call <sid>airline_refresh()
+        autocmd FocusGained * call <sid>on_focus_gained()
       endif
 
       if exists("##TerminalOpen")
@@ -235,7 +242,7 @@ endfunction
 function! s:FocusGainedHandler(timer)
   if exists("s:timer") && a:timer == s:timer
     augroup airline
-      au FocusGained * unlet! w:airline_lastmode | :call <sid>airline_refresh()
+      au FocusGained * call s:on_focus_gained()
     augroup END
   endif
 endfu

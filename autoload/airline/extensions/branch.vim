@@ -112,6 +112,9 @@ function! s:update_git_branch()
 endfunction
 
 function! s:display_git_branch()
+  " disable FocusGained autocommand, might cause loops because system() causes
+  " a refresh, which causes a system() command again #2029
+  call airline#util#focusgain(0)
   let name = b:buffer_vcs_config['git'].branch
   try
     let commit = matchstr(FugitiveParse()[0], '^\x\+')
@@ -128,7 +131,7 @@ function! s:display_git_branch()
     endif
   catch
   endtry
-
+  call airline#util#focusgain(1)
   return name
 endfunction
 
