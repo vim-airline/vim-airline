@@ -367,8 +367,10 @@ endfunction
 function! airline#async#vim7_vcs_clean(cmd, file, vcs)
   " Vim pre 8, fallback using system()
   " don't want to to see error messages
-  if g:airline#init#is_windows && &shell =~ 'cmd\|powershell'
+  if g:airline#init#is_windows && &shell =~ 'cmd'
     let cmd = a:cmd .' 2>nul'
+  elseif g:airline#init#is_windows && &shell =~ 'powerline'
+    let cmd = a:cmd .' 2> $null'
   else
     let cmd = a:cmd .' 2>/dev/null'
   endif
