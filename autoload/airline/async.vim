@@ -134,7 +134,7 @@ if v:version >= 800 && has("job")
     if g:airline#init#is_windows && &shell =~ 'cmd\|powershell'
       let cmd = a:cmd
     else
-      let cmd = ['sh', '-c', a:cmd]
+      let cmd = [&shell, &shellcmdflag, a:cmd]
     endif
 
     let options = {'cmd': a:cmd, 'buf': '', 'file': a:file}
@@ -179,7 +179,7 @@ if v:version >= 800 && has("job")
     if g:airline#init#is_windows && &shell =~ 'cmd\|powershell'
       let cmd = a:cmd
     else
-      let cmd = ['sh', '-c', a:cmd]
+      let cmd = [&shell, &shellcmdflag, a:cmd]
     endif
 
     let options = {'buf': '', 'vcs': a:vcs, 'file': a:file}
@@ -205,7 +205,7 @@ if v:version >= 800 && has("job")
     if g:airline#init#is_windows && &shell =~ 'cmd\|powershell'
       let cmd = a:config['cmd'] . shellescape(a:file)
     else
-      let cmd = ['sh', '-c', a:config['cmd'] . shellescape(a:file)]
+      let cmd = [&shell, &shellcmdflag, a:config['cmd'] . shellescape(a:file)]
     endif
 
     let options = {'cfg': a:config, 'buf': '', 'file': a:file}
@@ -266,7 +266,7 @@ elseif has("nvim")
     if g:airline#init#is_windows && &shell =~ 'cmd\|powershell'
       let cmd = a:cmd
     else
-      let cmd = ['sh', '-c', a:cmd]
+      let cmd = [&shell, &shellcmdflag, a:cmd]
     endif
 
     if has_key(s:mq_jobs, a:file)
@@ -289,7 +289,7 @@ elseif has("nvim")
       " no msgfmt on windows?
       return
     else
-      let cmd = ['sh', '-c', a:cmd. shellescape(a:file)]
+      let cmd = [&shell, &shellcmdflag, a:cmd. shellescape(a:file)]
     endif
 
     if has_key(s:po_jobs, a:file)
@@ -311,7 +311,7 @@ elseif has("nvim")
     if g:airline#init#is_windows && &shell =~ 'cmd\|powershell'
       let cmd = a:cmd
     else
-      let cmd = ['sh', '-c', a:cmd]
+      let cmd = [&shell, &shellcmdflag, a:cmd]
     endif
 
     if !has_key(s:clean_jobs, a:vcs)
