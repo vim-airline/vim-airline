@@ -85,6 +85,7 @@ let s:names = {'0': 'index', '1': 'orig', '2':'fetch', '3':'merge'}
 let s:sha1size = get(g:, 'airline#extensions#branch#sha1_len', 7)
 
 function! s:update_git_branch()
+  call airline#util#ignore_next_focusgain()
   if !airline#util#has_fugitive() && !airline#util#has_gina()
     let s:vcs_config['git'].branch = ''
     return
@@ -114,7 +115,7 @@ endfunction
 function! s:display_git_branch()
   " disable FocusGained autocommand, might cause loops because system() causes
   " a refresh, which causes a system() command again #2029
-  call airline#util#focusgain(0)
+  call airline#util#ignore_next_focusgain()
   let name = b:buffer_vcs_config['git'].branch
   try
     let commit = matchstr(FugitiveParse()[0], '^\x\+')
@@ -131,7 +132,6 @@ function! s:display_git_branch()
     endif
   catch
   endtry
-  call airline#util#focusgain(1)
   return name
 endfunction
 

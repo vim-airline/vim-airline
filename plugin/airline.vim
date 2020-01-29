@@ -83,10 +83,9 @@ function! s:on_window_changed(event)
 endfunction
 
 function! s:on_focus_gained()
-  if airline#util#focusgained_disabled()
-    return
+  if airline#util#try_focusgained()
+    unlet! w:airline_lastmode | :call <sid>airline_refresh(1)
   endif
-  unlet! w:airline_lastmode | :call <sid>airline_refresh(1)
 endfunction
 
 function! s:on_cursor_moved()
