@@ -179,7 +179,7 @@ endfunction
 
 function! airline#util#themes(match)
   let files = split(globpath(&rtp, 'autoload/airline/themes/'.a:match.'*.vim'), "\n")
-  return sort(map(files, 'fnamemodify(v:val, ":t:r")') + ['random'])
+  return sort(map(files, 'fnamemodify(v:val, ":t:r")') + ('random' =~ a:match ? ['random'] : []))
 endfunction
 
 function! airline#util#stl_disabled(winnr)
