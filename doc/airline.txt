@@ -715,7 +715,7 @@ Airline displays the gina.vim specific statusline.
 (for details, see the help of gina.vim)
 
 * enable/disable bufferline integration >
-  let g:airline#extensions#gina_status = 1
+  let g:airline#extensions#gina#enabled = 1
 <  default: 1
 
 -------------------------------------                     *airline-grepper*
