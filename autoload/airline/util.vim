@@ -11,7 +11,7 @@ let s:spc = g:airline_symbols.space
 let s:nomodeline = (v:version > 703 || (v:version == 703 && has("patch438"))) ? '<nomodeline>' : ''
 let s:has_strchars = exists('*strchars')
 let s:has_strcharpart = exists('*strcharpart')
-let s:focusgained_ignored = 0
+let s:focusgained_ignore_time = 0
 
 " TODO: Try to cache winwidth(0) function
 " e.g. store winwidth per window and access that, only update it, if the size
@@ -193,14 +193,20 @@ function! airline#util#stl_disabled(winnr)
 endfunction
 
 function! airline#util#ignore_next_focusgain()
-  let s:focusgained_ignored += 1
+  if has('win32')
+    " Setup an ignore for platforms that trigger FocusLost on calls to
+    " system(). macvim (gui and terminal) and Linux terminal vim do not.
+    let s:focusgained_ignore_time = localtime()
+  endif
 endfunction
 
 function! airline#util#try_focusgained()
-  let s:focusgained_ignored -= 1
-  if s:focusgained_ignored < 0
-    let s:focusgained_ignored = 0
-  endif
-  return s:focusgained_ignored <= 0
+  " Ignore lasts for at most one second and is cleared on the first
+  " focusgained. We use ignore to prevent system() calls from triggering
+  " FocusGained (which occurs 100% on win32 and seem to sometimes occur under
+  " tmux).
+  let dt = localtime() - s:focusgained_ignore_time
+  let s:focusgained_ignore_time = 0
+  return dt >= 1
 endfunction
 
