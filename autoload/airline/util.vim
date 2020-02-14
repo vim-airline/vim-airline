@@ -11,7 +11,7 @@ let s:spc = g:airline_symbols.space
 let s:nomodeline = (v:version > 703 || (v:version == 703 && has("patch438"))) ? '<nomodeline>' : ''
 let s:has_strchars = exists('*strchars')
 let s:has_strcharpart = exists('*strcharpart')
-let s:focusgained_ignored = 0
+let s:focusgain_suspended = 0
 
 " TODO: Try to cache winwidth(0) function
 " e.g. store winwidth per window and access that, only update it, if the size
@@ -135,7 +135,7 @@ endfunction
 
 function! airline#util#ignore_buf(name)
   let pat = '\c\v'. get(g:, 'airline#ignore_bufadd_pat', '').
-        \ get(g:, 'airline#extensions#tabline#ignore_bufadd_pat', 
+        \ get(g:, 'airline#extensions#tabline#ignore_bufadd_pat',
         \ '!|defx|gundo|nerd_tree|startify|tagbar|term://|undotree|vimfiler')
   return match(a:name, pat) > -1
 endfunction
@@ -192,15 +192,10 @@ function! airline#util#stl_disabled(winnr)
    \ airline#util#getbufvar(winbufnr(a:winnr), 'airline_disable_statusline', 0)
 endfunction
 
-function! airline#util#ignore_next_focusgain()
-  let s:focusgained_ignored += 1
+function! airline#util#suspend_focusgain(suspend)
+  let s:focusgain_suspended = a:suspend
 endfunction
 
 function! airline#util#try_focusgained()
-  let s:focusgained_ignored -= 1
-  if s:focusgained_ignored < 0
-    let s:focusgained_ignored = 0
-  endif
-  return s:focusgained_ignored <= 0
+  return s:focusgain_suspended < 1
 endfunction
-
