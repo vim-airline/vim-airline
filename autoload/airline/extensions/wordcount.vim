@@ -93,10 +93,12 @@ function! airline#extensions#wordcount#apply(...)
 
   " Check if filetype needs testing
   if did_filetype()
+    " correctly test for compound filetypes (e.g. markdown.pandoc)
+    let ft = substitute(&filetype, '\.', '\\|', 'g')
 
     " Select test based on type of "filetypes": new=list, old=string
     if type(filetypes) == get(v:, 't_list', type([]))
-          \ ? index(filetypes, &filetype) > -1 || index(filetypes, 'all') > -1
+          \ ? match(filetypes, ft) > -1 || index(filetypes, 'all') > -1
           \ : match(&filetype, filetypes) > -1
       let b:airline_changedtick = -1
       call s:update_wordcount(1) " force update: ensures initial worcount exists
