@@ -87,16 +87,18 @@ endfunction
 " default filetypes:
 function! airline#extensions#wordcount#apply(...)
   let filetypes = get(g:, 'airline#extensions#wordcount#filetypes', 
-    \ ['asciidoc', 'help', 'mail', 'markdown', 'markdown.pandoc', 'org', 'rst', 'tex', 'text'])
+    \ ['asciidoc', 'help', 'mail', 'markdown', 'org', 'rst', 'tex', 'text'])
   " export current filetypes settings to global namespace
   let g:airline#extensions#wordcount#filetypes = filetypes
 
   " Check if filetype needs testing
   if did_filetype()
+    " correctly test for compound filetypes (e.g. markdown.pandoc)
+    let ft = substitute(&filetype, '\.', '\\|', 'g')
 
     " Select test based on type of "filetypes": new=list, old=string
     if type(filetypes) == get(v:, 't_list', type([]))
-          \ ? index(filetypes, &filetype) > -1 || index(filetypes, 'all') > -1
+          \ ? match(filetypes, ft) > -1 || index(filetypes, 'all') > -1
           \ : match(&filetype, filetypes) > -1
       let b:airline_changedtick = -1
       call s:update_wordcount(1) " force update: ensures initial worcount exists
