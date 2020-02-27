@@ -8,6 +8,9 @@ This is the Changelog for the vim-airline project.
     - [poetv](https://github.com/petobens/poet-v) support
 - Improvements
   - git branch can also be displayed using [gina.vim](https://github.com/lambdalisue/gina.vim)
+- Other
+  - Introduce Vim script static analysis using [reviewdog](https://github.com/reviewdog/action-vint)
+  - Added multiple Vim versions to unit tests using Travis CI
 
 ## [0.11] - 2019-11-10
 - New features
