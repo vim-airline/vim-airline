@@ -16,7 +16,7 @@ function! airline#extensions#coc#get_error()
 endfunction
 
 function! airline#extensions#coc#get(type)
-  if !exists(":CocCommand")
+  if !exists(':CocCommand')
     return ''
   endif
   let _backup = get(g:, 'coc_stl_format', '')
@@ -42,7 +42,12 @@ function! airline#extensions#coc#get(type)
   endif
 endfunction
 
+function! airline#extensions#coc#get_status()
+  return get(g:, 'coc_status', '')
+endfunction
+
 function! airline#extensions#coc#init(ext)
   call airline#parts#define_function('coc_error_count', 'airline#extensions#coc#get_error')
   call airline#parts#define_function('coc_warning_count', 'airline#extensions#coc#get_warning')
+  call airline#parts#define_function('coc_status', 'airline#extensions#coc#get_status')
 endfunction
