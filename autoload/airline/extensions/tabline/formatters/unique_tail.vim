@@ -12,7 +12,12 @@ function! airline#extensions#tabline#formatters#unique_tail#format(bufnr, buffer
     if empty(name)
       let map[nr] = airline#extensions#tabline#formatters#default#wrap_name(nr, '[No Name]')
     else
-      let tail = fnamemodify(name, ':s?/\+$??:t')
+      if name =~ 'term://'
+        " Neovim Terminal
+        let tail = substitute(name, '\(term:\)//.*:\(.*\)', '\1 \2', '')
+      else
+        let tail = fnamemodify(name, ':s?/\+$??:t')
+      endif
       if has_key(tails, tail)
         let duplicates[nr] = nr
       endif

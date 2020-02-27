@@ -11,6 +11,9 @@ function! airline#extensions#tabline#formatters#short_path#format(bufnr, buffers
   let name = bufname(a:bufnr)
   if empty(name)
     let _ .= '[No Name]'
+  elseif name =~ 'term://'
+    " Neovim Terminal
+    let _ = substitute(name, '\(term:\)//.*:\(.*\)', '\1 \2', '')
   else
     let _ .= fnamemodify(name, ':p:h:t') . '/' . fnamemodify(name, ':t')
   endif

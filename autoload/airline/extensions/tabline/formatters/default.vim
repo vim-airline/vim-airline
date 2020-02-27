@@ -16,6 +16,9 @@ function! airline#extensions#tabline#formatters#default#format(bufnr, buffers)
   let name = bufname(a:bufnr)
   if empty(name)
     let _ .= '[No Name]'
+  elseif name =~ 'term://'
+    " Neovim Terminal
+    let _ = substitute(name, '\(term:\)//.*:\(.*\)', '\1 \2', '')
   else
     if s:fnamecollapse
       " Does not handle non-ascii characters like Cyrillic: 'D/Учёба/t.c'
