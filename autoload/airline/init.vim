@@ -161,6 +161,10 @@ function! airline#init#bootstrap()
   call airline#parts#define('branch', {
         \ 'raw': '',
         \ 'minwidth': 80})
+  call airline#parts#define('coc_status', {
+        \ 'raw': '',
+        \ 'accent': 'airline_term'
+        \ })
   call airline#parts#define_empty(['obsession', 'tagbar', 'syntastic-warn',
         \ 'syntastic-err', 'eclim', 'whitespace','windowswap',
         \ 'ycm_error_count', 'ycm_warning_count', 'neomake_error_count',
@@ -194,7 +198,7 @@ function! airline#init#sections()
     if exists("+autochdir") && &autochdir == 1
       let g:airline_section_c = airline#section#create(['%<', 'path', spc, 'readonly'])
     else
-      let g:airline_section_c = airline#section#create(['%<', 'file', spc, 'readonly'])
+      let g:airline_section_c = airline#section#create(['%<', 'file', spc, 'readonly', 'coc_status'])
     endif
   endif
   if !exists('g:airline_section_gutter')

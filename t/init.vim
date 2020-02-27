@@ -29,8 +29,8 @@ describe 'init sections'
     Expect g:airline_section_b == ''
   end
 
-  it 'section c should be file'
-    Expect g:airline_section_c == '%<%f%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
+  it 'section c should be file and coc_status'
+    Expect g:airline_section_c == '%<%f%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#%#__accent_airline_term#%#__restore__#'
   end
 
   it 'section x should be filetype'
@@ -78,6 +78,7 @@ describe 'init sections'
     Expect airline#parts#get('ycm_warning_count').raw == ''
     Expect airline#parts#get('languageclient_error_count').raw == ''
     Expect airline#parts#get('languageclient_warning_count').raw == ''
+    Expect airline#parts#get('coc_status').raw == ''
   end
 end
 
