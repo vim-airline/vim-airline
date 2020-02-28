@@ -162,8 +162,8 @@ function! s:get_number(index)
   endif
   let bidx_mode = get(g:, 'airline#extensions#tabline#buffer_idx_mode', 0)
   if bidx_mode > 1
-    let count = bidx_mode == 2 ? a:index+11 : a:index+1
-    return join(map(split(printf('%02d', count), '\zs'),
+    let l:count = bidx_mode == 2 ? a:index+11 : a:index+1
+    return join(map(split(printf('%02d', l:count), '\zs'),
           \ 'get(s:number_map, v:val, "")'), '')
   else
     return get(s:number_map, a:index+1, '')
