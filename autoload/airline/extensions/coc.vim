@@ -7,15 +7,15 @@ scriptencoding utf-8
 let s:error_symbol = get(g:, 'airline#extensions#coc#error_symbol', 'E:')
 let s:warning_symbol = get(g:, 'airline#extensions#coc#warning_symbol', 'W:')
 
-function! airline#extensions#coc#get_warning()
+function! airline#extensions#coc#get_warning() abort
   return airline#extensions#coc#get('warning')
 endfunction
 
-function! airline#extensions#coc#get_error()
+function! airline#extensions#coc#get_error() abort
   return airline#extensions#coc#get('error')
 endfunction
 
-function! airline#extensions#coc#get(type)
+function! airline#extensions#coc#get(type) abort
   if !exists(':CocCommand')
     return ''
   endif
@@ -42,11 +42,11 @@ function! airline#extensions#coc#get(type)
   endif
 endfunction
 
-function! airline#extensions#coc#get_status()
+function! airline#extensions#coc#get_status() abort
   return get(g:, 'coc_status', '')
 endfunction
 
-function! airline#extensions#coc#init(ext)
+function! airline#extensions#coc#init(ext) abort
   call airline#parts#define_function('coc_error_count', 'airline#extensions#coc#get_error')
   call airline#parts#define_function('coc_warning_count', 'airline#extensions#coc#get_warning')
   call airline#parts#define_function('coc_status', 'airline#extensions#coc#get_status')
