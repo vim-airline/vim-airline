@@ -9,6 +9,7 @@ This is the Changelog for the vim-airline project.
     - [vim-lsp](https://github.com/prabirshrestha/vim-lsp) support
 - Improvements
   - git branch can also be displayed using [gina.vim](https://github.com/lambdalisue/gina.vim)
+  - coc extensions can also show additional status messages
 - Other
   - Introduce Vim script static analysis using [reviewdog](https://github.com/reviewdog/action-vint)
   - Added multiple Vim versions to unit tests using Travis CI
