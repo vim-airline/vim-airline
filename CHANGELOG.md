@@ -6,6 +6,7 @@ This is the Changelog for the vim-airline project.
 - New features
   - Extensions:
     - [poetv](https://github.com/petobens/poet-v) support
+    - [vim-lsp](https://github.com/prabirshrestha/vim-lsp) support
 - Improvements
   - git branch can also be displayed using [gina.vim](https://github.com/lambdalisue/gina.vim)
 - Other
