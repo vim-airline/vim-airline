@@ -4,6 +4,10 @@
 
 scriptencoding utf-8
 
+if !get(g:, 'loaded_ale_dont_use_this_in_other_plugins_please', 0)
+  finish
+endif
+
 function! s:airline_ale_count(cnt, symbol)
   return a:cnt ? a:symbol. a:cnt : ''
 endfunction
