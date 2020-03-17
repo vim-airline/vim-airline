@@ -9,7 +9,7 @@ if !exists('*CapsLockStatusline')
 endif
 
 function! airline#extensions#capslock#status()
-  return tolower(CapsLockStatusline()) == '[caps]' ? 'CAPS' : ''
+  return tolower(CapsLockStatusline()) ==# '[caps]' ? get(g:, 'airline#extensions#capslock#symbol', 'CAPS') : ''
 endfunction
 
 function! airline#extensions#capslock#init(ext)
