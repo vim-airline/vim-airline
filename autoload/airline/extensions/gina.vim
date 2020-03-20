@@ -1,3 +1,7 @@
+" MIT License. Copyright (c) 2013-2020
+" Plugin: https://github.com/lambdalisue/gina.vim
+" vim: et ts=2 sts=2 sw=2
+
 scriptencoding utf-8
 if !get(g:, 'loaded_gina', 0)
   finish
