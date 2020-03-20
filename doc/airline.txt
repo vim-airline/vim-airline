@@ -568,6 +568,9 @@ vim-capslock <https://github.com/tpope/vim-capslock>
 * enable/disable vim-capslock integration >
   let g:airline#extensions#capslock#enabled = 1
 
+* change vim-capslock symbol >
+  let g:airline#extensions#capslock#symbol = 'CAPS' (default)
+
 -------------------------------------                    *airline-coc*
 coc <https://github.com/neoclide/coc.nvim>
 
