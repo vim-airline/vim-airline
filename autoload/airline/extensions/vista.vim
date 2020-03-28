@@ -3,6 +3,9 @@
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
+if !get(g:, 'loaded_vista', 0)
+  finish
+endif
 
 function! airline#extensions#vista#currenttag()
   if get(w:, 'airline_active', 0)
