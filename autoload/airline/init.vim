@@ -163,7 +163,7 @@ function! airline#init#bootstrap()
         \ 'minwidth': 80})
   call airline#parts#define('coc_status', {
         \ 'raw': '',
-        \ 'accent': 'airline_term'
+        \ 'accent': 'bold'
         \ })
   call airline#parts#define_empty(['obsession', 'tagbar', 'syntastic-warn',
         \ 'syntastic-err', 'eclim', 'whitespace','windowswap',
