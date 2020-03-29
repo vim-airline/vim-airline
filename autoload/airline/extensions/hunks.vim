@@ -11,7 +11,7 @@ endif
 let s:non_zero_only = get(g:, 'airline#extensions#hunks#non_zero_only', 0)
 let s:hunk_symbols = get(g:, 'airline#extensions#hunks#hunk_symbols', ['+', '~', '-'])
 
-function! s:get_hunks_signify()
+function! s:get_hunks_signify() abort
   let hunks = sy#repo#get_stats()
   if hunks[0] >= 0
     return hunks
@@ -19,7 +19,7 @@ function! s:get_hunks_signify()
   return []
 endfunction
 
-function! s:get_hunks_coc()
+function! s:get_hunks_coc() abort
   let hunks = get(b:, 'coc_git_status', '')
   if empty(hunks)
     return []
@@ -37,19 +37,19 @@ function! s:get_hunks_coc()
   return result
 endfunction
 
-function! s:is_branch_empty()
+function! s:is_branch_empty() abort
   return exists('*airline#extensions#branch#head') &&
         \ empty(get(b:, 'airline_head', ''))
 endfunction
 
-function! s:get_hunks_gitgutter()
+function! s:get_hunks_gitgutter() abort
   if !get(g:, 'gitgutter_enabled', 0) || s:is_branch_empty()
     return ''
   endif
   return GitGutterGetHunkSummary()
 endfunction
 
-function! s:get_hunks_changes()
+function! s:get_hunks_changes() abort
   if !get(b:, 'changes_view_enabled', 0) || s:is_branch_empty()
     return []
   endif
@@ -57,11 +57,11 @@ function! s:get_hunks_changes()
   return hunks == [0, 0, 0] ? [] : hunks
 endfunction
 
-function! s:get_hunks_empty()
+function! s:get_hunks_empty() abort
   return ''
 endfunction
 
-function! airline#extensions#hunks#get_raw_hunks()
+function! airline#extensions#hunks#get_raw_hunks() abort
   if !exists('b:source_func') || get(b:, 'source_func', '') is# 's:get_hunks_empty'
     if get(g:, 'loaded_signify') && sy#buffer_is_active()
       let b:source_func = 's:get_hunks_signify'
@@ -82,7 +82,7 @@ function! airline#extensions#hunks#get_raw_hunks()
   return {b:source_func}()
 endfunction
 
-function! airline#extensions#hunks#get_hunks()
+function! airline#extensions#hunks#get_hunks() abort
   if !get(w:, 'airline_active', 0)
     return ''
   endif
@@ -113,6 +113,6 @@ function! airline#extensions#hunks#get_hunks()
   return string
 endfunction
 
-function! airline#extensions#hunks#init(ext)
+function! airline#extensions#hunks#init(ext) abort
   call airline#parts#define_function('hunks', 'airline#extensions#hunks#get_hunks')
 endfunction
