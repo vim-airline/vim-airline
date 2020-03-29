@@ -73,8 +73,6 @@ function! airline#extensions#hunks#get_raw_hunks() abort
     else
       let b:source_func = 's:get_hunks_empty'
     endif
-  else
-    let b:source_func = 's:get_hunks_empty'
   endif
   return {b:source_func}()
 endfunction
@@ -90,7 +88,8 @@ function! airline#extensions#hunks#get_hunks() abort
     \ get(b:, 'source_func', '') isnot# 's:get_hunks_signify' &&
     \ get(b:, 'source_func', '') isnot# 's:get_hunks_gitgutter' &&
     \ get(b:, 'source_func', '') isnot# 's:get_hunks_empty' &&
-    \ get(b:, 'source_func', '') isnot# 's:get_hunks_changes'
+    \ get(b:, 'source_func', '') isnot# 's:get_hunks_changes' &&
+    \ get(b:, 'source_func', '') isnot# 's:get_hunks_coc'
     return b:airline_hunks
   endif
   let hunks = airline#extensions#hunks#get_raw_hunks()
