@@ -738,6 +738,7 @@ vim-gitgutter <https://github.com/airblade/vim-gitgutter>
 vim-signify <https://github.com/mhinz/vim-signify>
 changesPlugin <https://github.com/chrisbra/changesPlugin>
 quickfixsigns <https://github.com/tomtom/quickfixsigns_vim>
+coc-git <https://github.com/neoclide/coc-git>
 
 You can use `airline#extensions#hunks#get_raw_hunks()` to get the full hunks,
 without shortening. This allows for advanced customization, or a quick way of

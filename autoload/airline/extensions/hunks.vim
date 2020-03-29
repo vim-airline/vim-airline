@@ -1,10 +1,10 @@
 " MIT License. Copyright (c) 2013-2019 Bailey Ling et al.
-" Plugin: vim-gitgutter, vim-signify, changesPlugin, quickfixsigns
+" Plugin: vim-gitgutter, vim-signify, changesPlugin, quickfixsigns, coc-git
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
 
-if !get(g:, 'loaded_signify', 0) && !get(g:, 'loaded_gitgutter', 0) && !get(g:, 'loaded_changes', 0) && !get(g:, 'loaded_quickfixsigns', 0)
+if !get(g:, 'loaded_signify', 0) && !get(g:, 'loaded_gitgutter', 0) && !get(g:, 'loaded_changes', 0) && !get(g:, 'loaded_quickfixsigns', 0) && !empty(get(g:, 'coc_git_status',''))
   finish
 endif
 
@@ -17,6 +17,24 @@ function! s:get_hunks_signify()
     return hunks
   endif
   return []
+endfunction
+
+function! s:get_hunks_coc()
+  let hunks = get(b:, 'coc_git_status', '')
+  if empty(hunks)
+    return []
+  endif
+  let result = [0, 0, 0]
+  for val in split(hunks)
+    if val[0] is# '+'
+     let result[0] = val[1:] + 0
+    elseif val[0] is# '~'
+     let result[1] = val[1:] + 0
+    elseif val[0] is# '-'
+      let result[2] = val[1:] + 0
+    endif
+  endfor
+  return result
 endfunction
 
 function! s:is_branch_empty()
@@ -53,9 +71,13 @@ function! airline#extensions#hunks#get_raw_hunks()
       let b:source_func = 's:get_hunks_changes'
     elseif exists('*quickfixsigns#vcsdiff#GetHunkSummary')
       let b:source_func = 'quickfixsigns#vcsdiff#GetHunkSummary'
+    elseif exists("g:coc_git_status")
+      let b:source_func = 's:get_hunks_coc'
     else
       let b:source_func = 's:get_hunks_empty'
     endif
+  else
+    let b:source_func = 's:get_hunks_empty'
   endif
   return {b:source_func}()
 endfunction
@@ -78,6 +100,7 @@ function! airline#extensions#hunks#get_hunks()
   let string = ''
   let winwidth = get(airline#parts#get('hunks'), 'minwidth', 100)
   if !empty(hunks)
+    " hunks should contain [added, changed, deleted]
     for i in [0, 1, 2]
       if (s:non_zero_only == 0 && airline#util#winwidth() > winwidth) || hunks[i] > 0
         let string .= printf('%s%s ', s:hunk_symbols[i], hunks[i])
