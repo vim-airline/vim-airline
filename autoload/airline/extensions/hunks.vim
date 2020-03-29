@@ -50,9 +50,6 @@ function! s:get_hunks_gitgutter() abort
 endfunction
 
 function! s:get_hunks_changes() abort
-  if !get(b:, 'changes_view_enabled', 0) || s:is_branch_empty()
-    return []
-  endif
   let hunks = changes#GetStats()
   return hunks == [0, 0, 0] ? [] : hunks
 endfunction
