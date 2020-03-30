@@ -251,7 +251,7 @@ function! airline#extensions#tabline#add_label(dict, type, right)
 endfunction
 
 function! airline#extensions#tabline#add_tab_label(dict)
-  let show_tab_count = get(g:, 'airline#extensions#tabline#show_tab_conut', 1)
+  let show_tab_count = get(g:, 'airline#extensions#tabline#show_tab_count', 1)
   if show_tab_count == 2
     call a:dict.add_section_spaced('airline_tabmod', printf('%s %d/%d', "tab", tabpagenr(), tabpagenr('$')))
   elseif show_tab_count == 1 && tabpagenr('$') > 1
