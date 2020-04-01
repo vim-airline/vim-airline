@@ -211,7 +211,11 @@ function! airline#extensions#load()
   endif
 
   if get(g:, 'airline#extensions#hunks#enabled', 1)
-        \ && (exists('g:loaded_signify') || exists('g:loaded_gitgutter') || exists('g:loaded_changes') || exists('g:loaded_quickfixsigns'))
+        \ && (exists('g:loaded_signify')
+        \ || exists('g:loaded_gitgutter')
+        \ || exists('g:loaded_changes')
+        \ || exists('g:loaded_quickfixsigns')
+        \ || exists(':CocCommand'))
     call airline#extensions#hunks#init(s:ext)
     call add(s:loaded_ext, 'hunks')
   endif

@@ -4,12 +4,37 @@
 
 scriptencoding utf-8
 
-if !get(g:, 'loaded_signify', 0) && !get(g:, 'loaded_gitgutter', 0) && !get(g:, 'loaded_changes', 0) && !get(g:, 'loaded_quickfixsigns', 0) && !empty(get(g:, 'coc_git_status',''))
+if !get(g:, 'loaded_signify', 0)
+  \ && !get(g:, 'loaded_gitgutter', 0)
+  \ && !get(g:, 'loaded_changes', 0)
+  \ && !get(g:, 'loaded_quickfixsigns', 0)
+  \ && !exists("*CocAction")
   finish
 endif
 
 let s:non_zero_only = get(g:, 'airline#extensions#hunks#non_zero_only', 0)
 let s:hunk_symbols = get(g:, 'airline#extensions#hunks#hunk_symbols', ['+', '~', '-'])
+
+function! s:coc_git_enabled() abort
+  if !exists("*CocAction")
+    return 0
+  endif
+  if exists("s:airline_coc_git_enabled")
+    return s:airline_coc_git_enabled
+  endif
+  let extensions=CocAction('extensionStats')
+  if type(extensions) != type([])
+    " not yet initialized? Assume it is available...
+    return 1
+  endif
+  let coc_git=filter(extensions, 'v:val.id is# "coc-git" && v:val.state is# "activated"')
+  if !empty(coc_git)
+    let s:airline_coc_git_enabled = 1
+  else
+    let s:airline_coc_git_enabled = 0
+  endif
+  return s:airline_coc_git_enabled
+endfunction
 
 function! s:get_hunks_signify() abort
   let hunks = sy#repo#get_stats()
@@ -68,7 +93,7 @@ function! airline#extensions#hunks#get_raw_hunks() abort
       let b:source_func = 's:get_hunks_changes'
     elseif exists('*quickfixsigns#vcsdiff#GetHunkSummary')
       let b:source_func = 'quickfixsigns#vcsdiff#GetHunkSummary'
-    elseif exists("g:coc_git_status")
+    elseif s:coc_git_enabled()
       let b:source_func = 's:get_hunks_coc'
     else
       let b:source_func = 's:get_hunks_empty'
