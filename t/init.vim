@@ -80,6 +80,8 @@ describe 'init sections'
     Expect airline#parts#get('languageclient_warning_count').raw == ''
     Expect airline#parts#get('coc_status').raw == ''
     Expect airline#parts#get('vista').raw == ''
+    Expect airline#parts#get('coc_warning_count').raw == ''
+    Expect airline#parts#get('coc_error_count').raw == ''
   end
 end
 
