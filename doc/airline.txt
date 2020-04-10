@@ -1530,6 +1530,23 @@ Shows number of errors and warnings in the current file detected by YCM.
 * set warning count prefix >
   let g:airline#extensions#ycm#warning_symbol = 'W:'
 <
+
+-------------------------------------                    *airline-zoomwintab*
+zoomwintab <https://github.com/troydm/zoomwintab.vim>
+
+* enable/disable zoomwintab integration >
+  let g:airline#extensions#zoomwintab#enabled = 1
+
+* zoomwintab's zoomin symbol >
+  let g:airline#extensions#zoomwintab#status_zoomed_in = 'Currently Zoomed In'
+
+default: '> Zoomed'
+
+* zoomwintab's zoomout symbol >
+  let g:airline#extensions#zoomwintab#status_zoomed_out ='Currently Zoomed Out'
+
+default: ''
+
 =============================================================================
 ADVANCED CUSTOMIZATION                      *airline-advanced-customization*
 
