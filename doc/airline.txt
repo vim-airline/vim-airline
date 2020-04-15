@@ -1517,7 +1517,7 @@ be updated automatically. Either re-enter the tab or press <F5> two times.
    \ airline#extensions#tabline#xtabline#prev_buffer(v:count) : "\<Left>"
 
 -------------------------------------                    *airline-ycm*
-YouCompleteMe <https://github.com/Valloric/YouCompleteMe>
+YouCompleteMe <https://github.com/ycm-core/YouCompleteMe>
 
 Shows number of errors and warnings in the current file detected by YCM.
 
