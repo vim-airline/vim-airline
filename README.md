@@ -158,7 +158,7 @@ vim-airline integrates with a variety of plugins out of the box.  These extensio
 #### [syntastic][5]
 ![image](https://f.cloud.github.com/assets/306502/962864/9824c484-04f7-11e3-9928-da94f8c7da5a.png)
 
-#### hunks ([vim-gitgutter][29] & [vim-signify][30])
+#### hunks ([vim-gitgutter][29] & [vim-signify][30] & [coc-git][59])
 ![image](https://f.cloud.github.com/assets/306502/995185/73fc7054-09b9-11e3-9d45-618406c6ed98.png)
 
 #### [vimagit][50]
@@ -352,3 +352,4 @@ If you are interested in becoming a maintainer (we always welcome more maintaine
 [56]: https://github.com/vim-airline/vim-airline-themes/blob/master/autoload/airline/themes/dark_minimal.vim
 [57]: https://github.com/autozimu/LanguageClient-neovim
 [58]: https://github.com/vim-airline/vim-airline/blob/master/LICENSE
+[59]: https://github.com/neoclide/coc-git
