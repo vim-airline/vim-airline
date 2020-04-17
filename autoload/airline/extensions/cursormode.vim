@@ -5,6 +5,10 @@
 
 scriptencoding utf-8
 
+if !exists('g:loaded_cursormode')
+  finish
+endif
+
 let s:is_win = has('win32') || has('win64')
 let s:is_iTerm = exists('$TERM_PROGRAM') && $TERM_PROGRAM =~# 'iTerm.app'
 let s:is_AppleTerminal = exists('$TERM_PROGRAM') && $TERM_PROGRAM =~# 'Apple_Terminal'
