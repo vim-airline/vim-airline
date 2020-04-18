@@ -43,8 +43,8 @@ function! airline#extensions#coc#get(type) abort
 endfunction
 
 function! airline#extensions#coc#get_status() abort
-  " Shorten text for windows < 81 characters
-  return airline#util#shorten(get(g:, 'coc_status', ''), 81, 9)
+  " Shorten text for windows < 91 characters
+  return airline#util#shorten(get(g:, 'coc_status', ''), 91, 9)
 endfunction
 
 function! airline#extensions#coc#init(ext) abort
