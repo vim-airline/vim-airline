@@ -176,7 +176,7 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'term')
   endif
 
-  if get(g:, 'airline#extensions#ycm#enabled', 0)
+  if get(g:, 'airline#extensions#ycm#enabled', 0) && exists('g:loaded_youcompleteme')
     call airline#extensions#ycm#init(s:ext)
     call add(s:loaded_ext, 'ycm')
   endif
