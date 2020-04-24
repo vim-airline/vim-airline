@@ -487,6 +487,12 @@ If a file is edited, that is not yet in the repository, the
 notexists symbol will be displayed after the branch name. If the repository
 is not clean, the dirty symbol will be displayed after the branch name.
 
+* notexists symbol means you are editing a file, that has not been commited yet
+  default: '?'
+
+* the dirty symbol basically means your working directory is dirty
+  default: '!'
+
 Note: the branch extension will be disabled for windows smaller than 80
 characters.
 
