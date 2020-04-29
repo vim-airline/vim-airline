@@ -17,7 +17,7 @@ let s:hunk_symbols = get(g:, 'airline#extensions#hunks#hunk_symbols', ['+', '~',
 
 function! s:coc_git_enabled() abort
   if !exists("*CocAction") ||
-     !get(g:, 'airline#extensions#hunks#coc_git', 0)
+   \ !get(g:, 'airline#extensions#hunks#coc_git', 0)
      " coc-git extension is disabled by default
      " unless specifically being enabled by the user
      " (as requested from coc maintainer)
