@@ -32,7 +32,7 @@ let s:filetype_overrides = {
       \ 'vim-plug': [ 'Plugins', '' ],
       \ 'vimfiler': [ 'vimfiler', '%{vimfiler#get_status_string()}' ],
       \ 'vimshell': ['vimshell','%{vimshell#get_status_string()}'],
-      \ 'vaffle' : [ 'Vaffle', '' ],
+      \ 'vaffle' : [ 'Vaffle', '%{b:vaffle.dir}' ],
       \ }
 
 if get(g:, 'airline#extensions#nerdtree_statusline', 1)
