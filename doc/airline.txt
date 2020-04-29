@@ -758,6 +758,11 @@ querying how many changes you got. It will return something like '+4 ~2 -1'.
 <
 * set hunk count symbols. >
   let g:airline#extensions#hunks#hunk_symbols = ['+', '~', '-']
+
+* enable coc-git extension.
+  If not set to 1, vim-airline will not consider to use coc-git for the hunks
+  extension. Make sure to have the coc-git extension enabled. >
+  let g:airline#extensions#hunks#coc_git = 1
 <
 -------------------------------------                     *airline-keymap*
 vim-keymap
