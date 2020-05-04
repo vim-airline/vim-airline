@@ -5,9 +5,11 @@
 
 scriptencoding utf-8
 
-if !exists('g:loaded_cursormode')
+if exists('g:loaded_cursormode')
   finish
 endif
+
+let g:loaded_cursormode = 1
 
 let s:is_win = has('win32') || has('win64')
 let s:is_iTerm = exists('$TERM_PROGRAM') && $TERM_PROGRAM =~# 'iTerm.app'
