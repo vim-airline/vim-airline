@@ -4,7 +4,7 @@
 
 scriptencoding utf-8
 
-if !exists('g:loaded_youcompleteme')
+if !get(g:, 'loaded_youcompleteme', 0)
   finish
 endif
 
