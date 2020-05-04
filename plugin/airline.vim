@@ -301,7 +301,7 @@ command! AirlineExtensions   call s:airline_extensions()
 
 call airline#init#bootstrap()
 call s:airline_toggle()
-if v:vim_did_enter
+if exists("v:vim_did_enter") && v:vim_did_enter
   call <sid>on_window_changed('VimEnter')
 endif
 
