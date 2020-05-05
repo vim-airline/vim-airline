@@ -41,12 +41,13 @@ function! airline#extensions#fugitiveline#bufname()
 endfunction
 
 function! airline#extensions#fugitiveline#init(ext)
-  if exists("+autochdir") && &autochdir
-    " if 'acd' is set, vim-airline uses the path section, so we need to redefine this here as well
-    call airline#parts#define_raw('path', '%<%{airline#extensions#fugitiveline#bufname()}%m')
-  else
-    call airline#parts#define_raw('file', '%<%{airline#extensions#fugitiveline#bufname()}%m')
-  endif
+  call a:ext.add_statusline_func('airline#extensions#fugitiveline#apply')
   autocmd ShellCmdPost,CmdwinLeave * unlet! b:fugitive_name
   autocmd User AirlineBeforeRefresh unlet! b:fugitive_name
+endfunction
+
+function! airline#extensions#fugitiveline#apply(...) abort
+  if empty(&buftype) && !empty(bufname('%'))
+    let w:airline_section_c = '%<%{airline#extensions#fugitiveline#bufname()}%m'
+  endif
 endfunction
