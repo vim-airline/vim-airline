@@ -306,14 +306,18 @@ function! airline#extensions#branch#head()
 endfunction
 
 function! airline#extensions#branch#get_head()
-  let head = airline#extensions#branch#head()
-  let winwidth = get(airline#parts#get('branch'), 'minwidth', 120)
-  let minwidth = empty(get(b:, 'airline_hunks', '')) ? 14 : 7
-  let head = airline#util#shorten(head, winwidth, minwidth)
-  let symbol = get(g:, 'airline#extensions#branch#symbol', g:airline_symbols.branch)
-  return empty(head)
-        \ ? get(g:, 'airline#extensions#branch#empty_message', '')
-        \ : printf('%s%s', empty(symbol) ? '' : symbol.(g:airline_symbols.space), head)
+  if empty(&buftype) && !empty(bufname('%'))
+    let head = airline#extensions#branch#head()
+    let winwidth = get(airline#parts#get('branch'), 'minwidth', 120)
+    let minwidth = empty(get(b:, 'airline_hunks', '')) ? 14 : 7
+    let head = airline#util#shorten(head, winwidth, minwidth)
+    let symbol = get(g:, 'airline#extensions#branch#symbol', g:airline_symbols.branch)
+    return empty(head)
+          \ ? get(g:, 'airline#extensions#branch#empty_message', '')
+          \ : printf('%s%s', empty(symbol) ? '' : symbol.(g:airline_symbols.space), head)
+  else
+    return get(g:, 'airline#extensions#branch#empty_message', '')
+  endif
 endfunction
 
 function! s:reset_untracked_cache(shellcmdpost)
