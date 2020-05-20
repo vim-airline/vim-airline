@@ -9,11 +9,11 @@ if !get(g:, 'loaded_magit', 0)
   finish
 endif
 
-function! airline#extensions#vimagit#init(ext)
+function! airline#extensions#vimagit#init(ext) abort
   call a:ext.add_statusline_func('airline#extensions#vimagit#apply')
 endfunction
 
-function! airline#extensions#vimagit#get_mode()
+function! airline#extensions#vimagit#get_mode() abort
   if ( exists("*magit#get_current_mode") )
     return magit#get_current_mode()
   else
@@ -26,9 +26,10 @@ function! airline#extensions#vimagit#get_mode()
     else
       return "???"
     endif
+  endif
 endfunction
 
-function! airline#extensions#vimagit#apply(...)
+function! airline#extensions#vimagit#apply(...) abort
   if ( &filetype == 'magit' )
     let w:airline_section_a = '%{airline#extensions#vimagit#get_mode()}'
   endif
