@@ -8,6 +8,7 @@ This is the Changelog for the vim-airline project.
     - [poetv](https://github.com/petobens/poet-v) support
     - [vim-lsp](https://github.com/prabirshrestha/vim-lsp) support
     - [zoomwintab](https://github.com/troydm/zoomwintab.vim) support
+    - [Vaffle](https://github.com/cocopon/vaffle.vim) support
 - Improvements
   - git branch can also be displayed using [gina.vim](https://github.com/lambdalisue/gina.vim)
   - coc extensions can also show additional status messages
@@ -135,7 +136,7 @@ This is the Changelog for the vim-airline project.
     - [taboo](https://github.com/gcmt/taboo.vim)
     - [vim-ctrlspace](https://github.com/szw/vim-ctrlspace)
     - [quickfixsigns](https://github.com/tomtom/quickfixsigns_vim)
-    - [YouCompleteMe](https://github.com/Valloric/YouCompleteMe)
+    - [YouCompleteMe](https://github.com/ycm-core/YouCompleteMe)
     - [po.vim](http://www.vim.org/scripts/script.php?script_id=695)
     - [unicode.vim](https://github.com/chrisbra/unicode.vim)
     - wordcount
