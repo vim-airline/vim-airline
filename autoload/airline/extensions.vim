@@ -444,6 +444,12 @@ function! airline#extensions#load()
       endif
     endfor
   endif
+
+  if exists(':Dirvish')
+    call airline#extensions#dirvish#init(s:ext)
+    call add(s:loaded_ext, 'dirvish')
+  endif
+
 endfunction
 
 function! airline#extensions#get_loaded_extensions()
