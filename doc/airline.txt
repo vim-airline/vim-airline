@@ -697,7 +697,8 @@ you can use.
 -------------------------------------                      *airline-denite*
 Denite <https://github.com/Shougo/denite.nvim>
 
-No configuration available.
+* enable/disable denite integration >
+  let g:airline#extensions#denite#enabled = 1
 
 -------------------------------------                        *airline-eclim*
 eclim <https://eclim.org>
@@ -1257,7 +1258,8 @@ No configuration available.
 -------------------------------------                     *airline-unite*
 Unite <https://github.com/Shougo/unite.vim>
 
-No configuration available.
+* enable/disable unite integration >
+  let g:airline#extensions#unite#enabled = 1
 
 -------------------------------------                     *airline-vimagit*
 vimagit <https://github.com/jreybert/vimagit>
