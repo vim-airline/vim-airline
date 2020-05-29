@@ -150,12 +150,12 @@ function! airline#extensions#load()
   call airline#extensions#quickfix#init(s:ext)
   call add(s:loaded_ext, 'quickfix')
 
-  if get(g:, 'loaded_unite', 0)
+  if get(g:, 'loaded_unite', 0) && get(g:, 'airline#extensions#unite#enabled', 1)
     call airline#extensions#unite#init(s:ext)
     call add(s:loaded_ext, 'unite')
   endif
 
-  if get(g:, 'loaded_denite', 0)
+  if get(g:, 'loaded_denite', 0) && get(g:, 'airline#extensions#denite#enabled', 1)
     call airline#extensions#denite#init(s:ext)
     call add(s:loaded_ext, 'denite')
   endif
