@@ -700,6 +700,13 @@ Denite <https://github.com/Shougo/denite.nvim>
 * enable/disable denite integration >
   let g:airline#extensions#denite#enabled = 1
 
+-------------------------------------                      *airline-dirvish*
+vim-dirvish <https://github.com/justinmk/vim-dirvish>
+
+* enable/disable vim-dirvish integration >
+  let g:airline#extensions#dirvish#enabled = 1
+<  default: 1
+
 -------------------------------------                        *airline-eclim*
 eclim <https://eclim.org>
 
