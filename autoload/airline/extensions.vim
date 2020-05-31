@@ -445,7 +445,7 @@ function! airline#extensions#load()
     endfor
   endif
 
-  if exists(':Dirvish')
+  if exists(':Dirvish') && get(g:, 'airline#extensions#dirvish#enabled', 1)
     call airline#extensions#dirvish#init(s:ext)
     call add(s:loaded_ext, 'dirvish')
   endif

@@ -4,7 +4,7 @@
 
 scriptencoding utf-8
 
-if !exists(':Dirvish')
+if !get(g:, 'loaded_dirvish', 0)
   finish
 endif
 
@@ -22,10 +22,7 @@ function! airline#extensions#dirvish#apply(...) abort
       \ ? '%{airline#extensions#branch#get_head()}'
       \ : ''
 
-    let w:airline_section_c =
-      \   '%{join(split((execute("lcd"))))}'
-      \ . s:spc
-      \ . get(w:, 'airline_section_c', g:airline_section_c)
+    let w:airline_section_c = '%{b:dirvish._dir}'
 
     let w:airline_section_x = ''
     let w:airline_section_y = ''
