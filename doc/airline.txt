@@ -167,6 +167,14 @@ values):
     endif
   endfunction
 <
+* if you want to update your highlights without effecting the airline theme,
+  you can do so using the AirlineAfterTheme autocmd. >
+  function! s:update_highlights()
+    hi CursorLine ctermbg=none guibg=none
+    hi VertSplit ctermbg=none guibg=none
+  endfunction
+  autocmd User AirlineAfterTheme call s:update_highlights()
+<
 * By default, airline will use unicode symbols if your encoding matches
   utf-8. If you want the powerline symbols set this variable: >
   let g:airline_powerline_fonts = 1
