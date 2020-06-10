@@ -1,11 +1,11 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " xTabline - Reduced version for vim-airline
 " Plugin: https://github.com/mg979/vim-xtabline
-" MIT License Copyright (C) 2018-2019 Gianmaria Bajo <mg1979.git@gmail.com>
+" MIT License Copyright (C) 2018-2020 Gianmaria Bajo <mg1979.git@gmail.com>
 " tabpagecd:
 " expanded version by mg979
 " MIT License Copyright (C) 2012-2013 Kana Natsuno <http://whileimautomaton.net/>
-" MIT License Copyright (C) 2018-2019 Gianmaria Bajo <mg1979.git@gmail.com>
+" MIT License Copyright (C) 2018-2020 Gianmaria Bajo <mg1979.git@gmail.com>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 

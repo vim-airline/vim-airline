@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2016-2019 Jerome Reybert et al.
+" MIT License. Copyright (c) 2016-2020 Jerome Reybert et al.
 " Plugin: https://github.com/jreybert/vimagit
 " vim: et ts=2 sts=2 sw=2
 
