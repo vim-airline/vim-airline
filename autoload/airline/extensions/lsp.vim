@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2013-2019 François-Xavier Carton et al.
+" MIT License. Copyright (c) 2013-2020 François-Xavier Carton et al.
 " Plugin: https://github.com/prabirshrestha/vim-lsp
 " vim: et ts=2 sts=2 sw=2
 
