@@ -170,6 +170,12 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'netrw')
   endif
 
+  " fzf buffers are also terminal buffers, so this must be above term.
+  if exists(':FZF') && get(g:, 'airline#extensions#fzf#enabled', 1)
+    call airline#extensions#fzf#init(s:ext)
+    call add(s:loaded_ext, 'fzf')
+  endif
+
   if (has("terminal") || has('nvim')) &&
         \ get(g:, 'airline#extensions#term#enabled', 1)
     call airline#extensions#term#init(s:ext)
