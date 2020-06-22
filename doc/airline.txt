@@ -733,6 +733,13 @@ It is deactivated by default if |airline-bufferline| is activated.
 If enabled, the buffer that comes from fugitive, will have added a trailing
 "[git]" to be able do distinguish between fugitive and non-fugitive buffers.
 
+-------------------------------------                        *airline-fzf*
+fzf <https://github.com/junegunn/fzf>
+fzf.vim <https://github.com/junegunn/fzf.vim>
+
+* enable/disable fzf integration >
+  let g:airline#extensions#fzf#enabled = 1
+
 -------------------------------------                     *airline-gina*
 gina.vim <https://github.com/lambdalisue/gina.vim>
 

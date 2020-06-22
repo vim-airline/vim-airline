@@ -10,6 +10,7 @@ This is the Changelog for the vim-airline project.
     - [zoomwintab](https://github.com/troydm/zoomwintab.vim) support
     - [Vaffle](https://github.com/cocopon/vaffle.vim) support
     - [vim-dirvish](https://github.com/justinmk/vim-dirvish) support
+    - [fzf.vim](https://github.com/junegunn/fzf.vim) support
 - Improvements
   - git branch can also be displayed using [gina.vim](https://github.com/lambdalisue/gina.vim)
   - coc extensions can also show additional status messages
