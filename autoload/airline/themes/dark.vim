@@ -18,6 +18,7 @@ scriptencoding utf-8
 "       * replace
 "       * visual
 "       * inactive
+"       * terminal
 "       The last one is actually no real mode as returned by mode(), but used by
 "       airline to style inactive statuslines (e.g. windows, where the cursor
 "       currently does not reside in).
@@ -107,6 +108,7 @@ let g:airline#themes#dark#palette.insert_paste = {
       \ 'airline_a': [ s:airline_a_insert[0]   , '#d78700' , s:airline_a_insert[2] , 172     , ''     ] ,
       \ }
 
+let g:airline#themes#dark#palette.terminal = airline#themes#generate_color_map(s:airline_a_insert, s:airline_b_insert, s:airline_c_insert)
 
 let g:airline#themes#dark#palette.replace = copy(g:airline#themes#dark#palette.insert)
 let g:airline#themes#dark#palette.replace.airline_a = [ s:airline_b_insert[0]   , '#af0000' , s:airline_b_insert[2] , 124     , ''     ]
