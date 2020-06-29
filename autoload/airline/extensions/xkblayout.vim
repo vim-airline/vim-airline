@@ -9,7 +9,7 @@ endif
 
 function! airline#extensions#xkblayout#status()
   let keyboard_layout = libcall(g:XkbSwitchLib, 'Xkb_Switch_getXkbLayout', '')
-  let keyboard_layout = split(keyboard_layout, '\.')[-1]
+  let keyboard_layout = get(split(keyboard_layout, '\.'), -1, '')
   let short_codes = get(g:, 'airline#extensions#xkblayout#short_codes', {'2SetKorean': 'KR', 'Chinese': 'CN', 'Japanese': 'JP'})
 
   if has_key(short_codes, keyboard_layout)
