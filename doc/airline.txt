@@ -818,7 +818,7 @@ LanguageClient <https://github.com/autozimu/LanguageClient-neovim>
   let airline#extensions#languageclient#close_lnum_symbol = ')'
 
 -------------------------------------                   *airline-localsearch*
-localsearch <https://github.com/mox-mox/localsearch>
+localsearch <https://github.com/mox-mox/vim-localsearch>
 
 * enable/disable localsearch indicator integration >
   let g:airline#extensions#localsearch#enabled = 1
