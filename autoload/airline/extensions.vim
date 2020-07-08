@@ -461,6 +461,11 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'dirvish')
   endif
 
+  if (get(g:, 'airline#extensions#omnisharp#enabled', 1) && get(g:, 'OmniSharp_loaded', 0))
+    call airline#extensions#omnisharp#init(s:ext)
+    call add(s:loaded_ext, 'omnisharp')
+  endif
+
 endfunction
 
 function! airline#extensions#get_loaded_extensions()
