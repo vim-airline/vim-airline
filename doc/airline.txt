@@ -940,6 +940,12 @@ title accordingly.
 * configure the title text for location list buffers >
   let g:airline#extensions#quickfix#location_text = 'Location'
 <
+-------------------------------------                     *airline-searchcount*
+The searchcount extension supports the searchcount() function in Vim script.
+
+* enable/disable searchcount integration >
+  let g:airline#extensions#searchcount#enabled = 1
+<
 -------------------------------------                    *airline-syntastic*
 syntastic <https://github.com/vim-syntastic/syntastic>
 
