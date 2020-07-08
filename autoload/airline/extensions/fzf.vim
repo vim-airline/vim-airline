@@ -4,10 +4,6 @@
 
 scriptencoding utf-8
 
-if !get(g:, 'loaded_fzf', 0)
-  finish
-endif
-
 function! airline#extensions#fzf#init(ext) abort
   " Remove the custom statusline that fzf.vim sets by removing its `FileType
   " fzf` autocmd. Ideally we'd use `let g:fzf_statusline = 0`, but this
