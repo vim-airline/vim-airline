@@ -370,7 +370,7 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'promptline')
   endif
 
-  if get(g:, 'airline#extensions#nrrwrgn#enabled', 1) && exists(':NR') == 2
+  if get(g:, 'airline#extensions#nrrwrgn#enabled', 1) && get(g:, 'loaded_nrrw_rgn', 0)
       call airline#extensions#nrrwrgn#init(s:ext)
     call add(s:loaded_ext, 'nrrwrgn')
   endif
