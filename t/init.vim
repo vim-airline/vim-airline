@@ -43,9 +43,9 @@ describe 'init sections'
   end
 
   it 'section z should be line numbers'
-    Expect g:airline_section_z =~ '%3p%%'
-    Expect g:airline_section_z =~ '%4l'
-    Expect g:airline_section_z =~ '%3v'
+    Expect g:airline_section_z =~ '%p%%'
+    Expect g:airline_section_z =~ '%l'
+    Expect g:airline_section_z =~ '%v'
   end
 
   it 'should not redefine sections already defined'
