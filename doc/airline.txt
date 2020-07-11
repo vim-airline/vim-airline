@@ -722,6 +722,16 @@ eclim <https://eclim.org>
   |airline-syntastic| extension. >
   let g:airline#extensions#eclim#enabled = 1
 
+-------------------------------------                 	      *airline-fern*
+fern.vim <https://github.com/lambdalisue/fern.vim>
+
+Airline displays the fern.vim specific statusline.
+(for details, see the help of fern.vim)
+
+* enable/disable bufferline integration >
+  let g:airline#extensions#fern#enabled = 1
+<  default: 1
+
 -------------------------------------                  *airline-fugitiveline*
 This extension hides the fugitive://**// part of the buffer names, to only
 show the file name as if it were in the current working tree.
