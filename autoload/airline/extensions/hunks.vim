@@ -118,6 +118,11 @@ function! airline#extensions#hunks#get_hunks() abort
       endif
     endfor
   endif
+  if index(airline#extensions#get_loaded_extensions(), 'branch') == -1 && string[-1:] == ' '
+    " branch extension not loaded, skip trailing whitespace
+    let string = string[0:-2]
+  endif
+
   let b:airline_hunks = string
   let b:airline_changenr = b:changedtick
   let s:airline_winwidth = airline#util#winwidth()
