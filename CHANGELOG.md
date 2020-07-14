@@ -13,6 +13,7 @@ This is the Changelog for the vim-airline project.
     - [fzf.vim](https://github.com/junegunn/fzf.vim) support
     - [OmniSharp](https://github.com/OmniSharp/omnisharp-vim) support
     - [searchcount](https://vim-jp.org/vimdoc-en/eval.html#searchcount())  support
+    - [fern.vim](https://github.com/lambdalisue/fern.vim) support
 - Improvements
   - git branch can also be displayed using [gina.vim](https://github.com/lambdalisue/gina.vim)
   - coc extensions can also show additional status messages
