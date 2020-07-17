@@ -1311,6 +1311,12 @@ vimagit <https://github.com/jreybert/vimagit>
 * enable/disable vimagit integration >
   let g:airline#extensions#vimagit#enabled = 1
 <
+-------------------------------------                    *airline-vimcmake*
+Vim-CMake <https://github.com/cdelledonne/vim-cmake>
+
+* enable/disable Vim-CMake integration >
+  let g:airline#extensions#vimcmake#enabled = 1
+<
 -------------------------------------                      *airline-vimtex*
 vimtex <https://github.com/lervag/vimtex>
 

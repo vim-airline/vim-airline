@@ -181,6 +181,12 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'fzf')
   endif
 
+  " Vim-CMake buffers are also terminal buffers, so this must be above term.
+  if get(g:, 'loaded_cmake', 0) && get(g:, 'airline#extensions#vimcmake#enabled', 1)
+    call airline#extensions#vimcmake#init(s:ext)
+    call add(s:loaded_ext, 'vimcmake')
+  endif
+
   if (has("terminal") || has('nvim')) &&
         \ get(g:, 'airline#extensions#term#enabled', 1)
     call airline#extensions#term#init(s:ext)
