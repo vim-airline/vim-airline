@@ -188,6 +188,9 @@ vim-airline integrates with a variety of plugins out of the box.  These extensio
 #### [LanguageClient][57]
 ![image](https://user-images.githubusercontent.com/9622/45275524-52f45c00-b48b-11e8-8b83-a66240b10747.gif)
 
+#### [Vim-CMake][60]
+![image](https://user-images.githubusercontent.com/24732205/87788512-c876a380-c83d-11ea-9ee3-5f639f986a8f.png)
+
 ## Extras
 
 vim-airline also supplies some supplementary stand-alone extensions.  In addition to the tabline extension mentioned earlier, there is also:
@@ -353,3 +356,4 @@ If you are interested in becoming a maintainer (we always welcome more maintaine
 [57]: https://github.com/autozimu/LanguageClient-neovim
 [58]: https://github.com/vim-airline/vim-airline/blob/master/LICENSE
 [59]: https://github.com/neoclide/coc-git
+[60]: https://github.com/cdelledonne/vim-cmake
