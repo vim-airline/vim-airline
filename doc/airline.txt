@@ -883,6 +883,18 @@ NrrwRgn <https://github.com/chrisbra/NrrwRgn>
 * enable/disable NrrwRgn integration >
   let g:airline#extensions#nrrwrgn#enabled = 1
 
+-------------------------------------                    *airline-nvimlsp*
+nvimlsp <https://github.com/neovim/nvim-lsp>
+
+* enable/disable nvimlsp integration >
+  let g:airline#extensions#nvimlsp#enabled = 1
+
+* nvimlsp error_symbol >
+  let airline#extensions#nvimlsp#error_symbol = 'E:'
+<
+* nvimlsp warning >
+  let airline#extensions#nvimlsp#warning_symbol = 'W:'
+
 -------------------------------------                    *airline-obsession*
 vim-obsession <https://github.com/tpope/vim-obsession>
 
@@ -1662,7 +1674,8 @@ And the following are defined for their respective extensions:
 
 `ale_error_count` `ale_warning_count` `branch` `eclim` `hunks`
 `languageclient_error_count` `languageclient_warning_count` `lsp_error_count`
-`lsp_warning_count` `neomake_error_count` `neomake_warning_count` `obsession`
+`lsp_warning_count``neomake_error_count` `neomake_warning_count`
+`nvimlsp_error_count` `nvimlsp_warning_count` `obsession`
 `syntastic-warn` `syntastic-err` `tagbar` `whitespace` `windowswap`
 `ycm_error_count` `ycm_warning_count`
 
