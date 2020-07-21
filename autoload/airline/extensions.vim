@@ -439,7 +439,7 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'cursormode')
   endif
 
-  if get(g:, 'airline#extensions#searchcount#enabled', 1)
+  if get(g:, 'airline#extensions#searchcount#enabled', 1) && exists('*searchcount')
     call airline#extensions#searchcount#init(s:ext)
     call add(s:loaded_ext, 'searchcount')
   endif

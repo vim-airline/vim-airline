@@ -13,7 +13,7 @@ function! airline#extensions#searchcount#init(ext) abort
 endfunction
 
 function! airline#extensions#searchcount#apply(...) abort
-  call airline#extensions#append_to_section('y', 
+  call airline#extensions#append_to_section('y',
         \ '%{v:hlsearch ? airline#extensions#searchcount#status() : ""}')
 endfunction
 
