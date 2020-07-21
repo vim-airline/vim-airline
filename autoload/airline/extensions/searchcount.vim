@@ -4,6 +4,9 @@
 
 scriptencoding utf-8
 
+if !exists('*searchcount')
+  finish
+endif
 
 function! airline#extensions#searchcount#init(ext) abort
   call a:ext.add_statusline_func('airline#extensions#searchcount#apply')
