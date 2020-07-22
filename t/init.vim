@@ -33,6 +33,11 @@ describe 'init sections'
     Expect g:airline_section_c == '%<%f%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#%#__accent_bold#%#__restore__#'
   end
 
+  it 'section c should be file and coc_status short style'
+    let g:airline_stl_path_style = 'short'
+    Expect g:airline_section_c == '%<%{airline#formatter#short_path#format("%f%m")}% %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#%#__accent_bold#%#__restore__#'
+  end
+
   it 'section x should be filetype'
     Expect g:airline_section_x == '%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#wrap(airline#parts#filetype(),0)}'
   end

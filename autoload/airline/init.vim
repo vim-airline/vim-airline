@@ -146,7 +146,7 @@ function! airline#init#bootstrap()
         \ 'function': 'airline#parts#readonly',
         \ 'accent': 'red',
         \ })
-  call airline#parts#define_raw('file', '%f%m')
+  call airline#parts#define_raw('file', airline#formatter#short_path#format('%f%m'))
   call airline#parts#define_raw('path', '%F%m')
   call airline#parts#define('linenr', {
         \ 'raw': '%{g:airline_symbols.linenr}%l',
