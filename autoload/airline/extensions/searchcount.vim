@@ -4,13 +4,16 @@
 
 scriptencoding utf-8
 
+if !exists('*searchcount')
+  finish
+endif
 
 function! airline#extensions#searchcount#init(ext) abort
   call a:ext.add_statusline_func('airline#extensions#searchcount#apply')
 endfunction
 
 function! airline#extensions#searchcount#apply(...) abort
-  call airline#extensions#append_to_section('y', 
+  call airline#extensions#append_to_section('y',
         \ '%{v:hlsearch ? airline#extensions#searchcount#status() : ""}')
 endfunction
 
