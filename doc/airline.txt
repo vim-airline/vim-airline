@@ -287,6 +287,10 @@ values):
   To force updating the tabline on mode changes, call `airline#check_mode()`
   in your custom statusline setting: `:set stl=%!airline#check_mode(winnr())`
   will correctly update the tabline on mode changes.
+
+* Display a short path in statusline: >
+  let g:airline_stl_path_style = 'short'
+>
 =============================================================================
 COMMANDS                                                  *airline-commands*
 
