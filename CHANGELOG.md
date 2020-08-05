@@ -22,6 +22,7 @@ This is the Changelog for the vim-airline project.
 - Other
   - Introduce Vim script static analysis using [reviewdog](https://github.com/reviewdog/action-vint)
   - Added multiple Vim versions to unit tests using Travis CI
+  - Added option to show short paths in the status line
 
 ## [0.11] - 2019-11-10
 - New features
