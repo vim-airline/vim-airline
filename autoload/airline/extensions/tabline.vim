@@ -102,7 +102,7 @@ function! airline#extensions#tabline#load_theme(palette)
   let colors    = get(a:palette, 'tabline', {})
   let tablabel  = get(colors, 'airline_tablabel', a:palette.normal.airline_b)
   " Theme for tabs on the left
-  let tab     = get(colors, 'airline_tab', a:palette.normal.airline_b)
+  let tab     = get(colors, 'airline_tab', a:palette.inactive.airline_c)
   let tabsel  = get(colors, 'airline_tabsel', a:palette.normal.airline_a)
   let tabtype = get(colors, 'airline_tabtype', a:palette.visual.airline_a)
   let tabfill = get(colors, 'airline_tabfill', a:palette.normal.airline_c)
