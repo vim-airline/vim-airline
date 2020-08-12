@@ -1478,13 +1478,13 @@ vim-windowswap <https://github.com/wesQ3/vim-windowswap>
     \ ['asciidoc', 'help', 'mail', 'markdown', 'org', 'plaintex', 'rst', 'tex', 'text'])
   " Use ['all'] to enable for all filetypes.
 
-* enable reading time formatter >
-  let g:airline#extensions#wordcount#enabled = 1
-
 * defines the name of a formatter for word count will be displayed: >
   " The default will try to guess LC_NUMERIC and format number accordingly
   " e.g. 1,042 in English and 1.042 in German locale
   let g:airline#extensions#wordcount#formatter = 'default'
+
+  " enable reading time formatter
+  let g:airline#extensions#wordcount#enabled = 'readingtime'
 
   " here is how you can define a 'foo' formatter:
   " create a file in autoload/airline/extensions/wordcount/formatters/
