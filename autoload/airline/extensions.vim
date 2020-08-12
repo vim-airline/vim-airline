@@ -336,6 +336,12 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'lsp')
   endif
 
+  if (get(g:, 'airline#extensions#nvimlsp#enabled', 1)
+        \ && exists(':LspInstallInfo'))
+    call airline#extensions#nvimlsp#init(s:ext)
+    call add(s:loaded_ext, 'nvimlsp')
+  endif
+
   if (get(g:, 'airline#extensions#coc#enabled', 1) && exists(':CocCommand'))
     call airline#extensions#coc#init(s:ext)
     call add(s:loaded_ext, 'coc')
