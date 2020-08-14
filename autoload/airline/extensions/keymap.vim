@@ -9,7 +9,7 @@ endif
 
 function! airline#extensions#keymap#status()
   if (get(g:, 'airline#extensions#keymap#enabled', 1) && has('keymap'))
-    return printf('%s', (!empty(&keymap) ? (g:airline_symbols.keymap . ' '. &keymap) : ''))
+    return printf('%s', (!empty(&keymap) && &iminsert ? (g:airline_symbols.keymap . ' '. &keymap) : ''))
   else
     return ''
   endif
