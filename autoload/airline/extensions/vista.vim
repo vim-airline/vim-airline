@@ -7,12 +7,12 @@ if !get(g:, 'loaded_vista', 0)
   finish
 endif
 
-function! airline#extensions#vista#currenttag()
+function! airline#extensions#vista#currenttag() abort
   if get(w:, 'airline_active', 0)
-    return get(b:, 'vista_nearest_method_or_function', '')
+    return airline#util#shorten(get(b:, 'vista_nearest_method_or_function', ''), 91, 9)
   endif
 endfunction
 
-function! airline#extensions#vista#init(ext)
+function! airline#extensions#vista#init(ext) abort
   call airline#parts#define_function('vista', 'airline#extensions#vista#currenttag')
 endfunction
