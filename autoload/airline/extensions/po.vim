@@ -10,7 +10,7 @@ function! airline#extensions#po#shorten()
   if exists("g:airline#extensions#po#displayed_limit")
     let w:displayed_po_limit = g:airline#extensions#po#displayed_limit
     if len(b:airline_po_stats) > w:displayed_po_limit - 1
-      let b:airline_po_stats = b:airline_po_stats[0:(w:displayed_po_limit - 2)].(&encoding==?'utf-8' ? '…' : '.'). '] '
+      let b:airline_po_stats = b:airline_po_stats[0:(w:displayed_po_limit - 2)].(&encoding==?'utf-8' ? '…' : '.')
     endif
   endif
   if strlen(get(b:, 'airline_po_stats', '')) >= 30 && airline#util#winwidth() < 150
@@ -31,7 +31,7 @@ function! airline#extensions#po#shorten()
       endif
     endif
     let messages = substitute(b:airline_po_stats, '\(\d\+\) translated.*', '\1T', '')
-      if messages == '0T'
+      if messages ==# '0T'
         let messages = ''
       endif
     let b:airline_po_stats = printf('%s%s%s', fuzzy, (empty(fuzzy) || empty(untranslated) ? '' : '/'), untranslated)
