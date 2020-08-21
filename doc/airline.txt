@@ -1216,6 +1216,30 @@ Note: Not displayed if the number of tabs is less than 1
 
   let g:airline#extensions#tabline#formatter = 'short_path'
 
+* defines the customized format() function to display tab title in tab mode. >
+  let g:airline#extensions#tabline#tabtitle_formatter = 'MyTabTitleFormatter'
+<
+  Then define the MyTabTitleFormatter() function in your vimrc. >
+    function MyTabTitleFormatter(n)
+      let buflist = tabpagebuflist(a:n)
+      let winnr = tabpagewinnr(a:n)
+      let bufnr = buflist[winnr - 1]
+      let winid = win_getid(winnr, a:n)
+      let title = bufname(bufnr)
+
+      if empty(title)
+        if getqflist({'qfbufnr' : 0}).qfbufnr == bufnr
+          let title = '[Quickfix List]'
+        elseif winid && getloclist(winid, {'qfbufnr' : 0}).qfbufnr == bufnr
+          let title = '[Location List]'
+        else
+          let title = '[No Name]'
+        endif
+      endif
+
+      return title
+    endfunction
+
 * configure the minimum number of buffers needed to show the tabline. >
   let g:airline#extensions#tabline#buffer_min_count = 0
 <
