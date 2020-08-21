@@ -186,7 +186,7 @@ function! airline#extensions#tabline#title(n)
     let title = gettabvar(a:n, 'title')
   endif
 
-  let formatter = get(g:, 'airline#extensions#tabline#title_formatter')
+  let formatter = get(g:, 'airline#extensions#tabline#tabtitle_formatter')
   if empty(title) && formatter !=# '' && exists("*".formatter)
     let title = call(formatter, [a:n])
   endif
