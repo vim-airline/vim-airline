@@ -186,6 +186,11 @@ function! airline#extensions#tabline#title(n)
     let title = gettabvar(a:n, 'title')
   endif
 
+  let formatter = get(g:, 'airline#extensions#tabline#title_formatter')
+  if empty(title) && formatter !=# '' && exists("*".formatter)
+    let title = call(formatter, [a:n])
+  endif
+
   if empty(title)
     let buflist = tabpagebuflist(a:n)
     let winnr = tabpagewinnr(a:n)
