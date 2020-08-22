@@ -1230,7 +1230,7 @@ Note: Not displayed if the number of tabs is less than 1
       if empty(title)
         if getqflist({'qfbufnr' : 0}).qfbufnr == bufnr
           let title = '[Quickfix List]'
-        elseif winid && getloclist(winid, {'qfbufnr' : 0}) . qfbufnr == bufnr
+        elseif winid && getloclist(winid, {'qfbufnr' : 0}).qfbufnr == bufnr
           let title = '[Location List]'
         else
           let title = '[No Name]'
