@@ -18,22 +18,26 @@ function! airline#extensions#searchcount#apply(...) abort
 endfunction
 
 function! airline#extensions#searchcount#status() abort
-  let result = searchcount(#{recompute: 1, maxcount: -1})
-  if empty(result) || result.total ==# 0
-    return ''
-  endif
-  if result.incomplete ==# 1     " timed out
-    return printf(' /%s [?/??]', @/)
-  elseif result.incomplete ==# 2 " max count exceeded
-    if result.total > result.maxcount &&
-          \  result.current > result.maxcount
-      return printf('%s[>%d/>%d]', @/,
-            \		    result.current, result.total)
-    elseif result.total > result.maxcount
-      return printf('%s[%d/>%d]', @/,
-            \		    result.current, result.total)
+  try
+    let result = searchcount(#{recompute: 1, maxcount: -1})
+    if empty(result) || result.total ==# 0
+      return ''
     endif
-  endif
-  return printf('%s[%d/%d]', @/,
-        \		result.current, result.total)
+    if result.incomplete ==# 1     " timed out
+      return printf(' /%s [?/??]', @/)
+    elseif result.incomplete ==# 2 " max count exceeded
+      if result.total > result.maxcount &&
+            \  result.current > result.maxcount
+        return printf('%s[>%d/>%d]', @/,
+              \		    result.current, result.total)
+      elseif result.total > result.maxcount
+        return printf('%s[%d/>%d]', @/,
+              \		    result.current, result.total)
+      endif
+    endif
+    return printf('%s[%d/%d]', @/,
+          \		result.current, result.total)
+  catch
+    return ''
+  endtry
 endfunction
