@@ -1592,7 +1592,7 @@ Main features and default mappings of this extension are:
   let g:xtabline_alt_action = "buffer #"
 
 Note: Make sure to also enable >
-  :let g:airline_extensions#tabline#show_buffers = 1
+  :let g:airline#extensions#tabline#show_buffers = 1
 otherwise the tabline might not actually be displayed correctly (see
 |airline-tabline|)
 
