@@ -9,7 +9,7 @@ if !get(g:, 'loaded_magit', 0)
   finish
 endif
 
-let s:commit_mode = {'': 'STAGING', 'CC': 'COMMIT', 'CA': 'AMEND'}
+let s:commit_mode = {'ST': 'STAGING', 'CC': 'COMMIT', 'CA': 'AMEND'}
 
 function! airline#extensions#vimagit#init(ext) abort
   call a:ext.add_statusline_func('airline#extensions#vimagit#apply')
