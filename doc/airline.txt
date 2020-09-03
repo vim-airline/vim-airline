@@ -878,7 +878,7 @@ using the |'NerdTreeStatusline'| variable (for details, see the help of
 NerdTree)
 
 * enable/disable nerdtree's statusline integration >
-  let g:airline#extensions#nerdtree_status = 1
+  let g:airline#extensions#nerdtree_statusline = 1
 <  default: 1
 
 -------------------------------------                      *airline-nrrwrgn*
