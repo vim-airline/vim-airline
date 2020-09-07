@@ -480,6 +480,13 @@ ale <https://github.com/dense-analysis/ale>
 * ale close_lnum_symbol >
   let airline#extensions#ale#close_lnum_symbol = ')'
 
+-------------------------------------                      *airline-battery*
+vim-battery <https://github.com/lambdalisue/battery.vim>
+
+* enable/disable battery integration >
+  let g:airline#extensions#battery#enabled = 1
+<  default: 0
+
 -------------------------------------                      *airline-bookmark*
 vim-bookmark <https://github.com/MattesGroeger/vim-bookmarks>
 
