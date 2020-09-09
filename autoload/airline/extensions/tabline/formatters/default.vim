@@ -11,11 +11,21 @@ let s:buf_modified_symbol = g:airline_symbols.modified
 
 function! airline#extensions#tabline#formatters#default#format(bufnr, buffers)
   let fmod = get(g:, 'airline#extensions#tabline#fnamemod', ':~:.')
+  let quickfix_name = get(g:, 'airline#extensions#quickfix#quickfix_text', 'Quickfix')
+  let location_name = get(g:, 'airline#extensions#quickfix#location_text', 'Location')
+  let bufwin = win_findbuf(a:bufnr)
   let _ = ''
 
   let name = bufname(a:bufnr)
   if empty(name)
-    let _ .= '[No Name]'
+    if getqflist({'qfbufnr' : 0}).qfbufnr == a:bufnr
+      let _ .= quickfix_name
+    elseif len(bufwin) && getloclist(bufwin[0], {'qfbufnr' : 0}).qfbufnr == a:bufnr
+      let winnr = getwininfo(bufwin[0])[0].winnr
+      let _ .= winnr.'.'.location_name
+    else
+      let _ .= '[No Name]'
+    endif
   elseif name =~ 'term://'
     " Neovim Terminal
     let _ = substitute(name, '\(term:\)//.*:\(.*\)', '\1 \2', '')
