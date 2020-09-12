@@ -15,7 +15,7 @@ function! airline#extensions#dirvish#init(ext) abort
 endfunction
 
 function! airline#extensions#dirvish#apply(...) abort
-  if &filetype ==# 'dirvish'
+  if &filetype ==# 'dirvish' && exists('b:dirvish')
     let w:airline_section_a = 'Dirvish'
 
     let w:airline_section_b = exists('*airline#extensions#branch#get_head')
