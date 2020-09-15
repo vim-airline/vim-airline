@@ -3,3 +3,6 @@ doc/tags
 *.lock
 .vim-flavor
 *.swp
+.bundle
+vendor
+
