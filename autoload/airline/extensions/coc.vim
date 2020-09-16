@@ -1,18 +1,22 @@
+" MIT License. Copyright (c) 2019-2020 Peng Guanwen et al.
+" vim: et ts=2 sts=2 sw=2
+" Plugin: https://github.com/neoclide/coc
+
 scriptencoding utf-8
 
 let s:error_symbol = get(g:, 'airline#extensions#coc#error_symbol', 'E:')
 let s:warning_symbol = get(g:, 'airline#extensions#coc#warning_symbol', 'W:')
 
-function! airline#extensions#coc#get_warning()
+function! airline#extensions#coc#get_warning() abort
   return airline#extensions#coc#get('warning')
 endfunction
 
-function! airline#extensions#coc#get_error()
+function! airline#extensions#coc#get_error() abort
   return airline#extensions#coc#get('error')
 endfunction
 
-function! airline#extensions#coc#get(type)
-  if !exists(":CocCommand")
+function! airline#extensions#coc#get(type) abort
+  if !exists(':CocCommand')
     return ''
   endif
   let _backup = get(g:, 'coc_stl_format', '')
@@ -38,7 +42,13 @@ function! airline#extensions#coc#get(type)
   endif
 endfunction
 
-function! airline#extensions#coc#init(ext)
+function! airline#extensions#coc#get_status() abort
+  " Shorten text for windows < 91 characters
+  return airline#util#shorten(get(g:, 'coc_status', ''), 91, 9)
+endfunction
+
+function! airline#extensions#coc#init(ext) abort
   call airline#parts#define_function('coc_error_count', 'airline#extensions#coc#get_error')
   call airline#parts#define_function('coc_warning_count', 'airline#extensions#coc#get_warning')
+  call airline#parts#define_function('coc_status', 'airline#extensions#coc#get_status')
 endfunction

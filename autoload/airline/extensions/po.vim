@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2013-2019 Bailey Ling, Christian Brabandt et al.
+" MIT License. Copyright (c) 2013-2020 Bailey Ling, Christian Brabandt et al.
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
@@ -10,7 +10,7 @@ function! airline#extensions#po#shorten()
   if exists("g:airline#extensions#po#displayed_limit")
     let w:displayed_po_limit = g:airline#extensions#po#displayed_limit
     if len(b:airline_po_stats) > w:displayed_po_limit - 1
-      let b:airline_po_stats = b:airline_po_stats[0:(w:displayed_po_limit - 2)].(&encoding==?'utf-8' ? '…' : '.'). ']'
+      let b:airline_po_stats = b:airline_po_stats[0:(w:displayed_po_limit - 2)].(&encoding==?'utf-8' ? '…' : '.')
     endif
   endif
   if strlen(get(b:, 'airline_po_stats', '')) >= 30 && airline#util#winwidth() < 150
@@ -19,24 +19,27 @@ function! airline#extensions#po#shorten()
     let messages = ''
     " Shorten [120 translated, 50 fuzzy, 4 untranslated] to [120T/50F/4U]
     if b:airline_po_stats =~ 'fuzzy'
-      let fuzzy = substitute(b:airline_po_stats, '.*\(\d\+\) fuzzy.*', '\1F', '')
+      let fuzzy = substitute(b:airline_po_stats, '.\{-}\(\d\+\) fuzzy.*', '\1F', '')
       if fuzzy == '0F'
         let fuzzy = ''
       endif
     endif
     if b:airline_po_stats =~ 'untranslated'
-      let untranslated = substitute(b:airline_po_stats, '.*\(\d\+\) untranslated.*', '\1U', '')
+      let untranslated = substitute(b:airline_po_stats, '.\{-}\(\d\+\) untranslated.*', '\1U', '')
       if untranslated == '0U'
         let untranslated = ''
       endif
     endif
     let messages = substitute(b:airline_po_stats, '\(\d\+\) translated.*', '\1T', '')
+      if messages ==# '0T'
+        let messages = ''
+      endif
     let b:airline_po_stats = printf('%s%s%s', fuzzy, (empty(fuzzy) || empty(untranslated) ? '' : '/'), untranslated)
-    if strlen(b:airline_po_stats) < 8
-      let b:airline_po_stats = messages. (!empty(b:airline_po_stats) ? '/':''). b:airline_po_stats
+    if strlen(b:airline_po_stats) < 10
+      let b:airline_po_stats = messages. (!empty(b:airline_po_stats) && !empty(messages) ? '/':''). b:airline_po_stats
     endif
   endif
-  let b:airline_po_stats = '['.b:airline_po_stats. ']'
+  let b:airline_po_stats = '['.b:airline_po_stats. '] '
 endfunction
 
 function! airline#extensions#po#on_winenter()
@@ -62,7 +65,11 @@ function! airline#extensions#po#stats()
     return b:airline_po_stats
   endif
 
-  let cmd = 'msgfmt --statistics -o /dev/null -- '
+  if g:airline#init#is_windows
+    let cmd = 'msgfmt --statistics -o NUL '
+  else
+    let cmd = 'msgfmt --statistics -o /dev/null -- '
+  endif
   if g:airline#init#vim_async
     call airline#async#get_msgfmt_stat(cmd, expand('%:p'))
   elseif has("nvim")

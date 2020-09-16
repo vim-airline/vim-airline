@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2013-2019 Bailey Ling et al.
+" MIT License. Copyright (c) 2013-2020 Bailey Ling et al.
 " vim: et ts=2 sts=2 sw=2 tw=80
 
 scriptencoding utf-8
@@ -18,6 +18,7 @@ scriptencoding utf-8
 "       * replace
 "       * visual
 "       * inactive
+"       * terminal
 "       The last one is actually no real mode as returned by mode(), but used by
 "       airline to style inactive statuslines (e.g. windows, where the cursor
 "       currently does not reside in).
@@ -107,6 +108,7 @@ let g:airline#themes#dark#palette.insert_paste = {
       \ 'airline_a': [ s:airline_a_insert[0]   , '#d78700' , s:airline_a_insert[2] , 172     , ''     ] ,
       \ }
 
+let g:airline#themes#dark#palette.terminal = airline#themes#generate_color_map(s:airline_a_insert, s:airline_b_insert, s:airline_c_insert)
 
 let g:airline#themes#dark#palette.replace = copy(g:airline#themes#dark#palette.insert)
 let g:airline#themes#dark#palette.replace.airline_a = [ s:airline_b_insert[0]   , '#af0000' , s:airline_b_insert[2] , 124     , ''     ]
@@ -150,7 +152,7 @@ let g:airline#themes#dark#palette.accents = {
 
 
 " Here we define the color map for ctrlp.  We check for the g:loaded_ctrlp
-" variable so that related functionality is loaded iff the user is using
+" variable so that related functionality is loaded if the user is using
 " ctrlp. Note that this is optional, and if you do not define ctrlp colors
 " they will be chosen automatically from the existing palette.
 if get(g:, 'loaded_ctrlp', 0)

@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2013-2019 Bailey Ling et al.
+" MIT License. Copyright (c) 2013-2020 Bailey Ling et al.
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
@@ -23,23 +23,23 @@ endfunction
 let s:script_path = tolower(resolve(expand('<sfile>:p:h')))
 
 let s:filetype_overrides = {
+      \ 'coc-explorer':  [ 'CoC Explorer', '' ],
       \ 'defx':  ['defx', '%{b:defx.paths[0]}'],
+      \ 'fugitive': ['fugitive', '%{airline#util#wrap(airline#extensions#branch#get_head(),80)}'],
       \ 'gundo': [ 'Gundo', '' ],
       \ 'help':  [ 'Help', '%f' ],
       \ 'minibufexpl': [ 'MiniBufExplorer', '' ],
-      \ 'nerdtree': [ get(g:, 'NERDTreeStatusline', 'NERD'), '' ],
       \ 'startify': [ 'startify', '' ],
       \ 'vim-plug': [ 'Plugins', '' ],
       \ 'vimfiler': [ 'vimfiler', '%{vimfiler#get_status_string()}' ],
       \ 'vimshell': ['vimshell','%{vimshell#get_status_string()}'],
+      \ 'vaffle' : [ 'Vaffle', '%{b:vaffle.dir}' ],
       \ }
 
-if exists(':Gina') && (v:version > 704 || (v:version == 704 && has("patch1898")))
-  " Gina needs the Vim 7.4.1898, which introduce the <mods> flag for custom commands
-  let s:filetype_overrides['gina-status'] = ['gina', '%{gina#component#repo#preset()}' ]
-  let s:filetype_overrides['diff'] = ['gina', '%{gina#component#repo#preset()}' ]
-  let s:filetype_overrides['gina-log'] = ['gina', '%{gina#component#repo#preset()}' ]
-  let s:filetype_overrides['gina-tag'] = ['gina', '%{gina#component#repo#preset()}' ]
+if get(g:, 'airline#extensions#nerdtree_statusline', 1)
+  let s:filetype_overrides['nerdtree'] = [ get(g:, 'NERDTreeStatusline', 'NERD'), '' ]
+else
+  let s:filetype_overrides['nerdtree'] = ['NERDTree', '']
 endif
 
 let s:filetype_regex_overrides = {}
@@ -81,7 +81,7 @@ function! airline#extensions#apply(...)
     let w:airline_section_y = ''
   endif
 
-  if &previewwindow
+  if &previewwindow && empty(get(w:, 'airline_section_a', ''))
     let w:airline_section_a = 'Preview'
     let w:airline_section_b = ''
     let w:airline_section_c = bufname(winbufnr(winnr()))
@@ -141,7 +141,9 @@ function! airline#extensions#load()
         call airline#extensions#{ext}#init(s:ext)
       catch /^Vim\%((\a\+)\)\=:E117/	" E117, function does not exist
         call airline#util#warning("Extension '".ext."' not installed, ignoring!")
+        continue
       endtry
+      call add(s:loaded_ext, ext)
     endfor
     return
   endif
@@ -149,19 +151,41 @@ function! airline#extensions#load()
   call airline#extensions#quickfix#init(s:ext)
   call add(s:loaded_ext, 'quickfix')
 
-  if get(g:, 'loaded_unite', 0)
+  if get(g:, 'loaded_unite', 0) && get(g:, 'airline#extensions#unite#enabled', 1)
     call airline#extensions#unite#init(s:ext)
     call add(s:loaded_ext, 'unite')
   endif
 
-  if get(g:, 'loaded_denite', 0)
+  if get(g:, 'loaded_denite', 0) && get(g:, 'airline#extensions#denite#enabled', 1)
     call airline#extensions#denite#init(s:ext)
     call add(s:loaded_ext, 'denite')
+  endif
+
+  if get(g:, 'loaded_gina', 0) && get(g:, 'airline#extensions#gina#enabled', 1)
+    call airline#extensions#gina#init(s:ext)
+    call add(s:loaded_ext, 'gina')
+  endif
+
+  if get(g:, 'fern_loaded', 0) && get(g:, 'airline#extensions#fern#enabled', 1)
+    call airline#extensions#fern#init(s:ext)
+    call add(s:loaded_ext, 'fern')
   endif
 
   if exists(':NetrwSettings')
     call airline#extensions#netrw#init(s:ext)
     call add(s:loaded_ext, 'netrw')
+  endif
+
+  " fzf buffers are also terminal buffers, so this must be above term.
+  if exists(':FZF') && get(g:, 'airline#extensions#fzf#enabled', 1)
+    call airline#extensions#fzf#init(s:ext)
+    call add(s:loaded_ext, 'fzf')
+  endif
+
+  " Vim-CMake buffers are also terminal buffers, so this must be above term.
+  if get(g:, 'loaded_cmake', 0) && get(g:, 'airline#extensions#vimcmake#enabled', 1)
+    call airline#extensions#vimcmake#init(s:ext)
+    call add(s:loaded_ext, 'vimcmake')
   endif
 
   if (has("terminal") || has('nvim')) &&
@@ -170,7 +194,7 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'term')
   endif
 
-  if get(g:, 'airline#extensions#ycm#enabled', 0)
+  if get(g:, 'airline#extensions#ycm#enabled', 0) && exists('g:loaded_youcompleteme')
     call airline#extensions#ycm#init(s:ext)
     call add(s:loaded_ext, 'ycm')
   endif
@@ -205,7 +229,11 @@ function! airline#extensions#load()
   endif
 
   if get(g:, 'airline#extensions#hunks#enabled', 1)
-        \ && (exists('g:loaded_signify') || exists('g:loaded_gitgutter') || exists('g:loaded_changes') || exists('g:loaded_quickfixsigns'))
+        \ && (exists('g:loaded_signify')
+        \ || exists('g:loaded_gitgutter')
+        \ || exists('g:loaded_changes')
+        \ || exists('g:loaded_quickfixsigns')
+        \ || exists(':CocCommand'))
     call airline#extensions#hunks#init(s:ext)
     call add(s:loaded_ext, 'hunks')
   endif
@@ -223,6 +251,7 @@ function! airline#extensions#load()
   endif
 
   if get(g:, 'airline#extensions#vista#enabled', 1)
+        \ && exists(':Vista')
     call airline#extensions#vista#init(s:ext)
     call add(s:loaded_ext, 'vista')
   endif
@@ -239,12 +268,18 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'csv')
   endif
 
+  if get(g:, 'airline#extensions#zoomwintab#enabled', 0)
+    call airline#extensions#zoomwintab#init(s:ext)
+    call add(s:loaded_ext, 'zoomwintab')
+  endif
+
   if exists(':VimShell')
     let s:filetype_regex_overrides['^int-'] = ['vimshell','%{substitute(&ft, "int-", "", "")}']
   endif
 
   if get(g:, 'airline#extensions#branch#enabled', 1) && (
           \ airline#util#has_fugitive() ||
+          \ airline#util#has_gina() ||
           \ airline#util#has_lawrencium() ||
           \ airline#util#has_vcscommand() ||
           \ airline#util#has_custom_scm())
@@ -265,9 +300,20 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'fugitiveline')
   endif
 
-  if (get(g:, 'airline#extensions#virtualenv#enabled', 1) && (exists(':VirtualEnvList') || isdirectory($VIRTUAL_ENV)))
+  " NOTE: This means that if both virtualenv and poetv are enabled and
+  " available, poetv silently takes precedence and the virtualenv
+  " extension won't be initialized. Since both extensions currently just
+  " add a virtualenv identifier section to the airline, this seems
+  " acceptable.
+  if (get(g:, 'airline#extensions#poetv#enabled', 0) && (exists(':PoetvActivate')))
+    call airline#extensions#poetv#init(s:ext)
+    call add(s:loaded_ext, 'poetv')
+  elseif (get(g:, 'airline#extensions#virtualenv#enabled', 0) && (exists(':VirtualEnvList')))
     call airline#extensions#virtualenv#init(s:ext)
     call add(s:loaded_ext, 'virtualenv')
+  elseif (get(g:, 'airline#extensions#poetv#enabled', 0) && (isdirectory($VIRTUAL_ENV)))
+    call airline#extensions#poetv#init(s:ext)
+    call add(s:loaded_ext, 'poetv')
   endif
 
   if (get(g:, 'airline#extensions#eclim#enabled', 1) && exists(':ProjectCreate'))
@@ -284,6 +330,17 @@ function! airline#extensions#load()
   if (get(g:, 'airline#extensions#ale#enabled', 1) && exists(':ALELint'))
     call airline#extensions#ale#init(s:ext)
     call add(s:loaded_ext, 'ale')
+  endif
+
+  if (get(g:, 'airline#extensions#lsp#enabled', 1) && exists(':LspDeclaration'))
+    call airline#extensions#lsp#init(s:ext)
+    call add(s:loaded_ext, 'lsp')
+  endif
+
+  if (get(g:, 'airline#extensions#nvimlsp#enabled', 1)
+        \ && exists(':LspInstallInfo'))
+    call airline#extensions#nvimlsp#init(s:ext)
+    call add(s:loaded_ext, 'nvimlsp')
   endif
 
   if (get(g:, 'airline#extensions#coc#enabled', 1) && exists(':CocCommand'))
@@ -331,7 +388,7 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'promptline')
   endif
 
-  if get(g:, 'airline#extensions#nrrwrgn#enabled', 1) && exists(':NR') == 2
+  if get(g:, 'airline#extensions#nrrwrgn#enabled', 1) && get(g:, 'loaded_nrrw_rgn', 0)
       call airline#extensions#nrrwrgn#init(s:ext)
     call add(s:loaded_ext, 'nrrwrgn')
   endif
@@ -389,6 +446,16 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'cursormode')
   endif
 
+  if get(g:, 'airline#extensions#searchcount#enabled', 1) && exists('*searchcount')
+    call airline#extensions#searchcount#init(s:ext)
+    call add(s:loaded_ext, 'searchcount')
+  endif
+
+  if get(g:, 'loaded_battery', 0) && get(g:, 'airline#extensions#battery#enabled', 0)
+    call airline#extensions#battery#init(s:ext)
+    call add(s:loaded_ext, 'battery')
+  endif
+
   if !get(g:, 'airline#extensions#disable_rtp_load', 0)
     " load all other extensions, which are not part of the default distribution.
     " (autoload/airline/extensions/*.vim outside of our s:script_path).
@@ -411,6 +478,17 @@ function! airline#extensions#load()
       endif
     endfor
   endif
+
+  if exists(':Dirvish') && get(g:, 'airline#extensions#dirvish#enabled', 1)
+    call airline#extensions#dirvish#init(s:ext)
+    call add(s:loaded_ext, 'dirvish')
+  endif
+
+  if (get(g:, 'airline#extensions#omnisharp#enabled', 1) && get(g:, 'OmniSharp_loaded', 0))
+    call airline#extensions#omnisharp#init(s:ext)
+    call add(s:loaded_ext, 'omnisharp')
+  endif
+
 endfunction
 
 function! airline#extensions#get_loaded_extensions()

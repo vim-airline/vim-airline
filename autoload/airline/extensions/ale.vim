@@ -1,7 +1,12 @@
-" MIT License. Copyright (c) 2013-2019 Bjorn Neergaard, w0rp et al.
+" MIT License. Copyright (c) 2013-2020 Bjorn Neergaard, w0rp et al.
+" Plugin: https://github.com/dense-analysis/ale
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
+
+if !get(g:, 'loaded_ale_dont_use_this_in_other_plugins_please', 0)
+  finish
+endif
 
 function! s:airline_ale_count(cnt, symbol)
   return a:cnt ? a:symbol. a:cnt : ''

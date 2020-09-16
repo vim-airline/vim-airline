@@ -2,7 +2,31 @@
 
 This is the Changelog for the vim-airline project.
 
-## [0.11] - Unreleased
+## [0.12] - Unreleased
+- New features
+  - Extensions:
+    - [poetv](https://github.com/petobens/poet-v) support
+    - [vim-lsp](https://github.com/prabirshrestha/vim-lsp) support
+    - [zoomwintab](https://github.com/troydm/zoomwintab.vim) support
+    - [Vaffle](https://github.com/cocopon/vaffle.vim) support
+    - [vim-dirvish](https://github.com/justinmk/vim-dirvish) support
+    - [fzf.vim](https://github.com/junegunn/fzf.vim) support
+    - [OmniSharp](https://github.com/OmniSharp/omnisharp-vim) support
+    - [searchcount](https://vim-jp.org/vimdoc-en/eval.html#searchcount())  support
+    - [fern.vim](https://github.com/lambdalisue/fern.vim) support
+    - [Vim-CMake](https://github.com/cdelledonne/vim-cmake) support
+    - [battery.vim](https://github.com/lambdalisue/battery.vim) support
+    - [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) support
+- Improvements
+  - git branch can also be displayed using [gina.vim](https://github.com/lambdalisue/gina.vim)
+  - coc extensions can also show additional status messages
+  - [coc-git](https://github.com/neoclide/coc-git) extension integrated into hunks extension
+- Other
+  - Introduce Vim script static analysis using [reviewdog](https://github.com/reviewdog/action-vint)
+  - Added multiple Vim versions to unit tests using Travis CI
+  - Added option to show short paths in the status line
+
+## [0.11] - 2019-11-10
 - New features
   - Extensions:
     - [Coc](https://github.com/neoclide/coc.nvim) support
@@ -10,6 +34,7 @@ This is the Changelog for the vim-airline project.
     - [gina](https://github.com/lambdalisue/gina.vim) support
     - [vim-bookmark](https://github.com/MattesGroeger/vim-bookmarks) support
     - [vista.vim](https://github.com/liuchengxu/vista.vim) support
+    - [tabws](https://github.com/s1341/vim-tabws) support for the tabline
 - Improvements
   - The statusline can be configured to be shown on top (in the tabline)
     Set the `g:airline_statusline_ontop` to enable this experimental feature.
@@ -120,7 +145,7 @@ This is the Changelog for the vim-airline project.
     - [taboo](https://github.com/gcmt/taboo.vim)
     - [vim-ctrlspace](https://github.com/szw/vim-ctrlspace)
     - [quickfixsigns](https://github.com/tomtom/quickfixsigns_vim)
-    - [YouCompleteMe](https://github.com/Valloric/YouCompleteMe)
+    - [YouCompleteMe](https://github.com/ycm-core/YouCompleteMe)
     - [po.vim](http://www.vim.org/scripts/script.php?script_id=695)
     - [unicode.vim](https://github.com/chrisbra/unicode.vim)
     - wordcount
@@ -208,8 +233,8 @@ This is the Changelog for the vim-airline project.
   - integration with other plugins: netrw, unite, nerdtree, undotree, gundo, tagbar, minibufexplr, ctrlp
   - support for themes: 8 included
 
-[Unreleased]: https://github.com/vim-airline/vim-airline/compare/v0.10...HEAD
-[0.11]: https://github.com/vim-airline/vim-airline/compare/v0.10...HEAD
+[0.12]: https://github.com/vim-airline/vim-airline/compare/v0.11...HEAD
+[0.11]: https://github.com/vim-airline/vim-airline/compare/v0.10...v0.11
 [0.10]: https://github.com/vim-airline/vim-airline/compare/v0.9...v0.10
 [0.9]: https://github.com/vim-airline/vim-airline/compare/v0.8...v0.9
 [0.8]: https://github.com/vim-airline/vim-airline/compare/v0.7...v0.8

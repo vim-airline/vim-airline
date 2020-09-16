@@ -1,5 +1,8 @@
-" MIT License. Copyright (c) 2013-2019 Bailey Ling, Christian Brabandt et al.
+" MIT License. Copyright (c) 2013-2020 Bailey Ling, Christian Brabandt et al.
 " vim: et ts=2 sts=2 sw=2
+
+let s:save_cpo = &cpo
+set cpo&vim
 
 scriptencoding utf-8
 
@@ -44,18 +47,26 @@ function! s:init()
   call airline#util#doautocmd('AirlineAfterInit')
 endfunction
 
+function! s:do_vim_enter()
+  " Needed for the Vista extension #2009
+  if get(g:, 'airline#extensions#vista#enabled', 1) && exists(':Vista')
+    call vista#RunForNearestMethodOrFunction()
+  endif
+  call <sid>on_window_changed('VimEnter')
+endfunction
+
 let s:active_winnr = -1
 function! s:on_window_changed(event)
-  let s:active_winnr = winnr()
-
-  if pumvisible() && (!&previewwindow || g:airline_exclude_preview)
+  " don't trigger for Vim popup windows
+  if &buftype is# 'popup'
     return
   endif
-  " work around a neovim bug: do not trigger on floating windows
-  " Disabled, Bug is fixed in Neovim, TODO: should be removed soon
-  " if exists("*nvim_win_get_config") && !empty(nvim_win_get_config(0).relative)
-  "  return
-  " endif
+
+  if pumvisible() && (!&previewwindow || g:airline_exclude_preview)
+    " do not trigger for previewwindows
+    return
+  endif
+  let s:active_winnr = winnr()
   " Handle each window only once, since we might come here several times for
   " different autocommands.
   let l:key = [bufnr('%'), s:active_winnr, winnr('$'), tabpagenr(), &ft]
@@ -69,6 +80,12 @@ function! s:on_window_changed(event)
   let g:airline_last_window_changed = l:key
   call s:init()
   call airline#update_statusline()
+endfunction
+
+function! s:on_focus_gained()
+  if airline#util#try_focusgained()
+    unlet! w:airline_lastmode | :call <sid>airline_refresh(1)
+  endif
 endfunction
 
 function! s:on_cursor_moved()
@@ -132,7 +149,7 @@ function! s:airline_toggle()
       " Refresh airline for :syntax off
       autocmd SourcePre */syntax/syntax.vim
             \ call airline#extensions#tabline#buffers#invalidate()
-      autocmd VimEnter * call <sid>on_window_changed('VimEnter')
+      autocmd VimEnter * call <sid>do_vim_enter()
       autocmd WinEnter * call <sid>on_window_changed('WinEnter')
       autocmd FileType * call <sid>on_window_changed('FileType')
       autocmd BufWinEnter * call <sid>on_window_changed('BufWinEnter')
@@ -143,14 +160,14 @@ function! s:airline_toggle()
       " non-trivial number of external plugins use eventignore=all, so we need to account for that
       autocmd CursorMoved * call <sid>on_cursor_moved()
 
-      autocmd VimResized * unlet! w:airline_lastmode | :call <sid>airline_refresh()
+      autocmd VimResized * call <sid>on_focus_gained()
       if exists('*timer_start') && exists('*funcref')
         " do not trigger FocusGained on startup, it might erase the intro screen (see #1817)
         " needs funcref() (needs 7.4.2137) and timers (7.4.1578)
         let Handler=funcref('<sid>FocusGainedHandler')
         let s:timer=timer_start(5000, Handler)
       else
-        autocmd FocusGained * unlet! w:airline_lastmode | :call <sid>airline_refresh()
+        autocmd FocusGained * call <sid>on_focus_gained()
       endif
 
       if exists("##TerminalOpen")
@@ -170,8 +187,10 @@ function! s:airline_toggle()
       endif
     augroup END
 
-    if &laststatus < 2
-      set laststatus=2
+    if !airline#util#stl_disabled(winnr())
+      if &laststatus < 2
+        set laststatus=2
+      endif
     endif
     if s:airline_initialized
       call s:on_window_changed('Init')
@@ -222,7 +241,7 @@ endfunction
 function! s:FocusGainedHandler(timer)
   if exists("s:timer") && a:timer == s:timer
     augroup airline
-      au FocusGained * unlet! w:airline_lastmode | :call <sid>airline_refresh()
+      au FocusGained * call s:on_focus_gained()
     augroup END
   endif
 endfu
@@ -251,7 +270,10 @@ function! s:airline_extensions()
 endfunction
 
 function! s:rand(max) abort
-  if has("reltime")
+  if exists("*rand")
+    " Needs Vim 8.1.2342
+    let number=rand()
+  elseif has("reltime")
     let timerstr=reltimestr(reltime())
     let number=split(timerstr, '\.')[1]+0
   elseif has("win32") && &shell =~ 'cmd'
@@ -279,3 +301,9 @@ command! AirlineExtensions   call s:airline_extensions()
 
 call airline#init#bootstrap()
 call s:airline_toggle()
+if exists("v:vim_did_enter") && v:vim_did_enter
+  call <sid>on_window_changed('VimEnter')
+endif
+
+let &cpo = s:save_cpo
+unlet s:save_cpo

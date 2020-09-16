@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2013-2019 Bailey Ling et al.
+" MIT License. Copyright (c) 2013-2020 Bailey Ling et al.
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
@@ -10,6 +10,7 @@ endfunction
 
 " Reload format when statusline is rebuilt
 call airline#extensions#wordcount#formatters#default#update_fmt()
+
 if index(g:airline_statusline_funcrefs, function('airline#extensions#wordcount#formatters#default#update_fmt')) == -1
   " only add it, if not already done
   call airline#add_statusline_funcref(function('airline#extensions#wordcount#formatters#default#update_fmt'))
@@ -35,5 +36,12 @@ function! airline#extensions#wordcount#formatters#default#to_string(wordcount)
   else
     let str = printf(s:fmt_short, a:wordcount)
   endif
-  return str . g:airline_symbols.space . g:airline_right_alt_sep . g:airline_symbols.space
+
+  let str .= g:airline_symbols.space
+
+  if !empty(g:airline_right_alt_sep)
+    let str .= g:airline_right_alt_sep . g:airline_symbols.space
+  endif
+
+  return str
 endfunction

@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2013-2019 Doron Behar, C.Brabandt et al.
+" MIT License. Copyright (c) 2013-2020 Doron Behar, C.Brabandt et al.
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
@@ -9,7 +9,7 @@ endif
 
 function! airline#extensions#keymap#status()
   if (get(g:, 'airline#extensions#keymap#enabled', 1) && has('keymap'))
-    return printf('%s', (!empty(&keymap) ? (g:airline_symbols.keymap . ' '. &keymap) : ''))
+    return printf('%s', (!empty(&keymap) && &iminsert ? (g:airline_symbols.keymap . ' '. &keymap) : ''))
   else
     return ''
   endif

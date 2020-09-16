@@ -1,4 +1,5 @@
-" MIT License. Copyright (c) 2013-2019 Bailey Ling et al.
+" MIT License. Copyright (c) 2013-2020 Bailey Ling et al.
+" Plugin: https://github.com/bling/vim-bufferline
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
@@ -7,10 +8,8 @@ if !exists('*bufferline#get_status_string')
   finish
 endif
 
-let s:overwrite = get(g:, 'airline#extensions#bufferline#overwrite_variables', 1)
-
 function! airline#extensions#bufferline#init(ext)
-  if s:overwrite
+  if get(g:, 'airline#extensions#bufferline#overwrite_variables', 1)
     highlight bufferline_selected gui=bold cterm=bold term=bold
     highlight link bufferline_selected_inactive airline_c_inactive
     let g:bufferline_inactive_highlight = 'airline_c'

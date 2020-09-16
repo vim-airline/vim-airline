@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2013-2019 Bailey Ling et al.
+" MIT License. Copyright (c) 2013-2020 Bailey Ling et al.
 " vim: et ts=2 sts=2 sw=2
 
 " http://got-ravings.blogspot.com/2008/10/vim-pr0n-statusline-whitespace-flags.html
@@ -10,7 +10,8 @@ let s:symbol = get(g:, 'airline#extensions#whitespace#symbol', g:airline_symbols
 let s:default_checks = ['indent', 'trailing', 'mixed-indent-file', 'conflicts']
 
 let s:enabled = get(g:, 'airline#extensions#whitespace#enabled', 1)
-let s:skip_check_ft = {'make': ['indent', 'mixed-indent-file']}
+let s:skip_check_ft = {'make': ['indent', 'mixed-indent-file'],
+      \ 'csv': ['indent', 'mixed-indent-file']}
 
 function! s:check_mixed_indent()
   let indent_algo = get(g:, 'airline#extensions#whitespace#mixed_indent_algo', 0)
@@ -23,9 +24,9 @@ function! s:check_mixed_indent()
     let t_l_s = '(^\t+ {' . &ts . ',}' . '\S)'
     return search('\v' . t_s_t . '|' . t_l_s, 'nw')
   elseif indent_algo == 2
-    return search('\v(^\t* +\t\s*\S)', 'nw')
+    return search('\v(^\t* +\t\s*\S)', 'nw', 0, 500)
   else
-    return search('\v(^\t+ +)|(^ +\t+)', 'nw')
+    return search('\v(^\t+ +)|(^ +\t+)', 'nw', 0, 500)
   endif
 endfunction
 
@@ -50,7 +51,12 @@ endfunction
 function! s:conflict_marker()
   " Checks for git conflict markers
   let annotation = '\%([0-9A-Za-z_.:]\+\)\?'
-  let pattern = '^\%(\%(<\{7} '.annotation. '\)\|\%(=\{7\}\)\|\%(>\{7\} '.annotation.'\)\)$'
+  if &ft is# 'rst'
+    " rst filetypes use '=======' as header
+    let pattern = '^\%(\%(<\{7} '.annotation. '\)\|\%(>\{7\} '.annotation.'\)\)$'
+  else
+    let pattern = '^\%(\%(<\{7} '.annotation. '\)\|\%(=\{7\}\)\|\%(>\{7\} '.annotation.'\)\)$'
+  endif
   return search(pattern, 'nw')
 endfunction
 

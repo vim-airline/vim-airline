@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2013-2019 Bailey Ling et al.
+" MIT License. Copyright (c) 2013-2020 Bailey Ling et al.
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
@@ -146,10 +146,10 @@ function! airline#init#bootstrap()
         \ 'function': 'airline#parts#readonly',
         \ 'accent': 'red',
         \ })
-  call airline#parts#define_raw('file', '%f%m')
+  call airline#parts#define_raw('file', airline#formatter#short_path#format('%f%m'))
   call airline#parts#define_raw('path', '%F%m')
   call airline#parts#define('linenr', {
-        \ 'raw': '%{g:airline_symbols.linenr}%4l',
+        \ 'raw': '%{g:airline_symbols.linenr}%l',
         \ 'accent': 'bold'})
   call airline#parts#define('maxlinenr', {
         \ 'raw': '/%L%{g:airline_symbols.maxlinenr}',
@@ -161,10 +161,16 @@ function! airline#init#bootstrap()
   call airline#parts#define('branch', {
         \ 'raw': '',
         \ 'minwidth': 80})
+  call airline#parts#define('coc_status', {
+        \ 'raw': '',
+        \ 'accent': 'bold'
+        \ })
   call airline#parts#define_empty(['obsession', 'tagbar', 'syntastic-warn',
         \ 'syntastic-err', 'eclim', 'whitespace','windowswap',
         \ 'ycm_error_count', 'ycm_warning_count', 'neomake_error_count',
         \ 'neomake_warning_count', 'ale_error_count', 'ale_warning_count',
+        \ 'lsp_error_count', 'lsp_warning_count',
+        \ 'nvimlsp_error_count', 'nvimlsp_warning_count',
         \ 'languageclient_error_count', 'languageclient_warning_count',
         \ 'coc_warning_count', 'coc_error_count', 'vista'])
   call airline#parts#define_text('bookmark', '')
@@ -173,6 +179,7 @@ function! airline#init#bootstrap()
   call airline#parts#define_text('grepper', '')
   call airline#parts#define_text('xkblayout', '')
   call airline#parts#define_text('keymap', '')
+  call airline#parts#define_text('omnisharp', '')
 
   unlet g:airline#init#bootstrapping
 endfunction
@@ -193,29 +200,29 @@ function! airline#init#sections()
     if exists("+autochdir") && &autochdir == 1
       let g:airline_section_c = airline#section#create(['%<', 'path', spc, 'readonly'])
     else
-      let g:airline_section_c = airline#section#create(['%<', 'file', spc, 'readonly'])
+      let g:airline_section_c = airline#section#create(['%<', 'file', spc, 'readonly', 'coc_status'])
     endif
   endif
   if !exists('g:airline_section_gutter')
     let g:airline_section_gutter = airline#section#create(['%='])
   endif
   if !exists('g:airline_section_x')
-    let g:airline_section_x = airline#section#create_right(['bookmark', 'tagbar', 'vista', 'gutentags', 'grepper', 'filetype'])
+    let g:airline_section_x = airline#section#create_right(['bookmark', 'tagbar', 'vista', 'gutentags', 'omnisharp', 'grepper', 'filetype'])
   endif
   if !exists('g:airline_section_y')
     let g:airline_section_y = airline#section#create_right(['ffenc'])
   endif
   if !exists('g:airline_section_z')
     if airline#util#winwidth() > 79
-      let g:airline_section_z = airline#section#create(['windowswap', 'obsession', '%3p%%'.spc, 'linenr', 'maxlinenr', spc.':%3v'])
+      let g:airline_section_z = airline#section#create(['windowswap', 'obsession', '%p%%'.spc, 'linenr', 'maxlinenr', ':%v'])
     else
-      let g:airline_section_z = airline#section#create(['%3p%%'.spc, 'linenr',  ':%3v'])
+      let g:airline_section_z = airline#section#create(['%p%%'.spc, 'linenr',  ':%v'])
     endif
   endif
   if !exists('g:airline_section_error')
-    let g:airline_section_error = airline#section#create(['ycm_error_count', 'syntastic-err', 'eclim', 'neomake_error_count', 'ale_error_count', 'languageclient_error_count', 'coc_error_count'])
+    let g:airline_section_error = airline#section#create(['ycm_error_count', 'syntastic-err', 'eclim', 'neomake_error_count', 'ale_error_count', 'lsp_error_count', 'nvimlsp_error_count', 'languageclient_error_count', 'coc_error_count'])
   endif
   if !exists('g:airline_section_warning')
-    let g:airline_section_warning = airline#section#create(['ycm_warning_count',  'syntastic-warn', 'neomake_warning_count', 'ale_warning_count', 'languageclient_warning_count', 'whitespace', 'coc_warning_count'])
+    let g:airline_section_warning = airline#section#create(['ycm_warning_count',  'syntastic-warn', 'neomake_warning_count', 'ale_warning_count', 'lsp_warning_count', 'nvimlsp_warning_count', 'languageclient_warning_count', 'whitespace', 'coc_warning_count'])
   endif
 endfunction

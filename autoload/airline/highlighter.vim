@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2013-2019 Bailey Ling Christian Brabandt et al.
+" MIT License. Copyright (c) 2013-2020 Bailey Ling Christian Brabandt et al.
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
@@ -279,6 +279,12 @@ function! airline#highlighter#highlight(modes, ...)
         endif
         if s:group_not_done(airline_grouplist, name.suffix)
           call airline#highlighter#exec(name.suffix, mode_colors)
+        endif
+
+        if !has_key(p, 'accents') 
+          " work around a broken installation
+          " shouldn't actually happen, p should always contain accents
+          continue
         endif
 
         for accent in keys(s:accents)

@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2013-2019 Bailey Ling et al.
+" MIT License. Copyright (c) 2013-2020 Bailey Ling et al.
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
@@ -54,8 +54,13 @@ function! s:toggle_on()
   set tabline=%!airline#extensions#tabline#get()
 endfunction
 
-function! s:update_tabline()
+function! s:update_tabline(forceit)
   if get(g:, 'airline#extensions#tabline#disable_refresh', 0)
+    return
+  endif
+  " loading a session file
+  " On SessionLoadPost, g:SessionLoad variable is still set :/
+  if !a:forceit && get(g:, 'SessionLoad', 0)
     return
   endif
   let match = expand('<afile>')
@@ -64,8 +69,7 @@ function! s:update_tabline()
   elseif !get(g:, 'airline#extensions#tabline#enabled', 0)
     return
   " return, if buffer matches ignore pattern or is directory (netrw)
-  elseif empty(match) || airline#util#ignore_buf(match)
-        \ || isdirectory(expand("<afile>"))
+  elseif empty(match) || airline#util#ignore_buf(match) || isdirectory(match)
     return
   endif
   call airline#util#doautocmd('BufMRUChange')
@@ -98,7 +102,7 @@ function! airline#extensions#tabline#load_theme(palette)
   let colors    = get(a:palette, 'tabline', {})
   let tablabel  = get(colors, 'airline_tablabel', a:palette.normal.airline_b)
   " Theme for tabs on the left
-  let tab     = get(colors, 'airline_tab', a:palette.normal.airline_b)
+  let tab     = get(colors, 'airline_tab', a:palette.inactive.airline_c)
   let tabsel  = get(colors, 'airline_tabsel', a:palette.normal.airline_a)
   let tabtype = get(colors, 'airline_tabtype', a:palette.visual.airline_a)
   let tabfill = get(colors, 'airline_tabfill', a:palette.normal.airline_c)
@@ -156,7 +160,10 @@ function! airline#extensions#tabline#get()
   endif
 
   if !exists('#airline#BufAdd#*')
-    autocmd airline BufAdd * call <sid>update_tabline()
+    autocmd airline BufAdd * call <sid>update_tabline(0)
+  endif
+  if !exists('#airline#SessionLoadPost')
+    autocmd airline SessionLoadPost * call <sid>update_tabline(1)
   endif
   if s:ctrlspace
     return airline#extensions#tabline#ctrlspace#get()
@@ -179,13 +186,20 @@ function! airline#extensions#tabline#title(n)
     let title = gettabvar(a:n, 'title')
   endif
 
+  let formatter = get(g:, 'airline#extensions#tabline#tabtitle_formatter')
+  if empty(title) && formatter !=# '' && exists("*".formatter)
+    let title = call(formatter, [a:n])
+  endif
+
   if empty(title)
     let buflist = tabpagebuflist(a:n)
     let winnr = tabpagewinnr(a:n)
     let all_buffers = airline#extensions#tabline#buflist#list()
-    return airline#extensions#tabline#get_buffer_name(
-          \ buflist[winnr - 1],
-          \ filter(buflist, 'index(all_buffers, v:val) != -1'))
+    let curbuf = filter(buflist, 'index(all_buffers, v:val) != -1')
+    if len(curbuf) ==  0
+      call add(curbuf, tabpagebuflist()[0])
+    endif
+    return airline#extensions#tabline#get_buffer_name(curbuf[0], curbuf)
   endif
 
   return title
@@ -244,7 +258,10 @@ function! airline#extensions#tabline#add_label(dict, type, right)
 endfunction
 
 function! airline#extensions#tabline#add_tab_label(dict)
-  if get(g:, 'airline#extensions#tabline#show_tab_count', 1) && tabpagenr('$') > 1
+  let show_tab_count = get(g:, 'airline#extensions#tabline#show_tab_count', 1)
+  if show_tab_count == 2
+    call a:dict.add_section_spaced('airline_tabmod', printf('%s %d/%d', "tab", tabpagenr(), tabpagenr('$')))
+  elseif show_tab_count == 1 && tabpagenr('$') > 1
     call a:dict.add_section_spaced('airline_tabmod', printf('%s %d/%d', "tab", tabpagenr(), tabpagenr('$')))
   endif
 endfunction
