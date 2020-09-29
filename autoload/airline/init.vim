@@ -172,7 +172,7 @@ function! airline#init#bootstrap()
         \ 'lsp_error_count', 'lsp_warning_count',
         \ 'nvimlsp_error_count', 'nvimlsp_warning_count',
         \ 'languageclient_error_count', 'languageclient_warning_count',
-        \ 'coc_warning_count', 'coc_error_count', 'vista'])
+        \ 'coc_warning_count', 'coc_error_count', 'vista', 'battery'])
   call airline#parts#define_text('bookmark', '')
   call airline#parts#define_text('capslock', '')
   call airline#parts#define_text('gutentags', '')
@@ -194,7 +194,11 @@ function! airline#init#sections()
     let g:airline_section_a = airline#section#create_left(['mode', 'crypt', 'paste', 'keymap', 'spell', 'capslock', 'xkblayout', 'iminsert'])
   endif
   if !exists('g:airline_section_b')
-    let g:airline_section_b = airline#section#create(['hunks', 'branch'])
+    if airline#util#winwidth() > 99
+      let g:airline_section_b = airline#section#create(['hunks', 'branch', 'battery'])
+    else
+      let g:airline_section_b = airline#section#create(['hunks', 'branch'])
+    endif
   endif
   if !exists('g:airline_section_c')
     if exists("+autochdir") && &autochdir == 1

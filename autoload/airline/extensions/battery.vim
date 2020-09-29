@@ -9,12 +9,15 @@ if !exists('g:loaded_battery')
 endif
 
 function! airline#extensions#battery#status(...) abort
-  if !exists('g:battery#update_statusline') 
+  if !exists('g:battery#update_statusline')
     let g:battery#update_statusline = 1
+    call battery#update()
   endif
-  let w:airline_section_z = '%{battery#component()}'
+
+  let bat = battery#component()
+  return bat
 endfunction
 
 function! airline#extensions#battery#init(ext) abort
-  call a:ext.add_statusline_func('airline#extensions#battery#status')
+  call airline#parts#define_function('battery', 'airline#extensions#battery#status')
 endfunction
