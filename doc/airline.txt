@@ -234,7 +234,7 @@ values):
       \ 'vaffle' : [ 'Vaffle', '%{b:vaffle.dir}' ],
       \ }
 <
-* defines whether the preview window should be excluded from have its window
+* defines whether the preview window should be excluded from having its window
   statusline modified (may help with plugins which use the preview window
   heavily) >
   let g:airline_exclude_preview = 0
