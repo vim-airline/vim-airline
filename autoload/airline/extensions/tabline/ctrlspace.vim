@@ -32,7 +32,7 @@ function! airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_t
   let pos_extension = (a:pull_right ? '_right' : '')
 
   let buffer_list = []
-	for bufferindex in sort(keys(ctrlspace#api#Buffers(a:cur_tab), 'N'))
+	for bufferindex in sort(keys(ctrlspace#api#Buffers(a:cur_tab)), 'N')
 		for buffer in ctrlspace#api#BufferList(a:cur_tab)
 			if buffer['index'] == bufferindex
 				call add(buffer_list, buffer)
