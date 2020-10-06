@@ -30,7 +30,15 @@ endfunction
 
 function! airline#extensions#tabline#ctrlspace#add_buffer_section(builder, cur_tab, cur_buf, pull_right)
   let pos_extension = (a:pull_right ? '_right' : '')
-  let buffer_list = ctrlspace#api#BufferList(a:cur_tab)
+  
+  let buffer_list = []
+  for bufferindex in sort(keys(ctrlspace#api#Buffers(a:cur_tab)), 'N')
+    for buffer in ctrlspace#api#BufferList(a:cur_tab)
+      if buffer['index'] == bufferindex
+        call add(buffer_list, buffer)
+      endif
+    endfor
+  endfor
 
   " add by tenfy(tenfyzhong@qq.com)
   " if the current buffer no in the buffer list
