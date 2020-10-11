@@ -260,7 +260,7 @@ values):
 * Do not draw separators for empty sections (only for the active window) >
   let g:airline_skip_empty_sections = 1
 <
-  This variable can be overriden by setting a window-local variable with
+  This variable can be overridden by setting a window-local variable with
   the same name (in the correct window): >
   let w:airline_skip_empty_sections = 0
 <
@@ -509,7 +509,8 @@ If a file is edited, that is not yet in the repository, the
 notexists symbol will be displayed after the branch name. If the repository
 is not clean, the dirty symbol will be displayed after the branch name.
 
-* notexists symbol means you are editing a file, that has not been commited yet
+* notexists symbol means you are editing a file, that has not been
+  committed yet
   default: '?'
 
 * the dirty symbol basically means your working directory is dirty
@@ -1218,8 +1219,8 @@ Note: Not displayed if the number of tabs is less than 1
       let g:airline#extensions#tabline#fnamecollapse = 1
 
   " The `unique_tail_improved` - another algorithm, that will smartly
-  "  uniquify buffers names with similar filename, suppressing common
-  "  parts of paths.
+  " uniquify buffers names with similar filename, suppressing common
+  " parts of paths.
   let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 
   " The `short_path` - is a simple formatter, that will show the
@@ -1578,7 +1579,7 @@ features that you may not need. They both require |vim-airline| anyway.
 
 Main features and default mappings of this extension are:
 
-* tab cwd persistance, also across sessions if vim-obsession is being used.
+* tab cwd persistence, also across sessions if vim-obsession is being used.
 
 * buffer filtering in the tabline: only buffers whose path is within the tab
   cwd will be shown in the tabline.
@@ -1663,7 +1664,7 @@ zoomwintab <https://github.com/troydm/zoomwintab.vim>
 default: '> Zoomed'
 
 * zoomwintab's zoomout symbol >
-  let g:airline#extensions#zoomwintab#status_zoomed_out ='Currently Zoomed Out'
+  let g:airline#extensions#zoomwintab#status_zoomed_out = 'Currently Zoomed Out'
 
 default: ''
 
@@ -1741,10 +1742,10 @@ The defaults configure the mode and line number parts to be bold, and the
 readonly part to be red.
 
 "none" is special. This can be used, to remove a bold accent from an existing
-theme. For example, usually the mode part of the statusline is usually
-defined to be bold. However, it can be hard to remove an existing bold
-accent from the default configuration. Therefore, you can use the none
-accent to remove existing accents, so if you put >
+theme. For example, the mode part of the statusline is usually defined to be
+bold. However, it can be hard to remove an existing bold accent from the
+default configuration. Therefore, you can use the none accent to remove
+existing accents, so if you put >
     call airline#parts#define_accent('mode', 'none')
 the mode section will be set to non-bold font style.
 
