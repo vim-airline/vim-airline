@@ -4,18 +4,18 @@
 
 scriptencoding utf-8
 
-function! airline#extensions#ctrlspace#statusline(...)
+function! airline#extensions#ctrlspace#statusline(...) abort
   let spc = g:airline_symbols.space
-  let padding = spc . spc . spc
+  let l:padding = spc . spc . spc
   let cs = ctrlspace#context#Configuration().Symbols.CS
 
   let b = airline#builder#new({ 'active': 1 })
-  call b.add_section('airline_b', cs . padding . ctrlspace#api#StatuslineModeSegment(s:padding))
+  call b.add_section('airline_b', cs . l:padding . ctrlspace#api#StatuslineModeSegment(l:padding))
   call b.split()
   call b.add_section('airline_x', spc . ctrlspace#api#StatuslineTabSegment() . spc)
   return b.build()
 endfunction
 
-function! airline#extensions#ctrlspace#init(ext)
+function! airline#extensions#ctrlspace#init(ext) abort
   let g:CtrlSpaceStatuslineFunction = "airline#extensions#ctrlspace#statusline()"
 endfunction
