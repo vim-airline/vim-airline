@@ -1,5 +1,5 @@
 " MIT License. Copyright (c) 2018-2020 mox et al.
-" Plugin: https://github.com/mox-mox/localsearch
+" Plugin: https://github.com/mox-mox/vim-localsearch
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
@@ -14,18 +14,18 @@ let s:spc = g:airline_symbols.space
 
 let g:airline#extensions#localsearch#inverted = get(g:, 'airline#extensions#localsearch#inverted', 0)
 
-function! airline#extensions#localsearch#load_theme(palette)
+function! airline#extensions#localsearch#load_theme(palette) abort
   call airline#highlighter#exec('localsearch_dark', [ '#ffffff' , '#000000' , 15  , 1 , ''])
 endfunction
 
 
-function! airline#extensions#localsearch#init(ext)
-	call a:ext.add_theme_func('airline#extensions#localsearch#load_theme')
-	call a:ext.add_statusline_func('airline#extensions#localsearch#apply')
+function! airline#extensions#localsearch#init(ext) abort
+  call a:ext.add_theme_func('airline#extensions#localsearch#load_theme')
+  call a:ext.add_statusline_func('airline#extensions#localsearch#apply')
 endfunction
 
 
-function! airline#extensions#localsearch#apply(...)
+function! airline#extensions#localsearch#apply(...) abort
   " first variable is the statusline builder
   let builder = a:1
 
