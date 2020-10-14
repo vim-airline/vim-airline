@@ -84,6 +84,7 @@ describe 'init sections'
     Expect airline#parts#get('vista').raw == ''
     Expect airline#parts#get('coc_warning_count').raw == ''
     Expect airline#parts#get('coc_error_count').raw == ''
+    Expect airline#parts#get('battery').raw == ''
   end
 end
 
