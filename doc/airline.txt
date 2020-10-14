@@ -1523,7 +1523,7 @@ vim-windowswap <https://github.com/wesQ3/vim-windowswap>
   let g:airline#extensions#wordcount#formatter = 'default'
 
   " enable reading time formatter
-  let g:airline#extensions#wordcount#enabled = 'readingtime'
+  let g:airline#extensions#wordcount#formatter = 'readingtime'
 
   " here is how you can define a 'foo' formatter:
   " create a file in autoload/airline/extensions/wordcount/formatters/
