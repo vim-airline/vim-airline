@@ -17,6 +17,7 @@ This is the Changelog for the vim-airline project.
     - [Vim-CMake](https://github.com/cdelledonne/vim-cmake) support
     - [battery.vim](https://github.com/lambdalisue/battery.vim) support
     - [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) support
+    - [gen_tags.vim](https://github.com/jsfaint/gen_tags.vim) support
 - Improvements
   - git branch can also be displayed using [gina.vim](https://github.com/lambdalisue/gina.vim)
   - coc extensions can also show additional status messages

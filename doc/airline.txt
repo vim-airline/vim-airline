@@ -787,6 +787,12 @@ vim-gutentags <https://github.com/ludovicchabant/vim-gutentags>
 * enable/disable vim-gutentags integration >
   let g:airline#extensions#gutentags#enabled = 1
 
+-------------------------------------                     *gen_tags.vim*
+gen_tags.vim <https://github.com/jsfaint/gen_tags.vim>
+
+* enable/disable gen_tags.vim integration >
+  let g:airline#extensions#gen_tags#enabled = 1
+
 -------------------------------------                        *airline-hunks*
 vim-gitgutter <https://github.com/airblade/vim-gitgutter>
 vim-signify <https://github.com/mhinz/vim-signify>

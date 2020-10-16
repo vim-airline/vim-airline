@@ -408,6 +408,11 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'gutentags')
   endif
 
+  if get(g:, 'airline#extensions#gen_tags#enabled', 1) && (get(g:, 'loaded_gentags#gtags', 0) || get(g:, 'loaded_gentags#ctags', 0))
+    call airline#extensions#gen_tags#init(s:ext)
+    call add(s:loaded_ext, 'gen_tags')
+  endif
+
   if (get(g:, 'airline#extensions#grepper#enabled', 1) && get(g:, 'loaded_grepper', 0))
     call airline#extensions#grepper#init(s:ext)
     call add(s:loaded_ext, 'grepper')
