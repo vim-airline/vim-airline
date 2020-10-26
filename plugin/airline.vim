@@ -99,7 +99,6 @@ function! s:on_colorscheme_changed()
   call s:init()
   unlet! g:airline#highlighter#normal_fg_hi
   call airline#highlighter#reset_hlcache()
-  let g:airline_gui_mode = airline#init#gui_mode()
   if !s:theme_in_vimrc
     call airline#switch_matching_theme()
   endif
@@ -139,11 +138,7 @@ function! s:airline_toggle()
             \ | call <sid>on_window_changed('CmdwinEnter')
       autocmd CmdwinLeave * call airline#remove_statusline_func('airline#cmdwinenter')
 
-      autocmd GUIEnter,ColorScheme * call <sid>on_colorscheme_changed()
-      if exists("##OptionSet")
-        " Make sure that g_airline_gui_mode is refreshed
-        autocmd OptionSet termguicolors call <sid>on_colorscheme_changed()
-      endif
+      autocmd ColorScheme * call <sid>on_colorscheme_changed()
       " Set all statuslines to inactive
       autocmd FocusLost * call airline#update_statusline_focuslost()
       " Refresh airline for :syntax off
