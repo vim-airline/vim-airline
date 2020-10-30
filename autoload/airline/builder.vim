@@ -133,11 +133,8 @@ function! airline#builder#should_change_group(group1, group2)
   endif
   let color1 = airline#highlighter#get_highlight(a:group1)
   let color2 = airline#highlighter#get_highlight(a:group2)
-  if g:airline_gui_mode ==# 'gui'
-    return color1[1] != color2[1] || color1[0] != color2[0]
-  else
-    return color1[3] != color2[3] || color1[2] != color2[2]
-  endif
+  return color1[1] != color2[1] || color1[0] != color2[0]
+      \ ||  color1[2] != color2[2] || color1[3] != color2[3]
 endfunction
 
 function! s:get_transitioned_seperator(self, prev_group, group, side)
