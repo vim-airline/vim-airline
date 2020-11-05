@@ -826,6 +826,15 @@ This extension displays the current 'keymap' in use.
 * enable/disable vim-keymap extension >
   let g:airline#extensions#keymap#enabled = 1
 
+* set label for a keymap (default is from g:airline_symbols.keymap) >
+  let g:airline#extensions#keymap#label = 'Layout:'
+
+* set name for default lauout (empty to disable it completely) >
+  let g:airline#extensions#keymap#default = ''
+
+* set short codes for layout names >
+  let g:airline#extensions#keymap#short_codes = {'russian-jcukenwin': 'ru'}
+
 -------------------------------------                *airline-languageclient*
 LanguageClient <https://github.com/autozimu/LanguageClient-neovim>
 (despite its name, it can be used for Vim and Neovim).
