@@ -9,7 +9,7 @@ endif
 
 function! airline#extensions#keymap#status()
   if (get(g:, 'airline#extensions#keymap#enabled', 1) && has('keymap'))
-    let short_codes = get(g:, 'airline#extensions#keymap#short_codes')
+    let short_codes = get(g:, 'airline#extensions#keymap#short_codes', {})
     let label = get(g:, 'airline#extensions#keymap#label', g:airline_symbols.keymap)
     let default = get(g:, 'airline#extensions#keymap#default', '')
     if (label !=# '')
