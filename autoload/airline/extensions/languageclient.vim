@@ -66,6 +66,10 @@ function! s:airline_languageclient_get_line_number(type) abort
 endfunction
 
 function! airline#extensions#languageclient#get(type)
+  if get(b:, 'LanguageClient_isServerRunning', 0) ==# 0
+    return ''
+  endif
+
   let is_err = a:type == s:severity_error
   let symbol = is_err ? s:error_symbol : s:warning_symbol
 
