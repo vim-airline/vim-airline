@@ -48,10 +48,6 @@ function! s:init()
 endfunction
 
 function! s:do_vim_enter()
-  " Needed for the Vista extension #2009
-  if get(g:, 'airline#extensions#vista#enabled', 1) && exists(':Vista')
-    call vista#RunForNearestMethodOrFunction()
-  endif
   call <sid>on_window_changed('VimEnter')
 endfunction
 
