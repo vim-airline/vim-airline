@@ -5,7 +5,7 @@
 
 scriptencoding utf-8
 
-if !(get(g:, 'loaded_gentags#gtags', 0) || !get(g:, 'loaded_gentags#ctags', 0))
+if !(get(g:, 'loaded_gentags#gtags', 0) || get(g:, 'loaded_gentags#ctags', 0))
   finish
 endif
 
