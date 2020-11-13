@@ -25,7 +25,11 @@ function! airline#extensions#nvimlsp#get(type) abort
 
   let symbol = is_err ? error_symbol : warning_symbol
 
-  let num = v:lua.vim.lsp.util.buf_diagnostics_count(a:type)
+  if luaeval("pcall(require, 'vim.lsp.diagnostic')")
+    let num = v:lua.vim.lsp.diagnostic.get_count(0, a:type)
+  else
+    let num = v:lua.vim.lsp.util.buf_diagnostics_count(a:type)
+  endif
 
   return s:airline_nvimlsp_count(num, symbol)
 endfunction
