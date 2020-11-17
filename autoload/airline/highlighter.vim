@@ -275,7 +275,7 @@ function! airline#highlighter#highlight(modes, ...) abort
           call airline#highlighter#exec(name.suffix, mode_colors)
         endif
 
-        if !has_key(p, 'accents') 
+        if !has_key(p, 'accents')
           " work around a broken installation
           " shouldn't actually happen, p should always contain accents
           continue
