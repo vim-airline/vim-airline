@@ -22,7 +22,7 @@ scriptencoding utf-8
 "     14   Yellow
 "     15   White
 
-let s:basic16 = [
+const s:basic16 = [
   \ [ 0x00, 0x00, 0x00 ],
   \ [ 0x00, 0x00, 0x80 ],
   \ [ 0x00, 0x80, 0x00 ],
@@ -40,6 +40,26 @@ let s:basic16 = [
   \ [ 0xFF, 0xFF, 0x00 ],
   \ [ 0xFF, 0xFF, 0xFF ]
   \ ]
+
+if exists(":def")
+  def airline#msdos#round_msdos_colors(rgblist: list<number>): string
+    # Check for values from MSDOS 16 color terminal
+    var best = []
+    var min  = 100000
+    var t = 0
+    for value in s:basic16
+      t = abs(value[0] - rgblist[0]) +
+          abs(value[1] - rgblist[1]) +
+          abs(value[2] - rgblist[2])
+      if min > t
+        min = t
+        best = value
+      endif
+    endfor
+    return string(index(s:basic16, best))
+  enddef
+  finish
+endif
 
 function! airline#msdos#round_msdos_colors(rgblist)
   " Check for values from MSDOS 16 color terminal
