@@ -393,16 +393,17 @@ else
   enddef
   def airline#extensions#tabline#title(n: number): string # {{{2
     var title = ''
-    if s:taboo
-      title = TabooTabTitle(n)
+    if get(g:, 'airline#extensions#taboo#enabled', 1) &&
+      get(g:, 'loaded_taboo', 0) && exists("*TabooTabTitle")
+      title = call("TabooTabTitle", [n])
     endif
 
     if empty(title)
       title = gettabvar(n, 'title')
     endif
 
-    var formatter = get(g:, 'airline#extensions#tabline#tabtitle_formatter')
-    if empty(title) && formatter != '' && exists("*" .. formatter)
+    var formatter = get(g:, 'airline#extensions#tabline#tabtitle_formatter', '')
+    if empty(title) && !empty(formatter) && exists("*" .. formatter)
       title = call(formatter, [n])
     endif
 
