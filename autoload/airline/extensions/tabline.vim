@@ -322,22 +322,24 @@ else
     if pumvisible()
       return
     endif
-    var colors    = get(a:palette, 'tabline', {})
-    var tablabel  = get(colors, 'airline_tablabel', a:palette.normal.airline_b)
+    var colors    = get(palette, 'tabline', {})
+    var tablabel  = get(colors, 'airline_tablabel', palette.normal.airline_b)
     # Theme for tabs on the left
-    var tab     = get(colors, 'airline_tab', a:palette.inactive.airline_c)
-    var tabsel  = get(colors, 'airline_tabsel', a:palette.normal.airline_a)
-    var tabtype = get(colors, 'airline_tabtype', a:palette.visual.airline_a)
-    var tabfill = get(colors, 'airline_tabfill', a:palette.normal.airline_c)
-    var tabmod  = get(colors, 'airline_tabmod', a:palette.insert.airline_a)
-    var tabhid  = get(colors, 'airline_tabhid', a:palette.normal.airline_c)
-    if has_key(a:palette, 'normal_modified') && has_key(a:palette.normal_modified, 'airline_c')
-      var tabmodu = get(colors, 'airline_tabmod_unsel', a:palette.normal_modified.airline_c)
-      var tabmodu_right = get(colors, 'airline_tabmod_unsel_right', a:palette.normal_modified.airline_c)
+    var tab     = get(colors, 'airline_tab', palette.inactive.airline_c)
+    var tabsel  = get(colors, 'airline_tabsel', palette.normal.airline_a)
+    var tabtype = get(colors, 'airline_tabtype', palette.visual.airline_a)
+    var tabfill = get(colors, 'airline_tabfill', palette.normal.airline_c)
+    var tabmod  = get(colors, 'airline_tabmod', palette.insert.airline_a)
+    var tabhid  = get(colors, 'airline_tabhid', palette.normal.airline_c)
+    var tabmodu = tabhid
+    var tabmodu_right = tabhid
+    if has_key(palette, 'normal_modified') && has_key(palette.normal_modified, 'airline_c')
+      tabmodu = get(colors, 'airline_tabmod_unsel', palette.normal_modified.airline_c)
+      tabmodu_right = get(colors, 'airline_tabmod_unsel_right', palette.normal_modified.airline_c)
     else
       # Fall back to normal airline_c if modified airline_c isn't present
-      var tabmodu = get(colors, 'airline_tabmod_unsel', a:palette.normal.airline_c)
-      var tabmodu_right = get(colors, 'airline_tabmod_unsel_right', a:palette.normal.airline_c)
+      tabmodu = get(colors, 'airline_tabmod_unsel', palette.normal.airline_c)
+      tabmodu_right = get(colors, 'airline_tabmod_unsel_right', palette.normal.airline_c)
     endif
     airline#highlighter#exec('airline_tablabel', tablabel)
     airline#highlighter#exec('airline_tab', tab)
@@ -349,11 +351,11 @@ else
     airline#highlighter#exec('airline_tabmod_unsel_right', tabmodu_right)
     airline#highlighter#exec('airline_tabhid', tabhid)
     # Theme for tabs on the right
-    var tablabel_r  = get(colors, 'airline_tablabel', a:palette.normal.airline_b)
-    var tabsel_right  = get(colors, 'airline_tabsel_right', a:palette.normal.airline_a)
-    var tab_right     = get(colors, 'airline_tab_right',    a:palette.inactive.airline_c)
-    var tabmod_right  = get(colors, 'airline_tabmod_right', a:palette.insert.airline_a)
-    var tabhid_right  = get(colors, 'airline_tabhid_right', a:palette.normal.airline_c)
+    var tablabel_r  = get(colors, 'airline_tablabel', palette.normal.airline_b)
+    var tabsel_right  = get(colors, 'airline_tabsel_right', palette.normal.airline_a)
+    var tab_right     = get(colors, 'airline_tab_right',    palette.inactive.airline_c)
+    var tabmod_right  = get(colors, 'airline_tabmod_right', palette.insert.airline_a)
+    var tabhid_right  = get(colors, 'airline_tabhid_right', palette.normal.airline_c)
     airline#highlighter#exec('airline_tablabel_right', tablabel_r)
     airline#highlighter#exec('airline_tab_right',    tab_right)
     airline#highlighter#exec('airline_tabsel_right', tabsel_right)
