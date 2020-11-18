@@ -394,4 +394,12 @@ else
     var rest = [ rest1, rest2, rest3 ]
     return s:get_array(guifg, guibg, ctermfg, ctermbg, filter(rest, {_, v -> !empty(v)}))
   enddef
+  def s:hl_group_exists(group: string): bool # {{{2
+    if !hlexists(group)
+      return false
+    elseif hlID(group)->synIDtrans()->synIDattr('fg')->empty()
+      return false
+    endif
+    return true
+  enddef
 endif
