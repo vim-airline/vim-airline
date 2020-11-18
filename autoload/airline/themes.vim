@@ -1,5 +1,5 @@
 " MIT License. Copyright (c) 2013-2020 Bailey Ling et al.
-" vim: et ts=2 sts=2 sw=2
+" vim: et ts=2 sts=2 sw=2 et
 
 scriptencoding utf-8
 
