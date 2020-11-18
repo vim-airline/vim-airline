@@ -108,4 +108,45 @@ else
   def airline#themes#get_highlight2(fg: list<string>, bg: list<string>): list<string>
     return call('airline#highlighter#get_highlight2', [fg, bg])
   endfunction
+
+  def airline#themes#patch(palette: dict<any>): void
+    for mode in keys(palette)
+      if mode == 'accents'
+        continue
+      endif
+      if !has_key(palette[mode], 'airline_warning')
+        palette[mode]['airline_warning'] = [ '#000000', '#df5f00', '232', '166' ]
+      endif
+      if !has_key(palette[mode], 'airline_error')
+        palette[mode]['airline_error'] = [ '#000000', '#990000', '232', '160' ]
+      endif
+      if !has_key(palette[mode], 'airline_term')
+        palette[mode]['airline_term'] = [ '#9cffd3', '#202020', '85', '232']
+      endif
+    endfor
+
+    palette.accents = get(palette, 'accents', {})
+    palette.accents.none = [ '', '', '', '', '' ]
+    palette.accents.bold = [ '', '', '', '', 'bold' ]
+    palette.accents.italic = [ '', '', '', '', 'italic' ]
+
+    if !has_key(palette.accents, 'red')
+      palette.accents.red = [ '#ff0000' , '' , '160' , '' ]
+    endif
+    if !has_key(palette.accents, 'green')
+      palette.accents.green = [ '#008700' , '' , '22'  , '' ]
+    endif
+    if !has_key(palette.accents, 'blue')
+      palette.accents.blue = [ '#005fff' , '' , '27'  , '' ]
+    endif
+    if !has_key(palette.accents, 'yellow')
+      palette.accents.yellow = [ '#dfff00' , '' , '190' , '' ]
+    endif
+    if !has_key(palette.accents, 'orange')
+      palette.accents.orange = [ '#df5f00' , '' , '166' , '' ]
+    endif
+    if !has_key(palette.accents, 'purple')
+      palette.accents.purple = [ '#af00df' , '' , '128' , '' ]
+    endif
+  enddef
 endif
