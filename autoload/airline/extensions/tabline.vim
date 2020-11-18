@@ -12,19 +12,28 @@ let s:ctrlspace = get(g:, 'CtrlSpaceLoaded', 0)
 let s:tabws = get(g:, 'tabws_loaded', 0)
 let s:current_tabcnt = -1
 
+function! airline#extensions#tabline#init(ext)
+  if has('gui_running') && match(&guioptions, 'e') > -1
+    set guioptions-=e
+  endif
+
+  autocmd User AirlineToggledOn call s:toggle_on()
+  autocmd User AirlineToggledOff call s:toggle_off()
+  call s:toggle_on()
+  call a:ext.add_theme_func('airline#extensions#tabline#load_theme')
+endfunction
+
+function! airline#extensions#tabline#add_label(dict, type, right)
+  if get(g:, 'airline#extensions#tabline#show_tab_type', 1)
+    call a:dict.add_section_spaced('airline_tablabel'.
+          \ (a:right ? '_right' : ''),
+          \ get(g:, 'airline#extensions#tabline#'.a:type.'_label', a:type))
+  endif
+endfunction
+
 if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
 
   " Legacy VimScript implementation " {{{1
-  function! airline#extensions#tabline#init(ext) " {{{2
-    if has('gui_running') && match(&guioptions, 'e') > -1
-      set guioptions-=e
-    endif
-
-    autocmd User AirlineToggledOn call s:toggle_on()
-    autocmd User AirlineToggledOff call s:toggle_off()
-    call s:toggle_on()
-    call a:ext.add_theme_func('airline#extensions#tabline#load_theme')
-  endfunction
   function! s:toggle_off() " {{{2
     call airline#extensions#tabline#autoshow#off()
     call airline#extensions#tabline#tabs#off()
@@ -236,13 +245,6 @@ if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
     endif
     return group
   endfunction
-  function! airline#extensions#tabline#add_label(dict, type, right) " {{{2
-    if get(g:, 'airline#extensions#tabline#show_tab_type', 1)
-      call a:dict.add_section_spaced('airline_tablabel'.
-            \ (a:right ? '_right' : ''),
-            \ get(g:, 'airline#extensions#tabline#'.a:type.'_label', a:type))
-    endif
-  endfunction
   function! airline#extensions#tabline#add_tab_label(dict) " {{{2
     let show_tab_count = get(g:, 'airline#extensions#tabline#show_tab_count', 1)
     if show_tab_count == 2
@@ -253,17 +255,19 @@ if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
   endfunction
 else
   " Vim9 Script implementation
-  def airline#extensions#tabline#init(ext: dict<any>): void # {{{2
-    if has('gui_running') && match(&guioptions, 'e') > -1
-      :set guioptions-=e
-    endif
-    autocmd User AirlineToggledOn call s:toggle_on()
-    autocmd User AirlineToggledOff call s:toggle_off()
-    s:toggle_on()
-    call(ext.add_theme_func, ['airline#extensions#tabline#load_theme'], ext)
-    # TODO: Why is this hack needed?
-    timer_start(1000, { _ -> airline#extensions#tabline#redraw()})
-  enddef
+  "def airline#extensions#tabline#init(ext: dict<any>): void # {{{2
+  "  Seems not to work yet :(
+  "  if has('gui_running') && match(&guioptions, 'e') > -1
+  "    :set guioptions-=e
+  "  endif
+  "  autocmd User AirlineToggledOn call s:toggle_on()
+  "  autocmd User AirlineToggledOff call s:toggle_off()
+  "  s:toggle_on()
+  "  try
+  "    ext.add_theme_func('airline#extensions#tabline#load_theme')
+  "  catch
+  "  endtry
+  "enddef
   def s:toggle_off(): void # {{{2
     airline#extensions#tabline#autoshow#off()
     airline#extensions#tabline#tabs#off()
@@ -456,12 +460,13 @@ else
     endif
     return group
   enddef
-  def airline#extensions#tabline#add_label(dict: dict<any>, type: string, right: number): void # {{{2
-    if get(g:, 'airline#extensions#tabline#show_tab_type', 1)
-      dict.add_section_spaced('airline_tablabel' .. (right ? '_right' : ''),
-        get(g:, 'airline#extensions#tabline#' .. type .. '_label', type))
-    endif
-  enddef
+  "def airline#extensions#tabline#add_label(dict: dict<any>, type: string, right: number): void # {{{2
+  "  # Seems not to work yet :(
+  "  if get(g:, 'airline#extensions#tabline#show_tab_type', 1)
+  "    dict.add_section_spaced('airline_tablabel' .. (right ? '_right' : ''),
+  "      get(g:, 'airline#extensions#tabline#' .. type .. '_label', type))
+  "  endif
+  "enddef
   def airline#extensions#tabline#add_tab_label(dict: dict<any>): void #  {{{2
     var show_tab_count = get(g:, 'airline#extensions#tabline#show_tab_count', 1)
     if show_tab_count == 2
