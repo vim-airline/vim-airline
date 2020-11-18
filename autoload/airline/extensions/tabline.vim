@@ -16,7 +16,7 @@ if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
 
   " Legacy VimScript implementation " {{{1
   function! airline#extensions#tabline#init(ext) " {{{2
-    if has('gui_running')
+    if has('gui_running') && match(&guioptions, 'e') > -1
       set guioptions-=e
     endif
 
