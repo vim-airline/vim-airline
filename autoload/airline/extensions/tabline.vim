@@ -260,7 +260,9 @@ else
     autocmd User AirlineToggledOn call s:toggle_on()
     autocmd User AirlineToggledOff call s:toggle_off()
     s:toggle_on()
-    ext.add_theme_func('airline#extensions#tabline#load_theme')
+    call(ext.add_theme_func, ['airline#extensions#tabline#load_theme'], ext)
+    # TODO: Why is this hack needed?
+    timer_start(1000, { _ -> airline#extensions#tabline#redraw()})
   enddef
   def s:toggle_off(): void # {{{2
     airline#extensions#tabline#autoshow#off()
