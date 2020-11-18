@@ -80,4 +80,24 @@ if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
   endfunction
 else
   " New Vim9script implementation
+  def airline#themes#generate_color_map(sect1: list<string>, sect2: list<any>, sect3): dict<any>
+		# Only allows for 3 arguments currently, because Vim9 Script does not
+		# allow for a:000
+
+		# all sections should be string
+		map(sect2, {_, v -> type(v) != type('') ? string(v) : v})
+    var palette = {
+			'airline_a': [ sect1[0] , sect1[1] , sect1[2] , sect1[3] , get(sect1 , 4 , '') ] ,
+			'airline_b': [ sect2[0] , sect2[1] , sect2[2] , sect2[3] , get(sect2 , 4 , '') ] ,
+			'airline_c': [ sect3[0] , sect3[1] , sect3[2] , sect3[3] , get(sect3 , 4 , '') ] ,
+			}
+
+		extend(palette, {
+			'airline_x': [ sect3[0] , sect3[1] , sect3[2] , sect3[3] , '' ] ,
+			'airline_y': [ sect2[0] , sect2[1] , sect2[2] , sect2[3] , '' ] ,
+			'airline_z': [ sect1[0] , sect1[1] , sect1[2] , sect1[3] , '' ] ,
+			})
+
+    return palette
+  enddef
 endif
