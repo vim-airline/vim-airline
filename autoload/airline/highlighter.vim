@@ -314,4 +314,14 @@ if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
   finish
 else
   " This is using Vim9 script " {{{1
+  def s:gui2cui(rgb: string, fallback: string): string # {{{2
+    if empty(rgb)
+      return fallback
+    elseif match(rgb, '^\%(NONE\|[fb]g\)$') > -1
+      return rgb
+    endif
+    var _rgb = []
+    _rgb = map(split(rgb[1:], '..\zs'), {_, v -> str2nr("0x" .. v)})
+    return airline#msdos#round_msdos_colors(_rgb)
+  enddef
 endif
