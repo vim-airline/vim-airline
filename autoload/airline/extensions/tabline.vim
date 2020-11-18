@@ -360,4 +360,33 @@ else
     airline#highlighter#exec('airline_tabmod_right', tabmod_right)
     airline#highlighter#exec('airline_tabhid_right', tabhid_right)
   enddef
+  def airline#extensions#tabline#get(): string # {{{2
+    var show_buffers = get(g:, 'airline#extensions#tabline#show_buffers', 1)
+    var show_tabs = get(g:, 'airline#extensions#tabline#show_tabs', 1)
+
+    var curtabcnt = tabpagenr('$')
+    if curtabcnt != s:current_tabcnt
+      s:current_tabcnt = curtabcnt
+      airline#extensions#tabline#tabs#invalidate()
+      airline#extensions#tabline#buffers#invalidate()
+      airline#extensions#tabline#ctrlspace#invalidate()
+      airline#extensions#tabline#tabws#invalidate()
+    endif
+
+    if !exists('#airline#BufAdd#*')
+      autocmd airline BufAdd * call <sid>update_tabline(0)
+    endif
+    if !exists('#airline#SessionLoadPost')
+      autocmd airline SessionLoadPost * call <sid>update_tabline(1)
+    endif
+    if s:ctrlspace
+      return airline#extensions#tabline#ctrlspace#get()
+    elseif s:tabws
+      return airline#extensions#tabline#tabws#get()
+    elseif show_buffers && curtabcnt == 1 || !show_tabs
+      return airline#extensions#tabline#buffers#get()
+    else
+      return airline#extensions#tabline#tabs#get()
+    endif
+  enddef
 endif
