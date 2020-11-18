@@ -3,7 +3,6 @@
 
 scriptencoding utf-8
 
-unlet! g:airline_experimental
 if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
   " generates a dictionary which defines the colors for each highlight group
   function! airline#themes#generate_color_map(sect1, sect2, sect3, ...)
@@ -115,38 +114,38 @@ else
         continue
       endif
       if !has_key(palette[mode], 'airline_warning')
-        palette[mode]['airline_warning'] = [ '#000000', '#df5f00', '232', '166' ]
+        extend(palette[mode], #{airline_warning: [ '#000000', '#df5f00', '232', '166', '' ]})
       endif
       if !has_key(palette[mode], 'airline_error')
-        palette[mode]['airline_error'] = [ '#000000', '#990000', '232', '160' ]
+        extend(palette[mode], #{airline_error: [ '#000000', '#990000', '232', '160', '' ]})
       endif
       if !has_key(palette[mode], 'airline_term')
-        palette[mode]['airline_term'] = [ '#9cffd3', '#202020', '85', '232']
+        extend(palette[mode], #{airline_term: [ '#9cffd3', '#202020', '85', '232', '']})
       endif
     endfor
 
     palette.accents = get(palette, 'accents', {})
-    palette.accents.none = [ '', '', '', '', '' ]
-    palette.accents.bold = [ '', '', '', '', 'bold' ]
-    palette.accents.italic = [ '', '', '', '', 'italic' ]
+    extend(palette.accents, #{none: [ '', '', '', '', '' ]})
+    extend(palette.accents, #{bold:  [ '', '', '', '', 'bold' ]})
+    extend(palette.accents, #{italic: [ '', '', '', '', 'italic' ]})
 
     if !has_key(palette.accents, 'red')
-      palette.accents.red = [ '#ff0000', '', '160', '' ]
+      extend(palette.accents, #{red: [ '#ff0000', '', '160', '' ]})
     endif
     if !has_key(palette.accents, 'green')
-      palette.accents.green = [ '#008700', '', '22', '' ]
+      extend(palette.accents, #{green: [ '#008700', '', '22', '' ]})
     endif
     if !has_key(palette.accents, 'blue')
-      palette.accents.blue = [ '#005fff', '', '27', '' ]
+      extend(palette.accents, #{blue: [ '#005fff', '', '27', '' ]})
     endif
     if !has_key(palette.accents, 'yellow')
-      palette.accents.yellow = [ '#dfff00', '', '190', '' ]
+      extend(palette.accents, #{yellow: [ '#dfff00', '', '190', '' ]})
     endif
     if !has_key(palette.accents, 'orange')
-      palette.accents.orange = [ '#df5f00', '', '166', '' ]
+      extend(palette.accents, #{orange: [ '#df5f00', '', '166', '' ]})
     endif
     if !has_key(palette.accents, 'purple')
-      palette.accents.purple = [ '#af00df', '', '128', '' ]
+      extend(palette.accents, #{purple: [ '#af00df', '', '128', '' ]})
     endif
   enddef
 endif
