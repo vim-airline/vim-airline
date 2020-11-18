@@ -402,4 +402,31 @@ else
     endif
     return true
   enddef
+  def airline#highlighter#exec(group: string, clrs: list<any>): void # {{{2
+    # TODO: is clrs: list<any> correct? Should probably be list<number> instead
+    #       convert all themes to use strings in cterm color definition
+    if pumvisible()
+      return
+    endif
+    var colors: list<string>
+    colors = map(copy(clrs), { _, v -> type(v) != type('') ? string(v) : v})
+    if len(colors) == 4
+      add(colors, '')
+    endif
+    if s:is_win32term
+      colors[2] = s:gui2cui(get(colors, 0, ''), get(colors, 2, ''))
+      colors[3] = s:gui2cui(get(colors, 1, ''), get(colors, 3, ''))
+    endif
+    var old_hi: list<string> = airline#highlighter#get_highlight(group)
+    var new_hi: list<string> = colors
+    colors = s:CheckDefined(colors)
+    if old_hi != new_hi || !s:hl_group_exists(group)
+      var cmd = ''
+      cmd = printf('hi %s%s', group, s:GetHiCmd(colors))
+      exe cmd
+      if has_key(s:hl_groups, group)
+        s:hl_groups[group] = colors
+      endif
+    endif
+  enddef
 endif
