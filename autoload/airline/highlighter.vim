@@ -24,7 +24,6 @@ if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
 		let rgb = map(split(a:rgb[1:], '..\zs'), '0 + ("0x".v:val)')
 		return airline#msdos#round_msdos_colors(rgb)
 	endfunction
-
 	function! s:group_not_done(list, name) abort " {{{2
 		if index(a:list, a:name) == -1
 			call add(a:list, a:name)
@@ -54,7 +53,6 @@ if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
 	function! s:get_array(guifg, guibg, ctermfg, ctermbg, opts) abort " {{{2
 		return [ a:guifg, a:guibg, a:ctermfg, a:ctermbg, empty(a:opts) ? '' : join(a:opts, ',') ]
 	endfunction
-
 	function! airline#highlighter#reset_hlcache() abort " {{{2
 		let s:hl_groups = {}
 	endfunction
@@ -153,7 +151,6 @@ if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
 		endif
 		return a:colors[0:1] + [fg, bg] + [a:colors[4]]
 	endfunction
-
 	function! s:GetHiCmd(list) abort " {{{2
 		" a:list needs to have 5 items!
 		let res = ''
