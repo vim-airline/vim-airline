@@ -523,7 +523,7 @@ else
     s:accents[accent] = 1
   enddef
   def airline#highlighter#highlight_modified_inactive(bufnr: number): void # {{{2
-		var colors: list<string>
+    var colors: list<string>
     if getbufvar(bufnr, '&modified')
       colors = exists('g:airline#themes#' .. g:airline_theme .. '#palette.inactive_modified.airline_c')
             ? eval('g:airline#themes#' .. g:airline_theme .. '#palette.inactive_modified.airline_c') : []
