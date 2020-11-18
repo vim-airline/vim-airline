@@ -70,8 +70,8 @@ else
     return airline#extensions#tabline#formatters#default#wrap_name(bufnr, result)
   enddef
   def airline#extensions#tabline#formatters#default#wrap_name(bufnr: number, buffer_name: string): string # {{{2
-		var buf_nr_show = get(g:, 'airline#extensions#tabline#buffer_nr_show', 0)
-		var buf_nr_format = get(g:, 'airline#extensions#tabline#buffer_nr_format', '%s: ')
+    var buf_nr_show = get(g:, 'airline#extensions#tabline#buffer_nr_show', 0)
+    var buf_nr_format = get(g:, 'airline#extensions#tabline#buffer_nr_format', '%s: ')
     var result = buf_nr_show ? printf(buf_nr_format, bufnr) : ''
     result = result .. substitute(buffer_name, '\\', '/', 'g')
     if getbufvar(bufnr, '&modified') == 1
