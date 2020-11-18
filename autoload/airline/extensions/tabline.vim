@@ -315,7 +315,7 @@ else
   enddef
   def airline#extensions#tabline#enable(): void # {{{2
     if &lines > 3
-      let &showtabline=2
+      &showtabline = 2
     endif
   enddef
   def! airline#extensions#tabline#load_theme(palette: dict<any>): void # {{{2
