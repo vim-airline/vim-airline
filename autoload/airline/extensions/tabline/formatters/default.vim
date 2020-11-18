@@ -4,7 +4,8 @@
 scriptencoding utf-8
 
 if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
-  function! airline#extensions#tabline#formatters#default#format(bufnr, buffers)
+  " Legacy VimScript implementation {{{1
+  function! airline#extensions#tabline#formatters#default#format(bufnr, buffers)  " {{{2
     let fnametruncate = get(g:, 'airline#extensions#tabline#fnametruncate', 0)
     let fmod = get(g:, 'airline#extensions#tabline#fnamemod', ':~:.')
     let _ = ''
@@ -31,16 +32,15 @@ if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
     return airline#extensions#tabline#formatters#default#wrap_name(a:bufnr, _)
   endfunction
 
-  function! airline#extensions#tabline#formatters#default#wrap_name(bufnr, buffer_name)
+  function! airline#extensions#tabline#formatters#default#wrap_name(bufnr, buffer_name) " {{{2
     let buf_nr_format = get(g:, 'airline#extensions#tabline#buffer_nr_format', '%s: ')
     let buf_nr_show = get(g:, 'airline#extensions#tabline#buffer_nr_show', 0)
-    let buf_modified_symbol = g:airline_symbols.modified
 
     let _ = buf_nr_show ? printf(buf_nr_format, a:bufnr) : ''
     let _ .= substitute(a:buffer_name, '\\', '/', 'g')
 
     if getbufvar(a:bufnr, '&modified') == 1
-      let _ .= buf_modified_symbol
+      let _ .= g:airline_symbols.modified
     endif
     return _
   endfunction
@@ -64,7 +64,7 @@ else
          result = fnamemodify(name, fmod)
       endif
       if bufnr != bufnr('%') && fnametruncate && strlen(result) > fnametruncate
-        result = strpart(result, 0, fnametruncate)
+        result = airline#util#strcharpart(result, 0, fnametruncate)
       endif
     endif
     return airline#extensions#tabline#formatters#default#wrap_name(bufnr, result)
