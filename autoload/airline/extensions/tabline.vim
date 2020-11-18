@@ -457,4 +457,12 @@ else
         get(g:, 'airline#extensions#tabline#' .. type .. '_label', type))
     endif
   enddef
+  def airline#extensions#tabline#add_tab_label(dict: dict<any>): void #  {{{2
+    var show_tab_count = get(g:, 'airline#extensions#tabline#show_tab_count', 1)
+    if show_tab_count == 2
+      dict.add_section_spaced('airline_tabmod', printf('%s %d/%d', "tab", tabpagenr(), tabpagenr('$')))
+    elseif show_tab_count == 1 && tabpagenr('$') > 1
+      dict.add_section_spaced('airline_tabmod', printf('%s %d/%d', "tab", tabpagenr(), tabpagenr('$')))
+    endif
+  enddef
 endif
