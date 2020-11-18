@@ -539,22 +539,22 @@ else
     var p: dict<any> = eval('g:airline#themes#' .. g:airline_theme .. '#palette')
 
     # draw the base mode, followed by any overrides
-		var mapped = map(modes, {_, v -> v == modes[0] ? v : modes[0] .. "_" .. v})
-		var suffix = ''
-		if modes[0] == 'inactive'
-			suffix = '_inactive'
-		endif
+    var mapped = map(modes, {_, v -> v == modes[0] ? v : modes[0] .. "_" .. v})
+    var suffix = ''
+    if modes[0] == 'inactive'
+      suffix = '_inactive'
+    endif
     var airline_grouplist = []
-		var dict: dict<any>
-		var bnr: number = 0
+    var dict: dict<any>
+    var bnr: number = 0
 
     var buffers_in_tabpage: list<number> = uniq(sort(tabpagebuflist()))
     # mapped might be something like ['normal', 'normal_modified']
     # if a group is in both modes available, only define the second
     # that is how this was done previously overwrite the previous definition
     for mode in reverse(mapped)
-      if exists('g:airline#themes#' .. g:airline_theme .. '#palette[mode]')
-        dict = eval('g:airline#themes#' .. g:airline_theme .. '#palette[' .. mode .. ']')
+      if exists('g:airline#themes#' .. g:airline_theme .. '#palette.' .. mode)
+        dict = eval('g:airline#themes#' .. g:airline_theme .. '#palette.' .. mode)
         for kvp in items(dict)
           var mode_colors = kvp[1]
           var name = kvp[0]
@@ -589,10 +589,12 @@ else
             endif
             var colors = copy(mode_colors)
             if p.accents[accent][0] != ''
-              colors[0] = p.accents[accent][0]
+                colors[0] = p.accents[accent][0]
             endif
-            if p.accents[accent][2] != ''
-              colors[2] = p.accents[accent][2]
+            if type(get(p.accents[accent], 2, '')) == type('')
+              colors[2] = get(p.accents[accent], 2, '')
+            else
+              colors[2] = string(p.accents[accent][2])
             endif
             if len(colors) >= 5
               colors[4] = get(p.accents[accent], 4, '')
