@@ -273,4 +273,21 @@ else
       airline#extensions#tabline#tabws#off()
     endif
   enddef
+  def s:toggle_on(): void # {{{2
+    if get(g:, 'airline_statusline_ontop', 0)
+      airline#extensions#tabline#enable()
+      &tabline='%!airline#statusline('.winnr().')'
+      return
+    endif
+    airline#extensions#tabline#autoshow#on()
+    airline#extensions#tabline#tabs#on()
+    airline#extensions#tabline#buffers#on()
+    if s:ctrlspace
+      airline#extensions#tabline#ctrlspace#on()
+    endif
+    if s:tabws
+      airline#extensions#tabline#tabws#on()
+    endif
+    &tabline='%!airline#extensions#tabline#get()'
+  enddef
 endif
