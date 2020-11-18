@@ -309,4 +309,8 @@ else
     airline#util#doautocmd('BufMRUChange')
     airline#extensions#tabline#redraw()
   enddef
+  def airline#extensions#tabline#redraw(): void # {{{2
+    # TODO: Is this still needed?
+    :redrawtabline
+  enddef
 endif
