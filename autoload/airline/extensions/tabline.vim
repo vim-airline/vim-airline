@@ -290,4 +290,23 @@ else
     endif
     &tabline='%!airline#extensions#tabline#get()'
   enddef
+  def s:update_tabline(forceit: number): void # {{{2
+    if get(g:, 'airline#extensions#tabline#disable_refresh', 0)
+      return
+    endif
+    if !forceit && get(g:, 'SessionLoad', 0)
+      return
+    endif
+    var match = expand('<afile>')
+    if pumvisible()
+      return
+    elseif !get(g:, 'airline#extensions#tabline#enabled', 0)
+      return
+    # return, if buffer matches ignore pattern or is directory (netrw)
+    elseif empty(match) || airline#util#ignore_buf(match) || isdirectory(match)
+      return
+    endif
+    airline#util#doautocmd('BufMRUChange')
+    airline#extensions#tabline#redraw()
+  enddef
 endif
