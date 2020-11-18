@@ -535,4 +535,86 @@ else
       airline#highlighter#exec('airline_c' .. bufnr .. '_inactive', colors)
     endif
   enddef
+  def! airline#highlighter#highlight(modes: list<string>, bufnr: string = ''): void # {{{2
+    var p: dict<any> = eval('g:airline#themes#' .. g:airline_theme .. '#palette')
+
+    # draw the base mode, followed by any overrides
+		var mapped = map(modes, {_, v -> v == modes[0] ? v : modes[0] .. "_" .. v})
+		var suffix = ''
+		if modes[0] == 'inactive'
+			suffix = '_inactive'
+		endif
+    var airline_grouplist = []
+		var dict: dict<any>
+		var bnr: number = 0
+
+    var buffers_in_tabpage: list<number> = uniq(sort(tabpagebuflist()))
+    # mapped might be something like ['normal', 'normal_modified']
+    # if a group is in both modes available, only define the second
+    # that is how this was done previously overwrite the previous definition
+    for mode in reverse(mapped)
+      if exists('g:airline#themes#' .. g:airline_theme .. '#palette[mode]')
+        dict = eval('g:airline#themes#' .. g:airline_theme .. '#palette[' .. mode .. ']')
+        for kvp in items(dict)
+          var mode_colors = kvp[1]
+          var name = kvp[0]
+          if name == 'airline_c' && !empty(bufnr) && suffix == '_inactive'
+            name = 'airline_c' .. bufnr
+          endif
+          # do not re-create highlighting for buffers that are no longer visible
+          # in the current tabpage
+          if name =~# 'airline_c\d\+'
+            bnr = str2nr(matchstr(name, 'airline_c\zs\d\+'))
+            if bnr > 0 && index(buffers_in_tabpage, bnr) == -1
+              continue
+            endif
+          elseif (name =~ '_to_') || (name[0:10] == 'airline_tab' && !empty(suffix))
+            # group will be redefined below at exec_separator
+            # or is not needed for tabline with '_inactive' suffix
+            # since active flag is 1 for builder)
+            continue
+          endif
+          if s:group_not_done(airline_grouplist, name .. suffix)
+            airline#highlighter#exec(name .. suffix, mode_colors)
+          endif
+
+          if !has_key(p, 'accents')
+            # shouldn't actually happen, p should always contain accents
+            continue
+          endif
+
+          for accent in keys(s:accents)
+            if !has_key(p.accents, accent)
+              continue
+            endif
+            var colors = copy(mode_colors)
+            if p.accents[accent][0] != ''
+              colors[0] = p.accents[accent][0]
+            endif
+            if p.accents[accent][2] != ''
+              colors[2] = p.accents[accent][2]
+            endif
+            if len(colors) >= 5
+              colors[4] = get(p.accents[accent], 4, '')
+            else
+              add(colors, get(p.accents[accent], 4, ''))
+            endif
+            if s:group_not_done(airline_grouplist, name .. suffix .. '_' .. accent)
+              airline#highlighter#exec(name .. suffix .. '_' .. accent, colors)
+            endif
+          endfor
+        endfor
+
+        if empty(s:separators)
+          continue
+        endif
+        for sep in items(s:separators)
+          # we cannot check, that the group already exists, else the separators
+          # might not be correctly defined. But perhaps we can skip above groups
+          # that match the '_to_' name, because they would be redefined here...
+          s:exec_separator(dict, sep[1][0], sep[1][1], sep[1][2], suffix)
+        endfor
+      endif
+    endfor
+  enddef
 endif " }}}1
