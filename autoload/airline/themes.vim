@@ -131,22 +131,22 @@ else
     palette.accents.italic = [ '', '', '', '', 'italic' ]
 
     if !has_key(palette.accents, 'red')
-      palette.accents.red = [ '#ff0000' , '' , '160' , '' ]
+      palette.accents.red = [ '#ff0000', '', '160', '' ]
     endif
     if !has_key(palette.accents, 'green')
-      palette.accents.green = [ '#008700' , '' , '22'  , '' ]
+      palette.accents.green = [ '#008700', '', '22', '' ]
     endif
     if !has_key(palette.accents, 'blue')
-      palette.accents.blue = [ '#005fff' , '' , '27'  , '' ]
+      palette.accents.blue = [ '#005fff', '', '27', '' ]
     endif
     if !has_key(palette.accents, 'yellow')
-      palette.accents.yellow = [ '#dfff00' , '' , '190' , '' ]
+      palette.accents.yellow = [ '#dfff00', '', '190', '' ]
     endif
     if !has_key(palette.accents, 'orange')
-      palette.accents.orange = [ '#df5f00' , '' , '166' , '' ]
+      palette.accents.orange = [ '#df5f00', '', '166', '' ]
     endif
     if !has_key(palette.accents, 'purple')
-      palette.accents.purple = [ '#af00df' , '' , '128' , '' ]
+      palette.accents.purple = [ '#af00df', '', '128', '' ]
     endif
   enddef
 endif
