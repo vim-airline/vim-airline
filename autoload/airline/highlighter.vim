@@ -332,4 +332,19 @@ else
       return false
     endif
   enddef
+  def s:get_syn(group: string, what: string, mode: string): string # {{{2
+    var color = ''
+    if hlexists(group)
+      color = hlID(group)->synIDtrans()->synIDattr(what, mode)
+    endif
+    if empty(color) || str2nr(color) == -1
+      # Normal highlighting group should always exist
+      color = hlID('Normal')->synIDtrans()->synIDattr(what, mode)
+      # however, just in case
+      if empty(color) || str2nr(color) == -1
+        color = 'NONE'
+      endif
+    endif
+    return color
+  enddef
 endif
