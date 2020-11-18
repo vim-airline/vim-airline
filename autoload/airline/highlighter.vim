@@ -402,6 +402,37 @@ else
     endif
     return true
   enddef
+  def s:CheckDefined(colors: list<any>): list<any> # {{{2
+    # Checks, whether the definition of the colors is valid and is not empty or NONE
+    # e.g. if the colors would expand to this:
+    # hi airline_c ctermfg=NONE ctermbg=NONE
+    # that means to clear that highlighting group, therefore, fallback to Normal
+    # highlighting group for the cterm values
+
+    # This only works, if the Normal highlighting group is actually defined,
+    # so return early, if it has been cleared
+    if !exists("g:airline#highlighter#normal_fg_hi")
+      g:airline#highlighter#normal_fg_hi = hlID('Normal')->synIDtrans()->synIDattr('fg', 'cterm')
+    endif
+    if empty(g:airline#highlighter#normal_fg_hi) || str2nr(g:airline#highlighter#normal_fg_hi) < 0
+      return colors
+    endif
+
+    for val in colors
+      if !empty(val) && val !=# 'NONE'
+        return colors
+      endif
+    endfor
+    # this adds the bold attribute to the term argument of the :hi command,
+    # but at least this makes sure, the group will be defined
+    var fg = g:airline#highlighter#normal_fg_hi
+    var bg = hlID('Normal')->synIDtrans()->synIDattr('bg', 'cterm')
+    if str2nr(bg) < 0
+      # in case there is no background color defined for Normal
+      bg = colors[3]
+    endif
+    return colors[0:1] + [fg, bg] + [colors[4]]
+  enddef
   def airline#highlighter#exec(group: string, clrs: list<any>): void # {{{2
     # TODO: is clrs: list<any> correct? Should probably be list<number> instead
     #       convert all themes to use strings in cterm color definition
