@@ -419,9 +419,9 @@ else
     endif
     return title
   enddef
-  def airline#extensions#tabline#get_buffer_name(nr: number, buffers: list<number> = airline#extensions#tabline#buflist#list()): string # {{{2
-    var formatter = get(g:, 'airline#extensions#tabline#formatter', 'default')
-    return eval('airline#extensions#tabline#formatters#' .. formatter .. '#format(nr, ' .. string(buffers) .. ')')
+  def airline#extensions#tabline#get_buffer_name(nr: number, buffers = airline#extensions#tabline#buflist#list()): string # {{{2
+    var Formatter = 'airline#extensions#tabline#formatters#' .. get(g:, 'airline#extensions#tabline#formatter', 'default') .. '#format'
+    return call(Formatter, [ nr, buffers] )
   enddef
   def airline#extensions#tabline#new_builder(): dict<any> # {{{2
     var builder_context = {
