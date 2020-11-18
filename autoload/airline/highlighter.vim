@@ -515,4 +515,8 @@ else
       airline#highlighter#highlight(['normal'])
     endif
   enddef
+  def! airline#highlighter#add_separator(from: string, to: string, inverse: bool): void # {{{2
+    s:separators[from .. to] = [from, to, inverse]
+    s:exec_separator({}, from, to, inverse, '')
+  enddef
 endif
