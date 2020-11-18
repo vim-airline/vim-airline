@@ -479,7 +479,7 @@ else
     if old_hi != new_hi || !s:hl_group_exists(group)
       var cmd = ''
       cmd = printf('hi %s%s', group, s:GetHiCmd(colors))
-      exe cmd
+      :exe cmd
       if has_key(s:hl_groups, group)
         s:hl_groups[group] = colors
       endif
