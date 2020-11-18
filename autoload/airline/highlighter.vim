@@ -353,4 +353,37 @@ else
   def airline#highlighter#reset_hlcache(): void # {{{2
     s:hl_groups = {}
   enddef
+  def airline#highlighter#get_highlight(group: string, rest: list<string> = ['']): list<string> # {{{2
+    # only check for the cterm reverse attribute
+    # TODO: do we need to check all modes (gui, term, as well)?
+    var reverse = false
+    var res = []
+    var ctermfg: string
+    var ctermbg: string
+    var guifg: string
+    var guibg: string
+    var bold: bool
+    if hlID(group)->synIDtrans()->synIDattr('reverse', 'cterm')
+      reverse = true
+    endif
+    if get(g:, 'airline_highlighting_cache', 0) && has_key(s:hl_groups, group)
+      res = s:hl_groups[group]
+      return reverse ? [ res[1], res[0], res[3], res[2], res[4] ] : res
+    else
+      ctermfg = s:get_syn(group, 'fg', 'cterm')
+      ctermbg = s:get_syn(group, 'bg', 'cterm')
+      guifg = s:get_syn(group, 'fg', 'gui')
+      guibg = s:get_syn(group, 'bg', 'gui')
+      if hlID(group)->synIDtrans()->synIDattr('bold')
+        bold = true
+      endif
+      if reverse
+        res = s:get_array(guibg, guifg, ctermbg, ctermfg, bold ? ['bold'] : rest)
+      else
+        res = s:get_array(guifg, guibg, ctermfg, ctermbg, bold ? ['bold'] : rest)
+      endif
+    endif
+    s:hl_groups[group] = res
+    return res
+  enddef
 endif
