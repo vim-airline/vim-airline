@@ -324,4 +324,15 @@ else
     _rgb = map(split(rgb[1:], '..\zs'), {_, v -> str2nr("0x" .. v)})
     return airline#msdos#round_msdos_colors(_rgb)
   enddef
+  def s:group_not_done(list: list<string>, name: string): bool # {{{2
+    if index(list, name) == -1
+      add(list, name)
+      return true
+    else
+      if &vbs
+        :echomsg printf("airline: group: %s already done, skipping", name)
+      endif
+      return false
+    endif
+  enddef
 endif
