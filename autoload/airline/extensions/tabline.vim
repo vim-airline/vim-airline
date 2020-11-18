@@ -10,6 +10,7 @@ endif
 
 let s:ctrlspace = get(g:, 'CtrlSpaceLoaded', 0)
 let s:tabws = get(g:, 'tabws_loaded', 0)
+let s:current_tabcnt = -1
 
 if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
 
@@ -139,7 +140,6 @@ if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
     call airline#highlighter#exec('airline_tabhid_right', tabhid_right)
     call airline#highlighter#exec('airline_tabmod_unsel_right', tabmodu_right)
   endfunction
-  let s:current_tabcnt = -1
   function! airline#extensions#tabline#get() " {{{2
     let show_buffers = get(g:, 'airline#extensions#tabline#show_buffers', 1)
     let show_tabs = get(g:, 'airline#extensions#tabline#show_tabs', 1)
