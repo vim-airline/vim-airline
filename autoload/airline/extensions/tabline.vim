@@ -431,4 +431,24 @@ else
         }
     return airline#extensions#tabline#builder#new(builder_context)
   enddef
+  def airline#extensions#tabline#group_of_bufnr(tab_bufs: list<number>, bufnr: number): string # {{{2
+    let cur = bufnr('%')
+    var group = ''
+    if cur == bufnr
+      if g:airline_detect_modified && getbufvar(bufnr, '&modified')
+        group = 'airline_tabmod'
+      else
+        group = 'airline_tabsel'
+      endif
+    else
+      if g:airline_detect_modified && getbufvar(bufnr, '&modified')
+        group = 'airline_tabmod_unsel'
+      elseif index(tab_bufs, bufnr) > -1
+        group = 'airline_tab'
+      else
+        group = 'airline_tabhid'
+      endif
+    endif
+    return group
+  enddef
 endif
