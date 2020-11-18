@@ -257,8 +257,8 @@ else
     if has('gui_running') && match(&guioptions, 'e') > -1
       :set guioptions-=e
     endif
-    autocmd User AirlineToggledOn s:toggle_on()
-    autocmd User AirlineToggledOff s:toggle_off()
+    autocmd User AirlineToggledOn call s:toggle_on()
+    autocmd User AirlineToggledOff call s:toggle_off()
     s:toggle_on()
     ext.add_theme_func('airline#extensions#tabline#load_theme')
   enddef
