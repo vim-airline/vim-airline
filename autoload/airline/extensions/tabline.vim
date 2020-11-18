@@ -262,4 +262,15 @@ else
     s:toggle_on()
     a:ext.add_theme_func('airline#extensions#tabline#load_theme')
   enddef
+  def s:toggle_off(): void # {{{2
+    airline#extensions#tabline#autoshow#off()
+    airline#extensions#tabline#tabs#off()
+    airline#extensions#tabline#buffers#off()
+    if s:ctrlspace
+      airline#extensions#tabline#ctrlspace#off()
+    endif
+    if s:tabws
+      airline#extensions#tabline#tabws#off()
+    endif
+  enddef
 endif
