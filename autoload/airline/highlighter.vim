@@ -1,5 +1,5 @@
 " MIT License. Copyright (c) 2013-2020 Bailey Ling Christian Brabandt et al.
-" vim: et ts=2 sts=2 sw=2
+" vim: et ts=2 sts=2 sw=2 fdm=marker et
 
 scriptencoding utf-8
 
@@ -13,7 +13,7 @@ let s:separators = {}
 let s:accents = {}
 let s:hl_groups = {}
 
-function! s:gui2cui(rgb, fallback) abort
+function! s:gui2cui(rgb, fallback) abort " {{{2
   if a:rgb == ''
     return a:fallback
   elseif match(a:rgb, '^\%(NONE\|[fb]g\)$') > -1
@@ -23,7 +23,7 @@ function! s:gui2cui(rgb, fallback) abort
   return airline#msdos#round_msdos_colors(rgb)
 endfunction
 
-function! s:group_not_done(list, name) abort
+function! s:group_not_done(list, name) abort " {{{2
   if index(a:list, a:name) == -1
     call add(a:list, a:name)
     return 1
@@ -34,8 +34,7 @@ function! s:group_not_done(list, name) abort
     return 0
   endif
 endfu
-
-function! s:get_syn(group, what, mode) abort
+function! s:get_syn(group, what, mode) abort "{{{2
   let color = ''
   if hlexists(a:group)
     let color = synIDattr(synIDtrans(hlID(a:group)), a:what, a:mode)
@@ -50,16 +49,14 @@ function! s:get_syn(group, what, mode) abort
   endif
   return color
 endfunction
-
-function! s:get_array(guifg, guibg, ctermfg, ctermbg, opts) abort
+function! s:get_array(guifg, guibg, ctermfg, ctermbg, opts) abort " {{{2
   return [ a:guifg, a:guibg, a:ctermfg, a:ctermbg, empty(a:opts) ? '' : join(a:opts, ',') ]
 endfunction
 
-function! airline#highlighter#reset_hlcache() abort
+function! airline#highlighter#reset_hlcache() abort " {{{2
   let s:hl_groups = {}
 endfunction
-
-function! airline#highlighter#get_highlight(group, ...) abort
+function! airline#highlighter#get_highlight(group, ...) abort " {{{2
   " only check for the cterm reverse attribute
   " TODO: do we need to check all modes (gui, term, as well)?
   let reverse = synIDattr(synIDtrans(hlID(a:group)), 'reverse', 'cterm')
@@ -81,16 +78,14 @@ function! airline#highlighter#get_highlight(group, ...) abort
   let s:hl_groups[a:group] = res
   return res
 endfunction
-
-function! airline#highlighter#get_highlight2(fg, bg, ...) abort
+function! airline#highlighter#get_highlight2(fg, bg, ...) abort " {{{2
   let guifg = s:get_syn(a:fg[0], a:fg[1], 'gui')
   let guibg = s:get_syn(a:bg[0], a:bg[1], 'gui')
   let ctermfg = s:get_syn(a:fg[0], a:fg[1], 'cterm')
   let ctermbg = s:get_syn(a:bg[0], a:bg[1], 'cterm')
   return s:get_array(guifg, guibg, ctermfg, ctermbg, a:000)
 endfunction
-
-function! s:hl_group_exists(group) abort
+function! s:hl_group_exists(group) abort " {{{2
   if !hlexists(a:group)
     return 0
   elseif empty(synIDattr(hlID(a:group), 'fg'))
@@ -98,8 +93,7 @@ function! s:hl_group_exists(group) abort
   endif
   return 1
 endfunction
-
-function! airline#highlighter#exec(group, colors) abort
+function! airline#highlighter#exec(group, colors) abort " {{{2
   if pumvisible()
     return
   endif
@@ -116,14 +110,17 @@ function! airline#highlighter#exec(group, colors) abort
   let colors = s:CheckDefined(colors)
   if old_hi != new_hi || !s:hl_group_exists(a:group)
     let cmd = printf('hi %s%s', a:group, s:GetHiCmd(colors))
-    exe cmd
+    try
+      exe cmd
+    catch
+      echoerr "Error when running command: ". cmd
+    endtry
     if has_key(s:hl_groups, a:group)
       let s:hl_groups[a:group] = colors
     endif
   endif
 endfunction
-
-function! s:CheckDefined(colors) abort
+function! s:CheckDefined(colors) abort " {{{2
   " Checks, whether the definition of the colors is valid and is not empty or NONE
   " e.g. if the colors would expand to this:
   " hi airline_c ctermfg=NONE ctermbg=NONE
@@ -155,7 +152,7 @@ function! s:CheckDefined(colors) abort
   return a:colors[0:1] + [fg, bg] + [a:colors[4]]
 endfunction
 
-function! s:GetHiCmd(list) abort
+function! s:GetHiCmd(list) abort " {{{2
   " a:list needs to have 5 items!
   let res = ''
   let i = -1
@@ -179,8 +176,7 @@ function! s:GetHiCmd(list) abort
   endwhile
   return res
 endfunction
-
-function! s:exec_separator(dict, from, to, inverse, suffix) abort
+function! s:exec_separator(dict, from, to, inverse, suffix) abort " {{{2
   if pumvisible()
     return
   endif
@@ -195,8 +191,7 @@ function! s:exec_separator(dict, from, to, inverse, suffix) abort
   let a:dict[group] = colors
   call airline#highlighter#exec(group, colors)
 endfunction
-
-function! airline#highlighter#load_theme() abort
+function! airline#highlighter#load_theme() abort " {{{2
   if pumvisible()
     return
   endif
@@ -210,17 +205,14 @@ function! airline#highlighter#load_theme() abort
     call airline#highlighter#highlight(['normal'])
   endif
 endfunction
-
-function! airline#highlighter#add_separator(from, to, inverse) abort
+function! airline#highlighter#add_separator(from, to, inverse) abort " {{{2
   let s:separators[a:from.a:to] = [a:from, a:to, a:inverse]
   call <sid>exec_separator({}, a:from, a:to, a:inverse, '')
 endfunction
-
-function! airline#highlighter#add_accent(accent) abort
+function! airline#highlighter#add_accent(accent) abort " {{{2
   let s:accents[a:accent] = 1
 endfunction
-
-function! airline#highlighter#highlight_modified_inactive(bufnr) abort
+function! airline#highlighter#highlight_modified_inactive(bufnr) abort " {{{2
   if getbufvar(a:bufnr, '&modified')
     let colors = exists('g:airline#themes#{g:airline_theme}#palette.inactive_modified.airline_c')
           \ ? g:airline#themes#{g:airline_theme}#palette.inactive_modified.airline_c : []
@@ -233,8 +225,7 @@ function! airline#highlighter#highlight_modified_inactive(bufnr) abort
     call airline#highlighter#exec('airline_c'.(a:bufnr).'_inactive', colors)
   endif
 endfunction
-
-function! airline#highlighter#highlight(modes, ...) abort
+function! airline#highlighter#highlight(modes, ...) abort " {{{2
   let bufnr = a:0 ? a:1 : ''
   let p = g:airline#themes#{g:airline_theme}#palette
 
