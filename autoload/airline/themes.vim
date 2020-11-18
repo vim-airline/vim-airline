@@ -107,7 +107,7 @@ else
 
   def airline#themes#get_highlight2(fg: list<string>, bg: list<string>): list<string>
     return call('airline#highlighter#get_highlight2', [fg, bg])
-  endfunction
+  enddef
 
   def airline#themes#patch(palette: dict<any>): void
     for mode in keys(palette)
