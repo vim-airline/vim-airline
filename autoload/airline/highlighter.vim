@@ -88,7 +88,7 @@ if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
   function! s:hl_group_exists(group) abort " {{{2
     if !hlexists(a:group)
       return 0
-    elseif empty(synIDattr(hlID(a:group), 'fg'))
+    elseif empty(synIDattr(synIDtrans(hlID(a:group)), 'fg'))
       return 0
     endif
     return 1
