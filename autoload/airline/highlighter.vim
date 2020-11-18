@@ -525,13 +525,18 @@ else
     s:accents[accent] = 1
   enddef
   def airline#highlighter#highlight_modified_inactive(bufnr: number): void # {{{2
-    var colors: list<string>
+    var colors: list<any>
+    var dict1  = eval('g:airline#themes#' .. g:airline_theme .. '#palette')->get('inactive_modified', {})
+    var dict2  = eval('g:airline#themes#' .. g:airline_theme .. '#palette')->get('inactive', {})
+
+    if empty(dict2)
+      return
+    endif
+
     if getbufvar(bufnr, '&modified')
-      colors = exists('g:airline#themes#' .. g:airline_theme .. '#palette.inactive_modified.airline_c')
-            ? eval('g:airline#themes#' .. g:airline_theme .. '#palette.inactive_modified.airline_c') : []
+      colors = get(dict1, 'airline_c', [])
     else
-      colors = exists('g:airline#themes#' .. g:airline_theme .. '#palette.inactive.airline_c')
-            ? eval('g:airline#themes#' .. g:airline_theme .. '#palette.inactive.airline_c') : []
+      colors = get(dict2, 'airline_c', [])
     endif
     if !empty(colors)
       airline#highlighter#exec('airline_c' .. bufnr .. '_inactive', colors)
