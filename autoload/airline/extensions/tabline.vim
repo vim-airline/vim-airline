@@ -276,7 +276,7 @@ else
   def s:toggle_on(): void # {{{2
     if get(g:, 'airline_statusline_ontop', 0)
       airline#extensions#tabline#enable()
-      &tabline='%!airline#statusline('.winnr().')'
+      &tabline = '%!airline#statusline(' .. winnr() .. ')'
       return
     endif
     airline#extensions#tabline#autoshow#on()
@@ -288,7 +288,7 @@ else
     if s:tabws
       airline#extensions#tabline#tabws#on()
     endif
-    &tabline='%!airline#extensions#tabline#get()'
+    &tabline = '%!airline#extensions#tabline#get()'
   enddef
   def s:update_tabline(forceit: number): void # {{{2
     if get(g:, 'airline#extensions#tabline#disable_refresh', 0)
