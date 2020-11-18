@@ -350,4 +350,7 @@ else
   def s:get_array(guifg: string, guibg: string, ctermfg: string, ctermbg: string, opts: list<string>): list<string> # {{{2
     return [ guifg, guibg, ctermfg, ctermbg, empty(opts) ? '' : join(opts, ',') ]
   enddef
+  def airline#highlighter#reset_hlcache(): void # {{{2
+    s:hl_groups = {}
+  enddef
 endif
