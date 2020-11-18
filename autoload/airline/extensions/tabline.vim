@@ -451,4 +451,10 @@ else
     endif
     return group
   enddef
+  def airline#extensions#tabline#add_label(dict: dict<any>, type: string, right: number): void # {{{2
+    if get(g:, 'airline#extensions#tabline#show_tab_type', 1)
+      dict.add_section_spaced('airline_tablabel' .. (right ? '_right' : ''),
+        get(g:, 'airline#extensions#tabline#' .. type .. '_label', type))
+    endif
+  enddef
 endif
