@@ -522,4 +522,17 @@ else
   def airline#highlighter#add_accent(accent: string): void # {{{2
     s:accents[accent] = 1
   enddef
+  def airline#highlighter#highlight_modified_inactive(bufnr: number): void # {{{2
+		var colors: list<string>
+    if getbufvar(bufnr, '&modified')
+      colors = exists('g:airline#themes#' .. g:airline_theme .. '#palette.inactive_modified.airline_c')
+            ? eval('g:airline#themes#' .. g:airline_theme .. '#palette.inactive_modified.airline_c') : []
+    else
+      colors = exists('g:airline#themes#' .. g:airline_theme .. '#palette.inactive.airline_c')
+            ? eval('g:airline#themes#' .. g:airline_theme .. '#palette.inactive.airline_c') : []
+    endif
+    if !empty(colors)
+      airline#highlighter#exec('airline_c' .. bufnr .. '_inactive', colors)
+    endif
+  enddef
 endif " }}}1
