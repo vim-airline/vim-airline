@@ -420,4 +420,15 @@ else
     var formatter = get(g:, 'airline#extensions#tabline#formatter', 'default')
     return eval('airline#extensions#tabline#formatters#' .. formatter .. '#format(nr, ' .. string(buffers) .. ')')
   enddef
+  def airline#extensions#tabline#new_builder(): dict<any> # {{{2
+    var builder_context = {
+        'active': 1,
+        'tabline': 1,
+        'right_sep': get(g:, 'airline#extensions#tabline#right_sep', g:airline_right_sep),
+        'right_alt_sep': get(g:, 'airline#extensions#tabline#right_alt_sep', g:airline_right_alt_sep),
+        'left_sep': get(g:, 'airline#extensions#tabline#left_sep', g:airline_left_sep),
+        'left_alt_sep': get(g:, 'airline#extensions#tabline#left_alt_sep', g:airline_left_alt_sep),
+        }
+    return airline#extensions#tabline#builder#new(builder_context)
+  enddef
 endif
