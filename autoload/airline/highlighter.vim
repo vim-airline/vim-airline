@@ -180,12 +180,12 @@ if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
       return
     endif
     let group = a:from.'_to_'.a:to.a:suffix
-    let l:from = airline#themes#get_highlight(a:from.a:suffix)
-    let l:to = airline#themes#get_highlight(a:to.a:suffix)
+    let from = airline#themes#get_highlight(a:from.a:suffix)
+    let to = airline#themes#get_highlight(a:to.a:suffix)
     if a:inverse
-      let colors = [ l:from[1], l:to[1], l:from[3], l:to[3] ]
+      let colors = [ from[1], to[1], from[3], to[3] ]
     else
-      let colors = [ l:to[1], l:from[1], l:to[3], l:from[3] ]
+      let colors = [ to[1], from[1], to[3], from[3] ]
     endif
     let a:dict[group] = colors
     call airline#highlighter#exec(group, colors)
