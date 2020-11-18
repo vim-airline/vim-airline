@@ -318,7 +318,7 @@ else
       &showtabline = 2
     endif
   enddef
-  def! airline#extensions#tabline#load_theme(palette: dict<any>): void # {{{2
+  def airline#extensions#tabline#load_theme(palette: dict<any>): void # {{{2
     if pumvisible()
       return
     endif
