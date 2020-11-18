@@ -535,7 +535,7 @@ else
       airline#highlighter#exec('airline_c' .. bufnr .. '_inactive', colors)
     endif
   enddef
-  def! airline#highlighter#highlight(modes: list<string>, bufnr: string = ''): void # {{{2
+  def airline#highlighter#highlight(modes: list<string>, bufnr: string = ''): void # {{{2
     var p: dict<any> = eval('g:airline#themes#' .. g:airline_theme .. '#palette')
 
     # draw the base mode, followed by any overrides
