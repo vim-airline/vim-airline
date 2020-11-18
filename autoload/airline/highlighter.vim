@@ -485,14 +485,14 @@ else
       endif
     endif
   enddef
-  def s:exec_separator(dict: dict<string>, from: string, to: string, inverse: bool, suffix: string): void # {{{2
+  def s:exec_separator(dict: dict<any>, from_arg: string, to_arg: string, inverse: bool, suffix: string): void # {{{2
     if pumvisible()
       return
     endif
-    var group = from .. '_to_' .. to .. suffix
-    var from = airline#themes#get_highlight(from .. suffix)
+    var group = from_arg .. '_to_' .. to_arg .. suffix
+    var from = airline#themes#get_highlight(from_arg .. suffix)
     var colors = []
-    var to = airline#themes#get_highlight(to .. suffix)
+    var to = airline#themes#get_highlight(to_arg .. suffix)
     if inverse
       colors = [ from[1], to[1], from[3], to[3] ]
     else
