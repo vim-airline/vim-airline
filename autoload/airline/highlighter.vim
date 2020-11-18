@@ -485,4 +485,20 @@ else
       endif
     endif
   enddef
+  def s:exec_separator(dict: dict<string>, from: string, to: string, inverse: bool, suffix: string): void # {{{2
+    if pumvisible()
+      return
+    endif
+    var group = from .. '_to_' .. to .. suffix
+    var from = airline#themes#get_highlight(from .. suffix)
+    var colors = []
+    var to = airline#themes#get_highlight(to .. suffix)
+    if inverse
+      colors = [ from[1], to[1], from[3], to[3] ]
+    else
+      colors = [ to[1], from[1], to[3], from[3] ]
+    endif
+    dict[group] = colors
+    airline#highlighter#exec(group, colors)
+  enddef
 endif
