@@ -100,4 +100,12 @@ else
 
     return palette
   enddef
+
+  def airline#themes#get_highlight(group: string): list<string>
+    return call('airline#highlighter#get_highlight', [group])
+  enddef
+
+  def airline#themes#get_highlight2(fg: list<string>, bg: list<string>): list<string>
+    return call('airline#highlighter#get_highlight2', [fg, bg])
+  endfunction
 endif
