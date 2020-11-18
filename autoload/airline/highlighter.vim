@@ -433,6 +433,31 @@ else
     endif
     return colors[0:1] + [fg, bg] + [colors[4]]
   enddef
+  def s:GetHiCmd(list: list<string>): string # {{{2
+    # list needs to have 5 items!
+    var res: string
+    var i = -1
+    var item: string
+    while i < 4
+      i += 1
+      item = get(list, i, '')
+      if item is ''
+        continue
+      endif
+      if i == 0
+        res = res .. ' guifg=' .. item
+      elseif i == 1
+        res = res .. ' guibg=' .. item
+      elseif i == 2
+        res = res .. ' ctermfg=' .. item
+      elseif i == 3
+        res = res .. ' ctermbg=' .. item
+      elseif i == 4
+        res = res .. printf(' gui=%s cterm=%s term=%s', item, item, item)
+      endif
+    endwhile
+    return res
+  enddef
   def airline#highlighter#exec(group: string, clrs: list<any>): void # {{{2
     # TODO: is clrs: list<any> correct? Should probably be list<number> instead
     #       convert all themes to use strings in cterm color definition
