@@ -347,4 +347,7 @@ else
     endif
     return color
   enddef
+  def s:get_array(guifg: string, guibg: string, ctermfg: string, ctermbg: string, opts: list<string>): list<string> # {{{2
+    return [ guifg, guibg, ctermfg, ctermbg, empty(opts) ? '' : join(opts, ',') ]
+  enddef
 endif
