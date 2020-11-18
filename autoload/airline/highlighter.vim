@@ -501,4 +501,18 @@ else
     dict[group] = colors
     airline#highlighter#exec(group, colors)
   enddef
+  def airline#highlighter#load_theme(): void # {{{2
+    if pumvisible()
+      return
+    endif
+    for winnr in filter(range(1, winnr('$')), {_, v -> v != winnr()})
+      airline#highlighter#highlight_modified_inactive(winbufnr(winnr))
+    endfor
+    airline#highlighter#highlight(['inactive'])
+    if getbufvar( bufnr('%'), '&modified'  )
+      airline#highlighter#highlight(['normal', 'modified'])
+    else
+      airline#highlighter#highlight(['normal'])
+    endif
+  enddef
 endif
