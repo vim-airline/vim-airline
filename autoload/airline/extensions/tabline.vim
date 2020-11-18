@@ -11,7 +11,6 @@ endif
 let s:ctrlspace = get(g:, 'CtrlSpaceLoaded', 0)
 let s:tabws = get(g:, 'tabws_loaded', 0)
 
-unlet! g:airline_experimental
 if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
 
   " Legacy VimScript implementation " {{{1
@@ -254,4 +253,13 @@ if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
   endfunction
 else
   " Vim9 Script implementation
+  def airline#extensions#tabline#init(ext: dict<any>): void # {{{2
+    if has('gui_running') && match(&guioptions, 'e') > -1
+      :set guioptions-=e
+    endif
+    autocmd User AirlineToggledOn s:toggle_on()
+    autocmd User AirlineToggledOff s:toggle_off()
+    s:toggle_on()
+    a:ext.add_theme_func('airline#extensions#tabline#load_theme')
+  enddef
 endif
