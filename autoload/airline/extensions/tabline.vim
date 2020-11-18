@@ -437,7 +437,7 @@ else
     return airline#extensions#tabline#builder#new(builder_context)
   enddef
   def airline#extensions#tabline#group_of_bufnr(tab_bufs: list<number>, bufnr: number): string # {{{2
-    let cur = bufnr('%')
+    var cur = bufnr('%')
     var group = ''
     if cur == bufnr
       if g:airline_detect_modified && getbufvar(bufnr, '&modified')
