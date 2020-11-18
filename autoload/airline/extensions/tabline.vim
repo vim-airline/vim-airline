@@ -389,4 +389,31 @@ else
       return airline#extensions#tabline#tabs#get()
     endif
   enddef
+  def airline#extensions#tabline#title(n: number): string # {{{2
+    var title = ''
+    if s:taboo
+      title = TabooTabTitle(n)
+    endif
+
+    if empty(title)
+      title = gettabvar(n, 'title')
+    endif
+
+    var formatter = get(g:, 'airline#extensions#tabline#tabtitle_formatter')
+    if empty(title) && formatter != '' && exists("*" .. formatter)
+      title = call(formatter, [n])
+    endif
+
+    if empty(title)
+      var buflist = tabpagebuflist(n)
+      var winnr = tabpagewinnr(n)
+      var all_buffers = airline#extensions#tabline#buflist#list()
+      var curbuf = filter(buflist, {_, v -> index(all_buffers, v) != -1})
+      if len(curbuf) ==  0
+        add(curbuf, tabpagebuflist()[0])
+      endif
+      return airline#extensions#tabline#get_buffer_name(curbuf[0], curbuf)
+    endif
+    return title
+  enddef
 endif
