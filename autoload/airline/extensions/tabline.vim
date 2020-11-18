@@ -14,19 +14,18 @@ let s:tabws = get(g:, 'tabws_loaded', 0)
 unlet! g:airline_experimental
 if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
 
-  function! airline#extensions#tabline#init(ext)
+  " Legacy VimScript implementation " {{{1
+  function! airline#extensions#tabline#init(ext) " {{{2
     if has('gui_running')
       set guioptions-=e
     endif
 
     autocmd User AirlineToggledOn call s:toggle_on()
     autocmd User AirlineToggledOff call s:toggle_off()
-
     call s:toggle_on()
     call a:ext.add_theme_func('airline#extensions#tabline#load_theme')
   endfunction
-
-  function! s:toggle_off()
+  function! s:toggle_off() " {{{2
     call airline#extensions#tabline#autoshow#off()
     call airline#extensions#tabline#tabs#off()
     call airline#extensions#tabline#buffers#off()
@@ -37,8 +36,7 @@ if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
       call airline#extensions#tabline#tabws#off()
     endif
   endfunction
-
-  function! s:toggle_on()
+  function! s:toggle_on() " {{{2
     if get(g:, 'airline_statusline_ontop', 0)
       call airline#extensions#tabline#enable()
       let &tabline='%!airline#statusline('.winnr().')'
@@ -56,8 +54,7 @@ if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
 
     set tabline=%!airline#extensions#tabline#get()
   endfunction
-
-  function! s:update_tabline(forceit)
+  function! s:update_tabline(forceit) " {{{2
     if get(g:, 'airline#extensions#tabline#disable_refresh', 0)
       return
     endif
@@ -78,8 +75,7 @@ if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
     call airline#util#doautocmd('BufMRUChange')
     call airline#extensions#tabline#redraw()
   endfunction
-
-  function! airline#extensions#tabline#redraw()
+  function! airline#extensions#tabline#redraw() " {{{2
     " sometimes, the tabline is not correctly updated see #1580
     " so force redraw here
     if exists(":redrawtabline") == 2
@@ -91,14 +87,12 @@ if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
       let &ro = &ro
     endif
   endfunction
-
-  function! airline#extensions#tabline#enable()
+  function! airline#extensions#tabline#enable() " {{{2
     if &lines > 3
       set showtabline=2
     endif
   endfunction
-
-  function! airline#extensions#tabline#load_theme(palette)
+  function! airline#extensions#tabline#load_theme(palette) " {{{2
     if pumvisible()
       return
     endif
@@ -146,10 +140,8 @@ if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
     call airline#highlighter#exec('airline_tabhid_right', tabhid_right)
     call airline#highlighter#exec('airline_tabmod_unsel_right', tabmodu_right)
   endfunction
-
   let s:current_tabcnt = -1
-
-  function! airline#extensions#tabline#get()
+  function! airline#extensions#tabline#get() " {{{2
     let show_buffers = get(g:, 'airline#extensions#tabline#show_buffers', 1)
     let show_tabs = get(g:, 'airline#extensions#tabline#show_tabs', 1)
 
@@ -178,8 +170,7 @@ if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
       return airline#extensions#tabline#tabs#get()
     endif
   endfunction
-
-  function! airline#extensions#tabline#title(n)
+  function! airline#extensions#tabline#title(n) " {{{2
     let title = ''
     if s:taboo
       let title = TabooTabTitle(a:n)
@@ -204,17 +195,14 @@ if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
       endif
       return airline#extensions#tabline#get_buffer_name(curbuf[0], curbuf)
     endif
-
     return title
   endfunction
-
-  function! airline#extensions#tabline#get_buffer_name(nr, ...)
+  function! airline#extensions#tabline#get_buffer_name(nr, ...) " {{{2
     let buffers = a:0 ? a:1 : airline#extensions#tabline#buflist#list()
     let formatter = get(g:, 'airline#extensions#tabline#formatter', 'default')
     return airline#extensions#tabline#formatters#{formatter}#format(a:nr, buffers)
   endfunction
-
-  function! airline#extensions#tabline#new_builder()
+  function! airline#extensions#tabline#new_builder() " {{{2
     let builder_context = {
           \ 'active'        : 1,
           \ 'tabline'       : 1,
@@ -228,11 +216,9 @@ if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
       let builder_context.left_sep     = get(g:, 'airline#extensions#tabline#left_sep'     , ' ')
       let builder_context.left_alt_sep = get(g:, 'airline#extensions#tabline#left_alt_sep' , '|')
     endif
-
     return airline#extensions#tabline#builder#new(builder_context)
   endfunction
-
-  function! airline#extensions#tabline#group_of_bufnr(tab_bufs, bufnr)
+  function! airline#extensions#tabline#group_of_bufnr(tab_bufs, bufnr) " {{{2
     let cur = bufnr('%')
     if cur == a:bufnr
       if g:airline_detect_modified && getbufvar(a:bufnr, '&modified')
@@ -251,16 +237,14 @@ if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0)==0)
     endif
     return group
   endfunction
-
-  function! airline#extensions#tabline#add_label(dict, type, right)
+  function! airline#extensions#tabline#add_label(dict, type, right) " {{{2
     if get(g:, 'airline#extensions#tabline#show_tab_type', 1)
       call a:dict.add_section_spaced('airline_tablabel'.
             \ (a:right ? '_right' : ''),
             \ get(g:, 'airline#extensions#tabline#'.a:type.'_label', a:type))
     endif
   endfunction
-
-  function! airline#extensions#tabline#add_tab_label(dict)
+  function! airline#extensions#tabline#add_tab_label(dict) " {{{2
     let show_tab_count = get(g:, 'airline#extensions#tabline#show_tab_count', 1)
     if show_tab_count == 2
       call a:dict.add_section_spaced('airline_tabmod', printf('%s %d/%d', "tab", tabpagenr(), tabpagenr('$')))
