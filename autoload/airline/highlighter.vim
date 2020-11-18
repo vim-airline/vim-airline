@@ -363,7 +363,7 @@ else
     var guifg: string
     var guibg: string
     var bold: bool
-    if hlID(group)->synIDtrans()->synIDattr('reverse', 'cterm')
+    if hlID(group)->synIDtrans()->synIDattr('reverse', 'cterm')->str2nr()
       reverse = true
     endif
     if get(g:, 'airline_highlighting_cache', 0) && has_key(s:hl_groups, group)
@@ -374,7 +374,7 @@ else
       ctermbg = s:get_syn(group, 'bg', 'cterm')
       guifg = s:get_syn(group, 'fg', 'gui')
       guibg = s:get_syn(group, 'bg', 'gui')
-      if hlID(group)->synIDtrans()->synIDattr('bold')
+      if hlID(group)->synIDtrans()->synIDattr('bold')->str2nr()
         bold = true
       endif
       if reverse
@@ -490,9 +490,11 @@ else
       return
     endif
     var group = from_arg .. '_to_' .. to_arg .. suffix
-    var from = airline#themes#get_highlight(from_arg .. suffix)
+    var from = map(airline#themes#get_highlight(from_arg .. suffix),
+      {_, v -> type(v) != type('') ? string(v) : v})
     var colors = []
-    var to = airline#themes#get_highlight(to_arg .. suffix)
+    var to = map(airline#themes#get_highlight(to_arg .. suffix),
+      {_, v -> type(v) != type('') ? string(v) : v})
     if inverse
       colors = [ from[1], to[1], from[3], to[3] ]
     else
