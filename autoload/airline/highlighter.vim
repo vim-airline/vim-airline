@@ -318,7 +318,7 @@ else
       return rgb
     endif
     var _rgb = []
-    _rgb = map(split(rgb[1:], '..\zs'), {_, v -> str2nr("0x" .. v)})
+    _rgb = map(split(rgb[1:], '..\zs'), {_, v -> ("0x" .. v)->str2nr(16)})
     return airline#msdos#round_msdos_colors(_rgb)
   enddef
   def s:group_not_done(list: list<string>, name: string): bool # {{{2
