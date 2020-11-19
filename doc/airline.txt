@@ -1312,6 +1312,26 @@ Note: Enabling this extension will modify 'showtabline' and 'guioptions'.
   (neovim specific, only works with buffers and not real tabs, default: 0) >
   let airline#extensions#tabline#middle_click_preserves_windows = 1
 <
+						*airline-tabline-hlgroups*
+When the tabline is enabled, vim-airline exposes the following highlighting
+groups:
+
+  airline_tab:		default highlighting group for the tabline
+  airline_tab_right:	idem, but for the right side of the tabline
+
+  airline_tabsel:	highlighting group of the selected item
+  airline_tabsel_right: idem, but for the right side of the tabline
+  airline_tabmod:       highlighting group for a 'modified' buffer
+  airline_tabmod_right: idem, but on the right side
+  airline_tabmod_unsel: unselected tab with modified buffer
+  airline_tabmod_unsel_right: (unused)
+  airline_tabtype:      label group used by ctrlspace and tabws
+  airline_tabfill:	highlighting group for the filler space
+  airline_tablabel:     highlighting group for the label
+  airline_tablabel_right: highlighting group for the label on the right side
+  airline_tabhid:	hidden buffer
+  airline_tabhid_right: idem, but on the right
+
 -------------------------------------                        *airline-taboo*
 taboo.vim <https://github.com/gcmt/taboo.vim>
 
