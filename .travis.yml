@@ -1,5 +1,7 @@
 # This config is based on lightline.vim <https://github.com/itchyny/lightline.vim/blob/master/.travis.yml>
-
+arch:
+  - amd64
+  - ppc64le
 language: ruby
 before_install:
   - curl -f -L "https://raw.githubusercontent.com/vim-airline/vim-airline-themes/master/autoload/airline/themes/simple.vim" -o autoload/airline/themes/simple.vim
