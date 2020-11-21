@@ -198,7 +198,7 @@ function! airline#init#sections()
   endif
   if !exists('g:airline_section_c')
     if exists("+autochdir") && &autochdir == 1
-      let g:airline_section_c = airline#section#create(['%<', 'path', spc, 'readonly'])
+      let g:airline_section_c = airline#section#create(['%<', 'path', spc, 'readonly', 'coc_status'])
     else
       let g:airline_section_c = airline#section#create(['%<', 'file', spc, 'readonly', 'coc_status'])
     endif
