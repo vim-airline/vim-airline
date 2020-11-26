@@ -23,11 +23,7 @@ function! airline#extensions#tabline#formatters#default#format(bufnr, buffers)
       let _ .= fnamemodify(name, fmod)
     endif
     if a:bufnr != bufnr('%') && fnametruncate && strlen(_) > fnametruncate
-      if v:version > 802 || (v:version == 802 && has("patch1517"))
-        let _ = strpart(_, 0, fnametruncate, 1)
-      else
-        let _ = strpart(_, 0, fnametruncate)
-      endif
+      let _ = airline#util#strcharpart(_, 0, fnametruncate)
     endif
   endif
 
