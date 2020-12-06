@@ -11,7 +11,8 @@ let s:default_checks = ['indent', 'trailing', 'mixed-indent-file', 'conflicts']
 
 let s:enabled = get(g:, 'airline#extensions#whitespace#enabled', 1)
 let s:skip_check_ft = {'make': ['indent', 'mixed-indent-file'],
-      \ 'csv': ['indent', 'mixed-indent-file']}
+      \ 'csv': ['indent', 'mixed-indent-file'],
+      \ 'mail': ['trailing']}
 
 function! s:check_mixed_indent()
   let indent_algo = get(g:, 'airline#extensions#whitespace#mixed_indent_algo', 0)
