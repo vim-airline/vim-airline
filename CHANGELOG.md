@@ -23,6 +23,7 @@ This is the Changelog for the vim-airline project.
   - coc extensions can also show additional status messages
   - [coc-git](https://github.com/neoclide/coc-git) extension integrated into hunks extension
 - Other
+  - Changed CI from travis-ci.org to GitHub Actions
   - Introduce Vim script static analysis using [reviewdog](https://github.com/reviewdog/action-vint)
   - Added multiple Vim versions to unit tests using Travis CI
   - Added option to show short paths in the status line
