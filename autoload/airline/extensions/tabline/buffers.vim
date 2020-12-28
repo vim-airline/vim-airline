@@ -161,13 +161,10 @@ function! s:get_number(index)
     return a:index
   endif
   let bidx_mode = get(g:, 'airline#extensions#tabline#buffer_idx_mode', 0)
-  if bidx_mode > 1
-    let l:count = bidx_mode == 2 ? a:index+11 : a:index+1
-    return join(map(split(printf('%02d', l:count), '\zs'),
-          \ 'get(s:number_map, v:val, "")'), '')
-  else
-    return get(s:number_map, a:index+1, '')
-  endif
+  let number_format = bidx_mode > 1 ? '%02d' : '%d'
+  let l:count = bidx_mode == 2 ? a:index+11 : a:index+1
+  return join(map(split(printf(number_format, l:count), '\zs'),
+        \ 'get(s:number_map, v:val, "")'), '')
 endfunction
 
 function! s:select_tab(buf_index)
@@ -199,8 +196,8 @@ function! s:map_keys()
   let bidx_mode = get(g:, 'airline#extensions#tabline#buffer_idx_mode', 1)
   if bidx_mode > 0
     if bidx_mode == 1
-      for i in range(1, 9)
-        exe printf('noremap <silent> <Plug>AirlineSelectTab%d :call <SID>select_tab(%d)<CR>', i, i-1)
+      for i in range(1, 10)
+        exe printf('noremap <silent> <Plug>AirlineSelectTab%d :call <SID>select_tab(%d)<CR>', i%10, i-1)
       endfor
     else
       let start_idx = bidx_mode == 2 ? 11 : 1

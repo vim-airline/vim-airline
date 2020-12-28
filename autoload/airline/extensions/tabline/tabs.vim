@@ -107,8 +107,8 @@ function! airline#extensions#tabline#tabs#map_keys()
   endif
   let bidx_mode = get(g:, 'airline#extensions#tabline#buffer_idx_mode', 1)
   if bidx_mode == 1
-    for i in range(1, 9)
-      exe printf('noremap <silent> <Plug>AirlineSelectTab%d :%dtabn<CR>', i, i)
+    for i in range(1, 10)
+      exe printf('noremap <silent> <Plug>AirlineSelectTab%d :%dtabn<CR>', i%10, i)
     endfor
   else
       for i in range(11, 99)
