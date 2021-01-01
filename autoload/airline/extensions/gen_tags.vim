@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2014-2020 Mathias Andersson et al.
+" MIT License. Copyright (c) 2014-2021 Mathias Andersson et al.
 " Written by Kamil Cukrowski 2020
 " Plugin: https://github.com/jsfaint/gen_tags.vim
 " vim: et ts=2 sts=2 sw=2

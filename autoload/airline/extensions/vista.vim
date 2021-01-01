@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2020 s1341 (github@shmarya.net)
+" MIT License. Copyright (c) 2021 s1341 (github@shmarya.net)
 " Plugin: https://github.com/liuchengxu/vista.vim
 " vim: et ts=2 sts=2 sw=2
 

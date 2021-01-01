@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2017-2020 Thomas Dy et al.
+" MIT License. Copyright (c) 2017-2021 Thomas Dy et al.
 " Plugin: https://github.com/Shougo/denite.nvim
 " vim: et ts=2 sts=2 sw=2
 

@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2013-2020 Bailey Ling, Christian Brabandt et al.
+" MIT License. Copyright (c) 2013-2021 Bailey Ling, Christian Brabandt et al.
 " Plugin: https://github.com/chrisbra/csv.vim
 " vim: et ts=2 sts=2 sw=2
 

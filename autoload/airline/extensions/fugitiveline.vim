@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2017-2020 Cimbali et al
+" MIT License. Copyright (c) 2017-2021 Cimbali et al
 " Plugin: https://github.com/tpope/vim-fugitive
 " vim: et ts=2 sts=2 sw=2
 

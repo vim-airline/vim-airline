@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2018-2020 mox et al.
+" MIT License. Copyright (c) 2018-2021 mox et al.
 " Plugin: https://github.com/mox-mox/vim-localsearch
 " vim: et ts=2 sts=2 sw=2
 

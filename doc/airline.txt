@@ -1992,7 +1992,7 @@ Contributions and pull requests are welcome.
 =============================================================================
 LICENSE                                                    *airline-license*
 
-MIT License. Copyright © 2013-2020 Bailey Ling, Christian Brabandt, Mike
+MIT License. Copyright © 2013-2021 Bailey Ling, Christian Brabandt, Mike
 Hartington et al.
 
  vim:tw=78:ts=8:ft=help:norl:

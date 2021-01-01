@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2013-2020
+" MIT License. Copyright (c) 2013-2021
 " Plugin: https://github.com/lambdalisue/gina.vim
 " vim: et ts=2 sts=2 sw=2
 

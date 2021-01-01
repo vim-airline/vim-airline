@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2020 Dmitry Geurkov (d.geurkov@gmail.com)
+" MIT License. Copyright (c) 2021 Dmitry Geurkov (d.geurkov@gmail.com)
 " Plugin: https://github.com/troydm/zoomwintab.vim
 " vim: et ts=2 sts=2 sw=2
 

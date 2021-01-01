@@ -1,4 +1,4 @@
-" Apache 2.0 license. Copyright (c) 2019-2020 Copyright Neovim contributors.
+" Apache 2.0 license. Copyright (c) 2019-2021 Copyright Neovim contributors.
 " Plugin: https://github.com/neovim/nvim-lsp
 " vim: et ts=2 sts=2 sw=2
 

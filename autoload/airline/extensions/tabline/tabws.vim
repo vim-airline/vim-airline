@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2016-2020 Kevin Sapper et al.
+" MIT License. Copyright (c) 2016-2021 Kevin Sapper et al.
 " PLugin: https://github.com/s1341/vim-tabws
 " vim: et ts=2 sts=2 sw=2
 

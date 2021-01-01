@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2019-2020 Peng Guanwen et al.
+" MIT License. Copyright (c) 2019-2021 Peng Guanwen et al.
 " vim: et ts=2 sts=2 sw=2
 " Plugin: https://github.com/neoclide/coc
 

@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2015-2020 Evgeny Firsov et al.
+" MIT License. Copyright (c) 2015-2021 Evgeny Firsov et al.
 " Plugin: https://github.com/ycm-core/YouCompleteMe
 " vim: et ts=2 sts=2 sw=2
 

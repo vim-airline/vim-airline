@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2013-2020 Bailey Ling et al.
+" MIT License. Copyright (c) 2013-2021 Bailey Ling et al.
 " Plugin: https://github.com/lervag/vimtex
 " vim: et ts=2 sts=2 sw=2
 
