@@ -17,6 +17,13 @@ function! airline#extensions#searchcount#apply(...) abort
         \ '%{v:hlsearch ? airline#extensions#searchcount#status() : ""}')
 endfunction
 
+function! s:search_term()
+  " shorten for all width smaller than 300 (this is just a guess)
+  " this uses a non-breaking space, because it looks like
+  " a leading space is stripped :/
+  return "\ua0" .  '/' . airline#util#shorten(getreg('/'), 300, 8)
+endfunction
+
 function! airline#extensions#searchcount#status() abort
   try
     let result = searchcount(#{recompute: 1, maxcount: -1})
@@ -24,18 +31,18 @@ function! airline#extensions#searchcount#status() abort
       return ''
     endif
     if result.incomplete ==# 1     " timed out
-      return printf(' /%s [?/??]', @/)
+      return printf('%s [?/??]', s:search_term())
     elseif result.incomplete ==# 2 " max count exceeded
       if result.total > result.maxcount &&
             \  result.current > result.maxcount
-        return printf('%s[>%d/>%d]', @/,
+        return printf('%s[>%d/>%d]', s:search_term(),
               \		    result.current, result.total)
       elseif result.total > result.maxcount
-        return printf('%s[%d/>%d]', @/,
+        return printf('%s[%d/>%d]', s:search_term(),
               \		    result.current, result.total)
       endif
     endif
-    return printf('%s[%d/%d]', @/,
+    return printf('%s[%d/%d]', s:search_term(),
           \		result.current, result.total)
   catch
     return ''
