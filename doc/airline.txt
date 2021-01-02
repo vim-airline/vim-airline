@@ -891,7 +891,8 @@ lsp <https://github.com/prabirshrestha/vim-lsp>
 <
 * lsp progress skip time
   Suppresses the frequency of status line updates.
-  Prevents heavy operation when using a language server that sends frequent progress notifications. >
+  Prevents heavy operation when using a language server that sends frequent progress notifications. 
+  Set 0 to disable. >
   g:airline#extensions#lsp#progress_skip_time = 0.3 (default)
 <
 
