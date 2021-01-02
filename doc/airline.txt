@@ -1001,6 +1001,8 @@ title accordingly.
 <
 -------------------------------------                     *airline-searchcount*
 The searchcount extension supports the searchcount() function in Vim script.
+Note: This is only enabled when 'hls' is on. When you turn off search
+highlighting (e.g. using |:nohls|), it this will be disabled.
 
 * enable/disable searchcount integration >
   let g:airline#extensions#searchcount#enabled = 1
