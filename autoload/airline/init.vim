@@ -164,6 +164,10 @@ function! airline#init#bootstrap()
         \ 'raw': '',
         \ 'accent': 'bold'
         \ })
+  call airline#parts#define('lsp_progress', {
+        \ 'raw': '',
+        \ 'accent': 'bold'
+        \ })
   call airline#parts#define_empty(['obsession', 'tagbar', 'syntastic-warn',
         \ 'syntastic-err', 'eclim', 'whitespace','windowswap',
         \ 'ycm_error_count', 'ycm_warning_count', 'neomake_error_count',
@@ -198,9 +202,9 @@ function! airline#init#sections()
   endif
   if !exists('g:airline_section_c')
     if exists("+autochdir") && &autochdir == 1
-      let g:airline_section_c = airline#section#create(['%<', 'path', spc, 'readonly', 'coc_status'])
+      let g:airline_section_c = airline#section#create(['%<', 'path', spc, 'readonly', 'coc_status', 'lsp_progress'])
     else
-      let g:airline_section_c = airline#section#create(['%<', 'file', spc, 'readonly', 'coc_status'])
+      let g:airline_section_c = airline#section#create(['%<', 'file', spc, 'readonly', 'coc_status', 'lsp_progress'])
     endif
   endif
   if !exists('g:airline_section_gutter')

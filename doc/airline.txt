@@ -888,6 +888,12 @@ lsp <https://github.com/prabirshrestha/vim-lsp>
 <
 * lsp close_lnum_symbol >
   let airline#extensions#lsp#close_lnum_symbol = ')'
+<
+* lsp progress skip time
+  Suppresses the frequency of status line updates.
+  Prevents heavy operation when using a language server that sends frequent progress notifications. >
+  g:airline#extensions#lsp#progress_skip_time = 0.3 (default)
+<
 
 -------------------------------------                    *airline-neomake*
 neomake <https://github.com/neomake/neomake>
