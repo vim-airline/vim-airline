@@ -71,7 +71,7 @@ function! airline#extensions#lsp#progress() abort
 
       " show only most new progress
       let s:lsp_progress = s:lsp_progress[0]
-      if s:lsp_progress['message'] != '' && s:lsp_progress['percentage'] != 100
+      if s:lsp_progress['message'] !=# '' && s:lsp_progress['percentage'] !=# 100
         let percent = ''
         if s:lsp_progress['percentage'] >= 0
           let percent = ' ' . string(s:lsp_progress['percentage']) . '%'
@@ -100,5 +100,8 @@ function! airline#extensions#lsp#init(ext) abort
   call airline#parts#define_function('lsp_error_count', 'airline#extensions#lsp#get_error')
   call airline#parts#define_function('lsp_warning_count', 'airline#extensions#lsp#get_warning')
   call airline#parts#define_function('lsp_progress', 'airline#extensions#lsp#progress')
-  autocmd User lsp_progress_updated call airline#extensions#lsp#update()
+  augroup airline_lsp_progress
+    autocmd!
+    autocmd User lsp_progress_updated call airline#extensions#lsp#update()
+  augroup END
 endfunction
