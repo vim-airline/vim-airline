@@ -30,7 +30,7 @@ describe 'init sections'
   end
 
   it 'section c should be file and coc_status'
-    Expect g:airline_section_c == '%<%f%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#%#__accent_bold#%#__restore__#'
+    Expect g:airline_section_c == '%<%f%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#%#__accent_bold#%#__restore__#%#__accent_bold#%#__restore__#'
   end
 
   it 'section x should be filetype'
