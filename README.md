@@ -325,7 +325,7 @@ If you are interested in becoming a maintainer (we always welcome more maintaine
 [18]: https://github.com/preservim/nerdtree
 [19]: https://github.com/majutsushi/tagbar
 [20]: https://powerline.readthedocs.org/en/master/installation.html#patched-fonts
-[21]: https://bitbucket.org/ludovicchabant/vim-lawrencium
+[21]: https://github.com/ludovicchabant/vim-lawrencium
 [22]: https://github.com/MarcWeber/vim-addon-manager
 [23]: https://github.com/altercation/solarized
 [24]: https://github.com/chriskempson/tomorrow-theme
