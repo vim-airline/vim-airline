@@ -107,6 +107,7 @@ function! airline#extensions#tabline#load_theme(palette)
   let tabtype = get(colors, 'airline_tabtype', a:palette.visual.airline_a)
   let tabfill = get(colors, 'airline_tabfill', a:palette.normal.airline_c)
   let tabmod  = get(colors, 'airline_tabmod', a:palette.insert.airline_a)
+  let tabcount = get(colors, 'airline_tabcount', a:palette.normal.airline_z)
   let tabhid  = get(colors, 'airline_tabhid', a:palette.normal.airline_c)
   if has_key(a:palette, 'normal_modified') && has_key(a:palette.normal_modified, 'airline_c')
     let tabmodu = get(colors, 'airline_tabmod_unsel', a:palette.normal_modified.airline_c)
@@ -120,6 +121,7 @@ function! airline#extensions#tabline#load_theme(palette)
   call airline#highlighter#exec('airline_tabtype', tabtype)
   call airline#highlighter#exec('airline_tabfill', tabfill)
   call airline#highlighter#exec('airline_tabmod', tabmod)
+  call airline#highlighter#exec('airline_tabcount', tabcount)
   call airline#highlighter#exec('airline_tabmod_unsel', tabmodu)
   call airline#highlighter#exec('airline_tabhid', tabhid)
 
@@ -260,8 +262,8 @@ endfunction
 function! airline#extensions#tabline#add_tab_label(dict)
   let show_tab_count = get(g:, 'airline#extensions#tabline#show_tab_count', 1)
   if show_tab_count == 2
-    call a:dict.add_section_spaced('airline_tabmod', printf('%s %d/%d', "tab", tabpagenr(), tabpagenr('$')))
+    call a:dict.add_section_spaced('airline_tabcount', printf('%d/%d', tabpagenr(), tabpagenr('$')))
   elseif show_tab_count == 1 && tabpagenr('$') > 1
-    call a:dict.add_section_spaced('airline_tabmod', printf('%s %d/%d', "tab", tabpagenr(), tabpagenr('$')))
+    call a:dict.add_section_spaced('airline_tabcount', printf('%d/%d', tabpagenr(), tabpagenr('$')))
   endif
 endfunction
