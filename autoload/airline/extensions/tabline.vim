@@ -259,6 +259,14 @@ function! airline#extensions#tabline#add_label(dict, type, right)
   endif
 endfunction
 
+function! airline#extensions#tabline#add_label_with_value(dict, type, right, value)
+  if get(g:, 'airline#extensions#tabline#show_tab_type', 1)
+    call a:dict.add_section_spaced('airline_tablabel'.
+          \ (a:right ? '_right' : ''),
+          \ a:value)
+  endif
+endfunction
+
 function! airline#extensions#tabline#add_tab_label(dict)
   let show_tab_count = get(g:, 'airline#extensions#tabline#show_tab_count', 1)
   if show_tab_count == 2

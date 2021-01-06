@@ -91,6 +91,8 @@ function! airline#extensions#tabline#tabs#get()
     if get(g:, 'airline#extensions#tabline#show_buffers', 1)
       call airline#extensions#tabline#add_label(b, 'buffers', 1)
     endif
+  else
+    call airline#extensions#tabline#add_label_with_value(b, 'buffers', 1, len(getbufinfo({'buflisted':1})))
   endif
   call airline#extensions#tabline#add_tab_label(b)
 
