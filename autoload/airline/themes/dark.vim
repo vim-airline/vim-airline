@@ -134,7 +134,7 @@ let g:airline#themes#dark#palette.inactive_modified = {
 
 " For commandline mode, we use the colors from normal mode, except the mode
 " indicator should be colored differently, e.g. light green
-let s:airline_a_commandline = [ '#0000ff' , '#0cff00' , 17  , 40 ]
+let s:airline_a_commandline = [ '#00005f' , '#00d700' , 17  , 40 ]
 let s:airline_b_commandline = [ '#ffffff' , '#444444' , 255 , 238 ]
 let s:airline_c_commandline = [ '#9cffd3' , '#202020' , 85  , 234 ]
 let g:airline#themes#dark#palette.commandline = airline#themes#generate_color_map(s:airline_a_commandline, s:airline_b_commandline, s:airline_c_commandline)
