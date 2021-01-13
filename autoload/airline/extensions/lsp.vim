@@ -80,9 +80,9 @@ function! airline#extensions#lsp#progress() abort
         let message = airline#util#shorten(s:lsp_progress['message'] . percent, 91, 9)
         return s:lsp_progress['server'] . ':' . s:title . ' ' . message
       endif
-      return ''
     endif
   endif
+  return ''
 endfunction
 
 let s:timer = 0
