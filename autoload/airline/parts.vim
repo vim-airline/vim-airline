@@ -109,10 +109,13 @@ function! airline#parts#ffenc()
   let expected = get(g:, 'airline#parts#ffenc#skip_expected_string', '')
   let bomb     = &bomb ? '[bom]' : ''
   let noeolf   = &eol ? '' : '[!eol]'
-  let ff       = strlen(&ff) ? ' | '.&ff : ''
-  if expected is# &fenc.bomb.noeolf.ff
+  let enc = &fenc.bomb.noeolf
+  if !empty(&ff)
+    let enc .= !empty(&fenc) ? ' | '.&ff : &ff
+
+  if expected is# enc
     return ''
   else
-    return &fenc.bomb.noeolf.ff
+    return enc
   endif
 endfunction
