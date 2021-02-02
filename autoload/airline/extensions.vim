@@ -338,7 +338,7 @@ function! airline#extensions#load()
   endif
 
   if (get(g:, 'airline#extensions#nvimlsp#enabled', 1)
-        \ && exists(':LspInstallInfo'))
+        \ && has("nvim"))
     call airline#extensions#nvimlsp#init(s:ext)
     call add(s:loaded_ext, 'nvimlsp')
   endif

@@ -5,7 +5,7 @@
 scriptencoding utf-8
 
 if !(get(g:, 'airline#extensions#nvimlsp#enabled', 1)
-      \ && exists(':LspInstallInfo'))
+      \ && has("nvim"))
   finish
 endif
 
@@ -14,7 +14,7 @@ function! s:airline_nvimlsp_count(cnt, symbol) abort
 endfunction
 
 function! airline#extensions#nvimlsp#get(type) abort
-  if !exists(':LspInstallInfo')
+  if vim.lsp.buf_get_clients() == 0
     return ''
   endif
 
