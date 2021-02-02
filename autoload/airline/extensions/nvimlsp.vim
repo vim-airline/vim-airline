@@ -14,7 +14,8 @@ function! s:airline_nvimlsp_count(cnt, symbol) abort
 endfunction
 
 function! airline#extensions#nvimlsp#get(type) abort
-  if vim.lsp.buf_get_clients() == 0
+  if !exists("v:lua.vim.lsp.buf_get_clients()") || 
+        \ empty(v:lua.vim.lsp.buf_get_clients(0))
     return ''
   endif
 
