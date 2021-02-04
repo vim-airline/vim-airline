@@ -5,7 +5,8 @@
 scriptencoding utf-8
 
 if !(get(g:, 'airline#extensions#nvimlsp#enabled', 1)
-      \ && has("nvim"))
+      \ && has('nvim')
+      \ && luaeval('vim.lsp ~= nil'))
   finish
 endif
 
@@ -14,8 +15,7 @@ function! s:airline_nvimlsp_count(cnt, symbol) abort
 endfunction
 
 function! airline#extensions#nvimlsp#get(type) abort
-  if !exists("v:lua.vim.lsp.buf_get_clients()") || 
-        \ empty(v:lua.vim.lsp.buf_get_clients(0))
+  if luaeval('vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
     return ''
   endif
 
