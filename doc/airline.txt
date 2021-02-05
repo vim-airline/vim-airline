@@ -1377,6 +1377,11 @@ tagbar <https://github.com/majutsushi/tagbar>
   let g:airline#extensions#tagbar#flags = 's'
   let g:airline#extensions#tagbar#flags = 'p'
 <
+* configure how to search for the nearest tag (:help tagbar-statusline) >
+  let g:airline#extensions#tagbar#searchmethod = 'nearest-stl' (default)
+  let g:airline#extensions#tagbar#searchmethod = 'nearest'
+  let g:airline#extensions#tagbar#searchmethod = 'scoped-stl'
+<
 -------------------------------------                     *airline-tmuxline*
 tmuxline <https://github.com/edkolev/tmuxline.vim>
 
