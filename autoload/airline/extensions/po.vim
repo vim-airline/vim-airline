@@ -65,8 +65,9 @@ function! airline#extensions#po#stats()
     return b:airline_po_stats
   endif
 
+  " Write stdout to null because we only want to see warnings.
   if g:airline#init#is_windows
-    let cmd = 'msgfmt --statistics -o NUL '
+    let cmd = 'msgfmt --statistics -o /NUL '
   else
     let cmd = 'msgfmt --statistics -o /dev/null -- '
   endif
