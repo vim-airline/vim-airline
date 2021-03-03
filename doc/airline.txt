@@ -169,7 +169,7 @@ values):
     endif
   endfunction
 <
-* if you want to update your highlights without effecting the airline theme,
+* if you want to update your highlights without affecting the airline theme,
   you can do so using the AirlineAfterTheme autocmd. >
   function! s:update_highlights()
     hi CursorLine ctermbg=none guibg=none
