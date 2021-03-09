@@ -18,6 +18,9 @@ function! s:gui2cui(rgb, fallback) abort
     return a:fallback
   elseif match(a:rgb, '^\%(NONE\|[fb]g\)$') > -1
     return a:rgb
+  elseif a:rgb[0] !~ '#'
+    " a:rgb contains colorname
+    return a:rgb
   endif
   let rgb = map(split(a:rgb[1:], '..\zs'), '0 + ("0x".v:val)')
   return airline#msdos#round_msdos_colors(rgb)
