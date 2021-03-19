@@ -20,7 +20,7 @@ This is the Changelog for the vim-airline project.
     - [gen_tags.vim](https://github.com/jsfaint/gen_tags.vim) support
 - Improvements
   - git branch can also be displayed using [gina.vim](https://github.com/lambdalisue/gina.vim)
-  - coc extensions can also show additional status messages
+  - coc extensions can also show additional status messages as well as the current function
   - [coc-git](https://github.com/neoclide/coc-git) extension integrated into hunks extension
 - Other
   - Changed CI from travis-ci.org to GitHub Actions
