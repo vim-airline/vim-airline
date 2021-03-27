@@ -53,6 +53,8 @@ function! airline#load_theme()
   call airline#highlighter#load_theme()
   call airline#extensions#load_theme()
   call airline#update_statusline()
+
+  call airline#util#doautocmd('AirlineAfterTheme')
 endfunction
 
 " Load an airline theme
@@ -92,8 +94,6 @@ function! airline#switch_theme(name, ...)
 
   unlet! w:airline_lastmode
   call airline#load_theme()
-
-  call airline#util#doautocmd('AirlineAfterTheme')
 
   " this is required to prevent clobbering the startup info message, i don't know why...
   call airline#check_mode(winnr())
