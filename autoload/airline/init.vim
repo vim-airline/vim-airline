@@ -164,6 +164,10 @@ function! airline#init#bootstrap()
         \ 'raw': '',
         \ 'accent': 'bold'
         \ })
+  call airline#parts#define('coc_current_function', {
+        \ 'raw': '',
+        \ 'accent': 'bold'
+        \ })
   call airline#parts#define('lsp_progress', {
         \ 'raw': '',
         \ 'accent': 'bold'
@@ -211,7 +215,7 @@ function! airline#init#sections()
     let g:airline_section_gutter = airline#section#create(['%='])
   endif
   if !exists('g:airline_section_x')
-    let g:airline_section_x = airline#section#create_right(['bookmark', 'tagbar', 'vista', 'gutentags', 'gen_tags', 'omnisharp', 'grepper', 'filetype'])
+    let g:airline_section_x = airline#section#create_right(['coc_current_function', 'bookmark', 'tagbar', 'vista', 'gutentags', 'gen_tags', 'omnisharp', 'grepper', 'filetype'])
   endif
   if !exists('g:airline_section_y')
     let g:airline_section_y = airline#section#create_right(['ffenc'])
