@@ -34,6 +34,9 @@ function! airline#extensions#fugitiveline#bufname()
 
   let fmod = s:ModifierFlags()
   if empty(b:fugitive_name)
+    if empty(bufname('%'))
+      return &buftype ==# 'nofile' ? '[Scratch]' : '[No Name]'
+    endif
     return fnamemodify(bufname('%'), fmod)
   else
     return fnamemodify(b:fugitive_name, fmod). " [git]"
