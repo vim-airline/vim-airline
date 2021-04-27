@@ -35,4 +35,24 @@ describe 'parts'
     call airline#parts#define_accent('part', 'red')
     Expect airline#parts#get('part').accent == 'red'
   end
+
+  it 'value should be blank'
+    Expect airline#parts#filetype() == ''
+  end
+
+  it 'can overwrite a filetype'
+    set ft=aaa
+    Expect airline#parts#filetype() == 'aaa'
+  end
+
+  it 'can overwrite a filetype'
+    "GitHub actions's vim's column is smaller than 90
+    set ft=aaaa
+    if &columns >= 90
+      Expect airline#parts#filetype() == 'aaaa'
+    else
+      Expect airline#parts#filetype() == 'aaa…'
+    endif
+  end
+
 end
