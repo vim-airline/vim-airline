@@ -39,6 +39,13 @@ describe 'init sections'
     call airline#init#sections()
     Expect g:airline_section_c == '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#%#__accent_bold#%#__restore__#%#__accent_bold#%#__restore__#'
   end
+  
+  it 'section c should be file and coc_status'
+    set noautochdir
+    call s:clear()
+    call airline#init#sections()
+    Expect g:airline_section_c == '%<%f%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#%#__accent_bold#%#__restore__#%#__accent_bold#%#__restore__#'
+  end
 
   it 'section x should be filetype'
     Expect g:airline_section_x == '%#__accent_bold#%#__restore__#%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#wrap(airline#parts#filetype(),0)}'
@@ -53,6 +60,10 @@ describe 'init sections'
     Expect g:airline_section_z =~ '%p%%'
     Expect g:airline_section_z =~ '%l'
     Expect g:airline_section_z =~ '%v'
+  end
+
+  it 'section gutter should be csv'
+    Expect g:airline_section_gutter =~ '%='
   end
 
   it 'should not redefine sections already defined'
