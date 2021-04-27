@@ -296,6 +296,9 @@ values):
 * Display a short path in statusline: >
   let g:airline_stl_path_style = 'short'
 >
+* Display a only file name in statusline: >
+  let g:airline_section_c_only_filename = 1
+>
 =============================================================================
 COMMANDS                                                  *airline-commands*
 
