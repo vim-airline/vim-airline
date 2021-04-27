@@ -31,4 +31,9 @@ describe 'commands'
   it 'should have a refresh command'
     Expect exists(':AirlineRefresh') to_be_true
   end
+
+  it 'should have a extensions command'
+    Expect exists(':AirlineExtensions') to_be_true
+  end
+
 end
