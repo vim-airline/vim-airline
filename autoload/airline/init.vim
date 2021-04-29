@@ -125,9 +125,9 @@ function! airline#init#bootstrap()
     call extend(g:airline_symbols, {
           \ 'readonly': 'RO',
           \ 'whitespace': '!',
-          \ 'linenr': 'ln ',
+          \ 'linenr': 'ln',
           \ 'maxlinenr': '',
-          \ 'colnr': 'cn ',
+          \ 'colnr': 'cn',
           \ 'branch': '',
           \ 'notexists': '?',
           \ 'crypt': 'cr',
