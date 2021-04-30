@@ -55,8 +55,8 @@ describe 'init sections'
     Expect g:airline_section_z =~ '%v'
   end
 
-  it 'section gutter should be csv'
-    Expect g:airline_section_gutter =~ '%='
+  it 'section gutter should be blank unless csv extension'
+    Expect g:airline_section_gutter == ''
   end
 
   it 'section warning should be blank'
