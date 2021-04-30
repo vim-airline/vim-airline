@@ -88,6 +88,10 @@ endfunction
 let s:timer = 0
 let s:ignore_time = 0
 function! airline#extensions#lsp#update() abort
+  if !exists('#airline')
+    " airline disabled
+    return
+  endif
   if reltimefloat(reltime()) - s:ignore_time >=
         \ get(g:, 'airline#extensions#lsp#progress_skip_time', 0.3)
         \ || len(s:lsp_progress) == 0

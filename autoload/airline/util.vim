@@ -174,6 +174,10 @@ function! airline#util#has_custom_scm()
 endfunction
 
 function! airline#util#doautocmd(event)
+  if !exists('#airline')
+    " airline disabled
+    return
+  endif
   exe printf("silent doautocmd %s User %s", s:nomodeline, a:event)
 endfunction
 

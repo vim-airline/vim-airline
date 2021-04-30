@@ -35,6 +35,10 @@ function! s:record_diagnostics(state)
 endfunction
 
 function! s:get_diagnostics()
+  if !exists('#airline')
+    " airline disabled
+    return
+  endif
   call LanguageClient#getState(function("s:record_diagnostics"))
 endfunction
 

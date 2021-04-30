@@ -24,6 +24,9 @@ function! airline#extensions#tabline#ctrlspace#on()
 endfunction
 
 function! airline#extensions#tabline#ctrlspace#invalidate()
+  if !exists('#airline')
+    return
+  endif
   let s:current_bufnr = -1
   let s:current_tabnr = -1
 endfunction

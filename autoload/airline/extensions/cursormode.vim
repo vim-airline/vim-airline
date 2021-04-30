@@ -107,6 +107,10 @@ augroup airline#extensions#cursormode
 augroup END
 
 function! airline#extensions#cursormode#activate()
+  if !exists('#airline')
+    " airline disabled
+    return
+  endif
   let s:color_map = s:get_color_map()
   call airline#extensions#cursormode#set()
 endfunction

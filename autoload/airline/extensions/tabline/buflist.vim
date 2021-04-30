@@ -8,6 +8,10 @@ function! airline#extensions#tabline#buflist#invalidate()
 endfunction
 
 function! airline#extensions#tabline#buflist#clean()
+  if !exists('#airline')
+    " airline disabled
+    return
+  endif
   call airline#extensions#tabline#buflist#invalidate()
   call airline#extensions#tabline#buffers#invalidate()
 endfunction

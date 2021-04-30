@@ -128,6 +128,10 @@ function! airline#extensions#ale#init(ext)
 endfunction
 
 function! s:ale_refresh()
+  if !exists('#airline')
+    " airline disabled
+    return
+  endif
   if get(g:, 'airline_skip_empty_sections', 0)
     exe ':AirlineRefresh!'
   endif

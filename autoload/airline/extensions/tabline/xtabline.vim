@@ -44,7 +44,7 @@ function! airline#extensions#tabline#xtabline#init()
         autocmd TabLeave  * call s:Do('leave')
         autocmd TabClosed * call s:Do('close')
 
-        autocmd BufEnter  * let g:xtabline_changing_buffer = 0
+        autocmd BufEnter  * if exists('#airline') | let g:xtabline_changing_buffer = 0 | endif
         autocmd BufAdd,BufDelete,BufWrite * call airline#extensions#tabline#xtabline#filter_buffers()
     augroup END
 
@@ -180,6 +180,10 @@ function! airline#extensions#tabline#xtabline#filter_buffers()
     " 'accepted' is a list of buffer numbers, for quick access.
     " 'excluded' is a list of buffer numbers, it will be used by Airline to hide buffers.
 
+    if !exists('#airline')
+      " airline disabled
+      return
+    endif
     if !s:xtabline_filtering | return | endif
 
     let g:airline#extensions#tabline#exclude_buffers = []
@@ -351,6 +355,10 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 function! s:Do(action)
+    if !exists('#airline')
+      " airline disabled
+      return
+    endif
     let arg = a:action
     if !s:state | call s:InitCwds() | return | endif
 

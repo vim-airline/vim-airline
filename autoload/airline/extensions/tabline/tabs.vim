@@ -22,7 +22,9 @@ function! airline#extensions#tabline#tabs#on()
 endfunction
 
 function! airline#extensions#tabline#tabs#invalidate()
-  let s:current_bufnr = -1
+  if exists('#airline')
+    let s:current_bufnr = -1
+  endif
 endfunction
 
 function! airline#extensions#tabline#tabs#get()

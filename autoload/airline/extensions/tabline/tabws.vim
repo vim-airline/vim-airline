@@ -24,8 +24,10 @@ function! airline#extensions#tabline#tabws#on()
 endfunction
 
 function! airline#extensions#tabline#tabws#invalidate()
-  let s:current_bufnr = -1
-  let s:current_tabnr = -1
+  if exists('#airline')
+    let s:current_bufnr = -1
+    let s:current_tabnr = -1
+  endif
 endfunction
 
 function! airline#extensions#tabline#tabws#add_buffer_section(builder, cur_tab, cur_buf, pull_right)

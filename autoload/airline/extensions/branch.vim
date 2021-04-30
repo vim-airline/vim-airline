@@ -325,6 +325,10 @@ endfunction
 
 function! s:reset_untracked_cache(shellcmdpost)
   " shellcmdpost - whether function was called as a result of ShellCmdPost hook
+  if !exists('#airline')
+    " airline disabled
+    return
+  endif
   if !g:airline#init#vim_async && !has('nvim')
     if a:shellcmdpost
       " Clear cache only if there was no error or the script uses an
@@ -346,11 +350,17 @@ function! s:reset_untracked_cache(shellcmdpost)
   endfor
 endfunction
 
+function! s:sh_autocmd_handler()
+  if exists('#airline')
+    unlet! b:airline_head b:airline_do_mq_check
+  endif
+endfunction
+
 function! airline#extensions#branch#init(ext)
   call airline#parts#define_function('branch', 'airline#extensions#branch#get_head')
 
-  autocmd ShellCmdPost,CmdwinLeave * unlet! b:airline_head b:airline_do_mq_check
-  autocmd User AirlineBeforeRefresh unlet! b:airline_head b:airline_do_mq_check
+  autocmd ShellCmdPost,CmdwinLeave * call s:sh_autocmd_handler()
+  autocmd User AirlineBeforeRefresh call s:sh_autocmd_handler()
   autocmd BufWritePost * call s:reset_untracked_cache(0)
   autocmd ShellCmdPost * call s:reset_untracked_cache(1)
 endfunction

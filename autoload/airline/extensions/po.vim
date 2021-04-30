@@ -43,6 +43,10 @@ function! airline#extensions#po#shorten()
 endfunction
 
 function! airline#extensions#po#on_winenter()
+  if !exists('#airline')
+    " airline disabled
+    return
+  endif
   " only reset cache, if the window size changed
   if get(b:, 'airline_winwidth', 0) != airline#util#winwidth()
     let b:airline_winwidth = airline#util#winwidth()
@@ -51,11 +55,17 @@ function! airline#extensions#po#on_winenter()
   endif
 endfunction
 
+function! s:autocmd_handler()
+  if exists('#airline')
+    unlet! b:airline_po_stats
+  endif
+endfunction
+
 function! airline#extensions#po#apply(...)
   if &ft ==# 'po'
     call airline#extensions#prepend_to_section('z', '%{airline#extensions#po#stats()}')
     " Also reset the cache variable, if a window has been split, e.g. the winwidth changed
-    autocmd airline BufWritePost * unlet! b:airline_po_stats
+    autocmd airline BufWritePost * call s:autocmd_handler()
     autocmd airline WinEnter * call airline#extensions#po#on_winenter()
   endif
 endfunction

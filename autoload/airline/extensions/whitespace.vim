@@ -183,6 +183,10 @@ function! airline#extensions#whitespace#init(...)
 endfunction
 
 function! s:ws_refresh()
+  if !exists('#airline')
+    " airline disabled
+    return
+  endif
   if get(b:, 'airline_ws_changedtick', 0) == b:changedtick
     return
   endif
