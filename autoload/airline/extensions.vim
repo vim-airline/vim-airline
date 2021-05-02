@@ -465,7 +465,7 @@ function! airline#extensions#load()
   if !get(g:, 'airline#extensions#disable_rtp_load', 0)
     " load all other extensions, which are not part of the default distribution.
     " (autoload/airline/extensions/*.vim outside of our s:script_path).
-    for file in split(globpath(&rtp, "autoload/airline/extensions/*.vim"), "\n")
+    for file in split(globpath(&rtp, "autoload/airline/extensions/*.vim", 1), "\n")
       " we have to check both resolved and unresolved paths, since it's possible
       " that they might not get resolved properly (see #187)
       if stridx(tolower(resolve(fnamemodify(file, ':p'))), s:script_path) < 0
