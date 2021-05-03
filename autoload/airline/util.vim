@@ -174,7 +174,7 @@ function! airline#util#has_custom_scm()
 endfunction
 
 function! airline#util#doautocmd(event)
-  if !exists('#airline')
+  if !exists('#airline') && a:event !=? 'AirlineToggledOff'
     " airline disabled
     return
   endif
