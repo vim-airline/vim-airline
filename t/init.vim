@@ -55,6 +55,15 @@ describe 'init sections'
     Expect g:airline_section_z =~ '%v'
   end
 
+  it 'section gutter should be blank unless csv extension is installed'
+    " Note: the csv extension uses only the window local variable
+    Expect g:airline_section_gutter =~ '%='
+  end
+
+  it 'section warning should be blank'
+    Expect g:airline_section_warning =~ ''
+  end
+
   it 'should not redefine sections already defined'
     for s in s:sections
       let g:airline_section_{s} = s
