@@ -118,6 +118,10 @@ CONFIGURATION                                        *airline-configuration*
 There are a couple configuration values available (shown with their default
 values):
 
+* enable experimental features >
+  " Currently: Enable Vim9 Script implementation
+  let g:airline_experimental = 1
+
 * the separator used on the left side >
   let g:airline_left_sep='>'
 <
