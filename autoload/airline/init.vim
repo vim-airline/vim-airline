@@ -104,13 +104,13 @@ function! airline#init#bootstrap()
     call s:check_defined('g:airline_left_alt_sep', "")
     call s:check_defined('g:airline_right_sep', "")
     call s:check_defined('g:airline_right_alt_sep', "")
-    " ro=⊝, ws=☲, lnr=㏑, mlnr=☰, colnr=㏇, br=ᚠ, nx=Ɇ, crypt=🔒
+    " ro=⊝, ws=☲, lnr=㏑, mlnr=☰, colnr=℅, br=ᚠ, nx=Ɇ, crypt=🔒
     call extend(g:airline_symbols, {
           \ 'readonly': "\u229D",
           \ 'whitespace': "\u2632",
           \ 'maxlinenr': "\u2630",
           \ 'linenr': "\u33d1",
-          \ 'colnr': "\u33c7",
+          \ 'colnr': "\u2105",
           \ 'branch': "\u16A0",
           \ 'notexists': "\u0246",
           \ 'crypt': nr2char(0x1F512),
@@ -127,7 +127,7 @@ function! airline#init#bootstrap()
           \ 'whitespace': '!',
           \ 'linenr': 'ln',
           \ 'maxlinenr': '',
-          \ 'colnr': 'cn',
+          \ 'colnr': 'co',
           \ 'branch': '',
           \ 'notexists': '?',
           \ 'crypt': 'cr',
