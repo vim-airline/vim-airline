@@ -1,5 +1,5 @@
 " MIT License. Copyright (c) 2013-2021 Bailey Ling et al.
-" vim: et ts=2 sts=2 sw=2
+" vim: et ts=2 sts=2 sw=2 et
 
 scriptencoding utf-8
 
@@ -12,7 +12,7 @@ let s:ctrlspace = get(g:, 'CtrlSpaceLoaded', 0)
 let s:tabws = get(g:, 'tabws_loaded', 0)
 
 function! airline#extensions#tabline#init(ext)
-  if has('gui_running')
+  if has('gui_running') && match(&guioptions, 'e') > -1
     set guioptions-=e
   endif
 
