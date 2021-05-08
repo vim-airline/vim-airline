@@ -25,7 +25,7 @@ function! airline#extensions#scrollbar#calculate() abort
       let after = 0
       let right = (overwrite ? '' : right)
     endif
-    return left . repeat(spc,  before) . middle . repeat(spc, (width-before)) . right
+    return left . repeat(spc,  before) . middle . repeat(spc, after) . right
   else
     return ''
   endif
