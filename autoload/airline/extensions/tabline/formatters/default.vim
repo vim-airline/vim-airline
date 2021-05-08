@@ -43,6 +43,7 @@ if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0) == 0
     endif
     return _
   endfunction
+  finish
 else
   " Vim9 Script implementation
   def airline#extensions#tabline#formatters#default#format(bufnr: number, buffers: list<number>): string

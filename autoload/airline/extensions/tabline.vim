@@ -265,10 +265,8 @@ if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0) == 0
     endif
     return group
   endfunction
-
+  finish
 else
-
-  " Vim9 Script implementation
   def s:toggle_off(): void
     airline#extensions#tabline#autoshow#off()
     airline#extensions#tabline#tabs#off()

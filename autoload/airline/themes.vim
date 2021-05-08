@@ -80,6 +80,7 @@ if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0) == 0
       let a:palette.accents.purple = [ '#af00df' , '' , 128 , '' ]
     endif
   endfunction
+  finish
 else
   " New Vim9 Script Implementation
   def airline#themes#generate_color_map(sect1: list<any>, sect2: list<any>, sect3: list<any>): dict<any>
