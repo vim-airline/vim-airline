@@ -1355,6 +1355,12 @@ groups:
   airline_tabhid:	hidden buffer
   airline_tabhid_right: idem, but on the right
 
+-------------------------------------                      *airline-scrollbar*
+
+Displays an Ascii Scrollbar for active windows with a width > 200.
+
+* enable/disable scrollbar integration >
+  let g:airline#extensions#scrollbar#enabled = 1 (default: 1)
 -------------------------------------                        *airline-taboo*
 taboo.vim <https://github.com/gcmt/taboo.vim>
 

@@ -18,10 +18,12 @@ This is the Changelog for the vim-airline project.
     - [battery.vim](https://github.com/lambdalisue/battery.vim) support
     - [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) support
     - [gen_tags.vim](https://github.com/jsfaint/gen_tags.vim) support
+    - Ascii Scrollbar support
 - Improvements
   - git branch can also be displayed using [gina.vim](https://github.com/lambdalisue/gina.vim)
   - coc extensions can also show additional status messages as well as the current function
   - [coc-git](https://github.com/neoclide/coc-git) extension integrated into hunks extension
+  - rewrote parts using Vim9 Script for performance improvements
 - Other
   - Changed CI from travis-ci.org to GitHub Actions
   - Introduce Vim script static analysis using [reviewdog](https://github.com/reviewdog/action-vint)
