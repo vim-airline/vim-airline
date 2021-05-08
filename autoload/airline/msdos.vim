@@ -41,19 +41,43 @@ let s:basic16 = [
   \ [ 0xFF, 0xFF, 0xFF ]
   \ ]
 
-function! airline#msdos#round_msdos_colors(rgblist)
-  " Check for values from MSDOS 16 color terminal
-  let best = []
-  let min  = 100000
-  let list = s:basic16
-  for value in list
-    let t = abs(value[0] - a:rgblist[0]) +
-          \ abs(value[1] - a:rgblist[1]) +
-          \ abs(value[2] - a:rgblist[2])
-    if min > t
-      let min = t
-      let best = value
-    endif
-  endfor
-  return index(s:basic16, best)
-endfunction
+if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0) == 0)
+
+	function! airline#msdos#round_msdos_colors(rgblist)
+		" Check for values from MSDOS 16 color terminal
+		let best = []
+		let min  = 100000
+		let list = s:basic16
+		for value in list
+			let t = abs(value[0] - a:rgblist[0]) +
+						\ abs(value[1] - a:rgblist[1]) +
+						\ abs(value[2] - a:rgblist[2])
+			if min > t
+				let min = t
+				let best = value
+			endif
+		endfor
+		return index(s:basic16, best)
+	endfunction
+
+	finish
+
+else
+
+  def airline#msdos#round_msdos_colors(rgblist: list<number>): string
+    # Check for values from MSDOS 16 color terminal
+    var best = []
+    var min  = 100000
+    var t = 0
+    for value in s:basic16
+      t = abs(value[0] - rgblist[0]) +
+          abs(value[1] - rgblist[1]) +
+          abs(value[2] - rgblist[2])
+      if min > t
+        min = t
+        best = value
+      endif
+    endfor
+    return string(index(s:basic16, best))
+  enddef
+endif

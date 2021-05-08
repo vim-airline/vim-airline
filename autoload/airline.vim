@@ -261,7 +261,7 @@ function! airline#check_mode(winnr)
 
   let mode_string = join(mode)
   if get(w:, 'airline_lastmode', '') != mode_string
-    call airline#highlighter#highlight_modified_inactive(string(context.bufnr))
+    call airline#highlighter#highlight_modified_inactive(context.bufnr)
     call airline#highlighter#highlight(mode, string(context.bufnr))
     call airline#util#doautocmd('AirlineModeChanged')
     let w:airline_lastmode = mode_string
