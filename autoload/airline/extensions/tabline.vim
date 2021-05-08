@@ -429,7 +429,7 @@ else
       var buflist = tabpagebuflist(n)
       var winnr = tabpagewinnr(n)
       var all_buffers = airline#extensions#tabline#buflist#list()
-      var curbuf = filter(buflist, {_, v -> index(all_buffers, v) != -1})
+      var curbuf = filter(buflist, (_, v) => index(all_buffers, v) != -1)
       if len(curbuf) ==  0
         add(curbuf, tabpagebuflist()[0])
       endif
