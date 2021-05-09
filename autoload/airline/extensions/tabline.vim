@@ -12,6 +12,9 @@ let s:ctrlspace = get(g:, 'CtrlSpaceLoaded', 0)
 let s:tabws = get(g:, 'tabws_loaded', 0)
 let s:current_tabcnt = -1
 
+" Dictionary functions are not possible in Vim9 Script,
+" so use the legacy Vim Script implementation
+
 function! airline#extensions#tabline#init(ext)
   if has('gui_running') && match(&guioptions, 'e') > -1
     set guioptions-=e
@@ -378,7 +381,6 @@ else
     endif
   enddef
 
-
   def airline#extensions#tabline#get(): string
     var show_buffers = get(g:, 'airline#extensions#tabline#show_buffers', 1)
     var show_tabs = get(g:, 'airline#extensions#tabline#show_tabs', 1)
@@ -475,36 +477,4 @@ else
     endif
     return group
   enddef
-
-  " The following two dictionary functions do not work yet :/
-  "
-  " def airline#extensions#tabline#init(ext: dict<any>): void
-  "   if has('gui_running') && match(&guioptions, 'e') > -1
-  "     :set guioptions-=e
-  "   endif
-  "   autocmd User AirlineToggledOn call s:toggle_on()
-  "   autocmd User AirlineToggledOff call s:toggle_off()
-  "   s:toggle_on()
-  "   try
-  "     ext.add_theme_func('airline#extensions#tabline#load_theme')
-  "   catch
-  "   endtry
-  " enddef
-  "
-  " def airline#extensions#tabline#add_label(dict: dict<any>, type: string, right: number): void
-  "   # Seems not to work yet :(
-  "   if get(g:, 'airline#extensions#tabline#show_tab_type', 1)
-  "     dict.add_section_spaced('airline_tablabel' .. (right ? '_right' : ''),
-  "       get(g:, 'airline#extensions#tabline#' .. type .. '_label', type))
-  "   endif
-  " enddef
-  "
-  " def airline#extensions#tabline#add_tab_label(dict: dict<any>): void
-  "   var show_tab_count = get(g:, 'airline#extensions#tabline#show_tab_count', 1)
-  "   if show_tab_count == 2
-  "     dict.add_section_spaced('airline_tabmod', printf('%s %d/%d', "tab", tabpagenr(), tabpagenr('$')))
-  "   elseif show_tab_count == 1 && tabpagenr('$') > 1
-  "     dict.add_section_spaced('airline_tabmod', printf('%s %d/%d', "tab", tabpagenr(), tabpagenr('$')))
-  "   endif
-  " enddef
 endif
