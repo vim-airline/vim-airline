@@ -20,6 +20,20 @@ describe 'util'
     Expect airline#util#append('1', 0) == '   1'
   end
 
+  it 'should be same &columns'
+    let g:airline_statusline_ontop = 1
+    Expect airline#util#winwidth() == &columns
+  end
+
+  it 'should be same winwidth(0)'
+    let g:airline_statusline_ontop = 0
+    Expect airline#util#winwidth() == winwidth(0)
+  end
+
+  it 'should be same winwidth(30)'
+    Expect airline#util#winwidth(30, 0) == winwidth(30)
+  end
+
   it 'has prepend wrapper function'
     Expect airline#util#prepend('', 0) == ''
     Expect airline#util#prepend('1', 0) == '1  '

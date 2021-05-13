@@ -16,7 +16,7 @@ let s:focusgained_ignore_time = 0
 " TODO: Try to cache winwidth(0) function
 " e.g. store winwidth per window and access that, only update it, if the size
 " actually changed.
-function! airline#util#winwidth(...)
+function! airline#util#winwidth(...) abort
   let nr = get(a:000, 0, 0)
   if get(g:, 'airline_statusline_ontop', 0)
     return &columns
