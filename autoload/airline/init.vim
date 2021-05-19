@@ -130,7 +130,7 @@ function! airline#init#bootstrap()
           \ 'whitespace': '!',
           \ 'linenr': ' ln:',
           \ 'maxlinenr': '',
-          \ 'colnr': ' co:',
+          \ 'colnr': ' cn:',
           \ 'branch': '',
           \ 'notexists': '?',
           \ 'crypt': 'cr',
