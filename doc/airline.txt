@@ -1360,7 +1360,7 @@ groups:
 Displays an Ascii Scrollbar for active windows with a width > 200.
 
 * enable/disable scrollbar integration >
-  let g:airline#extensions#scrollbar#enabled = 1 (default: 1)
+  let g:airline#extensions#scrollbar#enabled = 1 (default: 0)
 -------------------------------------                        *airline-taboo*
 taboo.vim <https://github.com/gcmt/taboo.vim>
 

@@ -262,7 +262,7 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'bookmark')
   endif
 
-  if get(g:, 'airline#extensions#scrollbar#enabled', 1)
+  if get(g:, 'airline#extensions#scrollbar#enabled', 0)
     call airline#extensions#scrollbar#init(s:ext)
     call add(s:loaded_ext, 'scrollbar')
   endif
