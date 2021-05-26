@@ -16,7 +16,7 @@ function! airline#extensions#scrollbar#calculate() abort
     let width = 20 " max width, plus one border and indicator
     let perc = (line('.') + 0.0) / (line('$') + 0.0)
     let before = float2nr(round(perc * width))
-    if before > 0 && line('.') == 1
+    if before >= 0 && line('.') == 1
       let before = 0
       let left = (overwrite ? '' : left)
     endif
