@@ -50,7 +50,7 @@ function! airline#add_inactive_statusline_funcref(function, ...)
     endif
     return
   endif
-  call add(g:airline_inactive_funcrefs, function(a:function))
+  call add(g:airline_inactive_funcrefs, a:function)
 endfunction
 
 function! airline#load_theme()
