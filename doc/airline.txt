@@ -71,12 +71,14 @@ section  meaning (example)~
          optionally may contain Byte Order Mark `[BOM]` and missing end of last
          line `[!EOL]`
   Z      current position in the file
-           percentage % ☰ current line/number of lines ln : column
-           So this: 10% ☰ 10/100 ln : 20   means: >
+           percentage % ln: current line/number of lines ☰ cn: column
+           So this: 10% ln:10/100☰ cn:20
+	   means: >
               10%     - 10 percent
-              ☰ 10    - current line 10
-              /100 ln - of 100 lines
-              : 20    - current column 20
+	      ln:     - line number is
+              10/100☰ - 10 of 100 total lines
+	      cn:     - column number is
+              20      - 20
 <
   [...]  additional sections (warning/errors/statistics)
          from external plugins (e.g. YCM/syntastic/...)
@@ -343,6 +345,16 @@ CUSTOMIZATION                                        *airline-customization*
 The following are some unicode symbols for customizing the left/right
 separators, as well as the powerline font glyphs.
 
+Note: Some additional characters like spaces and colons may be included in the
+default. Including them within the symbol definitions rather than outside of
+them allows you to eliminate or otherwise alter them.
+
+Note: Be aware that some of these glyphs are defined as ligatures, so they may
+show up different (usually bigger) if followed by a space. This only happens
+if both the font and terminal implementation used support ligatures. If you
+want to follow a glyph with a space _without_ the alternate ligature being
+rendered, follow it with a non-breaking-space character. 
+
 Note: You must define the dictionary first before setting values. Also, it's
 a good idea to check whether it exists as to avoid accidentally overwriting
 its contents. >
@@ -355,12 +367,12 @@ its contents. >
   let g:airline_left_sep = '▶'
   let g:airline_right_sep = '«'
   let g:airline_right_sep = '◀'
-  let g:airline_symbols.colnr = '㏇'
-  let g:airline_symbols.colnr = '℅'
+  let g:airline_symbols.colnr = ' ㏇:'
+  let g:airline_symbols.colnr = ' ℅:'
   let g:airline_symbols.crypt = '🔒'
   let g:airline_symbols.linenr = '☰'
-  let g:airline_symbols.linenr = '␊'
-  let g:airline_symbols.linenr = '␤'
+  let g:airline_symbols.linenr = ' ␊:'
+  let g:airline_symbols.linenr = ' ␤:'
   let g:airline_symbols.linenr = '¶'
   let g:airline_symbols.maxlinenr = ''
   let g:airline_symbols.maxlinenr = '㏑'
@@ -378,10 +390,10 @@ its contents. >
   let g:airline_right_sep = ''
   let g:airline_right_alt_sep = ''
   let g:airline_symbols.branch = ''
-  let g:airline_symbols.colnr = ''
+  let g:airline_symbols.colnr = ' :'
   let g:airline_symbols.readonly = ''
-  let g:airline_symbols.linenr = '☰'
-  let g:airline_symbols.maxlinenr = ''
+  let g:airline_symbols.linenr = ' :'
+  let g:airline_symbols.maxlinenr = '☰ '
   let g:airline_symbols.dirty='⚡'
 
   " old vim-powerline symbols

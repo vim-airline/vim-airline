@@ -87,12 +87,15 @@ function! airline#init#bootstrap()
     call s:check_defined('g:airline_right_sep', "\ue0b2")     " 
     call s:check_defined('g:airline_right_alt_sep', "\ue0b3") " 
     " ro=, ws=☲, lnr=, mlnr=☰, colnr=, br=, nx=Ɇ, crypt=🔒, dirty=⚡
+    "  Note: For powerline, we add an extra space after maxlinenr symbol,
+    "  because it is usually setup as a ligature in most powerline patched
+    "  fonts. It can be over-ridden by configuring a custom maxlinenr
     call extend(g:airline_symbols, {
           \ 'readonly': "\ue0a2",
           \ 'whitespace': "\u2632",
-          \ 'maxlinenr': "\u2630",
-          \ 'linenr': "\ue0a1",
-          \ 'colnr': "\ue0a3",
+          \ 'maxlinenr': "\u2630 ",
+          \ 'linenr': " \ue0a1:",
+          \ 'colnr': " \ue0a3:",
           \ 'branch': "\ue0a0",
           \ 'notexists': "\u0246",
           \ 'dirty': "\u26a1",
@@ -109,8 +112,8 @@ function! airline#init#bootstrap()
           \ 'readonly': "\u229D",
           \ 'whitespace': "\u2632",
           \ 'maxlinenr': "\u2630",
-          \ 'linenr': "\u33d1",
-          \ 'colnr': "\u2105",
+          \ 'linenr': " \u33d1:",
+          \ 'colnr': " \u2105:",
           \ 'branch': "\u16A0",
           \ 'notexists': "\u0246",
           \ 'crypt': nr2char(0x1F512),
@@ -125,9 +128,9 @@ function! airline#init#bootstrap()
     call extend(g:airline_symbols, {
           \ 'readonly': 'RO',
           \ 'whitespace': '!',
-          \ 'linenr': 'ln',
+          \ 'linenr': ' ln:',
           \ 'maxlinenr': '',
-          \ 'colnr': 'co',
+          \ 'colnr': ' cn:',
           \ 'branch': '',
           \ 'notexists': '?',
           \ 'crypt': 'cr',
@@ -155,13 +158,13 @@ function! airline#init#bootstrap()
   endif
   call airline#parts#define_raw('path', '%F%m')
   call airline#parts#define('linenr', {
-        \ 'raw': '%{g:airline_symbols.linenr}:%l',
+        \ 'raw': '%{g:airline_symbols.linenr}%l',
         \ 'accent': 'bold'})
   call airline#parts#define('maxlinenr', {
-        \ 'raw': '/%L%{g:airline_symbols.maxlinenr} ',
+        \ 'raw': '/%L%{g:airline_symbols.maxlinenr}',
         \ 'accent': 'bold'})
   call airline#parts#define('colnr', {
-        \ 'raw': ' %{g:airline_symbols.colnr}:%v',
+        \ 'raw': '%{g:airline_symbols.colnr}%v',
         \ 'accent': 'bold'})
   call airline#parts#define_function('ffenc', 'airline#parts#ffenc')
   call airline#parts#define('hunks', {
@@ -233,9 +236,9 @@ function! airline#init#sections()
   endif
   if !exists('g:airline_section_z')
     if airline#util#winwidth() > 79
-      let g:airline_section_z = airline#section#create(['windowswap', 'obsession', '%p%%'.spc, 'linenr', 'maxlinenr', 'colnr'])
+      let g:airline_section_z = airline#section#create(['windowswap', 'obsession', '%p%%', 'linenr', 'maxlinenr', 'colnr'])
     else
-      let g:airline_section_z = airline#section#create(['%p%%'.spc, 'linenr', 'colnr'])
+      let g:airline_section_z = airline#section#create(['%p%%', 'linenr', 'colnr'])
     endif
   endif
   if !exists('g:airline_section_error')
