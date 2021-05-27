@@ -30,7 +30,7 @@ function! airline#extensions#tabline#autoshow#on()
         autocmd BufEnter  * call <sid>show_tabline(s:buf_min_count, len(airline#extensions#tabline#buflist#list()))
         autocmd BufUnload * call <sid>show_tabline(s:buf_min_count, len(airline#extensions#tabline#buflist#list()) - 1)
       else
-        autocmd TabEnter  * call <sid>show_tabline(s:tab_min_count, tabpagenr('$'))
+        autocmd TabNew,TabClosed  * call <sid>show_tabline(s:tab_min_count, tabpagenr('$'))
       endif
     endif
 
