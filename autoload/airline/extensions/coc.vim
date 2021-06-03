@@ -38,7 +38,7 @@ function! airline#extensions#coc#get(type) abort
   if empty(cnt)
     return ''
   else
-    let lnum = printf('(L%d)', (info.lnums)[0])
+    let lnum = printf('(L%d)', (info.lnums)[is_err ? 0 : 1])
     return (is_err ? s:error_symbol : s:warning_symbol).cnt.lnum
   endif
 endfunction
