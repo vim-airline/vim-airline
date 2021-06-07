@@ -214,3 +214,10 @@ function! airline#util#try_focusgained()
   return dt >= 1
 endfunction
 
+function! airline#util#has_vim9_script()
+  " Returns true, if Vim is new enough to understand vim9 script
+  return (exists(":def") &&
+    \ v:versionlong >= 8022844 &&
+    \ get(g:, "airline_experimental", 0))
+endfunction
+

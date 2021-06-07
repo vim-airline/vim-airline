@@ -44,7 +44,7 @@ function! airline#extensions#tabline#add_tab_label(dict)
 endfunction
 
 
-if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0) == 0)
+if !exists(":def") || !airline#util#has_vim9_script()
 
   " Legacy Vim Script Implementation
 

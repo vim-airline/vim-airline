@@ -41,7 +41,7 @@ let s:basic16 = [
   \ [ 0xFF, 0xFF, 0xFF ]
   \ ]
 
-if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0) == 0)
+if !exists(":def") || !airline#util#has_vim9_script()
 
 	function! airline#msdos#round_msdos_colors(rgblist)
 		" Check for values from MSDOS 16 color terminal

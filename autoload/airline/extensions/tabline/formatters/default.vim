@@ -3,7 +3,7 @@
 
 scriptencoding utf-8
 
-if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0) == 0)
+if !exists(":def") || !airline#util#has_vim9_script()
   function! airline#extensions#tabline#formatters#default#format(bufnr, buffers)
     let fnametruncate = get(g:, 'airline#extensions#tabline#fnametruncate', 0)
     let fmod = get(g:, 'airline#extensions#tabline#fnamemod', ':~:.')

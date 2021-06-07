@@ -3,7 +3,7 @@
 
 scriptencoding utf-8
 
-if !exists(":def") || (exists(":def") && get(g:, "airline_experimental", 0) == 0)
+if !exists(":def") || !airline#util#has_vim9_script()
 
   " Legacy Vim Script Implementation
 
