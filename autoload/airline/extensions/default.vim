@@ -76,17 +76,14 @@ else
   endfunction
 endif
 
-function! airline#extensions#default#apply(builder, context)
+function! airline#extensions#default#apply(builder, context) abort
   let winnr = a:context.winnr
   let active = a:context.active
 
   if airline#util#getwinvar(winnr, 'airline_render_left', active || (!active && !g:airline_inactive_collapse))
     call s:build_sections(a:builder, a:context, s:layout[0])
   else
-    let text = s:get_section(winnr, 'c')
-    if empty(text)
-      let text = ' %f%m '
-    endif
+    let text = !empty(s:get_section(winnr, 'c')) ? s:get_section(winnr, 'c') : ' %f%m '
     call a:builder.add_section('airline_c'.(a:context.bufnr), text)
   endif
 
