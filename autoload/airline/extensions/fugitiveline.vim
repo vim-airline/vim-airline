@@ -12,7 +12,7 @@ function! s:ModifierFlags()
   return (exists("+autochdir") && &autochdir) ? ':p' : ':.'
 endfunction
 
-function! airline#extensions#fugitiveline#bufname()
+function! airline#extensions#fugitiveline#bufname() abort
   if !exists('b:fugitive_name')
     let b:fugitive_name = ''
     try
@@ -49,12 +49,20 @@ function! s:sh_autocmd_handler()
   endif
 endfunction
 
-function! airline#extensions#fugitiveline#init(ext)
+function! airline#extensions#fugitiveline#init(ext) abort
   if exists("+autochdir") && &autochdir
     " if 'acd' is set, vim-airline uses the path section, so we need to redefine this here as well
-    call airline#parts#define_raw('path', '%<%{airline#extensions#fugitiveline#bufname()}%m')
+    if get(g:, 'airline_stl_path_style', 'default') ==# 'short'
+      call airline#parts#define_raw('path', '%<%{pathshorten(airline#extensions#fugitiveline#bufname())}%m')
+    else
+      call airline#parts#define_raw('path', '%<%{airline#extensions#fugitiveline#bufname()}%m')
+    endif
   else
-    call airline#parts#define_raw('file', '%<%{airline#extensions#fugitiveline#bufname()}%m')
+    if get(g:, 'airline_stl_path_style', 'default') ==# 'short'
+      call airline#parts#define_raw('file', '%<%{pathshorten(airline#extensions#fugitiveline#bufname())}%m')
+    else
+      call airline#parts#define_raw('file', '%<%{airline#extensions#fugitiveline#bufname()}%m')
+    endif
   endif
   autocmd ShellCmdPost,CmdwinLeave * call s:sh_autocmd_handler()
   autocmd User AirlineBeforeRefresh call s:sh_autocmd_handler()
