@@ -15,6 +15,7 @@ jobs:
     strategy:
       matrix:
         vim_version:
+        - 'v8.2.2000'
         - 'v8.2.1000'
         - 'v8.2.0000'
         - 'v8.1.0000'
