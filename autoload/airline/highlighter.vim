@@ -363,7 +363,7 @@ else
       return true
     else
       if &vbs
-        :echomsg printf("airline: group: %s already done, skipping", name)
+        echomsg printf("airline: group: %s already done, skipping", name)
       endif
       return false
     endif
