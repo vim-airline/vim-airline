@@ -78,7 +78,8 @@ function! airline#extensions#whitespace#check()
     let check = 'trailing'
     if index(checks, check) > -1 && index(get(skip_check_ft, &ft, []), check) < 0
       try
-        let regexp = get(g:, 'airline#extensions#whitespace#trailing_regexp', '\s$')
+        let regexp = get(b:, 'airline_whitespace_trailing_regexp',
+              \ get(g:, 'airline#extensions#whitespace#trailing_regexp', '\s$'))
         let trailing = search(regexp, 'nw')
       catch
         call airline#util#warning(printf('Whitespace: error occurred evaluating "%s"', regexp))

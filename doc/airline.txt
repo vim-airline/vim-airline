@@ -1558,6 +1558,9 @@ vista.vim <https://github.com/liuchengxu/vista.vim>
 * configure custom trailing whitespace regexp rule >
   let g:airline#extensions#whitespace#trailing_regexp = '\s$'
 
+  " this can also be configured for an individual buffer
+  let b:airline_whitespace_trailing_regexp = '\s$'
+
 * configure, which filetypes have special treatment of /* */ comments,
   matters for mix-indent-file algorithm: >
   let airline#extensions#c_like_langs =
