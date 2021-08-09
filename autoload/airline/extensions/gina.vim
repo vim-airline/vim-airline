@@ -8,7 +8,11 @@ if !get(g:, 'loaded_gina', 0)
 endif
 
 function! airline#extensions#gina#apply(...) abort
-  if (&ft =~# 'gina' && &ft !~# 'blame') || &ft ==# 'diff'
+  " gina.vim seems to set b:gina_initialized = 1 in diff buffers it open,
+  " where get(b:, 'gina_initialized', 0) returns 1.
+  " In diff buffers not opened by gina.vim b:gina_initialized is not set,
+  " so get(b:, 'gina_initialized', 0) returns 0.
+  if (&ft =~# 'gina' && &ft !~# 'blame') || (&ft ==# 'diff' && get(b:, 'gina_initialized', 0))
     call a:1.add_section('airline_a', ' gina ')
     call a:1.add_section('airline_b', ' %{gina#component#repo#branch()} ')
     call a:1.split()
