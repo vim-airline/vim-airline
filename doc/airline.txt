@@ -178,8 +178,8 @@ values):
 * if you want to update your highlights without affecting the airline theme,
   you can do so using the AirlineAfterTheme autocmd. >
   function! s:update_highlights()
-    hi CursorLine ctermbg=none guibg=none
-    hi VertSplit ctermbg=none guibg=none
+    hi CursorLine ctermbg=none guibg=NONE
+    hi VertSplit ctermbg=none guibg=NONE
   endfunction
   autocmd User AirlineAfterTheme call s:update_highlights()
 <
