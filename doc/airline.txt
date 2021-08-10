@@ -277,7 +277,7 @@ values):
   let g:airline_highlighting_cache = 0
 <
 * disable airline on FocusLost autocommand (e.g. when Vim loses focus): >
-  let g:airline_focuslost_inactive = 1
+  let g:airline_focuslost_inactive = 0
 <
 * configure the fileformat output
   By default, it will display something like 'utf-8[unix]', however, you can
@@ -353,7 +353,7 @@ Note: Be aware that some of these glyphs are defined as ligatures, so they may
 show up different (usually bigger) if followed by a space. This only happens
 if both the font and terminal implementation used support ligatures. If you
 want to follow a glyph with a space _without_ the alternate ligature being
-rendered, follow it with a non-breaking-space character. 
+rendered, follow it with a non-breaking-space character.
 
 Note: You must define the dictionary first before setting values. Also, it's
 a good idea to check whether it exists as to avoid accidentally overwriting
@@ -780,7 +780,7 @@ It is deactivated by default if |airline-bufferline| is activated.
   let g:airline#extensions#fugitiveline#enabled = 1
 <
 If enabled, the buffer that comes from fugitive, will have added a trailing
-"[git]" to be able do distinguish between fugitive and non-fugitive buffers.
+"[git]" to be able to distinguish between fugitive and non-fugitive buffers.
 
 -------------------------------------                        *airline-fzf*
 fzf <https://github.com/junegunn/fzf>
@@ -853,7 +853,7 @@ This extension displays the current 'keymap' in use.
 * set label for a keymap (default is from g:airline_symbols.keymap) >
   let g:airline#extensions#keymap#label = 'Layout:'
 
-* set name for default lauout (empty to disable it completely) >
+* set name for default layout (empty to disable it completely) >
   let g:airline#extensions#keymap#default = ''
 
 * set short codes for layout names >
@@ -915,7 +915,7 @@ lsp <https://github.com/prabirshrestha/vim-lsp>
 <
 * lsp progress skip time
   Suppresses the frequency of status line updates.
-  Prevents heavy operation when using a language server that sends frequent progress notifications. 
+  Prevents heavy operation when using a language server that sends frequent progress notifications.
   Set 0 to disable. >
   g:airline#extensions#lsp#progress_skip_time = 0.3 (default)
 <
