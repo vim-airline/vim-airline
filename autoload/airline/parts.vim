@@ -72,7 +72,7 @@ function! airline#parts#spell()
       return g:airline_symbols.spell . spelllang
     elseif winwidth >= 70
       return g:airline_symbols.spell
-    else
+    elseif !empty(g:airline_symbols.spell)
       return split(g:airline_symbols.spell, '\zs')[0]
     endif
   endif
