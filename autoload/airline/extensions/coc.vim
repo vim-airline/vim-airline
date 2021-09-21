@@ -21,19 +21,11 @@ function! airline#extensions#coc#get(type) abort
   endif
   let _backup = get(g:, 'coc_stl_format', '')
   let is_err = (a:type  is# 'error')
-  if is_err
-    let g:coc_stl_format = get(g:, 'airline#extensions#coc#stl_format_err', '%E{[%e(#%fe)]}')
-  else
-    let g:coc_stl_format = get(g:, 'airline#extensions#coc#stl_format_warn', '%W{[%w(#%fw)]}')
-  endif
   let info = get(b:, 'coc_diagnostic_info', {})
   if empty(info) | return '' | endif
 
 
   let cnt = get(info, a:type, 0)
-  if !empty(_backup)
-    let g:coc_stl_format = _backup
-  endif
 
   if empty(cnt)
     return ''

@@ -636,12 +636,6 @@ coc <https://github.com/neoclide/coc.nvim>
 * change warning symbol: >
   let airline#extensions#coc#warning_symbol = 'W:'
 <
-* change error format: >
-  let airline#extensions#coc#stl_format_err = '%E{[%e(#%fe)]}'
-<
-* change warning format: >
-  let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
-
 -------------------------------------                    *airline-commandt*
 command-t <https://github.com/wincent/command-t>
 
