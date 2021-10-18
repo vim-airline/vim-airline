@@ -1022,6 +1022,19 @@ title accordingly.
 * configure the title text for location list buffers >
   let g:airline#extensions#quickfix#location_text = 'Location'
 <
+-------------------------------------                     *airline-rufo*
+rufo <https://github.com/ruby-formatter/rufo-vim>
+
+The rufo (Ruby Formatter) extension merely displays whether vim-rufo is
+currently enabled, in the z sction of the statusline.
+
+* enable/disable vim-rufo integration >
+  let g:airline#extensions#rufo#enabled = 1
+<
+* configure the symbol, or text, to display when vim-rufo auto formatting
+  is on >
+  let g:airline#extensions#rufo#symbol = 'R'
+<
 -------------------------------------                     *airline-searchcount*
 The searchcount extension supports the searchcount() function in Vim script.
 Note: This is only enabled when 'hls' is on. When you turn off search
