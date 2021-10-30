@@ -4,7 +4,13 @@
 scriptencoding utf-8
 
 " get wordcount {{{1
-if exists('*wordcount')
+if exists('*vimtex#misc#wordcount')
+" We're in a TeX file and vimtex is a plugin, so use it's wordcount...
+  function! s:get_wordcount(visual_mode_active)
+    let value = vimtex#misc#wordcount()
+    return value
+  endfunction
+elseif exists('*wordcount')
   function! s:get_wordcount(visual_mode_active)
     if get(g:, 'actual_curbuf', '') != bufnr('')
       return
