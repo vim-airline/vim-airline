@@ -6,16 +6,16 @@ scriptencoding utf-8
 " get wordcount {{{1
 "if exists('b:vimtex')
 "if &filetype ==# 'tex' && exists('vimtex#misc#wordcount')
-if &filetype ==# 'tex' && exists('b:vimtex')
 " We're in a TeX file and vimtex is a plugin, so use it's wordcount...
+if exists('*wordcount')
   function! s:get_wordcount(visual_mode_active)
-    let value = vimtex#misc#wordcount()
-    return value
-  endfunction
-elseif exists('*wordcount')
-  function! s:get_wordcount(visual_mode_active)
+"   if &filetype ==# 'tex' && exists('b:vimtex')
     if get(g:, 'actual_curbuf', '') != bufnr('')
       return
+    endif
+    if &filetype ==# 'tex' && exists('vimtex#misc#wordcount')
+      let value = vimtex#misc#wordcount()
+      return value
     endif
     let query = a:visual_mode_active ? 'visual_words' : 'words'
     return get(wordcount(), query, 0)
