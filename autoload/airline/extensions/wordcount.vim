@@ -14,6 +14,7 @@ if exists('*wordcount')
       return
     endif
     if &filetype ==# 'tex' && exists('vimtex#misc#wordcount')
+      echo 'woot'
       let value = vimtex#misc#wordcount()
       return value
     endif
