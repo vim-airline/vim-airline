@@ -4,23 +4,19 @@
 scriptencoding utf-8
 
 " get wordcount {{{1
-"if exists('b:vimtex')
-"if &filetype ==# 'tex' && exists('vimtex#misc#wordcount')
-" We're in a TeX file and vimtex is a plugin, so use it's wordcount...
 if exists('*wordcount')
   function! s:get_wordcount(visual_mode_active)
-"   if &filetype ==# 'tex' && exists('b:vimtex')
     if get(g:, 'actual_curbuf', '') != bufnr('')
       return
     endif
     if &filetype ==# 'tex' && exists('b:vimtex')
-"   if &filetype ==# 'tex' && exists('vimtex#misc#wordcount')
-      echo 'woot'
+" We're in a TeX file and vimtex is a plugin, so use it's wordcount...
       let value = vimtex#misc#wordcount()
       return value
+    else
+      let query = a:visual_mode_active ? 'visual_words' : 'words'
+      return get(wordcount(), query, 0)
     endif
-    let query = a:visual_mode_active ? 'visual_words' : 'words'
-    return get(wordcount(), query, 0)
   endfunction
 else  " Pull wordcount from the g_ctrl-g stats
   function! s:get_wordcount(visual_mode_active)
