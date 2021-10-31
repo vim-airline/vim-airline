@@ -13,7 +13,8 @@ if exists('*wordcount')
     if get(g:, 'actual_curbuf', '') != bufnr('')
       return
     endif
-    if &filetype ==# 'tex' && exists('vimtex#misc#wordcount')
+    if &filetype ==# 'tex' && exists('b:vimtex')
+"   if &filetype ==# 'tex' && exists('vimtex#misc#wordcount')
       echo 'woot'
       let value = vimtex#misc#wordcount()
       return value
