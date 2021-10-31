@@ -4,8 +4,8 @@
 scriptencoding utf-8
 
 " get wordcount {{{1
-if exists('b:vimtex')
-"if &filetype==& 'tex' && exists('*vimtex#misc#wordcount')
+"if exists('b:vimtex')
+if &filetype==& 'tex' && exists('*vimtex#misc#wordcount')
 " We're in a TeX file and vimtex is a plugin, so use it's wordcount...
   function! s:get_wordcount(visual_mode_active)
     let value = vimtex#misc#wordcount()
