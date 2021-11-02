@@ -9,8 +9,13 @@ if exists('*wordcount')
     if get(g:, 'actual_curbuf', '') != bufnr('')
       return
     endif
-    let query = a:visual_mode_active ? 'visual_words' : 'words'
-    return get(wordcount(), query, 0)
+    if &filetype ==# 'tex' && exists('b:vimtex')
+" We're in a TeX file and vimtex is a plugin, so use vimtex's wordcount...
+      return vimtex#misc#wordcount()
+    else
+      let query = a:visual_mode_active ? 'visual_words' : 'words'
+      return get(wordcount(), query, 0)
+    endif
   endfunction
 else  " Pull wordcount from the g_ctrl-g stats
   function! s:get_wordcount(visual_mode_active)
