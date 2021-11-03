@@ -11,13 +11,33 @@ describe 'default'
     let s:builder = airline#builder#new({'active': 1})
   end
 
-  it 'should use the layout'
+  it 'should use the layout "airline_a_to_airline_b"'
     call airline#extensions#default#apply(s:builder, { 'winnr': 1, 'active': 1 })
     let stl = s:builder.build()
     Expect stl =~ 'airline_c_to_airline_a'
+  end
+
+  it 'should use the layout "airline_a_to_airline_b"'
+    call airline#extensions#default#apply(s:builder, { 'winnr': 1, 'active': 1 })
+    let stl = s:builder.build()
     Expect stl =~ 'airline_a_to_airline_b'
+  end
+
+  it 'should use the layout "airline_b_to_airline_warning"'
+    call airline#extensions#default#apply(s:builder, { 'winnr': 1, 'active': 1 })
+    let stl = s:builder.build()
     Expect stl =~ 'airline_b_to_airline_warning'
+  end
+
+  it 'should use the layout "airline_x_to_airline_z"'
+    call airline#extensions#default#apply(s:builder, { 'winnr': 1, 'active': 1 })
+    let stl = s:builder.build()
     Expect stl =~ 'airline_x_to_airline_z'
+  end
+
+  it 'should use the layout "airline_z_to_airline_y"'
+    call airline#extensions#default#apply(s:builder, { 'winnr': 1, 'active': 1 })
+    let stl = s:builder.build()
     Expect stl =~ 'airline_z_to_airline_y'
   end
 
