@@ -636,6 +636,9 @@ coc <https://github.com/neoclide/coc.nvim>
 * change warning symbol: >
   let airline#extensions#coc#warning_symbol = 'W:'
 <
+* enable/disable coc status display >
+  g:airline#extensions#coc#show_coc_status = 1
+<
 -------------------------------------                    *airline-commandt*
 command-t <https://github.com/wincent/command-t>
 
