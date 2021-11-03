@@ -52,16 +52,9 @@ function! s:get_hunks_coc() abort
   return result
 endfunction
 
-function! s:is_branch_empty() abort
-  return exists('*airline#extensions#branch#head') &&
-        \ empty(get(b:, 'airline_head', ''))
-endfunction
-
 function! s:get_hunks_gitgutter() abort
-  if !get(g:, 'gitgutter_enabled', 0) || s:is_branch_empty()
-    return ''
-  endif
-  return GitGutterGetHunkSummary()
+  let hunks = GitGutterGetHunkSummary()
+  return hunks == [0, 0, 0] ? [] : hunks
 endfunction
 
 function! s:get_hunks_changes() abort
