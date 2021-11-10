@@ -6,6 +6,7 @@ scriptencoding utf-8
 
 let s:error_symbol = get(g:, 'airline#extensions#coc#error_symbol', 'E:')
 let s:warning_symbol = get(g:, 'airline#extensions#coc#warning_symbol', 'W:')
+let s:show_coc_status = get(g:, 'airline#extensions#coc#show_coc_status', 1)
 
 function! airline#extensions#coc#get_warning() abort
   return airline#extensions#coc#get('warning')
@@ -37,7 +38,8 @@ endfunction
 
 function! airline#extensions#coc#get_status() abort
   " Shorten text for windows < 91 characters
-  return airline#util#shorten(get(g:, 'coc_status', ''), 91, 9)
+  let status = airline#util#shorten(get(g:, 'coc_status', ''), 91, 9)
+  return (s:show_coc_status ? status : '')
 endfunction
 
 function! airline#extensions#coc#get_current_function() abort
