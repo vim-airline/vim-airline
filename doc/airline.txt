@@ -1460,6 +1460,18 @@ Unite <https://github.com/Shougo/unite.vim>
 * enable/disable unite integration >
   let g:airline#extensions#unite#enabled = 1
 
+-------------------------------------                     *airline-vim9lsp*
+vim9lsp <https://github.com/yegappan/lsp>
+
+* enable/disable vim9lsp integration >
+  let airline#extensions#vim9lsp#enabled = 1
+<
+* vim9lsp error_symbol >
+  let airline#extensions#vim9lsp#error_symbol = 'E:'
+<
+* vim9lsp warning >
+  let airline#extensions#vim9lsp#warning_symbol = 'W:'
+<
 -------------------------------------                     *airline-vimagit*
 vimagit <https://github.com/jreybert/vimagit>
 

@@ -471,6 +471,11 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'battery')
   endif
 
+  if (get(g:, 'airline#extensions#vim9lsp#enabled', 1) && exists('*lsp#errorCount'))
+    call airline#extensions#vim9lsp#init(s:ext)
+    call add(s:loaded_ext, 'vim9lsp')
+  endif
+
   if !get(g:, 'airline#extensions#disable_rtp_load', 0)
     " load all other extensions, which are not part of the default distribution.
     " (autoload/airline/extensions/*.vim outside of our s:script_path).

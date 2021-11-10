@@ -191,6 +191,7 @@ function! airline#init#bootstrap()
         \ 'neomake_warning_count', 'ale_error_count', 'ale_warning_count',
         \ 'lsp_error_count', 'lsp_warning_count', 'scrollbar',
         \ 'nvimlsp_error_count', 'nvimlsp_warning_count',
+        \ 'vim9lsp_warning_count', 'vim9lsp_error_count',
         \ 'languageclient_error_count', 'languageclient_warning_count',
         \ 'coc_warning_count', 'coc_error_count', 'vista', 'battery'])
 
@@ -242,9 +243,9 @@ function! airline#init#sections()
     endif
   endif
   if !exists('g:airline_section_error')
-    let g:airline_section_error = airline#section#create(['ycm_error_count', 'syntastic-err', 'eclim', 'neomake_error_count', 'ale_error_count', 'lsp_error_count', 'nvimlsp_error_count', 'languageclient_error_count', 'coc_error_count'])
+    let g:airline_section_error = airline#section#create(['ycm_error_count', 'syntastic-err', 'eclim', 'neomake_error_count', 'ale_error_count', 'lsp_error_count', 'nvimlsp_error_count', 'languageclient_error_count', 'coc_error_count', 'vim9lsp_error_count'])
   endif
   if !exists('g:airline_section_warning')
-    let g:airline_section_warning = airline#section#create(['ycm_warning_count',  'syntastic-warn', 'neomake_warning_count', 'ale_warning_count', 'lsp_warning_count', 'nvimlsp_warning_count', 'languageclient_warning_count', 'whitespace', 'coc_warning_count'])
+    let g:airline_section_warning = airline#section#create(['ycm_warning_count',  'syntastic-warn', 'neomake_warning_count', 'ale_warning_count', 'lsp_warning_count', 'nvimlsp_warning_count', 'languageclient_warning_count', 'whitespace', 'coc_warning_count', 'vim9lsp_warning_count'])
   endif
 endfunction
