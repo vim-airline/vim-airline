@@ -1507,6 +1507,11 @@ State indicators:
 * viewer is opened >
   let g:airline#extensions#vimtex#viewer = "v"
 
+* use vimtex specific wordcount function
+  for TeX buffers Note: this more accurate
+  but may slow down Vim) >
+  let g:airline#extensions#vimtex#wordcount = 1 
+
 -------------------------------------                   *airline-virtualenv*
 virtualenv <https://github.com/jmcantrell/vim-virtualenv>
 

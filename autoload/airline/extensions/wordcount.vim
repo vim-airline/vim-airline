@@ -9,8 +9,8 @@ if exists('*wordcount')
     if get(g:, 'actual_curbuf', '') != bufnr('')
       return
     endif
-    if &filetype ==# 'tex' && exists('b:vimtex')
-" We're in a TeX file and vimtex is a plugin, so use vimtex's wordcount...
+    if &filetype ==# 'tex' && exists('b:vimtex') && get(g:, 'airline#extensions#vimtex#wordcount', 0)
+      " We're in a TeX file and vimtex is a plugin, so use vimtex's wordcount...
       return vimtex#misc#wordcount()
     else
       let query = a:visual_mode_active ? 'visual_words' : 'words'
