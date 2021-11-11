@@ -186,7 +186,7 @@ function! airline#init#bootstrap()
         \ 'accent': 'bold'
         \ })
   call airline#parts#define_empty(['obsession', 'tagbar', 'syntastic-warn',
-        \ 'syntastic-err', 'eclim', 'whitespace','windowswap',
+        \ 'syntastic-err', 'eclim', 'whitespace','windowswap', 'taglist',
         \ 'ycm_error_count', 'ycm_warning_count', 'neomake_error_count',
         \ 'neomake_warning_count', 'ale_error_count', 'ale_warning_count',
         \ 'lsp_error_count', 'lsp_warning_count', 'scrollbar',
@@ -229,7 +229,7 @@ function! airline#init#sections()
     let g:airline_section_gutter = airline#section#create(['%='])
   endif
   if !exists('g:airline_section_x')
-    let g:airline_section_x = airline#section#create_right(['coc_current_function', 'bookmark', 'scrollbar', 'tagbar', 'vista', 'gutentags', 'gen_tags', 'omnisharp', 'grepper', 'filetype'])
+    let g:airline_section_x = airline#section#create_right(['coc_current_function', 'bookmark', 'scrollbar', 'tagbar', 'taglist', 'vista', 'gutentags', 'gen_tags', 'omnisharp', 'grepper', 'filetype'])
   endif
   if !exists('g:airline_section_y')
     let g:airline_section_y = airline#section#create_right(['ffenc'])

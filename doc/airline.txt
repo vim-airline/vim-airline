@@ -1420,6 +1420,12 @@ tagbar <https://github.com/majutsushi/tagbar>
   let g:airline#extensions#tagbar#searchmethod = 'nearest'
   let g:airline#extensions#tagbar#searchmethod = 'scoped-stl'
 <
+-------------------------------------                       *airline-taglist*
+taglist <https://github.com/yegappan/taglist>
+
+* enable/disable taglist integration >
+  let g:airline#extensions#taglist#enabled = 1
+<
 -------------------------------------                     *airline-tmuxline*
 tmuxline <https://github.com/edkolev/tmuxline.vim>
 
