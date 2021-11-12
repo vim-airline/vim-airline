@@ -4,7 +4,7 @@
 
 scriptencoding utf-8
 
-if !exists(':TlistShowTag') && !exists('*taglist#Tlist_Get_Tagname_By_Line')
+if !exists(':TlistShowTag')
   finish
 endif
 
