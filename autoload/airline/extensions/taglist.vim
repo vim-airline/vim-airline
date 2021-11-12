@@ -4,7 +4,7 @@
 
 scriptencoding utf-8
 
-if !exists(':TlistShowTag') && !exists('*taglist#Tlist_Get_Tagname_By_Line')
+if !exists(':TlistShowTag')
   finish
 endif
 
@@ -21,7 +21,14 @@ function! airline#extensions#taglist#currenttag()
           let tlist_updated = v:true
       endif
   endif
-  return taglist#Tlist_Get_Tagname_By_Line()
+  " Is this function is not present it'means you use the old vertsion of
+  " tag list : https://github.com/vim-scripts/taglist.vim.
+  " Please use the new version : https://github.com/yegappan/taglist.
+  if exists('*taglist#Tlist_Get_Tagname_By_Line()')
+      return taglist#Tlist_Get_Tagname_By_Line()
+  else
+      return ''
+  endif
 endfunction
 
 function! airline#extensions#taglist#init(ext)
