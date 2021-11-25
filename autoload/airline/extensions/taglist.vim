@@ -10,15 +10,15 @@ endif
 
 function! airline#extensions#taglist#currenttag()
   " Update tag list if taglist is not loaded (else we get an empty tag name)
+  " Load yegappan/taglist and vim-scripts/taglist.vim only once.
   let tlist_updated = v:false
-  if !exists('*Tlist_Get_Filenames()')
+  if !exists('*taglist#Tlist_Get_Tagname_By_Line()') && !exists('*Tlist_Get_Tagname_By_Line()')
       TlistUpdate
       let tlist_updated = v:true
   endif
-  if !tlist_updated
+  if  !tlist_updated && exists('*Tlist_Get_Filenames()')
       if stridx(Tlist_Get_Filenames(), expand('%:p')) < 0
           TlistUpdate
-          let tlist_updated = v:true
       endif
   endif
   " Is this function is not present it'means you use the old vertsion of
