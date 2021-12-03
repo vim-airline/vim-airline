@@ -142,9 +142,10 @@ endfunction
 
 " Update the statusline
 function! airline#update_statusline()
-  if airline#util#stl_disabled(winnr())
+  if airline#util#stl_disabled(winnr()) || airline#util#is_popup_window(winnr())
     return
   endif
+  " TODO: need to ignore popup windows here as well?
   let range = filter(range(1, winnr('$')), 'v:val != winnr()')
   " create inactive statusline
   call airline#update_statusline_inactive(range)

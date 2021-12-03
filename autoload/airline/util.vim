@@ -204,6 +204,15 @@ function! airline#util#ignore_next_focusgain()
   endif
 endfunction
 
+function! airline#util#is_popup_window(winnr)
+   " Keep the statusline active if it's a popup window
+   if exists('*win_gettype')
+     return win_gettype(a:winnr) ==# 'popup' || win_gettype(a:winnr) ==# 'autocmd'
+   else
+      return getwinvar(a:winnr, '&buftype', '') ==# 'popup'
+  endif
+endfunction
+
 function! airline#util#try_focusgained()
   " Ignore lasts for at most one second and is cleared on the first
   " focusgained. We use ignore to prevent system() calls from triggering
