@@ -220,7 +220,11 @@ function! airline#extensions#tabline#buffers#clickbuf(minwid, clicks, button, mo
     if a:clicks == 1 && a:modifiers !~# '[^ ]'
       if a:button is# 'l'
         " left button - switch to buffer
-        silent execute 'buffer' a:minwid
+        try
+          silent execute 'buffer' a:minwid
+        catch
+          call airline#util#warning("Cannot switch buffer, current buffer is modified! See :h 'hidden'")
+        endtry
       elseif a:button is# 'm'
         " middle button - delete buffer
 
