@@ -1538,6 +1538,10 @@ virtualenv <https://github.com/jmcantrell/vim-virtualenv>
 * enable/disable virtualenv integration >
   let g:airline#extensions#virtualenv#enabled = 1
 <
+* enable virtualenv for additional filetypes:
+  (default: python): >
+  let g:airline#extensions#virtualenv#ft = ['python', 'markdown']
+<
 -------------------------------------                   *airline-vista*
 vista.vim <https://github.com/liuchengxu/vista.vim>
 

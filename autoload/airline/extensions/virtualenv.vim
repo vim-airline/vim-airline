@@ -11,7 +11,7 @@ function! airline#extensions#virtualenv#init(ext)
 endfunction
 
 function! airline#extensions#virtualenv#apply(...)
-  if &filetype =~# "python"
+  if match(get(g:, 'airline#extensions#virtualenv#ft', ['python']), &filetype) > -1
     if get(g:, 'virtualenv_loaded', 0)
       let statusline = virtualenv#statusline()
     else
@@ -25,7 +25,7 @@ function! airline#extensions#virtualenv#apply(...)
 endfunction
 
 function! airline#extensions#virtualenv#update()
-  if &filetype =~# "python"
+  if match(get(g:, 'airline#extensions#virtualenv#ft', ['python']), &filetype) > -1
     call airline#extensions#virtualenv#apply()
     call airline#update_statusline()
   endif
