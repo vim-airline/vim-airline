@@ -69,14 +69,14 @@ describe 'airline'
   it 'should collapse the inactive split if the variable is set true'
     let g:airline_inactive_collapse = 1
     wincmd s
-    Expect getwinvar(2, '&statusline') !~ 'airline#parts#mode'
+    Expect airline#statusline(2) !~ 'airline#parts#mode'
     wincmd c
   end
 
   it 'should not collapse the inactive split if the variable is set false'
     let g:airline_inactive_collapse = 0
     wincmd s
-    Expect getwinvar(2, '&statusline') != 'airline#parts#mode'
+    Expect airline#statusline(2) =~ 'airline#parts#mode'
     wincmd c
   end
 
