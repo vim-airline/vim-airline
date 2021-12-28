@@ -198,20 +198,22 @@ function! s:section_is_empty(self, content)
   if get(w:, 'airline_skip_empty_sections', -1) == 0
     return 0
   endif
-  " assume accents sections to be never empty
-  " (avoides, that on startup the mode message becomes empty)
-  if match(a:content, '%#__accent_[^#]*#.*__restore__#') > -1
-    return 0
-  endif
+
   if empty(a:content)
     return 1
   endif
-  let list=matchlist(a:content, '%{\zs.\{-}\ze}', 1, start)
-  if empty(list)
-    return 0 " no function in statusline text
+
+  let stripped = substitute(a:content,
+        \ '\(%{.*}\|%#__accent_[^#]*#\|%#__restore__#\|%( \| %)\)', '', 'g')
+
+  if !empty(stripped)
+    return 0 " There is content in the statusline
   endif
-  while len(list) > 0
-    let expr = list[0]
+
+  let exprlist = []
+  call substitute(a:content, '%{\([^}]*\)}', '\=add(exprlist, submatch(1))', 'g')
+
+  for expr in exprlist
     try
       " catch all exceptions, just in case
       if !empty(eval(expr))
@@ -220,9 +222,7 @@ function! s:section_is_empty(self, content)
     catch
       return 0
     endtry
-    let start += 1
-    let list=matchlist(a:content, '%{\zs.\{-}\ze}', 1, start)
-  endw
+  endfor
   return 1
 endfunction
 
