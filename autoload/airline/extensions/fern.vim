@@ -3,7 +3,7 @@
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
-if !get(g:, 'fern_loaded', 0)
+if !get(g:, 'loaded_fern', 0)
   finish
 endif
 
