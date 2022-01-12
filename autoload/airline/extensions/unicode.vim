@@ -9,7 +9,7 @@ if !get(g:, 'loaded_unicodePlugin', 0)
 endif
 
 function! airline#extensions#unicode#apply(...)
-  if exists(":UnicodeTable") == 2 && bufname('') ==# 'UnicodeTable'
+  if exists(':UnicodeTable') == 2 && bufname('') =~# '/UnicodeTable.txt'
     call airline#parts#define('unicode', {
           \ 'text': '[UnicodeTable]',
           \ 'accent': 'bold' })
