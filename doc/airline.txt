@@ -786,6 +786,7 @@ It is deactivated by default if |airline-bufferline| is activated.
 <
 If enabled, the buffer that comes from fugitive, will have added a trailing
 "[git]" to be able to distinguish between fugitive and non-fugitive buffers.
+This extension depends on the Fugitive plugin.
 
 -------------------------------------                        *airline-fzf*
 fzf <https://github.com/junegunn/fzf>
@@ -1002,6 +1003,13 @@ poetv <https://github.com/petobens/poet-v>
 * enable/disable poetv integration >
   let g:airline#extensions#poetv#enabled = 1
 <
+-------------------------------------                  *airline-projectdir*
+This extension shows the Git project dir in shortened form in section x
+
+* enable/disable projectdir integration >
+  let g:airline#extensions#projectdir#enabled = 1 (default: 1)
+<
+This extension depends on the Fugitive plugin.
 -------------------------------------                   *airline-promptline*
 promptline <https://github.com/edkolev/promptline.vim>
 
