@@ -211,7 +211,7 @@ function! airline#init#bootstrap()
         \ 'minwidth': 80})
   call airline#parts#define('projectdir', {
         \ 'raw': '',
-        \ 'minwidth': 80})
+        \ 'minwidth': 100})
   call airline#parts#define('coc_status', {
         \ 'raw': '',
         \ 'accent': 'bold'
