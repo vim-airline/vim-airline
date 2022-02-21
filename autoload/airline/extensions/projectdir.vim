@@ -10,7 +10,7 @@ endif
 
 function! airline#extensions#projectdir#Dir() abort
   let dir = FugitiveGitDir(bufnr(''))
-  return empty(dir) ? '' : pathshorten(simplify(dir .. '/../'))
+  return empty(dir) ? '' : pathshorten(fnamemodify(simplify(dir .. '/../'), ':h:t'))
 endfunction
 
 function! airline#extensions#projectdir#init(ext) abort
