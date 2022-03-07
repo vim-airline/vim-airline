@@ -153,7 +153,7 @@ values):
   to only the filename of that buffer.  >
   let g:airline_inactive_collapse=1
 <
-* Use alternative seperators for the statusline of inactive windows >
+* Use alternative separators for the statusline of inactive windows >
   let g:airline_inactive_alt_sep=1
 <
 * themes are automatically selected based on the matching colorscheme. this
@@ -1824,7 +1824,7 @@ greater than a minimum width. >
 Parts can be configured to be visible conditionally. >
   call airline#parts#define_condition('foo', 'getcwd() =~ "work_dir"')
 <
-Now add part "foo" to section section airline_section_y: >
+Now add part "foo" to section airline_section_y: >
   let g:airline_section_y = airline#section#create_right(['ffenc','foo'])
 <
 Note: Part definitions are combinative; e.g. the two examples above modify
