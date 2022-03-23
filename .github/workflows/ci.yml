@@ -27,9 +27,9 @@ jobs:
       uses: actions/checkout@master
 
     - name: Setup Ruby
-      uses: actions/setup-ruby@v1
+      uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '2.6'
+        ruby-version: '3.0'
 
     - name: Setup Bundle
       run: |
