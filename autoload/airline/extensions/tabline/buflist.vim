@@ -52,7 +52,7 @@ function! airline#extensions#tabline#buflist#list()
   " Basically branch 535 already does it, but since it relies on
   " BufAdd autocommand, I'd like to avoid this if possible.
   for nr in list
-    if buflisted(nr)
+    if bufloaded(nr)
       " Do not add to the bufferlist, if either
       " 1) bufnr is exclude_buffers list
       " 2) buffername matches one of exclude_paths patterns

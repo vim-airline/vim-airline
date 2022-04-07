@@ -217,7 +217,7 @@ if !exists(":def") || !airline#util#has_vim9_script()
       let all_buffers = airline#extensions#tabline#buflist#list()
       let curbuf = filter(buflist, 'index(all_buffers, v:val) != -1')
       if len(curbuf) ==  0
-        call add(curbuf, tabpagebuflist()[0])
+        call add(curbuf, tabpagebuflist(a:n)[0])
       endif
       return airline#extensions#tabline#get_buffer_name(curbuf[0], curbuf)
     endif
@@ -433,7 +433,7 @@ else
       var all_buffers = airline#extensions#tabline#buflist#list()
       var curbuf = filter(buflist, (_, v) => index(all_buffers, v) != -1)
       if len(curbuf) ==  0
-        add(curbuf, tabpagebuflist()[0])
+        add(curbuf, tabpagebuflist(n)[0])
       endif
       return airline#extensions#tabline#get_buffer_name(curbuf[0], curbuf)
     endif
