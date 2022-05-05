@@ -8,9 +8,7 @@ if !airline#util#has_fugitive()
   finish
 endif
 
-function! s:ModifierFlags()
-  return (exists("+autochdir") && &autochdir) ? ':p' : ':.'
-endfunction
+let s:has_percent_eval = v:version > 802 || (v:version == 802 && has("patch2854"))
 
 function! airline#extensions#fugitiveline#bufname() abort
   if !exists('b:fugitive_name')
@@ -32,14 +30,15 @@ function! airline#extensions#fugitiveline#bufname() abort
     endtry
   endif
 
-  let fmod = s:ModifierFlags()
+  let fmod = (exists("+autochdir") && &autochdir) ? ':p' : ':.'
+  let result=''
   if empty(b:fugitive_name)
     if empty(bufname('%'))
       return &buftype ==# 'nofile' ? '[Scratch]' : '[No Name]'
     endif
-    return fnamemodify(bufname('%'), fmod)
+    return s:has_percent_eval ? '%f' : fnamemodify(bufname('%'), fmod)
   else
-    return fnamemodify(b:fugitive_name, fmod). " [git]"
+    return s:has_percent_eval ? '%f [git]' : (fnamemodify(b:fugitive_name, fmod). " [git]")
   endif
 endfunction
 
@@ -50,18 +49,20 @@ function! s:sh_autocmd_handler()
 endfunction
 
 function! airline#extensions#fugitiveline#init(ext) abort
+  let prct = s:has_percent_eval ? '%' : ''
+
   if exists("+autochdir") && &autochdir
     " if 'acd' is set, vim-airline uses the path section, so we need to redefine this here as well
     if get(g:, 'airline_stl_path_style', 'default') ==# 'short'
-      call airline#parts#define_raw('path', '%<%{pathshorten(airline#extensions#fugitiveline#bufname())}%m')
+      call airline#parts#define_raw('path', '%<%{'. prct. 'pathshorten(airline#extensions#fugitiveline#bufname())' . prct . '}%m')
     else
-      call airline#parts#define_raw('path', '%<%{airline#extensions#fugitiveline#bufname()}%m')
+      call airline#parts#define_raw('path', '%<%{' . prct . 'airline#extensions#fugitiveline#bufname()' . prct . '}%m')
     endif
   else
     if get(g:, 'airline_stl_path_style', 'default') ==# 'short'
-      call airline#parts#define_raw('file', '%<%{pathshorten(airline#extensions#fugitiveline#bufname())}%m')
+      call airline#parts#define_raw('file', '%<%{' . prct . 'pathshorten(airline#extensions#fugitiveline#bufname())' . prct . '}%m')
     else
-      call airline#parts#define_raw('file', '%<%{airline#extensions#fugitiveline#bufname()}%m')
+      call airline#parts#define_raw('file', '%<%{' . prct . 'airline#extensions#fugitiveline#bufname()' . prct . '}%m')
     endif
   endif
   autocmd ShellCmdPost,CmdwinLeave * call s:sh_autocmd_handler()
