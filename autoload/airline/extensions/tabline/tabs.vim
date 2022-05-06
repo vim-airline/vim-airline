@@ -85,7 +85,7 @@ function! airline#extensions#tabline#tabs#get()
 
   if get(g:, 'airline#extensions#tabline#show_close_button', 1)
     call b.add_section('airline_tab_right', ' %999X'.
-          \ get(g:, 'airline#extensions#tabline#close_symbol', 'X').' ')
+          \ get(g:, 'airline#extensions#tabline#close_symbol', 'X').'%X ')
   endif
 
   if get(g:, 'airline#extensions#tabline#show_splits', 1) == 1
