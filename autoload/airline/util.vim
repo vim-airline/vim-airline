@@ -144,7 +144,7 @@ endfunction
 
 function! airline#util#has_fugitive()
   if !exists("s:has_fugitive")
-    let s:has_fugitive = exists('*fugitive#head') || exists('*FugitiveHead')
+    let s:has_fugitive = exists('*FugitiveHead')
   endif
   return s:has_fugitive
 endfunction

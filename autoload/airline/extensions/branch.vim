@@ -97,8 +97,7 @@ function! s:update_git_branch()
 endfunction
 
 function! s:config_fugitive_branch() abort
-  let s:vcs_config['git'].branch = exists('*FugitiveHead') ?
-        \ FugitiveHead(s:sha1size) : fugitive#head(s:sha1size)
+  let s:vcs_config['git'].branch =  FugitiveHead(s:sha1size)
   if s:vcs_config['git'].branch is# 'master' &&
         \ airline#util#winwidth() < 81
     " Shorten default a bit
