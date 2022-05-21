@@ -1,0 +1,91 @@
+Describe themes.vim
+  After each
+    highlight clear Foo
+    highlight clear Normal
+  End
+
+  It should extract correct colors
+    call airline#highlighter#reset_hlcache()
+    highlight Foo ctermfg=1 ctermbg=2
+    let colors = airline#themes#get_highlight('Foo')
+    Assert Equals(colors[0], 'NONE')
+    Assert Equals(colors[1], 'NONE')
+    Assert Equals(colors[2], '1')
+    Assert Equals(colors[3], '2')
+  End
+
+  if exists("+termguicolors")
+    It should extract correct colors with termguicolors
+      call airline#highlighter#reset_hlcache()
+      set termguicolors
+      highlight Foo guifg=#cd0000 guibg=#00cd00 ctermfg=1 ctermbg=2
+      let colors = airline#themes#get_highlight('Foo')
+      Assert Equals(colors[0], '#cd0000')
+      Assert Equals(colors[1], '#00cd00')
+      Assert Equals(colors[2], '1')
+      Assert Equals(colors[3], '2')
+    End
+  endif
+
+  It should extract from normal if colors unavailable
+    call airline#highlighter#reset_hlcache()
+    highlight Normal ctermfg=100 ctermbg=200
+    highlight Foo ctermbg=2
+    let colors = airline#themes#get_highlight('Foo')
+    Assert Equals(colors[0], 'NONE')
+    Assert Equals(colors[1], 'NONE')
+    Assert Equals(colors[2], '100')
+    Assert Equals(colors[3], '2')
+  End
+
+  It should flip target group if It is reversed
+    call airline#highlighter#reset_hlcache()
+    highlight Foo ctermbg=222 ctermfg=103 cterm=reverse
+    let colors = airline#themes#get_highlight('Foo')
+    Assert Equals(colors[0], 'NONE')
+    Assert Equals(colors[1], 'NONE')
+    Assert Equals(colors[2], '222')
+    Assert Equals(colors[3], '103')
+  End
+
+  It should pass args through correctly
+    call airline#highlighter#reset_hlcache()
+    hi clear Normal
+    let hl = airline#themes#get_highlight('Foo', 'bold', 'italic')
+    Assert Equals(hl, ['NONE', 'NONE', 'NONE', 'NONE', 'bold,italic'])
+
+    let hl = airline#themes#get_highlight2(['Foo','bg'], ['Foo','fg'], 'italic', 'bold')
+    Assert Equals(hl, ['NONE', 'NONE', 'NONE', 'NONE', 'italic,bold'])
+  End
+
+  It should generate color map with mirroring
+    let map = airline#themes#generate_color_map(
+          \ [ 1, 1, 1, 1, '1' ],
+          \ [ 2, 2, 2, 2, '2' ],
+          \ [ 3, 3, 3, 3, '3' ],
+          \ )
+    Assert Equals(map.airline_a[0], 1)
+    Assert Equals(map.airline_b[0], 2)
+    Assert Equals(map.airline_c[0], 3)
+    Assert Equals(map.airline_x[0], 3)
+    Assert Equals(map.airline_y[0], 2)
+    Assert Equals(map.airline_z[0], 1)
+  End
+
+  It should generate color map with full set of colors
+    let map = airline#themes#generate_color_map(
+          \ [ 1, 1, 1, 1, '1' ],
+          \ [ 2, 2, 2, 2, '2' ],
+          \ [ 3, 3, 3, 3, '3' ],
+          \ [ 4, 4, 4, 4, '4' ],
+          \ [ 5, 5, 5, 5, '5' ],
+          \ [ 6, 6, 6, 6, '6' ],
+          \ )
+    Assert Equals(map.airline_a[0], 1)
+    Assert Equals(map.airline_b[0], 2)
+    Assert Equals(map.airline_c[0], 3)
+    Assert Equals(map.airline_x[0], 4)
+    Assert Equals(map.airline_y[0], 5)
+    Assert Equals(map.airline_z[0], 6)
+  End
+End

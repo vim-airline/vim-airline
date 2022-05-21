@@ -1,7 +1,4 @@
 Describe extensions_tabline.vim
-  Before all
-    :%bd
-  End
 
   It should use a tabline
     e! file1

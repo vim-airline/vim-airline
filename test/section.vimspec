@@ -1,0 +1,77 @@
+Describe section
+  Before
+    call airline#parts#define_text('text', 'text')
+    call airline#parts#define_raw('raw', 'raw')
+    call airline#parts#define_function('func', 'SectionSpec')
+  End
+
+  It should be able to reference default parts
+    let s = airline#section#create(['paste'])
+    Assert Equals(s, '%{airline#util#wrap(airline#parts#paste(),0)}')
+  End
+
+  It should create sections wIth no separators
+    let s = airline#section#create(['text', 'raw', 'func'])
+    Assert Equals(s, '%{airline#util#wrap("text",0)}raw%{airline#util#wrap(SectionSpec(),0)}')
+  End
+
+  It should create left sections with separators
+    let s = airline#section#create_left(['text', 'text'])
+    Assert Equals(s, '%{airline#util#wrap("text",0)}%{airline#util#append("text",0)}')
+  End
+
+  It should create right sections wIth separators
+    let s = airline#section#create_right(['text', 'text'])
+    Assert Equals(s, '%{airline#util#prepend("text",0)}%{airline#util#wrap("text",0)}')
+  End
+
+  It should prefix with accent group if provided and restore afterwards
+    call airline#parts#define('hi', {
+          \ 'raw': 'hello',
+          \ 'accent': 'red',
+          \ })
+    let s = airline#section#create(['hi'])
+    Assert Equals(s, '%#__accent_red#hello%#__restore__#')
+  End
+
+  It should accent functions
+    call airline#parts#define_function('hi', 'Hello')
+    call airline#parts#define_accent('hi', 'bold')
+    let s = airline#section#create(['hi'])
+    Assert Equals(s, '%#__accent_bold#%{airline#util#wrap(Hello(),0)}%#__restore__#')
+  End
+
+  It should parse out a section from the distro
+    call airline#extensions#load()
+    let s = airline#section#create(['whitespace'])
+    Assert Match(s, 'airline#extensions#whitespace#check')
+  End
+
+  It should use parts as is if they are not found
+    let s = airline#section#create(['asdf', 'func'])
+    Assert Equals(s, 'asdf%{airline#util#wrap(SectionSpec(),0)}')
+  End
+
+  It should force add separators for raw and missing keys
+    let s = airline#section#create_left(['asdf', 'raw'])
+    Assert Equals(s, 'asdf  raw')
+    let s = airline#section#create_left(['asdf', 'aaaa', 'raw'])
+    Assert Equals(s, 'asdf  aaaa  raw')
+    let s = airline#section#create_right(['raw', '%f'])
+    Assert Equals(s, 'raw  %f')
+    let s = airline#section#create_right(['%t', 'asdf', '%{getcwd()}'])
+    Assert Equals(s, '%t  asdf  %{getcwd()}')
+  End
+
+  It should empty out parts that do not pass their condition
+    call airline#parts#define_text('conditional', 'conditional')
+    call airline#parts#define_condition('conditional', '0')
+    let s = airline#section#create(['conditional'])
+    Assert Equals(s, '%{0 ? airline#util#wrap("conditional",0) : ""}')
+  End
+
+  It should not draw two separators after another
+    let s = airline#section#create_right(['ffenc','%{strftime("%H:%M")}'])
+    Assert Equals(s, '%{airline#util#prepend(airline#parts#ffenc(),0)}%{strftime("%H:%M")}')
+  End
+End
