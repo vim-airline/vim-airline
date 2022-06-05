@@ -1,0 +1,64 @@
+Describe airline.vim
+  Before
+    let g:airline_statusline_funcrefs = []
+  End
+
+  It should run user funcrefs first
+    call airline#add_statusline_func('MyFuncref')
+    let &statusline = ''
+    call airline#update_statusline()
+    Assert Match(airline#statusline(1), 'hello world')
+  End
+
+  It should not change the statusline with -1
+    call airline#add_statusline_funcref(function('MyIgnoreFuncref'))
+    let &statusline = 'foo'
+    call airline#update_statusline()
+    Assert Equals(&statusline, 'foo')
+  End
+
+  It should support multiple chained funcrefs
+    call airline#add_statusline_func('MyAppend1')
+    call airline#add_statusline_func('MyAppend2')
+    call airline#update_statusline()
+    Assert Match(airline#statusline(1), 'helloworld')
+  End
+
+  It should allow users to redefine sections
+    let g:airline_section_a = airline#section#create(['mode', 'mode'])
+    call airline#update_statusline()
+    Assert Match(airline#statusline(1), '%{airline#util#wrap(airline#parts#mode(),0)}%#airline_a#%#airline_a_bold#%{airline#util#wrap(airline#parts#mode(),0)}%#airline_a#')
+  End
+
+  It should remove funcrefs properly
+    let c = len(g:airline_statusline_funcrefs)
+    call airline#add_statusline_func('MyIgnoreFuncref')
+    call airline#remove_statusline_func('MyIgnoreFuncref')
+    Assert Equals(len(g:airline_statusline_funcrefs), c)
+  End
+
+  It should overwrite the statusline with active and inactive splits
+    wincmd s
+    Assert NotMatch(airline#statusline(1), 'inactive')
+    Assert Match(airline#statusline(2), 'inactive')
+    wincmd c
+  End
+
+  It should collapse the inactive split if the variable is set true
+    let g:airline_inactive_collapse = 1
+    wincmd s
+    Assert NotMatch(getwinvar(2, '&statusline'), 'airline#parts#mode')
+    wincmd c
+  end
+
+  It should collapse the inactive split if the variable is set false
+    let g:airline_inactive_collapse = 0
+    wincmd s
+    Assert NotEquals(getwinvar(2, '&statusline'), 'airline#parts#mode')
+    wincmd c
+  End
+
+  It should include check_mode
+    Assert Match(airline#statusline(1), 'airline#check_mode')
+  End
+End

@@ -5,4 +5,4 @@ doc/tags
 *.swp
 .bundle
 vendor
-
+test/.deps
