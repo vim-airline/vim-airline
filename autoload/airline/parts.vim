@@ -146,7 +146,7 @@ function! airline#parts#spell()
   let spelllang = g:airline_detect_spelllang ? printf(" [%s]", toupper(substitute(&spelllang, ',', '/', 'g'))) : ''
   if g:airline_detect_spell && (&spell || (exists('g:airline_spell_check_command') && eval(g:airline_spell_check_command)))
 
-    if g:airline_detect_spelllang && g:airline_detect_spelllang ==? 'flag'
+    if g:airline_detect_spelllang !=? '0' && g:airline_detect_spelllang ==? 'flag'
       let spelllang = tolower(&spelllang)
       if has_key(s:flags, spelllang)
         return s:flags[spelllang]
