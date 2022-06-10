@@ -27,26 +27,26 @@ Describe parts.vim
     Assert Equals(airline#parts#get('mw').minwidth, 123)
   End
 
-  It 'can define a condition'
+  It can define a condition
     call airline#parts#define_condition('part', '1')
     Assert Equals(airline#parts#get('part').condition, '1')
   End
 
-  It 'can define a accent'
+  It can define a accent
     call airline#parts#define_accent('part', 'red')
     Assert Equals(airline#parts#get('part').accent, 'red')
   End
 
-  It 'value should be blank'
+  It value should be blank
     Assert Equals(airline#parts#filetype(), '')
   End
 
-  It 'can overwrIte a filetype'
+  It can overwrIte a filetype
     set ft=aaa
     Assert Equals(airline#parts#filetype(), 'aaa')
   End
 
-  It 'can overwrite a filetype'
+  It can overwrite a filetype
     "GItHub actions's vim's column is smaller than 90
     set ft=aaaa
     if &columns >= 90

@@ -17,7 +17,7 @@ Describe builder.vim
     End
   
   
-    It 'should reuse highlight group if background colors match'
+    It should reuse highlight group if background colors match
       highlight Foo1 ctermfg=1 ctermbg=2
       highlight Foo2 ctermfg=1 ctermbg=2
       call s:builder.add_section('Foo1', 'hello')
