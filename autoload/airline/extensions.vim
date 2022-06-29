@@ -297,6 +297,12 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'branch')
   endif
 
+  if get(g:, 'airline#extensions#projectdir#enabled', 1)
+      \  && airline#util#has_fugitive()
+    call airline#extensions#projectdir#init(s:ext)
+    call add(s:loaded_ext, 'projectdir')
+  endif
+
   if get(g:, 'airline#extensions#bufferline#enabled', 1)
         \ && exists('*bufferline#get_status_string')
     call airline#extensions#bufferline#init(s:ext)
