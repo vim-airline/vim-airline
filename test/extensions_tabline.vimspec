@@ -1,0 +1,14 @@
+Describe extensions_tabline.vim
+
+  It should use a tabline
+    e! file1
+    Assert Match(airline#extensions#tabline#get(), '%#airline_tabsel# %(%{airline#extensions#tabline#get_buffer_name(\d)}%) |%=%#airline_tabfill_to_airline_tabfill#%#airline_tabfill# buffers' )
+  End
+
+  It Trigger on BufDelete autocommands
+    e! file1
+    sp file2
+    bd
+    Assert Match(airline#extensions#tabline#get(), '%#airline_tabsel# %(%{airline#extensions#tabline#get_buffer_name(\d)}%) |%=%#airline_tabfill_to_airline_tabfill#%#airline_tabfill# buffers' )
+  End
+End

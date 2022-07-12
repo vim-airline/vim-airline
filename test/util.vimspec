@@ -1,0 +1,69 @@
+call airline#init#bootstrap()
+
+function! Util1()
+  let g:count += 1
+endfunction
+
+function! Util2()
+  let g:count += 2
+endfunction
+
+function! Util3(...)
+  let g:count = a:0
+endfunction
+
+Describe util
+  Before each
+    let g:count = 0
+  End
+
+  It has append wrapper function
+    Assert Equals(airline#util#append('', 0), '')
+    Assert Equals(airline#util#append('1', 0), '   1')
+  End
+
+  It should be same &columns
+    let g:airline_statusline_ontop = 1
+    Assert Equals(airline#util#winwidth(), &columns)
+  End
+
+  It should be same winwidth(0)
+    let g:airline_statusline_ontop = 0
+    Assert Equals(airline#util#winwidth(), winwidth(0))
+  End
+
+  It should be same winwidth(30)
+    Assert Equals(airline#util#winwidth(30, 0), winwidth(30))
+  End
+
+  It has prepend wrapper function
+    Assert Equals(airline#util#prepend('', 0), '')
+    Assert Equals(airline#util#prepend('1', 0), '1  ')
+  End
+
+  It has getwinvar function
+    Assert Equals(airline#util#getwinvar(1, 'asdf', '123'), '123')
+    call setwinvar(1, 'vspec', 'is cool')
+    Assert Equals(airline#util#getwinvar(1, 'vspec', ''), 'is cool')
+  End
+
+  It has exec funcrefs helper functions
+    call airline#util#exec_funcrefs([function('Util1'), function('Util2')])
+    Assert Equals(g:count, 3)
+
+    call airline#util#exec_funcrefs([function('Util3')], 1, 2, 3, 4)
+    Assert Equals(g:count, 4)
+  End
+
+  It should ignore minwidth if less than 0
+    Assert Equals(airline#util#append('foo', -1), '   foo')
+    Assert Equals(airline#util#prepend('foo', -1), 'foo  ')
+    Assert Equals(airline#util#wrap('foo', -1), 'foo')
+  End
+
+  It should return empty if winwidth() > minwidth
+    Assert Equals(airline#util#append('foo', 99999), '')
+    Assert Equals(airline#util#prepend('foo', 99999), '')
+    Assert Equals(airline#util#wrap('foo', 99999), '')
+  End
+End

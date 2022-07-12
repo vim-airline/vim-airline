@@ -1,0 +1,58 @@
+Describe parts.vim
+
+  It overwrItes existing values
+    call airline#parts#define('foo', { 'test': '123' })
+    Assert Equals(airline#parts#get('foo').test, '123')
+    call airline#parts#define('foo', { 'test': '321' })
+    Assert Equals(airline#parts#get('foo').test, '321')
+  End
+
+  It can define a function part
+    call airline#parts#define_function('func', 'bar')
+    Assert Equals(airline#parts#get('func').function, 'bar')
+  End
+
+  It can define a text part
+    call airline#parts#define_text('text', 'bar')
+    Assert Equals(airline#parts#get('text').text, 'bar')
+  End
+
+  It can define a raw part
+    call airline#parts#define_raw('raw', 'bar')
+    Assert Equals(airline#parts#get('raw').raw, 'bar')
+  End
+
+  It can define a minwidth
+    call airline#parts#define_minwidth('mw', 123)
+    Assert Equals(airline#parts#get('mw').minwidth, 123)
+  End
+
+  It can define a condition
+    call airline#parts#define_condition('part', '1')
+    Assert Equals(airline#parts#get('part').condition, '1')
+  End
+
+  It can define a accent
+    call airline#parts#define_accent('part', 'red')
+    Assert Equals(airline#parts#get('part').accent, 'red')
+  End
+
+  It value should be blank
+    Assert Equals(airline#parts#filetype(), '')
+  End
+
+  It can overwrIte a filetype
+    set ft=aaa
+    Assert Equals(airline#parts#filetype(), 'aaa')
+  End
+
+  It can overwrite a filetype
+    "GItHub actions's vim's column is smaller than 90
+    set ft=aaaa
+    if &columns >= 90
+      Assert Equals(airline#parts#filetype(), 'aaaa')
+    else
+      Assert Equals(airline#parts#filetype(), 'aaa…')
+    endif
+  End
+End

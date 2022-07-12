@@ -1,0 +1,28 @@
+Describe highlighter.vim
+  It should create separator highlight groups
+    hi highlighter1 ctermfg=1 ctermbg=2
+    hi highlighter2 ctermfg=3 ctermbg=4
+    call airline#highlighter#add_separator('highlighter1', 'highlighter2', 0)
+    let hl = airline#highlighter#get_highlight('highlighter1_to_highlighter2')
+    Assert Equal([ 'NONE', 'NONE', '4', '2', '' ], hl)
+  End
+
+  if exists("+termguicolors")
+    It should create separator highlight groups with termguicolors
+      set termguicolors
+      hi highlighter1 guifg=#cd0000 guibg=#00cd00 ctermfg=1 ctermbg=2
+      hi highlighter2 guifg=#cdcd00 guibg=#0000ee ctermfg=3 ctermbg=4
+      call airline#highlighter#add_separator('highlighter1', 'highlighter2', 0)
+      let hl = airline#highlighter#get_highlight('highlighter1_to_highlighter2')
+      Assert Equal(['#0000ee', '#00cd00', '4', '2', '' ], hl)
+    End
+  endif
+
+  It should populate accent colors
+    Assert False(exists('g:airline#themes#dark#palette.normal.airline_c_red'))
+    call airline#themes#patch(g:airline#themes#dark#palette)
+    call airline#highlighter#add_accent('red')
+    call airline#highlighter#highlight(['normal'])
+    Assert NotEqual(0, hlID('airline_c_red'))
+  End
+End

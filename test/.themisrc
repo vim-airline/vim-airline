@@ -1,0 +1,28 @@
+let s:helper = themis#helper('assert')
+let s:deps = themis#helper('deps')
+
+call themis#helper('command').with(s:helper)
+call s:deps.git('vim-airline/vim-airline-themes')
+call s:deps.git('tomasr/molokai')
+
+function! MyFuncref(...)
+  call a:1.add_raw('hello world')
+  return 1
+endfunction
+
+function! MyIgnoreFuncref(...)
+  return -1
+endfunction
+
+function! MyAppend1(...)
+  call a:1.add_raw('hello')
+endfunction
+
+function! MyAppend2(...)
+  call a:1.add_raw('world')
+endfunction
+
+let g:airline#extensions#default#layout = [
+      \ [ 'c', 'a', 'b', 'warning' ],
+      \ [ 'x', 'z', 'y' ]
+      \ ]

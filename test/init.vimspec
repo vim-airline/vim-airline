@@ -1,0 +1,109 @@
+Describe init.vim
+  function! s:clear()
+    for key in s:sections
+      unlet! g:airline_section_{key}
+    endfor
+  endfunction
+
+  let s:sections = ['a', 'b', 'c', 'gutter', 'x', 'y', 'z', 'warning']
+  call airline#init#bootstrap()
+
+  Before each
+    call s:clear()
+    call airline#init#sections()
+  End
+
+  It section a should have mode, paste, spell, iminsert
+    Assert Match(g:airline_section_a, 'mode')
+    Assert Match(g:airline_section_a, 'paste')
+    Assert Match(g:airline_section_a, 'spell')
+    Assert Match(g:airline_section_a, 'iminsert')
+  End
+
+  It section b should be blank because no extensions are installed
+    Assert Equals(g:airline_section_b, '')
+  End
+
+  It section c should be file and coc_status
+    set noautochdir
+    call airline#init#sections()
+    Assert Equals(g:airline_section_c, '%<%f%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#%#__accent_bold#%#__restore__#%#__accent_bold#%#__restore__#')
+  End
+
+  It section c should be path and coc_status
+    set autochdir
+    call s:clear()
+    call airline#init#sections()
+    Assert Equals(g:airline_section_c, '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#%#__accent_bold#%#__restore__#%#__accent_bold#%#__restore__#')
+  End
+
+  It section x should be filetype
+    Assert Equals(g:airline_section_x, '%#__accent_bold#%#__restore__#%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#wrap(airline#parts#filetype(),0)}')
+  End
+
+  It section y should be fenc and ff
+    Assert Equals(g:airline_section_y, '%{airline#util#wrap(airline#parts#ffenc(),0)}')
+  End
+
+  It section z should be line numbers
+    Assert Match(g:airline_section_z, '%p%%')
+    Assert Match(g:airline_section_z, '%l')
+    Assert Match(g:airline_section_z, '%v')
+  End
+
+  It section gutter should be blank unless csv extension is installed
+    " Note: the csv extension uses only the window local variable
+    Assert Equals(g:airline_section_gutter, '%=')
+  End
+
+  It section warning should be blank
+    Assert Match(g:airline_section_warning, '')
+  End
+
+  It should not redefine sections already defined
+    for s in s:sections
+      let g:airline_section_{s} = s
+    endfor
+    call airline#init#bootstrap()
+    for s in s:sections
+      Assert Equals(g:airline_section_{s}, s)
+    endfor
+  End
+
+  It all default statusline extensions should be blank
+    Assert Equals(airline#parts#get('ale_error_count').raw, '')
+    Assert Equals(airline#parts#get('ale_warning_count').raw, '')
+    Assert Equals(airline#parts#get('lsp_error_count').raw, '')
+    Assert Equals(airline#parts#get('lsp_warning_count').raw, '')
+    Assert Equals(airline#parts#get('nvimlsp_error_count').raw, '')
+    Assert Equals(airline#parts#get('nvimlsp_warning_count').raw, '')
+    Assert Equals(airline#parts#get('hunks').raw, '')
+    Assert Equals(airline#parts#get('branch').raw, '')
+    Assert Equals(airline#parts#get('eclim').raw, '')
+    Assert Equals(airline#parts#get('neomake_error_count').raw, '')
+    Assert Equals(airline#parts#get('neomake_warning_count').raw, '')
+    Assert Equals(airline#parts#get('obsession').raw, '')
+    Assert Equals(airline#parts#get('syntastic-err').raw, '')
+    Assert Equals(airline#parts#get('syntastic-warn').raw, '')
+    Assert Equals(airline#parts#get('tagbar').raw , '')
+    Assert Equals(airline#parts#get('whitespace').raw, '')
+    Assert Equals(airline#parts#get('windowswap').raw , '')
+    Assert Equals(airline#parts#get('ycm_error_count').raw, '')
+    Assert Equals(airline#parts#get('ycm_warning_count').raw, '')
+    Assert Equals(airline#parts#get('languageclient_error_count').raw, '')
+    Assert Equals(airline#parts#get('languageclient_warning_count').raw, '')
+    Assert Equals(airline#parts#get('coc_status').raw, '')
+    Assert Equals(airline#parts#get('coc_current_function').raw, '')
+    Assert Equals(airline#parts#get('vista').raw, '')
+    Assert Equals(airline#parts#get('coc_warning_count').raw, '')
+    Assert Equals(airline#parts#get('coc_error_count').raw, '')
+    Assert Equals(airline#parts#get('battery').raw, '')
+  End
+
+  it should not redefine parts already defined
+    call airline#parts#define_raw('linenr', 'bar')
+    call s:clear()
+    call airline#init#sections()
+    Assert Match(g:airline_section_z, 'bar')
+  End
+End

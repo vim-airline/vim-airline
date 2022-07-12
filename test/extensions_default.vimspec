@@ -1,0 +1,47 @@
+Describe extensions_default.vim
+  Before
+    let g:airline#extensions#default#layout = [
+          \ [ 'c', 'a', 'b', 'warning' ],
+          \ [ 'x', 'z', 'y' ]
+          \ ]
+
+    let s:builder = airline#builder#new({'active': 1})
+  End
+
+  It should use the layout airline_a_to_airline_b
+    call airline#extensions#default#apply(s:builder, { 'winnr': 1, 'active': 1 })
+    let stl = s:builder.build()
+    Assert Match(stl, 'airline_c_to_airline_a')
+  end
+
+  It should use the layout airline_a_to_airline_b
+    call airline#extensions#default#apply(s:builder, { 'winnr': 1, 'active': 1 })
+    let stl = s:builder.build()
+    Assert Match(stl, 'airline_a_to_airline_b')
+  End
+
+  It should use the layout airline_b_to_airline_warning
+    call airline#extensions#default#apply(s:builder, { 'winnr': 1, 'active': 1 })
+    let stl = s:builder.build()
+    Assert Match(stl, 'airline_b_to_airline_warning')
+  end
+
+  it should use the layout airline_x_to_airline_z
+    call airline#extensions#default#apply(s:builder, { 'winnr': 1, 'active': 1 })
+    let stl = s:builder.build()
+    Assert Match(stl, 'airline_x_to_airline_z')
+  end
+
+  it should use the layout airline_z_to_airline_y
+    call airline#extensions#default#apply(s:builder, { 'winnr': 1, 'active': 1 })
+    let stl = s:builder.build()
+    Assert Match(stl, 'airline_z_to_airline_y')
+  end
+
+  it should only render warning section in active splits
+    wincmd s
+    Assert Match(airline#statusline(1), 'warning')
+    Assert NotMatch(airline#statusline(2), 'warning')
+    wincmd c
+  end
+end

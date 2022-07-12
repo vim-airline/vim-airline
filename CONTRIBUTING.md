@@ -6,6 +6,23 @@ Contributions and pull requests are welcome.  Please take note of the following 
 *  Keep the history clean!  Squash your branches before you submit a pull request.  `pull --rebase` is your friend.
 *  Any changes to the core should be tested against Vim 7.4.
 
+# Testing
+
+Contributers should install [thinca/vim-themis](https://github.com/thinca/vim-themis) to run tests before sending a PR if they applied some modification to the code. PRs which does not pass tests won't be accepted.
+
+## 1. Installation
+
+```
+$ cd /path/to/vim-airline
+$ git submodule add https://github.com/thinca/vim-themis ./.themis-bin
+```
+
+## 2. running test
+
+```
+$ ./path/to/themis-bin/bin/themis path/to/vim-airline/test --reporter spec
+```
+
 # Bugs
 
 Tracking down bugs can take a very long time due to different configurations, versions, and operating systems.  To ensure a timely response, please help me out by doing the following:
