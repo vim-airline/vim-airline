@@ -170,7 +170,7 @@ if !exists(":def") || !airline#util#has_vim9_script()
       call airline#highlighter#highlight_modified_inactive(winbufnr(winnr))
     endfor
     call airline#highlighter#highlight(['inactive'])
-    if getbufvar( bufnr('%'), '&modified'  )
+    if getbufvar( bufnr('%'), '&modified'  ) && &buftype != 'terminal'
       call airline#highlighter#highlight(['normal', 'modified'])
     else
       call airline#highlighter#highlight(['normal'])
@@ -514,7 +514,7 @@ else
       airline#highlighter#highlight_modified_inactive(winbufnr(winnr))
     endfor
     airline#highlighter#highlight(['inactive'])
-    if getbufvar( bufnr('%'), '&modified'  )
+    if getbufvar( bufnr('%'), '&modified'  ) && &buftype != 'terminal'
       airline#highlighter#highlight(['normal', 'modified'])
     else
       airline#highlighter#highlight(['normal'])
