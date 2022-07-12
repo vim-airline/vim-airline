@@ -119,9 +119,6 @@ function! s:config_gina_branch() abort
 endfunction
 
 function! s:display_git_branch()
-  " disable FocusGained autocommand, might cause loops because system() causes
-  " a refresh, which causes a system() command again #2029
-  call airline#util#ignore_next_focusgain()
   let name = b:buffer_vcs_config['git'].branch
   try
     let commit = matchstr(FugitiveParse()[0], '^\x\+')
@@ -129,8 +126,15 @@ function! s:display_git_branch()
     if has_key(s:names, commit)
       let name = get(s:names, commit)."(".name.")"
     elseif !empty(commit)
-      let ref = fugitive#repo().git_chomp('describe', '--all', '--exact-match', commit)
-      if ref !~ "^fatal: no tag exactly matches"
+      if exists('*FugitiveExecute')
+        let ref = FugitiveExecute(['describe', '--all', '--exact-match', commit], bufnr('')).stdout[0]
+      else
+        noautocmd let ref = fugitive#repo().git_chomp('describe', '--all', '--exact-match', commit)
+        if ref =~# ':'
+          let ref = ''
+        endif
+      endif
+      if !empty(ref)
         let name = s:format_name(substitute(ref, '\v\C^%(heads/|remotes/|tags/)=','',''))."(".name.")"
       else
         let name = matchstr(commit, '.\{'.s:sha1size.'}')."(".name.")"
