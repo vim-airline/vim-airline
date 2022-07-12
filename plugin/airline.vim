@@ -172,6 +172,10 @@ function! s:airline_toggle()
         " Force update of tabline more often
         autocmd InsertEnter,InsertLeave,CursorMovedI * :call airline#update_tabline()
       endif
+
+      if exists("##ModeChanged")
+        autocmd ModeChanged * :call airline#update_tabline()
+      endif
     augroup END
 
     if !airline#util#stl_disabled(winnr())
