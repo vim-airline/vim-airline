@@ -2080,6 +2080,11 @@ Q. Performance is bad
 A. Check the question at the wiki:
    https://github.com/vim-airline/vim-airline/wiki/FAQ#i-have-a-performance-problem
 
+Q. Something strange happens on certain autocommands
+A. Try to disable the autocommand by setting the 'eventignore' option like
+   this: >
+   set eventignore+=FocusGained
+
 Solutions to other common problems can be found in the Wiki:
 <https://github.com/vim-airline/vim-airline/wiki/FAQ>
 
