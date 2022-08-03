@@ -309,7 +309,7 @@ If you are interested in becoming a maintainer (we always welcome more maintaine
 [MIT License][58]. Copyright (c) 2013-2021 Bailey Ling & Contributors.
 
 [1]: https://github.com/Lokaltog/vim-powerline
-[2]: https://github.com/Lokaltog/powerline
+[2]: https://github.com/powerline/powerline
 [3]: https://github.com/Lokaltog/powerline-fonts
 [4]: https://github.com/tpope/vim-fugitive
 [5]: https://github.com/scrooloose/syntastic
