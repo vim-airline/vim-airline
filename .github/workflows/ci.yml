@@ -23,9 +23,6 @@ jobs:
         - v7.4
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
     - name: Checkout vim-themis
       uses: actions/checkout@v3
       with:
