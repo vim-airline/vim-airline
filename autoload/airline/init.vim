@@ -122,7 +122,7 @@ function! airline#init#bootstrap()
     call s:check_defined('g:airline_left_alt_sep', "\ue0b1")  " 
     call s:check_defined('g:airline_right_sep', "\ue0b2")     " 
     call s:check_defined('g:airline_right_alt_sep', "\ue0b3") " 
-    " ro=, ws=☲, lnr=, mlnr=☰, colnr=, br=, nx=Ɇ, crypt=🔒, dirty=⚡
+    " ro=, ws=☲, lnr=, mlnr=☰, colnr=℅, br=, nx=Ɇ, crypt=🔒, dirty=⚡
     "  Note: For powerline, we add an extra space after maxlinenr symbol,
     "  because it is usually setup as a ligature in most powerline patched
     "  fonts. It can be over-ridden by configuring a custom maxlinenr
@@ -131,7 +131,7 @@ function! airline#init#bootstrap()
           \ 'whitespace': "\u2632",
           \ 'maxlinenr': "\u2630 ",
           \ 'linenr': " \ue0a1:",
-          \ 'colnr': " \ue0a3:",
+          \ 'colnr': " \u2105:",
           \ 'branch': "\ue0a0",
           \ 'notexists': "\u0246",
           \ 'dirty': "\u26a1",
