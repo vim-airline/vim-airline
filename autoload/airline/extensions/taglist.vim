@@ -17,7 +17,8 @@ function! airline#extensions#taglist#currenttag()
       let tlist_updated = 1
   endif
   if  !tlist_updated && exists('*Tlist_Get_Filenames()')
-      if stridx(Tlist_Get_Filenames(), expand('%:p')) < 0
+      let tlist_filenames = Tlist_Get_Filenames()
+      if stridx(type(tlist_filenames) == type([]) ? join(tlist_filenames, '\n') : tlist_filenames, expand('%:p')) < 0
           TlistUpdate
       endif
   endif
