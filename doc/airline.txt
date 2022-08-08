@@ -966,8 +966,17 @@ nvimlsp <https://github.com/neovim/nvim-lsp>
 * nvimlsp error_symbol >
   let airline#extensions#nvimlsp#error_symbol = 'E:'
 <
-* nvimlsp warning >
+* nvimlsp warning - needs v:lua.vim.diagnostic.get
   let airline#extensions#nvimlsp#warning_symbol = 'W:'
+
+* nvimlsp show_line_numbers - needs v:lua.vim.diagnostic.get
+  let airline#extensions#nvimlsp#show_line_numbers = 1
+
+* nvimlsp open_lnum_symbol - needs v:lua.vim.diagnostic.get
+  let airline#extensions#nvimlsp#open_lnum_symbol = '(L'
+
+* nvimlsp close_lnum_symbol - needs v:lua.vim.diagnostic.get
+  let airline#extensions#nvimlsp#close_lnum_symbol = ')'
 
 -------------------------------------                    *airline-obsession*
 vim-obsession <https://github.com/tpope/vim-obsession>
