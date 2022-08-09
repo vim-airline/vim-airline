@@ -167,7 +167,7 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'gina')
   endif
 
-  if get(g:, 'fern_loaded', 0) && get(g:, 'airline#extensions#fern#enabled', 1)
+  if get(g:, 'loaded_fern', 0) && get(g:, 'airline#extensions#fern#enabled', 1)
     call airline#extensions#fern#init(s:ext)
     call add(s:loaded_ext, 'fern')
   endif
