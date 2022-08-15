@@ -16,15 +16,6 @@ function! airline#extensions#fugitiveline#bufname() abort
     try
       if bufname('%') =~? '^fugitive:' && exists('*FugitiveReal')
         let b:fugitive_name = FugitiveReal(bufname('%'))
-      elseif exists('b:git_dir') && exists('*fugitive#repo')
-        if get(b:, 'fugitive_type', '') is# 'blob'
-          let b:fugitive_name = fugitive#repo().translate(FugitivePath(@%, ''))
-        endif
-      elseif exists('b:git_dir') && !exists('*fugitive#repo')
-        let buffer = fugitive#buffer()
-        if buffer.type('blob')
-          let b:fugitive_name = buffer.repo().translate(buffer.path('/'))
-        endif
       endif
     catch
     endtry
