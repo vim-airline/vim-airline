@@ -21,7 +21,7 @@ function! airline#extensions#nvimlsp#get(type) abort
 
   let error_symbol = get(g:, 'airline#extensions#nvimlsp#error_symbol', 'E:')
   let warning_symbol = get(g:, 'airline#extensions#nvimlsp#warning_symbol', 'W:')
-  let show_line_numbers = get(g:, 'airline#extensions#nvimlsp', 1)
+  let show_line_numbers = get(g:, 'airline#extensions#nvimlsp#show_line_numbers', 1)
 
   let is_err = a:type ==# 'Error'
 
