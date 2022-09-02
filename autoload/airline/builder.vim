@@ -199,7 +199,12 @@ function! s:section_is_empty(self, content)
     return 0
   endif
 
-  if empty(a:content)
+  " special case: When the content is %=, that is the
+  " separation marker, which switches between left- and
+  " right-aligned content.
+  " Consider that to be empty, so that the previous previous
+  " group is correctly remembered in the builder() function
+  if empty(a:content) || a:content is# '%='
     return 1
   endif
 
