@@ -156,7 +156,12 @@ function! airline#update_statusline()
   " Now create the active statusline
   let w:airline_active = 1
   let context = { 'winnr': winnr(), 'active': 1, 'bufnr': winbufnr(winnr()) }
-  call s:invoke_funcrefs(context, g:airline_statusline_funcrefs)
+  try
+    call s:invoke_funcrefs(context, g:airline_statusline_funcrefs)
+  catch /^Vim\%((\a\+)\)\=:E48:/
+    " Catch: Sandbox mode
+    " no-op
+  endtry
 endfunction
 
 " Function to be called to make all statuslines inactive
@@ -186,7 +191,12 @@ function! airline#update_statusline_inactive(range)
             \ 'left_sep': g:airline_left_alt_sep,
             \ 'right_sep': g:airline_right_alt_sep }, 'keep')
     endif
-    call s:invoke_funcrefs(context, g:airline_inactive_funcrefs)
+    try
+      call s:invoke_funcrefs(context, g:airline_inactive_funcrefs)
+    catch /^Vim\%((\a\+)\)\=:E48:/
+      " Catch: Sandbox mode
+      " no-op
+    endtry
   endfor
 endfunction
 
