@@ -216,7 +216,7 @@ function! airline#util#is_popup_window(winnr)
    if exists('*win_gettype')
      return win_gettype(a:winnr) ==# 'popup' || win_gettype(a:winnr) ==# 'autocmd'
    else
-      return getwinvar(a:winnr, '&buftype', '') ==# 'popup'
+      return airline#util#getwinvar(a:winnr, '&buftype', '') ==# 'popup'
   endif
 endfunction
 
