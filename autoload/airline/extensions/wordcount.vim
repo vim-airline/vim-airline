@@ -91,8 +91,8 @@ endfunction
 " airline functions {{{1
 " default filetypes:
 function! airline#extensions#wordcount#apply(...)
-  let filetypes = get(g:, 'airline#extensions#wordcount#filetypes', 
-    \ ['asciidoc', 'help', 'mail', 'markdown', 'nroff', 'org', 'rst', 'plaintex', 'tex', 'text'])
+  let filetypes = get(g:, 'airline#extensions#wordcount#filetypes',
+    \ ['asciidoc', 'help', 'mail', 'markdown', 'rmd', 'nroff', 'org', 'rst', 'plaintex', 'tex', 'text'])
   " export current filetypes settings to global namespace
   let g:airline#extensions#wordcount#filetypes = filetypes
 
