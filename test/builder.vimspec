@@ -3,20 +3,20 @@ Describe builder.vim
     Before each
       let s:builder = airline#builder#new({'active': 1})
     End
-  
+
     It should start with an empty statusline
       let stl = s:builder.build()
       Assert Equals(stl, '')
     End
-  
+
     It should transition colors from one to the next
       call s:builder.add_section('Normal', 'hello')
       call s:builder.add_section('Search', 'world')
       let stl = s:builder.build()
       Assert Match(stl,'%#Normal#hello%#Normal_to_Search#%#Search#world')
     End
-  
-  
+
+
     It should reuse highlight group if background colors match
       highlight Foo1 ctermfg=1 ctermbg=2
       highlight Foo2 ctermfg=1 ctermbg=2
@@ -25,8 +25,8 @@ Describe builder.vim
       let stl = s:builder.build()
       Assert Match(stl, '%#Foo1#helloworld')
     End
-  
-  
+
+
     It should switch highlight groups if foreground colors differ
       highlight Foo1 ctermfg=1 ctermbg=2
       highlight Foo2 ctermfg=2 ctermbg=2
@@ -35,13 +35,13 @@ Describe builder.vim
       let stl = s:builder.build()
       Assert Match(stl, '%#Foo1#hello%#Foo1_to_Foo2#%#Foo2#world')
     End
-  
+
     It should split left/right sections
       call s:builder.split()
       let stl = s:builder.build()
       Assert Match(stl, '%=')
     End
-  
+
     It after split, sections use the right separator
       call s:builder.split()
       call s:builder.add_section('Normal', 'hello')
@@ -49,33 +49,33 @@ Describe builder.vim
       let stl = s:builder.build()
       Assert Match(stl, 'hello%#Normal_to_Search#%#Search#world')
     End
-  
+
     It should not repeat the same highlight group
       call s:builder.add_section('Normal', 'hello')
       call s:builder.add_section('Normal', 'hello')
       let stl = s:builder.build()
       Assert Match(stl, '%#Normal#hellohello')
     End
-  
+
     It should replace accent groups with the specified group
       call s:builder.add_section('Normal', '%#__accent_foo#hello')
       let stl = s:builder.build()
       Assert Match(stl, '%#Normal#%#Normal_foo#hello')
     End
-  
+
     It should replace two accent groups with correct groups
       call s:builder.add_section('Normal', '%#__accent_foo#hello%#__accent_bar#world')
       let stl = s:builder.build()
       Assert Match(stl, '%#Normal_foo#hello%#Normal_bar#world')
     End
-  
+
     It should special restore group should go back to previous group
       call s:builder.add_section('Normal', '%#__restore__#')
       let stl = s:builder.build()
       Assert NotMatch(stl, '%#__restore__#')
       Assert Match(stl, '%#Normal#')
     End
-  
+
     It should blend colors from the left through the split to the right
       call s:builder.add_section('Normal', 'hello')
       call s:builder.split()
