@@ -1599,7 +1599,7 @@ vista.vim <https://github.com/liuchengxu/vista.vim>
 
   " this can also be configured for an individual buffer
   let b:airline_whitespace_checks =
-    \  [ 'indent', 'trailing', 'long', 'mixed-indent-file', 'conflicts ]
+    \  [ 'indent', 'trailing', 'long', 'mixed-indent-file', 'conflicts' ]
 <
 * configure the max number of lines where whitespace checking is enabled. >
   let g:airline#extensions#whitespace#max_lines = 20000
