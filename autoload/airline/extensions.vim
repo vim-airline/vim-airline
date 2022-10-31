@@ -472,7 +472,7 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'battery')
   endif
 
-  if (get(g:, 'airline#extensions#vim9lsp#enabled', 1) && exists('*lsp#errorCount'))
+  if (get(g:, 'airline#extensions#vim9lsp#enabled', 1) && exists('*lsp#lsp#ErrorCount'))
     call airline#extensions#vim9lsp#init(s:ext)
     call add(s:loaded_ext, 'vim9lsp')
   endif
