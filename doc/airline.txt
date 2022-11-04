@@ -649,6 +649,12 @@ coc <https://github.com/neoclide/coc.nvim>
 <
 * enable/disable coc status display >
   g:airline#extensions#coc#show_coc_status = 1
+
+* change the error format: >
+  let airline#extensions#coc#stl_format_err = '(L%d)'
+<
+* change the warning format: >
+  let airline#extensions#coc#stl_format_warn = '(L%d)'
 <
 -------------------------------------                    *airline-commandt*
 command-t <https://github.com/wincent/command-t>
