@@ -4,8 +4,6 @@
 
 scriptencoding utf-8
 
-let s:error_symbol = get(g:, 'airline#extensions#coc#error_symbol', 'E:')
-let s:warning_symbol = get(g:, 'airline#extensions#coc#warning_symbol', 'W:')
 let s:show_coc_status = get(g:, 'airline#extensions#coc#show_coc_status', 1)
 
 function! airline#extensions#coc#get_warning() abort
@@ -17,28 +15,25 @@ function! airline#extensions#coc#get_error() abort
 endfunction
 
 function! airline#extensions#coc#get(type) abort
-  if !exists(':CocCommand')
-    return ''
-  endif
+  if !exists(':CocCommand') | return '' | endif
 
   let is_err = (a:type  is# 'error')
   let info = get(b:, 'coc_diagnostic_info', {})
   if empty(info) | return '' | endif
 
- if is_err
-    let format = get(g:, 'airline#extensions#coc#stl_format_err', '(L%d)')
-  else
-    let format = get(g:, 'airline#extensions#coc#stl_format_warn', '(L%d)')
-  endif
-
   let cnt = get(info, a:type, 0)
+  if empty(cnt) | return '' | endif
 
-  if empty(cnt)
-    return ''
-  else
-    let lnum = printf(format, (info.lnums)[is_err ? 0 : 1])
-    return (is_err ? s:error_symbol : s:warning_symbol).cnt.lnum
-  endif
+  let error_symbol = get(g:, 'airline#extensions#coc#error_symbol', 'E:')
+  let warning_symbol = get(g:, 'airline#extensions#coc#warning_symbol', 'W:')
+  let error_format = get(g:, 'airline#extensions#coc#stl_format_err', '%C(L%L)')
+  let warning_format = get(g:, 'airline#extensions#coc#stl_format_warn', '%C(L%L)')
+
+  " replace %C with error count and %L with line number
+  return (is_err ? error_symbol : warning_symbol) .
+    \ substitute(substitute(is_err ? error_format : warning_format,
+      \ '%C', cnt, 'g'),
+      \ '%L', (info.lnums)[is_err ? 0 : 1], 'g')
 endfunction
 
 function! airline#extensions#coc#get_status() abort
