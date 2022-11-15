@@ -1693,7 +1693,8 @@ vim-windowswap <https://github.com/wesQ3/vim-windowswap>
 -------------------------------------                     *airline-xkblayout*
 
 The vim-xkblayout extension will only be enabled, if the global variable
-`g:XkbSwitchLib` is set. It should be set to a C library that will be called
+`g:XkbSwitchLib` is set or `FcitxCurrentIM()` exists.
+`g:XkbSwitchLib` should be set to a C library that will be called
 using |libcall()| with the function name `Xkb_Switch_getXkbLayout`. For
 details on how to use it, see e.g. <https://github.com/ierton/xkb-switch>
 
@@ -1712,11 +1713,17 @@ details on how to use it, see e.g. <https://github.com/ierton/xkb-switch>
     \ {'2SetKorean': 'KR', 'Chinese': 'CN', 'Japanese': 'JP'}
 
 * define path to the backend switcher library
+  Linux with gnome (Install https://github.com/lyokha/g3kb-switch): >
+   let g:XkbSwitchLib = '/usr/lib/libg3kbswitch.so'
+<
   Linux (Install https://github.com/ierton/xkb-switch): >
-   let g:XkbSwitchLib = '/usr/local/lib/libxkbswitch.so'
+   let g:XkbSwitchLib = '/usr/lib/libxkbswitch.so'
 <
   macOS (Install https://github.com/vovkasm/input-source-switcher): >
    let g:XkbSwitchLib = '/usr/local/lib/libInputSourceSwitcher.dylib'
+<
+  Linux with fcitx (Install https://github.com/fcitx/fcitx5):
+   Install https://github.com/lilydjwg/fcitx.vim) to get `FcitxCurrentIM()`
 
 -------------------------------------                     *airline-xtabline*
 xtabline <https://github.com/mg979/vim-xtabline>
