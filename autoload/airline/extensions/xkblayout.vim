@@ -3,15 +3,20 @@
 
 scriptencoding utf-8
 
-if !exists('g:XkbSwitchLib')
+if !exists('g:XkbSwitchLib') && !exists('*FcitxCurrentIM')
   finish
 endif
 
 function! airline#extensions#xkblayout#status()
-  let keyboard_layout = libcall(g:XkbSwitchLib, 'Xkb_Switch_getXkbLayout', '')
-  let keyboard_layout = get(split(keyboard_layout, '\.'), -1, '')
-  let short_codes = get(g:, 'airline#extensions#xkblayout#short_codes', {'2SetKorean': 'KR', 'Chinese': 'CN', 'Japanese': 'JP'})
+  if exists('g:XkbSwitchLib')
+    let keyboard_layout = libcall(g:XkbSwitchLib, 'Xkb_Switch_getXkbLayout', '')
+    let keyboard_layout = get(split(keyboard_layout, '\.'), -1, '')
+  else
+    " substitute keyboard-us to us
+    let keyboard_layout = substitute(FcitxCurrentIM(), 'keyboard-', '', 'g')
+  endif
 
+  let short_codes = get(g:, 'airline#extensions#xkblayout#short_codes', {'2SetKorean': 'KR', 'Chinese': 'CN', 'Japanese': 'JP'})
   if has_key(short_codes, keyboard_layout)
     let keyboard_layout = short_codes[keyboard_layout]
   endif
