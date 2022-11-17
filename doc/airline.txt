@@ -165,7 +165,7 @@ values):
 <
   Note: Only the dark theme is distributed with vim-airline. For more themes,
   checkout the vim-airline-themes repository
-  (github.com/vim-airline/vim-airline-themes)
+  (https://github.com/vim-airline/vim-airline-themes)
 
 * if you want to patch the airline theme before it gets applied, you can
   supply the name of a function where you can modify the palette. >
