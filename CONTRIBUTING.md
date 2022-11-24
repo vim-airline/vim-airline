@@ -8,7 +8,7 @@ Contributions and pull requests are welcome.  Please take note of the following 
 
 # Testing
 
-Contributers should install [thinca/vim-themis](https://github.com/thinca/vim-themis) to run tests before sending a PR if they applied some modification to the code. PRs which does not pass tests won't be accepted.
+Contributors should install [thinca/vim-themis](https://github.com/thinca/vim-themis) to run tests before sending a PR if they applied some modification to the code. PRs which do not pass tests won't be accepted.
 
 ## 1. Installation
 
@@ -17,7 +17,7 @@ $ cd /path/to/vim-airline
 $ git submodule add https://github.com/thinca/vim-themis ./.themis-bin
 ```
 
-## 2. running test
+## 2. Running tests
 
 ```
 $ ./path/to/themis-bin/bin/themis path/to/vim-airline/test --reporter spec
