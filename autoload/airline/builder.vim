@@ -90,7 +90,7 @@ function! s:prototype.build() dict
       " need to fix highlighting groups, since we
       " have skipped a section, we actually need
       " the previous previous group and so the
-      " seperator goes from the previous previous group
+      " separator goes from the previous previous group
       " to the current group
       let pgroup = group
     endif
@@ -106,12 +106,12 @@ function! s:prototype.build() dict
         let line .= '%#'.group.'#'
       elseif split
         if !is_empty
-          let line .= s:get_transitioned_seperator(self, prev_group, group, side)
+          let line .= s:get_transitioned_separator(self, prev_group, group, side)
         endif
         let split = 0
       else
         if !is_empty
-          let line .= s:get_seperator(self, prev_group, group, side)
+          let line .= s:get_separator(self, prev_group, group, side)
         endif
       endif
       let line .= is_empty ? '' : s:get_accented_line(self, group, contents)
@@ -137,7 +137,7 @@ function! airline#builder#should_change_group(group1, group2)
       \ ||  color1[2] != color2[2] || color1[3] != color2[3]
 endfunction
 
-function! s:get_transitioned_seperator(self, prev_group, group, side)
+function! s:get_transitioned_separator(self, prev_group, group, side)
   let line = ''
   if get(a:self._context, 'tabline', 0) && get(g:, 'airline#extensions#tabline#alt_sep', 0) && a:group ==# 'airline_tabsel' && a:side
     call airline#highlighter#add_separator(a:prev_group, a:group, 0)
@@ -152,9 +152,9 @@ function! s:get_transitioned_seperator(self, prev_group, group, side)
   return line
 endfunction
 
-function! s:get_seperator(self, prev_group, group, side)
+function! s:get_separator(self, prev_group, group, side)
   if airline#builder#should_change_group(a:prev_group, a:group)
-    return s:get_transitioned_seperator(a:self, a:prev_group, a:group, a:side)
+    return s:get_transitioned_separator(a:self, a:prev_group, a:group, a:side)
   else
     return a:side ? a:self._context.left_alt_sep : a:self._context.right_alt_sep
   endif

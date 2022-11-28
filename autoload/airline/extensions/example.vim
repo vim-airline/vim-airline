@@ -23,7 +23,7 @@ function! airline#extensions#example#init(ext)
   call airline#parts#define_raw('cats', '%{airline#extensions#example#get_cats()}')
 
   " Next up we add a funcref so that we can run some code prior to the
-  " statusline getting modifed.
+  " statusline getting modified.
   call a:ext.add_statusline_func('airline#extensions#example#apply')
 
   " You can also add a funcref for inactive statuslines.
@@ -40,7 +40,7 @@ function! airline#extensions#example#apply(...)
     " section_c.
     let w:airline_section_c = get(w:, 'airline_section_c', g:airline_section_c)
 
-    " Then we just append this extenion to it, optionally using separators.
+    " Then we just append this extension to it, optionally using separators.
     let w:airline_section_c .= s:spc.g:airline_left_alt_sep.s:spc.'%{airline#extensions#example#get_cats()}'
   endif
 endfunction

@@ -32,7 +32,7 @@ function! airline#extensions#rufo#apply(...)
     " section_z.
     let w:airline_section_z = get(w:, 'airline_section_z', g:airline_section_z)
 
-    " Then we just append this extenion to it, optionally using separators.
+    " Then we just append this extension to it, optionally using separators.
     let w:airline_section_z .= '%{airline#extensions#rufo#get_status()}'
   endif
 endfunction

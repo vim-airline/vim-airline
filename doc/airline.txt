@@ -146,7 +146,7 @@ values):
   (if enough space is available) >
   let g:airline_detect_spelllang=1
 <
-  Set to 'flag' to get a unicode icon of the relavant country flag instead of
+  Set to 'flag' to get a unicode icon of the relevant country flag instead of
   the 'spelllang' itself
 
 * enable iminsert detection >
@@ -564,7 +564,7 @@ characters.
   let g:airline#extensions#branch#displayed_head_limit = 10
 <
 * customize formatting of branch name >
-  " default value leaves the name unmodifed
+  " default value leaves the name unmodified
   let g:airline#extensions#branch#format = 0
 
   " to only show the tail, e.g. a branch 'feature/foo' becomes 'foo', use
@@ -1055,7 +1055,7 @@ title accordingly.
 rufo <https://github.com/ruby-formatter/rufo-vim>
 
 The rufo (Ruby Formatter) extension merely displays whether vim-rufo is
-currently enabled, in the z sction of the statusline.
+currently enabled, in the z section of the statusline.
 
 * enable/disable vim-rufo integration >
   let g:airline#extensions#rufo#enabled = 1
@@ -1217,7 +1217,7 @@ Note: Not displayed if the number of tabs is less than 1
   nmap <Leader>99 <Plug>AirlineSelectTab99
 <
   The <Plug>AirlineSelect<Prev/Next>Tab mapping handles counts as well,
-  so one can handle arbirtrarily number of buffers/tabs.
+  so one can handle arbitrarily number of buffers/tabs.
 
   Mode 3 is exactly the same as mode 2, except the indexing start at 01,
   exposing 99 mappings: >

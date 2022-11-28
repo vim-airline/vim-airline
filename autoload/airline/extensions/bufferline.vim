@@ -20,7 +20,7 @@ function! airline#extensions#bufferline#init(ext)
   endif
 
   if exists("+autochdir") && &autochdir == 1
-    " if 'acd' is set, vim-airline uses the path section, so we need ot redefine this here as well
+    " if 'acd' is set, vim-airline uses the path section, so we need to redefine this here as well
     call airline#parts#define_raw('path', '%{bufferline#refresh_status()}'.bufferline#get_status_string())
   else
     call airline#parts#define_raw('file', '%{bufferline#refresh_status()}'.bufferline#get_status_string())
