@@ -97,7 +97,11 @@ Install the themes as you would this plugin (Vundle example):
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 ```
-
+If you have vim-plug, install the themes by adding this to your ~/.vimrc:
+```vim
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+```
 See [vim-airline-themes][46] for more.
 
 ## Automatic truncation
