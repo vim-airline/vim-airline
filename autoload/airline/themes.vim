@@ -104,12 +104,12 @@ else
     return palette
   enddef
 
-  def airline#themes#get_highlight(group: string): list<string>
-    return call('airline#highlighter#get_highlight', [group])
+  def airline#themes#get_highlight(group: string, ...modifiers: list<string>): list<string>
+    return call('airline#highlighter#get_highlight', [group, modifiers])
   enddef
 
-  def airline#themes#get_highlight2(fg: list<string>, bg: list<string>): list<string>
-    return call('airline#highlighter#get_highlight2', [fg, bg])
+  def airline#themes#get_highlight2(fg: list<string>, bg: list<string>, ...modifiers: list<string>): list<string>
+    return call('airline#highlighter#get_highlight2', [fg, bg] + modifiers)
   enddef
 
   def airline#themes#patch(palette: dict<any>): void
