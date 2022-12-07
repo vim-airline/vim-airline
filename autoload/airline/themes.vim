@@ -83,11 +83,11 @@ if !exists(":def") || !airline#util#has_vim9_script()
   finish
 else
   " New Vim9 Script Implementation
-  def airline#themes#generate_color_map(sect1: list<any>, sect2: list<any>, sect3: list<any>): dict<any>
-    # Only allows for 3 arguments currently, because Vim9 Script does not allow for a:000
-
+  def airline#themes#generate_color_map(sect1: list<any>, sect2: list<any>, sect3: list<any>, ...rest: list<any>): dict<any>
     # all sections should be string
-    map(sect2, (_, v) => type(v) != type('') ? string(v) : v)
+    for section in [sect1, sect2, sect3] + rest
+      map(section, (_, v) => type(v) != type('') ? string(v) : v)
+    endfor
 
     var palette = {
       'airline_a': [ sect1[0], sect1[1], sect1[2], sect1[3], get(sect1, 4, '') ],
@@ -95,21 +95,29 @@ else
       'airline_c': [ sect3[0], sect3[1], sect3[2], sect3[3], get(sect3, 4, '') ],
       }
 
-    extend(palette, {
-      'airline_x': [ sect3[0], sect3[1], sect3[2], sect3[3], '' ],
-      'airline_y': [ sect2[0], sect2[1], sect2[2], sect2[3], '' ],
-      'airline_z': [ sect1[0], sect1[1], sect1[2], sect1[3], '' ],
+    if rest->len() > 0
+      extend(palette, {
+        'airline_x': [ rest[0][0], rest[0][1], rest[0][2], rest[0][3], get(rest[0], 4, '' ) ],
+        'airline_y': [ rest[1][0], rest[1][1], rest[1][2], rest[1][3], get(rest[1], 4, '' ) ],
+        'airline_z': [ rest[2][0], rest[2][1], rest[2][2], rest[2][3], get(rest[2], 4, '' ) ],
+        })
+    else
+      extend(palette, {
+        'airline_x': [ sect3[0], sect3[1], sect3[2], sect3[3], '' ],
+        'airline_y': [ sect2[0], sect2[1], sect2[2], sect2[3], '' ],
+        'airline_z': [ sect1[0], sect1[1], sect1[2], sect1[3], '' ],
       })
+    endif
 
     return palette
   enddef
 
-  def airline#themes#get_highlight(group: string): list<string>
-    return call('airline#highlighter#get_highlight', [group])
+  def airline#themes#get_highlight(group: string, ...modifiers: list<string>): list<string>
+    return call('airline#highlighter#get_highlight', [group, modifiers])
   enddef
 
-  def airline#themes#get_highlight2(fg: list<string>, bg: list<string>): list<string>
-    return call('airline#highlighter#get_highlight2', [fg, bg])
+  def airline#themes#get_highlight2(fg: list<string>, bg: list<string>, ...modifiers: list<string>): list<string>
+    return call('airline#highlighter#get_highlight2', [fg, bg] + modifiers)
   enddef
 
   def airline#themes#patch(palette: dict<any>): void
