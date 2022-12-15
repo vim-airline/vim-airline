@@ -137,6 +137,7 @@ function! airline#init#bootstrap()
           \ 'dirty': "\u26a1",
           \ 'crypt': nr2char(0x1F512),
           \ }, 'keep')
+    "  Note: If "\u2046" (Ɇ) does not show up, try to use "\u2204" (∄)
   elseif &encoding==?'utf-8' && !get(g:, "airline_symbols_ascii", 0)
     " Symbols for Unicode terminals
     call s:check_defined('g:airline_left_sep', "")
