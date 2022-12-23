@@ -1321,6 +1321,13 @@ Note: Not displayed if the number of tabs is less than 1
 
   let g:airline#extensions#tabline#formatter = 'short_path'
 
+  " `short_path` can also display file name as relative to the current
+  " directory, if possible
+  let g:airline#extensions#tabline#fnamemod = ':h'
+
+  " or display file name as relative to the home directory, if possible
+  let g:airline#extensions#tabline#fnamemod = ':~:h'
+
 * defines the customized format() function to display tab title in tab mode. >
   let g:airline#extensions#tabline#tabtitle_formatter = 'MyTabTitleFormatter'
 <

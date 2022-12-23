@@ -6,6 +6,7 @@ scriptencoding utf-8
 let s:fnamecollapse = get(g:, 'airline#extensions#tabline#fnamecollapse', 1)
 
 function! airline#extensions#tabline#formatters#short_path#format(bufnr, buffers)
+  let fmod = get(g:, 'airline#extensions#tabline#fnamemod', ':p:h:t')
   let _ = ''
 
   let name = bufname(a:bufnr)
@@ -15,7 +16,7 @@ function! airline#extensions#tabline#formatters#short_path#format(bufnr, buffers
     " Neovim Terminal
     let _ = substitute(name, '\(term:\)//.*:\(.*\)', '\1 \2', '')
   else
-    let _ .= fnamemodify(name, ':p:h:t') . '/' . fnamemodify(name, ':t')
+    let _ .= fnamemodify(name, fmod) . '/' . fnamemodify(name, ':t')
   endif
 
   return airline#extensions#tabline#formatters#default#wrap_name(a:bufnr, _)
