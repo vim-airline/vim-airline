@@ -1,5 +1,6 @@
 " MIT License. Copyright (c) 2013-2021 Bailey Ling et al.
-" Plugin: vim-gitgutter, vim-signify, changesPlugin, quickfixsigns, coc-git
+" Plugin: vim-gitgutter, vim-signify, changesPlugin, quickfixsigns, coc-git,
+"         gitsigns.nvim
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
@@ -8,6 +9,7 @@ if !get(g:, 'loaded_signify', 0)
   \ && !get(g:, 'loaded_gitgutter', 0)
   \ && !get(g:, 'loaded_changes', 0)
   \ && !get(g:, 'loaded_quickfixsigns', 0)
+  \ && !exists(':Gitsigns')
   \ && !exists("*CocAction")
   finish
 endif
@@ -26,21 +28,12 @@ function! s:coc_git_enabled() abort
   return 1
 endfunction
 
-function! s:get_hunks_signify() abort
-  let hunks = sy#repo#get_stats()
-  if hunks[0] >= 0
-    return hunks
-  endif
-  return []
-endfunction
-
-function! s:get_hunks_coc() abort
-  let hunks = get(b:, 'coc_git_status', '')
-  if empty(hunks)
+function! s:parse_hunk_status(hunks) abort
+  if empty(a:hunks)
     return []
   endif
   let result = [0, 0, 0]
-  for val in split(hunks)
+  for val in split(a:hunks)
     if val[0] is# '+'
      let result[0] = val[1:] + 0
     elseif val[0] is# '~'
@@ -52,6 +45,14 @@ function! s:get_hunks_coc() abort
   return result
 endfunction
 
+function! s:get_hunks_signify() abort
+  let hunks = sy#repo#get_stats()
+  if hunks[0] >= 0
+    return hunks
+  endif
+  return []
+endfunction
+
 function! s:get_hunks_gitgutter() abort
   let hunks = GitGutterGetHunkSummary()
   return hunks == [0, 0, 0] ? [] : hunks
@@ -60,6 +61,16 @@ endfunction
 function! s:get_hunks_changes() abort
   let hunks = changes#GetStats()
   return hunks == [0, 0, 0] ? [] : hunks
+endfunction
+
+function! s:get_hunks_gitsigns() abort
+  let hunks = get(b:, 'gitsigns_status', '')
+  return s:parse_hunk_status(hunks)
+endfunction
+
+function! s:get_hunks_coc() abort
+  let hunks = get(b:, 'coc_git_status', '')
+  return s:parse_hunk_status(hunks)
 endfunction
 
 function! s:get_hunks_empty() abort
@@ -76,6 +87,8 @@ function! airline#extensions#hunks#get_raw_hunks() abort
       let b:source_func = 's:get_hunks_changes'
     elseif exists('*quickfixsigns#vcsdiff#GetHunkSummary')
       let b:source_func = 'quickfixsigns#vcsdiff#GetHunkSummary'
+    elseif exists(':Gitsigns')
+      let b:source_func = 's:get_hunks_gitsigns'
     elseif s:coc_git_enabled()
       let b:source_func = 's:get_hunks_coc'
     else
@@ -97,6 +110,7 @@ function! airline#extensions#hunks#get_hunks() abort
     \ get(b:, 'source_func', '') isnot# 's:get_hunks_gitgutter' &&
     \ get(b:, 'source_func', '') isnot# 's:get_hunks_empty' &&
     \ get(b:, 'source_func', '') isnot# 's:get_hunks_changes' &&
+    \ get(b:, 'source_func', '') isnot# 's:get_hunks_gitsigns' &&
     \ get(b:, 'source_func', '') isnot# 's:get_hunks_coc'
     return b:airline_hunks
   endif

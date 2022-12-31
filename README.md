@@ -163,7 +163,7 @@ vim-airline integrates with a variety of plugins out of the box.  These extensio
 #### [syntastic][5]
 ![image](https://f.cloud.github.com/assets/306502/962864/9824c484-04f7-11e3-9928-da94f8c7da5a.png)
 
-#### hunks ([vim-gitgutter][29] & [vim-signify][30] & [coc-git][59])
+#### hunks ([vim-gitgutter][29], [vim-signify][30], [coc-git][59] & [gitsigns.nvim][63])
 ![image](https://f.cloud.github.com/assets/306502/995185/73fc7054-09b9-11e3-9d45-618406c6ed98.png)
 
 #### [vimagit][50]
@@ -369,3 +369,4 @@ If you are interested in becoming a maintainer (we always welcome more maintaine
 [60]: https://github.com/cdelledonne/vim-cmake
 [61]: http://github.com/lambdalisue/battery.vim/
 [62]: http://github.com/rbong/vim-flog/
+[63]: https://github.com/lewis6991/gitsigns.nvim
