@@ -1073,6 +1073,12 @@ highlighting (e.g. using |:nohls|), it this will be disabled.
 
 * enable/disable searchcount integration >
   let g:airline#extensions#searchcount#enabled = 1
+
+* enable/disable displaying search term >
+  let g:airline#extensions#searchcount#show_search_term = 1
+
+* truncate long search terms to a fixed length >
+  let g:airline#extensions#searchcount#search_term_limit = 8
 <
 -------------------------------------                    *airline-syntastic*
 syntastic <https://github.com/vim-syntastic/syntastic>
