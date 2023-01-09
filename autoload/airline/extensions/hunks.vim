@@ -28,16 +28,24 @@ function! s:coc_git_enabled() abort
   return 1
 endfunction
 
-function! s:parse_hunk_status(hunks) abort
+function! s:parse_hunk_status_dict(hunks) abort
+  let result = [0, 0, 0]
+  let result[0] = get(a:hunks, 'added', 0)
+  let result[1] = get(a:hunks, 'changed', 0)
+  let result[2] = get(a:hunks, 'removed', 0)
+  return result
+endfunction
+
+function! s:parse_hunk_status_decorated(hunks) abort
   if empty(a:hunks)
     return []
   endif
   let result = [0, 0, 0]
   for val in split(a:hunks)
     if val[0] is# '+'
-     let result[0] = val[1:] + 0
+      let result[0] = val[1:] + 0
     elseif val[0] is# '~'
-     let result[1] = val[1:] + 0
+      let result[1] = val[1:] + 0
     elseif val[0] is# '-'
       let result[2] = val[1:] + 0
     endif
@@ -64,13 +72,13 @@ function! s:get_hunks_changes() abort
 endfunction
 
 function! s:get_hunks_gitsigns() abort
-  let hunks = get(b:, 'gitsigns_status', '')
-  return s:parse_hunk_status(hunks)
+  let hunks = get(b:, 'gitsigns_status_dict', {})
+  return s:parse_hunk_status_dict(hunks)
 endfunction
 
 function! s:get_hunks_coc() abort
   let hunks = get(b:, 'coc_git_status', '')
-  return s:parse_hunk_status(hunks)
+  return s:parse_hunk_status_decorated(hunks)
 endfunction
 
 function! s:get_hunks_empty() abort
