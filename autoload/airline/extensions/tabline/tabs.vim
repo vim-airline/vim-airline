@@ -70,8 +70,7 @@ function! airline#extensions#tabline#tabs#get()
     let val = '%('
 
     if get(g:, 'airline#extensions#tabline#show_tab_nr', 1)
-      let tab_nr_type = get(g:, 'airline#extensions#tabline#tab_nr_type', 0)
-      let val .= airline#extensions#tabline#tabs#tabnr_formatter(tab_nr_type, a:i)
+      let val .= airline#extensions#tabline#tabs#tabnr_formatter(a:i, tabpagebuflist(a:i))
     endif
 
     return val.'%'.a:i.'T %{airline#extensions#tabline#title('.a:i.')} %)'
