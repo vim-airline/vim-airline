@@ -3,8 +3,6 @@
 
 scriptencoding utf-8
 
-let s:fnamecollapse = get(g:, 'airline#extensions#tabline#fnamecollapse', 1)
-
 function! airline#extensions#tabline#formatters#short_path#format(bufnr, buffers)
   let fmod = get(g:, 'airline#extensions#tabline#fnamemod', ':p:h:t')
   let _ = ''
