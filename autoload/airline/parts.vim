@@ -53,7 +53,9 @@ endfunction
 " }}}
 
 function! airline#parts#mode()
-  return airline#util#shorten(get(w:, 'airline_current_mode', ''), 79, 1)
+  let part = airline#parts#get('mode')
+  let minwidth = get(part, 'minwidth', 79)
+  return airline#util#shorten(get(w:, 'airline_current_mode', ''), minwidth, 1)
 endfunction
 
 function! airline#parts#crypt()
