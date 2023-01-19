@@ -35,7 +35,7 @@ function! airline#extensions#tagbar#currenttag()
       try
         " try to load the plugin, if filetypes are disabled,
         " this will cause an error, so try only once
-        let a=tagbar#currenttag('%', '', '')
+        let a = tagbar#currenttag('%s', '', '')
       catch
       endtry
       unlet! a
