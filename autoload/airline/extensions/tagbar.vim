@@ -43,7 +43,8 @@ function! airline#extensions#tagbar#currenttag()
     let flags = get(g:, 'airline#extensions#tagbar#flags', '')
     " function tagbar#currenttag does not exist, if filetype is not enabled
     if s:airline_tagbar_last_lookup_time != localtime() && exists("*tagbar#currenttag")
-      let s:airline_tagbar_last_lookup_val = tagbar#currenttag('%s', '', flags, get(g:, 'airline#extensions#tagbar#searchmethod', 'nearest-stl'))
+      let s:airline_tagbar_last_lookup_val = tagbar#currenttag('%s', '', flags,
+            \ get(g:, 'airline#extensions#tagbar#searchmethod', 'nearest-stl'))
       let s:airline_tagbar_last_lookup_time = localtime()
     endif
     return s:airline_tagbar_last_lookup_val
