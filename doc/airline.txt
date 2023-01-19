@@ -1315,12 +1315,11 @@ Note: Not displayed if the number of tabs is less than 1
       let g:airline#extensions#tabline#fnamemod = ':p:.'
       let g:airline#extensions#tabline#fnamecollapse = 1
 
-  " The `unique_tail_improved` - another algorithm, that will smartly
-  " uniquify buffers names with similar filename, suppressing common
-  " parts of paths.
+  " The `unique_tail_improved` algorithm will uniquify buffers names with
+  " similar filename, suppressing common parts of paths.
   let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 
-  " The `short_path` - is a simple formatter, that will show the
+  " The `short_path` algorithm is a simple formatter, that will show the
   filename, with its extension, and the first parent directory only.
 
   e.g.
@@ -1334,6 +1333,11 @@ Note: Not displayed if the number of tabs is less than 1
 
   " or display file name as relative to the home directory, if possible
   let g:airline#extensions#tabline#fnamemod = ':~:h'
+
+  " The `short_path_improved` algorithm will only show the short path for
+  " duplicate buffer names, otherwise suppressing directories.
+
+  let g:airline#extensions#tabline#formatter = 'short_path_improved'
 
 * defines the customized format() function to display tab title in tab mode. >
   let g:airline#extensions#tabline#tabtitle_formatter = 'MyTabTitleFormatter'
