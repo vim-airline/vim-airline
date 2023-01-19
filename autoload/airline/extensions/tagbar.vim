@@ -40,6 +40,10 @@ function! airline#extensions#tagbar#currenttag()
       unlet! a
       let s:init=1
     endif
+    let cursize = getfsize(fnamemodify(bufname('%'), ':p'))
+    if cursize > 0 && cursize > get(g:, 'airline#extensions#tagbar#max_filesize', 1024 * 1024)
+      return ''
+    endif
     let flags = get(g:, 'airline#extensions#tagbar#flags', '')
     " function tagbar#currenttag does not exist, if filetype is not enabled
     if s:airline_tagbar_last_lookup_time != localtime() && exists("*tagbar#currenttag")

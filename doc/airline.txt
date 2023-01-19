@@ -1468,6 +1468,10 @@ tagbar <https://github.com/majutsushi/tagbar>
   let g:airline#extensions#tagbar#searchmethod = 'nearest-stl' (default)
   let g:airline#extensions#tagbar#searchmethod = 'nearest'
   let g:airline#extensions#tagbar#searchmethod = 'scoped-stl'
+
+* configure max filesize, after which to skip loading the extension
+  If the file is larger, tags won't be displayed for performance reasons >
+  let g:airline#extensions#tagbar#max_filesize = 1024*1024 (default)
 <
 -------------------------------------                       *airline-taglist*
 taglist <https://github.com/yegappan/taglist>
