@@ -219,7 +219,10 @@ if !exists(":def") || !airline#util#has_vim9_script()
       if len(curbuf) ==  0
         call add(curbuf, tabpagebuflist(a:n)[0])
       endif
-      return airline#extensions#tabline#get_buffer_name(a:n, curbuf)
+      " a:n: -> buffer number
+      " curbuf: list of buffers in current tabpage
+      " we need the buffername in current tab page.
+      return airline#extensions#tabline#get_buffer_name(curbuf[0], curbuf)
     endif
 
     return title
@@ -435,7 +438,7 @@ else
       if len(curbuf) ==  0
         add(curbuf, tabpagebuflist(n)[0])
       endif
-      return airline#extensions#tabline#get_buffer_name(n, curbuf)
+      return airline#extensions#tabline#get_buffer_name(curbuf[0], curbuf)
     endif
     return title
   enddef
