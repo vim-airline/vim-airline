@@ -89,7 +89,7 @@ function! airline#extensions#hunks#get_raw_hunks() abort
   if !exists('b:source_func') || get(b:, 'source_func', '') is# 's:get_hunks_empty'
     if get(g:, 'loaded_signify') && sy#buffer_is_active()
       let b:source_func = 's:get_hunks_signify'
-    elseif exists('*GitGutterGetHunkSummary')
+    elseif exists('*GitGutterGetHunkSummary') && get(g:, 'gitgutter_enabled')
       let b:source_func = 's:get_hunks_gitgutter'
     elseif exists('*changes#GetStats')
       let b:source_func = 's:get_hunks_changes'
