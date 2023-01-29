@@ -11,7 +11,12 @@ if exists('*wordcount')
     endif
     if &filetype ==# 'tex' && exists('b:vimtex') && get(g:, 'airline#extensions#vimtex#wordcount', 0)
       " We're in a TeX file and vimtex is a plugin, so use vimtex's wordcount...
-      return vimtex#misc#wordcount()
+      if a:visual_mode_active
+        " not useful? 
+        return
+      else
+        return vimtex#misc#wordcount()
+      endif
     else
       let query = a:visual_mode_active ? 'visual_words' : 'words'
       return get(wordcount(), query, 0)
