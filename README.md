@@ -80,6 +80,22 @@ For a better look, those sections can be colored differently, depending on vario
 *  The master branch tries to be as stable as possible, and new features are merged in only after they have gone through a [full regression test][33].
 *  Unit testing suite.
 
+# Installation
+
+This plugin follows the standard runtime path structure, and as such it can be installed with a variety of plugin managers:
+
+| Plugin Manager | Install with... |
+| ------------- | ------------- |
+| [Pathogen][11] | `git clone https://github.com/vim-airline/vim-airline ~/.vim/bundle/vim-airline`<br/>Remember to run `:Helptags` to generate help tags |
+| [NeoBundle][12] | `NeoBundle 'vim-airline/vim-airline'` |
+| [Vundle][13] | `Plugin 'vim-airline/vim-airline'` |
+| [Plug][40] | `Plug 'vim-airline/vim-airline'` |
+| [VAM][22] | `call vam#ActivateAddons([ 'vim-airline' ])` |
+| [Dein][52] | `call dein#add('vim-airline/vim-airline')` |
+| [minpac][55] | `call minpac#add('vim-airline/vim-airline')` |
+| pack feature (native Vim 8 package feature)| `git clone https://github.com/vim-airline/vim-airline ~/.vim/pack/dist/start/vim-airline`<br/>Remember to run `:helptags ~/.vim/pack/dist/start/vim-airline/doc` to generate help tags |
+| manual | copy all of the files into your `~/.vim` directory |
+
 ## Straightforward customization
 
 If you don't like the defaults, you can replace all sections with standard `statusline` syntax.  Give your statusline that you've built over the years a face lift.
@@ -247,22 +263,6 @@ What about [vim-powerline][1]?
 # Where did the name come from?
 
 I wrote the initial version on an airplane, and since it's light as air it turned out to be a good name.  Thanks for flying vim!
-
-# Installation
-
-This plugin follows the standard runtime path structure, and as such it can be installed with a variety of plugin managers:
-
-| Plugin Manager | Install with... |
-| ------------- | ------------- |
-| [Pathogen][11] | `git clone https://github.com/vim-airline/vim-airline ~/.vim/bundle/vim-airline`<br/>Remember to run `:Helptags` to generate help tags |
-| [NeoBundle][12] | `NeoBundle 'vim-airline/vim-airline'` |
-| [Vundle][13] | `Plugin 'vim-airline/vim-airline'` |
-| [Plug][40] | `Plug 'vim-airline/vim-airline'` |
-| [VAM][22] | `call vam#ActivateAddons([ 'vim-airline' ])` |
-| [Dein][52] | `call dein#add('vim-airline/vim-airline')` |
-| [minpac][55] | `call minpac#add('vim-airline/vim-airline')` |
-| pack feature (native Vim 8 package feature)| `git clone https://github.com/vim-airline/vim-airline ~/.vim/pack/dist/start/vim-airline`<br/>Remember to run `:helptags ~/.vim/pack/dist/start/vim-airline/doc` to generate help tags |
-| manual | copy all of the files into your `~/.vim` directory |
 
 # Documentation
 
