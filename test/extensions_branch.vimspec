@@ -6,7 +6,7 @@ Describe branch.vim
   End
 
   It Match branch name main
-    Assert Match(airline#extensions#branch#get_head(), "main")
+    Assert Equals(airline#extensions#branch#get_head(), "main")
   End
 
   After
