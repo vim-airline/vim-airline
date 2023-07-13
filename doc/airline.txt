@@ -1446,6 +1446,14 @@ Vim-Airline comes with a small extension for the styling the builtin
   let g:airline#extensions#term#enabled = 1
   default: 1
 
+* Use custom section_z >
+  let g:airline_section_z_term = '%p%% ☰  %l/%L, %v'
+  default: airline#section#create(['linenr', 'maxlinenr'])
+
+* Use custom section_a >
+  let g:airline_section_a_term = '%p%% ☰  %l/%L, %v'
+  default: airline#section#create_left(['terminal', 'tmode'])
+
 -------------------------------------                        *airline-tabws*
 vim-tabws <https://github.com/s1341/vim-tabws>
 

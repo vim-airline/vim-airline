@@ -6,31 +6,46 @@ scriptencoding utf-8
 call airline#parts#define_function('tmode', 'airline#extensions#term#termmode')
 call airline#parts#define('terminal', {'text': get(g:airline_mode_map, 't', 't'), 'accent': 'bold'})
 
-let s:spc = g:airline_symbols.space
 
-let s:section_a = airline#section#create_left(['terminal', 'tmode'])
-let s:section_z = airline#section#create(['linenr', 'maxlinenr'])
+function! s:GetAirlineSection()
+  if exists("g:airline_section_z_term")
+    let section_z = g:airline_section_z_term
+  else
+    let section_z = airline#section#create(['linenr', 'maxlinenr'])
+  endif
+
+  if exists("g:airline_section_a_term")
+    let section_a = g:airline_section_a_term
+  else
+    let section_a = airline#section#create_left(['terminal', 'tmode'])
+  endif
+  return [section_a, section_z]
+endfunction
 
 function! airline#extensions#term#apply(...) abort
   if &buftype ==? 'terminal' || bufname(a:2.bufnr)[0] ==? '!'
-    call a:1.add_section_spaced('airline_a', s:section_a)
+    let sections = s:GetAirlineSection()
+    let spc = g:airline_symbols.space
+    call a:1.add_section_spaced('airline_a', sections[0])
     call a:1.add_section_spaced('airline_b', s:neoterm_id(a:2.bufnr))
-    call a:1.add_section('airline_term', s:spc.s:termname(a:2.bufnr))
+    call a:1.add_section('airline_term', spc.s:termname(a:2.bufnr))
     call a:1.split()
     call a:1.add_section('airline_y', '')
-    call a:1.add_section_spaced('airline_z', s:section_z)
+    call a:1.add_section_spaced('airline_z', sections[1])
     return 1
   endif
 endfunction
 
 function! airline#extensions#term#inactive_apply(...) abort
   if getbufvar(a:2.bufnr, '&buftype') ==? 'terminal'
-    call a:1.add_section_spaced('airline_a', s:section_a)
+    let sections = s:GetAirlineSection()
+    let spc = g:airline_symbols.space
+    call a:1.add_section_spaced('airline_a', sections[0])
     call a:1.add_section_spaced('airline_b', s:neoterm_id(a:2.bufnr))
-    call a:1.add_section('airline_term', s:spc.s:termname(a:2.bufnr))
+    call a:1.add_section('airline_term', spc.s:termname(a:2.bufnr))
     call a:1.split()
     call a:1.add_section('airline_y', '')
-    call a:1.add_section_spaced('airline_z', s:section_z)
+    call a:1.add_section_spaced('airline_z', sections[1])
     return 1
   endif
 endfunction
