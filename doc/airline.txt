@@ -1545,6 +1545,11 @@ Vim-CMake <https://github.com/cdelledonne/vim-cmake>
 * enable/disable Vim-CMake integration >
   let g:airline#extensions#vimcmake#enabled = 1
 <
+-------------------------------------                     *airline-vimodoro*
+Vimodoro <https://github.com/VimfanTPdvorak/vimodoro>
+
+No configuration available.
+
 -------------------------------------                      *airline-vimtex*
 vimtex <https://github.com/lervag/vimtex>
 

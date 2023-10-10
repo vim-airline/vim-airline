@@ -229,6 +229,11 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'undotree')
   endif
 
+  if exists(':RTM')
+    call airline#extensions#vimodoro#init(s:ext)
+    call add(s:loaded_ext, 'vimodoro')
+  endif
+
   if get(g:, 'airline#extensions#hunks#enabled', 1)
         \ && (exists('g:loaded_signify')
         \ || exists('g:loaded_gitgutter')

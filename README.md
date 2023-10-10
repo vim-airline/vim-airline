@@ -370,3 +370,4 @@ If you are interested in becoming a maintainer (we always welcome more maintaine
 [61]: http://github.com/lambdalisue/battery.vim/
 [62]: http://github.com/rbong/vim-flog/
 [63]: https://github.com/lewis6991/gitsigns.nvim
+[64]: https://github.com/VimfanTPdvorak/vimodoro
