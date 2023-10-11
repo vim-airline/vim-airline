@@ -8,9 +8,9 @@ if !exists(':RTM')
   finish
 endif
 
-function! airline#extensions#vimodoro#apply(...)
+function! airline#extensions#vimodoro#apply(...) abort
   if exists('t:vimodoro')
-    if &ft == 'vimodoro'
+    if &ft ==# 'vimodoro'
         if exists(':PomodoroStatus')
           call airline#extensions#apply_left_override('vimodoro', '%{PomodoroStatus(1)}')
         else
@@ -20,6 +20,6 @@ function! airline#extensions#vimodoro#apply(...)
   endif
 endfunction
 
-function! airline#extensions#vimodoro#init(ext)
+function! airline#extensions#vimodoro#init(ext) abort
   call a:ext.add_statusline_func('airline#extensions#vimodoro#apply')
 endfunction
