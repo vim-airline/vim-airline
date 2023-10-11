@@ -657,6 +657,12 @@ coc <https://github.com/neoclide/coc.nvim>
 * change the warning format (%C - error count, %L - line number): >
   let airline#extensions#coc#stl_format_warn = '%C(L%L)'
 <
+-------------------------------------                     *airline-codeium*
+vim-codeium <https://github.com/Exafunction/codeium.vim>
+
+* enable/disable codeium.vim integration >
+  let g:airline#extensions#codeium#enabled = 1
+
 -------------------------------------                    *airline-commandt*
 command-t <https://github.com/wincent/command-t>
 

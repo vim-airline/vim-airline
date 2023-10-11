@@ -234,6 +234,7 @@ function! airline#init#bootstrap()
 
   call airline#parts#define_text('bookmark', '')
   call airline#parts#define_text('capslock', '')
+  call airline#parts#define_text('codeium', '')
   call airline#parts#define_text('gutentags', '')
   call airline#parts#define_text('gen_tags', '')
   call airline#parts#define_text('grepper', '')
@@ -267,7 +268,7 @@ function! airline#init#sections()
     let g:airline_section_gutter = airline#section#create(['%='])
   endif
   if !exists('g:airline_section_x')
-    let g:airline_section_x = airline#section#create_right(['coc_current_function', 'bookmark', 'scrollbar', 'tagbar', 'taglist', 'vista', 'gutentags', 'gen_tags', 'omnisharp', 'grepper', 'filetype'])
+    let g:airline_section_x = airline#section#create_right(['coc_current_function', 'bookmark', 'scrollbar', 'tagbar', 'taglist', 'vista', 'gutentags', 'gen_tags', 'omnisharp', 'grepper', 'codeium', 'filetype'])
   endif
   if !exists('g:airline_section_y')
     let g:airline_section_y = airline#section#create_right(['ffenc'])
