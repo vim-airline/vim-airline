@@ -498,19 +498,19 @@ ale <https://github.com/dense-analysis/ale>
   let g:airline#extensions#ale#enabled = 1
 
 * ale error_symbol >
-  let airline#extensions#ale#error_symbol = 'E:'
+  let g:airline#extensions#ale#error_symbol = 'E:'
 <
 * ale warning >
-  let airline#extensions#ale#warning_symbol = 'W:'
+  let g:airline#extensions#ale#warning_symbol = 'W:'
 
 * ale show_line_numbers >
-  let airline#extensions#ale#show_line_numbers = 1
+  let g:airline#extensions#ale#show_line_numbers = 1
 <
 * ale open_lnum_symbol >
-  let airline#extensions#ale#open_lnum_symbol = '(L'
+  let g:airline#extensions#ale#open_lnum_symbol = '(L'
 <
 * ale close_lnum_symbol >
-  let airline#extensions#ale#close_lnum_symbol = ')'
+  let g:airline#extensions#ale#close_lnum_symbol = ')'
 
 -------------------------------------                      *airline-battery*
 vim-battery <https://github.com/lambdalisue/battery.vim>
@@ -643,19 +643,19 @@ coc <https://github.com/neoclide/coc.nvim>
   let g:airline#extensions#coc#enabled = 1
 <
 * change error symbol: >
-  let airline#extensions#coc#error_symbol = 'E:'
+  let g:airline#extensions#coc#error_symbol = 'E:'
 <
 * change warning symbol: >
-  let airline#extensions#coc#warning_symbol = 'W:'
+  let g:airline#extensions#coc#warning_symbol = 'W:'
 <
 * enable/disable coc status display >
-  g:airline#extensions#coc#show_coc_status = 1
+  let g:airline#extensions#coc#show_coc_status = 1
 
 * change the error format (%C - error count, %L - line number): >
-  let airline#extensions#coc#stl_format_err = '%C(L%L)'
+  let g:airline#extensions#coc#stl_format_err = '%C(L%L)'
 <
 * change the warning format (%C - error count, %L - line number): >
-  let airline#extensions#coc#stl_format_warn = '%C(L%L)'
+  let g:airline#extensions#coc#stl_format_warn = '%C(L%L)'
 <
 -------------------------------------                     *airline-codeium*
 vim-codeium <https://github.com/Exafunction/codeium.vim>
@@ -760,7 +760,7 @@ you can use.
 <
 * configure the layout to not use %(%) grouping items in the statusline.
   Try setting this to zero, if you notice bleeding color artifacts >
-  let airline#extensions#default#section_use_groupitems = 1
+  let g:airline#extensions#default#section_use_groupitems = 1
 <
 -------------------------------------                      *airline-denite*
 Denite <https://github.com/Shougo/denite.nvim>
@@ -889,19 +889,19 @@ LanguageClient <https://github.com/autozimu/LanguageClient-neovim>
   let g:airline#extensions#languageclient#enabled = 1
 
 * languageclient error_symbol >
-  let airline#extensions#languageclient#error_symbol = 'E:'
+  let g:airline#extensions#languageclient#error_symbol = 'E:'
 <
 * languageclient warning_symbol >
-  let airline#extensions#languageclient#warning_symbol = 'W:'
+  let g:airline#extensions#languageclient#warning_symbol = 'W:'
 
 * languageclient show_line_numbers >
-  let airline#extensions#languageclient#show_line_numbers = 1
+  let g:airline#extensions#languageclient#show_line_numbers = 1
 <
 * languageclient open_lnum_symbol >
-  let airline#extensions#languageclient#open_lnum_symbol = '(L'
+  let g:airline#extensions#languageclient#open_lnum_symbol = '(L'
 <
 * languageclient close_lnum_symbol >
-  let airline#extensions#languageclient#close_lnum_symbol = ')'
+  let g:airline#extensions#languageclient#close_lnum_symbol = ')'
 
 -------------------------------------                   *airline-localsearch*
 localsearch <https://github.com/mox-mox/vim-localsearch>
@@ -921,25 +921,25 @@ lsp <https://github.com/prabirshrestha/vim-lsp>
   let g:airline#extensions#lsp#enabled = 1
 
 * lsp error_symbol >
-  let airline#extensions#lsp#error_symbol = 'E:'
+  let g:airline#extensions#lsp#error_symbol = 'E:'
 <
 * lsp warning >
-  let airline#extensions#lsp#warning_symbol = 'W:'
+  let g:airline#extensions#lsp#warning_symbol = 'W:'
 
 * lsp show_line_numbers >
-  let airline#extensions#lsp#show_line_numbers = 1
+  let g:airline#extensions#lsp#show_line_numbers = 1
 <
 * lsp open_lnum_symbol >
-  let airline#extensions#lsp#open_lnum_symbol = '(L'
+  let g:airline#extensions#lsp#open_lnum_symbol = '(L'
 <
 * lsp close_lnum_symbol >
-  let airline#extensions#lsp#close_lnum_symbol = ')'
+  let g:airline#extensions#lsp#close_lnum_symbol = ')'
 <
 * lsp progress skip time
   Suppresses the frequency of status line updates.
   Prevents heavy operation when using a language server that sends frequent progress notifications.
   Set 0 to disable. >
-  g:airline#extensions#lsp#progress_skip_time = 0.3 (default)
+  let g:airline#extensions#lsp#progress_skip_time = 0.3 (default)
 <
 
 -------------------------------------                    *airline-neomake*
@@ -949,10 +949,10 @@ neomake <https://github.com/neomake/neomake>
   let g:airline#extensions#neomake#enabled = 1
 
 * neomake error_symbol >
-  let airline#extensions#neomake#error_symbol = 'E:'
+  let g:airline#extensions#neomake#error_symbol = 'E:'
 <
 * neomake warning >
-  let airline#extensions#neomake#warning_symbol = 'W:'
+  let g:airline#extensions#neomake#warning_symbol = 'W:'
 <
 -------------------------------------                   *airline-nerdtree*
 NerdTree <https://github.com/preservim/nerdtree.git>
@@ -978,19 +978,19 @@ nvimlsp <https://github.com/neovim/nvim-lsp>
   let g:airline#extensions#nvimlsp#enabled = 1
 
 * nvimlsp error_symbol >
-  let airline#extensions#nvimlsp#error_symbol = 'E:'
+  let g:airline#extensions#nvimlsp#error_symbol = 'E:'
 <
 * nvimlsp warning - needs v:lua.vim.diagnostic.get
-  let airline#extensions#nvimlsp#warning_symbol = 'W:'
+  let g:airline#extensions#nvimlsp#warning_symbol = 'W:'
 
 * nvimlsp show_line_numbers - needs v:lua.vim.diagnostic.get
-  let airline#extensions#nvimlsp#show_line_numbers = 1
+  let g:airline#extensions#nvimlsp#show_line_numbers = 1
 
 * nvimlsp open_lnum_symbol - needs v:lua.vim.diagnostic.get
-  let airline#extensions#nvimlsp#open_lnum_symbol = '(L'
+  let g:airline#extensions#nvimlsp#open_lnum_symbol = '(L'
 
 * nvimlsp close_lnum_symbol - needs v:lua.vim.diagnostic.get
-  let airline#extensions#nvimlsp#close_lnum_symbol = ')'
+  let g:airline#extensions#nvimlsp#close_lnum_symbol = ')'
 
 -------------------------------------                    *airline-obsession*
 vim-obsession <https://github.com/tpope/vim-obsession>
@@ -1034,7 +1034,7 @@ promptline <https://github.com/edkolev/promptline.vim>
 * configure the path to the snapshot .sh file. Mandatory option. The created
   file should be sourced by the shell on login >
   " in .vimrc
-  airline#extensions#promptline#snapshot_file = "~/.shell_prompt.sh"
+  let g:airline#extensions#promptline#snapshot_file = "~/.shell_prompt.sh"
 
   " in .bashrc/.zshrc
   [ -f ~/.shell_prompt.sh ] && source ~/.shell_prompt.sh
@@ -1043,10 +1043,10 @@ promptline <https://github.com/edkolev/promptline.vim>
   let g:airline#extensions#promptline#enabled = 0
 <
 * configure which mode colors should be used in prompt >
-  let airline#extensions#promptline#color_template = 'normal' (default)
-  let airline#extensions#promptline#color_template = 'insert'
-  let airline#extensions#promptline#color_template = 'visual'
-  let airline#extensions#promptline#color_template = 'replace'
+  let g:airline#extensions#promptline#color_template = 'normal' (default)
+  let g:airline#extensions#promptline#color_template = 'insert'
+  let g:airline#extensions#promptline#color_template = 'visual'
+  let g:airline#extensions#promptline#color_template = 'replace'
 <
 -------------------------------------                     *airline-quickfix*
 The quickfix extension is a simple built-in extension which determines
@@ -1097,16 +1097,16 @@ syntastic <https://github.com/vim-syntastic/syntastic>
   adjusting the statusline.
 
 * syntastic error_symbol >
-  let airline#extensions#syntastic#error_symbol = 'E:'
+  let g:airline#extensions#syntastic#error_symbol = 'E:'
 <
 * syntastic statusline error format (see |syntastic_stl_format|) >
-  let airline#extensions#syntastic#stl_format_err = '%E{[%fe(#%e)]}'
+  let g:airline#extensions#syntastic#stl_format_err = '%E{[%fe(#%e)]}'
 
 * syntastic warning >
-  let airline#extensions#syntastic#warning_symbol = 'W:'
+  let g:airline#extensions#syntastic#warning_symbol = 'W:'
 <
 * syntastic statusline warning format (see |syntastic_stl_format|) >
-  let airline#extensions#syntastic#stl_format_warn = '%W{[%fw(#%w)]}'
+  let g:airline#extensions#syntastic#stl_format_warn = '%W{[%fw(#%w)]}'
 <
 -------------------------------------                      *airline-tabline*
 Note: If you're using the ctrlspace tabline only the option marked with (c)
@@ -1192,7 +1192,7 @@ Note: Not displayed if the number of tabs is less than 1
   let g:airline#extensions#tabline#overflow_marker = '…'
 
 * always show current tabpage/buffer first >
-  let airline#extensions#tabline#current_first = 1
+  let g:airline#extensions#tabline#current_first = 1
 <  default: 0
 
 * enable/disable displaying index of the buffer.
@@ -1394,7 +1394,7 @@ Note: Not displayed if the number of tabs is less than 1
 
 * configure pattern to be ignored on BufAdd autocommand >
   " fixes unnecessary redraw, when e.g. opening Gundo window
-  let airline#extensions#tabline#ignore_bufadd_pat =
+  let g:airline#extensions#tabline#ignore_bufadd_pat =
             \ '\c\vgundo|undotree|vimfiler|tagbar|nerd_tree'
 
 Note: Enabling this extension will modify 'showtabline' and 'guioptions'.
@@ -1402,11 +1402,11 @@ Note: Enabling this extension will modify 'showtabline' and 'guioptions'.
 * enable Refresh of tabline buffers on |BufAdd| autocommands
   (set this to one, if you note 'AirlineTablineRefresh', however, this
    won't update airline on |:badd| commands) >
-  let airline#extensions#tabline#disable_refresh = 0
+  let g:airline#extensions#tabline#disable_refresh = 0
 
 * preserve windows when closing a buffer from the bufferline
   (neovim specific, only works with buffers and not real tabs, default: 0) >
-  let airline#extensions#tabline#middle_click_preserves_windows = 1
+  let g:airline#extensions#tabline#middle_click_preserves_windows = 1
 <
 						*airline-tabline-hlgroups*
 When the tabline is enabled, vim-airline exposes the following highlighting
@@ -1500,15 +1500,15 @@ tmuxline <https://github.com/edkolev/tmuxline.vim>
   let g:airline#extensions#tmuxline#enabled = 0
 <
 * configure which mode colors should be used in tmux statusline >
-  let airline#extensions#tmuxline#color_template = 'normal' (default)
-  let airline#extensions#tmuxline#color_template = 'insert'
-  let airline#extensions#tmuxline#color_template = 'visual'
-  let airline#extensions#tmuxline#color_template = 'replace'
+  let g:airline#extensions#tmuxline#color_template = 'normal' (default)
+  let g:airline#extensions#tmuxline#color_template = 'insert'
+  let g:airline#extensions#tmuxline#color_template = 'visual'
+  let g:airline#extensions#tmuxline#color_template = 'replace'
 <
 * if specified, setting this option will trigger writing to the file whenever the
   airline theme is applied, i.e. when :AirlineTheme is executed and on vim
   startup >
-  airline#extensions#tmuxline#snapshot_file =
+  let g:airline#extensions#tmuxline#snapshot_file =
    \  "~/.tmux-statusline-colors.conf"
 <
 -------------------------------------                     *airline-undotree*
@@ -1531,13 +1531,13 @@ Unite <https://github.com/Shougo/unite.vim>
 vim9lsp <https://github.com/yegappan/lsp>
 
 * enable/disable vim9lsp integration >
-  let airline#extensions#vim9lsp#enabled = 1
+  let g:airline#extensions#vim9lsp#enabled = 1
 <
 * vim9lsp error_symbol >
-  let airline#extensions#vim9lsp#error_symbol = 'E:'
+  let g:airline#extensions#vim9lsp#error_symbol = 'E:'
 <
 * vim9lsp warning >
-  let airline#extensions#vim9lsp#warning_symbol = 'W:'
+  let g:airline#extensions#vim9lsp#warning_symbol = 'W:'
 <
 -------------------------------------                     *airline-vimagit*
 vimagit <https://github.com/jreybert/vimagit>
@@ -1672,7 +1672,7 @@ vista.vim <https://github.com/liuchengxu/vista.vim>
 
 * configure, which filetypes have special treatment of /* */ comments,
   matters for mix-indent-file algorithm: >
-  let airline#extensions#c_like_langs =
+  let g:airline#extensions#c_like_langs =
      \ ['arduino', 'c', 'cpp', 'cuda', 'go', 'javascript', 'ld', 'php']
 <
 * disable whitespace checking for an individual buffer >
