@@ -191,7 +191,7 @@ endfunction
 
 function! airline#parts#filetype()
   return (airline#util#winwidth() < 90 && strlen(&filetype) > 3)
-        \ ? matchstr(&filetype, '...'). (&encoding is? 'utf-8' ? '…' : '>')
+        \ ? matchstr(&filetype, '...'). (&encoding is? 'utf-8' ? "\u2026" : '>')
         \ : &filetype
 endfunction
 
