@@ -12,8 +12,13 @@ function! airline#extensions#xkblayout#status()
     let keyboard_layout = libcall(g:XkbSwitchLib, 'Xkb_Switch_getXkbLayout', '')
     let keyboard_layout = get(split(keyboard_layout, '\.'), -1, '')
   else
+    if exists('*FcitxCurrentIMwithRime')
+      let keyboard_layout = FcitxCurrentIMwithRime()
+    else
+      let keyboard_layout = FcitxCurrentIM()
+    endif
     " substitute keyboard-us to us
-    let keyboard_layout = substitute(FcitxCurrentIM(), 'keyboard-', '', 'g')
+    let keyboard_layout = substitute(keyboard_layout, 'keyboard-', '', 'g')
   endif
 
   let short_codes = get(g:, 'airline#extensions#xkblayout#short_codes', {'2SetKorean': 'KR', 'Chinese': 'CN', 'Japanese': 'JP'})
