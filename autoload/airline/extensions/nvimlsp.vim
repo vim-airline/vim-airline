@@ -15,8 +15,16 @@ function! s:airline_nvimlsp_count(cnt, symbol) abort
 endfunction
 
 function! airline#extensions#nvimlsp#get(type) abort
-  if luaeval('vim.tbl_isempty(vim.lsp.get_clients())')
-    return ''
+  " Api-change in nvim 0.11
+  " level 12 seems to be nvim 0.10
+  if api_info().version.api_level > 12
+    if luaeval('vim.tbl_isempty(vim.lsp.get_clients())')
+      return ''
+    endif
+  else
+    if luaeval('vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
+      return ''
+    endif
   endif
 
   let error_symbol = get(g:, 'airline#extensions#nvimlsp#error_symbol', 'E:')
