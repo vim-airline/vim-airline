@@ -15,7 +15,7 @@ function! s:airline_nvimlsp_count(cnt, symbol) abort
 endfunction
 
 function! airline#extensions#nvimlsp#get(type) abort
-  if luaeval('vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
+  if luaeval('vim.tbl_isempty(vim.lsp.get_clients())')
     return ''
   endif
 
