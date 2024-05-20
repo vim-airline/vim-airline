@@ -15,9 +15,9 @@ function! s:airline_nvimlsp_count(cnt, symbol) abort
 endfunction
 
 function! airline#extensions#nvimlsp#get(type) abort
-  if has('nvim-0.11') && luaeval('vim.tbl_isempty(vim.lsp.get_clients())')
+  if has('nvim-0.11') && luaeval('vim.tbl_isempty(vim.lsp.get_clients({ bufnr = 0 }))')
     return ''
-  elseif luaeval('vim.tbl_isempty(vim.lsp.buf_get_clients())')
+  elseif !has('nvim-0.11') && luaeval('vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
     return ''
   endif
 
