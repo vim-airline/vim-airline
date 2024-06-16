@@ -440,7 +440,7 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'grepper')
   endif
 
-  if get(g:, 'airline#extensions#xkblayout#enabled', 1) && (exists('g:XkbSwitchLib') || exists('*FcitxCurrentIM'))
+  if get(g:, 'airline#extensions#xkblayout#enabled', 1) && (exists('g:XkbSwitchLib') || exists('*FcitxCurrentIM') || has('nvim'))
     call airline#extensions#xkblayout#init(s:ext)
     call add(s:loaded_ext, 'xkblayout')
   endif
