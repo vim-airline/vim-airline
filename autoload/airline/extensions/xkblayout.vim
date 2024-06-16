@@ -3,7 +3,7 @@
 
 scriptencoding utf-8
 
-if !exists('g:XkbSwitchLib') && !exists('*FcitxCurrentIM')
+if !exists('g:XkbSwitchLib') && !exists('*FcitxCurrentIM') && !has('nvim')
   finish
 endif
 
@@ -11,15 +11,21 @@ function! airline#extensions#xkblayout#status()
   if exists('g:XkbSwitchLib')
     let keyboard_layout = libcall(g:XkbSwitchLib, 'Xkb_Switch_getXkbLayout', '')
     let keyboard_layout = get(split(keyboard_layout, '\.'), -1, '')
+  elseif exists('*FcitxCurrentIMwithRime')
+    let keyboard_layout = FcitxCurrentIMwithRime()
+  elseif exists('*FcitxCurrentIM')
+    let keyboard_layout = FcitxCurrentIM()
+  elseif has('nvim')
+    try
+      let keyboard_layout = luaeval('require"fcitx5-ui".displayCurrentIM()')
+    catch /.*/
+      let keyboard_layout = ''
+    endtry
   else
-    if exists('*FcitxCurrentIMwithRime')
-      let keyboard_layout = FcitxCurrentIMwithRime()
-    else
-      let keyboard_layout = FcitxCurrentIM()
-    endif
-    " substitute keyboard-us to us
-    let keyboard_layout = substitute(keyboard_layout, 'keyboard-', '', 'g')
+    let keyboard_layout = ''
   endif
+  " substitute keyboard-us to us
+  let keyboard_layout = substitute(keyboard_layout, 'keyboard-', '', 'g')
 
   let short_codes = get(g:, 'airline#extensions#xkblayout#short_codes', {'2SetKorean': 'KR', 'Chinese': 'CN', 'Japanese': 'JP'})
   if has_key(short_codes, keyboard_layout)
