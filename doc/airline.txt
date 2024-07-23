@@ -1775,7 +1775,11 @@ details on how to use it, see e.g. <https://github.com/ierton/xkb-switch>
    let g:XkbSwitchLib = '/usr/local/lib/libInputSourceSwitcher.dylib'
 <
   Linux with fcitx (Install https://github.com/fcitx/fcitx5):
-   Install https://github.com/lilydjwg/fcitx.vim) to get `FcitxCurrentIM()`
+   Install https://github.com/lilydjwg/fcitx.vim to get `FcitxCurrentIM()`
+    or https://github.com/black-desk/fcitx5-ui.nvim to get
+    `luaeval('require"fcitx5-ui".displayCurrentIM()')`
+    or https://github.com/Freed-Wu/ime.nvim to get
+    `luaeval('require"ime".current()')`
 
 -------------------------------------                     *airline-xtabline*
 xtabline <https://github.com/mg979/vim-xtabline>
