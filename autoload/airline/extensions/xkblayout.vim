@@ -17,9 +17,13 @@ function! airline#extensions#xkblayout#status()
     let keyboard_layout = FcitxCurrentIM()
   elseif has('nvim')
     try
-      let keyboard_layout = luaeval('require"fcitx5-ui".displayCurrentIM()')
+      let keyboard_layout = luaeval('require"ime".current()')
     catch /.*/
-      let keyboard_layout = ''
+      try
+        let keyboard_layout = luaeval('require"fcitx5-ui".displayCurrentIM()')
+      catch /.*/
+        let keyboard_layout = ''
+      endtry
     endtry
   else
     let keyboard_layout = ''
