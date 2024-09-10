@@ -4,14 +4,16 @@ Describe themes.vim
     highlight clear Normal
   End
 
-  It should extract correct colors
-    call airline#highlighter#reset_hlcache()
-    highlight Foo ctermfg=1 ctermbg=2
-    let colors = airline#themes#get_highlight('Foo')
-    Assert Equals(colors[0], 'NONE')
-    Assert Equals(colors[1], 'NONE')
-    Assert Equals(colors[2], '1')
-    Assert Equals(colors[3], '2')
+  It should extract correct colors with No termguicolors
+    if !exists("+termguicolors")
+      call airline#highlighter#reset_hlcache()
+      highlight Foo ctermfg=1 ctermbg=2
+      let colors = airline#themes#get_highlight('Foo')
+      Assert Equals(colors[0], 'NONE')
+      Assert Equals(colors[1], 'NONE')
+      Assert Equals(colors[2], '1')
+      Assert Equals(colors[3], '2')
+    endif
   End
 
   if exists("+termguicolors")
