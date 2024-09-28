@@ -129,7 +129,7 @@ function! airline#init#bootstrap()
     call extend(g:airline_symbols, {
           \ 'readonly': "\ue0a2",
           \ 'whitespace': "\u2632",
-          \ 'maxlinenr': "\u2630 ",
+          \ 'maxlinenr': "\u2261 ",
           \ 'linenr': " \ue0a1:",
           \ 'colnr': " \u2105:",
           \ 'branch': "\ue0a0",
@@ -148,7 +148,7 @@ function! airline#init#bootstrap()
     call extend(g:airline_symbols, {
           \ 'readonly': "\u229D",
           \ 'whitespace': "\u2632",
-          \ 'maxlinenr': "\u2630",
+          \ 'maxlinenr': "\u2261",
           \ 'linenr': " \u33d1:",
           \ 'colnr': " \u2105:",
           \ 'branch': "\u16A0",
