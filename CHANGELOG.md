@@ -85,7 +85,7 @@ This is the Changelog for the vim-airline project.
   - [fugitive](https://github.com/tpope/vim-fugitive) plugin has been refactored
     causing adjustments for vim-airline, also uses Fugitives new API calls
   - some improvements to Vims terminal mode
-  - Allow to use alternative seperators for inactive windows ([#1236](https://github.com/vim-airline/vim-airline/issues/1236))
+  - Allow to use alternative separators for inactive windows ([#1236](https://github.com/vim-airline/vim-airline/issues/1236))
   - Statusline can be set to inactive, whenever Vim loses focus (using FocusLost autocommand)
 
 ## [0.9] - 2018-01-15
@@ -135,7 +135,7 @@ This is the Changelog for the vim-airline project.
 ## [0.8] - 2016-03-09
 - Changes
   - Airline converted to an organization and moved to new [repository](https://github.com/vim-airline/vim-airline)
-  - Themes have been split into an separate repository [vim-airline-themes](https://github.com/vim-airline/vim-airline-themes)
+  - Themes have been split into a separate repository [vim-airline-themes](https://github.com/vim-airline/vim-airline-themes)
 - Improvements
   - Extensions
     - branch: support Git and Mercurial simultaneously, untracked files
