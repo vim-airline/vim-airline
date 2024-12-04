@@ -72,6 +72,10 @@ function! s:on_window_changed(event)
   let g:airline_last_window_changed = l:key
   call s:init()
   call airline#update_statusline()
+
+  if a:event ==# 'BufUnload'
+    call airline#highlighter#remove_separators_for_bufnr(expand('<abuf>'))
+  endif
 endfunction
 
 function! s:on_focus_gained()

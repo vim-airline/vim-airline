@@ -186,6 +186,10 @@ if !exists(":def") || !airline#util#has_vim9_script()
     call <sid>exec_separator({}, a:from, a:to, a:inverse, '')
   endfunction
 
+  function! airline#highlighter#remove_separators_for_bufnr(bufnr) abort
+    call filter(s:separators, 'stridx(v:key, a:bufnr) < 0')
+  endfunction
+
   function! s:exec_separator(dict, from, to, inverse, suffix) abort
     if pumvisible()
       return
@@ -529,6 +533,10 @@ else
     s:exec_separator({}, from, to, inverse, '')
   enddef
 
+  def airline#highlighter#remove_separators_for_bufnr(bufnr: string): void
+    filter(s:separators, (k, v) => stridx(k, bufnr) < 0)
+  enddef
+
   def s:exec_separator(dict: dict<any>, from_arg: string, to_arg: string, inverse: bool, suffix: string): void
     if pumvisible()
       return
@@ -681,5 +689,5 @@ else
         endfor
       endif
     endfor
-	enddef
+  enddef
 endif
