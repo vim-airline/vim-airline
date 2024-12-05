@@ -48,6 +48,7 @@ function! s:init()
 endfunction
 
 let s:active_winnr = -1
+
 function! s:on_window_changed(event)
   " don't trigger for Vim popup windows
   if &buftype is# 'popup'
@@ -67,11 +68,20 @@ function! s:on_window_changed(event)
         \ && &ft !~? 'gitcommit'
     " fugitive is special, it changes names and filetypes several times,
     " make sure the caching does not get into its way
+    if a:event ==# 'BufUnload'
+      " in the BufUnload event, make sure the cacheing does not prevent
+      " removing stale entries
+      call airline#highlighter#remove_separators_for_bufnr(expand('<abuf>'))
+    endif
     return
   endif
   let g:airline_last_window_changed = l:key
   call s:init()
   call airline#update_statusline()
+
+  if a:event ==# 'BufUnload'
+    call airline#highlighter#remove_separators_for_bufnr(expand('<abuf>'))
+  endif
 endfunction
 
 function! s:on_focus_gained()

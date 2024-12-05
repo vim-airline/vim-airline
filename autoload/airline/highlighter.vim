@@ -186,6 +186,13 @@ if !exists(":def") || !airline#util#has_vim9_script()
     call <sid>exec_separator({}, a:from, a:to, a:inverse, '')
   endfunction
 
+  function! airline#highlighter#remove_separators_for_bufnr(bufnr) abort
+    " remove all separators, that have the buffer number in their name,
+    " but do not be too greedy!
+    let pat = 'c' . a:bufnr . '\(\D\|$\)'
+    call filter(s:separators, 'v:key !~# pat')
+  endfunction
+
   function! s:exec_separator(dict, from, to, inverse, suffix) abort
     if pumvisible()
       return
@@ -529,6 +536,13 @@ else
     s:exec_separator({}, from, to, inverse, '')
   enddef
 
+  def airline#highlighter#remove_separators_for_bufnr(bufnr: string): void
+    # remove all separators, that have the bufnr in its name, make sure we 
+    # have a full match here
+    const pat = $'c{bufnr}\(\D\|$\)'
+    filter(s:separators, (k, v) => k !~# pat)
+  enddef
+
   def s:exec_separator(dict: dict<any>, from_arg: string, to_arg: string, inverse: bool, suffix: string): void
     if pumvisible()
       return
@@ -681,5 +695,5 @@ else
         endfor
       endif
     endfor
-	enddef
+  enddef
 endif
