@@ -47,7 +47,7 @@ Describe init.vim
 
   It section z should be line numbers
     Assert Match(g:airline_section_z, '%p%%')
-    Assert Match(g:airline_section_z, '%l')
+    Assert Match(g:airline_section_z, '%2l')
     Assert Match(g:airline_section_z, '%v')
   End
 
