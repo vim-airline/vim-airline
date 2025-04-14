@@ -27,11 +27,7 @@ endfunction
 function! airline#extensions#fern#configure_sections(win, context) abort
   let spc = g:airline_symbols.space
   let fri = fern#fri#parse(bufname(a:context.bufnr))
-  let abspath = fri.path
-  if fri.path =~ '%\d\d'
-    let abspath = fern#fri#decode(fern#fri#decode(fri.path))
-  endif
-  let abspath = substitute(abspath, 'file://', '', '')
+  let abspath = fern#fri#to#filepath(fern#fri#parse(fri.path))
   call a:win.add_section('airline_a', spc.'fern'.spc)
   if exists('*airline#extensions#branch#get_head')
     " because fern navigation changes an internal _fri_ and not the working directory
