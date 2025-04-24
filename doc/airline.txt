@@ -1207,7 +1207,7 @@ Note: Not displayed if the number of tabs is less than 1
   In default mode, when the variable is 1 Up to 10 mappings will be
   exposed. Note: As 10 and 1 have same prefix, we use 0 to replace 10. So,
   <leader>0 will jump to tenth buffer. Those mappings are not automatically
-  created, vim-airline just exposes those `<Plug>AirlineSeelctTab` keys
+  created, vim-airline just exposes those `<Plug>AirlineSelectTab` keys
   for you to map to a convenient key >
 
   let g:airline#extensions#tabline#buffer_idx_mode = 1
