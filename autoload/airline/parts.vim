@@ -206,3 +206,11 @@ function! airline#parts#ffenc()
     return &fenc.bomb.noeolf.ff
   endif
 endfunction
+
+function! airline#parts#executable()
+  if exists("*getfperm") && getfperm(bufname('%')) =~ 'x'
+    return g:airline_symbols.executable
+  else
+    return ''
+  endif
+endfunction
