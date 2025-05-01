@@ -374,6 +374,7 @@ its contents. >
   let g:airline_symbols.colnr = ' ㏇:'
   let g:airline_symbols.colnr = ' ℅:'
   let g:airline_symbols.crypt = '🔒'
+  let g:airline_symbols.executable = '⚙'
   let g:airline_symbols.linenr = '☰'
   let g:airline_symbols.linenr = ' ␊:'
   let g:airline_symbols.linenr = ' ␤:'
@@ -427,7 +428,7 @@ window.
 >
   variable names                default contents
   ---------------------------------------------------------------------------
-  let g:airline_section_a       (mode, crypt, paste, spell, iminsert)
+  let g:airline_section_a       (mode, crypt, paste, spell, iminsert, executable)
   let g:airline_section_b       (hunks, branch)[*]
   let g:airline_section_c       (bufferline or filename, readonly)
   let g:airline_section_gutter  (csv)
@@ -1918,6 +1919,7 @@ The following list of parts are predefined by vim-airline.
 * `iminsert`     displays the current insert method
 * `paste`        displays the paste indicator
 * `crypt`        displays the crypted indicator
+* `exectuable`   displays the executable indicator
 * `spell`        displays the spell indicator
 * `filetype`     displays the file type
 * `readonly`     displays the read only indicator
