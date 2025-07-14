@@ -51,7 +51,8 @@ endfunction
 
 function! s:conflict_marker()
   " Checks for git conflict markers
-  let annotation = '\%([0-9A-Za-z_.:]\+\)\?'
+  " space required for jj conflict marker: #2727
+  let annotation = '\%([0-9A-Za-z_.: ]\+\)\?'
   if match(['rst', 'markdown', 'rmd'], &ft) >= 0
     " rst filetypes use '=======' as header
     let pattern = '^\%(\%(<\{7} '.annotation. '\)\|\%(>\{7\} '.annotation.'\)\)$'
