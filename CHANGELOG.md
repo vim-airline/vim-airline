@@ -24,6 +24,7 @@ This is the Changelog for the vim-airline project.
   - coc extensions can also show additional status messages as well as the current function
   - [coc-git](https://github.com/neoclide/coc-git) extension integrated into hunks extension
   - rewrote parts using Vim9 Script for performance improvements
+  - [vim-obsession](https://github.com/tpope/vim-obsession) allow to set paused indicator
 - Other
   - Changed CI from travis-ci.org to GitHub Actions
   - Introduce Vim script static analysis using [reviewdog](https://github.com/reviewdog/action-vint)
