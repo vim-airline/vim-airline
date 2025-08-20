@@ -999,8 +999,11 @@ vim-obsession <https://github.com/tpope/vim-obsession>
 * enable/disable vim-obsession integration >
   let g:airline#extensions#obsession#enabled = 1
 
-* set marked window indicator string >
+* set marked window indicator string when recording session>
   let g:airline#extensions#obsession#indicator_text = '$'
+
+* set marked window indicator string when recording session is paused>
+  let g:airline#extensions#obsession#indicator_text_paused = ''
 <
 -------------------------------------                    *airline-omnisharp*
 OmniSharp <https://github.com/OmniSharp/omnisharp-vim>
