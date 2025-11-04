@@ -4,8 +4,8 @@
 scriptencoding utf-8
 
 let s:spc = g:airline_symbols.space
-
 let s:current_bufnr = -1
+let s:current_tabnr = -1
 let s:current_modified = 0
 let s:current_tabline = ''
 let s:current_visible_buffers = []
@@ -49,14 +49,15 @@ function! airline#extensions#tabline#buffers#invalidate()
 endfunction
 
 function! airline#extensions#tabline#buffers#get()
+  let curbuf = bufnr('%')
+  let curtab = tabpagenr()
   try
     call <sid>map_keys()
   catch
     " no-op
   endtry
-  let cur = bufnr('%')
-  if cur == s:current_bufnr && &columns == s:column_width
-    if !g:airline_detect_modified || getbufvar(cur, '&modified') == s:current_modified
+  if curbuf == s:current_bufnr && curtab == s:current_tabnr && &columns == s:column_width
+    if !g:airline_detect_modified || getbufvar(curbuf, '&modified') == s:current_modified
       return s:current_tabline
     endif
   endif
@@ -77,10 +78,10 @@ function! airline#extensions#tabline#buffers#get()
   let b.overflow_group = 'airline_tabhid'
   let b.buffers = airline#extensions#tabline#buflist#list()
   if get(g:, 'airline#extensions#tabline#current_first', 0)
-    if index(b.buffers, cur) > -1
-      call remove(b.buffers, index(b.buffers, cur))
+    if index(b.buffers, curbuf) > -1
+      call remove(b.buffers, index(b.buffers, curbuf))
     endif
-    let b.buffers = [cur] + b.buffers
+    let b.buffers = [curbuf] + b.buffers
   endif
 
   function! b.get_group(i) dict
@@ -129,7 +130,7 @@ function! airline#extensions#tabline#buffers#get()
     endif
   endfunction
 
-  let current_buffer = max([index(b.buffers, cur), 0])
+  let current_buffer = max([index(b.buffers, curbuf), 0])
   let last_buffer = len(b.buffers) - 1
   call b.insert_titles(current_buffer, 0, last_buffer)
 
@@ -142,7 +143,8 @@ function! airline#extensions#tabline#buffers#get()
 
   call airline#extensions#tabline#add_tab_label(b)
 
-  let s:current_bufnr = cur
+  let s:current_bufnr = curbuf
+  let s:current_tabnr = curtab
   let s:column_width = &columns
   let s:current_tabline = b.build()
   let s:current_visible_buffers = copy(b.buffers)
