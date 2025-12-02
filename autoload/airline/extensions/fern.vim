@@ -37,7 +37,9 @@ function! airline#extensions#fern#configure_sections(win, context) abort
     " because fern navigation changes an internal _fri_ and not the working directory
     " we need to give it some help so the branch name gets updated
     try
-      execute 'lcd' fnameescape(abspath)
+      if &ft ==# 'fern'
+        execute 'lcd' fnameescape(abspath)
+      endif
     catch /^Vim\%((\a\+)\)\=:E344:/
       call a:win.add_section('airline_b', '')
     endtry
