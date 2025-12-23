@@ -8,6 +8,7 @@ scriptencoding utf-8
 let s:show_message = get(g:, 'airline#extensions#whitespace#show_message', 1)
 let s:symbol = get(g:, 'airline#extensions#whitespace#symbol', g:airline_symbols.whitespace)
 let s:default_checks = ['indent', 'trailing', 'mixed-indent-file', 'conflicts']
+let s:searchcount = exists('*searchcount')
 
 let s:enabled = get(g:, 'airline#extensions#whitespace#enabled', 1)
 let s:skip_check_ft = {'make': ['indent', 'mixed-indent-file'],
@@ -63,6 +64,9 @@ function! s:conflict_marker()
 endfunction
 
 function! s:conflict_marker_count()
+  if !s:searchcount
+    return 0
+  endif
   " Checks for git conflict markers
   " space required for jj conflict marker: #2727
   let annotation = '\%([0-9A-Za-z_.: ]\+\)\?'
