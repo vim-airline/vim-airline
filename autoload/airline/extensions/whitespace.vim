@@ -62,6 +62,16 @@ function! s:conflict_marker()
   return search(pattern, 'nw')
 endfunction
 
+function! s:conflict_marker_count()
+  " Checks for git conflict markers
+  " space required for jj conflict marker: #2727
+  let annotation = '\%([0-9A-Za-z_.: ]\+\)\?'
+  let pattern = '^<\{7} '.annotation. '$'
+  let cnt = searchcount(#{pattern: pattern, recompute: 1, timeout: 10})
+  return has_key(cnt, 'total') ? cnt.total : 0
+endfunction
+
+
 function! airline#extensions#whitespace#check()
   let max_lines = get(g:, 'airline#extensions#whitespace#max_lines', 20000)
   if &readonly || !&modifiable || !s:enabled || line('$') > max_lines
@@ -109,6 +119,7 @@ function! airline#extensions#whitespace#check()
     let conflicts = 0
     if index(checks, 'conflicts') > -1
       let conflicts = s:conflict_marker()
+      let conflicts_count = s:conflict_marker_count()
     endif
 
     if trailing != 0 || mixed != 0 || long != 0 || !empty(mixed_file) || conflicts != 0
@@ -139,6 +150,9 @@ function! airline#extensions#whitespace#check()
         if conflicts != 0
           let conflicts_fmt = get(g:, 'airline#extensions#whitespace#conflicts_format', '[%s]conflicts')
           let b:airline_whitespace_check .= space.printf(conflicts_fmt, conflicts)
+          if conflicts_count > 1
+            let b:airline_whitespace_check .= printf('*%d', conflicts_count)
+          endif
         endif
       endif
     endif
