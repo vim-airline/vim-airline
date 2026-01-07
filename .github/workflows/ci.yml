@@ -4,7 +4,6 @@ on:
   push:
     branches:
     - master
-    - angrymaciek
   pull_request:
     branches:
     - master
