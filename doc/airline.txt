@@ -1883,6 +1883,11 @@ default: '> Zoomed'
 
 default: ''
 
+-------------------------------------                    *airline-zhihu*
+zhihu.nvim <https://github.com/pxwg/zhihu.nvim>
+
+Temporarily no any switches.
+
 =============================================================================
 ADVANCED CUSTOMIZATION                      *airline-advanced-customization*
 

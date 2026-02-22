@@ -526,6 +526,11 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'rufo')
   endif
 
+  if (get(g:, 'airline#extensions#zhihu#enabled', 1) && airline#util#has_zhihu())
+    call airline#extensions#zhihu#init(s:ext)
+    call add(s:loaded_ext, 'zhihu')
+  endif
+
 endfunction
 
 function! airline#extensions#get_loaded_extensions()

@@ -149,6 +149,18 @@ function! airline#util#has_fugitive()
   return s:has_fugitive
 endfunction
 
+function! airline#util#has_zhihu()
+  if !has('nvim')
+    return 0
+  endif
+  try
+    call v:lua.require'zhihu'.setup()
+  catch
+    return 0
+  endtry
+  return 1
+endfunction
+
 function! airline#util#has_gina()
   if !exists("s:has_gina")
     let s:has_gina = (exists(':Gina') && v:version >= 800)
