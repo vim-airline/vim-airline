@@ -1883,6 +1883,13 @@ default: '> Zoomed'
 
 default: ''
 
+-------------------------------------                    *airline-zhihu*
+zhihu.nvim <https://github.com/pxwg/zhihu.nvim>
+
+* enable/disable zhihu integration >
+  let g:airline#extensions#zhihu#enabled = 1
+
+
 =============================================================================
 ADVANCED CUSTOMIZATION                      *airline-advanced-customization*
 
