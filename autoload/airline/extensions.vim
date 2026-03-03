@@ -177,6 +177,11 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'netrw')
   endif
 
+  if get(g:, 'loaded_nerdfont', 0) && get(g:, 'airline#extensions#nerdfont#enabled', 1)
+    call airline#extensions#nerdfont#init(s:ext)
+    call add(s:loaded_ext, 'nerdfont')
+  endif
+
   " fzf buffers are also terminal buffers, so this must be above term.
   if exists(':FZF') && get(g:, 'airline#extensions#fzf#enabled', 1)
     call airline#extensions#fzf#init(s:ext)
