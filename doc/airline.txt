@@ -955,6 +955,18 @@ neomake <https://github.com/neomake/neomake>
 * neomake warning >
   let g:airline#extensions#neomake#warning_symbol = 'W:'
 <
+-------------------------------------                   *airline-nerdfont*
+NerdFont <https://github.com/lambdalisue/nerdfont.vim>
+
+* enable/disable nerdfont integration >
+  let g:airline#extensions#nerdfont#enabled = 1
+<  default: 1
+
+* nerdfont's tabline formatter >
+  let g:airline#extensions#tabline#formatter = 'nerdfont'
+  let g:airline#extensions#tabline#formatters#nerdfont#formatter = 'default'
+<  default: 'default'
+
 -------------------------------------                   *airline-nerdtree*
 NerdTree <https://github.com/preservim/nerdtree.git>
 
