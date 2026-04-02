@@ -8,7 +8,7 @@ if !airline#util#has_zhihu()
   finish
 endif
 
-let s:has_percent_eval = v:version > 802 || (v:version == 802 && has("patch2854"))
+let s:has_percent_eval = v:version >= 900 || (v:version >= 900 && has("patch2854"))
 
 function! airline#extensions#zhihu#bufname() abort
   let fmod = (exists("+autochdir") && &autochdir) ? ':p' : ':.'
