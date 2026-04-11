@@ -190,12 +190,8 @@ function! s:section_is_empty(self, content)
   endif
 
   " only check, if airline#skip_empty_sections == 1
-  if get(g:, 'airline_skip_empty_sections', 0) == 0
-    return 0
-  endif
-
-  " only check, if airline#skip_empty_sections == 1
-  if get(w:, 'airline_skip_empty_sections', -1) == 0
+  if get(g:, 'airline_skip_empty_sections', 0) == 0 ||
+        \ get(w:, 'airline_skip_empty_sections', -1) == 0
     return 0
   endif
 
