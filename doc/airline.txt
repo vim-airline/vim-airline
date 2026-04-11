@@ -1448,6 +1448,30 @@ groups:
   airline_tabhid:	hidden buffer
   airline_tabhid_right: idem, but on the right
 
+-------------------------------------                      *airline-tabpanel*
+
+Vim supports a vertical tab panel (see |'tabpanelexpr'|) that displays tab
+pages in a side column. This extension provides airline-styled formatting for
+the tab panel. Requires a Vim version that supports |'tabpanelexpr'|.
+
+* enable/disable tabpanel integration >
+  let g:airline#extensions#tabpanel#enabled = 1
+< default: 0
+
+* configure the width of the tab panel (in columns) >
+  let g:airline#extensions#tabpanel#columns = 20
+< default: 20
+
+* configure the alignment of the tab panel >
+  let g:airline#extensions#tabpanel#align = 'left'
+< default: '' (uses Vim's default)
+
+Note: The tabpanel extension reuses the tabline highlight groups
+(|airline-tabline-hlgroups|) and respects the tabline tab number settings
+(|g:airline#extensions#tabline#show_tab_nr|,
+|g:airline#extensions#tabline#tab_nr_type|,
+|g:airline#extensions#tabline#tabnr_formatter|).
+
 -------------------------------------                      *airline-scrollbar*
 
 Displays an Ascii Scrollbar for active windows with a width > 200.
