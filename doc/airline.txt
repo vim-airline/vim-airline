@@ -306,6 +306,13 @@ values):
 * Display a short path in statusline: >
   let g:airline_stl_path_style = 'short'
 >
+* Display the file path relative to the git repository toplevel directory: >
+  let g:airline_stl_path_style = 'gitrepo'
+<
+  This shows the path as `reponame:path/to/file` instead of the full path.
+  Requires vim-fugitive (https://github.com/tpope/vim-fugitive).
+  Falls back to the full path for non-git files.
+
 * Display a only file name in statusline: >
   let g:airline_section_c_only_filename = 1
 >

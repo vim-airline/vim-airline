@@ -199,6 +199,8 @@ function! airline#init#bootstrap()
         \ })
   if get(g:, 'airline_section_c_only_filename',0)
     call airline#parts#define_raw('file', '%t%m')
+  elseif get(g:, 'airline_stl_path_style', 'default') ==# 'gitrepo'
+    call airline#parts#define_function('file', 'airline#parts#gitrepo')
   else
     call airline#parts#define_raw('file', airline#formatter#short_path#format('%f%m'))
   endif
