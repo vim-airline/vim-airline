@@ -97,6 +97,7 @@ function! airline#extensions#tabline#buffers#get()
   endfunction
 
   if has("tablineat")
+    " Neovim version
     function! b.get_pretitle(i) dict
       let bufnum = get(self.buffers, a:i, -1)
       return '%'.bufnum.'@airline#extensions#tabline#buffers#clickbuf@'
@@ -104,6 +105,17 @@ function! airline#extensions#tabline#buffers#get()
 
     function! b.get_posttitle(i) dict
       return '%X'
+    endfunction
+  endif
+
+  if has("statusline_click")
+    " Vim version
+    function! b.get_pretitle(i) dict
+      return '%'.get(self.buffers, a:i, -1).'[airline#extensions#tabline#buffers#clickbufVim]'
+    endfunction
+
+    function! b.get_posttitle(i) dict
+      return '%[]'
     endfunction
   endif
 
@@ -212,6 +224,61 @@ function! s:map_keys()
     " Enable this for debugging
     " com! AirlineBufferList :echo map(copy(s:current_visible_buffers), {i,k -> k.": ".bufname(k)})
   endif
+endfunction
+
+function! airline#extensions#tabline#buffers#clickbufVim(dict) abort
+    " Clickable buffers in Vim, requires v9.2.0338
+
+    " single mouse button click without modifiers pressed
+    if a:dict.nclicks == 1 && empty(a:dict.mods)
+      if a:dict.button is# 'l'
+        " left button - switch to buffer
+        try
+          silent execute 'buffer' a:dict.minwid
+        catch
+          call airline#util#warning("Cannot switch buffer, current buffer is modified! See :h 'hidden'")
+        endtry
+      elseif a:dict.button is# 'm'
+        " middle button - delete buffer
+
+        if get(g:, 'airline#extensions#tabline#middle_click_preserves_windows', 0) == 0 || winnr('$') == 1
+          " just simply delete the clicked buffer. This will cause windows
+          " associated with the clicked buffer to be closed.
+          silent execute 'bdelete' a:dict.minwid
+        else
+          " find windows displaying the clicked buffer and open an new
+          " buffer in them.
+          let current_window = bufwinnr("%")
+          let window_number = bufwinnr(a:dict.minwid)
+          let last_window_visited = -1
+
+          " Set to 1 if the clicked buffer was open in any windows.
+          let buffer_in_window = 0
+
+          " Find the next window with the clicked buffer open. If bufwinnr()
+          " returns the same window number, this is because we clicked a new
+          " buffer, and then tried editing a new buffer. Vim won't create a
+          " new empty buffer for the same window, so we get the same window
+          " number from bufwinnr(). In this case we just give up and don't
+          " delete the buffer.
+          " This could be made cleaner if we could check if the clicked buffer
+          " is a new buffer, but I don't know if there is a way to do that.
+          while window_number != -1 && window_number != last_window_visited
+            let buffer_in_window = 1
+            silent execute window_number . 'wincmd w'
+            silent execute 'enew'
+            let last_window_visited = window_number
+            let window_number = bufwinnr(a:minwid)
+          endwhile
+          silent execute current_window . 'wincmd w'
+          if window_number != last_window_visited || buffer_in_window == 0
+            silent execute 'bdelete' a:dict.minwid
+          endif
+        endif
+      endif
+    endif
+    " force a redraw
+    return 1
 endfunction
 
 function! airline#extensions#tabline#buffers#clickbuf(minwid, clicks, button, modifiers) abort

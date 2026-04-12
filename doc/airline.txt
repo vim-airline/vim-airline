@@ -266,9 +266,9 @@ values):
   " disable per-buffer
   let b:airline_disable_statusline = 1
 
-< This setting disables setting the 'statusline' option. This allows to use
- e.g. the tabline extension (|airline-tabline|) but keep the 'statusline'
- option totally configurable by a custom configuration.
+<  This setting disables setting the 'statusline' option. This allows to use
+  e.g. the tabline extension (|airline-tabline|) but keep the 'statusline'
+  option totally configurable by a custom configuration.
 * Do not draw separators for empty sections (only for the active window) >
   let g:airline_skip_empty_sections = 1
 <
@@ -1149,8 +1149,8 @@ are supported!
   (only supported for ctrlspace plugin). >
   let g:airline#extensions#tabline#switch_buffers_and_tabs = 0
 
-Note: If you are using neovim (has('tablineat') = 1), then you can click
-on the tabline with the left mouse button to switch to that buffer, and
+Note: If you are using Neovim or Vim with at least v9.2.0338, then you can
+click on the tabline with the left mouse button to switch to that buffer, and
 with the middle mouse button to delete that buffer.
 
 * if you want to show the current active buffer like this:
