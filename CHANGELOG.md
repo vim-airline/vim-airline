@@ -12,12 +12,22 @@ This is the Changelog for the vim-airline project.
     - [vim-dirvish](https://github.com/justinmk/vim-dirvish) support
     - [fzf.vim](https://github.com/junegunn/fzf.vim) support
     - [OmniSharp](https://github.com/OmniSharp/omnisharp-vim) support
-    - [searchcount](https://vim-jp.org/vimdoc-en/eval.html#searchcount())  support
+    - [searchcount](https://vim-jp.org/vimdoc-en/eval.html#searchcount()) support
     - [fern.vim](https://github.com/lambdalisue/fern.vim) support
     - [Vim-CMake](https://github.com/cdelledonne/vim-cmake) support
     - [battery.vim](https://github.com/lambdalisue/battery.vim) support
     - [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) support
     - [gen_tags.vim](https://github.com/jsfaint/gen_tags.vim) support
+    - [vim-rufu](https://github.com/ruby-formatter/rufo-vim) support
+    - [vim-flog](https://github.com/rbong/vim-flog) support
+    - [nvim-lsp](https://github.com/neovim/nvim-lsp) support
+    - [vim9lsp.vim](https://github.com/yegappan/lsp) support
+    - [fcitx.vim](https://github.com/fcitx/fcitx5) support
+    - [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) support
+    - [codeium](https://github.com/Exafunction/codeium.vim) support
+    - [vimodoro](https://github.com/VimfanTPdvorak/vimodoro) support
+    - [nerdfont](https://github.com/lambdalisue/nerdfont.vim) support
+    - [zhihu](https://github.com/pxwg/zhihu.nvim) Neovim support
     - Ascii Scrollbar support
 - Improvements
   - git branch can also be displayed using [gina.vim](https://github.com/lambdalisue/gina.vim)
@@ -25,10 +35,17 @@ This is the Changelog for the vim-airline project.
   - [coc-git](https://github.com/neoclide/coc-git) extension integrated into hunks extension
   - rewrote parts using Vim9 Script for performance improvements
   - [vim-obsession](https://github.com/tpope/vim-obsession) allow to set paused indicator
+  - Display executable symbol for executable script
+  - Support for Neovims global statusline
+  - whitespace extensions: add git conflict marker support
+  - Support tabpanel (Vim only)
+  - Support multi-line statusline (Vim only)
+  - Support clickable buffers in Vim
+  - Support for showing `repo:/path/file` path like style using the `gitrepo` style
 - Other
   - Changed CI from travis-ci.org to GitHub Actions
   - Introduce Vim script static analysis using [reviewdog](https://github.com/reviewdog/action-vint)
-  - Added multiple Vim versions to unit tests using Travis CI
+  - Added multiple Vim versions to unit tests
   - Added option to show short paths in the status line
 
 ## [0.11] - 2019-11-10
