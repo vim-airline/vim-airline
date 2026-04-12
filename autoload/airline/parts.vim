@@ -214,3 +214,24 @@ function! airline#parts#executable()
     return ''
   endif
 endfunction
+
+function! airline#parts#gitrepo() abort
+  if !exists('*FugitiveFind')
+    return expand('%:p')
+  endif
+  let toplevel = FugitiveFind(':/', bufnr(''))
+  if empty(toplevel)
+    return expand('%:p')
+  endif
+  " Remove trailing separator
+  let toplevel = substitute(toplevel, '[/\\]$', '', '')
+  let reponame = fnamemodify(toplevel, ':t')
+  let fullpath = resolve(expand('%:p'))
+  " Get file path relative to repo root
+  if fullpath[:len(toplevel)-1] ==# toplevel
+    let relpath = fullpath[len(toplevel)+1:]
+  else
+    let relpath = expand('%:t')
+  endif
+  return reponame .. ':' .. relpath .. (&modified ? '[+]' : '')
+endfunction
