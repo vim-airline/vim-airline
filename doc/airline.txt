@@ -1279,9 +1279,14 @@ Note: Not displayed if the number of tabs is less than 1
   This matches that of the numbering scheme of |:buffers|, letting
   `<Plug>AirlineSelectTab67` to reference buffer 67.
 
-  Note: To avoid ambiguity, there won't be <Plug>AirlineSelectTab1
-  - <Plug>AirlineSelectTab9 maps in mode 2 and 3.
+  Note: To avoid ambiguity, there won't be
+  <Plug>AirlineSelectTab1 - <Plug>AirlineSelectTab9
+  maps in mode 2 and 3.
 
+  To go to the very first/last buffer, you can use: >
+  nmap <Leader>FT <Plug>AirlineSelectFirstTab
+  nmap <Leader>LT <Plug>AirlineSelectLastTab
+<
   Note: Mappings will be ignored for filetypes that match
   `g:airline#extensions#tabline#keymap_ignored_filetypes`.
 

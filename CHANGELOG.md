@@ -42,6 +42,8 @@ This is the Changelog for the vim-airline project.
   - Support multi-line statusline (Vim only)
   - Support clickable buffers in Vim
   - Support for showing `repo:/path/file` path like style using the `gitrepo` style
+  - tabline: Expose `<Plug>AirlineSelectFirstTab` and `<Plug>AirlineSelectLastTab`
+  - tabline: Add a new `buffer_idx_mode` that adds a lot more mappings.
 - Other
   - Changed CI from travis-ci.org to GitHub Actions
   - Introduce Vim script static analysis using [reviewdog](https://github.com/reviewdog/action-vint)

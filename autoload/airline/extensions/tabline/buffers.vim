@@ -221,6 +221,8 @@ function! s:map_keys()
     endif
     noremap <silent> <Plug>AirlineSelectPrevTab :<C-u>call <SID>jump_to_tab(-v:count1)<CR>
     noremap <silent> <Plug>AirlineSelectNextTab :<C-u>call <SID>jump_to_tab(v:count1)<CR>
+    noremap <silent> <Plug>AirlineSelectFirstTab :<C-u>call <SID>select_tab(0)<CR>
+    noremap <silent> <Plug>AirlineSelectLastTab :<C-u>call <SID>select_tab(len(airline#extensions#tabline#buflist#list()) - 1)<CR>
     " Enable this for debugging
     " com! AirlineBufferList :echo map(copy(s:current_visible_buffers), {i,k -> k.": ".bufname(k)})
   endif
