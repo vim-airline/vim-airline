@@ -203,6 +203,9 @@ function! s:airline_toggle()
         endif
       endif
     endif
+    if airline#util#has_multiline() && &statuslineopt !~ 'maxheight:'
+      set statuslineopt+=maxheight:2
+    endif
     if s:airline_initialized
       call s:on_window_changed('Init')
     endif

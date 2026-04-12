@@ -6,7 +6,7 @@ scriptencoding utf-8
 let g:airline_statusline_funcrefs = get(g:, 'airline_statusline_funcrefs', [])
 let g:airline_inactive_funcrefs = get(g:, 'airline_inactive_statusline_funcrefs', [])
 
-let s:sections = ['a','b','c','gutter','x','y','z', 'error', 'warning']
+let s:sections = ['a','b','c','gutter','x','y','z', 'error', 'warning', 'warning2']
 let s:contexts = {}
 let s:core_funcrefs = [
       \ function('airline#extensions#apply'),

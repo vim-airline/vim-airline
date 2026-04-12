@@ -250,3 +250,9 @@ function! airline#util#has_vim9_script()
     \ get(g:, "airline_experimental", 0))
 endfunction
 
+function! airline#util#has_multiline()
+  " Returns true, if Vim supports multiline statusline (Vim 9.2.0083)
+  return (exists("+statuslineopt") &&
+    \ get(g:, "airline_multiline", 0))
+endfunction
+

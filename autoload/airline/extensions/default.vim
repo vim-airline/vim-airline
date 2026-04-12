@@ -11,10 +11,11 @@ let s:section_truncate_width = get(g:, 'airline#extensions#default#section_trunc
       \ 'z': 45,
       \ 'warning': 80,
       \ 'error': 80,
+      \ 'warning2': 80,
       \ })
 let s:layout = get(g:, 'airline#extensions#default#layout', [
       \ [ 'a', 'b', 'c' ],
-      \ [ 'x', 'y', 'z', 'warning', 'error' ]
+      \ [ 'x', 'y', 'z', 'warning', 'error', 'warning2' ]
       \ ])
 
 function! s:get_section(winnr, key, ...)
@@ -32,9 +33,24 @@ function! s:get_section(winnr, key, ...)
   return empty(text) ? '' : prefix.text.suffix
 endfunction
 
+function! s:eval_section_empty(content)
+  let exprlist = []
+  call substitute(a:content, '%{\([^}]*\)}', '\=add(exprlist, submatch(1))', 'g')
+  for expr in exprlist
+    try
+      if !empty(eval(expr))
+        return 0
+      endif
+    catch
+      return 0
+    endtry
+  endfor
+  return 1
+endfunction
+
 function! s:build_sections(builder, context, keys)
   for key in a:keys
-    if (key == 'warning' || key == 'error') && !a:context.active
+    if (key == 'warning' || key == 'error' || key == 'warning2') && !a:context.active
       continue
     endif
     call s:add_section(a:builder, a:context, key)
@@ -49,21 +65,30 @@ if s:section_use_groups && (v:version >= 704 || (v:version >= 703 && has('patch8
           \ (v:version == 704 && !has("patch1511"))
     " i have no idea why the warning section needs special treatment, but it's
     " needed to prevent separators from showing up
-    if ((a:key == 'error' || a:key == 'warning') && empty(s:get_section(a:context.winnr, a:key)))
+    if ((a:key == 'error' || a:key == 'warning' || a:key == 'warning2')
+          \ && empty(s:get_section(a:context.winnr, a:key)))
       return
     endif
-    if condition
-      call a:builder.add_raw('%(')
-    endif
-    call a:builder.add_section('airline_'.a:key, s:get_section(a:context.winnr, a:key))
-    if condition
-      call a:builder.add_raw('%)')
+    if a:key == 'warning2' && airline#util#has_multiline()
+      let section = s:get_section(a:context.winnr, a:key)
+      if !s:eval_section_empty(section)
+        call a:builder.add_raw('%@%#airline_warning#'.section)
+      endif
+    else
+      if condition
+        call a:builder.add_raw('%(')
+      endif
+      call a:builder.add_section('airline_'.a:key, s:get_section(a:context.winnr, a:key))
+      if condition
+        call a:builder.add_raw('%)')
+      endif
     endif
   endfunction
 else
   " older version don't like the use of %(%)
   function! s:add_section(builder, context, key)
-    if ((a:key == 'error' || a:key == 'warning') && empty(s:get_section(a:context.winnr, a:key)))
+    if ((a:key == 'error' || a:key == 'warning')
+          \ && empty(s:get_section(a:context.winnr, a:key)))
       return
     endif
     if a:key == 'warning'
