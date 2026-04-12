@@ -400,6 +400,11 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'tabline')
   endif
 
+  if get(g:, 'airline#extensions#tabpanel#enabled', 0)
+    call airline#extensions#tabpanel#Init(s:ext)
+    call add(s:loaded_ext, 'tabpanel')
+  endif
+
   if get(g:, 'airline#extensions#tmuxline#enabled', 1) && exists(':Tmuxline')
     call airline#extensions#tmuxline#init(s:ext)
     call add(s:loaded_ext, 'tmuxline')
