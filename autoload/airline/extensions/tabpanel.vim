@@ -20,7 +20,7 @@ def IsTabModified(tabnr: number): bool
 enddef
 
 export def Get(): string
-  var tabnr = g:actual_curtabpage
+  var tabnr = get(g:, 'actual_curtabpage', tabpagenr())
   var curtab = tabpagenr()
   var label = ''
 
@@ -66,7 +66,8 @@ def LinkHighlights(): void
   highlight! link TabPanel airline_tab
 enddef
 
-export def LoadTheme(_: dict<any>): number
+export def LoadTheme(palette: dict<any>): number
+  airline#extensions#tabline#load_theme(palette)
   LinkHighlights()
   return 0
 enddef
