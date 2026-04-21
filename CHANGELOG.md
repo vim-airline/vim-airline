@@ -38,7 +38,7 @@ This is the Changelog for the vim-airline project.
   - Display executable symbol for executable script
   - Support for Neovims global statusline
   - whitespace extensions: add git conflict marker support
-  - Support tabpanel (Vim only)
+  - Support tabpanel, including mouse and scroll support (Vim only)
   - Support multi-line statusline (Vim only)
   - Support clickable buffers in Vim
   - Support for showing `repo:/path/file` path like style using the `gitrepo` style

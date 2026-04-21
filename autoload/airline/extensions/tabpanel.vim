@@ -6,6 +6,7 @@ vim9script
 scriptencoding utf-8
 
 var spc = g:airline_symbols.space
+var mouse_support = has('patch-9.2.0386') 
 
 def IsTabModified(tabnr: number): bool
   if !g:airline_detect_modified
@@ -51,13 +52,41 @@ export def Get(): string
     endif
   endif
 
+  if mouse_support
+    label ..= '%' .. tabnr .. '[airline#extensions#tabpanel#ClickTab]'
+  endif
+
   if get(g:, 'airline#extensions#tabline#show_tab_nr', 1)
     label ..= spc .. tabnr
     label ..= spc
   endif
 
   label ..= title .. spc
+
+  if mouse_support
+    label ..= '%[]'
+  endif
   return label
+enddef
+
+export def ClickTab(info: dict<any>): number
+  if info.nclicks != 1 || !empty(info.mods)
+    return 0
+  endif
+  if info.button ==# 'l'
+    try
+      silent execute 'tabnext' info.minwid
+    catch
+      airline#util#warning('Cannot switch tab')
+    endtry
+  elseif info.button ==# 'm'
+    try
+      silent execute 'tabclose' info.minwid
+    catch
+      airline#util#warning('Cannot close tab')
+    endtry
+  endif
+  return 0
 enddef
 
 def LinkHighlights(): void
@@ -77,9 +106,18 @@ def Enable(): void
   &tabpanel = '%!airline#extensions#tabpanel#Get()'
   var cols = get(g:, 'airline#extensions#tabpanel#columns', 20)
   var align = get(g:, 'airline#extensions#tabpanel#align', '')
+  var scroll = get(g:, 'airline#extensions#tabpanel#scroll', 1)
+  var scrollbar = get(g:, 'airline#extensions#tabpanel#scrollbar', 1)
   var opts = 'columns:' .. cols
   if !empty(align)
     opts ..= ',align:' .. align
+  endif
+  if mouse_support
+    if scrollbar
+      opts ..= ',scrollbar'
+    elseif scroll
+      opts ..= ',scroll'
+    endif
   endif
   &tabpanelopt = opts
   &showtabpanel = 2

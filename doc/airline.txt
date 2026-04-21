@@ -1485,11 +1485,26 @@ Vim >9.1.1391).
   let g:airline#extensions#tabpanel#align = 'left'
 < default: '' (uses Vim's default)
 
+* enable mouse wheel scrolling over the tabpanel area when the tab list
+  exceeds the visible screen height (requires Vim patch 9.2.386) >
+  let g:airline#extensions#tabpanel#scroll = 1
+< default: 0
+
+* reserve a one-column scrollbar in the tabpanel showing the current scroll
+  position; clicking or dragging the thumb jumps to that position (requires
+  Vim patch 9.2.386; implies scroll) >
+  let g:airline#extensions#tabpanel#scrollbar = 1
+< default: 0
+
 Note: The tabpanel extension reuses the tabline highlight groups
 (|airline-tabline-hlgroups|) and respects the tabline tab number settings
 (|g:airline#extensions#tabline#show_tab_nr|,
 |g:airline#extensions#tabline#tab_nr_type|,
 |g:airline#extensions#tabline#tabnr_formatter|).
+
+Note: Starting with Vim v9.2.0386 Vim adds mouse support for the tabpanel
+and each tab entry is clickable: a left mouse click switches to the tab and a
+middle click closes it, however 'mouse' setting needs to be enabled.
 
 -------------------------------------                      *airline-scrollbar*
 
