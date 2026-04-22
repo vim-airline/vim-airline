@@ -47,8 +47,7 @@ section|meaning (example)
   X    | filetype  (vim)
   Y    | file encoding[fileformat] (utf-8[unix])
   Z    | current position in the file
- [...] | additional sections (warning/errors/statistics) from external plugins (e.g. YCM, syntastic, ...)
-       | can be shown on a second line optionally (Vim only)
+ [...] | additional sections (warning/errors/statistics) from external plugins (e.g. YCM, syntastic, ...)<br>can be shown on a second line optionally (Vim only)
 
 The information in Section Z looks like this:
 
