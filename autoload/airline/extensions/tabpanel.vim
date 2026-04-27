@@ -106,7 +106,6 @@ def Enable(): void
   &tabpanel = '%!airline#extensions#tabpanel#Get()'
   var cols = get(g:, 'airline#extensions#tabpanel#columns', 20)
   var align = get(g:, 'airline#extensions#tabpanel#align', '')
-  var scroll = get(g:, 'airline#extensions#tabpanel#scroll', 1)
   var scrollbar = get(g:, 'airline#extensions#tabpanel#scrollbar', 1)
   var opts = 'columns:' .. cols
   if !empty(align)
@@ -115,8 +114,6 @@ def Enable(): void
   if mouse_support
     if scrollbar
       opts ..= ',scrollbar'
-    elseif scroll
-      opts ..= ',scroll'
     endif
   endif
   &tabpanelopt = opts
