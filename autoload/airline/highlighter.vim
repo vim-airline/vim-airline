@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2013-2021 Bailey Ling Christian Brabandt et al.
+" MIT License. Copyright (c) 2013-2026 Bailey Ling Christian Brabandt et al.
 " vim: et ts=2 sts=2 sw=2 et
 
 scriptencoding utf-8
@@ -537,7 +537,7 @@ else
   enddef
 
   def airline#highlighter#remove_separators_for_bufnr(bufnr: string): void
-    # remove all separators, that have the bufnr in its name, make sure we 
+    # remove all separators, that have the bufnr in its name, make sure we
     # have a full match here
     const pat = $'c{bufnr}\(\D\|$\)'
     filter(s:separators, (k, v) => k !~# pat)

@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2021       DEMAREST Maxime (maxime@indelog.fr)
+" MIT License. Copyright (c) 2021 DEMAREST Maxime (maxime@indelog.fr)
 " Plugin: https://github.com/yegappan/taglist/
 " vim: et ts=2 sts=2 sw=2
 

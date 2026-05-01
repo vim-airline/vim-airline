@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2013-2021 Bailey Ling, Christian Brabandt et al.
+" MIT License. Copyright (c) 2013-2026 Bailey Ling, Christian Brabandt et al.
 " vim: et ts=2 sts=2 sw=2
 
 let s:save_cpo = &cpo
@@ -148,21 +148,21 @@ function! s:airline_toggle()
       autocmd ColorScheme * call <sid>on_colorscheme_changed()
       " Set all statuslines to inactive
       autocmd FocusLost * call airline#update_statusline_focuslost()
-      
+
       " Refresh airline for :syntax off
       autocmd SourcePre */syntax/syntax.vim
             \ call airline#extensions#tabline#buffers#invalidate()
-            
+
       autocmd VimEnter * call <sid>on_window_changed('VimEnter')
       autocmd WinEnter * call <sid>on_window_changed('WinEnter')
       autocmd FileType * call <sid>on_window_changed('FileType')
       autocmd BufWinEnter * call <sid>on_window_changed('BufWinEnter')
       autocmd BufUnload * call <sid>on_window_changed('BufUnload')
-      
+
       if exists('##CompleteDone')
         autocmd CompleteDone * call <sid>on_window_changed('CompleteDone')
       endif
-      
+
       " non-trivial number of external plugins use eventignore=all, so we need to account for that
       autocmd CursorMoved * call <sid>on_cursor_moved()
       autocmd VimResized * call <sid>on_focus_gained()
@@ -181,13 +181,13 @@ function! s:airline_toggle()
         " breaks for Neovim see #1828, looks like a neovim bug.
         autocmd TerminalOpen * call airline#load_theme()
       endif
-      
+
       autocmd TabEnter * unlet! w:airline_lastmode | let w:airline_active = 1
-      
+
       autocmd BufWritePost */autoload/airline/themes/*.vim
             \ execute 'source '.split(globpath(&rtp, 'autoload/airline/themes/'.g:airline_theme.'.vim', 1), "\n")[0]
             \ | call airline#load_theme()
-            
+
       autocmd User AirlineModeChanged nested call airline#mode_changed()
 
       if get(g:, 'airline_statusline_ontop', 0)

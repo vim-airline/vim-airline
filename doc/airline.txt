@@ -1,4 +1,4 @@
-*airline.txt*	Lean and mean status/tabline that's light as air
+*airline.txt*     Lean and mean status/tabline that's light as air
 *airline* *vim-airline*
                   _                       _      _ _                        ~
            __   _(_)_ __ ___         __ _(_)_ __| (_)_ __   ___             ~
@@ -6,7 +6,7 @@
             \ V /| | | | | | |_____| (_| | | |  | | | | | |  __/            ~
              \_/ |_|_| |_| |_|      \__,_|_|_|  |_|_|_| |_|\___|            ~
                                                                            ~
-Version: 0.11
+Version: 0.12
 =============================================================================
 CONTENTS                                                  *airline-contents*
 
@@ -75,11 +75,11 @@ section  meaning (example)~
   Z      current position in the file
            percentage % ln: current line/number of lines ☰ cn: column
            So this: 10% ln:10/100☰ cn:20
-	   means: >
+           means: >
               10%     - 10 percent
-	      ln:     - line number is
+              ln:     - line number is
               10/100☰ - 10 of 100 total lines
-	      cn:     - column number is
+              cn:     - column number is
               20      - 20
 <
   [...]  additional sections (warning/errors/statistics)
@@ -796,7 +796,7 @@ eclim <https://eclim.org>
   |airline-syntastic| extension. >
   let g:airline#extensions#eclim#enabled = 1
 
--------------------------------------                 	      *airline-fern*
+-------------------------------------                        *airline-fern*
 fern.vim <https://github.com/lambdalisue/fern.vim>
 
 Airline displays the fern.vim specific statusline.
@@ -1446,24 +1446,24 @@ Note: Enabling this extension will modify 'showtabline' and 'guioptions'.
   (neovim specific, only works with buffers and not real tabs, default: 0) >
   let g:airline#extensions#tabline#middle_click_preserves_windows = 1
 <
-						*airline-tabline-hlgroups*
+-------------------------------------             *airline-tabline-hlgroups*
 When the tabline is enabled, vim-airline exposes the following highlighting
 groups:
 
-  airline_tab:		default highlighting group for the tabline
-  airline_tab_right:	idem, but for the right side of the tabline
+  airline_tab:          default highlighting group for the tabline
+  airline_tab_right:    idem, but for the right side of the tabline
 
-  airline_tabsel:	highlighting group of the selected item
+  airline_tabsel:       highlighting group of the selected item
   airline_tabsel_right: idem, but for the right side of the tabline
   airline_tabmod:       highlighting group for a 'modified' buffer
   airline_tabmod_right: idem, but on the right side
   airline_tabmod_unsel: unselected tab with modified buffer
   airline_tabmod_unsel_right: (unused)
   airline_tabtype:      label group used by ctrlspace and tabws
-  airline_tabfill:	highlighting group for the filler space
+  airline_tabfill:      highlighting group for the filler space
   airline_tablabel:     highlighting group for the label
   airline_tablabel_right: highlighting group for the label on the right side
-  airline_tabhid:	hidden buffer
+  airline_tabhid:       hidden buffer
   airline_tabhid_right: idem, but on the right
 
 -------------------------------------                      *airline-tabpanel*
@@ -2251,7 +2251,7 @@ Contributions and pull requests are welcome.
 =============================================================================
 LICENSE                                                    *airline-license*
 
-MIT License. Copyright © 2013-2021 Bailey Ling, Christian Brabandt, Mike
+MIT License. Copyright © 2013-2026 Bailey Ling, Christian Brabandt, Mike
 Hartington et al.
 
  vim:tw=78:ts=8:ft=help:norl:

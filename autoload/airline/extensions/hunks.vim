@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2013-2021 Bailey Ling et al.
+" MIT License. Copyright (c) 2013-2026 Bailey Ling, Christian Brabandt et al.
 " Plugin: vim-gitgutter, vim-signify, changesPlugin, quickfixsigns, coc-git,
 "         gitsigns.nvim
 " vim: et ts=2 sts=2 sw=2

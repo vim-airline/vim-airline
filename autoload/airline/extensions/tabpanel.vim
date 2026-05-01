@@ -6,7 +6,7 @@ vim9script
 scriptencoding utf-8
 
 var spc = g:airline_symbols.space
-var mouse_support = has('patch-9.2.0386') 
+var mouse_support = has('patch-9.2.0386')
 
 def IsTabModified(tabnr: number): bool
   if !g:airline_detect_modified

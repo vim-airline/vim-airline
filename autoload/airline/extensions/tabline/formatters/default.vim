@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2013-2021 Bailey Ling et al.
+" MIT License. Copyright (c) 2013-2026 Bailey Ling, Christian Brabandt et al.
 " vim: et ts=2 sts=2 sw=2 et
 
 scriptencoding utf-8
@@ -47,7 +47,7 @@ if !exists(":def") || !airline#util#has_vim9_script()
 else
   " Vim9 Script implementation
   def airline#extensions#tabline#formatters#default#format(bufnr: number, buffers: list<number>): string
-		var fnametruncate = get(g:, 'airline#extensions#tabline#fnametruncate', 0)
+    var fnametruncate = get(g:, 'airline#extensions#tabline#fnametruncate', 0)
     var fmod = get(g:, 'airline#extensions#tabline#fnamemod', ':~:.')
     var result = ''
 

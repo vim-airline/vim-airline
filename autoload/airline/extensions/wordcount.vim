@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2013-2021 Bailey Ling et al.
+" MIT License. Copyright (c) 2013-2026 Bailey Ling, Christian Brabandt et al.
 " vim: et ts=2 sts=2 sw=2 fdm=marker
 
 scriptencoding utf-8
@@ -12,7 +12,7 @@ if exists('*wordcount')
     if &filetype ==# 'tex' && exists('b:vimtex') && get(g:, 'airline#extensions#vimtex#wordcount', 0)
       " We're in a TeX file and vimtex is a plugin, so use vimtex's wordcount...
       if a:visual_mode_active
-        " not useful? 
+        " not useful?
         return
       else
         return vimtex#misc#wordcount()
