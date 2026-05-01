@@ -2,7 +2,9 @@
 
 This is the Changelog for the vim-airline project.
 
-## [0.12] - Unreleased
+## [0.13] - Unreleased
+
+## [0.12] - 2026-05-02
 - New features
   - Extensions:
     - [poetv](https://github.com/petobens/poet-v) support
