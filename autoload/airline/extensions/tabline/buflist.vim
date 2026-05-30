@@ -44,6 +44,7 @@ function! airline#extensions#tabline#buflist#list()
   let exclude_buffers = get(g:, 'airline#extensions#tabline#exclude_buffers', [])
   let exclude_paths = get(g:, 'airline#extensions#tabline#excludes', [])
   let exclude_preview = get(g:, 'airline#extensions#tabline#exclude_preview', 1)
+  let CustomFilter = get(g:, 'airline#extensions#tabline#filter_function')
 
   let list = (exists('g:did_bufmru') && g:did_bufmru) ? BufMRUList() : range(1, bufnr("$"))
 
@@ -61,6 +62,8 @@ function! airline#extensions#tabline#buflist#list()
       "     'bufhidden' == wipe
       "     'buftype' == nofile
       " 5) ignore buffers matching airline#extensions#tabline#ignore_bufadd_pat
+      " 6) airline#extensions#tabline#filter_function is defined and returns
+      " empty value
 
       " check buffer numbers first
       if index(exclude_buffers, nr) >= 0
@@ -73,6 +76,8 @@ function! airline#extensions#tabline#buflist#list()
         continue
       " check other types last
       elseif s:ExcludeOther(nr, exclude_preview)
+        continue
+      elseif !empty(CustomFilter) && !call(CustomFilter, [nr])
         continue
       endif
 
