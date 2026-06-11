@@ -917,6 +917,12 @@ LanguageClient <https://github.com/autozimu/LanguageClient-neovim>
 * languageclient close_lnum_symbol >
   let g:airline#extensions#languageclient#close_lnum_symbol = ')'
 
+-------------------------------------                      *airline-linediff*
+linediff.vim <https://github.com/AndrewRadev/linediff.vim>
+
+* enable/disable linediff buffername and position integration >
+  let g:airline#extensions#linediff#enabled = 1
+
 -------------------------------------                   *airline-localsearch*
 localsearch <https://github.com/mox-mox/vim-localsearch>
 

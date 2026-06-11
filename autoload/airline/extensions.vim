@@ -541,6 +541,11 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'zhihu')
   endif
 
+  if (get(g:, 'airline#extensions#linediff#enabled', 1) && exists('g:loaded_linediff'))
+    call airline#extensions#linediff#init(s:ext)
+    call add(s:loaded_ext, 'linediff')
+  endif
+
 endfunction
 
 function! airline#extensions#get_loaded_extensions()
