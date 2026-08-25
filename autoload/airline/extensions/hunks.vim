@@ -28,6 +28,18 @@ function! s:coc_git_enabled() abort
   return 1
 endfunction
 
+function! s:git2_enabled() abort
+  if !has('nvim')
+    return 0
+  endif
+  try
+    lua require("git2.diff")
+    return 1
+  catch /.*/
+  endtry
+  return 0
+endfunction
+
 function! s:parse_hunk_status_dict(hunks) abort
   let result = [0, 0, 0]
   let result[0] = get(a:hunks, 'added', 0)
@@ -81,6 +93,10 @@ function! s:get_hunks_coc() abort
   return s:parse_hunk_status_decorated(hunks)
 endfunction
 
+function! s:get_hunks_git2() abort
+  return v:lua.require('git2.diff').get_raw_hunks()
+endfunction
+
 function! s:get_hunks_empty() abort
   return ''
 endfunction
@@ -97,6 +113,8 @@ function! airline#extensions#hunks#get_raw_hunks() abort
       let b:source_func = 'quickfixsigns#vcsdiff#GetHunkSummary'
     elseif exists(':Gitsigns')
       let b:source_func = 's:get_hunks_gitsigns'
+    elseif s:git2_enabled()
+      let b:source_func = 's:get_hunks_git2'
     elseif s:coc_git_enabled()
       let b:source_func = 's:get_hunks_coc'
     else
