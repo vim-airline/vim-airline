@@ -1,0 +1,17 @@
+Describe branch.vim
+  Before
+    call mkdir("branch-test")
+    :lcd branch-test
+    !git init
+  End
+
+  It Match branch name main
+    Assert Equals(airline#extensions#branch#get_head(), "main")
+  End
+
+  After
+    call delete("branch-test", "rf")
+    :lcd ..
+  End
+End
+
