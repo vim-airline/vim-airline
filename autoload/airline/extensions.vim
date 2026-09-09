@@ -353,7 +353,7 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'ale')
   endif
 
-  if (get(g:, 'airline#extensions#lsp#enabled', 1) && exists(':LspDeclaration'))
+  if (get(g:, 'airline#extensions#lsp#enabled', 1) && get(g:, 'lsp_loaded', 0))
     call airline#extensions#lsp#init(s:ext)
     call add(s:loaded_ext, 'lsp')
   endif
