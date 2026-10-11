@@ -299,8 +299,8 @@ else
     if minwidth > 0 && airline#util#winwidth() < minwidth
       return ''
     endif
-    const prefix = s:spc == "\ua0" ? s:spc : s:spc .. s:spc
-    return empty(text) ? '' : prefix .. g:airline_left_alt_sep .. s:spc .. text
+    const prefix = spc == "\ua0" ? spc : spc .. spc
+    return empty(text) ? '' : prefix .. g:airline_left_alt_sep .. spc .. text
   enddef
 
   def airline#util#warning(msg: string)
@@ -313,7 +313,7 @@ else
     if minwidth > 0 && airline#util#winwidth() < minwidth
       return ''
     endif
-    return empty(text) ? '' : text .. s:spc .. g:airline_right_alt_sep .. s:spc
+    return empty(text) ? '' : text .. spc .. g:airline_right_alt_sep .. spc
   enddef
 
   def airline#util#getbufvar(bufnr: number, key: string, def: any): any
@@ -325,7 +325,7 @@ else
   enddef
 
   def airline#util#strchars(str: string): number
-    if s:has_strchars
+    if has_strchars
       return strchars(str)
     else
       return strlen(substitute(str, '.', 'a', 'g'))
@@ -333,7 +333,7 @@ else
   enddef
 
   def airline#util#strcharpart(...values: list<any>): string 
-    if s:has_strcharpart
+    if has_strcharpart
       return call('strcharpart',  values)
     else
       # does not handle multibyte chars :(
@@ -347,10 +347,7 @@ else
   enddef
 
   def airline#util#has_fugitive(): bool
-    if !exists("s:has_fugitive")
-      s:has_fugitive = exists('*FugitiveHead')
-    endif
-    return s:has_fugitive
+    return exists('*FugitiveHead')
   enddef
 
   def airline#util#has_zhihu(): number
@@ -358,24 +355,15 @@ else
   enddef
 
   def airline#util#has_gina(): bool
-    if !exists("s:has_gina")
-      s:has_gina = (exists(':Gina') && v:version >= 800)
-    endif
-    return s:has_gina
+    return exists(':Gina') && v:version >= 800
   enddef
 
   def airline#util#has_lawrencium(): bool 
-    if !exists("s:has_lawrencium")
-      s:has_lawrencium  = exists('*lawrencium#statusline')
-    endif
-    return s:has_lawrencium
+    return exists('*lawrencium#statusline')
   enddef
 
   def airline#util#has_vcscommand(): bool 
-    if !exists("s:has_vcscommand")
-      s:has_vcscommand = exists('*VCSCommandGetStatusLine')
-    endif
-    return get(g:, 'airline#extensions#branch#use_vcscommand', 0) && s:has_vcscommand
+    return get(g:, 'airline#extensions#branch#use_vcscommand', 0) && exists('*VCSCommandGetStatusLine')
   enddef
 
   def airline#util#has_custom_scm(): bool
@@ -388,7 +376,7 @@ else
       return
     endif
     try
-      exe printf("silent doautocmd %s User %s", s:nomodeline, event)
+      exe printf("silent doautocmd %s User %s", nomodeline, event)
     catch /^Vim\%((\a\+)\)\=:E48:/
       # Catch: Sandbox mode
       # no-op
@@ -418,7 +406,7 @@ else
     if has('win32')
       # Setup an ignore for platforms that trigger FocusLost on calls to
       # system(). macvim (gui and terminal) and Linux terminal vim do not.
-      s:focusgained_ignore_time = localtime()
+      focusgained_ignore_time = localtime()
     endif
   enddef
 
@@ -436,8 +424,8 @@ else
     # focusgained. We use ignore to prevent system() calls from triggering
     # FocusGained (which occurs 100% on win32 and seem to sometimes occur under
     # tmux).
-    const dt = localtime() - s:focusgained_ignore_time
-    s:focusgained_ignore_time = 0
+    const dt = localtime() - focusgained_ignore_time
+    focusgained_ignore_time = 0
     return dt >= 1
   enddef
 
