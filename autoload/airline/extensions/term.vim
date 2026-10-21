@@ -51,10 +51,11 @@ function! airline#extensions#term#inactive_apply(...) abort
 endfunction
 
 function! airline#extensions#term#termmode() abort
-  let mode = airline#parts#mode()[0]
-  if mode ==? 'T' || mode ==? '-'
-    " We don't need to output T, the statusline already says "TERMINAL".
-    " Also we don't want to output "-" on an inactive statusline.
+  let mode = airline#util#strcharpart(airline#parts#mode(), 0, 1)
+  let terminal_mode = airline#util#strcharpart(airline#parts#get('terminal').text, 0, 1)
+  if mode ==? terminal_mode || mode ==? '-'
+    " We don't need to output the terminal mode, the statusline already says
+    " it. Also we don't want to output "-" on an inactive statusline.
     let mode = ''
   endif
   return mode
