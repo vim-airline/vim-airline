@@ -26,10 +26,16 @@ let s:number_map = &encoding == 'utf-8'
       \ ? get(g:, 'airline#extensions#tabline#buffer_idx_format', s:number_map)
       \ : {}
 
+let s:dblclick_mapped = 0
+
 function! airline#extensions#tabline#buffers#off()
   augroup airline_tabline_buffers
     autocmd!
   augroup END
+  if s:dblclick_mapped
+    silent! nunmap <2-LeftMouse>
+    let s:dblclick_mapped = 0
+  endif
 endfunction
 
 function! airline#extensions#tabline#buffers#on()
@@ -42,6 +48,12 @@ function! airline#extensions#tabline#buffers#on()
     endif
     autocmd User BufMRUChange call airline#extensions#tabline#buflist#clean()
   augroup END
+  " Terminal Vim lacks has('tablineat'), so emulate clickable buffer labels
+  if get(g:, 'airline#extensions#tabline#buffers_dblclick', 0) && !has('tablineat')
+        \ && exists('*getmousepos') && exists('*screenstring') && exists('*charidx')
+    nnoremap <silent> <expr> <2-LeftMouse> airline#extensions#tabline#buffers#dblclick()
+    let s:dblclick_mapped = 1
+  endif
 endfunction
 
 function! airline#extensions#tabline#buffers#invalidate()
@@ -335,4 +347,36 @@ function! airline#extensions#tabline#buffers#clickbuf(minwid, clicks, button, mo
         endif
       endif
     endif
+endfunction
+
+function! airline#extensions#tabline#buffers#dblclick() abort
+  " Double-click on a buffer label in the tabline switches to that buffer.
+  " Only used where has('tablineat') is not available.
+  let pos = getmousepos()
+  if pos.screenrow != 1 || pos.winrow != 0 || tabpagenr('$') > 1
+    return "\<2-LeftMouse>"
+  endif
+  let row = join(map(range(1, &columns), 'screenstring(1, v:val)'), '')
+  let col = pos.screencol - 1
+  let pat = '[[:alnum:]_.\-]\+'
+  let hits = []
+  let start = match(row, pat)
+  while start >= 0
+    let word = matchstr(row, pat, start)
+    let c = charidx(row, start)
+    call add(hits, [c, c + strchars(word), word])
+    let start = match(row, pat, start + len(word))
+  endwhile
+  for [s, e, word] in hits
+    if col >= s && col < e
+      " labels with the same tail name are matched by order of appearance
+      let same = len(filter(copy(hits), 'v:val[2] ==# word && v:val[0] < s'))
+      let bufs = filter(copy(airline#extensions#tabline#buflist#list()),
+            \ 'fnamemodify(bufname(v:val), ":t") ==# word')
+      if same < len(bufs)
+        return ":\<C-u>buffer " . bufs[same] . "\<CR>"
+      endif
+    endif
+  endfor
+  return ''
 endfunction
