@@ -11,4 +11,8 @@ Describe extensions_tabline.vim
     bd
     Assert Match(airline#extensions#tabline#get(), '%#airline_tabsel# %(%{airline#extensions#tabline#get_buffer_name(\d)}%) |%=%#airline_tabfill_to_airline_tabfill#%#airline_tabfill# buffers' )
   End
+
+  It dblclick falls back to a normal double-click outside the tabline
+    Assert Equals(airline#extensions#tabline#buffers#dblclick(), "\<2-LeftMouse>")
+  End
 End

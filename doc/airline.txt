@@ -1452,6 +1452,13 @@ Note: Enabling this extension will modify 'showtabline' and 'guioptions'.
   (neovim specific, only works with buffers and not real tabs, default: 0) >
   let g:airline#extensions#tabline#middle_click_preserves_windows = 1
 <
+* switch to a buffer by double-clicking its label in the tabline. This is
+  meant for Vim builds without |+tablineat| (e.g. terminal Vim), where the
+  labels are not clickable. Needs |getmousepos()|, |screenstring()| and
+  |charidx()|, only works with a single tab page, and requires 'mouse' to be
+  enabled (default: 0) >
+  let g:airline#extensions#tabline#buffers_dblclick = 1
+<
 * custom buffer filter function (name of |Funcref|), takes buffer number and
 * should return an empty value if a buffer shouldn't be displayed >
   let airline#extensions#tabline#filter_function = ''
