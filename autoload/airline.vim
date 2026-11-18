@@ -181,7 +181,7 @@ function! airline#update_statusline_inactive(range)
     return
   endif
   for nr in a:range
-    if airline#util#stl_disabled(nr)
+    if airline#util#stl_disabled(nr) || airline#util#is_popup_window(nr)
       continue
     endif
     call setwinvar(nr, 'airline_active', 0)
