@@ -430,11 +430,6 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'capslock')
   endif
 
-  if (get(g:, 'airline#extensions#codeium#enabled', 1) && get(g:, 'loaded_codeium', 0))
-    call airline#extensions#codeium#init(s:ext)
-    call add(s:loaded_ext, 'codeium')
-  endif
-
   if (get(g:, 'airline#extensions#gutentags#enabled', 1) && get(g:, 'loaded_gutentags', 0))
     call airline#extensions#gutentags#init(s:ext)
     call add(s:loaded_ext, 'gutentags')
@@ -448,6 +443,11 @@ function! airline#extensions#load()
   if (get(g:, 'airline#extensions#grepper#enabled', 1) && get(g:, 'loaded_grepper', 0))
     call airline#extensions#grepper#init(s:ext)
     call add(s:loaded_ext, 'grepper')
+  endif
+
+  if (get(g:, 'airline#extensions#minuet#enabled', 1) && has('nvim') && luaeval("package.loaded['minuet'] ~= nil"))
+    call airline#extensions#minuet#init(s:ext)
+    call add(s:loaded_ext, 'minuet')
   endif
 
   if get(g:, 'airline#extensions#xkblayout#enabled', 1) && (exists('g:XkbSwitchLib') || exists('*FcitxCurrentIM') || has('nvim'))
