@@ -350,6 +350,10 @@ function! airline#extensions#tabline#buffers#clickbuf(minwid, clicks, button, mo
 endfunction
 
 function! airline#extensions#tabline#buffers#dblclick() abort
+  " needs getmousepos(), only available since Vim 8.1.2304
+  if !exists('*getmousepos')
+    return "\<2-LeftMouse>"
+  endif
   " Double-click on a buffer label in the tabline switches to that buffer.
   " Only used where has('tablineat') is not available.
   let pos = getmousepos()
