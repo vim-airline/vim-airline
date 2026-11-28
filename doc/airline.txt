@@ -671,12 +671,6 @@ coc <https://github.com/neoclide/coc.nvim>
 * change the warning format (%C - error count, %L - line number): >
   let g:airline#extensions#coc#stl_format_warn = '%C(L%L)'
 <
--------------------------------------                     *airline-codeium*
-vim-codeium <https://github.com/Exafunction/codeium.vim>
-
-* enable/disable codeium.vim integration >
-  let g:airline#extensions#codeium#enabled = 1
-
 -------------------------------------                    *airline-commandt*
 command-t <https://github.com/wincent/command-t>
 
@@ -961,6 +955,12 @@ lsp <https://github.com/prabirshrestha/vim-lsp>
   Set 0 to disable. >
   let g:airline#extensions#lsp#progress_skip_time = 0.3 (default)
 <
+
+-------------------------------------                     *airline-minuet*
+vim-minuet <https://github.com/milanglacier/minuet-ai.nvim>
+
+* enable/disable minuet.vim integration >
+  let g:airline#extensions#minuet#enabled = 1
 
 -------------------------------------                    *airline-neomake*
 neomake <https://github.com/neomake/neomake>
