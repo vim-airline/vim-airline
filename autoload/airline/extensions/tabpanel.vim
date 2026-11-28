@@ -61,7 +61,7 @@ export def Get(): string
     label ..= spc
   endif
 
-  label ..= title .. spc
+  label ..= '%<' .. title .. spc
 
   if mouse_support
     label ..= '%[]'

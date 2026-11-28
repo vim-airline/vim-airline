@@ -1,0 +1,17 @@
+Describe extensions_tabpanel.vim
+  It truncates the filename without removing the tab number
+    if !exists('+tabpanel')
+      Skip Requires Vim tabpanel support
+    endif
+
+    call airline#init#bootstrap()
+    new tabpanel-example-filename.txt
+    try
+      let prefix = g:airline_symbols.space . tabpagenr() . g:airline_symbols.space
+      let label = airline#extensions#tabpanel#Get()
+      Assert True(stridx(label, prefix . '%<tabpanel-example-filename.txt') >= 0)
+    finally
+      bwipeout!
+    endtry
+  End
+End
